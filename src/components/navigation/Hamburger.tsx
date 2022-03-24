@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import styles from './Hamburger.module.scss';
 
 interface Props {
   isOpen?: boolean;

@@ -1,0 +1,34 @@
+.panel {
+  position: relative;
+  background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  min-width: 477px;
+  padding: 7px 10px 6px;
+  box-sizing: border-box;
+  color: $color-white;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+
+  &::after{
+    content: "";
+    position: absolute;
+    background: #fff;
+    transform: translateY(-100%) skewX(160deg);
+    width: 25px;
+    height: 35px;
+    top: 35px;
+    right: -17px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    background: #fff;
+    transform: translateY(-100%) skewX(20deg);
+    width: 25px;
+    height: 35px;
+    top: 35px;
+    left: -17px;
+  }
+}

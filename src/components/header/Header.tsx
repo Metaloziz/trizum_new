@@ -1,8 +1,5 @@
 import classNames from 'classnames';
-import Link from 'next/link';
 import { useState, FunctionComponent } from 'react';
-import LanguageSwitcher from '@components/language-switcher/LanguageSwitcher';
-import Logo from '@components/logo/Logo';
 import Hamburger from '@components/navigation/Hamburger';
 import Navigation from '@components/navigation/Navigation';
 import styles from './Header.module.scss';
@@ -14,16 +11,16 @@ const Header: FunctionComponent = () => {
 
   return (
     <header className={classNames(styles.header, { [styles.open]: isOpen })}>
-      <Link href="/">
-        <a>
-          <Logo />
-        </a>
-      </Link>
-
       <nav>
-        <Navigation activeClassName={styles.active} links={[]} onClick={close} />
-
-        <LanguageSwitcher />
+        <Navigation
+          activeClassName={styles.active}
+          links={[
+            { href: '/', label: 'Home' },
+            { href: '/about', label: 'About' },
+            { href: '/not-exist', label: 'Not-exist' },
+          ]}
+          onClick={close}
+        />
       </nav>
 
       <Hamburger isOpen={isOpen} onClick={toggle} className={styles.hamburger} />

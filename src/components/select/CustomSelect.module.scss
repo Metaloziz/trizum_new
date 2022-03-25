@@ -5,9 +5,10 @@
   color: #000000;
   box-sizing: border-box;
 
-  .customSelect > div {
-    border: none;
-    box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
-    border-radius: 10px;
+  & > div > div {
+    border: none !important;
+    box-shadow: 0 0 40px rgba(86, 89, 146, 0.15) !important;
+    border-radius: 10px !important;
   }
 }
+

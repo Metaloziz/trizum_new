@@ -16,12 +16,16 @@
     line-height: 22px;
     color: $color-black;
     font-weight: 600;
-    margin-right: 18px;
+    margin: 0 18px 0 0;
   }
 
   .period {
     display: flex;
     align-items: center;
+
+    .periodSelected {
+      width: 140px;
+    }
   }
 
   .price {

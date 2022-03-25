@@ -1,11 +1,15 @@
 import { FunctionComponent } from 'react';
 import Button from '@components/button/Button';
+import CustomSelect from '@components/select/CustomSelect';
 import styles from './Balance.module.scss';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {}
+const options = [
+  { value: '1', label: '1' },
+  { value: '2', label: '2' },
+  { value: '3', label: '3' },
+];
 
-const Balance: FunctionComponent<Props> = ({}) => {
+const Balance: FunctionComponent = () => {
   return (
     <div className={styles.container}>
       <div className={styles.price}>
@@ -16,7 +20,9 @@ const Balance: FunctionComponent<Props> = ({}) => {
       </div>
       <div className={styles.period}>
         <p>Период пополнения (месяц)</p>
-        <div>тут селект</div>
+        <div className={styles.periodSelected}>
+          <CustomSelect options={options} placeholder={'Выбор'} />
+        </div>
       </div>
       <div>
         <Button>Сформировать</Button>

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+.table {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: inherit;
+  box-shadow: 0px 0px 40px rgba(86, 89, 146, 0.15);
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+
+  th {
+    width: 320px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    background: #E8EFF6;
+    color: #000000;
+    border-right: 1px solid #E0DFDD;
+
+    &:first-child {
+      width: 64px;
+      background-color: inherit;
+      border: none;
+      box-shadow: none;
+    }
+
+    &:nth-child(2) {
+      border-left: none;
+      border-radius: 10px 0px 0px 0px;
+    }
+
+    &:last-child {
+      border-right: none;
+      border-radius: 0px 10px 0px 0px;
+    }
+  }
+
+  td {
+    width: 320px;
+    height: 86px;
+    margin: 0;
+    padding: 0;
+    background: #F8F8FF;
+    //border: 1px solid black;
+    border-right: 1px solid #E0DFDD;
+    vertical-align: top;
+    font-size: 12px;
+
+    &:first-child {
+      width: 64px;
+      background-color: inherit;
+      border: none;
+      box-shadow: none;
+      vertical-align: bottom;
+    }
+
+    &:last-child {
+      border-right: none;
+      border-radius: 0px 10px 0px 0px;
+    }
+  }
+}
+
+

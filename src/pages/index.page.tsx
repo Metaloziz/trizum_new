@@ -20,6 +20,7 @@ export default function Home() {
       }
       console.log('test', profile);
     }
+
     test();
   }, [auth, locale]);
 
@@ -53,7 +54,6 @@ export default function Home() {
         </p>
         <p className={styles.description}>This is not an official starter!</p>
       </main>
-
       <footer className={styles.footer}>
         <a href="https://vercel.com?utm_source=typescript-nextjs-starter" target="_blank" rel="noopener noreferrer">
           Powered by NextJS

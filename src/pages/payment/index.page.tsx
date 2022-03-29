@@ -1,7 +1,7 @@
 import Balance from '@components/balance/Balance';
 import Requisites from '@components/requisites/Requisites';
 
-const Payment = () => {
+const IndexPage = () => {
   return (
     <div>
       <Balance />
@@ -10,4 +10,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default IndexPage;

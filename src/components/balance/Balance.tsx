@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 import Button from '@components/button/Button';
+import CustomCalendar from '@components/calendar/CustomCalendar';
 import CustomSelect from '@components/select/CustomSelect';
 import styles from './Balance.module.scss';
 
@@ -21,11 +22,12 @@ const Balance: FunctionComponent = () => {
       <div className={styles.period}>
         <p>Период пополнения (месяц)</p>
         <div className={styles.periodSelected}>
-          <CustomSelect options={options} placeholder={'Выбор'} />
+          <CustomSelect options={options} placeholder={' '} />
         </div>
       </div>
       <div>
         <Button>Сформировать</Button>
+        <CustomCalendar />
       </div>
     </div>
   );

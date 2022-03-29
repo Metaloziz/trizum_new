@@ -16,7 +16,7 @@ const CustomSelect: FunctionComponent<Props> = ({ options, placeholder }) => {
   return (
     <div className={styles.selectWrap}>
       <Select
-        // classNamePrefix={styles.customWrapper}
+        classNamePrefix={styles.customWrapper}
         placeholder={placeholder}
         options={options}
         components={{ IndicatorSeparator: () => null }}

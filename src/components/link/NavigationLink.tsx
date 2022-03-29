@@ -1,23 +1,33 @@
 import classNames from 'classnames';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 
 interface Props {
-  link: { label: string; href: string };
   onClick?: () => void;
+  link: { label: string; href: string; imageSrc: string };
   className?: string;
+  wrapperClassName?: string;
   activeClassName?: string;
+  imageClassName?: string;
 }
 
-const Navigation: FunctionComponent<Props> = ({ link, onClick, className, activeClassName }) => {
-  const { label, href } = link;
+const Navigation: FunctionComponent<Props> = ({ link, onClick, className, wrapperClassName, imageClassName, activeClassName }) => {
   const router = useRouter();
+  const { label, href, imageSrc } = link;
   const isActive = router.asPath === href;
 
+  const linkClassNames = classNames(className, isActive && activeClassName);
   return (
-    <button onClick={onClick} className={classNames(className, isActive && activeClassName)}>
-      {label}
-    </button>
+    <div className={wrapperClassName}>
+      <button className={linkClassNames} onClick={onClick}>
+        <div className={imageClassName}>
+          <Image src={imageSrc} width={40} height={40} alt={label} />
+        </div>
+        <Link href={href}>{label}</Link>
+      </button>
+    </div>
   );
 };
 

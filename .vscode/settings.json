@@ -16,5 +16,6 @@
         "source.fixAll.eslint": true
     },
     "eslint.alwaysShowStatus": true,
-    "prettier.configPath": ".prettierrc"
+    "prettier.configPath": ".prettierrc",
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

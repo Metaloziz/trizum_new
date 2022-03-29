@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.avatar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+  width: 55px;
+  height: 55px;
+  background-color: $color-button;
+  border: 2px solid transparent;
+  border-radius: 50%;
+
+  &.activeNotification {
+    .notification {
+      display: initial;
+    }
+  }
+}
+.notification {
+  display: none;
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  right: 3px;
+  top: -2px;
+  background: #ff4e4a;
+  border-radius: 50%;
+}
+$logout-font-map: (text-decoration: underline);
+
+.logout {
+  @include link-font($logout-font-map...);
+}

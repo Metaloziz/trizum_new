@@ -14,6 +14,7 @@ import PageContext from '@contexts/PageContext';
 import { useSocket } from '@contexts/SocketContext';
 import { checkUserAuthenticated } from '@utils/Auth';
 import { setCookie } from '@utils/Cookie';
+import '@styles/normalize.scss';
 
 type AppProps<P = { auth?: UserAuth; profile?: Client | Manager }> = {
   pageProps: P;

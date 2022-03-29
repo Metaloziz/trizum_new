@@ -6,5 +6,5 @@ export const Routes = {
   Signup: '/account/signup',
   ForgotPassword: '/account/forgot-password',
   ResetPassword: '/account/reset-password',
-  Shceduler: '/scheduler/scheduler',
+  Scenario: '/scenario',
 };

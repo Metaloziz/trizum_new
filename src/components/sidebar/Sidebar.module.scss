@@ -1,0 +1,22 @@
+.sidebar {
+  width: 195px;
+  box-shadow: 4px 0 20px rgba(127, 40, 217, 0.15);
+  background-color: $color-purple-lighter;
+  padding-left: 25px;
+}
+
+$navigation-link-font-map: (
+  is-gradient: true,
+  linear-gradient: linear-gradient(90deg, #0439ad 0%, #38028f 100%),
+);
+
+.navigationLink {
+  @include link-font($navigation-link-font-map...);
+
+  display: flex;
+  align-items: center;
+  height: 135px;
+  width: 100%;
+  border-bottom: 1px solid #DEEBFF;
+  box-sizing: border-box;
+}

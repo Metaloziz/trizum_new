@@ -1,8 +1,6 @@
 import Image from 'next/image';
-import styles from './Logo.module.scss';
+import logoImage from '../../../public/assets/images/logo-icon.png';
 
-export const Logo = () => {
-  return <Image src="/vercel.svg" width="283" height="64" alt="NextJS" />;
-};
+export const Logo = () => <Image src={logoImage} alt="Тризум" />;
 
 export default Logo;

@@ -7,7 +7,7 @@
 
 # JetBrains IDE files
 .idea/
-.vscode
+
 # testing
 /coverage
 

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Image from 'next/image';
+import avatar from '@public/assets/images/avatar.png';
 import styles from './Account.module.scss';
-import avatar from '../../../public/assets/images/avatar.png';
 
 const Account = () => {
   const activeNotification = true;

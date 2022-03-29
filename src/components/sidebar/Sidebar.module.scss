@@ -2,7 +2,6 @@
   width: 195px;
   box-shadow: 4px 0 20px rgba(127, 40, 217, 0.15);
   background-color: $color-purple-lighter;
-  padding-left: 25px;
 }
 
 $navigation-link-font-map: (
@@ -10,13 +9,29 @@ $navigation-link-font-map: (
   linear-gradient: linear-gradient(90deg, #0439ad 0%, #38028f 100%),
 );
 
-.navigationLink {
+.link {
   @include link-font($navigation-link-font-map...);
 
   display: flex;
   align-items: center;
   height: 135px;
   width: 100%;
-  border-bottom: 1px solid #DEEBFF;
-  box-sizing: border-box;
+  padding-left: 25px;
+  border-bottom: 1px solid #deebff;
+  text-align: left;
+}
+
+.linkWrapper {
+  &:hover {
+    background-color: $color-purple;
+    box-shadow: 0px 4px 4px 0px #00000040;
+  }
+}
+
+.linkImage {
+  display: flex;
+  margin-right: 10px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  border-radius: 10px;
+  overflow: hidden;
 }

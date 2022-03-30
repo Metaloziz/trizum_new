@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { useEffect, useState, FunctionComponent } from 'react';
+import { useEffect, useState, FC } from 'react';
 import styles from './PageLoading.module.scss';
 
-const PageLoading: FunctionComponent = () => {
+const PageLoading: FC = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const onLoadStart = () => setIsLoading(true);

@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import { useState, FunctionComponent } from 'react';
+import { useState, FC } from 'react';
 import Account from '@components/account/Account';
 import Logo from '@components/logo/Logo';
 import styles from './Header.module.scss';
 
 type Props = { className: string };
 
-const Header: FunctionComponent<Props> = ({ className }) => {
+const Header: FC<Props> = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const close = () => setIsOpen(false);

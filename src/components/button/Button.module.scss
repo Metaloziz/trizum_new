@@ -1,0 +1,33 @@
+.customButton {
+  position: relative;
+  background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  box-sizing: border-box;
+  padding: 16px 58px 17px 18px;
+  color: $color-white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+
+  &:hover {
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+  }
+
+  .arrowBtn {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:45px;
+    height: 45px;
+    background-color: $color-white;
+    border-radius: 50%;
+    top: 50%;
+    right: 2px;
+    transform: translateY(-50%);
+  }
+}

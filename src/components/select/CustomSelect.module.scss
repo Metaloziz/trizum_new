@@ -1,0 +1,15 @@
+.selectWrap {
+  width: 100%;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+  box-sizing: border-box;
+
+  & > div > div {
+    border: none !important;
+    box-shadow: 0 0 40px rgba(86, 89, 146, 0.15) !important;
+    border-radius: 10px !important;
+  }
+
+}
+

@@ -1,6 +1,6 @@
 import { NextComponentType, NextPageContext } from 'next';
 import { AppContext, AppProps as NextAppProps } from 'next/app';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { AuthGuard } from '@app/common/AuthGuard';
 import { UserAuth } from '@app/models/auth/UserAuth';
 import { Client } from '@app/models/user/Client';
@@ -18,7 +18,7 @@ import '@styles/normalize.scss';
 
 type AppProps<P = { auth?: UserAuth; profile?: Client | Manager }> = {
   pageProps: P;
-  Component: NextComponentType<NextPageContext, any, P> & { layout?: FunctionComponent; guard?: AuthGuard };
+  Component: NextComponentType<NextPageContext, any, P> & { layout?: FC; guard?: AuthGuard };
 } & Omit<NextAppProps<P>, 'pageProps'>;
 
 function App({ Component, pageProps }: AppProps) {

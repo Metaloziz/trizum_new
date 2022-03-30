@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ReactNode, FunctionComponent } from 'react';
+import { ReactNode, FC } from 'react';
 import styles from './PageContainer.module.scss';
 
 interface Props {
@@ -7,8 +7,6 @@ interface Props {
   className?: string;
 }
 
-const PageContainer: FunctionComponent<Props> = ({ children, className }) => (
-  <div className={classNames(styles.main, className)}>{children}</div>
-);
+const PageContainer: FC<Props> = ({ children, className }) => <div className={classNames(styles.main, className)}>{children}</div>;
 
 export default PageContainer;

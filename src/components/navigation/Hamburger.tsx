@@ -1,5 +1,4 @@
-import { FunctionComponent } from 'react';
-import styles from './Hamburger.module.scss';
+import { FC } from 'react';
 
 interface Props {
   isOpen?: boolean;
@@ -7,7 +6,7 @@ interface Props {
   className?: string;
 }
 
-const Hamburger: FunctionComponent<Props> = ({ isOpen, onClick, className }) => {
+const Hamburger: FC<Props> = ({ isOpen, onClick, className }) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const classNames = addClassNames();
   return (

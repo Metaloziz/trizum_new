@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FunctionComponent, ReactNode, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { AuthGuard } from '@app/common/AuthGuard';
 import { RoleId } from '@app/enums/RoleId';
 import { UserAuth } from '@app/models/auth/UserAuth';
@@ -26,7 +26,7 @@ function checkGuardAccess(guard?: AuthGuard, auth?: UserAuth) {
   return true;
 }
 
-const Guard: FunctionComponent<Props> = ({ children, guard }) => {
+const Guard: FC<Props> = ({ children, guard }) => {
   const router = useRouter();
   const { auth } = useAuthContext();
 

@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@*": ["./src/*"],
-      "@public/*": ["./public/*"]
+      "@public/*": ["./public/*"],
+      "@svgs/*": ["./public/svgs/*"],
+      "@images/*": ["./public/images/*"],
+      "@fonts/*": ["./public/fonts/*"],
     },
     "noEmit": true,
     "incremental": true,

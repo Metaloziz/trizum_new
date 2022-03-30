@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 import NavigationLink from '@components/link/NavigationLink';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   linkImageClassName?: string;
 }
 
-const Navigation: FunctionComponent<Props> = ({
+const Navigation: FC<Props> = ({
   links,
   onClick,
   linkClassName,

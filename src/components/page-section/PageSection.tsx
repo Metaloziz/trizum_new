@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './PageSection.module.scss';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   alternate?: boolean;
 }
 
-const Section: FunctionComponent<Props> = ({ children, alternate }) => (
+const Section: FC<Props> = ({ children, alternate }) => (
   <section className={classNames(styles.section, { [styles.alternate]: alternate })}>{children}</section>
 );
 

@@ -1,0 +1,146 @@
+.container {
+  .paginationBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 35px;
+  }
+
+  & .franchisees p {
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 600;
+  }
+
+  & .franchisees .franchisees {
+    width: 265px;
+  }
+
+  & .oneBlock + .oneBlock {
+    margin-top: 17px;
+  }
+
+  & .innerContent {
+    display: flex;
+    justify-content: space-between;
+
+    & .leftBlock {
+      width: 80%;
+    }
+
+    & .rightBlock {
+      width: 15%;
+    }
+  }
+
+  & input {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+    width: 100%;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: 12px 13px 13px;
+  }
+
+  & .legalBlock {
+    max-width: 363px;
+  }
+
+  & .inputBlock > div {
+    width: 25%;
+  }
+
+  & .inputBlock > div + div {
+    width: 70%;
+  }
+
+  & .dataInfo {
+    max-width: 340px;
+  }
+
+  & .dataInfoAll {
+    max-width: 415px;
+  }
+
+  & .infoBlock {
+    max-width: 275px;
+  }
+
+  & .dataBlock {
+    display: flex;
+    align-items: center;
+
+    & input {
+      margin-right: 25px;
+      width: 140px;
+    }
+  }
+
+  & .oneBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & .excel {
+      position: relative;
+
+      &:hover button {
+        background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+      }
+
+
+      &:hover svg path {
+        fill: rgb(44, 136, 252)
+      }
+
+      & .excelPic {
+        position: absolute;
+        width: 14px;
+        height: 19px;
+        top: 50%;
+        margin-top: -10px;
+        right: 16px;
+      }
+    }
+
+    & .excel button {
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+      & > span > span {
+        display: none !important;
+      }
+    }
+
+    & p {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+    }
+
+    & .selectBlock {
+      width: 140px;
+    }
+  }
+
+  .wrapBlock {
+    display: flex;
+    justify-content: center;
+    margin: 0 -20px;
+    border-bottom: 1px solid #babec6;
+    padding-bottom: 21px;
+    margin-bottom: 22px;
+
+    & > div {
+      width: 33%;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+  }
+}

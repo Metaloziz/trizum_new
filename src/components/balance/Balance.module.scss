@@ -1,0 +1,68 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-white;
+  box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+  border-radius: 30px;
+  box-sizing: border-box;
+  width: 1380px;
+  height: 155px;
+  padding: 10px 116px 10px 0;
+  margin-bottom: 15px;
+
+  .period p {
+    font-size: 18px;
+    line-height: 22px;
+    color: $color-black;
+    font-weight: 600;
+    margin: 0 18px 0 0;
+  }
+
+  .period {
+    display: flex;
+    align-items: center;
+
+    .periodSelected {
+      width: 140px;
+    }
+  }
+
+  .price {
+    position: relative;
+    padding-right: 31px;
+    box-sizing: border-box;
+    background-color: rgb(245, 239, 253);
+    border-radius: 30px 80px 80px 30px;
+
+    .priceContainer {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      background-color: rgb(230, 225, 248);
+      border-radius: 30px 80px 80px 30px;
+      padding-left: 86px;
+      padding-right: 111px;
+      height: 155px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 25px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      max-width: 110px;
+    }
+
+    span {
+      font-weight: 800;
+      font-size: 48px;
+      line-height: 48px;
+      color: #2e8dfd;
+      margin-left: 36px;
+    }
+  }
+}

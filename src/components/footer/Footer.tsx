@@ -1,11 +1,11 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 import Navigation from '@components/navigation/Navigation';
 import styles from './Footer.module.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
-const Footer: FunctionComponent<Props> = ({}) => {
+const Footer: FC<Props> = ({}) => {
   const copyright = `© NextJS ${new Date().getFullYear()}`;
 
   return (

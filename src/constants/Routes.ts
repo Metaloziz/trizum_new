@@ -9,4 +9,5 @@ export const Routes = {
   Results: '/results',
   Payment: '/payment',
   Administrator: '/administrator',
+  Scenario: '/scenario',
 };

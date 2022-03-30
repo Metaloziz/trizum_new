@@ -1,0 +1,47 @@
+.buttonPlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(0deg, #ffffff, #ffffff), #cfd8dc;
+  border: 3px solid #f3eefd;
+  box-sizing: border-box;
+  box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
+  border-radius: 50%;
+  width: 218px;
+  height: 218px;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.5s ease;
+
+  &:hover {
+    background: linear-gradient(0deg, #9181FA, #9181FA), #CFD8DC;
+    border: 3px solid #F3EEFD;
+    box-sizing: border-box;
+    box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
+
+  }
+
+  &:hover > p {
+    color: #ffffff;
+    background: none;
+    -webkit-text-fill-color: #ffffff;
+  }
+
+  & > p {
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 23px;
+    text-transform: uppercase;
+  }
+
+  &:hover .playPic svg path {
+    fill: #ffffff;
+  }
+}

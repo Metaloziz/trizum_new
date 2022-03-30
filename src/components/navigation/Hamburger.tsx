@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import styles from './Hamburger.module.scss';
 
 interface Props {
   isOpen?: boolean;
@@ -7,8 +8,11 @@ interface Props {
 }
 
 const Hamburger: FC<Props> = ({ isOpen, onClick, className }) => {
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  function addClassNames(): string {
+    return `${className} ${styles.hamburger} ${isOpen ? styles.open : null}`;
+  }
   const classNames = addClassNames();
+
   return (
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
     <a onClick={onClick} className={classNames}>
@@ -20,10 +24,6 @@ const Hamburger: FC<Props> = ({ isOpen, onClick, className }) => {
       <span />
     </a>
   );
-
-  function addClassNames(): string {
-    return `${className} ${styles.hamburger} ${isOpen ? styles.open : null}`;
-  }
 };
 
 export default Hamburger;

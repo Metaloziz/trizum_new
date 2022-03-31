@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import Button from '@components/button/Button';
-import CustomCalendar from '@components/calendar/CustomCalendar';
 import CustomSelect from '@components/select/CustomSelect';
 import styles from './Balance.module.scss';
 
@@ -27,7 +26,6 @@ const Balance: FC = () => {
       </div>
       <div>
         <Button>Сформировать</Button>
-        <CustomCalendar />
       </div>
     </div>
   );

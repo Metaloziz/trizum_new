@@ -1,0 +1,27 @@
+.excel {
+  position: relative;
+
+  & .excelPic {
+    position: absolute;
+    width: 14px;
+    height: 19px;
+    top: 50%;
+    margin-top: -10px;
+    right: 16px;
+    cursor: pointer;
+  }
+
+  & button {
+    cursor: pointer;
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+    & > span > span {
+      display: none !important;
+    }
+  }
+
+  &:hover button {
+    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  }
+
+}

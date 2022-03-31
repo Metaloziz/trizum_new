@@ -7,8 +7,9 @@
   height: 110px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  text-align: center;
 
   & p {
     font-weight: 600;

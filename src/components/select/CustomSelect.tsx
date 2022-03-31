@@ -15,12 +15,7 @@ interface Props {
 const CustomSelect: FC<Props> = ({ options, placeholder }) => {
   return (
     <div className={styles.selectWrap}>
-      <Select
-        classNamePrefix={styles.customWrapper}
-        placeholder={placeholder}
-        options={options}
-        components={{ IndicatorSeparator: () => null }}
-      />
+      <Select placeholder={placeholder} options={options} components={{ IndicatorSeparator: () => null }} />
     </div>
   );
 };

@@ -14,20 +14,14 @@ interface Props {
   item?: number;
 }
 
-const Pagination: FC<Props> = ({
-  initialPage,
-  marginPagesDisplayed,
-  pageCount,
-  pageRangeDisplayed,
-  // onChange
-}) => {
-  // const {
-  //   initialPage,
-  //   marginPagesDisplayed,
-  //   pageCount,
-  //   pageRangeDisplayed,
-  //   // onChange,
-  // } = props;
+const Pagination: FC<Props> = (props) => {
+  const {
+    initialPage,
+    marginPagesDisplayed,
+    pageCount,
+    pageRangeDisplayed,
+    // onChange,
+  } = props;
   return (
     <>
       <ReactPaginate

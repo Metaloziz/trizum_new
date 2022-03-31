@@ -1,24 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-
-.pageWrapper {
+.wrapper {
   box-sizing: border-box;
-  //margin: 20px 0 0 20px;
+  margin: 30px 0 20px 16px;
 
   /* Mobile XS */
   @media (max-width: 450px) {
     margin: 20px auto;
   }
 
-  .panel {
-    width: auto;
-    height: 90px;
-    margin-bottom: 55px;
-    background: #FFFFFF;
-    box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
-    border-radius: 30px;
+  .searchBar {
+    margin-bottom: 60px;
   }
 
-  .wrapper {
+  .row {
     box-sizing: border-box;
     display: flex;
     justify-content: flex-start;
@@ -37,48 +30,44 @@
       }
     }
 
-    .box {
-      width: auto;
-      max-width: 563px;
-      height: 100%;
-      min-height: 1038px;
-      padding: 20px;
-      margin-right: 10px;
-      background: #FFFFFF;
-      box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
-      border-radius: 30px;
-      //overflow-y: scroll;
-      //overflow-x: hidden;
-
-      //&::-webkit-scrollbar {
-      //  width: 8px;
-      //}
-      //
-      //&::-webkit-scrollbar-track {
-      //  margin: 30px 0;
-      //  background: #000000;
-      //}
-      //
-      //&::-webkit-scrollbar-thumb {
-      //  background: green;
-      //  border-radius: 5rem;
-      //}
-
-      /* Mobile XS */
-      @media (max-width: 450px) {
-        width: 343px;
-        height: auto;
-        min-height: auto;
-        margin: 0 auto 20px 0;
-        box-shadow: none;
-      }
+    .blockGames {
+      margin-right: 20px;
     }
 
-    .wrapperCardStudent {
+    .blockCardStudents {
+      min-height: 1038px;
+      max-height: 1038px;
       padding: 20px;
       background: #FFFFFF;
       box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
-      border-radius: 30px;
+      //border-radius: 30px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      /* полоса прокрутки (скроллбар) */
+      &::-webkit-scrollbar {
+        width: 8px; /* ширина для вертикального скролла */
+        background: #EAEEFD;
+      }
+
+      /* ползунок скроллбара */
+      &::-webkit-scrollbar-thumb {
+        background: #BABEC6;
+        border-radius: 10px;
+      }
+
+      /* Стрелки */
+
+      //&::-webkit-scrollbar-button:vertical:start:decrement {
+      //  height: 30px;
+      //  background-color: inherit;
+      //  visibility: inherit;
+      //}
+      //
+      //&::-webkit-scrollbar-button:vertical:end:increment {
+      //  height: 30px;
+      //  background-color: inherit;
+      //}
 
       /* Mobile XS */
       @media (max-width: 450px) {
@@ -87,51 +76,6 @@
         margin: 0 auto;
         padding: 0;
         box-shadow: none;
-      }
-    }
-
-    .games {
-      margin-bottom: 30px;
-
-      ul {
-        margin-bottom: 20px;
-        padding: 0;
-        display: flex;
-        list-style: none;
-
-        li {
-          margin-right: 14px;
-        }
-
-        li:last-child {
-          margin-right: 0;
-          font-family: 'Montserrat', sans-serif;
-          font-style: normal;
-          font-weight: 700;
-          font-size: 18px;
-          color: #2E8DFD;
-          text-transform: uppercase;
-        }
-      }
-    }
-
-    .content {
-      max-width: 590px;
-      margin: 0 auto;
-      font-family: 'Montserrat', sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 30px;
-      color: #0F123F;
-
-      /* Mobile XS */
-      @media (max-width: 450px) {
-        width: 313px;
-        padding: 0 15px;
-        font-size: 13px;
-        text-align: center;
-        line-height: 25px;
       }
     }
   }

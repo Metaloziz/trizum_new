@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { FC } from 'react';
+import iconFlag from '@svgs/flag.svg';
 import styles from './CardStudent.module.scss';
 
 const CardStudent = () => {
@@ -34,7 +35,7 @@ const CardStudent = () => {
         </div>
       </div>
       <div className={styles.flag}>
-        <Image src={'/img/flag.svg'} width={'33'} height={'33'} alt={'Flag'} />
+        <Image src={iconFlag} width={'33'} height={'33'} alt={'Flag'} />
       </div>
     </div>
   );

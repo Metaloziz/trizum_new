@@ -10,9 +10,9 @@ const Tablet = () => {
     <div>
       {/*<PagePersonalData />*/}
       {/*<Modal />*/}
-      {/*<ButtonPlay />*/}
+      <ButtonPlay title={'Играть'} />
       {/*<BlockShulte />*/}
-      <TeacherMain />
+      {/*<TeacherMain />*/}
     </div>
   );
 };

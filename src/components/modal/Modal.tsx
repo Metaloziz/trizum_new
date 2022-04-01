@@ -7,7 +7,7 @@ const Modal: FunctionComponent = () => {
     <div className={styles.modal}>
       <div className={styles.modalContent}>
         <div className={styles.modalButton}>
-          <Image src="/button.svg" width="14" height="14" alt="NextJS" />
+          <Image src='/button.svg' width='14' height='14' alt='NextJS' />
         </div>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aut autem dignissimos doloremque dolores dolorum, ducimus eligendi
         ipsa magni molestias mollitia natus necessitatibus nulla omnis quae quasi quisquam ratione tempore? Lorem ipsum dolor sit amet,

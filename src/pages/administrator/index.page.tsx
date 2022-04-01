@@ -2,115 +2,12 @@ import AdminInfoList from '@components/admin-info-list/AdminInfoList';
 import BtnExcelImg from '@components/btn-excel-img/BtnExcelImg';
 import Button from '@components/button/Button';
 import CustomCalendar from '@components/calendar/CustomCalendar';
+import { homework, group, city, franchisees, paidFor, legalAddress } from '@components/moks-data/moks-data-select';
+import { colNames, list } from '@components/moks-data/moks-data-table';
 import Pagination from '@components/pagination/Pagination';
 import CustomSelect from '@components/select/CustomSelect';
 import Table from '@components/table/Table';
 import styles from './Administration.module.scss';
-
-const list = [
-  {
-    id: 1,
-    studentName: 'Самойленко И.Н.',
-    teacherName: 'Свичкарь А.А.',
-    age: 9,
-    registrationDate: '11/03/2021',
-    startDateAction: '11/04/2021',
-    endDateAction: '11/04/2021',
-    tariff: 'Начальный',
-    paymentDate: '11/04/2021',
-    status: 'Новый',
-    legalAddress: 'Москва, ул. Ленина, 3/43',
-  },
-  {
-    id: 2,
-    studentName: 'Самойленко И.Н.',
-    teacherName: 'Свичкарь А.А.',
-    age: 9,
-    registrationDate: '11/03/2021',
-    startDateAction: '11/04/2021',
-    endDateAction: '11/04/2021',
-    tariff: 'Начальный',
-    paymentDate: '11/04/2021',
-    status: 'Новый',
-    legalAddress: 'Москва, ул. Ленина, 3/43',
-  },
-  {
-    id: 3,
-    studentName: 'Самойленко И.Н.',
-    teacherName: 'Свичкарь А.А.',
-    age: 9,
-    registrationDate: '11/03/2021',
-    startDateAction: '11/04/2021',
-    endDateAction: '11/04/2021',
-    tariff: 'Начальный',
-    paymentDate: '11/04/2021',
-    status: 'Новый',
-    legalAddress: 'Москва, ул. Ленина, 3/43',
-  },
-  {
-    id: 4,
-    studentName: 'Самойленко И.Н.',
-    teacherName: 'Свичкарь А.А.',
-    age: 9,
-    registrationDate: '11/03/2021',
-    startDateAction: '11/04/2021',
-    endDateAction: '11/04/2021',
-    tariff: 'Начальный',
-    paymentDate: '11/04/2021',
-    status: 'Новый',
-    legalAddress: 'Москва, ул. Ленина, 3/43',
-  },
-];
-
-const colNames = [
-  '№',
-  'ФИО ученика',
-  'ФИО учителя',
-  'Возраст',
-  'Дата регистрации',
-  'Дата начала действия',
-  'Дата окончания действия',
-  'Тариф',
-  'Дата оплаты',
-  'Статус',
-  'Юр. адрес',
-];
-
-const homework = [
-  { value: '1', label: '1' },
-  { value: '2', label: '2' },
-  { value: '3', label: '3' },
-];
-
-const city = [
-  { value: 'Москва', label: 'Москва' },
-  { value: 'Ростов', label: 'Ростов' },
-  { value: 'Аюта', label: 'Аюта' },
-];
-
-const group = [
-  { value: '1', label: '1' },
-  { value: '2', label: '2' },
-  { value: '3', label: '3' },
-];
-
-const franchisees = [
-  { value: '1', label: '1' },
-  { value: '2', label: '2' },
-  { value: '3', label: '3' },
-];
-
-const paidFor = [
-  { value: '1', label: '1' },
-  { value: '2', label: '2' },
-  { value: '3', label: '3' },
-];
-
-const legalAddress = [
-  { value: '1', label: '1' },
-  { value: '2', label: '2' },
-  { value: '3', label: '3' },
-];
 
 const IndexPage = () => {
   return (

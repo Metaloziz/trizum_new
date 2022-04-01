@@ -1,0 +1,86 @@
+.wrapper {
+  box-sizing: border-box;
+  margin: 30px 0 20px 16px;
+
+  /* Mobile XS */
+  @media (max-width: 450px) {
+    margin: 20px auto;
+  }
+
+  .searchBar {
+    margin-bottom: 60px;
+  }
+
+  .row {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+
+    /* Mobile XS */
+    @media (max-width: 450px) {
+      flex-direction: column;
+    }
+
+    .tabs {
+      margin-top: 55px;
+
+      /* Mobile XS */
+      @media (max-width: 450px) {
+        margin-top: 0;
+      }
+    }
+
+    .blockGames {
+      margin-right: 20px;
+    }
+
+    .blockCardStudents {
+      min-height: 1038px;
+      max-height: 1038px;
+      padding: 20px;
+      background: #FFFFFF;
+      box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
+      //border-radius: 30px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      /* полоса прокрутки (скроллбар) */
+      &::-webkit-scrollbar {
+        width: 8px; /* ширина для вертикального скролла */
+        background: #EAEEFD;
+      }
+
+      /* ползунок скроллбара */
+      &::-webkit-scrollbar-thumb {
+        background: #BABEC6;
+        border-radius: 10px;
+      }
+
+      /* Стрелки */
+
+      //&::-webkit-scrollbar-button:vertical:start:decrement {
+      //  height: 30px;
+      //  background-color: inherit;
+      //  visibility: inherit;
+      //}
+      //
+      //&::-webkit-scrollbar-button:vertical:end:increment {
+      //  height: 30px;
+      //  background-color: inherit;
+      //}
+
+      /* Mobile XS */
+      @media (max-width: 450px) {
+        width: 343px;
+        height: auto;
+        margin: 0 auto;
+        padding: 0;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+
+
+

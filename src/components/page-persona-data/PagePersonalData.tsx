@@ -5,7 +5,7 @@ import styles from './PagePersonalData.module.scss';
 const PagePersonalData: FunctionComponent = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.user}>
+      <div>
         <div className={styles.wrapperUser}>
           <div className={styles.userPic}>
             <Image src='/user.svg' width='126' height='126' alt='NextJS' />

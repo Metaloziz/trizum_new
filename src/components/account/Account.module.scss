@@ -15,11 +15,6 @@
   border: 2px solid transparent;
   border-radius: 50%;
 
-  &.activeNotification {
-    .notification {
-      display: initial;
-    }
-  }
 }
 .notification {
   display: none;
@@ -30,7 +25,12 @@
   top: -2px;
   background: #ff4e4a;
   border-radius: 50%;
+
+  &_active {
+    display: initial;
+  }
 }
+
 $logout-font-map: (text-decoration: underline);
 
 .logout {

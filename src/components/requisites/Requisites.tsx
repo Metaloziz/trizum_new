@@ -39,7 +39,7 @@ const Requisites: FC<Props> = ({}) => {
         </div>
 
         <div className={styles.qrImg}>
-          <Image src={requisitiesImage} alt="qr-code" width={231} height={231} />
+          <Image src={requisitiesImage} alt='qr-code' width={231} height={231} />
         </div>
       </div>
     </div>

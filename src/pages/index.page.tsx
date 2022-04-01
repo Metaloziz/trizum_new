@@ -25,22 +25,22 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Home</title>
-        <meta name="description" content="" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name='description' content='' />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href='https://nextjs.org'>Next.js!</a>
         </h1>
 
         <p>
-          <Link href="/about">
+          <Link href='/about'>
             <a>About Us</a>
           </Link>
         </p>
         <p>
-          <Link href="/protected">
+          <Link href='/protected'>
             <a>Protected Page</a>
           </Link>
         </p>

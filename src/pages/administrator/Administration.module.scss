@@ -1,4 +1,7 @@
 .container {
+  padding: 33px 30px 14px 10px;
+  box-sizing: border-box;
+
   .paginationBlock {
     display: flex;
     align-items: center;
@@ -29,11 +32,11 @@
     justify-content: space-between;
 
     & .leftBlock {
-      width: 80%;
+      width: 81%;
     }
 
     & .rightBlock {
-      width: 15%;
+      width: 18%;
     }
   }
 
@@ -53,11 +56,11 @@
   }
 
   & .inputBlock > div {
-    width: 25%;
+    width: 40%;
   }
 
   & .inputBlock > div + div {
-    width: 70%;
+    width: 55%;
   }
 
   & .dataInfo {
@@ -69,7 +72,7 @@
   }
 
   & .infoBlock {
-    max-width: 275px;
+    max-width: 285px;
   }
 
   & .dataBlock {
@@ -87,36 +90,6 @@
     align-items: center;
     justify-content: space-between;
 
-    & .excel {
-      position: relative;
-
-      &:hover button {
-        background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
-      }
-
-
-      &:hover svg path {
-        fill: rgb(44, 136, 252)
-      }
-
-      & .excelPic {
-        position: absolute;
-        width: 14px;
-        height: 19px;
-        top: 50%;
-        margin-top: -10px;
-        right: 16px;
-      }
-    }
-
-    & .excel button {
-      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
-
-      & > span > span {
-        display: none !important;
-      }
-    }
-
     & p {
       font-weight: 600;
       font-size: 14px;
@@ -131,15 +104,14 @@
 
   .wrapBlock {
     display: flex;
-    justify-content: center;
-    margin: 0 -20px;
+    justify-content: space-between;
     border-bottom: 1px solid #babec6;
     padding-bottom: 21px;
     margin-bottom: 22px;
 
     & > div {
+      padding: 0 5px;
       width: 33%;
-      padding: 0 20px;
       box-sizing: border-box;
     }
   }

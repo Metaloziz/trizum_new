@@ -1,6 +1,5 @@
 .calendar {
   position: relative;
-  display: inline-block;
 
   & > .calendarImage {
     display: block;
@@ -17,14 +16,8 @@
     }
   }
 
-  & > img {
-    position: relative;
-    display: block;
-    width: auto;
-    height: auto;
-  }
-
 }
+
 
 .titleCalendar {
   color: #000000;

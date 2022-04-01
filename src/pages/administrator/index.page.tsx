@@ -45,7 +45,7 @@ const IndexPage = () => {
                   <p>ФИО ученика</p>
                 </div>
                 <div>
-                  <input type="text" placeholder={' '} />
+                  <input type='text' placeholder={' '} />
                 </div>
               </div>
               <div className={`${styles.oneBlock} ${styles.inputBlock}`}>
@@ -53,7 +53,7 @@ const IndexPage = () => {
                   <p>Статус пользователя</p>
                 </div>
                 <div>
-                  <input type="text" placeholder={' '} />
+                  <input type='text' placeholder={' '} />
                 </div>
               </div>
             </div>
@@ -79,7 +79,7 @@ const IndexPage = () => {
                   <p>Дата рождения</p>
                 </div>
                 <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
+                  <input type='text' placeholder={' '} />
                   <CustomCalendar />
                 </div>
               </div>
@@ -88,7 +88,7 @@ const IndexPage = () => {
                   <p>Возраст</p>
                 </div>
                 <div>
-                  <input type="text" placeholder={' '} />
+                  <input type='text' placeholder={' '} />
                 </div>
               </div>
             </div>
@@ -106,7 +106,7 @@ const IndexPage = () => {
                   <p>Дата начала действия</p>
                 </div>
                 <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
+                  <input type='text' placeholder={' '} />
                   <CustomCalendar />
                 </div>
               </div>
@@ -115,7 +115,7 @@ const IndexPage = () => {
                   <p>Дата окончания действия</p>
                 </div>
                 <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
+                  <input type='text' placeholder={' '} />
                   <CustomCalendar />
                 </div>
               </div>

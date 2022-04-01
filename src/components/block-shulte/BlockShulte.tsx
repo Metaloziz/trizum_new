@@ -7,7 +7,7 @@ const BlockShulte = () => {
       <div className={styles.container}>
         <div className={styles.blockShulte}>
           <div>
-            <img src="/table.jpg" alt="table" />
+            <img src='/table.jpg' alt='table' />
           </div>
           <ButtonPlay />
         </div>

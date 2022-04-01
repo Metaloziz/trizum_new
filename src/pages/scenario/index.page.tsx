@@ -8,9 +8,9 @@ import TeacherMain from '@components/teacher-main/TeacherMain';
 const Tablet = () => {
   return (
     <div>
-      {/*<PagePersonalData />*/}
+      <PagePersonalData />
       {/*<Modal />*/}
-      <ButtonPlay title={'Играть'} />
+      {/*<ButtonPlay title={'Играть'} />*/}
       {/*<BlockShulte />*/}
       {/*<TeacherMain />*/}
     </div>

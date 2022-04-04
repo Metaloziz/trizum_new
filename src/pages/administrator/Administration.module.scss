@@ -2,7 +2,37 @@
   padding: 33px 30px 14px 10px;
   box-sizing: border-box;
 
-  .paginationBlock {
+  & .wrapBlock {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #babec6;
+    margin-bottom: 20px;
+
+    & > .infoBlock {
+      padding: 0 20px;
+      box-sizing: border-box;
+      width: 33%;
+    }
+
+    & .franchiseesBlock > div:nth-child(1) div p {
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    & .legalAddress > div {
+      justify-content: space-between;
+    }
+
+    & .legalAddress > div:nth-child(1) div p {
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  & .paginationBlock {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,21 +40,10 @@
     margin-top: 35px;
   }
 
-  & .franchisees p {
-    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 14px;
-    line-height: 17px;
-    font-weight: 600;
-  }
-
-  & .franchisees .franchisees {
-    width: 265px;
-  }
-
-  & .oneBlock + .oneBlock {
-    margin-top: 17px;
+  & .btnBlock {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
   }
 
   & .innerContent {
@@ -38,81 +57,6 @@
     & .rightBlock {
       width: 18%;
     }
-  }
 
-  & input {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
-    width: 100%;
-    border: none;
-    outline: none;
-    box-sizing: border-box;
-    padding: 12px 13px 13px;
-  }
-
-  & .legalBlock {
-    max-width: 363px;
-  }
-
-  & .inputBlock > div {
-    width: 40%;
-  }
-
-  & .inputBlock > div + div {
-    width: 55%;
-  }
-
-  & .dataInfo {
-    max-width: 340px;
-  }
-
-  & .dataInfoAll {
-    max-width: 415px;
-  }
-
-  & .infoBlock {
-    max-width: 285px;
-  }
-
-  & .dataBlock {
-    display: flex;
-    align-items: center;
-
-    & input {
-      margin-right: 25px;
-      width: 140px;
-    }
-  }
-
-  & .oneBlock {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    & p {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 17px;
-      color: #000000;
-    }
-
-    & .selectBlock {
-      width: 140px;
-    }
-  }
-
-  .wrapBlock {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #babec6;
-    padding-bottom: 21px;
-    margin-bottom: 22px;
-
-    & > div {
-      padding: 0 5px;
-      width: 33%;
-      box-sizing: border-box;
-    }
   }
 }

@@ -1,0 +1,23 @@
+.wrapBlockItem {
+  display: flex;
+  align-items: center;
+
+  & > div {
+    width: 48%;
+  }
+
+  & p {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+  }
+
+  & .large {
+    width: 140px;
+  }
+}
+
+.wrapBlockItem + .wrapBlockItem {
+  margin-top: 15px;
+}

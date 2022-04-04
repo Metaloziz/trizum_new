@@ -1,11 +1,10 @@
 import AdminInfoList from '@components/admin-info-list/AdminInfoList';
 import BtnExcelImg from '@components/btn-excel-img/BtnExcelImg';
 import Button from '@components/button/Button';
-import CustomCalendar from '@components/calendar/CustomCalendar';
+import InformationItem from '@components/information-item/InformationItem';
 import { homework, group, city, franchisees, paidFor, legalAddress } from '@components/moks-data/moks-data-select';
 import { colNames, list } from '@components/moks-data/moks-data-table';
 import Pagination from '@components/pagination/Pagination';
-import CustomSelect from '@components/select/CustomSelect';
 import Table from '@components/table/Table';
 import styles from './Administration.module.scss';
 
@@ -15,115 +14,26 @@ const IndexPage = () => {
       <div className={styles.innerContent}>
         <div className={styles.leftBlock}>
           <div className={styles.wrapBlock}>
-            <div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Выполнил Д/З</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={homework} placeholder={' '} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Город</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={city} placeholder={''} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Группа</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={group} placeholder={''} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.inputBlock}`}>
-                <div>
-                  <p>ФИО ученика</p>
-                </div>
-                <div>
-                  <input type="text" placeholder={' '} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.inputBlock}`}>
-                <div>
-                  <p>Статус пользователя</p>
-                </div>
-                <div>
-                  <input type="text" placeholder={' '} />
-                </div>
-              </div>
+            <div className={styles.infoBlock}>
+              <InformationItem size={'large'} title={'Выполнил Д/З'} variant={'select'} option={homework} />
+              <InformationItem size={'large'} title={'Город'} variant={'select'} option={city} />
+              <InformationItem size={'large'} title={'Группа'} variant={'select'} option={group} />
+              <InformationItem title={'ФИО ученика'} variant={'input'} />
+              <InformationItem title={'Статус пользователя'} variant={'input'} />
             </div>
-            <div>
-              <div className={`${styles.oneBlock} ${styles.franchisees}`}>
-                <div>
-                  <p>ФИО франчази</p>
-                </div>
-                <div className={styles.franchisees}>
-                  <CustomSelect options={franchisees} placeholder={' '} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Оплачен</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={paidFor} placeholder={''} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.dataInfo}`}>
-                <div>
-                  <p>Дата рождения</p>
-                </div>
-                <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
-                  <CustomCalendar />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Возраст</p>
-                </div>
-                <div>
-                  <input type="text" placeholder={' '} />
-                </div>
-              </div>
+            <div className={`${styles.infoBlock} ${styles.franchiseesBlock}`}>
+              <InformationItem title={'ФИО франчази'} variant={'select'} option={franchisees} />
+              <InformationItem size={'large'} title={'Оплачен'} variant={'select'} option={paidFor} />
+              <InformationItem title={'Дата рождения'} variant={'calendar'} />
+              <InformationItem title={'Возраст'} variant={'input'} />
             </div>
-            <div>
-              <div className={`${styles.oneBlock} ${styles.legalBlock}`}>
-                <div>
-                  <p>Юр. адрес</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={legalAddress} placeholder={' '} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.dataInfoAll}`}>
-                <div>
-                  <p>Дата начала действия</p>
-                </div>
-                <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
-                  <CustomCalendar />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.dataInfoAll}`}>
-                <div>
-                  <p>Дата окончания действия</p>
-                </div>
-                <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
-                  <CustomCalendar />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.dataInfoAll}`}>
+            <div className={`${styles.infoBlock} ${styles.legalAddress}`}>
+              <InformationItem title={'Юр. адрес'} variant={'select'} option={legalAddress} />
+              <InformationItem title={'Дата начала действия'} variant={'calendar'} />
+              <InformationItem title={'Дата окончания действия'} variant={'calendar'} />
+              <div className={styles.btnBlock}>
                 <BtnExcelImg />
-                <div>
-                  <Button>Найти</Button>
-                </div>
+                <Button>Найти</Button>
               </div>
             </div>
           </div>

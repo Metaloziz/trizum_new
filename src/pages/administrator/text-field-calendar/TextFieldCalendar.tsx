@@ -4,7 +4,7 @@ import CustomCalendar from '@components/calendar/CustomCalendar';
 const TextFieldCalendar = () => {
   return (
     <div style={{ display: 'flex' }}>
-      <input type="text" />
+      <input type='text' />
       <div>
         <CustomCalendar />
       </div>

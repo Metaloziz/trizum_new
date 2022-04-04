@@ -4,6 +4,7 @@ import CustomCalendar from '@components/calendar/CustomCalendar';
 import Pagination from '@components/pagination/Pagination';
 import CustomSelect from '@components/select/CustomSelect';
 import Table from '@components/table/Table';
+import ListItemText from '@pages/administrator/list-item-text/ListItemText';
 import styles from './Administration.module.scss';
 
 const list = [
@@ -118,108 +119,116 @@ const IndexPage = () => {
         <div className={styles.leftBlock}>
           <div className={styles.wrapBlock}>
             <div>
+              {/*<div className={`${styles.oneBlock} ${styles.infoBlock}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Выполнил Д/З</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.selectBlock}>*/}
+              {/*      <CustomSelect options={homework} placeholder={' '} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.infoBlock}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Город</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.selectBlock}>*/}
+              {/*      <CustomSelect options={city} placeholder={''} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.infoBlock}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Группа</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.selectBlock}>*/}
+              {/*      <CustomSelect options={group} placeholder={''} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.inputBlock}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>ФИО ученика</p>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <input type="text" placeholder={' '} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.inputBlock}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Статус пользователя</p>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <input type="text" placeholder={' '} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              {/*<div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.franchisees}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>ФИО франчази</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.franchisees}>*/}
+              {/*      <CustomSelect options={franchisees} placeholder={' '} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.infoBlock}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Оплачен</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.selectBlock}>*/}
+              {/*      <CustomSelect options={paidFor} placeholder={''} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.dataInfo}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Дата рождения</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.dataBlock}>*/}
+              {/*      <input type="text" placeholder={' '} />*/}
+              {/*      <CustomCalendar />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.infoBlock}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Возраст</p>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      <input type="text" placeholder={' '} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              {/*<div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.legalBlock}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Юр. адрес</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.selectBlock}>*/}
+              {/*      <CustomSelect options={legalAddress} placeholder={' '} />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.dataInfoAll}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Дата начала действия</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.dataBlock}>*/}
+              {/*      <input type="text" placeholder={' '} />*/}
+              {/*      <CustomCalendar />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.oneBlock} ${styles.dataInfoAll}`}>*/}
+              {/*    <div>*/}
+              {/*      <p>Дата окончания действия</p>*/}
+              {/*    </div>*/}
+              {/*    <div className={styles.dataBlock}>*/}
+              {/*      <input type="text" placeholder={' '} />*/}
+              {/*      <CustomCalendar />*/}
+              {/*    </div>*/}
+              {/*</div>*/}
               <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Выполнил Д/З</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={homework} placeholder={' '} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Город</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={city} placeholder={''} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Группа</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={group} placeholder={''} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.inputBlock}`}>
-                <div>
-                  <p>ФИО ученика</p>
-                </div>
-                <div>
-                  <input type="text" placeholder={' '} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.inputBlock}`}>
-                <div>
-                  <p>Статус пользователя</p>
-                </div>
-                <div>
-                  <input type="text" placeholder={' '} />
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className={`${styles.oneBlock} ${styles.franchisees}`}>
-                <div>
-                  <p>ФИО франчази</p>
-                </div>
-                <div className={styles.franchisees}>
-                  <CustomSelect options={franchisees} placeholder={' '} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Оплачен</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={paidFor} placeholder={''} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.dataInfo}`}>
-                <div>
-                  <p>Дата рождения</p>
-                </div>
-                <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
-                  <CustomCalendar />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
-                <div>
-                  <p>Возраст</p>
-                </div>
-                <div>
-                  <input type="text" placeholder={' '} />
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className={`${styles.oneBlock} ${styles.legalBlock}`}>
-                <div>
-                  <p>Юр. адрес</p>
-                </div>
-                <div className={styles.selectBlock}>
-                  <CustomSelect options={legalAddress} placeholder={' '} />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.dataInfoAll}`}>
-                <div>
-                  <p>Дата начала действия</p>
-                </div>
-                <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
-                  <CustomCalendar />
-                </div>
-              </div>
-              <div className={`${styles.oneBlock} ${styles.dataInfoAll}`}>
-                <div>
-                  <p>Дата окончания действия</p>
-                </div>
-                <div className={styles.dataBlock}>
-                  <input type="text" placeholder={' '} />
-                  <CustomCalendar />
-                </div>
+                <ListItemText title={'sadfasdf'} variant={'calendar'} />
+                <ListItemText title={'Выполнено Д/З'} variant={'select'} />
+                <ListItemText title={'Город'} variant={'select'} option={homework} />
+                <ListItemText title={'Группа'} variant={'select'} />
+                <ListItemText title={'ФИО ученика'} variant={'input'} />
+                <ListItemText title={'Стутус пользователя'} variant={'input'} />
               </div>
               <div className={`${styles.oneBlock} ${styles.dataInfoAll}`}>
                 <div className={styles.excel}>

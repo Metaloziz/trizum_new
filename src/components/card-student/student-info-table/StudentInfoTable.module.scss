@@ -1,0 +1,24 @@
+.list {
+  margin-bottom: 18px;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+
+  /* Mobile XS */
+  @media (max-width: 450px) {
+    margin-bottom: 13px;
+  }
+
+  li {
+    margin-right: 14px;
+  }
+
+  li:last-child {
+    margin-right: 0;
+    color: #000000;
+  }
+}

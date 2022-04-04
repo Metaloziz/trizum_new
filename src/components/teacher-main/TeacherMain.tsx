@@ -22,7 +22,7 @@ const items = [
 
 const TeacherMain: FunctionComponent = () => {
   return (
-    <div className={styles.container}>
+    <div>
       {items.map((item) => {
         return <TeacherMainItem key={item.id} title={item.title} text={item.text} />;
       })}

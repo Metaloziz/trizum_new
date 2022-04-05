@@ -11,8 +11,8 @@ interface TeacherMainItemProps {
 const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({ title, img, text }) => {
   return (
     <div className={styles.containerItem}>
-      <div className={styles.itemPic}>
-        <Image src="/teacher.jpg" width="300" height="300" alt="Teacher" />
+      <div>
+        <Image src={imgSrc} width={'300px'} height={'300px'} alt='Картинка' />
       </div>
       <div className={styles.itemText}>
         <h2>{title}</h2>

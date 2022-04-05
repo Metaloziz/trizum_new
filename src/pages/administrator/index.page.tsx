@@ -6,6 +6,7 @@ import { homework, group, city, franchisees, paidFor, legalAddress } from '@comp
 import { colNames, list } from '@components/moks-data/moks-data-table';
 import Pagination from '@components/pagination/Pagination';
 import Table from '@components/table/Table';
+import ListItemText from '@pages/administrator/list-item-text/ListItemText';
 import styles from './Administration.module.scss';
 
 const IndexPage = () => {

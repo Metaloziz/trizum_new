@@ -7,8 +7,6 @@
   box-sizing: border-box;
   box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
   border-radius: 50%;
-  width: 218px;
-  height: 218px;
   flex-direction: column;
   position: absolute;
   top: 50%;
@@ -41,7 +39,27 @@
     text-transform: uppercase;
   }
 
-  &:hover .playPic svg path {
-    fill: #ffffff;
+  &.large {
+    width: 220px;
+    height: 220px;
+  }
+
+  &.normal {
+    width: 60px;
+    height: 60px;
+    flex-direction: row;
+
+    &:hover {
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+      box-shadow: 0px 0px 10px rgba(189, 189, 189, 0.5);
+
+    }
+  }
+
+  &.medium {
+    width: 85px;
+    height: 85px;
   }
 }
+
+

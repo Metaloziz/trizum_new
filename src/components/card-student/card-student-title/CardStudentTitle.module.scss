@@ -1,0 +1,15 @@
+.title {
+  margin: 0;
+  padding: 0 60px 0 0;
+  font-family: 'Aqum', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+
+  /* Mobile XS */
+  @media (max-width: 450px) {
+    font-size: 11px;
+  }
+}

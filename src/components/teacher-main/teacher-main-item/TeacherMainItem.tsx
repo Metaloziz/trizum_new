@@ -13,7 +13,7 @@ const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({ title, text,
   return (
     <div className={styles.containerItem}>
       <div>
-        <Image src={imgSrc} width={'300px'} height={'300px'} alt="Картинка" />
+        <Image src={imgSrc} width={'300px'} height={'300px'} alt='Картинка' />
       </div>
       <div className={styles.itemText}>
         <h2>{title}</h2>

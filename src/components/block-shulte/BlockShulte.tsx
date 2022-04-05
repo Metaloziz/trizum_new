@@ -3,13 +3,13 @@ import styles from './BlockShulte.module.scss';
 
 const BlockShulte = () => {
   return (
-    <div>
+    <div className={styles.wrapperBlock}>
       <div className={styles.container}>
         <div className={styles.blockShulte}>
           <div>
             <img src='/table.jpg' alt='table' />
           </div>
-          <ButtonPlay />
+          <ButtonPlay title={'Играть'} />
         </div>
         <div className={styles.tableBtn}>
           <div></div>

@@ -42,12 +42,12 @@ const Pagination: FC<Props> = (props) => {
         previousClassName={styles.paginationPrevItem}
         previousLabel={
           <div className={styles.btnPrev}>
-            <Image src={paginationImage} alt='Next' width={7} height={10} />
+            <Image src={paginationImage} alt="Next" width={7} height={10} />
           </div>
         }
         nextLabel={
           <div>
-            <Image src={paginationImage} alt='Next' width={7} height={10} />
+            <Image src={paginationImage} alt="Next" width={7} height={10} />
           </div>
         }
       />

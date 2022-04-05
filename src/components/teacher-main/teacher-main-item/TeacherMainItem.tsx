@@ -1,15 +1,14 @@
 import Image from 'next/image';
 import { FunctionComponent } from 'react';
-import Button from '@components/button/Button';
 import styles from './TeacherMainItem.module.scss';
 
 interface TeacherMainItemProps {
   title: string;
+  img?: string;
   text: string;
-  imgSrc: string;
 }
 
-const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({ title, text, imgSrc }) => {
+const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({ title, img, text }) => {
   return (
     <div className={styles.containerItem}>
       <div>
@@ -19,12 +18,8 @@ const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({ title, text,
         <h2>{title}</h2>
         <p>{text}</p>
         <div className={styles.containerButton}>
-          <div>
-            <Button>Прочитать теорию</Button>
-          </div>
-          <div className={styles.btnText}>
-            <Button>Пройти тест</Button>
-          </div>
+          <div>Кнопка 1</div>
+          <div>Кнопка 2</div>
         </div>
       </div>
     </div>

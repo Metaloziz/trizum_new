@@ -23,13 +23,13 @@
 
   }
 
-  &:hover .playButton > p {
+  &:hover > p {
     color: #ffffff;
     background: none;
     -webkit-text-fill-color: #ffffff;
   }
 
-  .playButton > p {
+  & > p {
     background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

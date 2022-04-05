@@ -1,7 +1,4 @@
-import Image from 'next/image';
-import { FunctionComponent, useState } from 'react';
-import buttonPlayHover from '@public/svgs/button-play-hover.svg';
-import buttonPlay from '@public/svgs/button-play.svg';
+import { FunctionComponent } from 'react';
 import styles from './ButtonPlay.module.scss';
 
 type ButtonSize = 'large' | 'normal' | 'medium';
@@ -35,6 +32,7 @@ const ButtonPlay: FunctionComponent<ButtonPlayProps> = ({ title, size }) => {
       <div className={styles.playButton}>
         <p>{title}</p>
       </div>
+      <p>Играть</p>
     </div>
   );
 };

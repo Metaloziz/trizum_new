@@ -8,13 +8,13 @@ import styles from './Account.module.scss';
 
 const Account: FC = () => {
   const { Signout } = Routes;
-  const isNotification = true;
+  const activeNotification = true;
 
   return (
     <div className={styles.container}>
-      <button className={styles.avatar}>
-        <Image src={avatar} width={53} height={53} alt='avatar' />
-        <div className={classNames(styles.notification, { [styles.notification_active]: isNotification })}></div>
+      <button className={classNames(styles.avatar, { [styles.activeNotification]: activeNotification })}>
+        <Image src={avatar} width={53} height={53} alt="avatar" />
+        <div className={styles.notification}></div>
       </button>
 
       <button className={styles.logout}>

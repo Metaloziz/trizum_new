@@ -39,13 +39,13 @@ export default function SignIn() {
       <form onSubmit={handleSubmit}>
         <label>
           Email
-          <input name='email' type='text' value={inputs.email} onChange={handleChange} />
+          <input name="email" type="text" value={inputs.email} onChange={handleChange} />
         </label>
         <label>
           Password
-          <input name='password' type='password' value={inputs.password} onChange={handleChange} />
+          <input name="password" type="password" value={inputs.password} onChange={handleChange} />
         </label>
-        <button type='submit'>Sign in</button>
+        <button type="submit">Sign in</button>
       </form>
     </>
   );

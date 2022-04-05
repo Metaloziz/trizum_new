@@ -46,15 +46,6 @@
     max-width: 420px;
     margin-top: 34px;
   }
-
-  .btnText button {
-    background: linear-gradient(90deg, #7f28d9 0%, #7427cc 100%);
-
-    &:hover {
-      background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
-    }
-  }
-
 }
 
 .containerItem + .containerItem {

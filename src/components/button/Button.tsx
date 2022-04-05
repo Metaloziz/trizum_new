@@ -12,7 +12,7 @@ const Button: FC<Props> = ({ onClick, children }) => {
   return (
     <button className={styles.customButton} onClick={onClick}>
       <span className={styles.arrowBtn}>
-        <Image src={buttonImage} alt='arrow' width={26} height={13} />
+        <Image src={buttonImage} alt="arrow" width={26} height={13} />
       </span>
       {children}
     </button>

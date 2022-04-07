@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { FunctionComponent } from 'react';
-import Button from '@components/button/Button';
+import CustomButton from '@components/custom-button/CustomButton';
 import setting from '@public/svgs/settings.svg';
 import user from '@public/svgs/user.svg';
 import styles from './PagePersonalData.module.scss';
@@ -11,10 +11,10 @@ const PagePersonalData: FunctionComponent = () => {
       <div className={styles.user}>
         <div className={styles.wrapperUser}>
           <div className={styles.userPic}>
-            <Image src={user} width='126' height='126' alt='NextJS' />
+            <Image src={user} width={'126'} height={'126'} alt={'NextJS'} />
           </div>
           <div className={styles.userSetting}>
-            <Image src={setting} width='25' height='25' alt='NextJS' />
+            <Image src={setting} width={'25'} height={'25'} alt={'NextJS'} />
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@ const PagePersonalData: FunctionComponent = () => {
             <input />
           </div>
           <div className={styles.buttonWrapper}>
-            <Button>Сохранить</Button>
+            <CustomButton>Сохранить</CustomButton>
           </div>
         </form>
       </div>

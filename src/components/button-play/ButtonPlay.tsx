@@ -1,4 +1,7 @@
-import { FunctionComponent } from 'react';
+import Image from 'next/image';
+import { FunctionComponent, useState } from 'react';
+import buttonPlayHover from '@svgs/button-play-hover.svg';
+import buttonPlay from '@svgs/button-play.svg';
 import styles from './ButtonPlay.module.scss';
 
 type ButtonSize = 'large' | 'normal' | 'medium';

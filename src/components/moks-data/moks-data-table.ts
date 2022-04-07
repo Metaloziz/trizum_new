@@ -28,7 +28,7 @@ export const list = [
   },
   {
     id: 2,
-    studentName: 'Самойленко И.Н.',
+    studentName: 'Камышев В.А.',
     teacherName: 'Свичкарь А.А.',
     age: 9,
     registrationDate: '11/03/2021',

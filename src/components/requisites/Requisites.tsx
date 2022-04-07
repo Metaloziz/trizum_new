@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
-import Button from '@components/button/Button';
+import CustomButton from '@components/custom-button/CustomButton';
 import Panel from '@components/panel/Panel';
 import requisitiesImage from '@images/qr-code.png';
 import styles from './Requisites.module.scss';
@@ -26,10 +26,8 @@ const Requisites: FC<Props> = ({}) => {
             <p>Назначение платежа: Оплата долга по лицевому счету 299740729618</p>
             <span>Сумма к оплате: 99 999 рублей</span>
           </div>
-
           <div className={styles.containerBtn}>
-            {/* eslint-disable-next-line react/jsx-no-undef */}
-            <Button>Скачать платежное поручение</Button>
+            <CustomButton>Скачать платежное поручение</CustomButton>
             <div className={styles.infoLink}>
               <Link href={' '}>
                 <a>Скачать договор</a>
@@ -37,9 +35,8 @@ const Requisites: FC<Props> = ({}) => {
             </div>
           </div>
         </div>
-
         <div className={styles.qrImg}>
-          <Image src={requisitiesImage} alt="qr-code" width={231} height={231} />
+          <Image src={requisitiesImage} alt={'qr-code'} width={231} height={231} />
         </div>
       </div>
     </div>

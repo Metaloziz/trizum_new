@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Button from '@components/button/Button';
+import CustomButton from '@components/custom-button/CustomButton';
 import { options } from '@components/moks-data/moks-data-balance';
 import CustomSelect from '@components/select/CustomSelect';
 import styles from './Balance.module.scss';
@@ -20,7 +20,7 @@ const Balance: FC = () => {
         </div>
       </div>
       <div>
-        <Button>Сформировать</Button>
+        <CustomButton>Сформировать</CustomButton>
       </div>
     </div>
   );

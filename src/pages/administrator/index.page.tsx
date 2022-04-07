@@ -1,12 +1,10 @@
 import AdminInfoList from '@components/admin-info-list/AdminInfoList';
-import BtnExcelImg from '@components/btn-excel-img/BtnExcelImg';
-import Button from '@components/button/Button';
+import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import { homework, group, city, franchisees, paidFor, legalAddress } from '@components/moks-data/moks-data-select';
 import { colNames, list } from '@components/moks-data/moks-data-table';
 import Pagination from '@components/pagination/Pagination';
 import Table from '@components/table/Table';
-import ListItemText from '@pages/administrator/list-item-text/ListItemText';
 import styles from './Administration.module.scss';
 
 const IndexPage = () => {
@@ -33,8 +31,8 @@ const IndexPage = () => {
               <InformationItem title={'Дата начала действия'} variant={'calendar'} />
               <InformationItem title={'Дата окончания действия'} variant={'calendar'} />
               <div className={styles.btnBlock}>
-                <BtnExcelImg />
-                <Button>Найти</Button>
+                <CustomButton type={'addexcel'}>Выгрузить в Excel</CustomButton>
+                <CustomButton>Найти</CustomButton>
               </div>
             </div>
           </div>

@@ -2,21 +2,42 @@ import { FC } from 'react';
 import styles from './Table.module.scss';
 
 interface IList {
-  id: number;
-  studentName: string;
-  teacherName: string;
-  registrationDate: string;
-  startDateAction: string;
-  endDateAction: string;
-  tariff: string;
-  paymentDate: string;
-  status: string;
-  legalAddress: string;
-  age: number;
+  id?: number;
+  studentName?: string;
+  teacherName?: string;
+  registrationDate?: string;
+  startDateAction?: string;
+  endDateAction?: string;
+  tariff?: string;
+  paymentDate?: string;
+  status?: string;
+  legalAddress?: string;
+  age?: number;
+  fullName?: string;
+  city?: string;
+  dataInfo?: string;
+  dataOgrn?: string;
+  paymentAccount?: string;
+  bankAccount?: string;
+  nameBank?: string;
+  infoBank?: string;
 }
 
+// interface INewList {
+//   fullName: string;
+//   city: string;
+//   legalAddress: string;
+//   dataInfo: string;
+//   dataOgrn: string;
+//   paymentAccount: string;
+//   bankAccount: string;
+//   nameBank: string;
+//   infoBank: string;
+// }
+
 interface Props {
-  list?: IList[];
+  // newList: INewList[];
+  list: IList[];
   colNames?: string[];
   width?: string;
   height?: string;

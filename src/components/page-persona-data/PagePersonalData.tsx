@@ -11,10 +11,10 @@ const PagePersonalData: FunctionComponent = () => {
       <div className={styles.user}>
         <div className={styles.wrapperUser}>
           <div className={styles.userPic}>
-            <Image src={user} width='126' height='126' alt='NextJS' />
+            <Image src={user} width="126" height="126" alt="NextJS" />
           </div>
           <div className={styles.userSetting}>
-            <Image src={setting} width='25' height='25' alt='NextJS' />
+            <Image src={setting} width="25" height="25" alt="NextJS" />
           </div>
         </div>
       </div>

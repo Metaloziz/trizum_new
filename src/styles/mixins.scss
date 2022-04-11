@@ -1,8 +1,11 @@
+@mixin gradient-text($gradient) {
+  color: transparent;
+  background-clip: text;
+  background-image: $gradient;
+}
 @mixin link-font($color: $color-white, $is-gradient: false, $linear-gradient: none, $line-height: normal, $text-decoration: none) {
   @if $is-gradient == true {
-    color: transparent;
-    background-clip: text;
-    background-image: $linear-gradient;
+    @include gradient-text($linear-gradient);
   } @else {
     color: $color;
   }

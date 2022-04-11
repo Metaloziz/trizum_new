@@ -1,10 +1,12 @@
 import { NextComponentType, NextPageContext } from 'next';
 import { AppContext, AppProps as NextAppProps } from 'next/app';
 import { FC, useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 import { AuthGuard } from '@app/common/AuthGuard';
 import { UserAuth } from '@app/models/auth/UserAuth';
 import { Client } from '@app/models/user/Client';
 import { Manager } from '@app/models/user/Manager';
+import { store } from '@app/store';
 import Guard from '@components/guard/Guard';
 import Layout from '@components/layout/Layout';
 import PageLoading from '@components/page-loading/PageLoading';
@@ -54,16 +56,18 @@ function App({ Component, pageProps }: AppProps) {
   }, [socket]);
 
   return (
-    <PageContext.Provider value={{}}>
-      <AuthContext.Provider value={{ auth, profile, setAuth, setProfile, setUserAuthenticated, clearUserAuthenticated }}>
-        <PageLoading />
-        <Guard guard={Component.guard}>
-          <Layout layout={Component.layout}>
-            <Component {...pageProps} />
-          </Layout>
-        </Guard>
-      </AuthContext.Provider>
-    </PageContext.Provider>
+    <Provider store={store}>
+      <PageContext.Provider value={{}}>
+        <AuthContext.Provider value={{ auth, profile, setAuth, setProfile, setUserAuthenticated, clearUserAuthenticated }}>
+          <PageLoading />
+          <Guard guard={Component.guard}>
+            <Layout layout={Component.layout}>
+              <Component {...pageProps} />
+            </Layout>
+          </Guard>
+        </AuthContext.Provider>
+      </PageContext.Provider>
+    </Provider>
   );
 }
 

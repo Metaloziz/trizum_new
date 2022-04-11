@@ -1,39 +1,18 @@
-import { FunctionComponent } from 'react';
+import classNames from 'classnames';
+import { FC } from 'react';
 import styles from './ButtonPlay.module.scss';
 
-type ButtonSize = 'large' | 'normal' | 'medium';
+type Props = {
+  className?: string;
+  size?: 'small' | 'normal';
+};
 
-interface ButtonPlayProps {
-  title?: string;
-  size?: ButtonSize;
-}
-
-const ButtonPlay: FunctionComponent<ButtonPlayProps> = ({ title, size }) => {
-  const [hover, setHover] = useState(false);
-
-  let ButtonSize = '';
-  switch (size) {
-    case 'large':
-      ButtonSize = styles.large;
-      break;
-    case 'normal':
-      ButtonSize = styles.normal;
-      break;
-    default:
-      ButtonSize = styles.medium;
-  }
-  const finalStyle = `${styles.content} ${ButtonSize}`;
-
+const ButtonPlay: FC<Props> = ({ size = 'normal', className = '' }) => {
   return (
-    <div className={`${styles.buttonPlay} ${finalStyle}`} onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)}>
-      <div>
-        <Image src={hover ? buttonPlayHover : buttonPlay} alt={'play'} width={'73'} height={'73'} />
-      </div>
-      <div className={styles.playButton}>
-        <p>{title}</p>
-      </div>
-      <p>Играть</p>
-    </div>
+    <button className={classNames(styles.container, className, { [styles.containerSmalled]: size === 'small' })}>
+      <div className={styles.img}></div>
+      <p className={styles.text}>Играть</p>
+    </button>
   );
 };
 

@@ -9,7 +9,7 @@ const BlockShulte = () => {
           <div>
             <img src="/table.jpg" alt="table" />
           </div>
-          <ButtonPlay title={'Играть'} />
+          <ButtonPlay className={styles.buttonPlay} />
         </div>
         <div className={styles.tableBtn}>
           <div></div>

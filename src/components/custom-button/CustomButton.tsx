@@ -16,9 +16,10 @@ interface Props {
   children?: React.ReactNode;
   size?: ButtonSize;
   type?: ButtonType;
+  onClick?: () => void;
 }
 
-const CustomButton: FC<Props> = ({ type, children, size }) => {
+const CustomButton: FC<Props> = ({ type, onClick, children, size }) => {
   const [isShowHover, setShowHover] = useState<boolean>(false);
   let iconButton = <Image src={buttonImage} alt={'arrow'} width={26} height={13} />;
   let typeButtonStyle = '';

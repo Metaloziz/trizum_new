@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { ClassTime } from '@components/scheduler/classTime/ClassTime';
 import ScheduledLesson from '@components/scheduler/scheduledLesson/ScheduledLesson';
 import styles from './Table2.module.scss';
@@ -22,7 +22,7 @@ interface Props {
   data: IData;
 }
 
-const Table2: FunctionComponent<Props> = ({ data }) => {
+const Table2: FC<Props> = ({ data }) => {
   return (
     <table className={styles.table}>
       <thead>

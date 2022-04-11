@@ -1,25 +1,26 @@
 import Image from 'next/image';
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
+import CustomButton from '@components/custom-button/CustomButton';
 import styles from './TeacherMainItem.module.scss';
 
 interface TeacherMainItemProps {
   title: string;
-  img?: string;
+  imgSrc?: string;
   text: string;
 }
 
-const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({ title, img, text }) => {
+const TeacherMainItem: FC<TeacherMainItemProps> = ({ title, imgSrc = '', text }) => {
   return (
     <div className={styles.containerItem}>
       <div>
-        <Image src={imgSrc} width={'300px'} height={'300px'} alt='Картинка' />
+        <Image src={imgSrc} width={'300px'} height={'300px'} alt="Images" />
       </div>
       <div className={styles.itemText}>
         <h2>{title}</h2>
         <p>{text}</p>
         <div className={styles.containerButton}>
-          <div>Кнопка 1</div>
-          <div>Кнопка 2</div>
+          <CustomButton>Прочитать теорию</CustomButton>
+          <CustomButton>Пройти тест</CustomButton>
         </div>
       </div>
     </div>

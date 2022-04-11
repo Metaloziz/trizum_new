@@ -1,11 +1,24 @@
-import ButtonPlay from '@components/button-play/ButtonPlay';
+import { useState } from 'react';
+import PagePersonalData from '@components/page-persona-data/PagePersonalData';
 
-const Tablet = () => {
+export default function TestPage() {
+  const [isModal, setModal] = useState(false);
+  const setModalHandler = () => {
+    setModal(true);
+  };
   return (
-    <div>
-      <ButtonPlay title={'Играть'} size={'large'} />
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginTop: '20px',
+      }}
+    >
+      <PagePersonalData />
     </div>
   );
-};
-
-export default Tablet;
+}

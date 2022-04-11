@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import styles from './ClassTime.module.scss';
 
 interface Props {
   time: string[];
 }
 
-export const ClassTime: FunctionComponent<Props> = ({ time }) => {
+export const ClassTime: FC<Props> = ({ time }) => {
   return (
     <td className={styles.time}>
       {time[0] ? <span>{time[0]}</span> : <span></span>}

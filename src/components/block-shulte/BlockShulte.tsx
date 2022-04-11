@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import ButtonPlay from '@components/button-play/ButtonPlay';
 import styles from './BlockShulte.module.scss';
 
-const BlockShulte = () => {
+const BlockShulte: FC = () => {
   return (
     <div className={styles.wrapperBlock}>
       <div className={styles.container}>

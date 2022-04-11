@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 import CustomSelect from '@components/select/CustomSelect';
 import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
 import TextField from '@components/text-fild/TextFild';
@@ -20,7 +20,7 @@ interface Props {
   size?: SizeType;
 }
 
-const InformationItem: FunctionComponent<Props> = ({ title, variant, option = [], size = 'normal' }) => {
+const InformationItem: FC<Props> = ({ title, variant, option = [], size = 'normal' }) => {
   const finalStyle = `${styles.content} ${size === 'large' ? styles.large : ''}`;
   return (
     <div className={styles.wrapBlockItem}>

@@ -1,0 +1,29 @@
+.modal {
+  position: fixed;
+  background: rgba(0,0,0,0.5);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 900;
+}
+
+.content {
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 30px;
+  background-color: #fff;
+  min-width: 450px;
+
+  & .btnClose{
+    position: absolute;
+    right: 20px;
+    top: 21px;
+    cursor: pointer;
+  }
+}
+
+

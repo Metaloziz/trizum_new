@@ -85,3 +85,59 @@
   outline: none;
 }
 
+.wrapContent {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+
+  & p {
+    margin-bottom: 5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    color: #BABEC6;
+  }
+
+  & a {
+    display: block;
+    margin-top: 19px;
+    margin-bottom: 5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    color: #BABEC6;
+    text-decoration: underline;
+  }
+
+  & span {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #2E8DFD;
+  }
+
+  & input {
+    width: 266px;
+    margin-top: 12px;
+    padding: 9px 30px 10px;
+    border: 1px solid #BABEC6;
+    border-radius: 26px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #000000;
+    text-align: center;
+  }
+}
+
+.wrapContent > div + div {
+  margin-top: 40px;
+}
+

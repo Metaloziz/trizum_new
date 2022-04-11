@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { FunctionComponent } from 'react';
 import styles from './TeacherMainItem.module.scss';
 
@@ -11,9 +10,6 @@ interface TeacherMainItemProps {
 const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({ title, img, text }) => {
   return (
     <div className={styles.containerItem}>
-      <div>
-        <Image src={imgSrc} width={'300px'} height={'300px'} alt='Картинка' />
-      </div>
       <div className={styles.itemText}>
         <h2>{title}</h2>
         <p>{text}</p>

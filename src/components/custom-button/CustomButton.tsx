@@ -21,16 +21,22 @@ interface Props {
 
 const CustomButton: FC<Props> = ({ type, onClick, children, size }) => {
   const [isShowHover, setShowHover] = useState<boolean>(false);
-  let iconButton = <Image src={buttonImage} alt={'arrow'} width={26} height={13} />;
+  let iconButton = (
+    <Image src={buttonImage} alt={'arrow'} width={26} height={13} />
+  );
   let typeButtonStyle = '';
   switch (type) {
     case 'parents':
       typeButtonStyle = styles.parents;
-      iconButton = <Image src={iconParents} alt={'parents'} width={20} height={16} />;
+      iconButton = (
+        <Image src={iconParents} alt={'parents'} width={20} height={16} />
+      );
       break;
     case 'bigButton':
       typeButtonStyle = styles.bigButton;
-      iconButton = <Image src={buttonImage} alt={'arrow'} width={36} height={19} />;
+      iconButton = (
+        <Image src={buttonImage} alt={'arrow'} width={36} height={19} />
+      );
       break;
     case 'addUser':
       typeButtonStyle = styles.addUser;
@@ -64,7 +70,11 @@ const CustomButton: FC<Props> = ({ type, onClick, children, size }) => {
   }
   const finalStyle = `${styles.customButton} ${typeButtonStyle} ${sizeButton}`;
   return (
-    <button className={finalStyle} onMouseOver={() => setShowHover(true)} onMouseOut={() => setShowHover(false)}>
+    <button
+      className={finalStyle}
+      onMouseOver={() => setShowHover(true)}
+      onMouseOut={() => setShowHover(false)}
+    >
       <span className={styles.arrowBtn}>{iconButton}</span>
       {children}
     </button>

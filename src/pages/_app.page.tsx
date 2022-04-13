@@ -20,10 +20,11 @@ import '@styles/normalize.scss';
 
 type AppProps<P = { auth?: UserAuth; profile?: Client | Manager }> = {
   pageProps: P;
-  Component: NextComponentType<NextPageContext, any, P> & {
-    layout?: FC;
-    guard?: AuthGuard;
-  };
+  Component: any;
+  // Component: NextComponentType<NextPageContext, any, P> & {
+  //   layout?: FC;
+  //   guard?: AuthGuard;
+  // };
 } & Omit<NextAppProps<P>, 'pageProps'>;
 
 function App({ Component, pageProps }: AppProps) {

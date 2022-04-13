@@ -1,6 +1,9 @@
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
-import { colNamesCurator, listCurator } from '@components/moks-data/moks-data-curator';
+import {
+  colNamesCurator,
+  listCurator,
+} from '@components/moks-data/moks-data-curator';
 import Pagination from '@components/pagination/Pagination';
 import Table from '@components/table/Table';
 import styles from './CuratorHome.module.scss';

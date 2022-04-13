@@ -5,7 +5,9 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import styles from './TextEditor.module.scss';
 
 const TextEditor = () => {
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty(),
+  );
   useEffect(() => {
     console.log(editorState);
   }, [editorState]);
@@ -17,7 +19,16 @@ const TextEditor = () => {
       editorClassName={styles.editorClass}
       toolbarClassName={styles.toolbarClass}
       toolbar={{
-        options: ['inline', 'fontSize', 'textAlign', 'list', 'link', 'image', 'emoji', 'colorPicker'],
+        options: [
+          'inline',
+          'fontSize',
+          'textAlign',
+          'list',
+          'link',
+          'image',
+          'emoji',
+          'colorPicker',
+        ],
         inline: { options: ['bold', 'italic', 'underline'] },
         textAlign: {
           options: ['left', 'center'],

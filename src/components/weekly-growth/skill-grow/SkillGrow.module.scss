@@ -1,5 +1,7 @@
 @mixin indicator-background($background) {
-  background: url('../../../../public/svgs/skill-grow-triangle.svg') repeat-y center top / 10px 25px, $background;
+  background: url('../../../../public/svgs/skill-grow-triangle.svg') repeat-y
+      center top / 10px 25px,
+    $background;
 }
 
 .container {
@@ -21,28 +23,52 @@
   font-size: 24px;
   color: #2e8dfd;
 }
-.name {
+.skillTitle {
   font-weight: bold;
   text-align: center;
   @include gradient-text(linear-gradient(90deg, #0439ad 0%, #38028f 100%));
 }
 .red {
   @include indicator-background(
-    linear-gradient(180deg, #fe6c6c 1.04%, #fe6c6c 28.13%, rgba(254, 70, 75, 0.74) 66.67%, rgba(254, 70, 75, 0) 98.44%)
+    linear-gradient(
+      180deg,
+      #fe6c6c 1.04%,
+      #fe6c6c 28.13%,
+      rgba(254, 70, 75, 0.74) 66.67%,
+      rgba(254, 70, 75, 0) 98.44%
+    )
   );
 }
 .violet {
   @include indicator-background(
-    linear-gradient(180deg, #9181fa 1.04%, #9181fa 28.13%, rgba(145, 129, 250, 0.75) 66.67%, rgba(145, 129, 250, 0) 98.44%)
+    linear-gradient(
+      180deg,
+      #9181fa 1.04%,
+      #9181fa 28.13%,
+      rgba(145, 129, 250, 0.75) 66.67%,
+      rgba(145, 129, 250, 0) 98.44%
+    )
   );
 }
 .yellow {
   @include indicator-background(
-    linear-gradient(180deg, #ffc400 1.04%, #ffc400 28.13%, rgba(255, 196, 0, 0.74) 66.67%, rgba(255, 196, 0, 0) 98.44%)
+    linear-gradient(
+      180deg,
+      #ffc400 1.04%,
+      #ffc400 28.13%,
+      rgba(255, 196, 0, 0.74) 66.67%,
+      rgba(255, 196, 0, 0) 98.44%
+    )
   );
 }
 .aquamarine {
   @include indicator-background(
-    linear-gradient(180deg, #00c7e6 1.04%, #00c7e6 28.13%, rgba(0, 199, 230, 0.76) 66.67%, rgba(0, 199, 230, 0) 98.44%)
+    linear-gradient(
+      180deg,
+      #00c7e6 1.04%,
+      #00c7e6 28.13%,
+      rgba(0, 199, 230, 0.76) 66.67%,
+      rgba(0, 199, 230, 0) 98.44%
+    )
   );
 }

@@ -1,7 +1,8 @@
 .panel {
   position: relative;
-  background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  background: linear-gradient(90deg, #2e8efe 0%, #2675f6 100%);
   min-width: 477px;
+  width: min-content;
   padding: 7px 10px 6px;
   box-sizing: border-box;
   color: $color-white;
@@ -10,8 +11,8 @@
   font-size: 18px;
   line-height: 22px;
 
-  &::after{
-    content: "";
+  &::after {
+    content: '';
     position: absolute;
     background: #fff;
     transform: translateY(-100%) skewX(160deg);
@@ -22,7 +23,7 @@
   }
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     background: #fff;
     transform: translateY(-100%) skewX(20deg);

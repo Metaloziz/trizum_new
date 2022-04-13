@@ -20,7 +20,10 @@ import '@styles/normalize.scss';
 
 type AppProps<P = { auth?: UserAuth; profile?: Client | Manager }> = {
   pageProps: P;
-  Component: NextComponentType<NextPageContext, any, P> & { layout?: FC; guard?: AuthGuard };
+  Component: NextComponentType<NextPageContext, any, P> & {
+    layout?: FC;
+    guard?: AuthGuard;
+  };
 } & Omit<NextAppProps<P>, 'pageProps'>;
 
 function App({ Component, pageProps }: AppProps) {
@@ -58,7 +61,16 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <PageContext.Provider value={{}}>
-        <AuthContext.Provider value={{ auth, profile, setAuth, setProfile, setUserAuthenticated, clearUserAuthenticated }}>
+        <AuthContext.Provider
+          value={{
+            auth,
+            profile,
+            setAuth,
+            setProfile,
+            setUserAuthenticated,
+            clearUserAuthenticated,
+          }}
+        >
           <PageLoading />
           <Guard guard={Component.guard}>
             <Layout layout={Component.layout}>

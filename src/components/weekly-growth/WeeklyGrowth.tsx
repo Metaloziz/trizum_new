@@ -1,26 +1,17 @@
-/* eslint-disable prettier/prettier */
+import classNames from 'classnames';
 import { FC } from 'react';
+import { WeeklyGrowthProps } from '@app/components/ComponentsProps';
 import SkillGrow from './skill-grow/SkillGrow';
 import styles from './WeeklyGrowth.module.scss';
 
-type Props = {
-  weeklyGrowth: {
-    title: string;
-    color: 'red' | 'violet' | 'yellow' | 'aquamarine';
-    percents: number;
-    id: number;
-  }[];
-};
-
-const WeeklyGrowth: FC<Props> = ({ weeklyGrowth }) => {
+const WeeklyGrowth: FC<WeeklyGrowthProps> = ({ weeklyGrowth, className }) => {
   return (
-    <div className={styles.container}>
+    <div className={classNames(styles.container, className)}>
       <span className={styles.title}>Рост за неделю</span>
       <div className={styles.itemsContainer}>
-        {weeklyGrowth &&
-          weeklyGrowth.map(({ title, color, percents, id }) => (
-            <SkillGrow key={id} className={styles.item} percents={percents} color={color} title={title}></SkillGrow>
-          ))}
+        {weeklyGrowth.map((weeklyGrowth) => (
+          <SkillGrow key={weeklyGrowth.id} {...weeklyGrowth}></SkillGrow>
+        ))}
       </div>
     </div>
   );

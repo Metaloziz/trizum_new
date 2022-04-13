@@ -1,0 +1,91 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding-left: 35px;
+  background-color: white;
+  box-shadow: 0px 20px 70px 0px #5659921a;
+  border-radius: 30px;
+  height: 90px;
+  margin-bottom: 30px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.title {
+  font-size: 23px;
+  font-weight: 700;
+  text-align: left;
+  flex-grow: 1;
+}
+.button {
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+.minutesLeft {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  width: 110px;
+  height: 110px;
+  margin-right: -10px;
+  font-size: 23px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
+
+  & :first-child {
+    margin-left: 5px;
+    color: $color-secondary-text;
+  }
+  & :last-child {
+    font-weight: 500;
+    font-size: 14px;
+  }
+}
+.blue {
+  & .minutesLeft {
+    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat
+        center,
+      $color-blue;
+  }
+  & .title {
+    color: $color-blue;
+  }
+}
+.gradient-violet {
+  & .minutesLeft {
+    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat
+        center,
+      $gradient-violet;
+  }
+  & .title {
+    @include gradient-text($gradient-violet);
+  }
+}
+.gradient-blue-darker {
+  & .minutesLeft {
+    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat
+        center,
+      $gradient-blue-darker;
+  }
+  & .title {
+    @include gradient-text($gradient-blue-darker);
+  }
+}
+.aquamarine {
+  & .minutesLeft {
+    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat
+        center,
+      $color-aquamarine;
+  }
+  & .title {
+    color: $color-aquamarine;
+  }
+}

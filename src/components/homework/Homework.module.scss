@@ -1,0 +1,35 @@
+.container {
+  margin-top: 15px;
+}
+.description {
+  background-color: #f2f9ff;
+  padding: 10px 45px;
+}
+.gameTitle {
+  margin-left: 45px;
+  color: $color-blue;
+  margin-bottom: 10px;
+}
+.minutesLeft {
+  margin-bottom: 10px;
+}
+.needToDoContainer {
+  margin-bottom: 10px;
+}
+.needToDoTitle {
+  text-decoration: underline;
+  @include gradient-text(linear-gradient(90deg, #7f28d9 0%, #7427cc 100%));
+}
+.tipsTitle {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.tips {
+  margin-left: 30px;
+  list-style-type: none;
+}
+.tip::before {
+  content: '•';
+  padding-right: 10px;
+  color: $color-text;
+}

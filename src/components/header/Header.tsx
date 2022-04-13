@@ -12,7 +12,11 @@ const Header: FC<Props> = ({ className }) => {
   const close = () => setIsOpen(false);
 
   return (
-    <header className={classNames(styles.header, className, { [styles.open]: isOpen })}>
+    <header
+      className={classNames(styles.header, className, {
+        [styles.open]: isOpen,
+      })}
+    >
       <Logo />
       <Account />
     </header>

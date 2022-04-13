@@ -38,7 +38,7 @@
       min-height: 1038px;
       max-height: 1038px;
       padding: 20px;
-      background: #FFFFFF;
+      background: #ffffff;
       box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
       //border-radius: 30px;
       overflow-y: scroll;
@@ -47,12 +47,12 @@
       /* полоса прокрутки (скроллбар) */
       &::-webkit-scrollbar {
         width: 8px; /* ширина для вертикального скролла */
-        background: #EAEEFD;
+        background: #eaeefd;
       }
 
       /* ползунок скроллбара */
       &::-webkit-scrollbar-thumb {
-        background: #BABEC6;
+        background: #babec6;
         border-radius: 10px;
       }
 
@@ -81,6 +81,6 @@
   }
 }
 
-
-
-
+.cardStudent {
+  margin-bottom: 10px;
+}

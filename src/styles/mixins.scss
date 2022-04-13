@@ -3,7 +3,13 @@
   background-clip: text;
   background-image: $gradient;
 }
-@mixin link-font($color: $color-white, $is-gradient: false, $linear-gradient: none, $line-height: normal, $text-decoration: none) {
+@mixin link-font(
+  $color: $color-white,
+  $is-gradient: false,
+  $linear-gradient: none,
+  $line-height: normal,
+  $text-decoration: none
+) {
   @if $is-gradient == true {
     @include gradient-text($linear-gradient);
   } @else {
@@ -14,4 +20,10 @@
   line-height: $line-height;
   font-weight: 600;
   text-decoration: $text-decoration;
+}
+@mixin gradient-statistics-title($gradient) {
+  font-family: Aqum;
+  font-size: 14px;
+  text-transform: uppercase;
+  @include gradient-text($gradient);
 }

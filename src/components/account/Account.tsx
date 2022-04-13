@@ -12,7 +12,11 @@ const Account: FC = () => {
 
   return (
     <div className={styles.container}>
-      <button className={classNames(styles.avatar, { [styles.activeNotification]: activeNotification })}>
+      <button
+        className={classNames(styles.avatar, {
+          [styles.activeNotification]: activeNotification,
+        })}
+      >
         <Image src={avatar} width={53} height={53} alt="avatar" />
         <div className={styles.notification}></div>
       </button>

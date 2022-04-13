@@ -1,0 +1,9 @@
+.container {
+  max-width: 510px;
+}
+.title {
+  @include gradient-statistics-title(
+    linear-gradient(90deg, #7f28d9 0%, #7427cc 100%)
+  );
+  margin-bottom: 20px;
+}

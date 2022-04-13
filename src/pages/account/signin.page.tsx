@@ -22,8 +22,14 @@ export default function SignIn() {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     try {
-      const result = await authService.login(inputs.email, inputs.password, { locale: router.locale });
-      const auth = { token: result.token, userId: result.userId, roleId: result.roleId };
+      const result = await authService.login(inputs.email, inputs.password, {
+        locale: router.locale,
+      });
+      const auth = {
+        token: result.token,
+        userId: result.userId,
+        roleId: result.roleId,
+      };
       const profile = await getProfile(result.token, result.roleId, router.locale);
 
       setUserAuthenticated({ auth, profile });

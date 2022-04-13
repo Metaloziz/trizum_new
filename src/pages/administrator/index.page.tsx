@@ -1,6 +1,5 @@
 import AdminInfoList from '@components/admin-info-list/AdminInfoList';
-import BtnExcelImg from '@components/btn-excel-img/BtnExcelImg';
-import Button from '@components/button/Button';
+import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import {
   homework,
@@ -76,8 +75,8 @@ const IndexPage = () => {
                 variant={'calendar'}
               />
               <div className={styles.btnBlock}>
-                <BtnExcelImg />
-                <Button>Найти</Button>
+                <CustomButton type={'addexcel'}>Выгрузить в Excel</CustomButton>
+                <CustomButton>Найти</CustomButton>
               </div>
             </div>
           </div>

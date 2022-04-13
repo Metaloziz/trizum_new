@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import CustomSelect from '@components/select/CustomSelect';
-import TextFieldCalendar from '@pages/administrator/text-field-calendar/TextFieldCalendar';
-import TextField from '@pages/administrator/text-field/TextField';
-import styles from '../Administration.module.scss';
+import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
+import TextField from '@components/text-fild/TextFild';
 
 type VariantType = 'select' | 'input' | 'calendar';
 
@@ -19,14 +18,12 @@ interface Props {
 
 const ListItemText: FC<Props> = ({ title, variant, option = [] }) => {
   return (
-    <div className={`${styles.oneBlock} ${styles.infoBlock}`}>
+    <div>
       <div>
         <p>{title}</p>
       </div>
-      <div className={styles.selectBlock}>
-        {variant === 'select' && (
-          <CustomSelect options={option} placeholder={' '} />
-        )}
+      <div>
+        {variant === 'select' && <CustomSelect options={option} placeholder={' '} />}
         {variant === 'input' && <TextField />}
         {variant === 'calendar' && <TextFieldCalendar />}
       </div>

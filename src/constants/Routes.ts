@@ -10,4 +10,6 @@ export const Routes = {
   Payment: '/payment',
   Administrator: '/administrator',
   Scenario: '/scenario',
+  StatisticsTeachers: '/statistics-teachers',
+  CuratorHome: '/curator-home',
 };

@@ -1,0 +1,91 @@
+.customButton {
+  position: relative;
+  background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  box-sizing: border-box;
+  padding: 16px 58px 17px 18px;
+  color: $color-white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+
+  &:hover {
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+  }
+
+  .arrowBtn {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background-color: $color-white;
+    border-radius: 50%;
+    top: 50%;
+    right: 2px;
+    transform: translateY(-50%);
+  }
+}
+
+.parents {
+  background: linear-gradient(90deg, #B4DEFF 0%, #BEF5FF 100%);
+  color: #38028f;
+
+  &:hover {
+    background: #72CEF3;
+  }
+}
+
+.large {
+  width: 200px;
+  height: 70px;
+
+  & .arrowBtn {
+    width: 62px;
+    height: 62px;
+  }
+}
+
+.small {
+  padding: 12px 58px 11px 18px;
+
+  & .arrowBtn {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.bigButton {
+  border-radius: 35px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+
+  &:hover {
+    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  }
+}
+
+.addUser {
+  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+
+  &:hover {
+    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  }
+}
+
+.addexcel {
+  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+  &:hover {
+    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  }
+}

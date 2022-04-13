@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@components/button/Button';
+import CustomButton from '@components/custom-button/CustomButton';
 import CustomSelect from '@components/select/CustomSelect';
 import styles from './SearchByGroup.module.scss';
 
@@ -26,7 +26,7 @@ const SearchByGroup = () => {
           />
         </div>
       </div>
-      <Button>Найти</Button>
+      <CustomButton>Найти</CustomButton>
     </div>
   );
 };

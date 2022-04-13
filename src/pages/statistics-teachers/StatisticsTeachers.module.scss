@@ -1,0 +1,49 @@
+.content {
+  padding: 35px 50px 20px 20px;
+  box-sizing: border-box;
+
+  & .tableContent {
+    border-top: 20px;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #babec6;
+  }
+
+  & .franchiseesBlock > div:nth-child(1) div p {
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  & .legalAddress > div {
+    justify-content: space-between;
+  }
+
+  & .legalAddress > div:nth-child(1) div p {
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  & .wrapStaticBlock {
+    display: flex;
+    max-width: 85%;
+    justify-content: space-between;
+
+    & > div {
+      width: 33%;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+  }
+
+  & .btnStaticBlock {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  & .paginationStaticBlock {
+    margin-top: 35px;
+  }
+}

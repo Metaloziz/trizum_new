@@ -1,0 +1,15 @@
+.wrapperClass {
+  background-color: red;
+}
+
+.editorClass {
+  background-color: blue;
+}
+
+.toolbarClass {
+  background-color: yellow !important;
+}
+
+.toolbarClass > div > div {
+  background-color: yellow !important;
+}

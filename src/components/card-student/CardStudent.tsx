@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import React, { FC, useState } from 'react';
-import Button from '@components/button/Button';
 import CardStudentButtonGroup from '@components/card-student/card-student-button-group/CardStudentButtonGroup';
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
 import StudentInfoTable from '@components/card-student/student-info-table/StudentInfoTable';
 import StudentInfo from '@components/card-student/student-info/StudentInfo';
+import CustomButton from '@components/custom-button/CustomButton';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import avatar from '@public/img/pervoklasnin.jpg';
 import iconFlag from '@svgs/flag.svg';
@@ -57,8 +57,8 @@ const CardStudent: FC<Props> = ({
         </div>
         {isExtended && (
           <div className={styles.CardStudentButtonInfoGroup}>
-            <Button>Родители</Button>
-            <Button>Разблокировать</Button>
+            <CustomButton>Родители</CustomButton>
+            <CustomButton>Разблокировать</CustomButton>
           </div>
         )}
         <CustomImageWrapper className={styles.flag} variant={'none'}>

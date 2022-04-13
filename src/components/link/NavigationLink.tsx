@@ -13,7 +13,14 @@ interface Props {
   imageClassName?: string;
 }
 
-const Navigation: FC<Props> = ({ link, onClick, className, wrapperClassName, imageClassName, activeClassName }) => {
+const Navigation: FC<Props> = ({
+  link,
+  onClick,
+  className,
+  wrapperClassName,
+  imageClassName,
+  activeClassName,
+}) => {
   const router = useRouter();
   const { label, href, imageSrc } = link;
   const isActive = router.asPath === href;

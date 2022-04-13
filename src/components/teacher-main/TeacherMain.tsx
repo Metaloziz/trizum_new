@@ -24,7 +24,9 @@ const TeacherMain: FunctionComponent = () => {
   return (
     <div className={styles.container}>
       {items.map((item) => {
-        return <TeacherMainItem key={item.id} title={item.title} text={item.text} />;
+        return (
+          <TeacherMainItem key={item.id} title={item.title} text={item.text} />
+        );
       })}
     </div>
   );

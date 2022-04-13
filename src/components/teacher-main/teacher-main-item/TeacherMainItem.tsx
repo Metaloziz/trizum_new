@@ -8,7 +8,11 @@ interface TeacherMainItemProps {
   text: string;
 }
 
-const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({ title, img, text }) => {
+const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({
+  title,
+  img,
+  text,
+}) => {
   return (
     <div className={styles.containerItem}>
       <div className={styles.itemText}>

@@ -12,7 +12,12 @@ interface Props {
   item?: number;
 }
 
-const Step: FC<Props> = ({ initialPage, marginPagesDisplayed, pageCount, pageRangeDisplayed }) => {
+const Step: FC<Props> = ({
+  initialPage,
+  marginPagesDisplayed,
+  pageCount,
+  pageRangeDisplayed,
+}) => {
   return (
     <>
       <ReactPaginate

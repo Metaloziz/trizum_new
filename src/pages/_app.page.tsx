@@ -28,9 +28,14 @@ type AppProps<P = { auth?: UserAuth; profile?: Client | Manager }> = {
 
 function App({ Component, pageProps }: AppProps) {
   const [auth, setAuth] = useState<UserAuth | undefined>(pageProps.auth);
-  const [profile, setProfile] = useState<Client | Manager | undefined>(pageProps.profile);
+  const [profile, setProfile] = useState<Client | Manager | undefined>(
+    pageProps.profile,
+  );
 
-  const setUserAuthenticated = (data: { auth: UserAuth; profile: Client | Manager }) => {
+  const setUserAuthenticated = (data: {
+    auth: UserAuth;
+    profile: Client | Manager;
+  }) => {
     setCookie(AuthKey, data.auth.token, 24 * 60 * 60);
     setAuth(data.auth);
     setProfile(data.profile);

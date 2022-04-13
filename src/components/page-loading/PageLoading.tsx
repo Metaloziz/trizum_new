@@ -21,7 +21,9 @@ const PageLoading: FC = () => {
     };
   });
 
-  return <div className={classNames(styles.overlay, { [styles.show]: isLoading })} />;
+  return (
+    <div className={classNames(styles.overlay, { [styles.show]: isLoading })} />
+  );
 };
 
 export default PageLoading;

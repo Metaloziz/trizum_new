@@ -6,7 +6,11 @@ import managerService from '@app/services/ManagerService';
 import { AuthKey } from '@constants/Common';
 import { getCookie } from './Cookie';
 
-export async function getProfile(token: string, roleId: string, locale?: string) {
+export async function getProfile(
+  token: string,
+  roleId: string,
+  locale?: string,
+) {
   if (roleId === RoleId.Client) {
     return await clientService.getProfile({ token, locale });
   }

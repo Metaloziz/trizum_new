@@ -7,7 +7,13 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children, layout: LayoutComponent }) => (
-  <>{LayoutComponent ? <LayoutComponent>{children}</LayoutComponent> : <DefaultLayout>{children}</DefaultLayout>}</>
+  <>
+    {LayoutComponent ? (
+      <LayoutComponent>{children}</LayoutComponent>
+    ) : (
+      <DefaultLayout>{children}</DefaultLayout>
+    )}
+  </>
 );
 
 export default Layout;

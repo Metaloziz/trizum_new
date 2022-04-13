@@ -4,7 +4,10 @@ import { Api, ApiOptions } from '@utils/Api';
 
 const managerService = {
   getProfile: async (options?: ApiOptions) => {
-    const { data } = await Api.get<DataResponse<Manager>>('/api/v1/managers/profile', options);
+    const { data } = await Api.get<DataResponse<Manager>>(
+      '/api/v1/managers/profile',
+      options,
+    );
     return data;
   },
 };

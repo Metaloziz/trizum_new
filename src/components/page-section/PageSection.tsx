@@ -8,7 +8,11 @@ interface Props {
 }
 
 const Section: FC<Props> = ({ children, alternate }) => (
-  <section className={classNames(styles.section, { [styles.alternate]: alternate })}>{children}</section>
+  <section
+    className={classNames(styles.section, { [styles.alternate]: alternate })}
+  >
+    {children}
+  </section>
 );
 
 export default Section;

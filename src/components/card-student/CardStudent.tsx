@@ -36,8 +36,8 @@ const CardStudent: FC<Props> = ({
   settings = false,
   isExtended = true,
 }) => {
-  const [showFlag, setShowFlag] = useState<boolean>(flag);
-  const [showSettings, setShowSettings] = useState<boolean>(settings);
+  const [showFlag] = useState<boolean>(flag);
+  const [showSettings] = useState<boolean>(settings);
 
   const sizeStyle = size === 'large' ? styles.larg : '';
   const finalStyle = `${styles.wrapper} ${sizeStyle}`;

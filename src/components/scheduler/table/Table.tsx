@@ -21,7 +21,11 @@ export const Table: FunctionComponent<Props> = ({ list, colNames }) => {
         <table cellSpacing={'0'} style={{ width: 'auto', height: 'auto' }}>
           <thead>
             <tr className={styles.th}>
-              {colNames !== undefined && colNames.length > 0 && colNames.map((headerItem, index) => <th key={index}>{headerItem}</th>)}
+              {colNames !== undefined &&
+                colNames.length > 0 &&
+                colNames.map((headerItem, index) => (
+                  <th key={index}>{headerItem}</th>
+                ))}
             </tr>
           </thead>
           <tbody>

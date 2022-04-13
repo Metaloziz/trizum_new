@@ -30,7 +30,11 @@ export default function SignIn() {
         userId: result.userId,
         roleId: result.roleId,
       };
-      const profile = await getProfile(result.token, result.roleId, router.locale);
+      const profile = await getProfile(
+        result.token,
+        result.roleId,
+        router.locale,
+      );
 
       setUserAuthenticated({ auth, profile });
       router.push((router.query.redirect as string) || Routes.Index);
@@ -45,11 +49,21 @@ export default function SignIn() {
       <form onSubmit={handleSubmit}>
         <label>
           Email
-          <input name="email" type="text" value={inputs.email} onChange={handleChange} />
+          <input
+            name="email"
+            type="text"
+            value={inputs.email}
+            onChange={handleChange}
+          />
         </label>
         <label>
           Password
-          <input name="password" type="password" value={inputs.password} onChange={handleChange} />
+          <input
+            name="password"
+            type="password"
+            value={inputs.password}
+            onChange={handleChange}
+          />
         </label>
         <button type="submit">Sign in</button>
       </form>

@@ -24,7 +24,9 @@ const ListItemText: FC<Props> = ({ title, variant, option = [] }) => {
         <p>{title}</p>
       </div>
       <div className={styles.selectBlock}>
-        {variant === 'select' && <CustomSelect options={option} placeholder={' '} />}
+        {variant === 'select' && (
+          <CustomSelect options={option} placeholder={' '} />
+        )}
         {variant === 'input' && <TextField />}
         {variant === 'calendar' && <TextFieldCalendar />}
       </div>

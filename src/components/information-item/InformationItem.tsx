@@ -20,15 +20,24 @@ interface Props {
   size?: SizeType;
 }
 
-const InformationItem: FunctionComponent<Props> = ({ title, variant, option = [], size = 'normal' }) => {
-  const finalStyle = `${styles.content} ${size === 'large' ? styles.large : ''}`;
+const InformationItem: FunctionComponent<Props> = ({
+  title,
+  variant,
+  option = [],
+  size = 'normal',
+}) => {
+  const finalStyle = `${styles.content} ${
+    size === 'large' ? styles.large : ''
+  }`;
   return (
     <div className={styles.wrapBlockItem}>
       <div>
         <p>{title}</p>
       </div>
       <div className={finalStyle}>
-        {variant === 'select' && <CustomSelect options={option} placeholder={' '} />}
+        {variant === 'select' && (
+          <CustomSelect options={option} placeholder={' '} />
+        )}
         {variant === 'input' && <TextField />}
         {variant === 'calendar' && <TextFieldCalendar />}
       </div>

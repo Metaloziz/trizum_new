@@ -5,7 +5,9 @@ const AdminInfoList = () => {
   return (
     <div>
       {items.map((item) => {
-        return <AdminInfoItem key={item.id} title={item.title} value={item.value} />;
+        return (
+          <AdminInfoItem key={item.id} title={item.title} value={item.value} />
+        );
       })}
     </div>
   );

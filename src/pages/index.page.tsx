@@ -46,25 +46,25 @@ export default function Home() {
               skillTitle: 'Логика',
               color: 'red',
               id: +new Date().toDateString(),
-              percents: 95,
+              percents: 10,
             },
             {
               skillTitle: 'Внимание',
               color: 'violet',
               id: +new Date().toDateString(),
-              percents: 76,
+              percents: 8,
             },
             {
               skillTitle: 'Мышление',
               color: 'aquamarine',
               id: +new Date().toDateString(),
-              percents: 92,
+              percents: 7,
             },
             {
               skillTitle: 'Концентрация',
               color: 'yellow',
               id: +new Date().toDateString(),
-              percents: 86,
+              percents: 33,
             },
           ]}
         />

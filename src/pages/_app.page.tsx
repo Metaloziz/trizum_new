@@ -1,10 +1,12 @@
 import { NextComponentType, NextPageContext } from 'next';
 import { AppContext, AppProps as NextAppProps } from 'next/app';
 import { FC, useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 import { AuthGuard } from '@app/common/AuthGuard';
 import { UserAuth } from '@app/models/auth/UserAuth';
 import { Client } from '@app/models/user/Client';
 import { Manager } from '@app/models/user/Manager';
+import { store } from '@app/store';
 import Guard from '@components/guard/Guard';
 import Layout from '@components/layout/Layout';
 import PageLoading from '@components/page-loading/PageLoading';
@@ -18,14 +20,23 @@ import '@styles/normalize.scss';
 
 type AppProps<P = { auth?: UserAuth; profile?: Client | Manager }> = {
   pageProps: P;
-  Component: NextComponentType<NextPageContext, any, P> & { layout?: FC; guard?: AuthGuard };
+  Component: any;
+  // Component: NextComponentType<NextPageContext, any, P> & {
+  //   layout?: FC;
+  //   guard?: AuthGuard;
+  // };
 } & Omit<NextAppProps<P>, 'pageProps'>;
 
 function App({ Component, pageProps }: AppProps) {
   const [auth, setAuth] = useState<UserAuth | undefined>(pageProps.auth);
-  const [profile, setProfile] = useState<Client | Manager | undefined>(pageProps.profile);
-
-  const setUserAuthenticated = (data: { auth: UserAuth; profile: Client | Manager }) => {
+  const [profile, setProfile] = useState<Client | Manager | undefined>(
+    pageProps.profile,
+  );
+  
+  const setUserAuthenticated = (data: {
+    auth: UserAuth;
+    profile: Client | Manager;
+  }) => {
     setCookie(AuthKey, data.auth.token, 24 * 60 * 60);
     setAuth(data.auth);
     setProfile(data.profile);
@@ -54,16 +65,27 @@ function App({ Component, pageProps }: AppProps) {
   }, [socket]);
 
   return (
-    <PageContext.Provider value={{}}>
-      <AuthContext.Provider value={{ auth, profile, setAuth, setProfile, setUserAuthenticated, clearUserAuthenticated }}>
-        <PageLoading />
-        <Guard guard={Component.guard}>
-          <Layout layout={Component.layout}>
-            <Component {...pageProps} />
-          </Layout>
-        </Guard>
-      </AuthContext.Provider>
-    </PageContext.Provider>
+    <Provider store={store}>
+      <PageContext.Provider value={{}}>
+        <AuthContext.Provider
+          value={{
+            auth,
+            profile,
+            setAuth,
+            setProfile,
+            setUserAuthenticated,
+            clearUserAuthenticated,
+          }}
+        >
+          <PageLoading />
+          <Guard guard={Component.guard}>
+            <Layout layout={Component.layout}>
+              <Component {...pageProps} />
+            </Layout>
+          </Guard>
+        </AuthContext.Provider>
+      </PageContext.Provider>
+    </Provider>
   );
 }
 

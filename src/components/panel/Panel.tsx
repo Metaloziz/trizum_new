@@ -1,12 +1,10 @@
+import classNames from 'classnames';
 import { FC } from 'react';
+import { PanelProps } from '@app/components/ComponentsProps';
 import styles from './Panel.module.scss';
 
-interface Props {
-  children?: React.ReactNode;
-}
-
-const Panel: FC<Props> = ({ children }) => {
-  return <div className={styles.panel}>{children}</div>;
+const Panel: FC<PanelProps> = ({ children, className }) => {
+  return <div className={classNames(styles.panel, className)}>{children}</div>;
 };
 
 export default Panel;

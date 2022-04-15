@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import iconFlag from '@svgs/flag.svg';
 import styles from './CardStudent.module.scss';
 
-const CardStudent = () => {
+const CardStudent: FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.student}>

@@ -4,15 +4,22 @@ $font-face-base: Montserrat, sans-serif;
 // Base palette
 $color-black: #000;
 $color-white: #fff;
-$color-blue: #2E8DFD;
-$color-purple: #B793F0;
-$color-purple-lighter: #E5D8FA;
+$color-blue: #2e8dfd;
+$color-purple: #b793f0;
+$color-purple-lighter: #e5d8fa;
+$color-gray: #babec6;
+$color-aquamarine: #00b8d9;
+
+// Gradient palette
+$gradient-violet: linear-gradient(90deg, #7f28d9 0%, #7427cc 100%);
+$gradient-blue-darker: linear-gradient(90deg, #0439ad 0%, #38028f 100%);
 
 // Semantic colors
 $color-text: $color-black;
 $color-hamburger: $color-black;
 $color-button: $color-blue;
 $link-font-size: 14px;
+$color-secondary-text: $color-gray;
 
 // Breakpoints
 $breakpoint-mobile: 700px;

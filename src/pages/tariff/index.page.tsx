@@ -1,7 +1,11 @@
 import { useState, ChangeEvent } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
-import { newstatus, tariff, month } from '@components/moks-data/moks-data-tariff';
+import {
+  newstatus,
+  tariff,
+  month,
+} from '@components/moks-data/moks-data-tariff';
 import TextEditor from '@components/text-editor/TextEditor';
 import styles from './Tariff.module.scss';
 
@@ -21,10 +25,24 @@ const IndexPage = () => {
             </div>
             <div className={styles.infoBlock}>
               <div>
-                <InformationItem title={'Статус'} variant={'select'} option={newstatus} />
-                <InformationItem title={'Дата начала действия'} variant={'calendar'} />
-                <InformationItem title={'Дата окончания действия'} variant={'calendar'} />
-                <InformationItem title={'Тариф после'} variant={'select'} option={tariff} />
+                <InformationItem
+                  title={'Статус'}
+                  variant={'select'}
+                  option={newstatus}
+                />
+                <InformationItem
+                  title={'Дата начала действия'}
+                  variant={'calendar'}
+                />
+                <InformationItem
+                  title={'Дата окончания действия'}
+                  variant={'calendar'}
+                />
+                <InformationItem
+                  title={'Тариф после'}
+                  variant={'select'}
+                  option={tariff}
+                />
               </div>
               <div>
                 <InformationItem title={'Старая цена'} variant={'input'} />
@@ -43,44 +61,54 @@ const IndexPage = () => {
                 <div className={styles.inputTariff}>
                   <div>
                     <input
-                      type="radio"
-                      value="twoChildren"
-                      id="twoChildren"
+                      type={'radio'}
+                      value={'twoChildren'}
+                      id={'twoChildren'}
                       name={'currentRadioValue'}
                       onChange={handlerRadioChange}
                       checked={currentRadioValue === 'twoChildren'}
                     />
                   </div>
-                  <label htmlFor="twoChildren">Тариф для второго ребёнка</label>
+                  <label htmlFor={'twoChildren'}>
+                    Тариф для второго ребёнка
+                  </label>
                 </div>
                 <div className={styles.inputTariff}>
                   <div>
                     <input
-                      type="radio"
-                      value="registration"
-                      id="registration"
+                      type={'radio'}
+                      value={'registration'}
+                      id={'registration'}
                       name={'currentRadioValue'}
                       onChange={handlerRadioChange}
                       checked={currentRadioValue === 'registration'}
                     />
                   </div>
-                  <label htmlFor="registration">Тариф для новых клиентов (активируется при регистрации)</label>
+                  <label htmlFor={'registration'}>
+                    Тариф для новых клиентов (активируется при регистрации)
+                  </label>
                 </div>
                 <div className={styles.inputTariff}>
                   <div>
                     <input
-                      type="radio"
-                      value="firstPayment"
-                      id="firstPayment"
+                      type={'radio'}
+                      value={'firstPayment'}
+                      id={'firstPayment'}
                       name={'currentRadioValue'}
                       onChange={handlerRadioChange}
                       checked={currentRadioValue === 'firstPayment'}
                     />
                   </div>
-                  <label htmlFor="firstPayment">Тариф для новых клиентов (предполагается при первой оплате)</label>
+                  <label htmlFor={'firstPayment'}>
+                    Тариф для новых клиентов (предполагается при первой оплате)
+                  </label>
                 </div>
                 <div className={styles.selectTraffic}>
-                  <InformationItem title={'Сколько месяцев действует'} variant={'select'} option={month} />
+                  <InformationItem
+                    title={'Сколько месяцев действует'}
+                    variant={'select'}
+                    option={month}
+                  />
                 </div>
               </div>
             </div>

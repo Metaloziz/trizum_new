@@ -6,10 +6,15 @@ import styles from './TextEditor.module.scss';
 // eslint-disable-next-line import/order
 import dynamic from 'next/dynamic';
 
-const Editor = dynamic<EditorProps>(() => import('react-draft-wysiwyg').then((mod) => mod.Editor), { ssr: false });
+const Editor = dynamic<EditorProps>(
+  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  { ssr: false },
+);
 
 const TextEditor = () => {
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty(),
+  );
   useEffect(() => {
     console.log(editorState);
   }, [editorState]);
@@ -22,7 +27,16 @@ const TextEditor = () => {
         editorClassName={styles.editor}
         toolbarClassName={styles.toolbar}
         toolbar={{
-          options: ['inline', 'fontSize', 'textAlign', 'list', 'link', 'image', 'emoji', 'colorPicker'],
+          options: [
+            'inline',
+            'fontSize',
+            'textAlign',
+            'list',
+            'link',
+            'image',
+            'emoji',
+            'colorPicker',
+          ],
           inline: { options: ['bold', 'italic', 'underline'] },
           textAlign: {
             options: ['left', 'center'],

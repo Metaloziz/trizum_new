@@ -2,25 +2,17 @@ import { FC } from 'react';
 import styles from './Table.module.scss';
 
 interface IList {
-  id?: number;
-  studentName?: string;
-  teacherName?: string;
-  registrationDate?: string;
-  startDateAction?: string;
-  endDateAction?: string;
-  tariff?: string;
-  paymentDate?: string;
-  status?: string;
-  legalAddress?: string;
-  age?: number;
-  fullName?: string;
-  city?: string;
-  dataInfo?: string;
-  dataOgrn?: string;
-  paymentAccount?: string;
-  bankAccount?: string;
-  nameBank?: string;
-  infoBank?: string;
+  id: number;
+  studentName: string;
+  teacherName: string;
+  registrationDate: string;
+  startDateAction: string;
+  endDateAction: string;
+  tariff: string;
+  paymentDate: string;
+  status: string;
+  legalAddress: string;
+  age: number;
 }
 
 interface Props {
@@ -36,18 +28,23 @@ const Table: FC<Props> = ({ list, colNames }) => {
       {list !== undefined && list.length > 0 && (
         <table>
           <thead>
-            <tr className={styles.th}>
-              {colNames !== undefined && colNames.length > 0 && colNames.map((headerItem, index) => <th key={index}>{headerItem}</th>)}
-            </tr>
+          <tr className={styles.th}>
+            {' '}
+            {colNames !== undefined &&
+              colNames.length > 0 &&
+              colNames.map((headerItem, index) => (
+                <th key={index}>{headerItem}</th>
+              ))}
+          </tr>
           </thead>
           <tbody>
-            {Object.values(list).map((obj, index) => (
-              <tr key={index}>
-                {Object.values(obj).map((value, index2) => (
-                  <td key={index2}>{value}</td>
-                ))}
-              </tr>
-            ))}
+          {Object.values(list).map((obj, index) => (
+            <tr key={index}>
+              {Object.values(obj).map((value, index2) => (
+                <td key={index2}>{value}</td>
+              ))}
+            </tr>
+          ))}
           </tbody>
         </table>
       )}

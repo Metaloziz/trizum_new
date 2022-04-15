@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React from 'react';
-import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import iconFlag from '@svgs/icon-flag.svg';
 import iconTablet from '@svgs/icon-tablet.svg';
 import iconMonkey from '@svgs/monkey.svg';
@@ -13,7 +12,12 @@ const StudentInfo = () => {
       <ul className={styles.list}>
         <li>
           <span>
-            <Image src={iconMonkey} width={'25'} height={'25'} alt={'icon monkey'} />
+            <Image
+              src={iconMonkey}
+              width={'25'}
+              height={'25'}
+              alt={'icon monkey'}
+            />
           </span>
           Статус:
         </li>
@@ -41,7 +45,12 @@ const StudentInfo = () => {
       <ul className={styles.list}>
         <li>
           <span>
-            <Image src={iconTablet} width={'25'} height={'25'} alt={'icon tablet'} />
+            <Image
+              src={iconTablet}
+              width={'25'}
+              height={'25'}
+              alt={'icon tablet'}
+            />
           </span>
           Следующее занятие:
         </li>

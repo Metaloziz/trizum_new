@@ -15,7 +15,10 @@ const PagePersonalData = () => {
           <div className={styles.userPic}>
             <Image src={user} width={'126'} height={'126'} alt={'user'} />
           </div>
-          <div className={styles.userSetting} onClick={() => setShowModal(true)}>
+          <div
+            className={styles.userSetting}
+            onClick={() => setShowModal(true)}
+          >
             <Image src={setting} width={'25'} height={'25'} alt={'setting'} />
           </div>
         </div>

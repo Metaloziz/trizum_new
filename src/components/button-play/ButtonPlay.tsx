@@ -28,9 +28,18 @@ const ButtonPlay: FunctionComponent<ButtonPlayProps> = ({ title, size }) => {
   const finalStyle = `${styles.content} ${ButtonSize}`;
 
   return (
-    <div className={`${styles.buttonPlay} ${finalStyle}`} onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)}>
+    <div
+      className={`${styles.buttonPlay} ${finalStyle}`}
+      onMouseOver={() => setHover(true)}
+      onMouseOut={() => setHover(false)}
+    >
       <div>
-        <Image src={hover ? buttonPlayHover : buttonPlay} alt={'play'} width={'73'} height={'73'} />
+        <Image
+          src={hover ? buttonPlayHover : buttonPlay}
+          alt={'play'}
+          width={'73'}
+          height={'73'}
+        />
       </div>
       <div className={styles.playButton}>
         <p>{title}</p>

@@ -2,7 +2,10 @@ import { useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
-import { colNamesCurator, listCurator } from '@components/moks-data/moks-data-curator';
+import {
+  colNamesCurator,
+  listCurator,
+} from '@components/moks-data/moks-data-curator';
 import Pagination from '@components/pagination/Pagination';
 import Table from '@components/table/Table';
 import styles from './CuratorHome.module.scss';
@@ -13,7 +16,11 @@ const IndexPage = () => {
     <div className={styles.content}>
       <div className={styles.wrapStaticBlock}>
         <div>
-          <CustomButton type={'bigButton'} size={'large'} onClick={() => setShowModal(true)}>
+          <CustomButton
+            type={'bigButton'}
+            size={'large'}
+            onClick={() => setShowModal(true)}
+          >
             Добавить
           </CustomButton>
         </div>
@@ -44,8 +51,14 @@ const IndexPage = () => {
         <div className={styles.modalWrap}>
           <div className={styles.modalContent}>
             <div>
-              <InformationItem title={'Полное наименование'} variant={'input'} />
-              <InformationItem title={'Короткое наименование'} variant={'input'} />
+              <InformationItem
+                title={'Полное наименование'}
+                variant={'input'}
+              />
+              <InformationItem
+                title={'Короткое наименование'}
+                variant={'input'}
+              />
               <InformationItem title={'ИНН'} variant={'input'} />
               <InformationItem title={'Юр. адрес'} variant={'input'} />
               <InformationItem title={'Фактический адрес'} variant={'input'} />

@@ -8,13 +8,22 @@ const SearchByGroup = () => {
     <div className={styles.wrapper}>
       <div className={styles.selectGroup}>
         <div>
-          <CustomSelect options={[{ label: '1', value: '2' }]} placeholder={'Год'} />
+          <CustomSelect
+            options={[{ label: '1', value: '2' }]}
+            placeholder={'Год'}
+          />
         </div>
         <div>
-          <CustomSelect options={[{ label: '1', value: '2' }]} placeholder={'Месяц'} />
+          <CustomSelect
+            options={[{ label: '1', value: '2' }]}
+            placeholder={'Месяц'}
+          />
         </div>
         <div>
-          <CustomSelect options={[{ label: '1', value: '2' }]} placeholder={'Группа'} />
+          <CustomSelect
+            options={[{ label: '1', value: '2' }]}
+            placeholder={'Группа'}
+          />
         </div>
       </div>
       <CustomButton>Найти</CustomButton>

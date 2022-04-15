@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { HomeworksProps } from '@app/components/ComponentsProps';
+import { HomeworksProps } from '@app/types/ComponentsProps';
 import Homework from '@components/homework/Homework';
 import Panel from '@components/panel/Panel';
 import styles from './Homeworks.module.scss';

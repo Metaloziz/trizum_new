@@ -35,7 +35,7 @@ export default function SignIn() {
         result.roleId,
         router.locale,
       );
-  
+
       setUserAuthenticated({ auth, profile });
       router.push((router.query.redirect as string) || Routes.Index);
     } catch ({ message }) {

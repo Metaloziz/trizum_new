@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { SkillGrowProps } from '@app/components/ComponentsProps';
+import { SkillGrowProps } from '@app/types/ComponentsProps';
 import styles from './SkillGrow.module.scss';
 
 const SkillGrow: FC<SkillGrowProps> = ({ skillTitle, color, percents }) => {

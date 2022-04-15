@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { PanelProps } from '@app/components/ComponentsProps';
+import { PanelProps } from '@app/types/ComponentsProps';
 import styles from './Panel.module.scss';
 
 const Panel: FC<PanelProps> = ({ children, className }) => {

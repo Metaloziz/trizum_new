@@ -10,7 +10,7 @@ import styles from './Home.module.scss';
 
 export default function Home() {
   const { auth } = useAuthContext();
-  
+
   useEffect(() => {
     // Test
     async function test() {

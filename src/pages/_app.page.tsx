@@ -1,21 +1,24 @@
 import { NextComponentType, NextPageContext } from 'next';
-import { AppContext, AppProps as NextAppProps } from 'next/app';
+import {
+  AppContext as NextAppContext,
+  AppProps as NextAppProps,
+} from 'next/app';
 import { FC, useEffect, useState } from 'react';
-import { Provider } from 'react-redux';
 import { AuthGuard } from '@app/common/AuthGuard';
 import { UserAuth } from '@app/models/auth/UserAuth';
 import { Client } from '@app/models/user/Client';
 import { Manager } from '@app/models/user/Manager';
-import { store } from '@app/store';
 import Guard from '@components/guard/Guard';
 import Layout from '@components/layout/Layout';
 import PageLoading from '@components/page-loading/PageLoading';
 import { AuthKey } from '@constants/Common';
+import { AppContext, stores } from '@contexts/AppContext';
 import AuthContext from '@contexts/AuthContext';
 import PageContext from '@contexts/PageContext';
 import { useSocket } from '@contexts/SocketContext';
 import { checkUserAuthenticated } from '@utils/Auth';
 import { setCookie } from '@utils/Cookie';
+
 import '@styles/normalize.scss';
 
 type AppProps<P = { auth?: UserAuth; profile?: Client | Manager }> = {
@@ -65,7 +68,7 @@ function App({ Component, pageProps }: AppProps) {
   }, [socket]);
 
   return (
-    <Provider store={store}>
+    <AppContext.Provider value={stores}>
       <PageContext.Provider value={{}}>
         <AuthContext.Provider
           value={{
@@ -85,11 +88,11 @@ function App({ Component, pageProps }: AppProps) {
           </Guard>
         </AuthContext.Provider>
       </PageContext.Provider>
-    </Provider>
+    </AppContext.Provider>
   );
 }
 
-App.getInitialProps = async (appContext: AppContext) => {
+App.getInitialProps = async (appContext: NextAppContext) => {
   // Server side render
   const isSsr = appContext.router.isSsr !== false;
   if (isSsr) {

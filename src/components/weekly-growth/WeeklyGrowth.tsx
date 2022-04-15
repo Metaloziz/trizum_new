@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { WeeklyGrowthProps } from '@app/components/ComponentsProps';
+import { WeeklyGrowthProps } from '@app/types/ComponentsProps';
 import SkillGrow from './skill-grow/SkillGrow';
 import styles from './WeeklyGrowth.module.scss';
 

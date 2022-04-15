@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { HomeworkProps } from '@app/components/ComponentsProps';
+import { HomeworkProps } from '@app/types/ComponentsProps';
 import styles from './Homework.module.scss';
 
 const Homework: FC<HomeworkProps> = ({

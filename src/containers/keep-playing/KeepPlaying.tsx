@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { KeepPlayingProps } from '@app/components/ComponentsProps';
+import { KeepPlayingProps } from '@app/types/ComponentsProps';
 import KeepPlayingItem from '@components/keep-playing-item/KeepPlayingItem';
 import styles from './KeepPlaying.module.scss';
 

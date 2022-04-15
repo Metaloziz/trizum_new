@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { KeepPlayingItemProps } from '@app/components/ComponentsProps';
+import { KeepPlayingItemProps } from '@app/types/ComponentsProps';
 import ButtonPlay from '@components/button-play/ButtonPlay';
 import styles from './KeepPlayingItem.module.scss';
 

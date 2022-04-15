@@ -1,0 +1,171 @@
+.traffic {
+  margin: 33px 0 0 20px;
+  padding-right: 100px;
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+
+  .innerContent {
+    width: 80%;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    padding: 31px 45px 23px 45px;
+    box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+    border-radius: 30px;
+
+    .inputBlock input {
+      background: linear-gradient(0deg, #E6EEF8, #E6EEF8), #CFD8DC;
+      box-shadow: inset -4px -4px 12px rgba(253, 255, 255, 0.8), inset 4px 4px 12px rgba(187, 195, 206, 0.6);
+      border-radius: 10px;
+      border: none;
+      box-sizing: border-box;
+      outline: none;
+      padding: 13px 25px 14px;
+      font-family: 'Aqum';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 13px;
+      display: flex;
+      align-items: center;
+      color: #0F123F;
+      width: 50%;
+
+      &::placeholder {
+        color: #0F123F;
+      }
+    }
+
+    .infoBlock {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      margin: 25px 0 27px;
+
+      > div {
+        width: 48%;
+
+      }
+    }
+
+    .editorInfo {
+      padding-top: 22px;
+      box-sizing: border-box;
+      border-top: 1px solid #babec6;
+
+      h3 {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+        margin-bottom: 15px;
+      }
+
+      .editorBlock {
+        display: flex;
+        justify-content: space-between;
+
+        .choiceTariff {
+          background: #ffffff;
+          padding: 25px 60px 25px 25px;
+          box-sizing: border-box;
+          box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
+          border-radius: 10px;
+
+          .selectTraffic {
+            margin-top: 30px;
+          }
+
+          input {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+          }
+
+          label {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #000000;
+            margin-left: 19px;
+            cursor: pointer;
+          }
+
+          & .inputTariff + .inputTariff {
+            margin-top: 20px;
+          }
+
+          .inputTariff {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+
+        .editorWrapper {
+          width: 640px;
+          height: 230px;
+        }
+
+        .choiceTariff {
+          width: 40%
+        }
+      }
+    }
+  }
+
+  & .addTariff {
+    position: relative;
+    width: 18%;
+    background: #ffffff;
+    box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+    border-radius: 30px;
+    transition: all 0.5s ease;
+
+    &:hover {
+      background-color: #B3D4FF;
+    }
+
+    &:hover > div {
+      background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+      border: none;
+    }
+
+    &:hover button {
+      color: #ffffff;
+    }
+
+    & > div {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      box-sizing: border-box;
+      border: 3px solid #4778ec;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      & button {
+        font-size: 50px;
+        line-height: 35px;
+        color: #4778ec;
+        font-weight: 600;
+      }
+    }
+  }
+
+}
+
+.btnTraffic {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}

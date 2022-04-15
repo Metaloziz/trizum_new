@@ -18,9 +18,11 @@ interface Props {
   variant: VariantType;
   option?: Option[];
   size?: SizeType;
+  id?: string;
+  type?: string;
 }
 
-const InformationItem: FunctionComponent<Props> = ({ title, variant, option = [], size = 'normal' }) => {
+const InformationItem: FunctionComponent<Props> = ({ id, type, title, variant, option = [], size = 'normal' }) => {
   const finalStyle = `${styles.content} ${size === 'large' ? styles.large : ''}`;
   return (
     <div className={styles.wrapBlockItem}>
@@ -29,7 +31,7 @@ const InformationItem: FunctionComponent<Props> = ({ title, variant, option = []
       </div>
       <div className={finalStyle}>
         {variant === 'select' && <CustomSelect options={option} placeholder={' '} />}
-        {variant === 'input' && <TextField />}
+        {variant === 'input' && <TextField type={type} id={id} />}
         {variant === 'calendar' && <TextFieldCalendar />}
       </div>
     </div>

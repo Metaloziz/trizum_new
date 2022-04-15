@@ -15,12 +15,7 @@ interface Props {
 const CustomSelect: FC<Props> = ({ options, placeholder }) => {
   return (
     <div className={styles.selectWrap}>
-      <Select
-        instanceId={Symbol().toString()}
-        placeholder={placeholder}
-        options={options}
-        components={{ IndicatorSeparator: () => null }}
-      />
+      <Select instanceId={Date.now()} placeholder={placeholder} options={options} components={{ IndicatorSeparator: () => null }} />
     </div>
   );
 };

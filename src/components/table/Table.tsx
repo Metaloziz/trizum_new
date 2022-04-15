@@ -23,20 +23,7 @@ interface IList {
   infoBank?: string;
 }
 
-// interface INewList {
-//   fullName: string;
-//   city: string;
-//   legalAddress: string;
-//   dataInfo: string;
-//   dataOgrn: string;
-//   paymentAccount: string;
-//   bankAccount: string;
-//   nameBank: string;
-//   infoBank: string;
-// }
-
 interface Props {
-  // newList: INewList[];
   list: IList[];
   colNames?: string[];
   width?: string;

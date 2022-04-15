@@ -12,4 +12,8 @@ export const Routes = {
   Scenario: '/scenario',
   StatisticsTeachers: '/statistics-teachers',
   CuratorHome: '/curator-home',
+  AddHomework: '/add-homework',
+  Tariff: '/tariff',
+  AddNews: '/add-news',
+  AddText: '/add-text',
 };

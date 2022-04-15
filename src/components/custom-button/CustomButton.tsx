@@ -64,7 +64,7 @@ const CustomButton: FC<Props> = ({ type, onClick, children, size }) => {
   }
   const finalStyle = `${styles.customButton} ${typeButtonStyle} ${sizeButton}`;
   return (
-    <button className={finalStyle} onMouseOver={() => setShowHover(true)} onMouseOut={() => setShowHover(false)}>
+    <button className={finalStyle} onClick={onClick} onMouseOver={() => setShowHover(true)} onMouseOut={() => setShowHover(false)}>
       <span className={styles.arrowBtn}>{iconButton}</span>
       {children}
     </button>

@@ -17,7 +17,7 @@ const SearchByGroup = () => {
           <CustomSelect options={[{ label: '1', value: '2' }]} placeholder={'Группа'} />
         </div>
       </div>
-      <CustomButton>Найти</CustomButton>
+      <CustomButton size={'small'}>Найти</CustomButton>
     </div>
   );
 };

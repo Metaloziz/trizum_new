@@ -1,0 +1,25 @@
+.wrapper {
+  max-height: 800px;
+  width: 1053px;
+  padding: 35px 0;
+  background: #FFFFFF;
+  border-radius: 30px;
+}
+
+.divider {
+  height: 1px;
+  margin: 30px 56px 20px 56px;
+  border-top: 1px dashed #72CEF3;
+}
+
+.buttonAddParent {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.button {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}

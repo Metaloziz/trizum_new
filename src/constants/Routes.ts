@@ -10,4 +10,7 @@ export const Routes = {
   Payment: '/payment',
   Administrator: '/administrator',
   Scenario: '/scenario',
+  Classes: '/classes',
+  FranchiseeAdministratorMain: '/franchisee-administrator-main',
+  SettingGames: '/setting-games',
 };

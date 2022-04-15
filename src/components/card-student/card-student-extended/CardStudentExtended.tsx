@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+import CardStudentButtonGroup from '@components/card-student/card-student-for-teacher/card-student-button-group/CardStudentButtonGroup';
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import avatar from '@public/img/pervoklasnin.jpg';
-import iconFlag from '@svgs/flag.svg';
-import styles from './CardStudentForTeacher.module.scss';
+import iconSettings from '@svgs/icon-settings.svg';
+import styles from './CardStudentExtended.module.scss';
 
 const data = [
   { title: 'Статус', description: 'Ученик' },
@@ -16,12 +17,9 @@ const data = [
 
 interface Props {
   title: string;
-  flag?: boolean;
 }
 
-const CardStudentForTeacher: FC<Props> = ({ title, flag }) => {
-  const [showFlag, setShowFlag] = useState<boolean | undefined>(flag);
-
+const CardStudentExtended: FC<Props> = ({ title }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
@@ -39,12 +37,13 @@ const CardStudentForTeacher: FC<Props> = ({ title, flag }) => {
             ))}
           </div>
         </div>
+        <CardStudentButtonGroup />
       </div>
-      <CustomImageWrapper className={styles.flag} variant={'none'}>
-        {showFlag && <Image src={iconFlag} width={'33'} height={'33'} alt={'Flag'} />}
+      <CustomImageWrapper className={styles.settings}>
+        <Image src={iconSettings} width={'30'} height={'30'} alt={'Settings'} />
       </CustomImageWrapper>
     </div>
   );
 };
 
-export default CardStudentForTeacher;
+export default CardStudentExtended;

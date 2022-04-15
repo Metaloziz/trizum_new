@@ -1,4 +1,9 @@
+import TextEditor from '@components/text-editor/TextEditor';
+
 export default function TestPage() {
+  const str = `RGG
+  asdfasdf`;
+  console.log(str);
   return (
     <div
       style={{
@@ -10,6 +15,8 @@ export default function TestPage() {
         alignItems: 'center',
         marginTop: '20px',
       }}
-    />
+    >
+      <div>{str}</div>
+    </div>
   );
 }

@@ -10,13 +10,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: scroll;
 }
 
 .content {
+  max-height: 900px;
+  overflow-y: scroll;
   position: relative;
   min-width: 450px;
   border-radius: 30px;
   background-color: #fff;
+
+  /* полоса прокрутки (скроллбар) */
+  &::-webkit-scrollbar {
+    width: 0; /* ширина для вертикального скролла */
+  }
 }
 
 .close {

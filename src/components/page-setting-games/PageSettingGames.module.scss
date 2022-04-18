@@ -6,7 +6,7 @@
 .row {
   height: 40px;
   width: 100%;
-  margin-bottom: 25px;
+  margin-bottom: 16px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -98,6 +98,7 @@
   display: flex;
   border-radius: 30px;
   background: #FFFFFF;
+  box-shadow: 0px 0px 40px rgba(86, 89, 146, 0.15);
 
   & > div {
     margin-right: 77px;
@@ -154,7 +155,7 @@
   .rowSettings {
     display: flex;
     align-items: center;
-    margin-bottom: 38px;
+    margin-bottom: 16px;
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -192,8 +193,10 @@
 }
 
 .accrualOfPoints {
+  padding-top: 10px;
+
   h5 {
-    margin-bottom: 20px;
+    margin-bottom: 35px;
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -208,7 +211,7 @@
       label {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 20px;
+        margin-bottom: 16px;
 
         &:last-child {
           margin-bottom: 0;
@@ -234,7 +237,7 @@
   .executionConditions {
     width: 548px;
     height: 193px;
-    padding: 27px 20px;
+    padding: 16px 20px;
     background: #FFFFFF;
     border: 1px solid #2E8DFD;
     box-shadow: 0px 0px 40px rgba(86, 89, 146, 0.15);
@@ -275,14 +278,31 @@
 
 }
 
-.div3 {
-  height: 20px;
-  width: 200px;
-  border: 1px solid black;
+.commentsTitle {
+  margin-bottom: 17px;
+  font-family: 'Aqum', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: #0439AD;
 }
 
-.div4 {
-  height: 40px;
+.textEditorWrapper {
+  height: 230px;
   width: 1207px;
-  border: 1px solid black;
+  margin-bottom: 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 40px rgba(86, 89, 146, 0.15);
+  border-radius: 10px;
+}
+
+.buttonSaveWrapper {
+  width: 1207px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }

@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
+import CustomButton from '@components/custom-button/CustomButton';
+import TextEditor from '@components/text-editor/TextEditor';
 import buttonImage from '@svgs/arrow-onleft-btn.svg';
 import styles from './PageSettingGames.module.scss';
 
@@ -115,8 +117,13 @@ const PageSettingGames = () => {
         </div>
       </div>
 
-      <div className={styles.div3}></div>
-      <div className={styles.div4}></div>
+      <div className={styles.commentsTitle}>память и ритм</div>
+      <div className={styles.textEditorWrapper}>
+        <TextEditor />
+      </div>
+      <div className={styles.buttonSaveWrapper}>
+        <CustomButton>Сохранить</CustomButton>
+      </div>
     </div>
   );
 };

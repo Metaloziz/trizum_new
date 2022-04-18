@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import PagePersonalData from '@components/page-persona-data/PagePersonalData';
-
 export default function TestPage() {
   const [isModal, setModal] = useState(false);
   const setModalHandler = () => {
@@ -17,8 +15,6 @@ export default function TestPage() {
         alignItems: 'center',
         marginTop: '20px',
       }}
-    >
-      <PagePersonalData />
-    </div>
+    ></div>
   );
 }

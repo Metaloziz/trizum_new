@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import resultPic from '@public/result-pic.jpg';
-import exclude from '@public/svgs/exclude.svg';
+import exclude from '@svgs/exclude.svg';
 import styles from './TeacherItemResult.module.scss';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface TeacherMainItemProps {}
 
-const TeacherItemResult: FC<TeacherMainItemProps> = ({}) => {
+const IndexPage: FC<TeacherMainItemProps> = ({}) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.containerItem}>
@@ -40,4 +40,4 @@ const TeacherItemResult: FC<TeacherMainItemProps> = ({}) => {
   );
 };
 
-export default TeacherItemResult;
+export default IndexPage;

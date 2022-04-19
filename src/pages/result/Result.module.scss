@@ -1,8 +1,8 @@
 .wrapperResult {
   display: flex;
   justify-content: space-between;
-  margin-left: 20px;
-  margin-top: 13px;
+  padding: 30px 50px 20px 20px;
+  box-sizing: border-box;
   width: 60%;
   & .imageTeacher {
     width: 560px;
@@ -11,6 +11,7 @@
     border-radius: 30px;
     padding: 68px 77px;
     box-sizing: border-box;
+    margin-right: 54px;
   }
 
   & .textResult {

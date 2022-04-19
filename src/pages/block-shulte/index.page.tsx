@@ -2,7 +2,7 @@ import { FC } from 'react';
 import ButtonPlay from '@components/button-play/ButtonPlay';
 import styles from './BlockShulte.module.scss';
 
-const BlockShulte: FC = () => {
+const IndexPage: FC = () => {
   return (
     <div className={styles.wrapperBlock}>
       <div className={styles.container}>
@@ -10,7 +10,7 @@ const BlockShulte: FC = () => {
           <div>
             <img src="/table.jpg" alt="table" />
           </div>
-          <ButtonPlay title={'Играть'} />
+          <ButtonPlay title={'Играть'} size={'large'} />
         </div>
         <div className={styles.tableBtn}>
           <div></div>
@@ -30,4 +30,4 @@ const BlockShulte: FC = () => {
     </div>
   );
 };
-export default BlockShulte;
+export default IndexPage;

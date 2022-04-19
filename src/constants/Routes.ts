@@ -9,5 +9,10 @@ export const Routes = {
   Results: '/results',
   Payment: '/payment',
   Administrator: '/administrator',
-  Scenario: '/scenario',
+  Result: '/result',
+  TeacherMain: '/teacher-main',
+  TeacherItemResult: '/teacher-item-result',
+  Testing: '/testing',
+  PagePersonaData: '/persona-data',
+  BlockShulte: '/block-shulte',
 };

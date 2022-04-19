@@ -2,11 +2,11 @@ import Image from 'next/image';
 import { FC, useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
-import setting from '@public/svgs/settings.svg';
-import user from '@public/svgs/user.svg';
+import setting from '@svgs/settings.svg';
+import user from '@svgs/user.svg';
 import styles from './PagePersonalData.module.scss';
 
-const PagePersonalData: FC = () => {
+const IndexPage: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
@@ -59,4 +59,4 @@ const PagePersonalData: FC = () => {
   );
 };
 
-export default PagePersonalData;
+export default IndexPage;

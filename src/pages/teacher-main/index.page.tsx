@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import TeacherMainItem from '@components/teacher-main/teacher-main-item/TeacherMainItem';
+import TeacherMainItem from '@pages/teacher-main/teacher-main-item/TeacherMainItem';
 import styles from './TeacherMain.module.scss';
 
 const items = [
@@ -17,13 +17,13 @@ const items = [
   },
   {
     id: 1,
-    img: '/avatar.jpg',
+    img: '/teacher.jpg',
     title: 'Блок 3',
     text: 'А также явные признаки победы институционализации призывают нас к новым свершениям, которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники тоталитаризма в науке являются только методом политического участия и в равной степени предоставлены сами себе. ',
   },
 ];
 
-const TeacherMain: FunctionComponent = () => {
+const IndexPage: FunctionComponent = () => {
   return (
     <div className={styles.container}>
       {items.map((item) => {
@@ -33,4 +33,4 @@ const TeacherMain: FunctionComponent = () => {
   );
 };
 
-export default TeacherMain;
+export default IndexPage;

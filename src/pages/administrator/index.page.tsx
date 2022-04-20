@@ -75,7 +75,7 @@ const IndexPage = () => {
                 variant={'calendar'}
               />
               <div className={styles.btnBlock}>
-                <CustomButton type={'addexcel'}>Выгрузить в Excel</CustomButton>
+                <CustomButton type={'addExel'}>Выгрузить в Excel</CustomButton>
                 <CustomButton>Найти</CustomButton>
               </div>
             </div>

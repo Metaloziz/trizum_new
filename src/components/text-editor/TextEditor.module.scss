@@ -1,0 +1,28 @@
+.wrapper {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
+
+  .editor {
+    background-color: #ffffff;
+    height: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 0 0 10px 10px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .toolbar {
+    border-radius: 10px 10px 0 0;
+    background: #F8F8FF;
+    display: flex;
+    justify-content: space-between !important;
+
+    & > div > div {
+      background: #F8F8FF;
+    }
+  }
+}

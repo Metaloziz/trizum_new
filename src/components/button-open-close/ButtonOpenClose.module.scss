@@ -1,6 +1,6 @@
 .customButton {
   position: relative;
-  background: #59C252;;
+  background:  #59C252;
   box-sizing: border-box;
   padding: 12px 58px 11px 18px;
   color: $color-white;
@@ -13,17 +13,17 @@
   transition: all 0.5s ease;
 
   &:hover {
-    background: #429A3C
+    background: #429A3C;
   }
 
   .icon {
     position: absolute;
+    width: 35px;
+    height: 35px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 35px;
-    height: 35px;
     background-color: $color-white;
     border-radius: 50%;
     top: 50%;
@@ -33,10 +33,9 @@
 }
 
 .closed {
-  background: #DB5552;
+  background:  #DB5552;
 
   &:hover {
     background: #BD4D4B;
   }
 }
-

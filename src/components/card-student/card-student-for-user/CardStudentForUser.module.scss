@@ -1,0 +1,118 @@
+.wrapper {
+  position: relative;
+  width: 768px;
+  max-width: 768px;
+  min-height: 244px;
+  padding: 24px 0 0 0;
+  margin: 0 auto 10px auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
+  background-image: url('../../../../public/img/bg-program.jpg');
+  background-position: bottom center;
+
+  /* Mobile XS */
+  @media (max-width: 450px) {
+    width: 343px;
+    min-height: 200px;
+    padding-top: 12px;
+  }
+
+  .row {
+    display: flex;
+  }
+
+  .image {
+    width: 216px;
+    margin-right: 40px;
+    display: flex;
+    align-items: start;
+    justify-content: flex-end;
+
+    /* Mobile XS */
+    @media (max-width: 450px) {
+      width: auto;
+      justify-content: flex-start;
+      margin-left: 13px;
+      margin-right: 25px;
+    }
+  }
+
+  .mt15 {
+    margin-top: 15px;
+  }
+
+  .buttonGroup {
+    margin: 15px 0 0 30px;
+    padding-bottom: 20px;
+  }
+
+}
+
+.list {
+  margin: 0 0 4px 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  list-style: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+
+  &:last-child {
+    margin: 0;
+  }
+
+  &:nth-child(2) {
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #BABEC6;
+  }
+
+  /* Mobile XS */
+  @media (max-width: 450px) {
+    margin-bottom: 13px;
+  }
+
+  li {
+    margin-right: 14px;
+  }
+
+  li:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      margin-right: 8px;
+
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  li:last-child {
+    margin-right: 0;
+    color: #000000;
+  }
+}
+
+.social {
+  width: 200px;
+  height: 40px;
+  padding: 5px 10px;
+  margin-right: 23px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #FFFFFF;
+  border-radius: 25px;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  color: #FFFFFF;
+}

@@ -87,7 +87,6 @@
 
 .wrapContent {
   padding: 30px;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -95,46 +94,46 @@
   text-align: center;
 
   & p {
+    margin-bottom: 5px;
+    font-style: normal;
     font-weight: 500;
     font-size: 18px;
     line-height: 30px;
     color: #BABEC6;
-    margin-bottom: 5px;
   }
 
   & a {
+    display: block;
+    margin-top: 19px;
+    margin-bottom: 5px;
+    font-style: normal;
     font-weight: 500;
     font-size: 18px;
     line-height: 30px;
     color: #BABEC6;
-    margin-bottom: 5px;
-    display: block;
     text-decoration: underline;
-    margin-top: 19px;
   }
 
   & span {
     font-weight: 500;
     font-size: 24px;
-    line-height: 24px;
+    line-height: 30px;
     text-transform: uppercase;
     color: #2E8DFD;
   }
 
   & input {
-    border: 1px solid #BABEC6;
-    box-sizing: border-box;
-    border-radius: 26px;
     width: 266px;
-    text-align: center;
+    margin-top: 12px;
     padding: 9px 30px 10px;
+    border: 1px solid #BABEC6;
+    border-radius: 26px;
     font-weight: 400;
     font-size: 24px;
     line-height: 30px;
     text-transform: uppercase;
     color: #000000;
-    margin-top: 12px;
-    display: block;
+    text-align: center;
   }
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table } from '@components/scheduler/table/Table';
-import Table2 from '@components/scheduler/table2/Table2';
 
 const list = [
   { id: 1, name: 'Jon De', age: 28 },
@@ -411,8 +410,7 @@ const colNames = [
 const CustomScheduler = () => {
   return (
     <div>
-      {/*<Table list={list} colNames={colNames} />*/}
-      <Table2 data={data2} />
+      <Table list={list} colNames={colNames} />
     </div>
   );
 };

@@ -12,4 +12,7 @@ export const Routes = {
   Scenario: '/scenario',
   StatisticsTeachers: '/statistics-teachers',
   CuratorHome: '/curator-home',
+  Classes: '/classes',
+  FranchiseeAdministratorMain: '/franchisee-administrator-main',
+  SettingGames: '/setting-games',
 };

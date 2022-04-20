@@ -26,7 +26,7 @@ const SearchByGroup = () => {
           />
         </div>
       </div>
-      <CustomButton>Найти</CustomButton>
+      <CustomButton size={'small'}>Найти</CustomButton>
     </div>
   );
 };

@@ -13,13 +13,13 @@ const PagePersonalData = () => {
       <div className={styles.user}>
         <div className={styles.wrapperUser}>
           <div className={styles.userPic}>
-            <Image src={user} width={'126'} height={'126'} alt={'user'} />
+            <Image src={user} width="126" height="126" alt="user" />
           </div>
           <div
             className={styles.userSetting}
             onClick={() => setShowModal(true)}
           >
-            <Image src={setting} width={'25'} height={'25'} alt={'setting'} />
+            <Image src={setting} width="25" height="25" alt="settings" />
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@ const PagePersonalData = () => {
         <div className={styles.wrapContent}>
           <div>
             <p>Ваш телефон</p>
-            <span>+7 (965) 556 32 32</span>
+            <span>+7 (999) 444 44 44</span>
           </div>
           <div>
             <p>Временный код</p>
@@ -51,9 +51,7 @@ const PagePersonalData = () => {
           </div>
           <div>
             <CustomButton>Подтвердить изменения</CustomButton>
-            <div>
-              <a>Отправить повторно</a>
-            </div>
+            <a>Отправить повторно</a>
           </div>
         </div>
       </BasicModal>

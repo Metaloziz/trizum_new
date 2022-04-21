@@ -56,7 +56,7 @@ import 'antd/dist/antd.css';
 
 For example:
 ```
-import { Button, Space, DatePicker, Card } from 'antd';
+import { CustomButton, Space, DatePicker, Card } from 'antd';
 import { CiCircleFilled } from '@ant-design/icons';
 
 export default function Home() {
@@ -64,8 +64,8 @@ export default function Home() {
   return (
     <div style={{ padding: 100 }}>
       <Space direction="vertical">
-        <Button type="primary">Primary Button</Button>
-        <Button type="ghost">Ghost Button</Button>
+        <CustomButton type="primary">Primary CustomButton</CustomButton>
+        <CustomButton type="ghost">Ghost CustomButton</CustomButton>
         <DatePicker onChange={onChange} />
         <CiCircleFilled />
       </Space>

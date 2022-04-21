@@ -34,10 +34,39 @@
 
 .parents {
   background: linear-gradient(90deg, #B4DEFF 0%, #BEF5FF 100%);
-  color: #38028f;
+  color: #38028F;
 
   &:hover {
     background: #72CEF3;
+  }
+}
+
+.bigButton {
+  background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+  border-radius: 90px;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 700;
+
+  &:hover {
+    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  }
+}
+
+.addUser {
+  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+  &:hover {
+    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  }
+}
+
+.addExel {
+  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+  &:hover {
+    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
   }
 }
 
@@ -57,35 +86,5 @@
   & .arrowBtn {
     width: 35px;
     height: 35px;
-  }
-}
-
-.bigButton {
-  border-radius: 35px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 17px;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
-
-  &:hover {
-    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
-  }
-}
-
-.addUser {
-  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
-
-
-  &:hover {
-    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
-  }
-}
-
-.addexcel {
-  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
-
-  &:hover {
-    background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
   }
 }

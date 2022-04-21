@@ -33,12 +33,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <CardStudent
-          className={styles.cardStudent}
-          isExtended={false}
-          user="student"
-          title="Днепровский Александр Алексеевич"
-        />
+        <CardStudent title="Днепровский Александр Алексеевич" type="student" />
         <WeeklyGrowth
           className={styles.weeklyGrowth}
           weeklyGrowth={[

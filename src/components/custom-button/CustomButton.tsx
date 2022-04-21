@@ -8,7 +8,7 @@ import iconPlus from '@svgs/plus.svg';
 import iconPlusHover from '@svgs/plusHover.svg';
 import styles from './CustomButton.module.scss';
 
-type ButtonType = 'parents' | 'bigButton' | 'addUser' | 'addexcel';
+type ButtonType = 'parents' | 'bigButton' | 'addUser' | 'addExel';
 
 type ButtonSize = 'large' | 'small';
 
@@ -19,7 +19,7 @@ interface Props {
   onClick?: () => void;
 }
 
-const CustomButton: FC<Props> = ({ type, onClick, children, size }) => {
+const Button: FC<Props> = ({ children, size, type, onClick }) => {
   const [isShowHover, setShowHover] = useState<boolean>(false);
   let iconButton = (
     <Image src={buttonImage} alt={'arrow'} width={26} height={13} />
@@ -46,12 +46,12 @@ const CustomButton: FC<Props> = ({ type, onClick, children, size }) => {
         <Image src={iconPlus} alt={'plus'} width={18} height={18} />
       );
       break;
-    case 'addexcel':
-      typeButtonStyle = styles.addexcel;
+    case 'addExel':
+      typeButtonStyle = styles.addExel;
       iconButton = isShowHover ? (
-        <Image src={iconExelHover} alt={'excel'} width={14} height={19} />
+        <Image src={iconExelHover} alt={'exel'} width={14} height={19} />
       ) : (
-        <Image src={iconExel} alt={'excel'} width={14} height={19} />
+        <Image src={iconExel} alt={'exel'} width={14} height={19} />
       );
       break;
     default:
@@ -68,6 +68,7 @@ const CustomButton: FC<Props> = ({ type, onClick, children, size }) => {
     default:
       sizeButton = '';
   }
+
   const finalStyle = `${styles.customButton} ${typeButtonStyle} ${sizeButton}`;
   return (
     <button
@@ -82,4 +83,4 @@ const CustomButton: FC<Props> = ({ type, onClick, children, size }) => {
   );
 };
 
-export default CustomButton;
+export default Button;

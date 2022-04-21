@@ -16,4 +16,7 @@ export const Routes = {
   Tariff: '/tariff',
   AddNews: '/add-news',
   AddText: '/add-text',
+  Classes: '/classes',
+  FranchiseeAdministratorMain: '/franchisee-administrator-main',
+  SettingGames: '/setting-games',
 };

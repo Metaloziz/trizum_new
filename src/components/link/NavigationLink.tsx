@@ -14,17 +14,17 @@ interface Props {
 }
 
 const Navigation: FC<Props> = ({
-                                 link,
-                                 onClick,
-                                 className,
-                                 wrapperClassName,
-                                 imageClassName,
-                                 activeClassName,
-                               }) => {
+  link,
+  onClick,
+  className,
+  wrapperClassName,
+  imageClassName,
+  activeClassName,
+}) => {
   const router = useRouter();
   const { label, href, imageSrc } = link;
   const isActive = router.asPath === href;
-  
+
   const linkClassNames = classNames(className, isActive && activeClassName);
   return (
     <div className={wrapperClassName}>

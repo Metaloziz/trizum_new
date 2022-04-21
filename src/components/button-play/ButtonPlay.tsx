@@ -41,6 +41,7 @@ const ButtonPlay: FunctionComponent<ButtonPlayProps> = ({ title, size }) => {
           height={'73'}
         />
       </div>
+
       <div className={styles.playButton}>
         <p>{title}</p>
       </div>

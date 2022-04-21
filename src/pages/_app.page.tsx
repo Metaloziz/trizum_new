@@ -32,7 +32,7 @@ function App({ Component, pageProps }: AppProps) {
   const [profile, setProfile] = useState<Client | Manager | undefined>(
     pageProps.profile,
   );
-  
+
   const setUserAuthenticated = (data: {
     auth: UserAuth;
     profile: Client | Manager;

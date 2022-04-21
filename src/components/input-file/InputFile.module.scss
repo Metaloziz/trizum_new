@@ -1,0 +1,38 @@
+.uploadFile {
+  height: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
+  box-sizing: border-box;
+  position: relative;
+
+  & .textFile {
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #898989;
+  }
+
+  & .fileUpp {
+    display: flex;
+    cursor: pointer;
+    justify-content: end;
+    align-items: center;
+    z-index: 10;
+    height: 100%;
+
+    & input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+
+      border: 0;
+    }
+  }
+}

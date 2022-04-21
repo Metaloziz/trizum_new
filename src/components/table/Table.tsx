@@ -16,7 +16,7 @@ interface IList {
 }
 
 interface Props {
-  list: IList[];
+  list?: IList[];
   colNames?: string[];
   width?: string;
   height?: string;
@@ -28,23 +28,23 @@ const Table: FC<Props> = ({ list, colNames }) => {
       {list !== undefined && list.length > 0 && (
         <table>
           <thead>
-          <tr className={styles.th}>
-            {' '}
-            {colNames !== undefined &&
-              colNames.length > 0 &&
-              colNames.map((headerItem, index) => (
-                <th key={index}>{headerItem}</th>
-              ))}
-          </tr>
+            <tr className={styles.th}>
+              {' '}
+              {colNames !== undefined &&
+                colNames.length > 0 &&
+                colNames.map((headerItem, index) => (
+                  <th key={index}>{headerItem}</th>
+                ))}
+            </tr>
           </thead>
           <tbody>
-          {Object.values(list).map((obj, index) => (
-            <tr key={index}>
-              {Object.values(obj).map((value, index2) => (
-                <td key={index2}>{value}</td>
-              ))}
-            </tr>
-          ))}
+            {Object.values(list).map((obj, index) => (
+              <tr key={index}>
+                {Object.values(obj).map((value, index2) => (
+                  <td key={index2}>{value}</td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       )}

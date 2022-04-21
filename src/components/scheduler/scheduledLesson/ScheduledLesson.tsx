@@ -13,16 +13,16 @@ const ScheduledLesson = () => {
       <div className={styles.icons}>
         <span>
           <Image
-            src='/img/delete.svg'
-            alt='Delete Icon'
+            src="/img/delete.svg"
+            alt="Delete Icon"
             width={20}
             height={20}
           />
         </span>
         <span>
           <Image
-            src='/img/settings.svg'
-            alt='Settings Icon'
+            src="/img/settings.svg"
+            alt="Settings Icon"
             width={20}
             height={20}
           />

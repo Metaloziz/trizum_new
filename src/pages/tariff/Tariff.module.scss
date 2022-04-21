@@ -1,12 +1,27 @@
 .traffic {
-  margin: 33px 0 0 20px;
-  padding-right: 100px;
+  padding: 33px 100px 20px 20px;
   box-sizing: border-box;
+
+  @media (max-width: 1600px) {
+    padding-right: 50px;
+  }
+
+  @media (max-width: 1600px) {
+    padding-right: 20px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 30px 10px 30px;
+  }
 }
 
 .content {
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
 
   .innerContent {
     width: 80%;
@@ -15,6 +30,14 @@
     padding: 31px 45px 23px 45px;
     box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
     border-radius: 30px;
+
+    @media (max-width: 1200px) {
+      width: 100%;
+    }
+
+    @media (max-width: 700px) {
+      padding: 30px 15px;
+    }
 
     .inputBlock input {
       background: linear-gradient(0deg, #E6EEF8, #E6EEF8), #CFD8DC;
@@ -34,6 +57,10 @@
       color: #0F123F;
       width: 50%;
 
+      @media (max-width: 1200px) {
+        width: 100%;
+      }
+
       &::placeholder {
         color: #0F123F;
       }
@@ -42,11 +69,24 @@
     .infoBlock {
       display: flex;
       justify-content: space-between;
-      width: 80%;
+      width: 90%;
       margin: 25px 0 27px;
 
+      @media (max-width: 1700px) {
+        width: 100%;
+      }
+
+      @media (max-width: 1200px) {
+        flex-direction: column;
+      }
+
       > div {
-        width: 48%;
+        width: 46%;
+
+        @media (max-width: 1200px) {
+          width: 100%;
+          margin-bottom: 15px;
+        }
 
       }
     }
@@ -68,12 +108,35 @@
         display: flex;
         justify-content: space-between;
 
+        @media (max-width: 1500px) {
+          flex-direction: column;
+        }
+
         .choiceTariff {
           background: #ffffff;
           padding: 25px 60px 25px 25px;
           box-sizing: border-box;
           box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
           border-radius: 10px;
+          width: 40%;
+
+          @media (max-width: 1800px) {
+            padding-right: 25px;
+          }
+
+          @media (max-width: 1500px) {
+            width: 80%;
+            margin: 0 auto;
+          }
+
+          @media (max-width: 1100px) {
+            width: 95%;
+          }
+
+          @media (max-width: 440px) {
+            width: 100%;
+            padding: 25px 15px;
+          }
 
           .selectTraffic {
             margin-top: 30px;
@@ -108,10 +171,29 @@
         .editorWrapper {
           width: 640px;
           height: 230px;
-        }
+          margin-right: 5px;
 
-        .choiceTariff {
-          width: 40%
+          @media (max-width: 1700px) {
+            width: 540px;
+          }
+
+          @media (max-width: 1500px) {
+            width: 640px;
+            margin: 0 auto 20px;
+          }
+
+          @media (max-width: 1100px) {
+            width: 500px;
+          }
+
+          @media (max-width: 600px) {
+            width: 350px;
+            height: auto;
+          }
+
+          @media (max-width: 440px) {
+            width: 240px;
+          }
         }
       }
     }
@@ -124,6 +206,16 @@
     box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
     border-radius: 30px;
     transition: all 0.5s ease;
+
+    @media (max-width: 1200px) {
+      width: 100%;
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 5px;
+      box-sizing: border-box;
+    }
 
     &:hover {
       background-color: #B3D4FF;
@@ -153,6 +245,11 @@
       justify-content: center;
       cursor: pointer;
 
+      @media (max-width: 1200px) {
+        position: static;
+        transform: translate(0);
+      }
+
       & button {
         font-size: 50px;
         line-height: 35px;
@@ -168,4 +265,8 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
+
+  @media (max-width: 1200px) {
+    justify-content: center;
+  }
 }

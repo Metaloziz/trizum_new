@@ -13,14 +13,14 @@ const PageLoading: FC = () => {
     router.events.on(`routeChangeStart`, onLoadStart);
     router.events.on(`routeChangeComplete`, onLoadEnd);
     router.events.on(`routeChangeError`, onLoadEnd);
-  
+
     return () => {
       router.events.off(`routeChangeStart`, onLoadStart);
       router.events.off(`routeChangeComplete`, onLoadEnd);
       router.events.off(`routeChangeError`, onLoadEnd);
     };
   });
-  
+
   return (
     <div className={classNames(styles.overlay, { [styles.show]: isLoading })} />
   );

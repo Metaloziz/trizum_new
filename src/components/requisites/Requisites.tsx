@@ -14,7 +14,6 @@ const Requisites: FC<Props> = ({}) => {
       <div className={styles.panelBlock}>
         <Panel>Реквизиты для оплаты</Panel>
       </div>
-
       <div className={styles.info}>
         <div>
           <div className={styles.infoText}>

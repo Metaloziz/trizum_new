@@ -22,7 +22,7 @@ const IndexPage = () => {
               option={groupLevel}
             />
           </div>
-          <div>
+          <div className={styles.editorWrapper}>
             <h3>Описание</h3>
             <TextEditor />
           </div>

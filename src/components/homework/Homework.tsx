@@ -4,10 +4,10 @@ import { HomeworkProps } from '@app/types/ComponentsProps';
 import styles from './Homework.module.scss';
 
 const Homework: FC<HomeworkProps> = ({
-                                       gameTitle,
-                                       description: { needToDo, minutesLeft, tips },
-                                       className,
-                                     }) => {
+  gameTitle,
+  description: { needToDo, minutesLeft, tips },
+  className,
+}) => {
   return (
     <div className={classNames(styles.container, className)}>
       <h3 className={classNames('h3', styles.gameTitle)}>{gameTitle}</h3>

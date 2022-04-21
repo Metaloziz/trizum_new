@@ -13,11 +13,11 @@ interface Props {
 }
 
 const Step: FC<Props> = ({
-                           initialPage,
-                           marginPagesDisplayed,
-                           pageCount,
-                           pageRangeDisplayed,
-                         }) => {
+  initialPage,
+  marginPagesDisplayed,
+  pageCount,
+  pageRangeDisplayed,
+}) => {
   {
     /* <ReactPaginate
     initialPage={initialPage}

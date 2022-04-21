@@ -17,10 +17,10 @@ const Account: FC = () => {
           [styles.activeNotification]: activeNotification,
         })}
       >
-        <Image src={avatar} width={53} height={53} alt='avatar' />
+        <Image src={avatar} width={53} height={53} alt="avatar" />
         <div className={styles.notification}></div>
       </button>
-  
+
       <button className={styles.logout}>
         <Link href={Signout}>Выйти из аккаунта</Link>
       </button>

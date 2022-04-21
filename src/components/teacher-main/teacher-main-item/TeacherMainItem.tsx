@@ -9,10 +9,10 @@ interface TeacherMainItemProps {
 }
 
 const TeacherMainItem: FunctionComponent<TeacherMainItemProps> = ({
-                                                                    title,
-                                                                    img,
-                                                                    text,
-                                                                  }) => {
+  title,
+  img,
+  text,
+}) => {
   return (
     <div className={styles.containerItem}>
       <div className={styles.itemText}>

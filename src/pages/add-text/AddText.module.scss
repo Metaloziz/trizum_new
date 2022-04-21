@@ -2,61 +2,33 @@
   padding: 33px 100px 20px 20px;
   box-sizing: border-box;
 
+  @media (max-width: 1600px) {
+    padding-right: 50px;
+  }
+
+  @media (max-width: 1000px) {
+    padding-right: 20px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 30px 10px;
+  }
+
   h1 {
     font-family: 'Aqum';
     font-weight: 700;
     font-size: 24px;
-    line-height: 23px;
+    line-height: 27px;
     background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 28px;
-  }
 
-  .inputFile {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    & > div {
-      width: 48%;
-    }
-
-    input[type='file'] {
-      opacity: 0;
-      visibility: hidden;
-      position: absolute;
-    }
-
-    p {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 17px;
-      color: #000000;
-    }
-
-    span {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 17px;
-      color: #898989;
-    }
-
-    label {
-      background-color: #ffffff;
-      border-radius: 10px;
-      display: block;
-      box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
-      border: none;
-      outline: none;
-      box-sizing: border-box;
-      padding: 12px 13px 13px;
-      width: 100%;
-      cursor: pointer;
-      margin: 0 auto;
+    @media (max-width: 550px) {
+      font-size: 16px;
+      line-height: 20px;
     }
   }
-
 
   .inputWrap {
     & > div {
@@ -75,6 +47,10 @@
   .wrapContent {
     width: 640px;
 
+    @media (max-width: 1000px) {
+      width: 100%;
+    }
+
     .btnBlock {
       margin-top: 40px;
     }
@@ -92,6 +68,11 @@
         margin-left: auto;
         margin-top: 24px;
         cursor: pointer;
+
+        @media (max-width: 550px) {
+          width: 100%;
+          text-align: right;
+        }
       }
     }
   }
@@ -102,10 +83,34 @@
     border-radius: 30px;
     padding: 62px 43px 42px;
     box-sizing: border-box;
+
+    @media (max-width: 550px) {
+      padding: 35px 10px;
+    }
   }
 
   .editorBlock {
     margin-top: 30px;
+
+    .editorWrapper {
+      width: 640px;
+
+      @media (max-width: 1000px) {
+        width: 540px;
+      }
+
+      @media (max-width: 700px) {
+        width: 420px;
+      }
+
+      @media (max-width: 550px) {
+        width: 390px;
+      }
+
+      @media (max-width: 550px) {
+        width: 270px;
+      }
+    }
 
     h3 {
       font-weight: 600;

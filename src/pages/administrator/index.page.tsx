@@ -80,7 +80,9 @@ const IndexPage = () => {
               </div>
             </div>
           </div>
-          <Table list={list} colNames={colNames} />
+          <div className={styles.tableContent}>
+            <Table list={list} colNames={colNames} />
+          </div>
         </div>
         <div className={styles.rightBlock}>
           <AdminInfoList />

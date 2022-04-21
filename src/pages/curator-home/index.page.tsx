@@ -15,7 +15,7 @@ const IndexPage = () => {
   return (
     <div className={styles.content}>
       <div className={styles.wrapStaticBlock}>
-        <div>
+        <div className={styles.bigButton}>
           <CustomButton
             type={'bigButton'}
             size={'large'}
@@ -24,12 +24,12 @@ const IndexPage = () => {
             Добавить
           </CustomButton>
         </div>
-        <div>
+        <div className={styles.infoContent}>
           <InformationItem title={'Полное наименование'} variant={'input'} />
           <InformationItem title={'Короткое наименование'} variant={'input'} />
           <InformationItem title={'ИНН'} variant={'input'} />
         </div>
-        <div>
+        <div className={styles.infoContent}>
           <InformationItem title={'Телефон'} variant={'input'} />
           <InformationItem title={'E-mail'} variant={'input'} />
           <InformationItem title={'Город'} variant={'input'} />
@@ -47,42 +47,50 @@ const IndexPage = () => {
       <div className={styles.paginationCuratorBlock}>
         <Pagination initialPage={1} pageCount={30} />
       </div>
-      <BasicModal visibility={showModal} changeVisibility={setShowModal}>
-        <div className={styles.modalWrap}>
-          <div className={styles.modalContent}>
-            <div>
-              <InformationItem
-                title={'Полное наименование'}
-                variant={'input'}
-              />
-              <InformationItem
-                title={'Короткое наименование'}
-                variant={'input'}
-              />
-              <InformationItem title={'ИНН'} variant={'input'} />
-              <InformationItem title={'Юр. адрес'} variant={'input'} />
-              <InformationItem title={'Фактический адрес'} variant={'input'} />
-              <InformationItem title={'Наименование школы'} variant={'input'} />
-              <InformationItem title={'ОГРН'} variant={'input'} />
-              <InformationItem title={'КПП'} variant={'input'} />
-              <InformationItem title={'Расчётный счёт'} variant={'input'} />
+      <div className={styles.modalContent}>
+        <BasicModal visibility={showModal} changeVisibility={setShowModal}>
+          <div className={styles.modalWrap}>
+            <div className={styles.modalContent}>
+              <div>
+                <InformationItem
+                  title={'Полное наименование'}
+                  variant={'input'}
+                />
+                <InformationItem
+                  title={'Короткое наименование'}
+                  variant={'input'}
+                />
+                <InformationItem title={'ИНН'} variant={'input'} />
+                <InformationItem title={'Юр. адрес'} variant={'input'} />
+                <InformationItem
+                  title={'Фактический адрес'}
+                  variant={'input'}
+                />
+                <InformationItem
+                  title={'Наименование школы'}
+                  variant={'input'}
+                />
+                <InformationItem title={'ОГРН'} variant={'input'} />
+                <InformationItem title={'КПП'} variant={'input'} />
+                <InformationItem title={'Расчётный счёт'} variant={'input'} />
+              </div>
+              <div>
+                <InformationItem title={'Телефон'} variant={'input'} />
+                <InformationItem title={'E-mail'} variant={'input'} />
+                <InformationItem title={'Город'} variant={'input'} />
+                <InformationItem title={'КПП'} variant={'input'} />
+                <InformationItem title={'Корр. счёт банка'} variant={'input'} />
+                <InformationItem title={'БИК банка'} variant={'input'} />
+                <InformationItem title={'ИНН банка'} variant={'input'} />
+                <InformationItem title={'КПП банка'} variant={'input'} />
+              </div>
             </div>
-            <div>
-              <InformationItem title={'Телефон'} variant={'input'} />
-              <InformationItem title={'E-mail'} variant={'input'} />
-              <InformationItem title={'Город'} variant={'input'} />
-              <InformationItem title={'КПП'} variant={'input'} />
-              <InformationItem title={'Корр. счёт банка'} variant={'input'} />
-              <InformationItem title={'БИК банка'} variant={'input'} />
-              <InformationItem title={'ИНН банка'} variant={'input'} />
-              <InformationItem title={'КПП банка'} variant={'input'} />
+            <div className={styles.btnBlock}>
+              <CustomButton>Сохранить</CustomButton>
             </div>
           </div>
-          <div className={styles.btnBlock}>
-            <CustomButton>Сохранить</CustomButton>
-          </div>
-        </div>
-      </BasicModal>
+        </BasicModal>
+      </div>
     </div>
   );
 };

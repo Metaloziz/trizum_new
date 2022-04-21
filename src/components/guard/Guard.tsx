@@ -19,7 +19,7 @@ function checkGuardAccess(guard?: AuthGuard, auth?: UserAuth) {
       (guard.allowAuth &&
         auth &&
         ((guard.roleIds?.length &&
-            !guard.roleIds.includes(auth.roleId as RoleId)) ||
+          !guard.roleIds.includes(auth.roleId as RoleId)) ||
           (guard.excludeRoleIds?.length &&
             guard.excludeRoleIds.includes(auth.roleId as RoleId)))))
   ) {

@@ -7,10 +7,10 @@ type Props = {
 };
 
 const WithClassName = ({
-                         Component,
-                         className,
-                         ...props
-                       }: Props): JSX.Element => {
+  Component,
+  className,
+  ...props
+}: Props): JSX.Element => {
   return <Component className={className} {...props} />;
 };
 

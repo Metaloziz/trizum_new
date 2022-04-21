@@ -7,7 +7,7 @@ const SkillGrow: FC<SkillGrowProps> = ({ skillTitle, color, percents }) => {
   const indicatorStyle = {
     height: `${1.8 * percents}px`,
   };
-  
+
   return (
     <div className={styles.container}>
       <div

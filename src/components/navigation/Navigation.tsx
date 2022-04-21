@@ -12,13 +12,13 @@ interface Props {
 }
 
 const Navigation: FC<Props> = ({
-                                 links,
-                                 onClick,
-                                 linkClassName,
-                                 linkWrapperClassName,
-                                 linkImageClassName,
-                                 activeClassName,
-                               }) => (
+  links,
+  onClick,
+  linkClassName,
+  linkWrapperClassName,
+  linkImageClassName,
+  activeClassName,
+}) => (
   <nav>
     {links.map((link, i: number) => (
       <NavigationLink

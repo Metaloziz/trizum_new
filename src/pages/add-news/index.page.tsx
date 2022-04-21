@@ -9,23 +9,15 @@ const IndexPage = () => {
       <div className={styles.innerContent}>
         <div className={styles.wrapContent}>
           <h1>Добавление новости</h1>
-          <div className={`${styles.inputWrap} ${styles.inputFile}`}>
-            <div>
-              <p>Изображение новости</p>
-            </div>
-            <div>
-              <input type={'file'} placeholder={'image.png'} id={'file'} />
-              <label htmlFor="file">
-                <span>image.png</span>
-              </label>
-            </div>
+          <div className={styles.inputWrap}>
+            <InformationItem variant={'file'} title={'Изображение новости'} />
           </div>
           <div className={styles.inputWrap}>
             <InformationItem title={'Заголовок новости'} variant={'input'} />
           </div>
           <div className={styles.editorBlock}>
             <h3>Описание</h3>
-            <div>
+            <div className={styles.editorWrapper}>
               <TextEditor />
             </div>
           </div>

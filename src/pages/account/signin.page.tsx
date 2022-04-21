@@ -50,8 +50,8 @@ export default function SignIn() {
         <label>
           Email
           <input
-            name='email'
-            type='text'
+            name="email"
+            type="text"
             value={inputs.email}
             onChange={handleChange}
           />
@@ -59,13 +59,13 @@ export default function SignIn() {
         <label>
           Password
           <input
-            name='password'
-            type='password'
+            name="password"
+            type="password"
             value={inputs.password}
             onChange={handleChange}
           />
         </label>
-        <button type='submit'>Sign in</button>
+        <button type="submit">Sign in</button>
       </form>
     </>
   );

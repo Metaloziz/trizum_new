@@ -31,13 +31,13 @@ export default function Home() {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-  
+
       <main className={styles.main}>
         <CardStudent
           className={styles.cardStudent}
           isExtended={false}
-          user='student'
-          title='Днепровский Александр Алексеевич'
+          user="student"
+          title="Днепровский Александр Алексеевич"
         />
         <WeeklyGrowth
           className={styles.weeklyGrowth}

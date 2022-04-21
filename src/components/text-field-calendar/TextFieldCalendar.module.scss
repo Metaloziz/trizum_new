@@ -1,12 +1,19 @@
 .textFieldCalendar {
   display: flex;
-  margin-left: auto;
   width: 192px;
   align-items: center;
   justify-content: space-between;
 
+  @media (max-width: 440px) {
+    width: auto;
+  }
+
   & > div:first-child {
     width: 140px;
+
+    @media (max-width: 440px) {
+      margin-right: 10px;
+    }
   }
 
   & input {

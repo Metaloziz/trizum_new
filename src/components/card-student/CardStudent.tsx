@@ -28,20 +28,20 @@ interface Props {
 }
 
 const CardStudent: FC<Props> = ({
-                                  className,
-                                  title,
-                                  user,
-                                  flag = false,
-                                  size = 'normal',
-                                  settings = false,
-                                  isExtended = true,
-                                }) => {
+  className,
+  title,
+  user,
+  flag = false,
+  size = 'normal',
+  settings = false,
+  isExtended = true,
+}) => {
   const [showFlag] = useState<boolean>(flag);
   const [showSettings] = useState<boolean>(settings);
-  
+
   const sizeStyle = size === 'large' ? styles.larg : '';
   const finalStyle = `${styles.wrapper} ${sizeStyle}`;
-  
+
   return (
     <div className={classNames(finalStyle, className)}>
       <div className={styles.row}>

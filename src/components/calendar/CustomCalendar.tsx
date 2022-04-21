@@ -14,7 +14,7 @@ const CustomCalendar = () => {
         className={styles.calendarImage}
         onClick={() => setShowCalendar(!showCalendar)}
       >
-        <Image src={calendarImage} alt='calendar' width={30} height={30} />
+        <Image src={calendarImage} alt="calendar" width={30} height={30} />
         <div className={styles.blockCalendar}>
           {showCalendar && (
             <Calendar

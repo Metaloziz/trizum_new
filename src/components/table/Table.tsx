@@ -16,7 +16,8 @@ interface IList {
 }
 
 interface Props {
-  list?: IList[];
+  // list?: IList[];
+  list?: any[];
   colNames?: string[];
   width?: string;
   height?: string;
@@ -41,7 +42,7 @@ const Table: FC<Props> = ({ list, colNames }) => {
             {Object.values(list).map((obj, index) => (
               <tr key={index}>
                 {Object.values(obj).map((value, index2) => (
-                  <td key={index2}>{value}</td>
+                  <td key={index2}>{value as any}</td>
                 ))}
               </tr>
             ))}

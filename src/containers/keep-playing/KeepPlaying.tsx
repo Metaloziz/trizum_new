@@ -1,4 +1,4 @@
-import { KeepPlayingProps } from '@app/components/ComponentsProps';
+import { KeepPlayingProps } from '@app/types/ComponentsProps';
 import classNames from 'classnames';
 import { FC } from 'react';
 import KeepPlayingItem from '@components/keep-playing-item/KeepPlayingItem';

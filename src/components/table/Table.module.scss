@@ -39,9 +39,6 @@
 
   & > tr, th {
     vertical-align: top;
-    word-wrap: break-word;
-    word-break: break-word;
-    overflow-wrap: break-word;
   }
 
   & th {
@@ -66,6 +63,8 @@
     color: #0f123f;
     padding: 20px 10px;
     box-sizing: border-box;
+    //word-break: break-word;
+    //overflow-wrap: break-word;
 
     @media (max-width: 1400px) {
       padding: 15px 5px;

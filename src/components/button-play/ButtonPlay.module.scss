@@ -1,70 +1,163 @@
-.container {
+//.container {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  justify-content: center;
+//  border: 3px solid #f3eefd;
+//  box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
+//  border-radius: 50%;
+//  background-color: $color-white;
+//  width: 220px;
+//  height: 220px;
+//
+//  &:hover {
+//    background: linear-gradient(0deg, #9181fa, #9181fa), #cfd8dc;
+//
+//    .text {
+//      color: $color-white;
+//      background: none;
+//    }
+//
+//    .img {
+//      background-image: initial;
+//      background-color: $color-white;
+//    }
+//  }
+//
+//  & small {
+//    box-shadow: none;
+//    filter: drop-shadow(0px 20px 70px rgba(86, 89, 146, 0.1));
+//    width: 60px;
+//    height: 60px;
+//
+//    &:hover {
+//      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+//    }
+//
+//    .text {
+//      display: none;
+//    }
+//
+//    .img {
+//      width: 17px;
+//      height: 20px;
+//      margin-bottom: 0;
+//      margin-left: 3px;
+//    }
+//  }
+//}
+//
+//.img {
+//  margin-bottom: 13px;
+//  margin-left: 5px;
+//  width: 73px;
+//  height: 75px;
+//  background-image: linear-gradient(90deg, #7f28d9 0%, #7427cc 100%);
+//  mask-image: url('../../../public/svgs/button-play.svg');
+//  mask-size: contain;
+//  mask-repeat: no-repeat;
+//}
+//
+//.text {
+//  @include gradient-text(linear-gradient(90deg, #7f28d9 0%, #7427cc 100%));
+//
+//  margin: 0;
+//  font-weight: 700;
+//  font-size: 1.5rem;
+//  line-height: 1;
+//  text-transform: uppercase;
+//  font-family: Aqum;
+//}
+
+.buttonPlay {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(0deg, #ffffff, #ffffff), #cfd8dc;
   border: 3px solid #f3eefd;
+  box-sizing: border-box;
   box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
   border-radius: 50%;
-  background-color: $color-white;
-  width: 220px;
-  height: 220px;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.5s ease;
 
   &:hover {
-    background: linear-gradient(0deg, #9181fa, #9181fa), #cfd8dc;
+    background: linear-gradient(0deg, #9181FA, #9181FA), #CFD8DC;
+    border: 3px solid #F3EEFD;
+    box-sizing: border-box;
+    box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
 
-    .text {
-      color: $color-white;
-      background: none;
-    }
-
-    .img {
-      background-image: initial;
-      background-color: $color-white;
-    }
   }
 
-  &Smalled {
-    box-shadow: none;
-    filter: drop-shadow(0px 20px 70px rgba(86, 89, 146, 0.1));
+  &:hover > p {
+    color: #ffffff;
+    background: none;
+    -webkit-text-fill-color: #ffffff;
+  }
+
+  & > p {
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 23px;
+    text-transform: uppercase;
+  }
+
+  &.large {
+    width: 220px;
+    height: 220px;
+  }
+
+  &.normal {
     width: 60px;
     height: 60px;
+    flex-direction: row;
 
     &:hover {
-      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    }
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+      box-shadow: 0px 0px 10px rgba(189, 189, 189, 0.5);
 
-    .text {
-      display: none;
-    }
-
-    .img {
-      width: 17px;
-      height: 20px;
-      margin-bottom: 0;
-      margin-left: 3px;
     }
   }
+
+  &.medium {
+    width: 85px;
+    height: 85px;
+  }
+
+
 }
 
-.img {
-  margin-bottom: 13px;
-  margin-left: 5px;
-  width: 73px;
-  height: 75px;
-  background-image: linear-gradient(90deg, #7f28d9 0%, #7427cc 100%);
-  mask-image: url('../../../public/svgs/button-play.svg');
-  mask-size: contain;
-  mask-repeat: no-repeat;
-}
+.small {
+  position: static;
+  box-shadow: none;
+  transform: translate(0);
+  filter: drop-shadow(0px 20px 70px rgba(86, 89, 146, 0.1));
+  width: 60px;
+  height: 60px;
 
-.text {
-  @include gradient-text(linear-gradient(90deg, #7f28d9 0%, #7427cc 100%));
+  &:hover {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
 
-  margin: 0;
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1;
-  text-transform: uppercase;
-  font-family: Aqum;
+  .text {
+    display: none;
+  }
+
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 17px;
+    margin-bottom: 1px;
+    margin-left: 3px;
+  }
 }

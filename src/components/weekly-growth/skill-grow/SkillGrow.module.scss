@@ -28,7 +28,9 @@
 .skillTitle {
   font-weight: bold;
   text-align: center;
-  @include gradient-text(linear-gradient(90deg, #0439ad 0%, #38028f 100%));
+  background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .red {

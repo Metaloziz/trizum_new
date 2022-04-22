@@ -72,7 +72,12 @@
   }
 
   & .title {
-    @include gradient-text($gradient-violet);
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 28px;
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
@@ -83,7 +88,12 @@
   }
 
   & .title {
-    @include gradient-text($gradient-blue-darker);
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 28px;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 

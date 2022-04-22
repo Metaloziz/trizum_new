@@ -22,8 +22,9 @@
 }
 
 .needToDoTitle {
-  text-decoration: underline;
-  @include gradient-text(linear-gradient(90deg, #7f28d9 0%, #7427cc 100%));
+  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;;
 }
 
 .tipsTitle {

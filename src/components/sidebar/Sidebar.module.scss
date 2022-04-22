@@ -10,7 +10,6 @@ $navigation-link-font-map: (
 );
 
 .link {
-  @include link-font($navigation-link-font-map...);
 
   display: flex;
   align-items: center;

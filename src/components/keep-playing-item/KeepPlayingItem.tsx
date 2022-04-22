@@ -12,7 +12,7 @@ const KeepPlayingItem: FC<KeepPlayingItemProps> = ({
   return (
     <div className={classNames(styles.container, styles[colorTheme])}>
       <span className={styles.title}>{title}</span>
-      <ButtonPlay size="normal" />
+      <ButtonPlay size="small" />
       <span className={styles.minutesLeft}>
         {`${minutesLeft} / `}
         <span>50</span>

@@ -4,7 +4,7 @@ import buttonPlayHover from '@svgs/button-play-hover.svg';
 import buttonPlay from '@svgs/button-play.svg';
 import styles from './ButtonPlay.module.scss';
 
-type ButtonSize = 'large' | 'normal' | 'medium';
+type ButtonSize = 'large' | 'normal' | 'medium' | 'small';
 
 interface ButtonPlayProps {
   title?: string;
@@ -21,6 +21,9 @@ const ButtonPlay: FunctionComponent<ButtonPlayProps> = ({ title, size }) => {
       break;
     case 'normal':
       ButtonSize = styles.normal;
+      break;
+    case 'small':
+      ButtonSize = styles.small;
       break;
     default:
       ButtonSize = styles.medium;
@@ -45,7 +48,6 @@ const ButtonPlay: FunctionComponent<ButtonPlayProps> = ({ title, size }) => {
       <div className={styles.playButton}>
         <p>{title}</p>
       </div>
-      <p>Играть</p>
     </div>
   );
 };

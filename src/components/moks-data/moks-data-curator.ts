@@ -16,7 +16,7 @@ export const listCurator = [
     city: 'Москва',
     legalAddress: 'Москва, ул. Строителей, д.2',
     dataInfo: '+7(950)7662323 email@yandex.ru',
-    dataOgrn: '1224546565155   14455546565155   4414546565155',
+    dataOgrn: '1224546565155  14455546565155   4414546565155',
     paymentAccount: '1546662132212',
     bankAccount: '115665111336233',
     nameBank: 'ООО  “Альфа банк”',

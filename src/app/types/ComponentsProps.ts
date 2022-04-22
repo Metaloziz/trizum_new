@@ -4,6 +4,7 @@ export interface WeeklyGrowthProps {
   className?: string;
   weeklyGrowth: SkillGrowProps[];
 }
+
 export interface HomeworksProps {
   className?: string;
   homeworks: HomeworkProps[];
@@ -22,6 +23,7 @@ export interface KeepPlayingItemProps {
   colorTheme: string;
   id: number;
 }
+
 export interface HomeworkProps {
   className?: string;
   gameTitle: string;
@@ -35,12 +37,14 @@ export interface HomeworkProps {
   };
   id: number;
 }
+
 export interface SkillGrowProps {
   skillTitle: string;
   color: string;
   percents: number;
   id: number;
 }
+
 export interface PanelProps {
   children: string;
   className?: string;

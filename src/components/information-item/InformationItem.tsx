@@ -1,10 +1,11 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
+import InputFile from '@components/input-file/InputFile';
 import CustomSelect from '@components/select/CustomSelect';
 import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
 import TextField from '@components/text-fild/TextFild';
 import styles from './InformationItem.module.scss';
 
-type VariantType = 'select' | 'input' | 'calendar';
+type VariantType = 'select' | 'input' | 'calendar' | 'file';
 
 type SizeType = 'large' | 'normal';
 
@@ -20,7 +21,7 @@ interface Props {
   size?: SizeType;
 }
 
-const InformationItem: FunctionComponent<Props> = ({
+const InformationItem: FC<Props> = ({
   title,
   variant,
   option = [],
@@ -40,6 +41,7 @@ const InformationItem: FunctionComponent<Props> = ({
         )}
         {variant === 'input' && <TextField />}
         {variant === 'calendar' && <TextFieldCalendar />}
+        {variant === 'file' && <InputFile />}
       </div>
     </div>
   );

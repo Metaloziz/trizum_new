@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { FC, useState } from 'react';
+import { FC } from 'react';
 import buttonClose from '@svgs/button.svg';
 import styles from './BasicModal.module.scss';
 

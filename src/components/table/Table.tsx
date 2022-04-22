@@ -2,42 +2,21 @@ import { FC } from 'react';
 import styles from './Table.module.scss';
 
 interface IList {
-  id?: number;
-  studentName?: string;
-  teacherName?: string;
-  registrationDate?: string;
-  startDateAction?: string;
-  endDateAction?: string;
-  tariff?: string;
-  paymentDate?: string;
-  status?: string;
-  legalAddress?: string;
-  age?: number;
-  fullName?: string;
-  city?: string;
-  dataInfo?: string;
-  dataOgrn?: string;
-  paymentAccount?: string;
-  bankAccount?: string;
-  nameBank?: string;
-  infoBank?: string;
+  id: number;
+  studentName: string;
+  teacherName: string;
+  registrationDate: string;
+  startDateAction: string;
+  endDateAction: string;
+  tariff: string;
+  paymentDate: string;
+  status: string;
+  legalAddress: string;
+  age: number;
 }
 
-// interface INewList {
-//   fullName: string;
-//   city: string;
-//   legalAddress: string;
-//   dataInfo: string;
-//   dataOgrn: string;
-//   paymentAccount: string;
-//   bankAccount: string;
-//   nameBank: string;
-//   infoBank: string;
-// }
-
 interface Props {
-  // newList: INewList[];
-  list: IList[];
+  list?: IList[];
   colNames?: string[];
   width?: string;
   height?: string;
@@ -50,6 +29,7 @@ const Table: FC<Props> = ({ list, colNames }) => {
         <table>
           <thead>
             <tr className={styles.th}>
+              {' '}
               {colNames !== undefined &&
                 colNames.length > 0 &&
                 colNames.map((headerItem, index) => (

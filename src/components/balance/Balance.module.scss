@@ -6,10 +6,24 @@
   box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
   border-radius: 30px;
   box-sizing: border-box;
-  width: 1380px;
-  height: 155px;
-  padding: 10px 116px 10px 0;
+  max-width: 1380px;
+  padding-right: 116px;
   margin-bottom: 15px;
+  flex-wrap: wrap;
+
+
+  @media (max-width: 1600px) {
+    padding-right: 40px;
+  }
+
+  @media (max-width: 1100px) {
+    padding-right: 30px;
+  }
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    padding: 0 0 20px;
+  }
 
   .period p {
     font-size: 18px;
@@ -17,14 +31,42 @@
     color: $color-black;
     font-weight: 600;
     margin: 0 18px 0 0;
+
+    @media (max-width: 1400px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    @media (max-width: 1300px) {
+      margin-right: 0;
+    }
+
+    @media (max-width: 1100px) {
+      font-size: 14px;
+      line-height: 17px;
+    }
+
   }
 
   .period {
     display: flex;
     align-items: center;
+    margin: 0 5px;
+
+    @media (max-width: 1300px) {
+      flex-direction: column;
+    }
+
+    @media (max-width: 1000px) {
+      margin-bottom: 20px;
+    }
 
     .periodSelected {
       width: 140px;
+
+      @media (max-width: 1300px) {
+        margin-top: 20px;
+      }
     }
   }
 
@@ -35,6 +77,22 @@
     background-color: rgb(245, 239, 253);
     border-radius: 30px 80px 80px 30px;
 
+    @media (max-width: 1300px) {
+      padding-right: 20px;
+    }
+
+    @media (max-width: 1100px) {
+      padding-right: 15px;
+    }
+
+    @media (max-width: 1000px) {
+      width: 100%;
+      padding-right: 0;
+      padding-bottom: 10px;
+      border-radius: 30px 30px 60px 60px;
+      margin-bottom: 10px;
+    }
+
     .priceContainer {
       display: flex;
       align-items: center;
@@ -44,6 +102,25 @@
       padding-left: 86px;
       padding-right: 111px;
       height: 155px;
+
+      @media (max-width: 1600px) {
+        padding-left: 30px;
+        padding-right: 60px;
+      }
+
+      @media (max-width: 1300px) {
+        height: 140px;
+      }
+      @media (max-width: 1200px) {
+        padding-right: 30px;
+      }
+
+      @media (max-width: 1000px) {
+        height: auto;
+        padding: 10px;
+        justify-content: center;
+        border-radius: 30px 30px 80px 80px;
+      }
     }
 
     p {
@@ -55,6 +132,25 @@
       -webkit-text-fill-color: transparent;
       text-transform: uppercase;
       max-width: 110px;
+
+      @media (max-width: 1300px) {
+        line-height: 18px;
+      }
+
+      @media (max-width: 1100px) {
+        font-size: 12px;
+        line-height: 15px;
+        max-width: 95px;
+      }
+
+      @media (max-width: 1000px) {
+        max-width: 100%;
+      }
+
+      @media (max-width: 550px) {
+        font-size: 12px;
+        line-height: 15px;
+      }
     }
 
     span {
@@ -63,6 +159,29 @@
       line-height: 48px;
       color: #2e8dfd;
       margin-left: 36px;
+
+      @media (max-width: 1400px) {
+        font-size: 42px;
+        line-height: 42px;
+        margin-left: 15px;
+      }
+
+      @media (max-width: 1300px) {
+        font-size: 36px;
+        line-height: 36px;
+      }
+
+      @media (max-width: 1100px) {
+        font-size: 30px;
+        line-height: 30px;
+      }
+
+      @media (max-width: 550px) {
+        font-size: 19px;
+        line-height: 20px;
+      }
     }
   }
+
 }
+

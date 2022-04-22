@@ -3,8 +3,8 @@
   font-style: normal;
   font-weight: 400;
   src: url('../../public/fonts/Aqum.woff2') format('woff2'),
-    url('../../public/fonts/Aqum.woff') format('woff'),
-    url('../../public/fonts/Aqum.ttf') format('ttf');
+  url('../../public/fonts/Aqum.woff') format('woff'),
+  url('../../public/fonts/Aqum.ttf') format('ttf');
 }
 
 html,
@@ -13,7 +13,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Montserrat, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 p,
@@ -45,6 +45,7 @@ button {
   font: inherit;
   cursor: pointer;
 }
+
 * {
   box-sizing: border-box;
 }
@@ -54,6 +55,7 @@ button {
   line-height: 1.25em;
   font-weight: $font-weight;
 }
+
 .h2 {
   font-size: 1.4375rem;
   line-height: 1.2173913em;
@@ -62,6 +64,7 @@ button {
 
 .h3 {
   @include basic-font(600);
+
   &-bolder {
     @include basic-font(700);
   }
@@ -70,6 +73,7 @@ button {
 .p-smaller {
   @include basic-font();
 }
+
 .em {
   @include basic-font();
   text-decoration: underline;

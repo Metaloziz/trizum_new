@@ -11,10 +11,11 @@ interface Props {
 const ButtonOpenClose: FC<Props> = ({ isOpen }) => {
   const [open, setOpen] = useState<boolean>(isOpen);
   const iconButton = open ? (
-    <Image src={iconOpen} alt={'open'} width={16} height={16} />
+    <Image src={iconOpen} alt={'open'} width={16} height={20} />
   ) : (
-    <Image src={iconClosed} alt={'closed'} width={16} height={16} />
+    <Image src={iconClosed} alt={'lock'} width={16} height={20} />
   );
+
   const finalStyle = `${styles.customButton} ${open ? '' : styles.closed}`;
   return (
     <button className={finalStyle} onClick={() => setOpen(!open)}>

@@ -1,6 +1,6 @@
 import React from 'react';
+import CardStudent from '@components/card-student/CardStudent';
 import BlockGames from '@components/page-your-classes/block-games/BlockGames';
-import CardStudent from '@components/page-your-classes/card-student/CardStudent';
 import SearchBar from '@components/page-your-classes/search-bar/SearchBar';
 import TabsPanel from '@components/page-your-classes/tabs-panel/TabsPanel';
 import styles from './StudentsPage.module.scss';
@@ -19,7 +19,10 @@ const StudentsPage = () => {
           <BlockGames />
         </div>
         <div className={styles.blockCardStudents}>
-          <CardStudent />
+          <CardStudent
+            type={'teacher'}
+            title={'Днепровский Александр Алексеевич'}
+          />
         </div>
       </div>
     </div>

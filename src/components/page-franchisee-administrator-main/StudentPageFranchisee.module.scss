@@ -1,0 +1,36 @@
+.wrapper {
+  width: 1324px;
+  padding: 30px 0 0 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.search {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  width: 400px;
+}
+
+.cardWrapper {
+  padding: 10px 10px 32px 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+
+
+

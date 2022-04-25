@@ -8,6 +8,10 @@
   text-transform: uppercase;
   color: #FFFFFF;
 
+  @media (max-width: 1500px) {
+    padding: 0;
+  }
+
   /* Mobile XS */
   @media (max-width: 450px) {
     font-size: 11px;

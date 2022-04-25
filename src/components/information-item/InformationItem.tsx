@@ -19,6 +19,7 @@ interface Props {
   variant: VariantType;
   option?: Option[];
   size?: SizeType;
+  placeholder?: string;
 }
 
 const InformationItem: FC<Props> = ({
@@ -26,6 +27,7 @@ const InformationItem: FC<Props> = ({
   variant,
   option = [],
   size = 'normal',
+  placeholder = '',
 }) => {
   const finalStyle = `${styles.content} ${
     size === 'large' ? styles.large : ''
@@ -37,7 +39,7 @@ const InformationItem: FC<Props> = ({
       </div>
       <div className={finalStyle}>
         {variant === 'select' && (
-          <CustomSelect options={option} placeholder={' '} />
+          <CustomSelect options={option} placeholder={placeholder} />
         )}
         {variant === 'input' && <TextField />}
         {variant === 'calendar' && <TextFieldCalendar />}

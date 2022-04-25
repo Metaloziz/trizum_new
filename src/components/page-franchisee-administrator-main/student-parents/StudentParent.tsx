@@ -10,7 +10,9 @@ const StudentParents = () => {
   return (
     <div className={styles.row}>
       <CustomImageWrapper variant={'circle'}>
-        <Image src={avatar} width={'290'} height={'290'} alt={'student'} />
+        <div className={styles.imageWrapper}>
+          <Image src={avatar} width={'290'} height={'290'} alt={'student'} />
+        </div>
       </CustomImageWrapper>
       <div className={styles.table}>
         <div className={styles.infoItem}>

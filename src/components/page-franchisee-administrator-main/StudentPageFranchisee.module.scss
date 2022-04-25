@@ -1,33 +1,127 @@
 .wrapper {
-  width: 1324px;
-  padding: 30px 0 0 24px;
+  max-width: 1324px;
+  padding: 30px 0 20px 24px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 550px) {
+    padding: 30px 10px;
+  }
 }
 
 .search {
   margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 }
 
 .column {
   width: 400px;
+
+  @media (max-width: 1500px) {
+    padding: 0 20px;
+    width: 33%;
+  }
+
+  @media (max-width: 1400px) {
+    & > div {
+      flex-direction: column;
+
+      p {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      & > div {
+        width: 100%;
+
+        & > div {
+          width: 100%;
+
+          & > div:first-child {
+            width: 100%;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1300px) {
+    padding: 0 5px;
+  }
+
+  @media (max-width: 800px) {
+    width: 100%;
+    margin-top: 15px;
+  }
 }
 
 .cardWrapper {
-  padding: 10px 10px 32px 0;
+  padding: 10px 0 32px 0;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 1500px) {
+    flex-direction: column;
+
+    button + button {
+      margin-top: 15px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    button + button {
+      padding-right: 40px;
+    }
+  }
+
+  @media (max-width: 800px) {
+      margin-top: 15px;
+  }
 }
 
 .flexColumn {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 1400px) {
+    & > div:first-child {
+      & > div {
+        flex-direction: column;
+
+        p {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+
+        & > div {
+          width: 100%;
+
+          & > div {
+            width: 100%;
+
+            & > div:first-child {
+              width: 100%;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 800px) {
+    margin-top: 15px;
+  }
 }
 
 

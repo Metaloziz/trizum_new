@@ -6,6 +6,7 @@ import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrap
 import avatar from '@public/img/pervoklasnin.jpg';
 import iconSettings from '@svgs/icon-settings.svg';
 import styles from './CardStudentExtended.module.scss';
+import modals from '../../../app/stores/CardStudentExtended';
 
 const data = [
   { title: 'Статус', description: 'Ученик' },
@@ -22,26 +23,28 @@ interface Props {
 const CardStudentExtended: FC<Props> = ({ title }) => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.row}>
-        <CustomImageWrapper className={styles.image} variant={'circle'}>
-          <Image src={avatar} width={'170'} height={'170'} alt={'student'} />
-        </CustomImageWrapper>
-        <div>
-          <CardStudentTitle>{title}</CardStudentTitle>
-          <div className={styles.mt20}>
-            {data.map((item) => (
-              <ul key={item.title} className={styles.list}>
-                <li>{item.title}:</li>
-                <li>{item.description}</li>
-              </ul>
-            ))}
+      <div className={styles.rowWrapper}>
+        <div className={styles.row}>
+          <CustomImageWrapper className={styles.image} variant={'circle'}>
+            <Image src={avatar} width={'170'} height={'170'} alt={'student'} />
+          </CustomImageWrapper>
+          <div className={styles.title}>
+            <CardStudentTitle>{title}</CardStudentTitle>
+            <div className={styles.mt20}>
+              {data.map((item) => (
+                <ul key={item.title} className={styles.list}>
+                  <li>{item.title}:</li>
+                  <li>{item.description}</li>
+                </ul>
+              ))}
+            </div>
           </div>
         </div>
         <CardStudentButtonGroup />
       </div>
-      <CustomImageWrapper className={styles.settings}>
+      <div className={styles.settings} onClick={() => modals.changeSetting()}>
         <Image src={iconSettings} width={'30'} height={'30'} alt={'Settings'} />
-      </CustomImageWrapper>
+      </div>
     </div>
   );
 };

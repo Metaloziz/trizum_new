@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CardStudent from '@components/card-student/CardStudent';
@@ -5,11 +6,12 @@ import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import StudentPageFranchiseeModalAddUser from '@components/page-franchisee-administrator-main/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from '@components/page-franchisee-administrator-main/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
+import StudentPageFranchiseeModalSetting from '@components/page-franchisee-administrator-main/student-page-franchisee-modal-setting/StudentPageFranchiseeModalSetting';
 import styles from './StudentPageFranchisee.module.scss';
+import modals from '../../app/stores/CardStudentExtended';
 
-const StudentPageFranchisee = () => {
+const StudentPageFranchisee = observer(() => {
   const [isModalAddUser, setModalAddUser] = useState<boolean>(false);
-  const [isModalParents, setModalParents] = useState<boolean>(false);
   return (
     <div className={styles.wrapper}>
       <div className={styles.search}>
@@ -49,8 +51,8 @@ const StudentPageFranchisee = () => {
         />
       </div>
       <BasicModal
-        visibility={isModalParents}
-        changeVisibility={setModalParents}
+        visibility={modals.isParents}
+        changeVisibility={() => modals.changeParents()}
       >
         <StudentPageFranchiseeModalParents />
       </BasicModal>
@@ -60,8 +62,15 @@ const StudentPageFranchisee = () => {
       >
         <StudentPageFranchiseeModalAddUser />
       </BasicModal>
+      <BasicModal
+        visibility={modals.isSetting}
+        changeVisibility={() => modals.changeSetting()}
+      >
+        <StudentPageFranchiseeModalSetting />
+      </BasicModal>
     </div>
   );
-};
+});
 
 export default StudentPageFranchisee;
+

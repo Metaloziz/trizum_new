@@ -1,33 +1,25 @@
 .wrapper {
   position: relative;
+  width: 768px;
   max-width: 768px;
+  min-height: 244px;
+  padding: 24px 0 0 0;
   margin: 0 auto 10px auto;
   display: flex;
   flex-direction: column;
   border-radius: 30px;
   background-image: url('../../../../public/img/bg-program.jpg');
-  background-size: cover;
   background-position: bottom center;
 
-  @media (max-width: 550px) {
-    img {
-      width: 70px;
-      height: 70px;
-    }
+  /* Mobile XS */
+  @media (max-width: 450px) {
+    width: 343px;
+    min-height: 200px;
+    padding-top: 12px;
   }
 
   .row {
     display: flex;
-    padding: 24px 0 0 0;
-
-    @media (max-width: 1300px) {
-      flex-direction: column;
-      padding: 30px 10px;
-    }
-
-    @media (max-width: 550px) {
-      flex-direction: row;
-    }
   }
 
   .image {
@@ -37,28 +29,16 @@
     align-items: start;
     justify-content: flex-end;
 
-    @media (max-width: 1300px) {
-      margin: 0 auto 20px;
+    /* Mobile XS */
+    @media (max-width: 450px) {
       width: auto;
-    }
-
-    @media (max-width: 550px) {
-      width: 70px;
-      height: 70px;
-      margin-right: 26px;
-    }
-  }
-
-  .infoWrapper {
-    width: 60%;
-
-    @media (max-width: 1300px) {
-      width: 100%;
+      justify-content: flex-start;
+      margin-left: 13px;
+      margin-right: 25px;
     }
   }
 
   .list {
-    margin-top: 20px;
     margin-bottom: 18px;
     padding: 0;
     display: flex;
@@ -68,18 +48,13 @@
     font-size: 14px;
     color: #FFFFFF;
 
-    @media (max-width: 550px) {
+    /* Mobile XS */
+    @media (max-width: 450px) {
       margin-bottom: 13px;
-      font-size: 12px;
-      margin-top: 9px;
     }
 
     li {
       margin-right: 14px;
-
-      @media (max-width: 550px) {
-        margin-right: 5px;
-      }
     }
 
     li:last-child {
@@ -94,7 +69,7 @@
     right: 21px;
 
     /* Mobile XS */
-    @media (max-width: 550px) {
+    @media (max-width: 450px) {
       width: 23px;
       height: 23px;
       top: 10px;
@@ -108,13 +83,18 @@
     right: 70px;
 
     /* Mobile XS */
-    @media (max-width: 550px) {
+    @media (max-width: 450px) {
       width: 23px;
       height: 23px;
       top: 10px;
       right: 15px;
     }
   }
+
+  .mt20 {
+    margin-top: 20px;
+  }
+
 }
 
 

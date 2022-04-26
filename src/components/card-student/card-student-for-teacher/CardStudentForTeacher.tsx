@@ -30,7 +30,7 @@ const CardStudentForTeacher: FC<Props> = ({ title, flag }) => {
         </CustomImageWrapper>
         <div>
           <CardStudentTitle>{title}</CardStudentTitle>
-          <div>
+          <div className={styles.mt20}>
             {data.map((item) => (
               <ul key={item.title} className={styles.list}>
                 <li>{item.title}:</li>

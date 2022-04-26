@@ -1,6 +1,5 @@
 .wrapper {
   position: relative;
-  width: 1300px;
   max-width: 1300px;
   min-height: 244px;
   padding: 24px 0 0 0;
@@ -10,17 +9,46 @@
   border-radius: 30px;
   background-image: url('../../../../public/img/bg-program-large.jpg');
   background-position: bottom center;
+  background-size: cover;
 
-  /* Mobile XS */
-  @media (max-width: 450px) {
-    width: 343px;
-    min-height: 200px;
-    padding-top: 12px;
+  @media (max-width: 900px) {
+    padding: 24px 10px 10px 10px;
+  }
+
+  @media (max-width: 440px) {
+    padding: 13px 10px 10px 10px;
+  }
+
+  .rowWrapper {
+    display: flex;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
   }
 
   .row {
     display: flex;
+
+    @media (max-width: 1400px) {
+      justify-content: space-between;
+    }
+
+    @media (max-width: 7000px) {
+      justify-content: flex-start;
+    }
   }
+
+  .title {
+    @media (max-width: 800px) {
+      padding-right: 50px;
+    }
+
+    @media (max-width: 440px) {
+      padding-right: 25px;
+    }
+  }
+
 
   .image {
     width: 216px;
@@ -29,12 +57,14 @@
     align-items: start;
     justify-content: flex-end;
 
-    /* Mobile XS */
-    @media (max-width: 450px) {
-      width: auto;
-      justify-content: flex-start;
-      margin-left: 13px;
-      margin-right: 25px;
+
+    @media (max-width: 900px) {
+      margin-right: 10px;
+      width: 200px;
+    }
+
+    @media (max-width: 600px) {
+      width: 70px;
     }
   }
 
@@ -48,13 +78,17 @@
     font-size: 14px;
     color: #FFFFFF;
 
-    /* Mobile XS */
-    @media (max-width: 450px) {
-      margin-bottom: 13px;
+    @media (max-width: 700px) {
+      font-size: 13px;
+      line-height: 15px;
     }
 
     li {
       margin-right: 14px;
+
+      @media (max-width: 550px) {
+        margin-right: 5px;
+      }
     }
 
     li:last-child {
@@ -68,13 +102,6 @@
     top: 18px;
     right: 21px;
 
-    /* Mobile XS */
-    @media (max-width: 450px) {
-      width: 23px;
-      height: 23px;
-      top: 10px;
-      right: 15px;
-    }
   }
 
   .settings {
@@ -82,11 +109,17 @@
     top: 21px;
     right: 70px;
 
-    /* Mobile XS */
-    @media (max-width: 450px) {
-      width: 23px;
-      height: 23px;
-      top: 10px;
+    @media (max-width: 1400px) {
+      right: 21px;
+    }
+
+    @media (max-width: 800px) {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media (max-width: 550px) {
+      top: 15px;
       right: 15px;
     }
   }

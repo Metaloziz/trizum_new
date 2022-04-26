@@ -8,9 +8,9 @@ import styles from './StudentInformation.module.scss';
 const StudentInformation = () => {
   return (
     <div className={styles.row}>
-      <CustomImageWrapper variant={'circle'}>
+      <div className={styles.imageWrapper}>
         <Image src={avatar} width={'290'} height={'290'} alt={'student'} />
-      </CustomImageWrapper>
+      </div>
       <div className={styles.table}>
         <div className={styles.table}>
           <div className={styles.infoItem}>
@@ -23,11 +23,11 @@ const StudentInformation = () => {
             </div>
           </div>
           <div className={styles.infoItem}>
-            <span>Город::</span>
+            <span>Город:</span>
             <input type="text" />
           </div>
           <div className={styles.infoItem}>
-            <span>Город:</span>
+            <span>Телефон:</span>
             <input type="text" />
           </div>
           <div className={styles.infoItem}>

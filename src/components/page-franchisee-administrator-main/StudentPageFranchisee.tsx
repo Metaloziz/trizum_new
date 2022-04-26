@@ -73,4 +73,3 @@ const StudentPageFranchisee = observer(() => {
 });
 
 export default StudentPageFranchisee;
-

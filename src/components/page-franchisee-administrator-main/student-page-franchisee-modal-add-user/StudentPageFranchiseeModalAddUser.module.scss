@@ -1,7 +1,9 @@
 .wrapper {
   position: relative;
-  padding: 35px 0;
+  padding: 35px 56px;
   width: 1053px;
+  background: #fff;
+  border-radius: 30px;
 
   @media (max-width: 1200px) {
     width: 950px;

@@ -1,3 +1,6 @@
+import React from 'react';
+import BasicModal from '@components/basic-modal/BasicModal';
+import StudentPageFranchiseeModalAddUser from '@components/page-franchisee-administrator-main/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import TextEditor from '@components/text-editor/TextEditor';
 
 export default function TestPage() {
@@ -5,18 +8,13 @@ export default function TestPage() {
   asdfasdf`;
   console.log(str);
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: '20px',
-      }}
-    >
-      <div>{str}</div>
+    <div>
+      <BasicModal
+        visibility={true}
+        changeVisibility={() => console.log('asdf')}
+      >
+        <StudentPageFranchiseeModalAddUser />
+      </BasicModal>
     </div>
   );
 }

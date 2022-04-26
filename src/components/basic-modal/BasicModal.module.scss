@@ -15,11 +15,14 @@
 
 .content {
   max-height: 900px;
-  overflow-y: scroll;
   position: relative;
   min-width: 450px;
   border-radius: 30px;
   background-color: #fff;
+
+  @media (max-width: 550px) {
+    min-width: 90%;
+  }
 
   /* полоса прокрутки (скроллбар) */
   &::-webkit-scrollbar {

@@ -94,10 +94,11 @@
 .imageWrapper {
   width: 290px;
   height: 290px;
-
-  img {
-    border-radius: 50%;
-  }
+  background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 1200px) {
     width: 240px;
@@ -117,12 +118,22 @@
   @media(max-width: 700px) {
     width: 130px;
     height: 130px;
+
+    img {
+      width: 80px !important;
+      height: 80px !important;
+    }
   }
 
   @media (max-width: 550px) {
     margin-bottom: 13px;
     width: 80px;
     height: 80px;
+
+    img {
+      width: 30px !important;
+      height: 37px !important;
+    }
   }
 }
 

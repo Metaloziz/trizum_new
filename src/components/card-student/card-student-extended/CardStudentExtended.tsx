@@ -1,9 +1,10 @@
 import Image from 'next/image';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import CardStudentButtonGroup from '@components/card-student/card-student-for-teacher/card-student-button-group/CardStudentButtonGroup';
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import avatar from '@public/img/pervoklasnin.jpg';
+import iconSettingsBlue from '@svgs/icon-setting-blue.svg';
 import iconSettings from '@svgs/icon-settings.svg';
 import styles from './CardStudentExtended.module.scss';
 import modals from '../../../app/stores/CardStudentExtended';
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const CardStudentExtended: FC<Props> = ({ title }) => {
+  const [isShow, setShow] = useState<boolean>(false);
   return (
     <div className={styles.wrapper}>
       <div className={styles.rowWrapper}>
@@ -42,8 +44,27 @@ const CardStudentExtended: FC<Props> = ({ title }) => {
         </div>
         <CardStudentButtonGroup />
       </div>
-      <div className={styles.settings} onClick={() => modals.changeSetting()}>
-        <Image src={iconSettings} width={'30'} height={'30'} alt={'Settings'} />
+      <div
+        className={styles.settings}
+        onClick={() => modals.changeSetting()}
+        onMouseOver={() => setShow(true)}
+        onMouseOut={() => setShow(false)}
+      >
+        {isShow ? (
+          <Image
+            src={iconSettingsBlue}
+            width={'30'}
+            height={'30'}
+            alt={'Settings'}
+          />
+        ) : (
+          <Image
+            src={iconSettings}
+            width={'30'}
+            height={'30'}
+            alt={'Settings'}
+          />
+        )}
       </div>
     </div>
   );

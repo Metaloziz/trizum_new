@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import InformationItem from '@components/information-item/InformationItem';
-import avatar from '@public/img/pervoklasnin.jpg';
+import user from '@public/svgs/user.svg';
 import iconMedal from '@svgs/medal.svg';
 import styles from './StudentParents.module.scss';
 
@@ -11,7 +11,7 @@ const StudentParents = () => {
     <div className={styles.row}>
       <CustomImageWrapper variant={'circle'}>
         <div className={styles.imageWrapper}>
-          <Image src={avatar} width={'290'} height={'290'} alt={'student'} />
+          <Image src={user} width={'130'} height={'140'} alt={'user'} />
         </div>
       </CustomImageWrapper>
       <div className={styles.table}>

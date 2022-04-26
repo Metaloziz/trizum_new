@@ -17,7 +17,7 @@
 
   & .containerItem {
     display: flex;
-    width: 60%;
+    width: 61%;
     flex-direction: column;
 
     & .itemBlock{
@@ -81,7 +81,7 @@
       & .recommendations {
         border: 1px solid #2E8EFE;
         border-radius: 15px;
-        padding: 15px;
+        padding: 12px 23px;
         display: flex;
         justify-content: space-between;
         box-sizing: border-box;

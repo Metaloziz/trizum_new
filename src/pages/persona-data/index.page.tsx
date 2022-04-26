@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FC, useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
-import setting from '@svgs/settings.svg';
+import Setting from '@components/setting/Setting';
 import user from '@svgs/user.svg';
 import styles from './PagePersonalData.module.scss';
 
@@ -17,7 +17,7 @@ const IndexPage: FC = () => {
             <Image src={user} width="126" height="126" alt="user" />
           </div>
           <div className={styles.userSetting} onClick={() => setShowModal(true)}>
-            <Image src={setting} width="25" height="25" alt="setting" />
+            <Setting />
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@
   width: 60%;
   & .imageTeacher {
     width: 560px;
-    height: 560px;
+    height: auto;
     background: #FFFFFF;
     border-radius: 30px;
     padding: 68px 77px;
@@ -15,7 +15,7 @@
   }
 
   & .textResult {
-    width: 55%;
+    width: 81%;
     & h2 {
       font-family: 'Aqum';
       text-transform: uppercase;

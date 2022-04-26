@@ -18,9 +18,10 @@ interface Props {
   variant: VariantType;
   option?: Option[];
   size?: SizeType;
+  placeholder?: string;
 }
 
-const InformationItem: FC<Props> = ({ title, variant, option = [], size = 'normal' }) => {
+const InformationItem: FC<Props> = ({ title, variant, option = [], size = 'normal', placeholder = '' }) => {
   const finalStyle = `${styles.content} ${size === 'large' ? styles.large : ''}`;
   return (
     <div className={styles.wrapBlockItem}>
@@ -28,7 +29,7 @@ const InformationItem: FC<Props> = ({ title, variant, option = [], size = 'norma
         <p>{title}</p>
       </div>
       <div className={finalStyle}>
-        {variant === 'select' && <CustomSelect options={option} placeholder={' '} />}
+        {variant === 'select' && <CustomSelect options={option} placeholder={placeholder} />}
         {variant === 'input' && <TextField />}
         {variant === 'calendar' && <TextFieldCalendar />}
       </div>

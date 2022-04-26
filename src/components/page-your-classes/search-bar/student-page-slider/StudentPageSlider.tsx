@@ -6,7 +6,9 @@ const StudentPageSlider = () => {
   return (
     <div className={styles.wrapper}>
       <span>Номер урока</span>
-      <Step pageCount={5} initialPage={1} />
+      <div className={styles.stepWrapper}>
+        <Step pageCount={5} initialPage={1} />
+      </div>
     </div>
   );
 };

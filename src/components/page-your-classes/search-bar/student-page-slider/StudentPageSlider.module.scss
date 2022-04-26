@@ -3,10 +3,33 @@
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 1300px) {
+    flex-direction: column;
+    margin-left: 5px;
+  }
+
+  @media (max-width: 900px) {
+    width: 28%;
+  }
+
+  @media (max-width: 550px) {
+    width: 100%;
+    margin-left: 0;
+  }
+
   span {
     margin-right: 20px;
     font-weight: 600;
     font-size: 14px;
     color: #000000;
+
+    @media (max-width: 1300px) {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+
+  .stepWrapper {
+    width: 195px;
   }
 }

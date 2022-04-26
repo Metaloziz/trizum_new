@@ -14,8 +14,8 @@ const BlockGames = () => {
           <li>
             <Image
               src={'/img/fossil.svg'}
-              width={'30'}
-              height={'30'}
+              width={'32'}
+              height={'32'}
               alt={'fossil'}
             />
           </li>
@@ -25,8 +25,8 @@ const BlockGames = () => {
           <li>
             <Image
               src={'/img/star.svg'}
-              width={'30'}
-              height={'30'}
+              width={'32'}
+              height={'32'}
               alt={'star'}
             />
           </li>
@@ -36,8 +36,8 @@ const BlockGames = () => {
           <li>
             <Image
               src={'/img/cards.svg'}
-              width={'30'}
-              height={'30'}
+              width={'32'}
+              height={'32'}
               alt={'cards'}
             />
           </li>

@@ -1,17 +1,15 @@
 .wrapper {
-  box-sizing: border-box;
 
-  /* Mobile XS */
-  @media (max-width: 450px) {
+  @media (max-width: 900px) {
+    margin-bottom: 20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
-    margin: 19px auto;
   }
 
   .button {
     width: 134px;
-    height: 43px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,14 +34,22 @@
       margin-left: -9px;
     }
 
-    /* Mobile XS */
-    @media (max-width: 450px) {
-      width: 109px;
-      height: 40px;
+    @media (max-width: 900px) {
+      width: 33%;
       margin-bottom: 10px;
-      border: 1px solid #2E8DFD;
       border-radius: 25px;
+      border-right: 1px solid #2E8DFD;
+    }
+
+    @media (max-width: 550px) {
+      width: 30%;
+      height: 40px;
       font-size: 14px;
+      line-height: 18px;
+    }
+
+    @media (max-width: 374px) {
+      width: 1000%;
     }
   }
 

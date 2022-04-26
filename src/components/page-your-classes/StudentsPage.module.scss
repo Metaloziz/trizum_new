@@ -1,14 +1,12 @@
 .wrapper {
-  box-sizing: border-box;
-  margin: 30px 0 20px 16px;
-
-  /* Mobile XS */
-  @media (max-width: 450px) {
-    margin: 20px auto;
-  }
+  padding: 30px 20px 20px 16px;
 
   .searchBar {
     margin-bottom: 60px;
+
+    @media (max-width: 550px) {
+      margin-bottom: 20px;
+    }
   }
 
   .row {
@@ -16,38 +14,43 @@
     display: flex;
     justify-content: flex-start;
 
-    /* Mobile XS */
-    @media (max-width: 450px) {
+    @media (max-width: 900px) {
       flex-direction: column;
     }
 
     .tabs {
       margin-top: 55px;
 
-      /* Mobile XS */
-      @media (max-width: 450px) {
+      @media (max-width: 900px) {
         margin-top: 0;
       }
     }
 
     .blockGames {
       margin-right: 20px;
+
+      @media (max-width: 900px) {
+        margin-right: 0;
+      }
     }
 
     .blockCardStudents {
       min-height: 1038px;
       max-height: 1038px;
       padding: 20px;
-      background: #ffffff;
+      background: #FFFFFF;
       box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
-      //border-radius: 30px;
       overflow-y: scroll;
       overflow-x: hidden;
 
       /* полоса прокрутки (скроллбар) */
       &::-webkit-scrollbar {
         width: 8px; /* ширина для вертикального скролла */
-        background: #eaeefd;
+        background: #EAEEFD;
+
+        @media (max-width: 900px) {
+          width: 0;
+        }
       }
 
       /* ползунок скроллбара */
@@ -56,31 +59,22 @@
         border-radius: 10px;
       }
 
-      /* Стрелки */
+      @media (max-width: 900px) {
+        min-height: 100%;
+        max-height: 100%;
+      }
 
-      //&::-webkit-scrollbar-button:vertical:start:decrement {
-      //  height: 30px;
-      //  background-color: inherit;
-      //  visibility: inherit;
-      //}
-      //
-      //&::-webkit-scrollbar-button:vertical:end:increment {
-      //  height: 30px;
-      //  background-color: inherit;
-      //}
-
-      /* Mobile XS */
-      @media (max-width: 450px) {
-        width: 343px;
-        height: auto;
-        margin: 0 auto;
+      @media (max-width: 550px) {
+        background: transparent;
         padding: 0;
         box-shadow: none;
+        border-radius: 30px;
       }
+
     }
   }
 }
 
-.cardStudent {
-  margin-bottom: 10px;
-}
+
+
+

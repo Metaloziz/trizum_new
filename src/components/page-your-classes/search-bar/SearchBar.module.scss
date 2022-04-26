@@ -22,4 +22,8 @@
   @media (max-width: 700px) {
     flex-direction: column;
   }
+
+  @media (max-width: 550px) {
+    background: inherit;
+  }
 }

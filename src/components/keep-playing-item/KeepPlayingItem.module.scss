@@ -12,16 +12,19 @@
     margin-bottom: 0;
   }
 }
+
 .title {
   font-size: 23px;
   font-weight: 700;
   text-align: left;
   flex-grow: 1;
 }
+
 .button {
   margin-right: 20px;
   flex-shrink: 0;
 }
+
 .minutesLeft {
   display: flex;
   flex-wrap: wrap;
@@ -44,47 +47,62 @@
     margin-left: 5px;
     color: $color-secondary-text;
   }
+
   & :last-child {
     font-weight: 500;
     font-size: 14px;
   }
 }
+
 .blue {
   & .minutesLeft {
-    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat
-        center,
-      $color-blue;
+    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat center,
+    $color-blue;
   }
+
   & .title {
     color: $color-blue;
   }
 }
+
 .gradient-violet {
   & .minutesLeft {
-    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat
-        center,
-      $gradient-violet;
+    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat center,
+    $gradient-violet;
   }
+
   & .title {
-    @include gradient-text($gradient-violet);
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 28px;
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
+
 .gradient-blue-darker {
   & .minutesLeft {
-    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat
-        center,
-      $gradient-blue-darker;
+    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat center,
+    $gradient-blue-darker;
   }
+
   & .title {
-    @include gradient-text($gradient-blue-darker);
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 28px;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
+
 .aquamarine {
   & .minutesLeft {
-    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat
-        center,
-      $color-aquamarine;
+    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat center,
+    $color-aquamarine;
   }
+
   & .title {
     color: $color-aquamarine;
   }

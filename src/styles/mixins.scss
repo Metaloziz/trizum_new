@@ -1,8 +1,9 @@
 @mixin gradient-text($gradient) {
   color: transparent;
-  background-clip: text;
+  //background-clip: text;
   background-image: $gradient;
 }
+
 @mixin link-font(
   $color: $color-white,
   $is-gradient: false,
@@ -21,6 +22,7 @@
   font-weight: 600;
   text-decoration: $text-decoration;
 }
+
 @mixin gradient-statistics-title($gradient) {
   font-family: Aqum;
   font-size: 14px;

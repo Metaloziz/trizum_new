@@ -2,11 +2,19 @@
   padding: 35px 50px 20px 20px;
   box-sizing: border-box;
 
+  @media (max-width: 1600px) {
+    padding-right: 20px;
+  }
+
   & .tableContent {
     border-top: 20px;
     padding-top: 20px;
     margin-top: 20px;
     border-top: 1px solid #babec6;
+
+    @media (max-width: 1200px) {
+      max-width: 100vw;
+    }
   }
 
   & .franchiseesBlock > div:nth-child(1) div p {
@@ -30,10 +38,53 @@
     max-width: 85%;
     justify-content: space-between;
 
+    @media (max-width: 1800px) {
+      max-width: 100%;
+    }
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+    }
+
     & > div {
       width: 33%;
       padding: 0 20px;
       box-sizing: border-box;
+
+      @media (max-width: 1700px) {
+        padding: 0 5px;
+      }
+
+      @media (max-width: 700px) {
+        width: 100%;
+      }
+
+      > div {
+        @media (max-width: 1500px) {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        > div {
+          @media (max-width: 1500px) {
+            width: 100%;
+
+            > div {
+              width: 100%;
+            }
+
+            > div > div:first-child {
+              width: 100%;
+              margin-right: 10px;
+            }
+
+            > p {
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+
     }
   }
 
@@ -41,6 +92,12 @@
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+
+    @media (max-width: 1500px) {
+      button + button {
+        margin-top: 10px;
+      }
+    }
   }
 
   & .paginationStaticBlock {

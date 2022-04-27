@@ -1,9 +1,14 @@
 .container {
   max-width: 510px;
 }
+
 .title {
-  @include gradient-statistics-title(
-    linear-gradient(90deg, #7f28d9 0%, #7427cc 100%)
-  );
+  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 13px;
+  text-transform: uppercase;
 }

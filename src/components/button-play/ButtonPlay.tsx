@@ -6,21 +6,51 @@ import buttonPlayHover from '@svgs/button-play-hover.svg';
 import buttonPlay from '@svgs/button-play.svg';
 import styles from './ButtonPlay.module.scss';
 
-type Props = {
-  className?: string;
-  size?: 'small' | 'normal';
-};
+type ButtonSize = 'large' | 'normal' | 'medium' | 'small';
 
-const ButtonPlay: FC<Props> = ({ size = 'normal', className = '' }) => {
+interface ButtonPlayProps {
+  title?: string;
+  size?: ButtonSize;
+}
+
+const ButtonPlay: FunctionComponent<ButtonPlayProps> = ({ title, size }) => {
+  const [hover, setHover] = useState(false);
+
+  let ButtonSize = '';
+  switch (size) {
+    case 'large':
+      ButtonSize = styles.large;
+      break;
+    case 'normal':
+      ButtonSize = styles.normal;
+      break;
+    case 'small':
+      ButtonSize = styles.small;
+      break;
+    default:
+      ButtonSize = styles.medium;
+  }
+  const finalStyle = `${styles.content} ${ButtonSize}`;
+
   return (
-    <button
-      className={classNames(styles.container, className, {
-        [styles.containerSmalled]: size === 'small',
-      })}
+    <div
+      className={`${styles.buttonPlay} ${finalStyle}`}
+      onMouseOver={() => setHover(true)}
+      onMouseOut={() => setHover(false)}
     >
-      <div className={styles.img}></div>
-      <p className={styles.text}>Играть</p>
-    </button>
+      <div>
+        <Image
+          src={hover ? buttonPlayHover : buttonPlay}
+          alt={'play'}
+          width={'73'}
+          height={'73'}
+        />
+      </div>
+
+      <div className={styles.playButton}>
+        <p>{title}</p>
+      </div>
+    </div>
   );
 };
 

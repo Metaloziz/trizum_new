@@ -16,7 +16,7 @@ const CustomSelect: FC<Props> = ({ options, placeholder }) => {
   return (
     <div className={styles.selectWrap}>
       <Select
-        instanceId={Symbol().toString()}
+        instanceId={+Date.now()}
         placeholder={placeholder}
         options={options}
         components={{ IndicatorSeparator: () => null }}

@@ -1,0 +1,272 @@
+.traffic {
+  padding: 33px 100px 20px 20px;
+  box-sizing: border-box;
+
+  @media (max-width: 1600px) {
+    padding-right: 50px;
+  }
+
+  @media (max-width: 1600px) {
+    padding-right: 20px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 30px 10px 30px;
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
+
+  .innerContent {
+    width: 80%;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    padding: 31px 45px 23px 45px;
+    box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+    border-radius: 30px;
+
+    @media (max-width: 1200px) {
+      width: 100%;
+    }
+
+    @media (max-width: 700px) {
+      padding: 30px 15px;
+    }
+
+    .inputBlock input {
+      background: linear-gradient(0deg, #E6EEF8, #E6EEF8), #CFD8DC;
+      box-shadow: inset -4px -4px 12px rgba(253, 255, 255, 0.8), inset 4px 4px 12px rgba(187, 195, 206, 0.6);
+      border-radius: 10px;
+      border: none;
+      box-sizing: border-box;
+      outline: none;
+      padding: 13px 25px 14px;
+      font-family: 'Aqum';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 13px;
+      display: flex;
+      align-items: center;
+      color: #0F123F;
+      width: 50%;
+
+      @media (max-width: 1200px) {
+        width: 100%;
+      }
+
+      &::placeholder {
+        color: #0F123F;
+      }
+    }
+
+    .infoBlock {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      margin: 25px 0 27px;
+
+      @media (max-width: 1700px) {
+        width: 100%;
+      }
+
+      @media (max-width: 1200px) {
+        flex-direction: column;
+      }
+
+      > div {
+        width: 46%;
+
+        @media (max-width: 1200px) {
+          width: 100%;
+          margin-bottom: 15px;
+        }
+
+      }
+    }
+
+    .editorInfo {
+      padding-top: 22px;
+      box-sizing: border-box;
+      border-top: 1px solid #babec6;
+
+      h3 {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+        margin-bottom: 15px;
+      }
+
+      .editorBlock {
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: 1500px) {
+          flex-direction: column;
+        }
+
+        .choiceTariff {
+          background: #ffffff;
+          padding: 25px 60px 25px 25px;
+          box-sizing: border-box;
+          box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
+          border-radius: 10px;
+          width: 40%;
+
+          @media (max-width: 1800px) {
+            padding-right: 25px;
+          }
+
+          @media (max-width: 1500px) {
+            width: 80%;
+            margin: 0 auto;
+          }
+
+          @media (max-width: 1100px) {
+            width: 95%;
+          }
+
+          @media (max-width: 440px) {
+            width: 100%;
+            padding: 25px 15px;
+          }
+
+          .selectTraffic {
+            margin-top: 30px;
+          }
+
+          input {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+          }
+
+          label {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #000000;
+            margin-left: 19px;
+            cursor: pointer;
+          }
+
+          & .inputTariff + .inputTariff {
+            margin-top: 20px;
+          }
+
+          .inputTariff {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+
+        .editorWrapper {
+          width: 640px;
+          height: 230px;
+          margin-right: 5px;
+
+          @media (max-width: 1700px) {
+            width: 540px;
+          }
+
+          @media (max-width: 1500px) {
+            width: 640px;
+            margin: 0 auto 20px;
+          }
+
+          @media (max-width: 1100px) {
+            width: 500px;
+          }
+
+          @media (max-width: 600px) {
+            width: 350px;
+            height: auto;
+          }
+
+          @media (max-width: 440px) {
+            width: 240px;
+          }
+        }
+      }
+    }
+  }
+
+  & .addTariff {
+    position: relative;
+    width: 18%;
+    background: #ffffff;
+    box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+    border-radius: 30px;
+    transition: all 0.5s ease;
+
+    @media (max-width: 1200px) {
+      width: 100%;
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 5px;
+      box-sizing: border-box;
+    }
+
+    &:hover {
+      background-color: #B3D4FF;
+    }
+
+    &:hover > div {
+      background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+      border: none;
+    }
+
+    &:hover button {
+      color: #ffffff;
+    }
+
+    & > div {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      box-sizing: border-box;
+      border: 3px solid #4778ec;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      @media (max-width: 1200px) {
+        position: static;
+        transform: translate(0);
+      }
+
+      & button {
+        font-size: 50px;
+        line-height: 35px;
+        color: #4778ec;
+        font-weight: 600;
+      }
+    }
+  }
+
+}
+
+.btnTraffic {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+
+  @media (max-width: 1200px) {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,123 @@
+.content {
+  padding: 33px 100px 20px 20px;
+  box-sizing: border-box;
+
+  @media (max-width: 1600px) {
+    padding-right: 50px;
+  }
+
+  @media (max-width: 1000px) {
+    padding-right: 20px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 30px 10px;
+  }
+
+  h1 {
+    font-family: 'Aqum';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 28px;
+
+    @media (max-width: 550px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  .inputWrap {
+    & > div {
+      justify-content: space-between;
+    }
+
+    & > div > div > div {
+      width: 100%;
+    }
+  }
+
+  .inputWrap + .inputWrap {
+    margin-top: 20px;
+  }
+
+  .wrapContent {
+    width: 640px;
+
+    @media (max-width: 1000px) {
+      width: 100%;
+    }
+
+    .btnBlock {
+      margin-top: 40px;
+    }
+
+    .addBlock {
+      margin-top: 30px;
+
+      .addАField {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        text-decoration-line: underline;
+        color: #2E8EFE;
+        width: 50%;
+        margin-left: auto;
+        margin-top: 24px;
+        cursor: pointer;
+
+        @media (max-width: 550px) {
+          width: 100%;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  .innerContent {
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 30px;
+    padding: 62px 43px 42px;
+    box-sizing: border-box;
+
+    @media (max-width: 550px) {
+      padding: 35px 10px;
+    }
+  }
+
+  .editorBlock {
+    margin-top: 30px;
+
+    .editorWrapper {
+      width: 640px;
+
+      @media (max-width: 1000px) {
+        width: 540px;
+      }
+
+      @media (max-width: 700px) {
+        width: 420px;
+      }
+
+      @media (max-width: 550px) {
+        width: 390px;
+      }
+
+      @media (max-width: 550px) {
+        width: 270px;
+      }
+    }
+
+    h3 {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+      margin-bottom: 15px;
+    }
+  }
+}

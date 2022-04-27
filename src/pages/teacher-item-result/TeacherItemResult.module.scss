@@ -1,0 +1,105 @@
+.wrapper {
+  padding: 36px 0 20px 20px;
+  box-sizing: border-box;
+  & h1 {
+    font-family: 'Aqum';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 23px;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 39px;
+    text-transform: uppercase;
+
+    text-align: center;
+  }
+
+  & .containerItem {
+    display: flex;
+    width: 61%;
+    flex-direction: column;
+
+    & .itemBlock{
+      display: flex;
+      border-radius: 30px;
+      background-color: #ffffff;
+      box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
+      padding: 31px 31px 43px 41px;
+      box-sizing: border-box;
+    }
+
+    & .itemPic {
+      margin-right: 83px;
+    }
+
+    & h2 {
+      text-transform: uppercase;
+      font-family: 'Aqum';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 17px;
+      color: #000000;
+    }
+
+    & .resultBlock {
+      width: 140%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    & .itemText {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      & p {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        color: #000000;
+        margin-bottom: 15px;
+      }
+
+      & .attempt span {
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 37px;
+        background: linear-gradient(90deg, #0439ad 0%, #38028F 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      & .resultInfo span {
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 37px;
+        color: #DB5552;
+      }
+
+      & .recommendations {
+        border: 1px solid #2E8EFE;
+        border-radius: 15px;
+        padding: 12px 23px;
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        position: relative;
+        align-items: center;
+
+        & p {
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 30px;
+          color: #000000;
+          margin: 0;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+
+}
+
+

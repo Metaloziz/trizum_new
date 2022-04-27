@@ -1,0 +1,111 @@
+.wrapperTesting {
+  width: 63%;
+  padding: 33px 20px 20px 20px;
+  box-sizing: border-box;
+
+  & h2 {
+    font-family: 'Aqum';
+    margin-bottom: 29px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  & .endTest {
+    margin-bottom: 40px;
+
+    & button {
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+
+      &:hover {
+        background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+      }
+    }
+
+  }
+
+  & .stepStyle {
+    width: 100%;
+  }
+
+  & .question {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+
+    & .textQuestion {
+      width: 55%;
+
+      & h3 {
+        text-transform: uppercase;
+        font-family: 'Aqum';
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 17px;
+        margin-bottom: 32px;
+        background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      & p {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+        color: #000000;
+      }
+
+      & .inputChoice {
+        display: flex;
+      }
+
+      & .answerСhoice {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 47px;
+        margin-bottom: 51px;
+        input{
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+        }
+        .inputChoice + .inputChoice {
+          margin-top: 44px;
+        }
+        label {
+          margin-left: 19px;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 22px;
+          display: flex;
+          align-items: center;
+          color: #000000;
+        }
+      }
+    }
+
+    & .resultImg {
+      background: #FFFFFF;
+      border-radius: 30px;
+      width: 560px;
+      height: 560px;
+      padding: 68px 77px;
+      box-sizing: border-box;
+    }
+  }
+
+  .choiceWrap {
+    margin-bottom: 55px;
+    padding-bottom: 55px;
+    border-bottom: 1px solid #BABEC6;
+  }
+
+}

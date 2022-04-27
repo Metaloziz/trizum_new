@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import styles from './Table.module.scss';
 
 interface IList {
@@ -14,7 +14,7 @@ interface Props {
   height?: string;
 }
 
-export const Table: FunctionComponent<Props> = ({ list, colNames }) => {
+export const Table: FC<Props> = ({ list, colNames }) => {
   return (
     <div className={styles.table}>
       {list !== undefined && list.length > 0 && (

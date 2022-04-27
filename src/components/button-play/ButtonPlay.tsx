@@ -13,7 +13,7 @@ interface ButtonPlayProps {
   size?: ButtonSize;
 }
 
-const ButtonPlay: FunctionComponent<ButtonPlayProps> = ({ title, size }) => {
+const ButtonPlay: FC<ButtonPlayProps> = ({ title, size }) => {
   const [hover, setHover] = useState(false);
 
   let ButtonSize = '';

@@ -1,11 +1,20 @@
-import ButtonPlay from '@components/button-play/ButtonPlay';
-
-const Tablet = () => {
+import { useState } from 'react';
+export default function TestPage() {
+  const [isModal, setModal] = useState(false);
+  const setModalHandler = () => {
+    setModal(true);
+  };
   return (
-    <div>
-      <ButtonPlay />
-    </div>
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginTop: '20px',
+      }}
+    ></div>
   );
-};
-
-export default Tablet;
+}

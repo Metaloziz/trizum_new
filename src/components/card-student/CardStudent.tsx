@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import CardStudentExtended from '@components/card-student/card-student-extended/CardStudentExtended';
 import CardStudentForTeacher from '@components/card-student/card-student-for-teacher/CardStudentForTeacher';
 import CardStudentForUser from '@components/card-student/card-student-for-user/CardStudentForUser';
-
+import CardStudentExtended from './card-student-extended/CardStudentExtended';
 type UserType = 'student' | 'teacher' | 'extended';
 
 interface Props {

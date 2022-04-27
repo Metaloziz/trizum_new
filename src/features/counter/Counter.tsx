@@ -17,17 +17,11 @@ export function Counter() {
   return (
     <div>
       <div className={styles.row}>
-        <button
-          className={styles.button}
-          aria-label="Decrement value"
-        >
+        <button className={styles.button} aria-label="Decrement value">
           -
         </button>
         <span className={styles.value}>{incrementValue}</span>
-        <button
-          className={styles.button}
-          aria-label="Increment value"
-        >
+        <button className={styles.button} aria-label="Increment value">
           +
         </button>
       </div>
@@ -38,21 +32,9 @@ export function Counter() {
           value={incrementAmount}
           onChange={(e) => setIncrementAmount(e.target.value)}
         />
-        <button
-          className={styles.button}
-        >
-          Add Amount
-        </button>
-        <button
-          className={styles.asyncButton}
-        >
-          Add Async
-        </button>
-        <button
-          className={styles.button}
-        >
-          Add If Odd
-        </button>
+        <button className={styles.button}>Add Amount</button>
+        <button className={styles.asyncButton}>Add Async</button>
+        <button className={styles.button}>Add If Odd</button>
       </div>
     </div>
   );

@@ -1,0 +1,51 @@
+.wrapperResult {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 50px 20px 20px;
+  box-sizing: border-box;
+  width: 60%;
+  & .imageTeacher {
+    width: 560px;
+    height: auto;
+    background: #FFFFFF;
+    border-radius: 30px;
+    padding: 68px 77px;
+    box-sizing: border-box;
+    margin-right: 54px;
+  }
+
+  & .textResult {
+    width: 81%;
+    & h2 {
+      font-family: 'Aqum';
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 23px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    & .wrapperText {
+
+      & p {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+        color: #000000;
+      }
+
+      & p + p {
+        margin-top: 20px;
+      }
+    }
+
+  }
+
+}
+
+

@@ -1,0 +1,29 @@
+.dropDownMenu {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  z-index: 400;
+
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    background-color: #e5d8fa;
+    align-items: center;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: all 0.2s ease;
+
+    > div + div {
+      margin-top: 30px;
+    }
+  }
+}
+
+.showDropDown {
+  nav {
+    transform: translateX(0);
+  }
+}

@@ -7,4 +7,24 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 600px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .accountBlock {
+    display: flex;
+    align-items: center;
+  }
+
+  .burgerBlock {
+    position: relative;
+    margin-right: 30px;
+    display: none;
+
+    @media (max-width: 1280px) {
+      display: block;
+    }
+  }
 }

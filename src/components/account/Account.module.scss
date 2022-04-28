@@ -1,8 +1,18 @@
 .container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
+  @media (max-width: 600px) {
+    width: 48%;
+  }
+
+  @media (max-width: 440px) {
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+  }
 }
+
 .avatar {
   position: relative;
   display: flex;
@@ -15,12 +25,19 @@
   border: 2px solid transparent;
   border-radius: 50%;
 
+  @media (max-width: 600px) {
+    width: 50px;
+    height: 50px;
+    margin-right: 0;
+  }
+
   &.activeNotification {
     .notification {
       display: initial;
     }
   }
 }
+
 .notification {
   display: none;
   position: absolute;
@@ -31,8 +48,16 @@
   background: #ff4e4a;
   border-radius: 50%;
 }
+
 $logout-font-map: (text-decoration: underline);
 
 .logout {
   @include link-font($logout-font-map...);
+
+  @media (max-width: 600px) {
+    > a {
+      font-size: 13px;
+      line-height: 18px;
+    }
+  }
 }

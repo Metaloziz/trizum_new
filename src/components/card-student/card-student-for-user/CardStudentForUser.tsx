@@ -1,8 +1,10 @@
 import Image from 'next/image';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import BasicModal from '@components/basic-modal/BasicModal';
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
 import CustomButton from '@components/custom-button/CustomButton';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
+import Panel from '@components/panel/Panel';
 import avatar from '@public/img/pervoklasnin.jpg';
 import iconFlag from '@svgs/icon-flag.svg';
 import iconTablet from '@svgs/icon-tablet.svg';
@@ -17,6 +19,7 @@ interface Props {
 }
 
 const CardStudentForUser: FC<Props> = ({ title }) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
@@ -101,8 +104,31 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             alt={'icon tablet'}
           />
         </div>
-        <CustomButton size={'small'}>Принять участие в олимпиаде</CustomButton>
+        <CustomButton size={'small'} onClick={() => setShowModal(true)}>
+          Принять участие в олимпиаде
+        </CustomButton>
       </div>
+      <BasicModal visibility={showModal} changeVisibility={setShowModal}>
+        <div className={styles.modalContent}>
+          <Panel className={styles.panel}>Олимпиада - неделя антипазла</Panel>
+          <div className={styles.modalText}>
+            <p>
+              Высокий уровень вовлечения представителей целевой аудитории
+              является четким доказательством простого факта: реализация
+              намеченных плановых заданий создаёт необходимость включения в
+              производственный план целого ряда внеочередных мероприятий с
+              учётом комплекса глубокомысленных рассуждений. Как принято
+              считать, сторонники тоталитаризма в науке, превозмогая сложившуюся
+              непростую экономическую ситуацию, своевременно верифицированы.
+            </p>
+          </div>
+          <div className={styles.btn}>
+            <CustomButton size={'normal'}>
+              Принять участие в олимпиаде
+            </CustomButton>
+          </div>
+        </div>
+      </BasicModal>
     </div>
   );
 };

@@ -15,7 +15,7 @@ const IndexPage = () => {
       <div className={styles.innerContent}>
         <div className={styles.homeWork}>
           <h1>Домашнее задание</h1>
-          <div>
+          <div className={styles.level}>
             <InformationItem
               title={'Уровень группы*'}
               variant={'select'}

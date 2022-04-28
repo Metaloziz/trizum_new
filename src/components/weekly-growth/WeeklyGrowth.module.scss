@@ -9,9 +9,18 @@
   box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
   border-radius: 30px;
 
+  @media (max-width: 1100px) {
+    max-width: 100%
+  }
+
+  @media (max-width: 600px) {
+    order: 2;
+    padding: 20px;
+  }
+
   &:after {
     content: '';
-    width: 570px;
+    width: 85%;
     height: 1px;
     background-color: #babec6;
     position: absolute;
@@ -34,4 +43,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-transform: uppercase;
+
+  @media (max-width: 600px) {
+    font-size: 11px;
+  }
 }

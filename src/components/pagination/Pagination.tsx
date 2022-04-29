@@ -24,7 +24,7 @@ const Pagination: FC<Props> = (props) => {
   } = props;
   return (
     <div>
-      {/* <ReactPaginate
+      <ReactPaginate
         initialPage={initialPage}
         marginPagesDisplayed={marginPagesDisplayed}
         pageCount={pageCount}
@@ -50,7 +50,7 @@ const Pagination: FC<Props> = (props) => {
             <Image src={paginationImage} alt="Next" width={7} height={10} />
           </div>
         }
-      /> */}
+      />
     </div>
   );
 };

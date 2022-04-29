@@ -21,6 +21,8 @@
     "@reduxjs/toolkit": "^1.8.1",
     "@types/draft-js": "^0.11.9",
     "@types/react-draft-wysiwyg": "^1.13.4",
+    "@types/react-paginate": "^7.1.1",
+    "@types/react-select": "^5.0.1",
     "classnames": "^2.3.1",
     "draft-js": "^0.11.7",
     "husky": "7.0.4",

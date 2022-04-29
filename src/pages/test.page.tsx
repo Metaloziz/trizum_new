@@ -2,6 +2,7 @@ import React from 'react';
 import modals from '@app/stores/CardStudentExtended';
 import BasicModal from '@components/basic-modal/BasicModal';
 import StudentPageFranchiseeModalParents from '@components/page-franchisee-administrator-main/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
+import Pagination from '@components/pagination/Pagination';
 
 export default function TestPage() {
   const str = `RGG
@@ -9,9 +10,7 @@ export default function TestPage() {
   console.log(str);
   return (
     <div>
-      <BasicModal visibility={true} changeVisibility={() => console.log()}>
-        <StudentPageFranchiseeModalParents />
-      </BasicModal>
+      <Pagination></Pagination>
     </div>
   );
 }

@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import AdminInfoList from '@components/admin-info-list/AdminInfoList';
 import CustomButton from '@components/custom-button/CustomButton';
+import CustomPagination from '@components/custom-pagination/CustomPagination';
 import InformationItem from '@components/information-item/InformationItem';
 import {
   homework,
@@ -9,12 +11,48 @@ import {
   paidFor,
   legalAddress,
 } from '@components/moks-data/moks-data-select';
-import { colNames, list } from '@components/moks-data/moks-data-table';
+import {
+  colNames,
+  list,
+  ListType,
+} from '@components/moks-data/moks-data-table';
 import Pagination from '@components/pagination/Pagination';
 import Table from '@components/table/Table';
 import styles from './Administration.module.scss';
 
 const IndexPage = () => {
+  const [data, setData] = useState<ListType>(list); // State для главных данных
+  const [loading, setLoading] = useState<boolean>(false); // State для загрузки
+  const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
+  const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
+
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      // пример запроса на сервер
+      // const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
+      // setData(res.data);
+      setLoading(false);
+    };
+    getData();
+  }, []);
+
+  const lastItemIndex = currentPage * count;
+  const firstItemIndex = lastItemIndex - count;
+  const currentItem = data.slice(firstItemIndex, lastItemIndex);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const nextPage = () => {
+    if (currentItem.length === count) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+  const prevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.innerContent}>
@@ -81,7 +119,7 @@ const IndexPage = () => {
             </div>
           </div>
           <div className={styles.tableContent}>
-            <Table list={list} colNames={colNames} />
+            <Table list={currentItem} colNames={colNames} loading={loading} />
           </div>
         </div>
         <div className={styles.rightBlock}>
@@ -89,7 +127,14 @@ const IndexPage = () => {
         </div>
       </div>
       <div className={styles.paginationBlock}>
-        <Pagination initialPage={1} pageCount={30} />
+        {/*<Pagination initialPage={1} pageCount={30} />*/}
+        <CustomPagination
+          paginate={paginate}
+          count={count}
+          next={nextPage}
+          prev={prevPage}
+          total={list.length}
+        />
       </div>
     </div>
   );

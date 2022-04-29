@@ -18,29 +18,30 @@ const Step: FC<Props> = ({
   pageCount,
   pageRangeDisplayed,
 }) => {
-  {
-    /* <ReactPaginate
-    initialPage={initialPage}
-    marginPagesDisplayed={marginPagesDisplayed}
-    pageCount={pageCount}
-    pageRangeDisplayed={pageRangeDisplayed}
-    breakLabel={false}
-    previousLabel={false}
-    nextLabel={false}
-    // onPageChange={onChange}
-    containerClassName={styles.step}
-    activeClassName={styles.stepActive}
-    pageLinkClassName={styles.stepLink}
-    breakLinkClassName={styles.stepBreakLink}
-    nextLinkClassName={styles.stepNextLink}
-    previousLinkClassName={styles.stepPrevLink}
-    pageClassName={styles.stepItem}
-    breakClassName={styles.stepBreakItem}
-    // nextClassName={styles.stepNextItem}
-    // previousClassName={styles.stepPrevItem}
-  /> */
-  }
-  return <div></div>;
+  return (
+    <div>
+      <ReactPaginate
+        initialPage={initialPage}
+        marginPagesDisplayed={marginPagesDisplayed}
+        pageCount={pageCount}
+        pageRangeDisplayed={pageRangeDisplayed}
+        breakLabel={false}
+        previousLabel={false}
+        nextLabel={false}
+        // onPageChange={onChange}
+        containerClassName={styles.step}
+        activeClassName={styles.stepActive}
+        pageLinkClassName={styles.stepLink}
+        breakLinkClassName={styles.stepBreakLink}
+        nextLinkClassName={styles.stepNextLink}
+        previousLinkClassName={styles.stepPrevLink}
+        pageClassName={styles.stepItem}
+        breakClassName={styles.stepBreakItem}
+        // nextClassName={styles.stepNextItem}
+        // previousClassName={styles.stepPrevItem}
+      />
+    </div>
+  );
 };
 
 export default Step;

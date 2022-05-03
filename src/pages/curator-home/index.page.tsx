@@ -1,17 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
+import CustomPagination from '@components/custom-pagination/CustomPagination';
 import InformationItem from '@components/information-item/InformationItem';
 import {
   colNamesCurator,
   listCurator,
 } from '@components/moks-data/moks-data-curator';
-import Pagination from '@components/pagination/Pagination';
+import { list, ListType } from '@components/moks-data/moks-data-table';
 import Table from '@components/table/Table';
 import styles from './CuratorHome.module.scss';
 
 const IndexPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [data, setData] = useState<ListType>(listCurator); // State для главных данных
+  const [loading, setLoading] = useState<boolean>(false); // State для загрузки
+  const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
+  const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      // пример запроса на сервер
+      // const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
+      // setData(res.data);
+      setLoading(false);
+    };
+    getData();
+  }, []);
+  const lastItemIndex = currentPage * count;
+  const firstItemIndex = lastItemIndex - count;
+  const currentItem = data.slice(firstItemIndex, lastItemIndex);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const nextPage = () => {
+    if (currentItem.length === count) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+  const prevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
   return (
     <div className={styles.content}>
       <div className={styles.wrapStaticBlock}>
@@ -42,10 +71,17 @@ const IndexPage = () => {
         </div>
       </div>
       <div className={styles.tableContent}>
-        <Table list={listCurator} colNames={colNamesCurator} />
+        <Table list={currentItem} colNames={colNamesCurator} />
       </div>
       <div className={styles.paginationCuratorBlock}>
-        <Pagination initialPage={1} pageCount={30} />
+        {/*<Pagination initialPage={1} pageCount={30} />*/}
+        <CustomPagination
+          paginate={paginate}
+          count={count}
+          next={nextPage}
+          prev={prevPage}
+          total={list.length}
+        />
       </div>
       <div className={styles.modalContent}>
         <BasicModal visibility={showModal} changeVisibility={setShowModal}>

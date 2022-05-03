@@ -193,14 +193,14 @@
       border-radius: 0 0 25px 25px;
       padding: 10px 5px;
       box-sizing: border-box;
-    }
 
-    &::before {
-      display: none;
-    }
+      &::before {
+        display: none;
+      }
 
-    &::after {
-      display: none;
+      &::after {
+        display: none;
+      }
     }
   }
 }

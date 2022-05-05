@@ -123,7 +123,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             </p>
           </div>
           <div className={styles.btn}>
-            <CustomButton size={'normal'}>
+            <CustomButton>
               Принять участие в олимпиаде
             </CustomButton>
           </div>

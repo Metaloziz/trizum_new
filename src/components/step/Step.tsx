@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import ReactPaginate from 'react-paginate';
+// import ReactPaginate from 'react-paginate';
 import styles from './Step.module.scss';
 
 interface Props {
@@ -20,7 +20,7 @@ const Step: FC<Props> = ({
 }) => {
   return (
     <div>
-      <ReactPaginate
+      {/* <ReactPaginate
         initialPage={initialPage}
         marginPagesDisplayed={marginPagesDisplayed}
         pageCount={pageCount}
@@ -39,7 +39,7 @@ const Step: FC<Props> = ({
         breakClassName={styles.stepBreakItem}
         // nextClassName={styles.stepNextItem}
         // previousClassName={styles.stepPrevItem}
-      />
+      /> */}
     </div>
   );
 };

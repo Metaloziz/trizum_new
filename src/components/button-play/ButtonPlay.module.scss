@@ -86,6 +86,7 @@
   cursor: pointer;
   transition: all 0.5s ease;
 
+
   &:hover {
     background: linear-gradient(0deg, #9181FA, #9181FA), #CFD8DC;
     border: 3px solid #F3EEFD;
@@ -145,6 +146,10 @@
   height: 60px;
   flex-shrink: 0;
   flex-grow: 0;
+
+  > div + div {
+    display: none;
+  }
 
   @media (max-width: 600px) {
     width: 45px;

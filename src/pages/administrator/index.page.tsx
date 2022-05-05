@@ -16,7 +16,6 @@ import {
   list,
   ListType,
 } from '@components/moks-data/moks-data-table';
-import Pagination from '@components/pagination/Pagination';
 import Table from '@components/table/Table';
 import styles from './Administration.module.scss';
 
@@ -127,7 +126,6 @@ const IndexPage = () => {
         </div>
       </div>
       <div className={styles.paginationBlock}>
-        {/*<Pagination initialPage={1} pageCount={30} />*/}
         <CustomPagination
           paginate={paginate}
           count={count}

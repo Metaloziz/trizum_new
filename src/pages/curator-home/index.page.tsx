@@ -13,7 +13,7 @@ import styles from './CuratorHome.module.scss';
 
 const IndexPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [data, setData] = useState<ListType>(listCurator); // State для главных данных
+  const [data, setData] = useState<any>(listCurator); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
@@ -71,7 +71,7 @@ const IndexPage = () => {
         </div>
       </div>
       <div className={styles.tableContent}>
-        <Table list={currentItem} colNames={colNamesCurator} />
+        <Table list={currentItem} colNames={colNamesCurator} loading={false} />
       </div>
       <div className={styles.paginationCuratorBlock}>
         {/*<Pagination initialPage={1} pageCount={30} />*/}

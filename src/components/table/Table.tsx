@@ -18,7 +18,7 @@ import styles from './Table.module.scss';
 
 interface Props {
   // list?: IList[];
-  list?: ListType;
+  list?: any[];
   colNames?: string[];
   width?: string;
   height?: string;

@@ -6,7 +6,11 @@ const TextFieldCalendar = () => {
     <div style={{ display: 'flex' }}>
       <input type="text" />
       <div>
-        <CustomCalendar />
+        <CustomCalendar
+          setTitle={(t) => {
+            t?.length;
+          }}
+        />
       </div>
     </div>
   );

@@ -123,9 +123,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             </p>
           </div>
           <div className={styles.btn}>
-            <CustomButton>
-              Принять участие в олимпиаде
-            </CustomButton>
+            <CustomButton>Принять участие в олимпиаде</CustomButton>
           </div>
         </div>
       </BasicModal>

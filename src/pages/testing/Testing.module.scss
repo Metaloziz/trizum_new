@@ -3,6 +3,10 @@
   padding: 33px 20px 20px 20px;
   box-sizing: border-box;
 
+  @media (max-width: 1900px) {
+    width: 100%;
+  }
+
   & h2 {
     font-family: 'Aqum';
     margin-bottom: 29px;
@@ -14,6 +18,11 @@
     background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    @media (max-width: 600px){
+      font-size: 18px;
+      line-height: 22px;
+    }
   }
 
   & .endTest {
@@ -36,10 +45,17 @@
   & .question {
     display: flex;
     justify-content: space-between;
-    margin-left: 20px;
+
+    @media (max-width: 1000px) {
+      flex-direction: column;
+
+    }
 
     & .textQuestion {
       width: 55%;
+      @media (max-width: 1000px) {
+        width: 100%;
+      }
 
       & h3 {
         text-transform: uppercase;
@@ -72,14 +88,28 @@
         justify-content: space-between;
         margin-top: 47px;
         margin-bottom: 51px;
-        input{
+        @media (max-width: 600px) {
+          width: 100%;
+          flex-direction: column;
+          div + div {
+            margin-top: 30px;
+          }
+        }
+
+        input {
           width: 20px;
           height: 20px;
           border-radius: 50%;
         }
+
         .inputChoice + .inputChoice {
           margin-top: 44px;
+
+          @media (max-width: 600px){
+            margin-top: 30px;
+          }
         }
+
         label {
           margin-left: 19px;
           font-weight: 600;
@@ -94,11 +124,30 @@
 
     & .resultImg {
       background: #FFFFFF;
+      margin-right: 10px;
       border-radius: 30px;
       width: 560px;
       height: 560px;
       padding: 68px 77px;
       box-sizing: border-box;
+
+      @media (max-width: 1200px) {
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      @media (max-width: 1000px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 600px) {
+        height: 350px;
+        > span {
+          height: 100% !important;
+        }
+      }
     }
   }
 

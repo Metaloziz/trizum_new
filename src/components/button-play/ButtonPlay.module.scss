@@ -109,11 +109,36 @@
     line-height: 23px;
     text-transform: uppercase;
     margin-top: 17px;
+
+    @media (max-width: 600px) {
+      font-size: 12px;
+      line-height: 12px;
+    }
   }
 
   &.large {
     width: 220px;
     height: 220px;
+
+    @media (max-width: 900px) {
+      width: 180px;
+      height: 180px;
+    }
+
+    @media (max-width: 600px) {
+      width: 110px;
+      height: 110px;
+    }
+
+    > div:first-child {
+      width: 50px;
+      height: 50px;
+
+      @media (max-width: 600px) {
+        width: 37px;
+        height: 37px;
+      }
+    }
   }
 
   &.normal {

@@ -33,6 +33,7 @@
 
     @media (max-width: 1200px) {
       width: 100%;
+      padding: 30px 20px;
     }
 
     @media (max-width: 700px) {
@@ -88,6 +89,9 @@
           margin-bottom: 15px;
         }
 
+        > div {
+          justify-content: space-between;
+        }
       }
     }
 
@@ -125,16 +129,11 @@
           }
 
           @media (max-width: 1500px) {
-            width: 80%;
+            width: 100%;
             margin: 0 auto;
           }
 
-          @media (max-width: 1100px) {
-            width: 95%;
-          }
-
           @media (max-width: 440px) {
-            width: 100%;
             padding: 25px 15px;
           }
 
@@ -171,7 +170,7 @@
         .editorWrapper {
           width: 640px;
           height: 230px;
-          margin-right: 5px;
+          margin-right: 20px;
 
           @media (max-width: 1700px) {
             width: 540px;
@@ -179,7 +178,7 @@
 
           @media (max-width: 1500px) {
             width: 640px;
-            margin: 0 auto 20px;
+            margin: 0 0 20px;
           }
 
           @media (max-width: 1100px) {
@@ -189,6 +188,7 @@
           @media (max-width: 600px) {
             width: 350px;
             height: auto;
+            margin: 0 auto 20px;
           }
 
           @media (max-width: 440px) {

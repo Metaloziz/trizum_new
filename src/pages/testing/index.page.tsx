@@ -20,7 +20,7 @@ const IndexPage = () => {
           <CustomButton>Закончить тест</CustomButton>
         </div>
         <div className={styles.stepStyle}>
-          <Step initialPage={1} pageCount={30} />
+          <Step count={4} />
         </div>
       </div>
       <div className={styles.question}>

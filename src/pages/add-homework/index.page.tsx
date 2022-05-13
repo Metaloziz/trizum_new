@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import {
@@ -10,6 +11,7 @@ import TextEditor from '@components/text-editor/TextEditor';
 import styles from './AddHomework.module.scss';
 
 const IndexPage = () => {
+  // const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
   return (
     <div className={styles.content}>
       <div className={styles.innerContent}>
@@ -78,7 +80,7 @@ const IndexPage = () => {
       <div className={styles.homeBtn}>
         <CustomButton>Сохранить</CustomButton>
         <div>
-          <Step initialPage={1} pageCount={4} />
+          <Step count={7} />
         </div>
       </div>
     </div>

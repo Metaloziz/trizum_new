@@ -1,6 +1,23 @@
-import { FunctionComponent } from 'react';
-import TeacherMainItem from '@pages/teacher-main/teacher-main-item/TeacherMainItem';
-import styles from './TeacherMain.module.scss';
+import { FunctionComponent } from 'react'
+import styles from './TeacherMain.module.scss'
+import Schedule from '@components/schedule/Schedule'
+import TeacherSearchBar from '@components/teacher-searchBar/TeacherSearchBar'
+
+const groups = [
+  'group №1',
+  'group №2',
+  'group №3',
+]
+const schools = [
+  'school №1',
+  'school №2',
+  'school №3',
+]
+const cities = [
+  'city №1',
+  'city №2',
+  'city №3',
+]
 
 const items = [
   {
@@ -21,12 +38,15 @@ const items = [
     title: 'Блок 3',
     text: 'А также явные признаки победы институционализации призывают нас к новым свершениям, которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники тоталитаризма в науке являются только методом политического участия и в равной степени предоставлены сами себе. ',
   },
-];
+]
 
 const IndexPage: FunctionComponent = () => {
+
   return (
-    <div className={styles.container}>
-      {items.map((item) => {
+    <div className={ styles.container }>
+      <TeacherSearchBar cities={cities} groups={groups} schools={schools}/>
+      <Schedule/>
+      {/* {items.map((item) => {
         return (
           <TeacherMainItem
             key={item.id}
@@ -35,9 +55,9 @@ const IndexPage: FunctionComponent = () => {
             imgSrc={item.img}
           />
         );
-      })}
+      })}*/ }
     </div>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage

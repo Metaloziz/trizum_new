@@ -2,8 +2,12 @@
   display: flex;
   align-items: center;
 
-  & > div {
-    width: 48%;
+  & > div:first-child {
+    flex: 1 1 48%;
+  }
+
+  & > div:last-child {
+    flex: 1 1 48%;
   }
 
   & p {

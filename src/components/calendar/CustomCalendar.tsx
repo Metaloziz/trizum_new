@@ -21,7 +21,6 @@ const CustomCalendar: FC<Props> = observer(({ setTitle }) => {
       calendar.isOpen();
     }
   };
-
   const changeDate = (date: Date) => {
     const title = `${date.getDate()}.${
       date.getMonth() + 1
@@ -31,11 +30,10 @@ const CustomCalendar: FC<Props> = observer(({ setTitle }) => {
     setShowCalendar(false);
     calendar.isClose();
   };
-
   return (
     <div className={styles.calendar}>
       <div className={styles.calendarImage} onClick={showCalendarHandler}>
-        <Image src={calendarImage} alt="calendar" width={30} height={30} />
+        <Image src={calendarImage} alt={'calendar'} width={30} height={30} />
         <div className={styles.blockCalendar}>
           {showCalendar && (
             <Calendar

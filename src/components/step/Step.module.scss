@@ -1,71 +1,29 @@
 .step {
-  $this: &;
-  background: linear-gradient(0deg, #e6eef8, #e6eef8), #cfd8dc;
+  background: linear-gradient(0deg, #E6EEF8, #E6EEF8), #CFD8DC;
   box-shadow: inset -4px -4px 12px rgba(253, 255, 255, 0.8), inset 4px 4px 12px rgba(187, 195, 206, 0.6);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  outline: transparent;
-  margin: 0;
-  padding: 0;
+  border-radius: 30px;
+  height: 40px;
 
-  & > li > a {
+  .countList {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
     height: 40px;
-    color: #babec6;
-    background-color: transparent;
-    outline: transparent;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
 
-    &:hover {
-      background-color: #4778ec;
-      border-radius: 50%;
-      color: #ffffff;
+    .countItem {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
     }
-  }
 
-  & > li {
-    margin: 2px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
-
-  & li:first-child {
-    display: none !important;
-  }
-
-  & li:last-child {
-    display: none;
-  }
-
-
-  & > #{$this}__active > a {
-    background-color: #4778ec;
-    color: #ffffff;
-  }
-
-  & > #{$this}__active > a,
-  & > #{$this}__active > a:hover,
-  & > #{$this}__active > a:focus {
-    background-color: #4778ec;
-    outline: transparent;
-    cursor: default;
-  }
-
-  & > .disabled > a {
-    cursor: default;
-
-    &:hover {
-      background-color: transparent;
+    .activeItem {
+      border-radius: 50%;
+      background-color: #4778EC;
+      color: #fff;
     }
   }
 }

@@ -29,12 +29,13 @@ const Navigation: FC<Props> = ({
   return (
     <div className={wrapperClassName}>
       <Link passHref href={href}>
-        <button className={linkClassNames} onClick={onClick}>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a className={linkClassNames} onClick={onClick}>
           <div className={imageClassName}>
             <Image src={imageSrc} width={40} height={40} alt={label} />
           </div>
           {label}
-        </button>
+        </a>
       </Link>
     </div>
   );

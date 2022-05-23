@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { ClassTime } from '@components/scheduler/classTime/ClassTime';
 import ScheduledLesson from '@components/scheduler/scheduledLesson/ScheduledLesson';
-import styles from './Table2.module.scss';
 
 interface IScheduler {
   id: number;

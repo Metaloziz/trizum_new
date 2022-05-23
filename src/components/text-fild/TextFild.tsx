@@ -1,5 +1,5 @@
-import React, { ChangeEvent, FC } from 'react'
-import styles from './TextFild.module.scss'
+import React, { ChangeEvent, FC } from 'react';
+import styles from './TextFild.module.scss';
 
 interface Props {
   type?: string;
@@ -10,21 +10,21 @@ interface Props {
 }
 
 const TextField: FC<Props> = (props) => {
-  const {type, id, label, value, onChange} = props
+  const { type, id, label, value, onChange } = props;
   const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange && onChange(e.target.value)
-  }
+    onChange && onChange(e.target.value);
+  };
   return (
-    <div className={ styles.textField }>
-      { label && <label htmlFor={ label }>{ label }</label> }
+    <div className={styles.textField}>
+      {label && <label htmlFor={label}>{label}</label>}
       <input
-        type={ type ? type : 'text' }
-        id={ label ? label : id }
-        value={ value || '' }
-        onChange={ onChangeText }
+        type={type ? type : 'text'}
+        id={label ? label : id}
+        value={value || ''}
+        onChange={onChangeText}
       />
     </div>
-  )
-}
+  );
+};
 
-export default TextField
+export default TextField;

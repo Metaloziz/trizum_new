@@ -7,7 +7,7 @@
     margin: 18px auto 0;
 
     .container {
-      box-shadow: 0px 0px 40px rgba(86, 89, 146, 0.15);
+      box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
       background-color: #fcfbfe;
       padding: 38px 46px;
       display: flex;
@@ -30,7 +30,7 @@
         border-radius: 50%;
       }
 
-      .blockShulte {
+      .display {
         background-color: #ffffff;
         border: 1px solid #f0f0f0;
         padding: 33px 268px;

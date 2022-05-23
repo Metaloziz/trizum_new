@@ -1,0 +1,39 @@
+.calendar {
+  max-width: 150px;
+  min-width: 100px;
+  width: 100%;
+  position: relative;
+  & > div {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  & > div > div {
+    margin-right: 3px;
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+  }
+  @media(max-width: 756px) {
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+.input {
+  display: block;
+  width: 100%;
+  height: 30px;
+  background: $color-light-blue;
+  border-radius: 15px;
+  appearance: none;
+  border: none;
+  outline: none;
+  padding: 8px 35px 8px 15px ;
+  font-size: 14px;
+  font-family: inherit;
+  &:hover, &:focus{
+    appearance: none;
+    border: none;
+    outline: none;
+  }
+}

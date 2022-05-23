@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { FC } from 'react';
 import CustomCalendar from '@components/calendar/CustomCalendar';
 
-const TextFieldCalendar = () => {
+type Props = {
+  onSelectDate: (str: string) => void;
+  value?: string;
+  type?: 'standard' | 'blue';
+  iconParams?: { width: number; height: number };
+  icon?: string;
+};
+
+const TextFieldCalendar: FC<Props> = (props) => {
+  const { onSelectDate, type, value, icon, iconParams } = props;
+  if(type){
+
+  }
   return (
     <div style={{ display: 'flex' }}>
-      <input type="text" />
+      <input type="text" value={value} />
       <div>
         <CustomCalendar
-          setTitle={(t) => {
-            t?.length;
-          }}
+          setTitle={onSelectDate}
+          iconParams={iconParams}
+          icon={icon}
         />
       </div>
     </div>

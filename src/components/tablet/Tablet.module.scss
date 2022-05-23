@@ -1,5 +1,5 @@
 .container {
-  box-shadow: 0px 0px 40px rgba(86, 89, 146, 0.15);
+  box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
   background-color: #fcfbfe;
   padding: 38px 46px;
   display: flex;
@@ -22,12 +22,13 @@
     border-radius: 50%;
   }
 
-  .blockShulte {
+  .display {
     background-color: #ffffff;
     border: 1px solid #f0f0f0;
     padding: 20px;
     box-sizing: border-box;
-
+    width: 100%;
+    border-radius: 15px;
   }
 
   .tableBtn {
@@ -55,21 +56,31 @@
     width: 4px;
     background-color: #ffffff;
   }
-
+  @media(max-width: 991px) {
+    padding: 30px 25px;
+    //transform: rotate(90deg);
+    //& > div {
+    //  transform: rotate(-90deg);
+    //}
+    .display{
+      padding: 10px;
+    }
+    &::after{
+      content: none;
+    }
+    .tableBtn{
+      display: none;
+    }
+    .leftBtn{
+      display: none;
+    }
+  }
+  @media(max-width: 450px) {
+    padding: 20px 16px;
+    border-radius: 20px;
+    .display{
+      border-radius: 10px;
+    }
+  }
 }
 
-.textShulte h2 {
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 23px;
-  color: #2e8dfd;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-}
-
-.textShulte p {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 30px;
-  color: #0f123f;
-}

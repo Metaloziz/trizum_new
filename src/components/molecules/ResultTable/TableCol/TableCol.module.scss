@@ -1,0 +1,16 @@
+.col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //padding: 5px;
+  font-size: 11px;
+  height: 22px;
+  width: 30px;
+  border-right: 0.5px dashed $color-gray;
+  &_filled {
+    background: #EFEFEF;
+  }
+  &_header {
+    border: none;
+  }
+}

@@ -9,9 +9,11 @@ import 'react-calendar/dist/Calendar.css';
 
 interface Props {
   setTitle: (value: string) => void;
+  icon?: string;
+  iconParams?: { width: number; height: number };
 }
 
-const CustomCalendar: FC<Props> = observer(({ setTitle }) => {
+const CustomCalendar: FC<Props> = observer(({ setTitle, icon, iconParams }) => {
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -31,11 +33,11 @@ const CustomCalendar: FC<Props> = observer(({ setTitle }) => {
     setShowCalendar(false);
     calendar.isClose();
   };
-
+  const params = iconParams || { width: 30, height: 30 };
   return (
     <div className={styles.calendar}>
       <div className={styles.calendarImage} onClick={showCalendarHandler}>
-        <Image src={calendarImage} alt="calendar" width={30} height={30} />
+        <Image src={icon || calendarImage} alt="calendar" {...params} />
         <div className={styles.blockCalendar}>
           {showCalendar && (
             <Calendar

@@ -1,3 +1,5 @@
+@import "src/styles/variables";
+
 .customButton {
   position: relative;
   background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
@@ -70,6 +72,10 @@
   }
 }
 
+.primary {
+  background: $color-deep-blue;
+}
+
 .large {
   width: 200px;
   height: 70px;
@@ -86,5 +92,15 @@
   & .arrowBtn {
     width: 35px;
     height: 35px;
+  }
+}
+
+.thin {
+  padding: 7px 70px 7px 18px;
+  max-height: 30px;
+
+  & .arrowBtn {
+    width: 25px;
+    height: 25px;
   }
 }

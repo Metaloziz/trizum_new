@@ -1,14 +1,12 @@
-import React, { FC } from 'react'
-import styles from './Tablet.module.scss'
-import ButtonPlay from '@components/button-play/ButtonPlay'
-type TabletProps = {
+import React, { FC } from 'react';
+import styles from './Tablet.module.scss';
 
-}
-const Tablet:FC<TabletProps> = (props) => {
-  const {children} = props
-    return (
+type TabletProps = {};
+const Tablet: FC<TabletProps> = (props) => {
+  const { children } = props;
+  return (
     <div className={styles.container}>
-      <div className={styles.blockShulte}>
+      <div className={styles.display}>
         {children}
         <div className={styles.tableBtn}>
           <div></div>
@@ -17,8 +15,7 @@ const Tablet:FC<TabletProps> = (props) => {
         <div className={styles.leftBtn}></div>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default Tablet
+export default Tablet;

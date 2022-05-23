@@ -1,0 +1,25 @@
+@import '../../../styles/variables';
+
+.item {
+  background: $color-light-blue;
+  font-weight: 600;
+  max-height: 30px;
+  padding: 8px 11px;
+  min-width: 100px;
+  width: auto;
+  display: inline-block;
+  border-radius: 30px;
+  font-size: 11px;
+  text-align: center;
+  white-space: nowrap;
+  &_small {
+    min-width: 75px;
+  }
+  &_active{
+    background: $color-deep-blue;
+    color: $color-white;
+  }
+  @media(max-width: 756px) {
+    width: 100%;
+  }
+}

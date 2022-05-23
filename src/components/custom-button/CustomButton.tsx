@@ -6,11 +6,12 @@ import iconExel from '@svgs/btn-excel.svg';
 import iconParents from '@svgs/parents.svg';
 import iconPlus from '@svgs/plus.svg';
 import iconPlusHover from '@svgs/plusHover.svg';
+import smallArrow from '@svgs/small-arrow.svg';
 import styles from './CustomButton.module.scss';
 
-type ButtonType = 'parents' | 'bigButton' | 'addUser' | 'addExel';
+type ButtonType = 'parents' | 'bigButton' | 'addUser' | 'addExel' | 'primary';
 
-type ButtonSize = 'large' | 'small';
+type ButtonSize = 'large' | 'small' | 'thin';
 
 interface Props {
   children?: React.ReactNode;
@@ -24,7 +25,7 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
   let iconButton = (
     <Image src={buttonImage} alt={'arrow'} width={26} height={13} />
   );
-  let typeButtonStyle = '';
+  let typeButtonStyle:string;
   switch (type) {
     case 'parents':
       typeButtonStyle = styles.parents;
@@ -54,6 +55,12 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
         <Image src={iconExel} alt={'exel'} width={14} height={19} />
       );
       break;
+    case 'primary':
+      typeButtonStyle = styles.primary;
+      iconButton = (
+        <Image src={smallArrow} alt={'arrow'} width={16} height={10} />
+      );
+      break;
     default:
       typeButtonStyle = '';
   }
@@ -64,6 +71,9 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
       break;
     case 'large':
       sizeButton = styles.large;
+      break;
+    case 'thin':
+      sizeButton = styles.thin;
       break;
     default:
       sizeButton = '';

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
@@ -12,11 +11,7 @@ const Account: FC = () => {
 
   return (
     <div className={styles.container}>
-      <button
-        className={classNames(styles.avatar, {
-          [styles.activeNotification]: activeNotification,
-        })}
-      >
+      <button className={styles.avatar}>
         <Image src={avatar} width={53} height={53} alt="avatar" />
         <div className={styles.notification}></div>
       </button>

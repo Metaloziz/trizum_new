@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ClassTime } from '@components/scheduler/classTime/ClassTime';
-import ScheduledLesson from '@components/scheduler/scheduledLesson/ScheduledLesson';
+// import ScheduledLesson from '@components/scheduler/scheduledLesson/ScheduledLesson';
 
 interface IScheduler {
   id: number;
@@ -23,7 +23,7 @@ interface Props {
 
 const Table2: FC<Props> = ({ data }) => {
   return (
-    <table className={styles.table}>
+    <table>
       <thead>
         <tr>
           <th></th>
@@ -38,10 +38,7 @@ const Table2: FC<Props> = ({ data }) => {
             <ClassTime time={lesson.time} />
             {lesson.scheduler.map((item) =>
               item.lesson ? (
-                <td key={item.id}>
-                  {' '}
-                  <ScheduledLesson />{' '}
-                </td>
+                <td key={item.id}> {/** <ScheduledLesson /> **/} </td>
               ) : (
                 <td key={item.id}></td>
               ),

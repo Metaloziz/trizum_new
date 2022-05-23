@@ -10,15 +10,20 @@ interface SelectOptions {
 interface Props {
   options: SelectOptions[];
   placeholder: string;
-  label?:string;
-  additionalCn?:string;
+  label?: string;
+  additionalCn?: string;
 }
 
-const CustomSelect: FC<Props> = ({ options, placeholder,label ,additionalCn}) => {
-  const wrapper = `${styles.selectWrap} ${additionalCn ? additionalCn : ''}`
+const CustomSelect: FC<Props> = ({
+  options,
+  placeholder,
+  label,
+  additionalCn,
+}) => {
+  const wrapper = `${styles.selectWrap} ${additionalCn ? additionalCn : ''}`;
   return (
     <div className={wrapper}>
-      {label && <p className={styles.label}>{ label }</p>}
+      {label && <p className={styles.label}>{label}</p>}
       <Select
         // instanceId={+Date.now()}
         placeholder={placeholder}

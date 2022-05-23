@@ -1,4 +1,4 @@
-import className from 'classNames';
+import className from 'classnames';
 import React, { FC, useState } from 'react';
 import styles from './Step.module.scss';
 

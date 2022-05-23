@@ -5,6 +5,9 @@
 
     width: 1250px;
     margin: 18px auto 0;
+    @media (max-width: 1500px) {
+      width: 95%;
+    }
 
     .container {
       box-shadow: 0px 0px 40px rgba(86, 89, 146, 0.15);
@@ -17,6 +20,10 @@
       border-radius: 30px;
       position: relative;
       margin-bottom: 43px;
+
+      @media (max-width: 550px) {
+        padding: 30px;
+      }
 
       &::after {
         content: '';
@@ -36,6 +43,28 @@
         padding: 33px 268px;
         box-sizing: border-box;
 
+        @media (max-width: 1300px) {
+          padding: 33px 170px;
+        }
+
+        @media (max-width: 1100px) {
+          padding: 33px 80px;
+        }
+
+        @media (max-width: 900px) {
+          padding: 30px;
+        }
+
+        @media (max-width: 550px) {
+          padding: 5px;
+        }
+
+        .imageTable {
+          > img {
+            width: 100%;
+            height: auto;
+          }
+        }
       }
 
       .tableBtn {
@@ -73,6 +102,11 @@
       color: #2e8dfd;
       text-transform: uppercase;
       margin-bottom: 15px;
+
+      @media (max-width: 550px) {
+        font-size: 13px;
+        line-height: 12px;
+      }
     }
 
     .textShulte p {
@@ -80,6 +114,11 @@
       font-size: 18px;
       line-height: 30px;
       color: #0f123f;
+
+      @media (max-width: 550px) {
+        font-size: 13px;
+        line-height: 20px;
+      }
     }
   }
 }

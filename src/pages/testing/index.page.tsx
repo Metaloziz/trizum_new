@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
 import Step from '@components/step/Step';
-import resultIcon from '@public/result-icon.png';
+import resultIcon from '@svgs/result-icon.svg';
 import styles from './Testing.module.scss';
 
 const IndexPage = () => {

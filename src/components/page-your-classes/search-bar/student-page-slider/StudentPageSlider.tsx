@@ -7,7 +7,7 @@ const StudentPageSlider = () => {
     <div className={styles.wrapper}>
       <span>Номер урока</span>
       <div className={styles.stepWrapper}>
-        <Step pageCount={5} initialPage={1} />
+        <Step count={7} />
       </div>
     </div>
   );

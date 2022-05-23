@@ -1,8 +1,10 @@
 .dropDownMenu {
-  position: fixed;
+  position: absolute;
+  height: 100vh;
   top: 100px;
   left: 0;
   z-index: 400;
+  background-color: #e5d8fa;
 
 
   nav {
@@ -10,9 +12,7 @@
     flex-direction: column;
     padding: 40px 20px;
     box-sizing: border-box;
-    background-color: #e5d8fa;
     align-items: center;
-    height: 100vh;
     transform: translateX(-100%);
     transition: all 0.2s ease;
 

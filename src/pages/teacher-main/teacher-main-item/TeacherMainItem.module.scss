@@ -8,6 +8,23 @@
   border-radius: 30px;
   max-width: 1380px;
 
+  @media (max-width: 900px) {
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+
+  .wrapperTeacherImg {
+    margin-right: 10px;
+
+    @media (max-width: 900px) {
+      margin-right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  }
+
   & .itemPic {
     width: 300px;
 
@@ -18,6 +35,10 @@
 
   & .itemText {
     width: 70%;
+
+    @media (max-width: 900px) {
+      width: 100%;
+    }
   }
 
   & h2 {
@@ -30,6 +51,7 @@
     font-size: 20px;
     line-height: 19px;
     font-family: 'Aqum';
+
   }
 
   & p {
@@ -46,8 +68,20 @@
     max-width: 420px;
     margin-top: 34px;
 
+    @media (max-width: 550px) {
+      flex-direction: column;
+      max-width: 100%;
+      > button {
+        width: 100%;
+      }
+    }
+
     button + button {
       background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+      @media (max-width: 550px) {
+        margin-top: 20px;
+      }
 
       &:hover {
         background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);

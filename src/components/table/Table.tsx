@@ -2,23 +2,23 @@ import { FC } from 'react';
 import { ListType } from '@components/moks-data/moks-data-table';
 import styles from './Table.module.scss';
 
-// interface IList {
-//   id: number;
-//   studentName: string;
-//   teacherName: string;
-//   registrationDate: string;
-//   startDateAction: string;
-//   endDateAction: string;
-//   tariff: string;
-//   paymentDate: string;
-//   status: string;
-//   legalAddress: string;
-//   age: number;
-// }
+interface IList {
+  id?: number;
+  studentName?: string;
+  teacherName?: string;
+  registrationDate?: string;
+  startDateAction?: string;
+  endDateAction?: string;
+  tariff?: string;
+  paymentDate?: string;
+  status?: string;
+  legalAddress?: string;
+  age?: number;
+}
 
 interface Props {
-  // list?: IList[];
-  list?: any[];
+  list?: IList[];
+  // list?: ListType;
   colNames?: string[];
   width?: string;
   height?: string;

@@ -15,7 +15,7 @@ import styles from './Schedule.module.scss';
 require('moment/locale/ru');
 
 const localizer = momentLocalizer(moment);
-const DnDCalendar = withDragAndDrop(Calendar);
+const DnDCalendar = withDragAndDrop(Calendar as any);
 
 export interface EventProps {
   event: any;

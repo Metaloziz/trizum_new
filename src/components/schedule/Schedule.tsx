@@ -143,7 +143,7 @@ const Schedule: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <DnDCalendar
+      {/**<DnDCalendar
         localizer={localizer}
         events={events}
         step={15}
@@ -165,7 +165,7 @@ const Schedule: FC = () => {
           header: ScheduleHeader,
           // toolbar: CustomToolBar
         }}
-      />
+      />**/}
       <BasicModal visibility={isVisible} changeVisibility={changeVisibility}>
         <ScheduleModal
           event={currentEvent as ScheduleEvent}

@@ -32,7 +32,7 @@ import ResultTable from '@components/molecules/ResultTable';
 import SelectResults from '@components/molecules/SelectResults/SelectResults';
 import Tablet from '@components/tablet/Tablet';
 import buttonImage from '@svgs/arrow-onleft-btn.svg';
-import styles from './RecognitionResults.module.scss';
+import styles from './Results.module.scss';
 
 Chart.register(
   ArcElement,
@@ -159,9 +159,9 @@ const config = {
 };
 
 const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
+  { value: '1', label: 'First' },
+  { value: '2', label: 'Second' },
+  { value: '3', label: 'Third' },
 ];
 export type ValueLabelT = {
   value: string;
@@ -188,7 +188,7 @@ const gamesArr = [
   { value: 'flyInCube', label: 'Мухи в кубе' },
   { value: 'AntiPuzzle', label: 'Антипазл' },
 ];
-const RecognitionResults: FC<Props> = () => {
+const Results: FC<Props> = () => {
   const [selectedGames, setSelectedGames] = useState<ValueLabelT[]>([]);
   const [view, setView] = useState(ResultsView.Table);
   const [selectValue, setSelectValue] = useState<SingleValue<ValueLabelT>>();
@@ -345,4 +345,4 @@ const RecognitionResults: FC<Props> = () => {
     </div>
   );
 };
-export default RecognitionResults;
+export default Results;

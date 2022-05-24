@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import Select, {CSSObjectWithLabel, SingleValue} from 'react-select';
-import {ValueLabelT} from '@components/recognition-results/RecognitionResults';
+import {ValueLabelT} from '@components/results/Results';
 
 type Props = {
   options: ValueLabelT[];
@@ -86,6 +86,7 @@ const SelectResults: FC<Props> = (props) => {
       styles={selectStyles}
       onChange={onChange}
       className={className || ''}
+      placeholder={'Выбрать значение...'}
     />
   );
 };

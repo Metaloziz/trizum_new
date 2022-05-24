@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import RecognitionResults from '@components/recognition-results/RecognitionResults'
-import styles from 'src/pages/recognition/Recognition.module.scss'
+import Results from '@components/results/Results'
+import styles from '@pages/results/Results.module.scss'
 
 type Props = {
 
@@ -9,7 +9,7 @@ type Props = {
 const IndexPage:FC<Props> = () => {
   return (
     <div className={styles.container}>
-      <RecognitionResults/>
+      <Results/>
     </div>
   )
 }

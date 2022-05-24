@@ -54,7 +54,7 @@ const ChoiceGame = () => {
         <div className={styles.stepWrapper}>
           <p>Номер урока</p>
           <div>
-            <Step pageCount={4} initialPage={1} />
+            <Step count={7} />
           </div>
         </div>
         <div className={styles.wrapperBtn}>

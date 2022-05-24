@@ -15,7 +15,6 @@
       z-index: 600;
     }
   }
-
 }
 
 
@@ -27,11 +26,23 @@
 }
 
 .myCalendar {
-  width: 380px;
+  width: 380px !important;
   background: #ffffff;
   border: none !important;
   box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
   border-radius: 10px;
+
+  @media (max-width: 550px) {
+    width: 330px !important;
+  }
+
+  @media (max-width: 440px) {
+    width: 300px !important;
+  }
+
+  @media (max-width: 374px) {
+    width: 260px !important;
+  }
 
 
   button > span {

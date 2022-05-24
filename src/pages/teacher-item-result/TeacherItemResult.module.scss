@@ -1,6 +1,7 @@
 .wrapper {
-  padding: 36px 0 20px 20px;
+  padding: 36px 20px 20px 20px;
   box-sizing: border-box;
+
   & h1 {
     font-family: 'Aqum';
     font-weight: 700;
@@ -11,26 +12,46 @@
     -webkit-text-fill-color: transparent;
     margin-bottom: 39px;
     text-transform: uppercase;
-
     text-align: center;
+
+    @media (max-width: 550px) {
+      font-size: 20px;
+      line-height: 20px;
+    }
   }
 
   & .containerItem {
     display: flex;
-    width: 61%;
+    width: 84%;
     flex-direction: column;
+    @media (max-width: 1500px) {
+      width: 100%;
+    }
 
-    & .itemBlock{
+    & .itemBlock {
       display: flex;
       border-radius: 30px;
       background-color: #ffffff;
       box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
       padding: 31px 31px 43px 41px;
       box-sizing: border-box;
+
+      @media (max-width: 1000px) {
+        flex-direction: column;
+      }
+      @media (max-width: 550px) {
+        padding: 30px 10px;
+      }
     }
 
     & .itemPic {
       margin-right: 83px;
+      @media (max-width: 1600px) {
+        margin-right: 15px;
+      }
+      @media (max-width: 1000px) {
+        margin: 0 auto 20px;
+      }
     }
 
     & h2 {
@@ -41,12 +62,28 @@
       font-size: 18px;
       line-height: 17px;
       color: #000000;
+      @media (max-width: 1000px) {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 550px) {
+        font-size: 19px;
+        line-height: 19px;
+      }
     }
 
     & .resultBlock {
-      width: 140%;
       display: flex;
       justify-content: space-between;
+      @media (max-width: 1000px) {
+        margin-bottom: 20px;
+      }
+      @media (max-width: 700px) {
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+      }
     }
 
     & .itemText {
@@ -60,6 +97,16 @@
         line-height: 22px;
         color: #000000;
         margin-bottom: 15px;
+        @media (max-width: 550px) {
+          font-size: 18px;
+          line-height: 18px;
+        }
+      }
+
+      .attempt {
+        @media (max-width: 700px) {
+          margin-bottom: 20px;
+        }
       }
 
       & .attempt span {
@@ -69,6 +116,10 @@
         background: linear-gradient(90deg, #0439ad 0%, #38028F 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        @media (max-width: 550px) {
+          font-size: 25px;
+          line-height: 25px;
+        }
       }
 
       & .resultInfo span {
@@ -76,6 +127,10 @@
         font-size: 30px;
         line-height: 37px;
         color: #DB5552;
+        @media (max-width: 550px) {
+          font-size: 25px;
+          line-height: 25px;
+        }
       }
 
       & .recommendations {
@@ -88,6 +143,14 @@
         position: relative;
         align-items: center;
 
+        @media (max-width: 550px) {
+          padding: 12px;
+        }
+        .reqPic > span{
+          width: 25px !important;
+          height: 25px !important;
+        }
+
         & p {
           font-weight: 500;
           font-size: 18px;
@@ -95,6 +158,14 @@
           color: #000000;
           margin: 0;
           margin-left: 20px;
+
+          @media (max-width: 700px) {
+            text-align: center;
+          }
+          @media (max-width: 550px) {
+            font-size: 18px;
+            line-height: 18px;
+          }
         }
       }
     }

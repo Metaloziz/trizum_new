@@ -1,4 +1,7 @@
 .logo {
+  cursor: pointer;
+  display: block;
+
   @media (max-width: 600px) {
     width: 50%;
     height: 40px;

@@ -8,11 +8,8 @@
   text-transform: uppercase;
   color: #FFFFFF;
 
-  @media (max-width: 1500px) {
-    padding: 0;
-  }
-
   @media (max-width: 600px) {
     font-size: 11px;
+    padding-right: 40px;
   }
 }

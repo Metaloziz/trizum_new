@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from './Tablet.module.scss';
 
-type TabletProps = {};
+type TabletProps = Record<string, unknown>;
 const Tablet: FC<TabletProps> = (props) => {
   const { children } = props;
   return (

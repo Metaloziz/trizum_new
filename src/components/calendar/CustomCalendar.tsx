@@ -23,7 +23,6 @@ const CustomCalendar: FC<Props> = observer(({ setTitle, icon, iconParams }) => {
       calendar.isOpen();
     }
   };
-
   const changeDate = (date: Date) => {
     const title = `${date.getDate()}.${
       date.getMonth() + 1

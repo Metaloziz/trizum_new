@@ -90,13 +90,14 @@ const Schedule: FC = () => {
     start,
     end,
   }: {
-    event: object;
+    event: {
+      id?: number;
+    };
     start: stringOrDate;
     end: stringOrDate;
     isAllDay: boolean;
   }) => {
     const nextEvents = events.map((existingEvent) => {
-      // @ts-ignore
       return existingEvent.id == event.id
         ? { ...existingEvent, start, end }
         : existingEvent;
@@ -107,8 +108,9 @@ const Schedule: FC = () => {
     event: object | ScheduleEvent,
     e: SyntheticEvent<HTMLElement, Event>,
   ) => {
-    // @ts-ignore
-    if ('alt' in e.target && e.target.alt === 'Delete') {
+    const target: any = e.target;
+
+    if ('alt' in target && target.alt === 'Delete') {
       e.stopPropagation();
       const newEvents = events.filter((e) => {
         if ('id' in event && 'id' in e) {

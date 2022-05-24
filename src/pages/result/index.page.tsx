@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import resultIcon from '@public/result-icon.png';
+import resultIcon from '@svgs/result-icon.svg';
 import styles from './Result.module.scss';
 const IndexPage = () => {
   return (

@@ -35,12 +35,14 @@ const IndexPage: FC<TeacherMainItemProps> = ({}) => {
               </div>
             </div>
             <div className={styles.recommendations}>
-              <Image
-                src={exclude}
-                width={'34px'}
-                height={'34px'}
-                alt="Exclude"
-              />
+              <div className={styles.reqPic}>
+                <Image
+                  src={exclude}
+                  width={'34px'}
+                  height={'34px'}
+                  alt="Exclude"
+                />
+              </div>
               <p>Рекомендуем повторить теорию и опробовать еще раз</p>
             </div>
           </div>

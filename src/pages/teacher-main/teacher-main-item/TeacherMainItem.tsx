@@ -16,7 +16,7 @@ const TeacherMainItem: FC<TeacherMainItemProps> = ({
 }) => {
   return (
     <div className={styles.containerItem}>
-      <div>
+      <div className={styles.wrapperTeacherImg}>
         <Image src={imgSrc} width={'300px'} height={'300px'} alt="Images" />
       </div>
       <div className={styles.itemText}>

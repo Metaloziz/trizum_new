@@ -4,22 +4,10 @@
 
   .prev {
     margin-right: 25px;
-
-    &:hover {
-      transform: rotate(180deg);
-    }
   }
 
   .next {
     margin-left: 25px;
-
-    div {
-      transform: rotate(180deg);
-    }
-
-    &:hover {
-      transform: rotate(180deg);
-    }
   }
 
   .list {

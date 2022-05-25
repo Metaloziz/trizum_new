@@ -11,7 +11,7 @@ const useComponentVisible = (
   const ref = useRef<HTMLDivElement>(null);
   const element =
     typeof window !== 'undefined' &&
-    (document.querySelector(`[data-auto=${dataAuto}]`) as HTMLDivElement);
+    (document.querySelector(`[data-auto="${dataAuto}"]`) as HTMLDivElement);
   const handleHideDropdown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       setIsComponentVisible(false);

@@ -2,6 +2,8 @@ import PaginationArrows from '@components/pagination-arrows/PaginationArrows';
 import classNames from 'classNames';
 import { FC, useState } from 'react';
 import { ListType } from '@components/moks-data/moks-data-table';
+import PaginationNextArrows from '@components/pagination-next-arrow/PaginationNextArrows';
+import PaginationPrevArrows from '@components/pagination-prev-arrows/PaginationPrevArrows';
 import styles from './CustomPagination.module.scss';
 
 interface Props {
@@ -36,7 +38,7 @@ const CustomPagination: FC<Props> = (props) => {
           navigate(activeStepCount - 1, () => prev());
         }}
       >
-        <PaginationArrows isActive={activeStepCount > 1} />
+        <PaginationPrevArrows isActive={activeStepCount > 1} />
       </button>
       <ul className={styles.list}>
         {pageNumbers.map((item, i) => (
@@ -62,7 +64,7 @@ const CustomPagination: FC<Props> = (props) => {
           navigate(activeStepCount + 1, () => next());
         }}
       >
-        <PaginationArrows isActive={activeStepCount < countPage} />
+        <PaginationNextArrows isActive={activeStepCount < countPage} />
       </button>
     </div>
   );

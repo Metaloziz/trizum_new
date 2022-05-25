@@ -15,20 +15,29 @@ interface Option {
 }
 
 interface Props {
-  title: string;
+  title?: string;
   variant: VariantType;
   option?: Option[];
   size?: SizeType;
   placeholder?: string;
+  dataAuto?: string;
+  onChange?: (value: string) => void;
+  id?: string;
+  type?: string;
 }
 
-const InformationItem: FC<Props> = ({
-  title,
-  variant,
-  option = [],
-  size = 'normal',
-  placeholder = '',
-}) => {
+const InformationItem: FC<Props> = (props) => {
+  const {
+    title,
+    variant,
+    option = [],
+    size = 'normal',
+    placeholder = '',
+    dataAuto = '',
+    onChange,
+    id,
+    type,
+  } = props;
   const finalStyle = `${styles.content} ${
     size === 'large' ? styles.large : ''
   }`;
@@ -41,8 +50,15 @@ const InformationItem: FC<Props> = ({
         {variant === 'select' && (
           <CustomSelect options={option} placeholder={placeholder} />
         )}
-        {variant === 'input' && <TextField />}
-        {variant === 'calendar' && <TextFieldCalendar />}
+        {variant === 'input' && (
+          <TextField
+            onChange={onChange}
+            id={id}
+            placeholder={placeholder}
+            type={type}
+          />
+        )}
+        {variant === 'calendar' && <TextFieldCalendar dataAuto={dataAuto} />}
         {variant === 'file' && <InputFile />}
       </div>
     </div>

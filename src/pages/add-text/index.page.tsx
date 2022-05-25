@@ -25,7 +25,12 @@ const IndexPage = () => {
             <InformationItem title={'Вариант ответа'} variant={'input'} />
             <InformationItem title={'Вариант ответа'} variant={'input'} />
             <InformationItem title={'Вариант ответа'} variant={'input'} />
-            <div className={styles.addАField}>Добавить еще поле</div>
+            <button
+              className={styles.addField}
+              onClick={() => console.log('Добавить еще поле')}
+            >
+              Добавить еще поле
+            </button>
           </div>
           <div className={styles.btnBlock}>
             <CustomButton>Опубликовть</CustomButton>

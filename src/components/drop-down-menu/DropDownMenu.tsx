@@ -13,7 +13,8 @@ interface Props {
 }
 
 const DropDownMenu: FC<Props> = ({ active, onClose }) => {
-  const { ref, isComponentVisible } = useComponentVisible(true, onClose);
+  const { ref, isComponentVisible, setIsComponentVisible } =
+    useComponentVisible(true, 'burger', onClose, true);
   const { Index, Results, Payment } = Routes;
   const finalStyle = `${styles.dropDownMenu} ${
     active ? styles.showDropDown : ''

@@ -1,22 +1,20 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import CustomCalendar from '@components/calendar/CustomCalendar';
 import styles from './TextFieldCalendar.module.scss';
 
-const TextFieldCalendar = () => {
+interface Props {
+  dataAuto: string;
+}
+
+const TextFieldCalendar: FC<Props> = ({ dataAuto }) => {
   const [title, setTitle] = useState<string>('');
   return (
     <div className={styles.textFieldCalendar}>
       <div>
-        <input
-          type={'text'}
-          value={title}
-          onChange={() => {
-            console.log('change');
-          }}
-        />
+        <input type={'text'} value={title} />
       </div>
       <div>
-        <CustomCalendar setTitle={setTitle} />
+        <CustomCalendar setTitle={setTitle} dataAuto={dataAuto} />
       </div>
     </div>
   );

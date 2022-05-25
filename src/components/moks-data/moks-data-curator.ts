@@ -11,7 +11,7 @@ export const colNamesCurator = [
   'БИК банка ИНН банка КПП банка',
 ];
 
-export const listCurator = [
+export const list = [
   {
     id: 1,
     fullName: 'Самойленко И.Н.',
@@ -145,3 +145,17 @@ export const listCurator = [
     infoBank: '1224546565155   14455546565155   4414546565155',
   },
 ];
+
+export type listCurator = {
+  id: number;
+  studentName: string;
+  teacherName: string;
+  age: number;
+  registrationDate: string;
+  startDateAction: string;
+  endDateAction: string;
+  tariff: string;
+  paymentDate: string;
+  status: string;
+  legalAddress: string;
+};

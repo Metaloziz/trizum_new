@@ -4,6 +4,8 @@ import React, { FC } from 'react';
 import paginationImage from '@svgs/next-pagination.svg';
 import styles from './Pagination.module.scss';
 
+//TODO: delete
+
 interface Props {
   initialPage?: number;
   marginPagesDisplayed?: number;

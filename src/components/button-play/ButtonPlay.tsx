@@ -1,6 +1,5 @@
 import Image from 'next/image';
-import React, { FC } from 'react';
-import { useState } from 'react';
+import React, { FC, useState } from 'react';
 import buttonPlayHover from '@svgs/button-play-hover.svg';
 import buttonPlay from '@svgs/button-play.svg';
 import styles from './ButtonPlay.module.scss';
@@ -32,23 +31,21 @@ const ButtonPlay: FC<ButtonPlayProps> = ({ title, size }) => {
   const finalStyle = `${styles.content} ${ButtonSize}`;
 
   return (
-    <div
-      className={`${styles.buttonPlay} ${finalStyle}`}
-      onMouseOver={() => setHover(true)}
-      onMouseOut={() => setHover(false)}
-    >
-      <div>
+    <div>
+      <button
+        onClick={() => console.log('play')}
+        className={`${styles.buttonPlay} ${finalStyle}`}
+        onMouseOver={() => setHover(true)}
+        onMouseOut={() => setHover(false)}
+      >
         <Image
           src={hover ? buttonPlayHover : buttonPlay}
           alt={'play'}
           width={'73'}
           height={'73'}
         />
-      </div>
-
-      <div className={styles.playButton}>
-        <p>{title}</p>
-      </div>
+        <span className={styles.playButton}>{title}</span>
+      </button>
     </div>
   );
 };

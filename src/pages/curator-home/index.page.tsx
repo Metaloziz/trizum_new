@@ -7,13 +7,13 @@ import {
   colNamesCurator,
   listCurator,
 } from '@components/moks-data/moks-data-curator';
-import { list, ListType } from '@components/moks-data/moks-data-table';
+import { list } from '@components/moks-data/moks-data-table';
 import Table from '@components/table/Table';
 import styles from './CuratorHome.module.scss';
 
 const IndexPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [data, setData] = useState<any>(listCurator); // State для главных данных
+  const [data, setData] = useState<listCurator[]>(list); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
@@ -71,11 +71,16 @@ const IndexPage = () => {
         </div>
       </div>
       <div className={styles.tableContent}>
-        <Table list={currentItem} colNames={colNamesCurator} loading={false} />
+        <Table
+          list={currentItem}
+          colNames={colNamesCurator}
+          loading={loading}
+        />
       </div>
       <div className={styles.paginationCuratorBlock}>
-        {/*<Pagination initialPage={1} pageCount={30} />*/}
         <CustomPagination
+          currentPage={currentPage}
+          currentItem={currentItem}
           paginate={paginate}
           count={count}
           next={nextPage}
@@ -122,7 +127,9 @@ const IndexPage = () => {
               </div>
             </div>
             <div className={styles.btnBlock}>
-              <CustomButton>Сохранить</CustomButton>
+              <CustomButton onClick={() => console.log('Сохранить')}>
+                Сохранить
+              </CustomButton>
             </div>
           </div>
         </BasicModal>

@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import CustomCalendar from '@components/calendar/CustomCalendar';
 
-const TextFieldCalendar = () => {
+interface Props {
+  dataAuto: string;
+}
+
+const TextFieldCalendar: FC<Props> = ({ dataAuto }) => {
   return (
     <div style={{ display: 'flex' }}>
-      <input type="text" />
+      <input type={'text'} />
       <div>
         <CustomCalendar
+          dataAuto={dataAuto}
           setTitle={(t) => {
             t?.length;
           }}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Table } from '@components/scheduler/table/Table';
 
+//TODO: delete
+
 const list = [
   { id: 1, name: 'Jon De', age: 28 },
   { id: 2, name: 'XU De', age: 23 },

@@ -19,6 +19,7 @@ const Sidebar: FC = () => {
         linkClassName={styles.link}
         linkWrapperClassName={styles.linkWrapper}
         linkImageClassName={styles.linkImage}
+        activeClassName={styles.activeLink}
       />
     </aside>
   );

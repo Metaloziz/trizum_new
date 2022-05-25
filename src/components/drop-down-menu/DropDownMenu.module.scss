@@ -3,6 +3,10 @@
   top: 100px;
   left: 0;
   z-index: 400;
+  height: 100vh;
+  transform: translateX(-100%);
+  transition: all 0.2s ease;
+  background-color: #e5d8fa;
 
 
   nav {
@@ -11,11 +15,7 @@
     text-align: center;
     padding: 40px 20px;
     box-sizing: border-box;
-    background-color: #e5d8fa;
     align-items: center;
-    height: 100vh;
-    transform: translateX(-100%);
-    transition: all 0.2s ease;
 
     > div {
       border-bottom: 1px solid #deebff;
@@ -31,7 +31,5 @@
 }
 
 .showDropDown {
-  nav {
-    transform: translateX(0);
-  }
+  transform: translateX(0);
 }

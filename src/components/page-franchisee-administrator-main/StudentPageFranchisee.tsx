@@ -16,7 +16,11 @@ const StudentPageFranchisee = observer(() => {
     <div className={styles.wrapper}>
       <div className={styles.search}>
         <div className={styles.column}>
-          <InformationItem variant={'calendar'} title={'Дата'} />
+          <InformationItem
+            variant={'calendar'}
+            title={'Дата'}
+            dataAuto={'date'}
+          />
           <InformationItem variant={'select'} title={'Выполнил Д/З'} />
           <InformationItem variant={'select'} title={'Город'} />
           <InformationItem variant={'select'} title={'Группа'} />
@@ -29,7 +33,11 @@ const StudentPageFranchisee = observer(() => {
         </div>
         <div className={`${styles.column} ${styles.flexColumn}`}>
           <div>
-            <InformationItem variant={'calendar'} title={'Дата рождения'} />
+            <InformationItem
+              variant={'calendar'}
+              title={'Дата рождения'}
+              dataAuto={'birthDate'}
+            />
             <InformationItem variant={'input'} title={'ФИО'} />
           </div>
           <div className={styles.buttons}>

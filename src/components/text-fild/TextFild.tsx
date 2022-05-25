@@ -1,27 +1,28 @@
-import React, { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import styles from './TextFild.module.scss';
 
 interface Props {
   type?: string;
   id?: string;
-  label?: string;
-  value?: string;
-  onChange?: (val: string) => void;
+  onChange?: (value: string) => void;
+  placeholder?: string;
 }
 
 const TextField: FC<Props> = (props) => {
-  const { type, id, label, value, onChange } = props;
-  const onChangeText = (e: ChangeEvent<HTMLInputElement>) => {
+  const { type, id, onChange, placeholder } = props;
+  const [titleValue, setTitleValue] = useState('');
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitleValue(e.target.value);
     onChange && onChange(e.target.value);
   };
   return (
     <div className={styles.textField}>
-      {label && <label htmlFor={label}>{label}</label>}
       <input
+        placeholder={placeholder}
         type={type ? type : 'text'}
-        id={label ? label : id}
-        value={value || ''}
-        onChange={onChangeText}
+        id={id}
+        value={titleValue}
+        onChange={handleChange}
       />
     </div>
   );

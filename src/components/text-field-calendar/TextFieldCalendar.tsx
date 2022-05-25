@@ -1,10 +1,14 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import CustomCalendar from '@components/calendar/CustomCalendar';
 import closeCalendar from '@svgs/button.svg';
 import styles from './TextFieldCalendar.module.scss';
 
-const TextFieldCalendar = () => {
+interface Props {
+  dataAuto: string;
+}
+
+const TextFieldCalendar: FC<Props> = ({ dataAuto }) => {
   const [title, setTitle] = useState<string>('');
   const deleteTitle = () => {
     setTitle('');
@@ -24,7 +28,7 @@ const TextFieldCalendar = () => {
         </div>
       </div>
       <div>
-        <CustomCalendar setTitle={setTitle} />
+        <CustomCalendar setTitle={setTitle} dataAuto={dataAuto} />
       </div>
     </div>
   );

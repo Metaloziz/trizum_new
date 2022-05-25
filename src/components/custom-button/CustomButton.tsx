@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import buttonImage from '@svgs/arrow-btn.svg';
 import iconExelHover from '@svgs/btn-excel-hover.svg';
 import iconExel from '@svgs/btn-excel.svg';

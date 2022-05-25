@@ -20,11 +20,10 @@ import Table from '@components/table/Table';
 import styles from './Administration.module.scss';
 
 const IndexPage = () => {
-  const [data, setData] = useState<ListType>(list); // State для главных данных
+  const [data, setData] = useState<ListType[]>(list); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
-
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
@@ -76,10 +75,15 @@ const IndexPage = () => {
                 variant={'select'}
                 option={group}
               />
-              <InformationItem title={'ФИО ученика'} variant={'input'} />
+              <InformationItem
+                title={'ФИО ученика'}
+                variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
+              />
               <InformationItem
                 title={'Статус пользователя'}
                 variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
               />
             </div>
             <div className={`${styles.infoBlock} ${styles.franchiseesBlock}`}>
@@ -94,8 +98,16 @@ const IndexPage = () => {
                 variant={'select'}
                 option={paidFor}
               />
-              <InformationItem title={'Дата рождения'} variant={'calendar'} />
-              <InformationItem title={'Возраст'} variant={'input'} />
+              <InformationItem
+                title={'Дата рождения'}
+                variant={'calendar'}
+                dataAuto={'dateBirth'}
+              />
+              <InformationItem
+                title={'Возраст'}
+                variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
+              />
             </div>
             <div className={`${styles.infoBlock} ${styles.legalAddress}`}>
               <InformationItem
@@ -106,10 +118,12 @@ const IndexPage = () => {
               <InformationItem
                 title={'Дата начала действия'}
                 variant={'calendar'}
+                dataAuto={'dateStart'}
               />
               <InformationItem
                 title={'Дата окончания действия'}
                 variant={'calendar'}
+                dataAuto={'dateEnd'}
               />
               <div className={styles.btnBlock}>
                 <CustomButton type={'addExel'}>Выгрузить в Excel</CustomButton>
@@ -127,6 +141,8 @@ const IndexPage = () => {
       </div>
       <div className={styles.paginationBlock}>
         <CustomPagination
+          currentPage={currentPage}
+          currentItem={currentItem}
           paginate={paginate}
           count={count}
           next={nextPage}

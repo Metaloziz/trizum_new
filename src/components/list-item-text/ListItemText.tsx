@@ -15,9 +15,12 @@ interface Props {
   title: string;
   variant: VariantType;
   option?: Option[];
+  dataAuto: string;
+  onChange?: (value: string) => void;
 }
 
-const ListItemText: FC<Props> = ({ title, variant, option = [] }) => {
+const ListItemText: FC<Props> = (props) => {
+  const { title, variant, option = [], dataAuto, onChange } = props;
   return (
     <div>
       <div>
@@ -27,8 +30,8 @@ const ListItemText: FC<Props> = ({ title, variant, option = [] }) => {
         {variant === 'select' && (
           <CustomSelect options={option} placeholder={' '} />
         )}
-        {variant === 'input' && <TextField />}
-        {variant === 'calendar' && <TextFieldCalendar />}
+        {variant === 'input' && <TextField onChange={onChange} />}
+        {variant === 'calendar' && <TextFieldCalendar dataAuto={dataAuto} />}
         {variant === 'file' && <InputFile />}
       </div>
     </div>

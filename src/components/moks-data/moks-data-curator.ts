@@ -144,6 +144,18 @@ export const list = [
     nameBank: 'ООО  “Альфа банк”',
     infoBank: '1224546565155   14455546565155   4414546565155',
   },
-] as const;
+];
 
-export type ListCuratorType = typeof list;
+export type listCurator = {
+  id: number;
+  studentName: string;
+  teacherName: string;
+  age: number;
+  registrationDate: string;
+  startDateAction: string;
+  endDateAction: string;
+  tariff: string;
+  paymentDate: string;
+  status: string;
+  legalAddress: string;
+};

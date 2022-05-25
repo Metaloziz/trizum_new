@@ -1,9 +1,12 @@
-import { FC } from 'react';
-import PaginationNextArrows from '@components/pagination-next-arrow/PaginationNextArrows';
-import PaginationPrevArrows from '@components/pagination-prev-arrows/PaginationPrevArrows';
+import PaginationArrows from '@components/pagination-arrows/PaginationArrows';
+import classNames from 'classNames';
+import { FC, useState } from 'react';
+import { ListType } from '@components/moks-data/moks-data-table';
 import styles from './CustomPagination.module.scss';
 
 interface Props {
+  currentItem: ListType[];
+  currentPage: number;
   count: number;
   total: number;
   paginate: (value: number) => void;
@@ -11,37 +14,55 @@ interface Props {
   next: () => void;
 }
 
-const CustomPagination: FC<Props> = ({
-  count,
-  total,
-  paginate,
-  prev,
-  next,
-}) => {
+const CustomPagination: FC<Props> = (props) => {
+  const { currentItem, currentPage, count, total, paginate, prev, next } =
+    props;
   const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(total / count); i++) {
+  const countPage = Math.ceil(total / count);
+  for (let i = 1; i <= countPage; i++) {
     pageNumbers.push(i);
   }
-
+  const [activeStepCount, setActiveStepCount] = useState(1);
+  const navigate = (page: number, cb: () => void) => {
+    setActiveStepCount(page);
+    cb();
+  };
   return (
     <div className={styles.paginationWrapper}>
-      <button className={styles.prev} onClick={() => prev()}>
-        <PaginationPrevArrows />
+      <button
+        disabled={currentPage === 1}
+        className={styles.prev}
+        onClick={() => {
+          navigate(activeStepCount - 1, () => prev());
+        }}
+      >
+        <PaginationArrows isActive={activeStepCount > 1} />
       </button>
       <ul className={styles.list}>
-        {pageNumbers.map((item) => (
+        {pageNumbers.map((item, i) => (
           <li
-            className={styles.paginationItem}
+            className={classNames(styles.paginationItem, {
+              [styles.activePaginate]: item === activeStepCount,
+            })}
             key={item}
-            onClick={() => paginate(item)}
+            onClick={() => {
+              navigate(i + 1, () => {
+                paginate(item);
+              });
+            }}
           >
             {item}
           </li>
         ))}
       </ul>
-      <button className={styles.next} onClick={() => next()}>
-        <PaginationNextArrows />
+      <button
+        disabled={currentItem.length !== count}
+        className={styles.next}
+        onClick={() => {
+          navigate(activeStepCount + 1, () => next());
+        }}
+      >
+        <PaginationArrows isActive={activeStepCount < countPage} />
       </button>
     </div>
   );

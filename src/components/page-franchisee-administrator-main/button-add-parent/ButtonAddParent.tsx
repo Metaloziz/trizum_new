@@ -4,7 +4,9 @@ import styles from './ButtonAddParent.module.scss';
 const ButtonAddParent = () => {
   return (
     <div className={styles.wrapper}>
-      <span className={styles.button}>+</span>
+      <button className={styles.button} onClick={() => console.log('add')}>
+        +
+      </button>
     </div>
   );
 };

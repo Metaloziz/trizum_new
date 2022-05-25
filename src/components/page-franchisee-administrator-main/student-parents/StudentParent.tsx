@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import InformationItem from '@components/information-item/InformationItem';
 import user from '@public/svgs/user.svg';
@@ -7,6 +7,10 @@ import iconMedal from '@svgs/medal.svg';
 import styles from './StudentParents.module.scss';
 
 const StudentParents = () => {
+  const [currentRadioValue, setCurrentRadioValue] = useState('inputChoice1');
+  const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentRadioValue(e.currentTarget.value);
+  };
   return (
     <div className={styles.row}>
       <CustomImageWrapper variant={'circle'}>
@@ -17,7 +21,7 @@ const StudentParents = () => {
       <div className={styles.table}>
         <div className={styles.infoItem}>
           <span>ФИО:</span>
-          <input type="text" />
+          <InformationItem title={''} variant={'input'} />
         </div>
         <div className={styles.selectWrapper}>
           <div className={styles.selectWidth}>
@@ -26,19 +30,19 @@ const StudentParents = () => {
         </div>
         <div className={styles.infoItem}>
           <span>Город:</span>
-          <input type="text" />
+          <InformationItem title={''} variant={'input'} />
         </div>
         <div className={styles.infoItem}>
           <span>Телефон:</span>
-          <input type="text" />
+          <InformationItem title={''} variant={'input'} />
         </div>
         <div className={styles.infoItem}>
           <span>Дата рождения:</span>
-          <input type="text" />
+          <InformationItem title={''} variant={'input'} />
         </div>
         <div className={styles.infoItem}>
           <span>Почта:</span>
-          <input type="text" />
+          <InformationItem title={''} variant={'input'} />
         </div>
         <div className={styles.selectWrapper}>
           <div className={styles.selectWidth}>
@@ -46,7 +50,14 @@ const StudentParents = () => {
           </div>
           <div className={styles.label}>
             <label>
-              <input type="radio" />
+              <input
+                type={'radio'}
+                value={'inputChoice1'}
+                id={'inputChoice1'}
+                name={'currentRadioValue'}
+                onChange={handlerRadioChange}
+                checked={currentRadioValue === 'inputChoice1'}
+              />
               Основной
             </label>
             <div className={styles.medal}>

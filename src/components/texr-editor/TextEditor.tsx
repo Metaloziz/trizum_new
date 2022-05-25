@@ -4,6 +4,8 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import styles from './TextEditor.module.scss';
 
+//TODO: delete
+
 const TextEditor = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),

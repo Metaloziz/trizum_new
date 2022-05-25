@@ -1,3 +1,5 @@
+import { number, string } from 'prop-types';
+
 export const colNames = [
   '№',
   'ФИО ученика',
@@ -156,6 +158,18 @@ export const list = [
     status: 'Новый',
     legalAddress: 'Москва, ул. Ленина, 3/43',
   },
-] as const;
+];
 
-export type ListType = typeof list;
+export type ListType = {
+  id: number;
+  studentName: string;
+  teacherName: string;
+  age: number;
+  registrationDate: string;
+  startDateAction: string;
+  endDateAction: string;
+  tariff: string;
+  paymentDate: string;
+  status: string;
+  legalAddress: string;
+};

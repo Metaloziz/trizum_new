@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import BackButton from '@components/backButton/BackButton';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import {
@@ -8,18 +8,12 @@ import {
   year,
 } from '@components/moks-data/moks-data-choice-game';
 import Step from '@components/step/Step';
-import arrowButton from '@svgs/arrow-btn.svg';
 import styles from './ChoiceGame.module.scss';
 
 const ChoiceGame = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.prev}>
-        <span>
-          <Image src={arrowButton} width={'15px'} height={'10px'} />
-        </span>
-        <p>На предыдущую страницу</p>
-      </div>
+      <BackButton />
       <div className={styles.wrapperInfo}>
         <InformationItem
           size={'normal'}

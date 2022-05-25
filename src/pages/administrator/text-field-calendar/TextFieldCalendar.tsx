@@ -7,6 +7,7 @@ type Props = {
   type?: 'standard' | 'blue';
   iconParams?: { width: number; height: number };
   icon?: string;
+  dataAuto: string;
 };
 
 const TextFieldCalendar: FC<Props> = (props) => {

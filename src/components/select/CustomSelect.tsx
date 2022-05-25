@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import { FC } from 'react';
 import Select from 'react-select';
+import selectArrow from '@svgs/arrow-select.svg';
 import styles from './CustomSelect.module.scss';
 
 interface SelectOptions {
@@ -9,23 +11,20 @@ interface SelectOptions {
 
 interface Props {
   options: SelectOptions[];
-  placeholder: string;
-  label?: string;
-  additionalCn?: string;
+  placeholder?: string;
+  // id: string;
 }
 
-const CustomSelect: FC<Props> = ({
-  options,
-  placeholder,
-  label,
-  additionalCn,
-}) => {
-  const wrapper = `${styles.selectWrap} ${additionalCn ? additionalCn : ''}`;
+const CustomSelect: FC<Props> = ({ options, placeholder }) => {
   return (
-    <div className={wrapper}>
-      {label && <p className={styles.label}>{label}</p>}
+    <div className={styles.selectWrap}>
+      <div className={styles.selectArrow}>
+        <Image src={selectArrow} alt={'arrow'} />
+      </div>
       <Select
-        // instanceId={+Date.now()}
+        // instanceId={}
+        // id={'6'}
+        // inputId={instanceId}
         placeholder={placeholder}
         options={options}
         components={{ IndicatorSeparator: () => null }}

@@ -33,10 +33,12 @@ const IndexPage = () => {
                 <InformationItem
                   title={'Дата начала действия'}
                   variant={'calendar'}
+                  dataAuto={'dateAction'}
                 />
                 <InformationItem
                   title={'Дата окончания действия'}
                   variant={'calendar'}
+                  dataAuto={'endAction'}
                 />
                 <InformationItem
                   title={'Тариф после'}
@@ -45,9 +47,21 @@ const IndexPage = () => {
                 />
               </div>
               <div>
-                <InformationItem title={'Старая цена'} variant={'input'} />
-                <InformationItem title={'Новая цена'} variant={'input'} />
-                <InformationItem title={'Код тарифа'} variant={'input'} />
+                <InformationItem
+                  title={'Старая цена'}
+                  variant={'input'}
+                  onChange={(valueText) => console.log(valueText)}
+                />
+                <InformationItem
+                  title={'Новая цена'}
+                  variant={'input'}
+                  onChange={(valueText) => console.log(valueText)}
+                />
+                <InformationItem
+                  title={'Код тарифа'}
+                  variant={'input'}
+                  onChange={(valueText) => console.log(valueText)}
+                />
               </div>
             </div>
           </div>
@@ -116,7 +130,7 @@ const IndexPage = () => {
         </div>
         <div className={styles.addTariff}>
           <div>
-            <button>+</button>
+            <button onClick={() => console.log('привет')}>+</button>
           </div>
         </div>
       </div>

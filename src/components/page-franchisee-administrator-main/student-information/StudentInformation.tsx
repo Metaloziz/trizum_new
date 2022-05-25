@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React from 'react';
-import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import InformationItem from '@components/information-item/InformationItem';
 import avatar from '@public/img/pervoklasnin.jpg';
 import styles from './StudentInformation.module.scss';
@@ -15,7 +14,7 @@ const StudentInformation = () => {
         <div className={styles.table}>
           <div className={styles.infoItem}>
             <span>ФИО:</span>
-            <input type="text" />
+            <InformationItem title={''} variant={'input'} />
           </div>
           <div className={styles.selectWrapper}>
             <div className={styles.selectWidth}>
@@ -24,19 +23,19 @@ const StudentInformation = () => {
           </div>
           <div className={styles.infoItem}>
             <span>Город:</span>
-            <input type="text" />
+            <InformationItem title={''} variant={'input'} />
           </div>
           <div className={styles.infoItem}>
             <span>Телефон:</span>
-            <input type="text" />
+            <InformationItem title={''} variant={'input'} />
           </div>
           <div className={styles.infoItem}>
             <span>Дата рождения:</span>
-            <input type="text" />
+            <InformationItem title={''} variant={'input'} />
           </div>
           <div className={styles.infoItem}>
             <span>Почта:</span>
-            <input type="text" />
+            <InformationItem title={''} variant={'input'} />
           </div>
           <div className={styles.selectWrapper}>
             <div className={styles.selectWidth}>

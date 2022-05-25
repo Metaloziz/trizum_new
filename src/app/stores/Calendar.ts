@@ -2,17 +2,13 @@ import { makeAutoObservable } from 'mobx';
 
 class Calendar {
   isShow = false;
-
+  
   constructor() {
     makeAutoObservable(this);
   }
-
-  isOpen = () => {
-    this.isShow = true;
-  };
-
-  isClose = () => {
-    this.isShow = false;
+  
+  setShow = (isShow: boolean) => {
+    this.isShow = isShow;
   };
 }
 

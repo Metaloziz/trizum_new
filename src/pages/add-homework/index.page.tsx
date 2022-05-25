@@ -22,6 +22,7 @@ const IndexPage = () => {
               title={'Уровень группы*'}
               variant={'select'}
               option={groupLevel}
+              placeholder={'Младшая'}
             />
           </div>
           <div className={styles.editorWrapper}>
@@ -36,11 +37,13 @@ const IndexPage = () => {
                 title={'Игра'}
                 variant={'select'}
                 option={games}
+                placeholder={'Память и ритм'}
               />
               <InformationItem
                 title={'Шаблон'}
                 variant={'select'}
                 option={pattern}
+                placeholder={'Память и ритм'}
               />
             </div>
             <div className={styles.sampleBlock}>
@@ -48,11 +51,13 @@ const IndexPage = () => {
                 title={'Игра'}
                 variant={'select'}
                 option={games}
+                placeholder={'Память и ритм'}
               />
               <InformationItem
                 title={'Шаблон'}
                 variant={'select'}
                 option={pattern}
+                placeholder={'Память и ритм'}
               />
             </div>
           </div>
@@ -62,16 +67,18 @@ const IndexPage = () => {
                 title={'Игра'}
                 variant={'select'}
                 option={games}
+                placeholder={'Память и ритм'}
               />
               <InformationItem
                 title={'Шаблон'}
                 variant={'select'}
                 option={pattern}
+                placeholder={'Память и ритм'}
               />
             </div>
             <div className={`${styles.sampleBlock} ${styles.sampleAdd}`}>
               <div>
-                <button>+</button>
+                <button onClick={() => console.log('заглушка')}>+</button>
               </div>
             </div>
           </div>

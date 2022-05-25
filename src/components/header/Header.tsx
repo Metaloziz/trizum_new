@@ -11,6 +11,9 @@ type Props = { className: string };
 const Header: FC<Props> = ({ className }) => {
   const [active, setActive] = useState<boolean>(false);
   const [isOpen] = useState(false);
+  const handleClose = () => {
+    setActive(false);
+  };
   return (
     <header
       className={classNames(styles.header, className, {
@@ -24,7 +27,7 @@ const Header: FC<Props> = ({ className }) => {
         <Logo />
       </div>
       <Account />
-      {active && <DropDownMenu active={active} />}
+      <DropDownMenu active={active} onClose={handleClose} />
     </header>
   );
 };

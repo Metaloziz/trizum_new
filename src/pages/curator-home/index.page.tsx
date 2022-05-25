@@ -5,15 +5,15 @@ import CustomPagination from '@components/custom-pagination/CustomPagination';
 import InformationItem from '@components/information-item/InformationItem';
 import {
   colNamesCurator,
-  list,
-  ListCuratorType,
+  listCurator,
 } from '@components/moks-data/moks-data-curator';
+import { list } from '@components/moks-data/moks-data-table';
 import Table from '@components/table/Table';
 import styles from './CuratorHome.module.scss';
 
 const IndexPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [data, setData] = useState<ListCuratorType>(list); // State для главных данных
+  const [data, setData] = useState<listCurator[]>(list); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
@@ -79,6 +79,8 @@ const IndexPage = () => {
       </div>
       <div className={styles.paginationCuratorBlock}>
         <CustomPagination
+          currentPage={currentPage}
+          currentItem={currentItem}
           paginate={paginate}
           count={count}
           next={nextPage}
@@ -125,7 +127,9 @@ const IndexPage = () => {
               </div>
             </div>
             <div className={styles.btnBlock}>
-              <CustomButton>Сохранить</CustomButton>
+              <CustomButton onClick={() => console.log('Сохранить')}>
+                Сохранить
+              </CustomButton>
             </div>
           </div>
         </BasicModal>

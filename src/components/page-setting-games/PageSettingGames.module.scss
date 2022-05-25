@@ -20,6 +20,29 @@
     display: flex;
     align-items: center;
 
+    > button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      > span {
+        margin-right: 10px;
+        width: 32px;
+        height: 32px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > span {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
     @media (max-width: 800px) {
       margin-right: 0;
       margin-bottom: 10px;
@@ -230,21 +253,37 @@
     line-height: 17px;
     color: #000000;
 
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @media (max-width: 1200px) {
+        width: 100%;
+      }
+
+      > div {
+        display: block;
+
+        @media (max-width: 1200px) {
+          width: 100%;
+
+          > div {
+            width: 100%;
+          }
+        }
+      }
+    }
+
     @media (max-width: 1200px) {
       flex-direction: column;
 
-      & > div {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        margin-bottom: 10px;
+      div + div {
+        margin-top: 10px;
       }
     }
 
     @media (max-width: 550px) {
-      flex-direction: row;
-
       & > div {
         justify-content: flex-start;
         margin-bottom: 0;
@@ -276,11 +315,6 @@
     span {
       margin-right: 15px;
 
-      @media (max-width: 1200px) {
-        margin-right: 0;
-        margin-bottom: 10px;
-      }
-
       @media (max-width: 550px) {
         margin-bottom: 0;
       }
@@ -302,11 +336,21 @@
         margin-right: 0;
       }
 
-      @media (max-width: 550px) {
-        width: 48%;
-        margin-left: 5px;
+      @media (max-width: 800px) {
+        width: 100%;
+        margin-right: 0;
       }
     }
+  }
+
+  @media (max-width: 1200px) {
+    .timeExecution span {
+      margin-bottom: 10px;
+    }
+  }
+
+  .timeExecution > div {
+    display: block;
   }
 
 }
@@ -339,34 +383,34 @@
   .radioGroup {
     margin-bottom: 15px;
 
-      label {
+    label {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      input {
+        margin-right: 19px;
+      }
+
+      span {
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
         display: flex;
-        align-items: flex-start;
-        margin-bottom: 16px;
+        align-items: center;
+        color: #000000;
 
-        &:last-child {
-          margin-bottom: 0;
-        }
-
-        input {
-          margin-right: 19px;
-        }
-
-        span {
-          font-family: 'Montserrat', sans-serif;
-          font-style: normal;
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 17px;
-          display: flex;
-          align-items: center;
-          color: #000000;
-
-          @media (max-width: 550px) {
-            font-size: 13px;
-          }
+        @media (max-width: 550px) {
+          font-size: 13px;
         }
       }
+    }
   }
 
   .executionConditions {

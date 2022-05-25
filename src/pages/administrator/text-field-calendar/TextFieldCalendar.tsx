@@ -11,7 +11,7 @@ type Props = {
 };
 
 const TextFieldCalendar: FC<Props> = (props) => {
-  const { onSelectDate, type, value, icon, iconParams } = props;
+  const { onSelectDate, type, value, icon, iconParams, dataAuto } = props;
   if(type){
 
   }
@@ -23,6 +23,7 @@ const TextFieldCalendar: FC<Props> = (props) => {
           setTitle={onSelectDate}
           iconParams={iconParams}
           icon={icon}
+          dataAuto={dataAuto}
         />
       </div>
     </div>

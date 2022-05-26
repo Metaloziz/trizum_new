@@ -6,7 +6,7 @@
   display: grid;
   grid-template: repeat(2, auto) / auto 105px 90px 45px auto;
   grid-row-gap: 25px;
-  justify-content: start;
+  justify-content: flex-start;
   padding: 30px 20px 25px;
 
   @media (max-width: 1500px) {

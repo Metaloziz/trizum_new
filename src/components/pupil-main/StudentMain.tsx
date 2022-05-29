@@ -5,9 +5,9 @@ import styles from "@pages/Home.module.scss";
 import Homeworks from "@containers/homeworks/Homeworks";
 import KeepPlaying from "@containers/keep-playing/KeepPlaying";
 
-export const PupilMain:FC = () => {
+export const StudentMain:FC = () => {
   return (
-    <>
+    <main className={styles.main}>
       <CardStudent title="Днепровский Александр Алексеевич" type="student" />
       <WeeklyGrowth
         className={styles.weeklyGrowth}
@@ -116,6 +116,6 @@ export const PupilMain:FC = () => {
           },
         ]}
       />
-    </>
+    </main>
   )
 }

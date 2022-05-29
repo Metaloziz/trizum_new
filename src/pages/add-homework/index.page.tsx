@@ -1,18 +1,25 @@
-import { useState } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
-import {
-  games,
-  groupLevel,
-  pattern,
-} from '@components/moks-data/moks-data-addHomeWork';
+import {games, groupLevel, pattern,} from '@components/moks-data/moks-data-addHomeWork';
 import Step from '@components/step/Step';
 import TextEditor from '@components/text-editor/TextEditor';
 import styles from './AddHomework.module.scss';
+import appStore, {Roles} from "@app/stores/appStore";
+import {useRouter} from "next/router";
+import {useEffect} from "react";
+import {Navigate} from "react-router";
+import Custom404 from "@pages/404.page";
+
 
 const IndexPage = () => {
+  const router = useRouter()
+  // useEffect(()=>{
+  //   if(appStore.role !== Roles.Teacher){
+  //    router.push('/')
+  //   }
+  // },[])
   // const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
-  return (
+  return appStore.role !== Roles.Teacher ? <Custom404/> :(
     <div className={styles.content}>
       <div className={styles.innerContent}>
         <div className={styles.homeWork}>

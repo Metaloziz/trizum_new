@@ -1,6 +1,6 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextComponentType, NextPageContext} from 'next';
 import {AppContext, AppProps, AppProps as NextAppProps} from 'next/app';
-import {FC, ReactElement, useEffect, useState} from 'react';
+import {FC, Fragment, ReactElement, useEffect, useId, useState} from 'react';
 // import { Provider } from 'react-redux';
 import {AuthGuard} from '@app/common/AuthGuard';
 import {UserAuth} from '@app/models/auth/UserAuth';
@@ -18,34 +18,34 @@ import {checkUserAuthenticated} from '@utils/Auth';
 import {setCookie} from '@utils/Cookie';
 import '@styles/normalize.scss';
 import appStore, {Roles} from "@app/stores/appStore";
+import {useRouter} from "next/router";
+import {BrowserRouter} from "react-router-dom";
 
+console.log(process.env.asd,'asd');
+const App = (props: AppProps) => {
+  const {Component, pageProps} = props
 
-const App =(props: AppProps)=> {
-  const {Component,pageProps}= props
-  console.log(pageProps, 'rst');
   appStore.setRole(pageProps.role)
-  //
   return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+    // <BrowserRouter>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+    //{/*</BrowserRouter>*/}
   );
 }
 
-// type AppProps = {
-//
-//   pageProps: {
-//     role:Roles
-//   };
-//   Component: ReactElement;
-// }
-
 App.getInitialProps = async (appContext: AppContext) => {
   //здесь вставить запрос на авторизацию.
-  const res = await Promise.resolve().then(res => 'pupil')
-  return {pageProps: {
-    role:res
-    }}
+  // const auth = await fetch('api/v1/me')
+  // const sms = await fetch('api/v1/sms')
+  // const code = await fetch('api/v1/login')
+  const res = await Promise.resolve().then(res => Roles.Teacher)
+  return {
+    pageProps: {
+      role: res
+    }
+  }
 }
 
 export default App;

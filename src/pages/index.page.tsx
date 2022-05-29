@@ -8,23 +8,28 @@ import { useAuthContext } from '@contexts/AuthContext';
 import { getProfile } from '@utils/Auth';
 import styles from './Home.module.scss';
 import appStore, {Roles} from "@app/stores/appStore";
-import Schedule from "@components/schedule/Schedule";
-import {PupilMain} from "@components/pupil-main/PupilMain";
+import {StudentMain} from "@components/pupil-main/StudentMain";
+import TeacherEducationMain from "@components/teacher-education/TeacherEducationMain";
+import TeacherMain from "@components/teacher-main/teacherMain";
 
 export default function Home(props:any) {
-  console.log(props,'props');
+  console.log(props,'props'); //{role: 'pupil'}
   const {role} = appStore
   let part:any
   console.log(role,'role');
     switch (role) {
+      case Roles.Student:
+        part = <StudentMain/>
+        break
+      case Roles.TeacherEducation:
+        part = <TeacherEducationMain/>
+        break
       case Roles.Teacher:
-        part = <Schedule/>
+        part = <TeacherMain/>
         break
-      case Roles.Pupil:
-        part = <PupilMain/>
-        break
+      case Roles.Unauthorized:
       default:
-        part = <>asd</>
+        part = <>Unauthorized</>
     }
   return (
     <div className={styles.container}>
@@ -33,10 +38,8 @@ export default function Home(props:any) {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
         {part}
-      </main>
     </div>
   );
 }
+

@@ -6,7 +6,7 @@ import {Roles} from "@app/stores/appStore";
 
 export interface AuthContextValue {
   auth?: UserAuth;
-  role?: Roles.Teacher | Roles.Pupil;
+  role?: Roles.Teacher | Roles.Student;
   // setAuth: Dispatch<SetStateAction<UserAuth | undefined>>;
   // setProfile: Dispatch<SetStateAction<Client | Manager | undefined>>;
   // setUserAuthenticated: Dispatch<{ auth: UserAuth; profile: Client | Manager }>;

@@ -1,19 +1,28 @@
 import {makeAutoObservable} from "mobx";
 
 export enum Roles {
-  Pupil = 'pupil',
+  /*Ученик*/
+  Student = 'student',
+  /*Учитель на обучении*/
+  TeacherEducation = 'teacherEducation',
+  /*Учитель*/
   Teacher = 'teacher',
-  LearningTeacher = 'learningTeacher',
-  Admin = 'admin',
+  /*Администратор франчайзи*/
+  FranchiseeAdmin = 'franchiseeAdmin',
+  /*Франчайзи*/
   Franchisee = 'franchisee',
+  /*Методист*/
   Methodist = 'methodist',
-  Curator = 'curator',
-  Center = 'center',
+  /*Куратор*/
+  Tutor = 'Tutor',
+  /*Центр*/
+  Admin = 'admin',
+  /*Неавторизованный*/
   Unauthorized = 'unauthorized',
 }
 
 class AppStore {
-  role: Roles = Roles.Teacher
+  role: Roles = Roles.Unauthorized
 
   constructor() {
     makeAutoObservable(this)

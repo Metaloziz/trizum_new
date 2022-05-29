@@ -2,22 +2,19 @@ import { EditorState } from 'draft-js';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import {Editor, EditorProps} from 'react-draft-wysiwyg';
+import {EditorProps} from 'react-draft-wysiwyg';
 import styles from './TextEditor.module.scss';
 
-//  TODO: fix error
-// const Editor = dynamic<EditorProps>(
-//   () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
-//   { ssr: false },
-// );
+const Editor = dynamic<EditorProps>(
+  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  { ssr: false },
+);
 
 const TextEditor = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
   );
-  useEffect(() => {
-    console.log(editorState);
-  }, [editorState]);
+
   return (
     <div>
       <Editor

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC } from 'react';
+import {FC, useId} from 'react';
 import Select from 'react-select';
 import selectArrow from '@svgs/arrow-select.svg';
 import styles from './CustomSelect.module.scss';
@@ -16,15 +16,16 @@ interface Props {
 }
 
 const CustomSelect: FC<Props> = ({ options, placeholder }) => {
+  const id = useId()
+  const instanceId = useId()
   return (
     <div className={styles.selectWrap}>
       <div className={styles.selectArrow}>
         <Image src={selectArrow} alt={'arrow'} />
       </div>
       <Select
-        // instanceId={}
-        // id={'6'}
-        // inputId={instanceId}
+        id={id}
+        instanceId={instanceId}
         placeholder={placeholder}
         options={options}
         components={{ IndicatorSeparator: () => null }}

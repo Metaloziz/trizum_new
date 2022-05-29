@@ -20,7 +20,7 @@ const Sidebar: FC = () => {
         { label: 'Оплата', href: Payment, imageSrc: paymentImage },
       ]
       break
-    case Roles.Pupil:
+    case Roles.Student:
     default:
     links = [
       { label: 'Главная', href: Index, imageSrc: homeImage },

@@ -10,7 +10,7 @@ const WeeklyGrowth: FC<WeeklyGrowthProps> = ({ weeklyGrowth, className }) => {
       <span className={styles.title}>Рост за неделю</span>
       <div className={styles.itemsContainer}>
         {weeklyGrowth.map((weeklyGrowth) => (
-          <SkillGrow key={weeklyGrowth.id} {...weeklyGrowth}></SkillGrow>
+          <SkillGrow key={Math.random()} {...weeklyGrowth}></SkillGrow>
         ))}
       </div>
     </div>

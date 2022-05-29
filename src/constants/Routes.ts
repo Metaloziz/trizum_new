@@ -10,6 +10,8 @@ export const Routes = {
   Scenario: '/scenario',
   Payment: '/payment',
   Administrator: '/administrator',
+  TeacherMain: '/teacher-main',
+  Schedule: '/calendar',
   StatisticsTeachers: '/statistics-teachers',
   CuratorHome: '/curator-home',
   AddHomework: '/add-homework',

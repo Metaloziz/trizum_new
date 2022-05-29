@@ -6,14 +6,17 @@ interface Props {
   layout?: FC;
 }
 
-const Layout: FC<Props> = ({ children, layout: LayoutComponent }) => (
-  <>
-    {LayoutComponent ? (
-      <LayoutComponent>{children}</LayoutComponent>
-    ) : (
-      <DefaultLayout>{children}</DefaultLayout>
-    )}
-  </>
-);
+const Layout: FC<Props> = ({ children, layout: LayoutComponent }) => {
+
+  return (
+    <>
+      {LayoutComponent ? (
+        <LayoutComponent>{children}</LayoutComponent>
+      ) : (
+        <DefaultLayout>{children}</DefaultLayout>
+      )}
+    </>
+  );
+};
 
 export default Layout;

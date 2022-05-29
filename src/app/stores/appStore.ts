@@ -13,7 +13,7 @@ export enum Roles {
 }
 
 class AppStore {
-  role: Roles = Roles.Unauthorized
+  role: Roles = Roles.Teacher
 
   constructor() {
     makeAutoObservable(this)

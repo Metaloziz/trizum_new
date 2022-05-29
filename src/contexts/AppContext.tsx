@@ -7,4 +7,4 @@ export function createStores() {
 
 export const stores = createStores();
 
-export const AppContext = React.createContext(stores);
+export const ApplicationContext = React.createContext(stores);

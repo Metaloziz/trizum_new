@@ -22,7 +22,7 @@ const Homework: FC<HomeworkProps> = ({
         <p className={`${styles.tipsTitle} p-smaller`}>Подсказки</p>
         <ul className={`${styles.tips} p-smaller`}>
           {tips.map(({ text, id }) => (
-            <li key={id} className={styles.tip}>
+            <li key={Math.random()} className={styles.tip}>
               {text}
             </li>
           ))}

@@ -11,13 +11,14 @@ export async function getProfile(
   roleId: string,
   locale?: string,
 ) {
-  if (roleId === RoleId.Client) {
+  if (roleId === RoleId.Pupil) {
     return await clientService.getProfile({ token, locale });
   }
   return await managerService.getProfile({ token, locale });
 }
 
 export async function checkUserAuthenticated(ctx: NextPageContext) {
+  // console.log(ctx.req?.headers);
   let auth, profile;
   const token = getCookie(AuthKey, ctx.req?.headers?.cookie || '');
   if (token) {

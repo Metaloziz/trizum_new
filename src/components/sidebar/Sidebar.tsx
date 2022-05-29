@@ -5,17 +5,33 @@ import homeImage from '@svgs/student-navigation-link-home.svg';
 import paymentImage from '@svgs/student-navigation-link-payment.svg';
 import resultsImage from '@svgs/student-navigation-link-results.svg';
 import styles from './Sidebar.module.scss';
+import appStore, {Roles} from "@app/stores/appStore";
 
 const Sidebar: FC = () => {
-  const { Index, Results, Payment } = Routes;
+  const { Index, Results, Payment,TeacherMain,Schedule } = Routes;
+  const {role} = appStore
+  console.log(role);
+  let links:{label: string, href:string, imageSrc:string}[];
+  switch (role) {
+    case Roles.Teacher:
+      links = [
+        { label: 'Главная', href: Index, imageSrc: homeImage },
+        { label: 'Расписание', href: Schedule, imageSrc: resultsImage },
+        { label: 'Оплата', href: Payment, imageSrc: paymentImage },
+      ]
+      break
+    case Roles.Pupil:
+    default:
+    links = [
+      { label: 'Главная', href: Index, imageSrc: homeImage },
+      { label: 'Ваши результаты', href: Results, imageSrc: resultsImage },
+      { label: 'Оплата', href: Payment, imageSrc: paymentImage },
+    ]
+  }
   return (
     <aside className={styles.sidebar}>
       <Navigation
-        links={[
-          { label: 'Главная', href: Index, imageSrc: homeImage },
-          { label: 'Ваши результаты', href: Results, imageSrc: resultsImage },
-          { label: 'Оплата', href: Payment, imageSrc: paymentImage },
-        ]}
+        links={links}
         linkClassName={styles.link}
         linkWrapperClassName={styles.linkWrapper}
         linkImageClassName={styles.linkImage}

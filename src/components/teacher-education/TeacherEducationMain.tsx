@@ -1,38 +1,40 @@
 import React from 'react';
 import styles from './TeacherEducationMain.module.scss';
 import TeacherMainItem from "@pages/teacher-main/teacher-main-item/TeacherMainItem";
-
-const items = [
-  {
-    id: 1,
-    img: '/teacher.svg',
-    title: 'Блок 1',
-    text: 'А также явные признаки победы институционализации призывают нас к новым свершениям, которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники тоталитаризма в науке являются только методом политического участия и в равной степени предоставлены сами себе. ',
-  },
-  {
-    id: 2,
-    img: '/teacher.svg',
-    title: 'Блок 2',
-    text: 'А также явные признаки победы институционализации призывают нас к новым свершениям, которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники тоталитаризма в науке являются только методом политического участия и в равной степени предоставлены сами себе. ',
-  },
-  {
-    id: 3,
-    img: '/teacher.svg',
-    title: 'Блок 3',
-    text: 'А также явные признаки победы институционализации призывают нас к новым свершениям, которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники тоталитаризма в науке являются только методом политического участия и в равной степени предоставлены сами себе. ',
-  },
-];
+import {useRouter} from "next/router";
+import teacherEducationStore from "@app/stores/TeacherEducationStore";
 
 const TeacherEducationMain = () => {
+  const router = useRouter()
+  const {tests,setCurrentTest} = teacherEducationStore
+  const onTheoryClick = (id:string) => {
+    const test = tests.find(t => t.id === id)
+    //TODO: сделать слаг или айди
+    if(test){
+      setCurrentTest(test)
+      router.push(`/test/theory/${id}`)
+    }
+  }
+
+  const onTestClick = (id:string) => {
+    const test = tests.find(t => t.id === id)
+    if(test){
+      //сделать слаг или айди
+      setCurrentTest(test)
+      router.push(`/test/${id}`)
+    }
+  }
   return (
     <div className={styles.container}>
-       {items.map((item) => {
+       {tests.map((item) => {
         return (
           <TeacherMainItem
             key={item.id}
             title={item.title}
             text={item.text}
             imgSrc={item.img}
+            onTestClick={()=>onTestClick(item.id)}
+            onTheoryClick={()=>onTheoryClick(item.id)}
           />
         );
       })}

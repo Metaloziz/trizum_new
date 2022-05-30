@@ -26,25 +26,25 @@ export type ScheduleEvent = {
   lesson: string;
   class: string;
 };
-
+// mock
 const eventsObj: object[] = [
   {
-    id: 2,
+    id: 'asd',
     title: 'Event 1',
     allDay: false,
-    start: new Date(2022, 4, 12, 8, 15), // 10.00 AM
-    end: new Date(2022, 4, 12, 9, 0),
+    start: new Date(2022, 5, 2, 8, 15), // 10.00 AM
+    end: new Date(2022, 5, 2, 9, 0),
     lesson: 'lesson',
     class: '1A',
   },
   {
-    id: 0,
+    id: 'qwe',
     title: 'Event 2',
     allDay: false,
-    start: new Date(2022, 4, 12, 9, 15), // 10.00 AM
-    end: new Date(2022, 4, 12, 10, 0),
+    start: new Date(2022, 4, 31, 9, 15), // 10.00 AM
+    end: new Date(2022, 4, 31, 10, 0),
     lesson: 'lesson',
-    class: '1A',
+    class: '2A',
   },
 ];
 
@@ -54,42 +54,35 @@ const formats = {
   },
 };
 
-const ToolBar: FC<any> = (props) => {
-  console.log(props);
-  return <>fg</>;
-};
-
 const Schedule: FC = () => {
   const [events, setEvents] = useState<(ScheduleEvent | object)[]>(eventsObj);
   const [isVisible, setIsVisible] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState<
-    ScheduleEvent | null | object
-  >(null);
+  const [currentEvent, setCurrentEvent] = useState<ScheduleEvent | null | object>(null);
   const changeVisibility = () => {
     setIsVisible(!isVisible);
   };
   const moveEvent = ({
-    event,
-    start,
-    end,
-    isAllDay,
-  }: {
+                       event,
+                       start,
+                       end,
+                       isAllDay,
+                     }: {
     event: object;
     start: stringOrDate;
     end: stringOrDate;
     isAllDay: boolean;
   }) => {
-    const idx = eventsObj.indexOf(event);
-    const updatedEvent = { ...event, start, end };
-    const nextEvents = [...eventsObj];
+    const idx = events.findIndex((e) => (e as ScheduleEvent).id === (event as ScheduleEvent).id);
+    const updatedEvent = {...event, start, end};
+    const nextEvents = [...events];
     nextEvents.splice(idx, 1, updatedEvent);
     setEvents(nextEvents);
   };
   const resizeEvent = ({
-    event,
-    start,
-    end,
-  }: {
+                         event,
+                         start,
+                         end,
+                       }: {
     event: {
       id?: number;
     };
@@ -98,9 +91,22 @@ const Schedule: FC = () => {
     isAllDay: boolean;
   }) => {
     const nextEvents = events.map((existingEvent) => {
-      return existingEvent.id == event.id
-        ? { ...existingEvent, start, end }
-        : existingEvent;
+      if ('id' in existingEvent && existingEvent.id === event.id) {
+        const startAsAr = moment(start).format('HH-mm').split('-')
+        const startMinutes = Number(startAsAr[0]) * 60 + Number(startAsAr[1])
+        const endAsAr = moment(end).format('HH-mm').split('-')
+        const endMinutes = Number(endAsAr[0]) * 60 + Number(endAsAr[1])
+        if (endMinutes - startMinutes < 45) {
+          const hours = Math.trunc((startMinutes + 45) / 60)
+          const minutes = (startMinutes + 45) % 60
+          const newEnd = new Date((end as Date).getFullYear(), (end as Date).getMonth(), (end as Date).getDate(), hours, minutes)
+          console.log(newEnd);
+          console.log(start);
+          return {...existingEvent, start, end: newEnd}
+        }
+        return {...existingEvent, start, end};
+      }
+      return existingEvent;
     });
     setEvents(nextEvents);
   };
@@ -108,9 +114,8 @@ const Schedule: FC = () => {
     event: object | ScheduleEvent,
     e: SyntheticEvent<HTMLElement, Event>,
   ) => {
-    const target: any = e.target;
-
-    if ('alt' in target && target.alt === 'Delete') {
+    const target = e.target;
+    if ((target as HTMLImageElement).alt === 'Delete') {
       e.stopPropagation();
       const newEvents = events.filter((e) => {
         if ('id' in event && 'id' in e) {
@@ -146,7 +151,7 @@ const Schedule: FC = () => {
         max={new Date(2022, 0, 5, 20, 30)}
         defaultView={'week'}
         views={['week']}
-        messages={{ next: 'next', previous: 'last', today: 'Текущая' }}
+        messages={{next: 'next', previous: 'last', today: 'Текущая'}}
         selectable
         // @ts-ignore
         tooltipAccessor={null}

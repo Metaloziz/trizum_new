@@ -39,13 +39,9 @@ export const CustomEvent: FC<EventProps> = ({ event }) => {
         <span>
           <Image
             src={iconDelete}
-            width={'22'}
-            height={'22'}
+            width={'18'}
+            height={'18'}
             alt={'Delete'}
-            onClick={(e) => {
-              // e.stopPropagation()
-              console.log('hi');
-            }}
           />
         </span>
         <span>

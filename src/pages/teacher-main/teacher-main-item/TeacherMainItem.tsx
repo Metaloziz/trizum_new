@@ -7,12 +7,16 @@ interface TeacherMainItemProps {
   title: string;
   imgSrc?: string;
   text: string;
+  onTheoryClick:()=>void
+  onTestClick:()=>void
 }
 
 const TeacherMainItem: FC<TeacherMainItemProps> = ({
   title,
   imgSrc = '',
   text,
+  onTheoryClick,
+  onTestClick,
 }) => {
   return (
     <div className={styles.containerItem}>
@@ -23,8 +27,8 @@ const TeacherMainItem: FC<TeacherMainItemProps> = ({
         <h2>{title}</h2>
         <p>{text}</p>
         <div className={styles.containerButton}>
-          <CustomButton>Прочитать теорию</CustomButton>
-          <CustomButton>Пройти тест</CustomButton>
+          <CustomButton onClick={onTheoryClick}>Прочитать теорию</CustomButton>
+          <CustomButton onClick={onTestClick}>Пройти тест</CustomButton>
         </div>
       </div>
     </div>

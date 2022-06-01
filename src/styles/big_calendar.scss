@@ -159,7 +159,7 @@ $event-bg: $gradient-blue-darker;
   }
 
   .rbc-event-content {
-    padding: 10px 15px 10px 30px;
+    //padding: 10px 15px 10px 30px;
     font-size: 12px;
     line-height: 18px;
     @media(max-width: 1700px){
@@ -177,5 +177,8 @@ $event-bg: $gradient-blue-darker;
     }
   }
 }
-
+.rbc-event{
+  width: 100% !important;
+  left: 0!important;
+}
 /* event */

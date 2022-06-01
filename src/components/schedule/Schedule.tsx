@@ -6,6 +6,7 @@ import BasicModal from '@components/basic-modal/BasicModal';
 import {CustomEvent, CustomEventWrapper, ScheduleHeader,} from '@components/schedule/ScheduleComponents';
 import ScheduleModal from '@components/schedule/ScheduleModal';
 import styles from './Schedule.module.scss';
+import Button from "@components/custom-button/CustomButton";
 
 require('moment/locale/ru');
 
@@ -140,9 +141,22 @@ const Schedule: FC = () => {
     });
     setEvents(newEvents);
   };
+  const onAddLessonClick = () =>{
+    const newEvent = {
+        id: 'qweasd',
+        title: 'Event 3',
+        allDay: false,
+        start: new Date(2022, 5, 3, 9, 15), // 10.00 AM
+        end: new Date(2022, 5, 3, 10, 0),
+        lesson: 'lesson',
+        class: '2A',
+      }
+    setEvents([...events,newEvent])
+  }
 
   return (
     <div className={styles.wrapper}>
+      <Button onClick={onAddLessonClick}>add lesson</Button>
       <DnDCalendar
         localizer={localizer}
         events={events}

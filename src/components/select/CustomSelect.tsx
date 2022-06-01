@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import {FC, useId} from 'react';
-import Select from 'react-select';
+import Select, {OnChangeValue} from 'react-select';
 import selectArrow from '@svgs/arrow-select.svg';
 import styles from './CustomSelect.module.scss';
 
@@ -12,6 +12,7 @@ interface SelectOptions {
 interface Props {
   options: SelectOptions[];
   placeholder?: string;
+  onChange?:OnChangeValue<any, any>
   // id: string;
 }
 
@@ -28,6 +29,7 @@ const CustomSelect: FC<Props> = ({ options, placeholder }) => {
         instanceId={instanceId}
         placeholder={placeholder}
         options={options}
+        onChange={(asd)=>onChange(asd)}
         components={{ IndicatorSeparator: () => null }}
       />
     </div>

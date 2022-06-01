@@ -21,7 +21,11 @@ const IndexPage = () => {
         <div className={styles.innerContent}>
           <div>
             <div className={styles.inputBlock}>
-              <input type="text" placeholder={'имя тарифа'} />
+              <InformationItem
+                variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
+                placeholder={'имя тарифа'}
+              />
             </div>
             <div className={styles.infoBlock}>
               <div>

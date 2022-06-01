@@ -1,14 +1,14 @@
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import TextEditor from '@components/text-editor/TextEditor';
-import styles from './AddText.module.scss';
+import styles from './AddTest.module.scss';
 
 const IndexPage = () => {
   return (
     <div className={styles.content}>
       <div className={styles.innerContent}>
         <div className={styles.wrapContent}>
-          <h1>Добавление текста</h1>
+          <h1>Добавление теста</h1>
           <div className={styles.inputWrap}>
             <InformationItem variant={'file'} title={'Изображение новости'} />
           </div>

@@ -1,9 +1,14 @@
 .container {
   padding: 33px 30px 14px 20px;
   box-sizing: border-box;
+  position: relative;
 
   @media (max-width: 1700px) {
     padding: 33px 20px 14px 20px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 30px 15px;
   }
 
   & .wrapBlock {
@@ -47,6 +52,7 @@
 
       @media (max-width: 700px) {
         width: 100%;
+        margin-bottom: 15px;
       }
     }
 
@@ -139,6 +145,7 @@
 
             @media(max-width: 374px) {
               width: 100%;
+              margin-right: 0;
             }
           }
         }

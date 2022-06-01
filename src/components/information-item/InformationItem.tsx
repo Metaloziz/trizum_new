@@ -24,6 +24,7 @@ interface Props {
   onChange?: (value: string) => void;
   id?: string;
   type?: string;
+  value?: string;
 }
 
 const InformationItem: FC<Props> = (props) => {

@@ -87,7 +87,7 @@ const IndexPage = () => {
       <div className={styles.homeBtn}>
         <CustomButton>Сохранить</CustomButton>
         <div>
-          <Step count={7} />
+          <Step countStep={7} />
         </div>
       </div>
     </div>

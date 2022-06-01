@@ -1,9 +1,9 @@
 .wrapperTesting {
-  width: 63%;
+  width: 80%;
   padding: 33px 20px 20px 20px;
   box-sizing: border-box;
 
-  @media (max-width: 1900px) {
+  @media (max-width: 1700px) {
     width: 100%;
   }
 
@@ -19,7 +19,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @media (max-width: 600px){
+    @media (max-width: 600px) {
       font-size: 18px;
       line-height: 22px;
     }
@@ -39,7 +39,28 @@
   }
 
   & .stepStyle {
-    width: 100%;
+    > div {
+      width: 1200px;
+      margin: 0 auto;
+
+      @media(max-width: 1500px) {
+        width: 1050px;
+        height: 35px;
+      }
+
+      > ul {
+        height: 40px;
+      }
+
+      > ul > li {
+        width: 40px !important;
+        height: 40px !important;
+      }
+
+      > button:disabled {
+        display: none;
+      }
+    }
   }
 
   & .question {
@@ -82,7 +103,7 @@
         display: flex;
       }
 
-      & .answerСhoice {
+      & .answerChoice {
         width: 80%;
         display: flex;
         justify-content: space-between;
@@ -105,7 +126,7 @@
         .inputChoice + .inputChoice {
           margin-top: 44px;
 
-          @media (max-width: 600px){
+          @media (max-width: 600px) {
             margin-top: 30px;
           }
         }

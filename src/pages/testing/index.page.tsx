@@ -20,7 +20,7 @@ const IndexPage = () => {
           <CustomButton>Закончить тест</CustomButton>
         </div>
         <div className={styles.stepStyle}>
-          <Step count={4} />
+          <Step countStep={30} isRenderButtons />
         </div>
       </div>
       <div className={styles.question}>
@@ -43,87 +43,75 @@ const IndexPage = () => {
             тоталитаризма в науке являются только методом политического участия
             и в равной степени предоставлены сами себе.
           </p>
-          <div className={styles.answerСhoice}>
+          <div className={styles.answerChoice}>
             <div>
               <div className={styles.inputChoice}>
-                <div>
-                  <input
-                    type="radio"
-                    value="inputChoice1"
-                    id="inputChoice1"
-                    name={'currentRadioValue'}
-                    onChange={handlerRadioChange}
-                    checked={currentRadioValue === 'inputChoice1'}
-                  />
-                </div>
-                <label htmlFor="inputChoice1">Вариант ответа 1</label>
+                <input
+                  type={'radio'}
+                  value={'inputChoice1'}
+                  id={'inputChoice1'}
+                  name={'currentRadioValue'}
+                  onChange={handlerRadioChange}
+                  checked={currentRadioValue === 'inputChoice1'}
+                />
+                <label htmlFor={'inputChoice1'}>Вариант ответа 1</label>
               </div>
               <div className={styles.inputChoice}>
-                <div>
-                  <input
-                    type="radio"
-                    value="inputChoice2"
-                    id="inputChoice2"
-                    name={'currentRadioValue'}
-                    onChange={handlerRadioChange}
-                    checked={currentRadioValue === 'inputChoice2'}
-                  />
-                </div>
-                <label htmlFor="inputChoice2">Вариант ответа 2</label>
+                <input
+                  type={'radio'}
+                  value={'inputChoice2'}
+                  id={'inputChoice2'}
+                  name={'currentRadioValue'}
+                  onChange={handlerRadioChange}
+                  checked={currentRadioValue === 'inputChoice2'}
+                />
+                <label htmlFor={'inputChoice2'}>Вариант ответа 2</label>
               </div>
               <div className={styles.inputChoice}>
-                <div>
-                  <input
-                    type="radio"
-                    value="inputChoice3"
-                    id="inputChoice3"
-                    name={'currentRadioValue'}
-                    onChange={handlerRadioChange}
-                    checked={currentRadioValue === 'inputChoice3'}
-                  />
-                </div>
-                <label htmlFor="inputChoice1">Вариант ответа 3</label>
+                <input
+                  type={'radio'}
+                  value={'inputChoice3'}
+                  id={'inputChoice3'}
+                  name={'currentRadioValue'}
+                  onChange={handlerRadioChange}
+                  checked={currentRadioValue === 'inputChoice3'}
+                />
+                <label htmlFor={'inputChoice3'}>Вариант ответа 3</label>
               </div>
             </div>
             <div>
               <div className={styles.inputChoice}>
-                <div>
-                  <input
-                    type="radio"
-                    value="inputChoice4"
-                    id="inputChoice4"
-                    name={'currentRadioValue'}
-                    onChange={handlerRadioChange}
-                    checked={currentRadioValue === 'inputChoice4'}
-                  />
-                </div>
-                <label htmlFor="inputChoice4">Вариант ответа 4</label>
+                <input
+                  type={'radio'}
+                  value={'inputChoice4'}
+                  id={'inputChoice4'}
+                  name={'currentRadioValue'}
+                  onChange={handlerRadioChange}
+                  checked={currentRadioValue === 'inputChoice4'}
+                />
+                <label htmlFor={'inputChoice4'}>Вариант ответа 4</label>
               </div>
               <div className={styles.inputChoice}>
-                <div>
-                  <input
-                    type="radio"
-                    value="inputChoice5"
-                    id="inputChoice5"
-                    name={'currentRadioValue'}
-                    onChange={handlerRadioChange}
-                    checked={currentRadioValue === 'inputChoice5'}
-                  />
-                </div>
-                <label htmlFor="inputChoice5">Вариант ответа 5</label>
+                <input
+                  type={'radio'}
+                  value={'inputChoice5'}
+                  id={'inputChoice5'}
+                  name={'currentRadioValue'}
+                  onChange={handlerRadioChange}
+                  checked={currentRadioValue === 'inputChoice5'}
+                />
+                <label htmlFor={'inputChoice5'}>Вариант ответа 5</label>
               </div>
               <div className={styles.inputChoice}>
-                <div>
-                  <input
-                    type="radio"
-                    value="inputChoice6"
-                    id="inputChoice6"
-                    name={'currentRadioValue'}
-                    onChange={handlerRadioChange}
-                    checked={currentRadioValue === 'inputChoice6'}
-                  />
-                </div>
-                <label htmlFor="inputChoice6">Вариант ответа 6</label>
+                <input
+                  type={'radio'}
+                  value={'inputChoice6'}
+                  id={'inputChoice6'}
+                  name={'currentRadioValue'}
+                  onChange={handlerRadioChange}
+                  checked={currentRadioValue === 'inputChoice6'}
+                />
+                <label htmlFor={'inputChoice6'}>Вариант ответа 6</label>
               </div>
             </div>
           </div>

@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import settingsHover from '@svgs/settings-hover.svg';
 import settings from '@svgs/settings.svg';
-import styles from './Setting.module.scss';
 
 const Setting = () => {
   const [isShowHover, setShowHover] = useState(false);

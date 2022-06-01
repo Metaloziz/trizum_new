@@ -13,6 +13,10 @@
       top: 35px;
       right: 0;
       z-index: 600;
+
+      @media (max-width: 550px) {
+        top: 40px;
+      }
     }
   }
 }
@@ -41,7 +45,13 @@
   }
 
   @media (max-width: 374px) {
-    width: 260px !important;
+    width: 280px !important;
+  }
+
+  > div {
+    height: auto !important;
+    padding: 5px;
+    margin-bottom: 5px;
   }
 
 

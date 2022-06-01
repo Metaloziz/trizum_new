@@ -4,7 +4,8 @@
   .wrapperBlock {
 
     width: 1250px;
-    margin: 18px auto 0;
+    margin: 18px auto 20px;
+
     @media (max-width: 1500px) {
       width: 95%;
     }
@@ -22,7 +23,7 @@
       margin-bottom: 43px;
 
       @media (max-width: 550px) {
-        padding: 30px;
+        padding: 20px;
       }
 
       &::after {
@@ -35,6 +36,10 @@
         background-color: rgb(228, 228, 228);
         right: 17px;
         border-radius: 50%;
+
+        @media (max-width: 550px) {
+          right: 5px;
+        }
       }
 
       .blockShulte {
@@ -43,11 +48,11 @@
         padding: 33px 268px;
         box-sizing: border-box;
 
-        @media (max-width: 1300px) {
+        @media (max-width: 1500px) {
           padding: 33px 170px;
         }
 
-        @media (max-width: 1100px) {
+        @media (max-width: 1300px) {
           padding: 33px 80px;
         }
 

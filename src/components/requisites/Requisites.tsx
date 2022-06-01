@@ -30,7 +30,6 @@ const Requisites: FC<Props> = ({}) => {
             <span>Сумма к оплате: 99 999 рублей</span>
           </div>
           <div className={styles.containerBtn}>
-            {/* eslint-disable-next-line react/jsx-no-undef */}
             <CustomButton>Скачать платежное поручение</CustomButton>
             <div className={styles.infoLink}>
               <Link href={' '}>

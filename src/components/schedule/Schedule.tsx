@@ -1,15 +1,20 @@
 import moment from 'moment';
-import React, {FC, SyntheticEvent, useState} from 'react';
-import {Calendar, momentLocalizer, stringOrDate} from 'react-big-calendar';
+import React, { FC, SyntheticEvent, useState } from 'react';
+import { Calendar, momentLocalizer, stringOrDate } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import BasicModal from '@components/basic-modal/BasicModal';
-import {CustomEvent, CustomEventWrapper, ScheduleHeader, Toolbar} from '@components/schedule/ScheduleComponents';
+import Button from '@components/custom-button/CustomButton';
+import CustomButton from '@components/custom-button/CustomButton';
+import InformationItem from '@components/information-item/InformationItem';
+import {
+  CustomEvent,
+  CustomEventWrapper,
+  ScheduleHeader,
+  Toolbar,
+} from '@components/schedule/ScheduleComponents';
 import ScheduleModal from '@components/schedule/ScheduleModal';
+import CustomSelect from '@components/select/CustomSelect';
 import styles from './Schedule.module.scss';
-import Button from "@components/custom-button/CustomButton";
-import InformationItem from "@components/information-item/InformationItem";
-import CustomSelect from "@components/select/CustomSelect";
-import CustomButton from "@components/custom-button/CustomButton";
 
 require('moment/locale/ru');
 
@@ -64,7 +69,7 @@ const createOptions = (arr: string[]) => {
 };
 const groupOptions = createOptions(groups);
 
-const ChildrenToolbar:FC =() => {
+const ChildrenToolbar: FC = () => {
   return (
     <div className={styles.toolbarFlex}>
       <InformationItem
@@ -72,41 +77,49 @@ const ChildrenToolbar:FC =() => {
         variant={'calendar'}
         className={styles.toolbarDateSelect}
       />
-      <CustomSelect options={groupOptions} placeholder={'Группа'} className={styles.toolbarGroupSelect}/>
-      <CustomButton size={"small"}>Найти</CustomButton>
+      <CustomSelect
+        options={groupOptions}
+        placeholder={'Группа'}
+        className={styles.toolbarGroupSelect}
+      />
+      <CustomButton size={'small'}>Найти</CustomButton>
     </div>
-  )
-}
+  );
+};
 
 const Schedule: FC = () => {
   const [events, setEvents] = useState<(ScheduleEvent | object)[]>(eventsObj);
   const [isVisible, setIsVisible] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState<ScheduleEvent | null | object>(null);
+  const [currentEvent, setCurrentEvent] = useState<
+    ScheduleEvent | null | object
+  >(null);
   const changeVisibility = () => {
     setIsVisible(!isVisible);
   };
   const moveEvent = ({
-                       event,
-                       start,
-                       end,
-                       isAllDay,
-                     }: {
+    event,
+    start,
+    end,
+    isAllDay,
+  }: {
     event: object;
     start: stringOrDate;
     end: stringOrDate;
     isAllDay: boolean;
   }) => {
-    const idx = events.findIndex((e) => (e as ScheduleEvent).id === (event as ScheduleEvent).id);
-    const updatedEvent = {...event, start, end};
+    const idx = events.findIndex(
+      (e) => (e as ScheduleEvent).id === (event as ScheduleEvent).id,
+    );
+    const updatedEvent = { ...event, start, end };
     const nextEvents = [...events];
     nextEvents.splice(idx, 1, updatedEvent);
     setEvents(nextEvents);
   };
   const resizeEvent = ({
-                         event,
-                         start,
-                         end,
-                       }: {
+    event,
+    start,
+    end,
+  }: {
     event: {
       id?: number;
     };
@@ -116,19 +129,25 @@ const Schedule: FC = () => {
   }) => {
     const nextEvents = events.map((existingEvent) => {
       if ('id' in existingEvent && existingEvent.id === event.id) {
-        const startAsAr = moment(start).format('HH-mm').split('-')
-        const startMinutes = Number(startAsAr[0]) * 60 + Number(startAsAr[1])
-        const endAsAr = moment(end).format('HH-mm').split('-')
-        const endMinutes = Number(endAsAr[0]) * 60 + Number(endAsAr[1])
+        const startAsAr = moment(start).format('HH-mm').split('-');
+        const startMinutes = Number(startAsAr[0]) * 60 + Number(startAsAr[1]);
+        const endAsAr = moment(end).format('HH-mm').split('-');
+        const endMinutes = Number(endAsAr[0]) * 60 + Number(endAsAr[1]);
         if (endMinutes - startMinutes < 45) {
-          const hours = Math.trunc((startMinutes + 45) / 60)
-          const minutes = (startMinutes + 45) % 60
-          const newEnd = new Date((end as Date).getFullYear(), (end as Date).getMonth(), (end as Date).getDate(), hours, minutes)
+          const hours = Math.trunc((startMinutes + 45) / 60);
+          const minutes = (startMinutes + 45) % 60;
+          const newEnd = new Date(
+            (end as Date).getFullYear(),
+            (end as Date).getMonth(),
+            (end as Date).getDate(),
+            hours,
+            minutes,
+          );
           console.log(newEnd);
           console.log(start);
-          return {...existingEvent, start, end: newEnd}
+          return { ...existingEvent, start, end: newEnd };
         }
-        return {...existingEvent, start, end};
+        return { ...existingEvent, start, end };
       }
       return existingEvent;
     });
@@ -164,18 +183,18 @@ const Schedule: FC = () => {
     });
     setEvents(newEvents);
   };
-  const onAddLessonClick = () =>{
+  const onAddLessonClick = () => {
     const newEvent = {
-        id: 'qweasd',
-        title: 'Event 3',
-        allDay: false,
-        start: new Date(2022, 5, 3, 9, 15), // 10.00 AM
-        end: new Date(2022, 5, 3, 10, 0),
-        lesson: 'lesson',
-        class: '2A',
-      }
-    setEvents([...events,newEvent])
-  }
+      id: 'qweasd',
+      title: 'Event 3',
+      allDay: false,
+      start: new Date(2022, 5, 3, 9, 15), // 10.00 AM
+      end: new Date(2022, 5, 3, 10, 0),
+      lesson: 'lesson',
+      class: '2A',
+    };
+    setEvents([...events, newEvent]);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -187,7 +206,7 @@ const Schedule: FC = () => {
         max={new Date(2022, 0, 5, 20, 30)}
         defaultView={'week'}
         views={['week']}
-        messages={{next: 'next', previous: 'last', today: 'Текущая'}}
+        messages={{ next: 'next', previous: 'last', today: 'Текущая' }}
         // @ts-ignore
         tooltipAccessor={null}
         // resizable
@@ -197,7 +216,11 @@ const Schedule: FC = () => {
           event: CustomEvent,
           eventWrapper: CustomEventWrapper,
           header: ScheduleHeader,
-          toolbar: (props)=><Toolbar {...props}><ChildrenToolbar/></Toolbar>
+          toolbar: (props) => (
+            <Toolbar {...props}>
+              <ChildrenToolbar />
+            </Toolbar>
+          ),
         }}
       />
       <BasicModal visibility={isVisible} changeVisibility={changeVisibility}>

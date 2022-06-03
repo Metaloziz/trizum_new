@@ -23,7 +23,7 @@ App.getInitialProps = async (appContext: AppContext) => {
   // const auth = await fetch('api/v1/me')
   // const sms = await fetch('api/v1/sms')
   // const code = await fetch('api/v1/login')
-  const res = await Promise.resolve().then(res => Roles.Teacher)
+  const res = await Promise.resolve().then(res => Roles.Admin)
   return {
     pageProps: {
       role: res

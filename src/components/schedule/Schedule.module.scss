@@ -1,12 +1,19 @@
 .wrapper {
   margin-top: 20px;
 }
+
 .eventFlexWrapper {
+  font-size: 11px;
+  line-height: 15px;
   display: flex;
   justify-content: space-between;
   height: 100%;
-  padding: 10px 15px 10px 30px;
+  padding: 10px 10px 10px 20px;
   box-shadow: inset 2px 2px 15px rgba(255, 255, 255, 0.3);
+  @media(max-width: 1500px){
+    padding: 7px 10px;
+
+  }
 }
 
 .eventText {
@@ -14,15 +21,16 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-
-  .eventTime{
-    @media(max-width: 1700px){
+text-overflow: ellipsis;
+  .eventTime {
+    @media(max-width: 1700px) {
       display: flex;
       flex-direction: column;
     }
   }
+
   @media(max-width: 991px) {
-    span:nth-child(1){
+    span:nth-child(1) {
       display: none;
     }
   }
@@ -54,13 +62,12 @@
   span:nth-child(2) {
     margin-left: 12px;
     @media(max-width: 1700px) {
-      margin-left: 10px;
-    }
-    @media(max-width: 1280px) {
       margin-left: 8px;
     }
+    @media(max-width: 1280px) {
+      margin-left: 5px;
+    }
     @media(max-width: 1400px) {
-      margin-top: 6px;
       max-width: 18px;
       max-height: 18px;
       margin-left: 0;
@@ -70,9 +77,144 @@
   @media(max-width: 1400px) {
     flex-direction: column;
     margin-left: 5px;
+    justify-content: space-around;
+  }
+  @media(max-width: 991px) {
+    display: none;
+  }
+}
+
+.toolbarWrapper {
+  width: auto;
+  max-width: 100%;
+  min-height: 70px;
+  padding: 25px 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+  border-radius: 30px;
+  margin-bottom: 24px;
+  input {
+    box-shadow: 0 0 40px rgb(86 89 146 / 15%) !important;
+  }
+
+  @media (max-width: 1300px) {
+    padding: 10px 25px;
+  }
+
+
+  @media (max-width: 900px) {
+    height: auto;
+    padding: 20px;
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 550px) {
+    background: inherit;
+  }
+
+  .toolbarFlexWrapper {
+    display: flex;
+    width: 100%;
+    gap: 16px;
+    justify-content: space-between;
+    .buttons {
+      display: flex;
+      gap: 16px;
+      .prev{
+        transform: rotate(180deg);
+      }
+      .arrow {
+        display: none;
+      }
+    }
+    @media (max-width: 1050px) {
+      .buttons{
+        gap: 8px;
+        button:nth-child(odd) {
+          padding: 3px;
+        }
+        span:first-child{
+          display: none;
+        }
+        .arrow{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 35px;
+          height: 35px;
+          background-color: $color-white;
+          border-radius: 50%;
+          top: 50%;
+          right: 2px;
+        }
+      }
+    }
+    @media (max-width: 850px) {
+      .buttons{
+        width: 100%;
+        justify-content: center;
+        button:nth-child(even){
+          display: block;
+          width: 40%;
+        }
+      }
+
+      flex-direction: column;
+      margin-right: 0;
+    }
+    @media (max-width: 500px) {
+      .buttons {
+        button:nth-child(even) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+.toolbarFlex {
+  display: flex;
+  gap: 16px;
+  .toolbarGroupSelect {
+    width: 120px;
+  }
+
+  .toolbarDateSelect {
+    & > div {
+      width: auto;
+    }
+
+    & > div:first-child {
+      margin-right: 16px;
+    }
+  }
+  @media (max-width: 1050px) {
+    width: 100%;
     justify-content: center;
   }
-  @media(max-width: 700px) {
-    display: none;
+  @media (max-width: 650px) {
+    flex-direction: column;
+    .toolbarDateSelect,.toolbarGroupSelect {
+      min-width: 100%;
+    }
+    .toolbarDateSelect {
+      & >div:nth-child(2){
+        width: 100%;
+        &>div:first-child {
+          width: 100%;
+
+          &>div:first-child{
+            margin-right: 8px;
+            width: 100%;
+          }
+        }
+      }
+    }
   }
 }

@@ -5,20 +5,9 @@
 }
 
 /*common*/
-.rbc-time-view {
-
-}
 
 .rbc-time-content {
   border: none;
-
-  & > div.rbc-day-slot {
-    border-left: 1px solid #E0DFDD;
-  }
-
-  & > div.rbc-day-slot:nth-child(2) {
-    border-left: none;
-  }
 }
 /*common*/
 
@@ -27,7 +16,6 @@
   background: #e8eff6;
   border: none;
   border-radius: 10px 10px 0 0;
-  box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
 }
 
 .rbc-header {
@@ -38,11 +26,41 @@
   }
   font-size: 14px;
   padding: 12px 0;
+  @media (max-width: 850px) {
+    font-size: 12px;
+    }
 }
-
+.rbc-time-header-gutter {
+  width: 63.18px!important;
+  min-width: 63.18px!important;
+  max-width: 63.18px!important;
+  @media(max-width: 1280px){
+    width: 48.18px!important;
+    min-width: 48.18px!important;
+    max-width: 48.18px!important;
+  }
+}
 .rbc-time-view {
   border: none;
-
+  position: relative;
+  z-index: 1;
+  &:before {
+    border-radius: 10px;
+    box-shadow: 0 0 40px rgba(86, 89, 146, 0.15);
+    content: '';
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100% - 64px);
+    height: 100%;
+    @media(max-width: 1280px){
+      width: calc(100% - 49px);
+    }
+    @media(max-width: 600px){
+      width: calc(100% - 42px);
+    }
+  }
   .rbc-row {
 
     box-sizing: border-box;
@@ -87,16 +105,6 @@
   }
 }
 
-.rbc-time-content > .rbc-day-slot {
-  &:nth-child(2) {
-    //box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8), -12px 0 8px -4px rgba(31, 73, 125, 0.8);
-  }
-
-  &:last-child {
-    box-shadow: 10px 0 5px -2px #888;
-  }
-}
-
 .rbc-time-content > * + * > * {
   border: none;
 }
@@ -130,6 +138,7 @@
 /*time*/
 //rbc-day-slot .rbc-event-content
 .rbc-day-slot .rbc-events-container {
+  border-left: 1px solid #E0DFDD;
 }
 
 /* event */
@@ -162,16 +171,17 @@ $event-bg: $gradient-blue-darker;
     //padding: 10px 15px 10px 30px;
     font-size: 12px;
     line-height: 18px;
-    @media(max-width: 1700px){
-      padding: 8px 10px 8px 20px;
-    }
-    @media(max-width: 1400px){
-      padding: 8px 10px 8px 10px;
-      line-height: 16px;
-    }
-    @media(max-width: 991px){
-      padding: 5px 8px 5px 8px;
-    }
+    padding: 0;
+    //@media(max-width: 1700px){
+    //  padding: 8px 10px 8px 20px;
+    //}
+    //@media(max-width: 1400px){
+    //  padding: 8px 10px 8px 10px;
+    //  line-height: 16px;
+    //}
+    //@media(max-width: 991px){
+    //  padding: 5px 8px 5px 8px;
+    //}
     @media(max-width: 700px) {
       padding: 0;
     }

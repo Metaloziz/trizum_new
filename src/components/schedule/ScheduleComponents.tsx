@@ -1,12 +1,67 @@
 import moment from 'moment';
 import Image from 'next/image';
-import React, { FC, useEffect, useState } from 'react';
-import { EventProps } from '@components/schedule/Schedule';
+import React, {FC, useEffect, useState} from 'react';
+import {EventProps} from '@components/schedule/ScheduleDnD';
 import styles from '@components/schedule/Schedule.module.scss';
 import iconDelete from '@svgs/delete.svg';
 import iconSettings from '@svgs/icon-settings.svg';
+import InformationItem from "@components/information-item/InformationItem";
+import CustomSelect from "@components/select/CustomSelect";
+import CustomButton from "@components/custom-button/CustomButton";
+import {NavigateAction, ToolbarProps, View} from "react-big-calendar";
+import buttonImage from "@svgs/arrow-btn.svg";
+import cn from "classnames";
 
-export const CustomEvent: FC<EventProps> = ({ event }) => {
+
+// type ToolbarProps = {
+//   date:Date
+//   label:string
+//   localizer:any
+//   onNavigate:(navigate: NavigateAction, date?: Date | undefined)=>void
+//   onView:(view:any)=>void
+//   views:View[]
+//   view:View
+// }
+// type qwe = FC<ToolbarProps<object, object>> | undefined
+
+export const Toolbar: FC<ToolbarProps> = (props) => {
+  const {onNavigate, date, children} = props
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate() + 7
+  const navigateNext = () => {
+    onNavigate('NEXT', new Date())
+  }
+  console.log(props);
+  return (
+    <div className={styles.toolbarWrapper}>
+      <div className={styles.toolbarFlexWrapper}>
+        <div className={styles.buttons}>
+          <CustomButton onClick={() => onNavigate('PREV', date)} type={'none'} size={'small'}>
+            <span>Предыдущая</span>
+            <span className={styles.arrow}>
+              <Image src={buttonImage} alt={'arrow'} width={26} height={13} className={styles.prev}/>
+            </span>
+          </CustomButton>
+          <CustomButton onClick={() => onNavigate('TODAY', date)} type={'none'} size={'small'}>
+            Текущая
+          </CustomButton>
+          <CustomButton onClick={() => onNavigate('NEXT', date)} type={'none'} size={'small'}>
+            <span>Следующая</span>
+            <span className={styles.arrow}>
+             <Image src={buttonImage} alt={'arrow'} width={26} height={13}/>
+            </span>
+          </CustomButton>
+        </div>
+        <div>
+          {children}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const CustomEvent: FC<EventProps> = ({event}) => {
   const [width, setWidth] = useState<number | undefined>(undefined);
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -47,8 +102,8 @@ export const CustomEvent: FC<EventProps> = ({ event }) => {
         <span>
           <Image
             src={iconSettings}
-            width={'18'}
-            height={'18'}
+            width={'16'}
+            height={'16'}
             alt={'Settings'}
           />
         </span>
@@ -58,11 +113,11 @@ export const CustomEvent: FC<EventProps> = ({ event }) => {
 };
 
 export const CustomEventWrapper: FC<any> = (props) => {
-  const { children } = props;
+  const {children} = props;
   return <>{children}</>;
 };
 
-export const ScheduleHeader: FC<any> = ({ date }: { date: Date }) => {
+export const ScheduleHeader: FC<any> = ({date}: { date: Date }) => {
   const [width, setWidth] = useState<number | undefined>(undefined);
   useEffect(() => {
     setWidth(window.innerWidth);

@@ -25,14 +25,15 @@ const TeacherSearchBar: FC<TeacherSearchBarProps> = (props) => {
         <InformationItem
           title={'Дата'}
           variant={'calendar'}
-          additionalCn={styles.flex}
+          className={styles.dateSelect}
         />
-        <div className={styles.flex}>
-          <CustomSelect options={groupOptions} placeholder={'Группа'} />
-          <CustomSelect options={schoolOptions} placeholder={'Школа'} />
-          <CustomSelect options={citiesOptions} placeholder={'Город'} />
-        </div>
-        <div className={styles.flex}>
+        <CustomSelect options={groupOptions} placeholder={'Группа'} className={styles.groupSelect}/>
+        {/*<div className={styles.flex}>*/}
+
+         {/* <CustomSelect options={schoolOptions} placeholder={'Школа'} />
+          <CustomSelect options={citiesOptions} placeholder={'Город'} />*/}
+        {/*</div>*/}
+        {/*<div className={styles.flex}>
           <InformationItem
             title={'ФИО франчайзи'}
             variant={'input'}
@@ -44,7 +45,7 @@ const TeacherSearchBar: FC<TeacherSearchBarProps> = (props) => {
             label={'Юр. адрес'}
             additionalCn={styles.select}
           />
-        </div>
+        </div>*/}
       </div>
       <CustomButton size={'small'}>Найти</CustomButton>
     </div>

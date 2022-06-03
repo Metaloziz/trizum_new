@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import Schedule from '@components/schedule/Schedule';
+import ScheduleDnD from '@components/schedule/ScheduleDnD';
 import TeacherSearchBar from '@components/teacher-searchBar/TeacherSearchBar';
 import styles from './TeacherMain.module.scss';
 
@@ -32,7 +32,7 @@ const IndexPage: FunctionComponent = () => {
   return (
     <div className={styles.container}>
       <TeacherSearchBar cities={cities} groups={groups} schools={schools} />
-      <Schedule />
+      <ScheduleDnD />
       {/* {items.map((item) => {
         return (
           <TeacherMainItem

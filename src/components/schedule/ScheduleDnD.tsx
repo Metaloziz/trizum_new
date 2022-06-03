@@ -78,7 +78,7 @@ const ChildrenToolbar:FC =() => {
   )
 }
 
-const Schedule: FC = () => {
+const ScheduleDnD: FC = () => {
   const [events, setEvents] = useState<(ScheduleEvent | object)[]>(eventsObj);
   const [isVisible, setIsVisible] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<ScheduleEvent | null | object>(null);
@@ -179,7 +179,8 @@ const Schedule: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Calendar
+      {/*<Button onClick={onAddLessonClick}>add lesson</Button>*/}
+      <DnDCalendar
         localizer={localizer}
         events={events}
         step={15}
@@ -188,10 +189,13 @@ const Schedule: FC = () => {
         defaultView={'week'}
         views={['week']}
         messages={{next: 'next', previous: 'last', today: 'Текущая'}}
+        selectable
         // @ts-ignore
         tooltipAccessor={null}
-        // resizable
+        resizable
         formats={formats}
+        onEventDrop={moveEvent}
+        onEventResize={resizeEvent}
         onSelectEvent={onSelectEvent}
         components={{
           event: CustomEvent,
@@ -210,7 +214,7 @@ const Schedule: FC = () => {
   );
 };
 
-export default Schedule;
+export default ScheduleDnD;
 //defaultMessages = {
 //     date: 'Date',
 //     time: 'Time',

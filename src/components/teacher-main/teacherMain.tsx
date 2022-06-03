@@ -1,6 +1,7 @@
 import styles from './teacherMain.module.scss';
 import {FC} from "react";
 import TeacherSearchBar from "@components/teacher-searchBar/TeacherSearchBar";
+import ScheduleDnD from "@components/schedule/ScheduleDnD";
 import Schedule from "@components/schedule/Schedule";
 
 const groups = ['group №1', 'group №2', 'group №3'];
@@ -31,8 +32,9 @@ const items = [
 const TeacherMain: FC = () => {
   return (
     <div className={styles.container}>
-      <TeacherSearchBar cities={cities} groups={groups} schools={schools} />
+      {/*<TeacherSearchBar cities={cities} groups={groups} schools={schools} />*/}
       <Schedule />
+      {/*<ScheduleDnD />*/}
       {/* {items.map((item) => {
         return (
           <TeacherMainItem

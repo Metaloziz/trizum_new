@@ -14,7 +14,7 @@ export enum Roles {
   /*Методист*/
   Methodist = 'methodist',
   /*Куратор*/
-  Tutor = 'Tutor',
+  Tutor = 'tutor',
   /*Центр*/
   Admin = 'admin',
   /*Неавторизованный*/

@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
-import { ScheduleEvent } from '@components/schedule/Schedule';
+import { ScheduleEvent } from '@components/schedule/ScheduleDnD';
 import TextField from '@components/text-fild/TextFild';
 import styles from './ScheduleModal.module.scss';
 

@@ -4,6 +4,7 @@ import CustomSelect from '@components/select/CustomSelect';
 import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
 import TextField from '@components/text-fild/TextFild';
 import styles from './InformationItem.module.scss';
+import cn from "classnames";
 
 type VariantType = 'select' | 'input' | 'calendar' | 'file';
 
@@ -21,6 +22,7 @@ interface Props {
   size?: SizeType;
   placeholder?: string;
   dataAuto?: string;
+  className?: string;
   onChange?: (value: string) => void;
   id?: string;
   type?: string;
@@ -37,12 +39,13 @@ const InformationItem: FC<Props> = (props) => {
     onChange,
     id,
     type,
+    className,
   } = props;
   const finalStyle = `${styles.content} ${
     size === 'large' ? styles.large : ''
   }`;
   return (
-    <div className={styles.wrapBlockItem}>
+    <div className={cn(styles.wrapBlockItem,className)}>
       <div>
         <p>{title}</p>
       </div>

@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   reactStrictMode: true,
-  pageExtensions: ['page.tsx', 'page.ts', 'api.ts',".css", ".scss"],
+  pageExtensions: ['page.tsx', 'page.ts', 'api.ts', '.css', '.scss'],
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@import "@styles/global.scss";`,
@@ -15,7 +15,4 @@ module.exports = {
     // a non-locale prefixed path e.g. `/hello`
     defaultLocale: 'ru',
   },
-  // typescript:{
-  //   ignoreDuringBuilds:true
-  // }
 };

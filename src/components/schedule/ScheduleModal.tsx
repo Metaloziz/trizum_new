@@ -1,8 +1,12 @@
+import TextField from '@components/text-fild/TextField';
+import moment from 'moment';
 import React, { FC, useState } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
+import InformationItem from '@components/information-item/InformationItem';
 import { ScheduleEvent } from '@components/schedule/ScheduleDnD';
-import TextField from '@components/text-fild/TextFild';
+import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
 import styles from './ScheduleModal.module.scss';
+import TimePicker from "react-time-picker";
 
 type ScheduleModalProps = {
   event: ScheduleEvent;
@@ -14,6 +18,12 @@ const ScheduleModal: FC<ScheduleModalProps> = (props) => {
   const [title, setTitle] = useState(event.title);
   const [cl, setClass] = useState(event.class);
   const [lesson, setLesson] = useState(event.lesson);
+  const [start, setStart] = useState(
+    moment(event.start, 'D.M.YYYY').format('DD.MM.YYYY'),
+  );
+  const [end, setEnd] = useState(
+    moment(event.end, 'D.M.YYYY').format('DD.MM.YYYY'),
+  );
   const applyChanges = () => {
     const newEvent: ScheduleEvent = {
       title,
@@ -26,14 +36,33 @@ const ScheduleModal: FC<ScheduleModalProps> = (props) => {
     };
     onApply(newEvent);
   };
+  const handleStartChange = (date: string) => {
+    setStart(date);
+  };
+  const handleEndChange = (date: string) => {
+    setEnd(date);
+  };
   return (
     <div className={styles.wrapper}>
-      <TextField value={title} onChange={setTitle} />
-      <TextField value={lesson} onChange={setLesson} />
-      <TextField value={cl} onChange={setClass} />
-      <CustomButton size={'small'} onClick={applyChanges}>
-        Применить
-      </CustomButton>
+      <h4>Редактирование урока</h4>
+      <InformationItem
+        title={'Время начала урока'}
+        variant={'calendar'}
+        value={start}
+        onChange={handleStartChange}
+      />
+      <TimePicker value={'10:00'}/>
+      <InformationItem
+        title={'Время окончания урока'}
+        variant={'calendar'}
+        value={end}
+        onChange={handleEndChange}
+      />
+      <InformationItem title={'Учитель'} variant={'input'} />
+      <InformationItem title={'Статус'} variant={'input'} />
+      {/*<TextField value={cl} onChange={setClass} label={'Учитель'} />*/}
+      {/*<TextField value={cl} onChange={setClass} label={'Статус'} />*/}
+      <CustomButton onClick={applyChanges}>Сохранить</CustomButton>
     </div>
   );
 };

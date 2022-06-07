@@ -1,10 +1,10 @@
+import cn from 'classnames';
 import { FC } from 'react';
 import InputFile from '@components/input-file/InputFile';
 import CustomSelect from '@components/select/CustomSelect';
 import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
-import TextField from '@components/text-fild/TextFild';
+import TextField from '@components/text-field/TextField';
 import styles from './InformationItem.module.scss';
-import cn from "classnames";
 
 type VariantType = 'select' | 'input' | 'calendar' | 'file';
 
@@ -23,9 +23,11 @@ interface Props {
   placeholder?: string;
   dataAuto?: string;
   className?: string;
+  inputClassName?: string;
   onChange?: (value: string) => void;
   id?: string;
   type?: string;
+  value?: string;
 }
 
 const InformationItem: FC<Props> = (props) => {
@@ -40,29 +42,43 @@ const InformationItem: FC<Props> = (props) => {
     id,
     type,
     className,
+    inputClassName,
+    value,
   } = props;
-  const finalStyle = `${styles.content} ${
-    size === 'large' ? styles.large : ''
-  }`;
+
+  let part;
+  switch (variant) {
+    case 'calendar':
+      part = <TextFieldCalendar dataAuto={dataAuto} value={value} onChange={onChange}/>;
+      break;
+    case 'select':
+      part = <CustomSelect options={option} placeholder={placeholder} />;
+      break;
+    case 'file':
+      part = <InputFile />;
+      break;
+    case 'input':
+    default:
+      part = (
+        <TextField
+          onChange={onChange}
+          id={id}
+          placeholder={placeholder}
+          type={type}
+        />
+      );
+  }
   return (
-    <div className={cn(styles.wrapBlockItem,className)}>
-      <div>
-        <p>{title}</p>
-      </div>
-      <div className={finalStyle}>
-        {variant === 'select' && (
-          <CustomSelect options={option} placeholder={placeholder} />
+    <div className={cn(styles.wrapBlockItem, className)}>
+      {title && <p>{title}</p>}
+      <div
+        className={cn(
+          styles.content,
+          size === 'large' && styles.large,
+          inputClassName,
         )}
-        {variant === 'input' && (
-          <TextField
-            onChange={onChange}
-            id={id}
-            placeholder={placeholder}
-            type={type}
-          />
-        )}
-        {variant === 'calendar' && <TextFieldCalendar dataAuto={dataAuto} />}
-        {variant === 'file' && <InputFile />}
+      >
+        {part}
       </div>
     </div>
   );

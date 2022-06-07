@@ -64,9 +64,11 @@ const formats = {
 };
 
 const groups = ['group №1', 'group №2', 'group №3'];
+
 const createOptions = (arr: string[]) => {
   return arr.map((el) => ({ value: el, label: el }));
 };
+
 const groupOptions = createOptions(groups);
 
 const ChildrenToolbar: FC = () => {
@@ -77,6 +79,21 @@ const ChildrenToolbar: FC = () => {
         variant={'calendar'}
         className={styles.toolbarDateSelect}
       />
+      {/*  <CustomSelect
+        options={groupOptions}
+        placeholder={'ФИО франчайзи'}
+        className={styles.toolbarGroupSelect}
+      />
+      <CustomSelect
+        options={groupOptions}
+        placeholder={'Юр. адрес'}
+        className={styles.toolbarGr oupSelect}
+      />
+      <CustomSelect
+        options={groupOptions}
+        placeholder={'Город'}
+        className={styles.toolbarGroupSelect}
+      />*/}
       <CustomSelect
         options={groupOptions}
         placeholder={'Группа'}
@@ -143,8 +160,6 @@ const ScheduleDnD: FC = () => {
             hours,
             minutes,
           );
-          console.log(newEnd);
-          console.log(start);
           return { ...existingEvent, start, end: newEnd };
         }
         return { ...existingEvent, start, end };
@@ -183,6 +198,7 @@ const ScheduleDnD: FC = () => {
     });
     setEvents(newEvents);
   };
+  //TODO: add lesson flow
   const onAddLessonClick = () => {
     const newEvent = {
       id: 'qweasd',
@@ -198,7 +214,6 @@ const ScheduleDnD: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      {/*<Button onClick={onAddLessonClick}>add lesson</Button>*/}
       <DnDCalendar
         localizer={localizer}
         events={events}

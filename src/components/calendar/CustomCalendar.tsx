@@ -16,7 +16,12 @@ interface Props {
   iconParams?: { width: number; height: number };
 }
 
-const CustomCalendar: FC<Props> = observer(({ setTitle, icon, iconParams, dataAuto }) => {
+const CustomCalendar: FC<Props> = ({
+  setTitle,
+  icon,
+  iconParams,
+  dataAuto,
+}) => {
   const [date, setDate] = useState(new Date());
   const { ref, isComponentVisible, setIsComponentVisible } =
     useComponentVisible(false, dataAuto);
@@ -58,6 +63,6 @@ const CustomCalendar: FC<Props> = observer(({ setTitle, icon, iconParams, dataAu
       </div>
     </div>
   );
-});
+};
 
 export default CustomCalendar;

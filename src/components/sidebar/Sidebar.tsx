@@ -10,7 +10,6 @@ import appStore, {Roles} from "@app/stores/appStore";
 const Sidebar: FC = () => {
   const { Index, Results, Payment,TeacherMain,Schedule } = Routes;
   const {role} = appStore
-  console.log(role);
   let links:{label: string, href:string, imageSrc:string}[];
   switch (role) {
     case Roles.Teacher:

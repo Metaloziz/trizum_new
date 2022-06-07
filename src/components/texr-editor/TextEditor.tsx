@@ -11,7 +11,6 @@ const TextEditor = () => {
     EditorState.createEmpty(),
   );
   useEffect(() => {
-    console.log(editorState);
   }, [editorState]);
   return (
     <Editor

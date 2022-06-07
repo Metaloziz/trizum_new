@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import InputFile from '@components/input-file/InputFile';
 import CustomSelect from '@components/select/CustomSelect';
 import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
-import TextField from '@components/text-fild/TextFild';
+import TextField from '@components/text-fild/TextField';
 
 type VariantType = 'select' | 'input' | 'calendar' | 'file';
 

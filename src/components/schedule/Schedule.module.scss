@@ -182,7 +182,9 @@ text-overflow: ellipsis;
   display: flex;
   gap: 16px;
   .toolbarGroupSelect {
+    min-width: 120px;
     width: 120px;
+    margin: 0;
   }
 
   .toolbarDateSelect {
@@ -194,6 +196,7 @@ text-overflow: ellipsis;
       margin-right: 16px;
     }
   }
+
   @media (max-width: 1050px) {
     width: 100%;
     justify-content: center;

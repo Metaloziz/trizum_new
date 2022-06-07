@@ -143,8 +143,6 @@ const Schedule: FC = () => {
             hours,
             minutes,
           );
-          console.log(newEnd);
-          console.log(start);
           return { ...existingEvent, start, end: newEnd };
         }
         return { ...existingEvent, start, end };

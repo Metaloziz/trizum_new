@@ -11,10 +11,8 @@ import TutorMain from '@components/tutor-main';
 import styles from './Home.module.scss';
 
 export default function Home(props: any) {
-  console.log(props, 'props'); //{role: 'pupil'}
   const { role } = appStore;
   let part: any;
-  console.log(role, 'role');
   switch (role) {
     case Roles.Student:
       part = <StudentMain />;

@@ -10,6 +10,7 @@ export const Routes = {
   Dashboard: '/dashboard',
   ForgotPassword: '/account/forgot-password',
   FranchiseeAdministratorMain: '/franchisee-administrator-main',
+  FindTariff: '/find-tariff',
   Payment: '/payment',
   PersonaData: '/persona-data',
   ResetPassword: '/account/reset-password',

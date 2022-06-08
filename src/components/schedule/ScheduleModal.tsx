@@ -1,12 +1,9 @@
-import TextField from '@components/text-fild/TextField';
 import moment from 'moment';
 import React, { FC, useState } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import { ScheduleEvent } from '@components/schedule/ScheduleDnD';
-import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
 import styles from './ScheduleModal.module.scss';
-import TimePicker from "react-time-picker";
 
 type ScheduleModalProps = {
   event: ScheduleEvent;
@@ -51,7 +48,6 @@ const ScheduleModal: FC<ScheduleModalProps> = (props) => {
         value={start}
         onChange={handleStartChange}
       />
-      <TimePicker value={'10:00'}/>
       <InformationItem
         title={'Время окончания урока'}
         variant={'calendar'}

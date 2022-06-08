@@ -1,6 +1,7 @@
 const path = require('path');
+const removeImports = require('next-remove-imports')();
 
-module.exports = {
+module.exports = removeImports({
   reactStrictMode: true,
   pageExtensions: ['page.tsx', 'page.ts', 'api.ts', '.css', '.scss'],
   sassOptions: {
@@ -15,4 +16,4 @@ module.exports = {
     // a non-locale prefixed path e.g. `/hello`
     defaultLocale: 'ru',
   },
-};
+});

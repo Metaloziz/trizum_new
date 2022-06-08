@@ -3,10 +3,9 @@ import appStore, { Roles } from '@app/stores/appStore';
 import teacherEducationStore from '@app/stores/TeacherEducationStore';
 import Custom404 from '@pages/404.page';
 
-const Test: FC = () => {
+const Theory: FC = () => {
   const { test } = teacherEducationStore;
   //TODO: проверка если теста нет, то запрос за ним
-  console.log(test);
   switch (appStore.role) {
     case Roles.Teacher:
     case Roles.Admin:
@@ -22,4 +21,4 @@ const Test: FC = () => {
   }
 };
 
-export default Test;
+export default Theory;

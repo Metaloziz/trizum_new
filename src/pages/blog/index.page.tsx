@@ -1,25 +1,23 @@
 import React, { FC } from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
-import teacherEducationStore from '@app/stores/TeacherEducationStore';
 import Custom404 from '@pages/404.page';
 
-const Test: FC = () => {
-  const { test } = teacherEducationStore;
-  //TODO: проверка если теста нет, то запрос за ним
-  console.log(test);
+type Props = Record<string, unknown>;
+
+const IndexPage: FC<Props> = () => {
   switch (appStore.role) {
     case Roles.Teacher:
     case Roles.Admin:
     case Roles.Franchisee:
     case Roles.Methodist:
     case Roles.TeacherEducation:
-      return <div>test</div>;
-    case Roles.Student:
-    case Roles.FranchiseeAdmin:
     case Roles.Tutor:
+    case Roles.Student:
+      return <div>blog</div>;
+    case Roles.FranchiseeAdmin:
     default:
       return <Custom404 />;
   }
 };
 
-export default Test;
+export default IndexPage;

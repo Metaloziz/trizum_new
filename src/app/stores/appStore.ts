@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from 'mobx';
 
 export enum Roles {
   /*Ученик*/
@@ -22,14 +22,14 @@ export enum Roles {
 }
 
 class AppStore {
-  role: Roles = Roles.Unauthorized
+  role: Roles = Roles.Unauthorized;
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this);
   }
-  setRole(role:Roles){
-    this.role = role
+  setRole(role: Roles) {
+    this.role = role;
   }
 }
 
-export default new AppStore()
+export default new AppStore();

@@ -51,8 +51,7 @@ App.getInitialProps = async (appContext: AppContext) => {
   console.log(jwt.role);
   return {
     pageProps: {
-      // @ts-ignore
-      role: jwt.role as Roles.Admin,
+      role: Roles.Student,
       info: res2.data.data,
       // me: resMe,
     },

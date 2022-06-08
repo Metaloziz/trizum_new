@@ -24,6 +24,10 @@
     box-sizing: border-box;
     margin-right: 54px;
 
+    @media (max-width: 1000px) {
+      height: 440px;
+    }
+
     > span {
       @media (max-width: 800px) {
         height: 100% !important;

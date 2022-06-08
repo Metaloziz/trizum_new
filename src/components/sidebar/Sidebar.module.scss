@@ -14,8 +14,8 @@
 }
 
 $navigation-link-font-map: (
-  is-gradient: true,
-  linear-gradient: linear-gradient(90deg, #0439ad 0%, #38028f 100%),
+        is-gradient: true,
+        linear-gradient: linear-gradient(90deg, #0439ad 0%, #38028f 100%),
 );
 
 .link {
@@ -31,13 +31,11 @@ $navigation-link-font-map: (
 
 .activeLink {
   background-color: $color-purple;
-  box-shadow: 0px 4px 4px 0px #00000040;
 }
 
 .linkWrapper {
   &:hover {
     background-color: $color-purple;
-    box-shadow: 0px 4px 4px 0px #00000040;
   }
 }
 

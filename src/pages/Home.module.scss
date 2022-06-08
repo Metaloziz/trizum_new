@@ -6,7 +6,7 @@
   display: grid;
   grid-template: repeat(2, auto) / auto 105px 90px 45px auto;
   grid-row-gap: 25px;
-  justify-content: start;
+  justify-content: flex-start;
   padding: 30px 20px 25px;
 
   @media (max-width: 1500px) {
@@ -47,4 +47,199 @@
     grid-column: span 3;
   }
 
+}
+
+.innerContainer {
+  padding: 33px 20px 40px 20px;
+  box-sizing: border-box;
+
+  .backButton {
+    margin-bottom: 26px;
+    display: flex;
+    align-items: center;
+
+    > button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      > span {
+        margin-right: 10px;
+        width: 32px;
+        height: 32px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > span {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    @media (max-width: 800px) {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+
+
+  }
+
+  .content {
+    position: relative;
+    width: 1250px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 72px 20px 83px;
+    margin: 0 auto;
+
+    @media (max-width: 1500px) {
+      width: 100%;
+    }
+
+    @media (max-width: 900px) {
+      > span {
+        width: auto !important;
+        height: 300px !important;
+
+        @media (max-width: 600px) {
+          height: 220px !important;
+        }
+      }
+    }
+
+    @media (max-width: 374px) {
+      padding: 40px 15px 40px 10px;
+    }
+
+    h1 {
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'Aqum';
+      font-weight: 700;
+      font-size: 130px;
+      line-height: 130px;
+      text-align: center;
+
+      @media (max-width: 900px) {
+        font-size: 100px;
+        line-height: 100px;
+      }
+
+      @media (max-width: 600px) {
+        font-size: 60px;
+        line-height: 60px;
+      }
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 30px;
+      color: #000000;
+      margin: 30px 0;
+
+      @media (max-width: 600px) {
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center
+      }
+
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      top: 50%;
+      margin-top: -5px;
+      background-color: rgb(228, 228, 228);
+      right: 7px;
+      border-radius: 50%;
+
+      @media (max-width: 374px) {
+        right: 4px;
+      }
+    }
+
+    .tableBtn {
+      display: flex;
+      justify-content: space-between;
+      width: 100px;
+      margin-top: 10px;
+      position: absolute;
+      right: 100px;
+      bottom: -7px;
+      z-index: 2;
+
+      & > div {
+        background-color: #ffffff;
+        width: 45%;
+        height: 4px;
+      }
+    }
+
+    .leftBtn {
+      position: absolute;
+      bottom: 50px;
+      right: -7px;
+      height: 50px;
+      width: 4px;
+      background-color: #ffffff;
+    }
+
+    .backIndex {
+      position: relative;
+      background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+      box-sizing: border-box;
+      padding: 16px 58px 17px 18px;
+      color: $color-white;
+      border: none;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 17px;
+      cursor: pointer;
+      transition: all 0.5s ease;
+
+      &:hover {
+        background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      }
+
+      i {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        font-style: normal;
+        color: #FFFFFF;
+      }
+
+      .arrowBtn {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 45px;
+        height: 45px;
+        background-color: $color-white;
+        border-radius: 50%;
+        top: 50%;
+        right: 2px;
+        transform: translateY(-50%);
+      }
+    }
+
+  }
 }

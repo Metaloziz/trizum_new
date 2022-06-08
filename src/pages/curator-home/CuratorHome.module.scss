@@ -1,11 +1,4 @@
-.content {
-  padding: 30px 50px 30px 20px;
-  box-sizing: border-box;
-
-
-  @media (max-width: 1600px) {
-    padding-right: 20px;
-  }
+.contentBlock {
 
   .bigButton {
     @media (max-width: 800px) {
@@ -45,6 +38,10 @@
           > div {
             width: 100%;
             text-align: center;
+
+            @media (max-width: 800px) {
+              display: block;
+            }
 
             p {
               margin-bottom: 10px;
@@ -96,6 +93,17 @@
   & .wrapStaticBlock {
     display: flex;
     justify-content: space-between;
+    padding: 30px 50px 30px 20px;
+    box-sizing: border-box;
+
+
+    @media (max-width: 1600px) {
+      padding-right: 20px;
+    }
+
+    @media (max-width: 500px) {
+      padding: 30px 10px;
+    }
 
     @media (max-width: 800px) {
       flex-direction: column;
@@ -111,6 +119,7 @@
             > div {
               width: 100%;
               text-align: center;
+              display: block;
 
               p {
                 margin-bottom: 10px;
@@ -140,6 +149,7 @@
 
       @media (max-width: 550px) {
         width: 100%;
+        padding: 0;
       }
     }
 
@@ -147,7 +157,7 @@
       width: 30%;
 
       @media (max-width: 800px) {
-        width: 70%;
+        width: 100%;
       }
       @media (max-width: 550px) {
         width: 100%;
@@ -157,7 +167,7 @@
 
     & > div:nth-child(3) {
       @media (max-width: 800px) {
-        width: 70%;
+        width: 100%;
       }
 
       @media (max-width: 550px) {
@@ -167,7 +177,7 @@
 
     & > div:nth-child(4) {
       @media (max-width: 800px) {
-        width: 70%;
+        width: 100%;
       }
 
       @media (max-width: 550px) {
@@ -201,6 +211,7 @@
     overflow-x: scroll;
   }
 
+
   & .modalContent {
     display: flex;
     justify-content: space-between;
@@ -232,6 +243,7 @@
 
           > div {
             width: 100%;
+            display: block;
 
             p {
               margin-bottom: 10px;

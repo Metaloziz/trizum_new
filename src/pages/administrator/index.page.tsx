@@ -134,21 +134,21 @@ const IndexPage = () => {
           <div className={styles.tableContent}>
             <Table list={currentItem} colNames={colNames} loading={loading} />
           </div>
+          <div className={styles.paginationBlock}>
+            <CustomPagination
+              currentPage={currentPage}
+              currentItem={currentItem}
+              paginate={paginate}
+              count={count}
+              next={nextPage}
+              prev={prevPage}
+              total={list.length}
+            />
+          </div>
         </div>
         <div className={styles.rightBlock}>
           <AdminInfoList />
         </div>
-      </div>
-      <div className={styles.paginationBlock}>
-        <CustomPagination
-          currentPage={currentPage}
-          currentItem={currentItem}
-          paginate={paginate}
-          count={count}
-          next={nextPage}
-          prev={prevPage}
-          total={list.length}
-        />
       </div>
     </div>
   );

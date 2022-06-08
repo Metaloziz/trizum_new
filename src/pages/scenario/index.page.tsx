@@ -13,7 +13,11 @@ const IndexPage: FC = () => {
         <div className={styles.container}>
           <div className={styles.blockShulte}>
             <div>
-              <img src={'/table.jpg'} alt={'table'} />
+              <img
+                className={styles.scenarioPic}
+                src={'/table.jpg'}
+                alt={'table'}
+              />
             </div>
             <ButtonPlay title={'Играть'} size={'large'} />
           </div>

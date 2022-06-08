@@ -14,11 +14,11 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
   const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentRadioValue(e.currentTarget.value);
   };
-  const [number, setNumber] = useState('');
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNumber(e.target.value);
-    onChange && onChange(e.target.value);
-  };
+  // const [number, setNumber] = useState<string>('');
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setNumber(e.target.value);
+  //   onChange && onChange(e.target.value);
+  // };
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
@@ -46,7 +46,13 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
         <div>
           <div className={styles.templateName}>
             <span>Наименование шаблона</span>
-            <div className={styles.pattern}>Шаблон 1</div>
+            <div className={styles.pattern}>
+              <InformationItem
+                variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
+                placeholder={'Шаблон 1'}
+              />
+            </div>
           </div>
           <div className={styles.settingLevels}>
             <h5>Настройка уровней</h5>
@@ -191,18 +197,37 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
           </div>
           <div className={styles.executionConditions}>
             <p>
-              Если выполняет{' '}
-              <input type={'number'} value={number} onChange={handleChange} />{' '}
-              уровня подряд за{' '}
-              <input type={'number'} value={number} onChange={handleChange} />{' '}
+              Если выполняет
+              <InformationItem
+                type={'number'}
+                variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
+              />
+              уровня подряд за
+              <InformationItem
+                type={'number'}
+                variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
+              />
               секунд
             </p>
             <p>
-              и <input type={'number'} value={number} onChange={handleChange} />{' '}
+              и
+              <InformationItem
+                type={'number'}
+                title={''}
+                variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
+              />
               % ошибок, то система <span>ПРЕДЛАГАЕТ</span> поднять на
             </p>
             <p>
-              <input type={'number'} value={number} onChange={handleChange} />{' '}
+              <InformationItem
+                type={'number'}
+                title={''}
+                variant={'input'}
+                onChange={(valueText) => console.log(valueText)}
+              />
               уровней один раз.
             </p>
           </div>

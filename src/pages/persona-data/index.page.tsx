@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
@@ -62,7 +62,6 @@ const IndexPage: FC<Props> = ({ id }) => {
               id={id}
               variant={'input'}
               placeholder={'4 _ _ _ '}
-              onChange={(valueText) => console.log(valueText)}
             />
           </div>
           <div>

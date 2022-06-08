@@ -1,8 +1,27 @@
 .step {
+  position: relative;
   background: linear-gradient(0deg, #E6EEF8, #E6EEF8), #CFD8DC;
   box-shadow: inset -4px -4px 12px rgba(253, 255, 255, 0.8), inset 4px 4px 12px rgba(187, 195, 206, 0.6);
   border-radius: 30px;
   height: 40px;
+
+  .prevBtn {
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .nextBtn {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 2;
+  }
 
   .countList {
     display: flex;

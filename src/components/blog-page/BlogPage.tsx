@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
-import TeacherMainItem from './teacher-training-item/TeacherTrainingItem';
-import styles from './TeacherTraining.module.scss';
+import BlogItem from '@components/molecules/BlogItem';
+import styles from './BlogPage.module.scss';
 
 const items = [
   {
@@ -23,12 +23,12 @@ const items = [
   },
 ];
 
-const IndexPage: FunctionComponent = () => {
+const BlogPage: FunctionComponent = () => {
   return (
     <div className={styles.container}>
       {items.map((item) => {
         return (
-          <TeacherMainItem
+          <BlogItem
             key={item.id}
             title={item.title}
             text={item.text}
@@ -40,4 +40,4 @@ const IndexPage: FunctionComponent = () => {
   );
 };
 
-export default IndexPage;
+export default BlogPage;

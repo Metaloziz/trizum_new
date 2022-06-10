@@ -1,11 +1,11 @@
 import React from 'react';
 import CardStudent from '@components/card-student/CardStudent';
-import BlockGames from '@components/page-your-classes/block-games/BlockGames';
-import SearchBar from '@components/page-your-classes/search-bar/SearchBar';
-import TabsPanel from '@components/page-your-classes/tabs-panel/TabsPanel';
-import styles from './StudentsPage.module.scss';
+import BlockGames from '@components/classes-page/block-games/BlockGames';
+import SearchBar from '@components/classes-page/search-bar/SearchBar';
+import TabsPanel from '@components/classes-page/tabs-panel/TabsPanel';
+import styles from './ClassesPage.module.scss';
 
-const StudentsPage = () => {
+const ClassesPage = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.searchBar}>
@@ -29,4 +29,4 @@ const StudentsPage = () => {
   );
 };
 
-export default StudentsPage;
+export default ClassesPage;

@@ -4,13 +4,13 @@ import BasicModal from '@components/basic-modal/BasicModal';
 import CardStudent from '@components/card-student/CardStudent';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
-import StudentPageFranchiseeModalAddUser from '@components/page-franchisee-administrator-main/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
-import StudentPageFranchiseeModalParents from '@components/page-franchisee-administrator-main/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
-import StudentPageFranchiseeModalSetting from '@components/page-franchisee-administrator-main/student-page-franchisee-modal-setting/StudentPageFranchiseeModalSetting';
-import styles from './StudentPageFranchisee.module.scss';
+import StudentPageFranchiseeModalAddUser from '@components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
+import StudentPageFranchiseeModalParents from '@components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
+import StudentPageFranchiseeModalSetting from '@components/users-page/student-page-franchisee-modal-setting/StudentPageFranchiseeModalSetting';
+import styles from './UsersPage.module.scss';
 import modals from '../../app/stores/CardStudentExtended';
 
-const StudentPageFranchisee = observer(() => {
+const UsersPage = observer(() => {
   const [isModalAddUser, setModalAddUser] = useState<boolean>(false);
   return (
     <div className={styles.wrapper}>
@@ -80,4 +80,4 @@ const StudentPageFranchisee = observer(() => {
   );
 });
 
-export default StudentPageFranchisee;
+export default UsersPage;

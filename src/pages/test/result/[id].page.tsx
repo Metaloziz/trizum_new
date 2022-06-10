@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
 import teacherEducationStore from '@app/stores/TeacherEducationStore';
+import TestResultPage from '@components/test-result-page/TestResultPage';
 import Custom404 from '@pages/404.page';
 
 const Theory: FC = () => {
@@ -12,7 +13,7 @@ const Theory: FC = () => {
     case Roles.Franchisee:
     case Roles.Methodist:
     case Roles.TeacherEducation:
-      return <div>test</div>;
+      return <TestResultPage />;
     case Roles.Student:
     case Roles.FranchiseeAdmin:
     case Roles.Tutor:

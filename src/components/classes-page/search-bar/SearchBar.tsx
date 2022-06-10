@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchByGroup from '@components/page-your-classes/search-bar/search-by-groups/SearchByGroup';
-import StudentPageSlider from '@components/page-your-classes/search-bar/student-page-slider/StudentPageSlider';
+import SearchByGroup from '@components/classes-page/search-bar/search-by-groups/SearchByGroup';
+import StudentPageSlider from '@components/classes-page/search-bar/student-page-slider/StudentPageSlider';
 import styles from './SearchBar.module.scss';
 
 const SearchBar = () => {

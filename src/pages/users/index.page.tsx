@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
+import UsersPage from '@components/users-page/UsersPage';
 import Custom404 from '@pages/404.page';
 
 const IndexPage: FC = () => {
@@ -8,7 +9,7 @@ const IndexPage: FC = () => {
     case Roles.Franchisee:
     case Roles.Admin:
     case Roles.Tutor:
-      return <div>users</div>;
+      return <UsersPage />;
     default:
       return <Custom404 />;
   }

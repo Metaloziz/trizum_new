@@ -3,9 +3,9 @@ import { ChangeEvent, useState } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
 import Step from '@components/step/Step';
 import resultIcon from '@svgs/result-icon.svg';
-import styles from './Testing.module.scss';
+import styles from './TestPage.module.scss';
 
-const IndexPage = () => {
+const TestPage = () => {
   const [currentRadioValue, setCurrentRadioValue] = useState('inputChoice1');
   const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentRadioValue(e.currentTarget.value);
@@ -124,4 +124,4 @@ const IndexPage = () => {
   );
 };
 
-export default IndexPage;
+export default TestPage;

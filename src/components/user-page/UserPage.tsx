@@ -1,17 +1,17 @@
 import Image from 'next/image';
-import { ChangeEvent, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import Setting from '@components/setting/Setting';
 import user from '@svgs/user.svg';
-import styles from './PagePersonalData.module.scss';
+import styles from './UserPage.module.scss';
 
 interface Props {
   id?: string;
 }
 
-const IndexPage: FC<Props> = ({ id }) => {
+const UserPage: FC<Props> = ({ id }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div className={styles.container}>
@@ -76,4 +76,4 @@ const IndexPage: FC<Props> = ({ id }) => {
   );
 };
 
-export default IndexPage;
+export default UserPage;

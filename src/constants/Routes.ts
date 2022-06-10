@@ -1,5 +1,8 @@
 export const Routes = {
   Index: '/',
+  Statistic: '/statistic',
+  Games: '/games',
+  Blog: '/blog',
   Administrator: '/administrator',
   AddHomework: '/add-homework',
   AddNews: '/add-news',

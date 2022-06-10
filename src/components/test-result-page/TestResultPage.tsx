@@ -2,11 +2,11 @@ import Image from 'next/image';
 import { FC } from 'react';
 import resultPic from '@public/result-pic.jpg';
 import exclude from '@svgs/exclude.svg';
-import styles from './TeacherItemResult.module.scss';
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TeacherMainItemProps {}
+import styles from './TestResultPage.module.scss';
 
-const IndexPage: FC<TeacherMainItemProps> = ({}) => {
+type Props = Record<string, unknown>;
+
+const TestResultPage: FC<Props> = (props) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.containerItem}>
@@ -52,4 +52,4 @@ const IndexPage: FC<TeacherMainItemProps> = ({}) => {
   );
 };
 
-export default IndexPage;
+export default TestResultPage;

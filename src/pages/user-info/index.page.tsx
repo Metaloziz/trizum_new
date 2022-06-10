@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
+import UserPage from '@components/user-page';
 import Custom404 from '@pages/404.page';
 
 type Props = Record<string, unknown>;
@@ -12,7 +13,7 @@ const IndexPage: FC<Props> = () => {
     case Roles.Admin:
     case Roles.Methodist:
     case Roles.Tutor:
-      return <div>user info</div>;
+      return <UserPage />;
     case Roles.Student:
     case Roles.TeacherEducation:
     default:

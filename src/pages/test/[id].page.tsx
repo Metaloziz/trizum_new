@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
 import teacherEducationStore from '@app/stores/TeacherEducationStore';
+import TestPage from '@components/test-page';
 import Custom404 from '@pages/404.page';
 
 const Test: FC = () => {
@@ -13,7 +14,7 @@ const Test: FC = () => {
     case Roles.Franchisee:
     case Roles.Methodist:
     case Roles.TeacherEducation:
-      return <div>test</div>;
+      return <TestPage />;
     case Roles.Student:
     case Roles.FranchiseeAdmin:
     case Roles.Tutor:

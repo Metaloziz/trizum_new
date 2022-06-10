@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
-import styles from './TeacherTrainingItem.module.scss';
+import styles from './BlogItem.module.scss';
 
-interface TeacherMainItemProps {
+interface Props {
   title: string;
   imgSrc?: string;
   text: string;
 }
 
-const TeacherMainItem: FC<TeacherMainItemProps> = (props) => {
+const BlogItem: FC<Props> = (props) => {
   const { title, imgSrc = '', text } = props;
   return (
     <div className={styles.containerItem}>
@@ -28,4 +28,4 @@ const TeacherMainItem: FC<TeacherMainItemProps> = (props) => {
   );
 };
 
-export default TeacherMainItem;
+export default BlogItem;

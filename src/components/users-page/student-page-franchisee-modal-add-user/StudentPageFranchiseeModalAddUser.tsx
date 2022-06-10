@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
-import StudentInformation from '@components/page-franchisee-administrator-main/student-information/StudentInformation';
-import StudentPageTitle from '@components/page-franchisee-administrator-main/student-page-title/StudentPageTitle';
+import StudentInformation from '@components/users-page/student-information/StudentInformation';
+import StudentPageTitle from '@components/users-page/student-page-title/StudentPageTitle';
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
 const StudentPageFranchiseeModalAddUser = () => {

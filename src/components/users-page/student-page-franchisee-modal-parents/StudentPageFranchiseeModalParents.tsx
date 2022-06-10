@@ -1,8 +1,8 @@
 import React from 'react';
 import CustomButton from '@components/custom-button/CustomButton';
-import ButtonAddParent from '@components/page-franchisee-administrator-main/button-add-parent/ButtonAddParent';
-import StudentPageTitle from '@components/page-franchisee-administrator-main/student-page-title/StudentPageTitle';
-import StudentParents from '@components/page-franchisee-administrator-main/student-parents/StudentParent';
+import ButtonAddParent from '@components/users-page/button-add-parent/ButtonAddParent';
+import StudentPageTitle from '@components/users-page/student-page-title/StudentPageTitle';
+import StudentParents from '@components/users-page/student-parents/StudentParent';
 import styles from './StudentPageFranchiseeModalParents.module.scss';
 
 const StudentPageFranchiseeModalParents = () => {

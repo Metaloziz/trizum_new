@@ -1,23 +1,23 @@
 import { makeAutoObservable } from 'mobx';
 
 export enum Roles {
-  /*Ученик*/
+  /* Ученик */
   Student = 'student',
-  /*Учитель на обучении*/
+  /* Учитель на обучении */
   TeacherEducation = 'teacherEducation',
-  /*Учитель*/
+  /* Учитель */
   Teacher = 'teacher',
-  /*Администратор франчайзи*/
+  /* Администратор франчайзи */
   FranchiseeAdmin = 'franchiseeAdmin',
-  /*Франчайзи*/
+  /* Франчайзи */
   Franchisee = 'franchisee',
-  /*Методист*/
+  /* Методист */
   Methodist = 'methodist',
-  /*Куратор*/
+  /* Куратор */
   Tutor = 'tutor',
-  /*Центр*/
+  /* Центр */
   Admin = 'admin',
-  /*Неавторизованный*/
+  /* Неавторизованный */
   Unauthorized = 'unauthorized',
 }
 
@@ -27,7 +27,8 @@ class AppStore {
   constructor() {
     makeAutoObservable(this);
   }
-  setRole(role: Roles) {
+
+  setRole(role: Roles): void {
     this.role = role;
   }
 }

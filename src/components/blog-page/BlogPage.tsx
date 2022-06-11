@@ -1,5 +1,7 @@
 import { FunctionComponent } from 'react';
+
 import BlogItem from '@components/molecules/BlogItem';
+
 import styles from './BlogPage.module.scss';
 
 const items = [
@@ -23,21 +25,12 @@ const items = [
   },
 ];
 
-const BlogPage: FunctionComponent = () => {
-  return (
-    <div className={styles.container}>
-      {items.map((item) => {
-        return (
-          <BlogItem
-            key={item.id}
-            title={item.title}
-            text={item.text}
-            imgSrc={item.img}
-          />
-        );
-      })}
-    </div>
-  );
-};
+const BlogPage: FunctionComponent = () => (
+  <div className={styles.container}>
+    {items.map(item => (
+      <BlogItem key={item.id} title={item.title} text={item.text} imgSrc={item.img} />
+    ))}
+  </div>
+);
 
 export default BlogPage;

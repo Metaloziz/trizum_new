@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 
 import buttonImage from '@svgs/arrow-btn.svg';
 import iconExelHover from '@svgs/btn-excel-hover.svg';
@@ -13,7 +13,7 @@ import Image from 'next/image';
 
 import styles from './CustomButton.module.scss';
 
-type ButtonType = 'parents' | 'bigButton' | 'addUser' | 'addExel' | 'primary' | 'none';
+type ButtonType = 'parents' | 'bigButton' | 'addUser' | 'addExel' | 'primary' | 'none' | 'arrow';
 
 type ButtonSize = 'large' | 'small' | 'thin';
 
@@ -26,7 +26,7 @@ interface Props {
 
 const Button: FC<Props> = ({ children, size, type, onClick }) => {
   const [isShowHover, setShowHover] = useState<boolean>(false);
-  let iconButton = <Image src={buttonImage} alt="arrow" width={26} height={13} />;
+  let iconButton: ReactElement;
   let typeButtonStyle: string;
   switch (type) {
     case 'parents':
@@ -63,6 +63,7 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
       break;
     default:
       typeButtonStyle = '';
+      iconButton = <Image src={buttonImage} alt="arrow" width={26} height={13} />;
   }
   let sizeButton = '';
   switch (size) {
@@ -108,7 +109,7 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
 Button.defaultProps = {
   children: undefined,
   size: 'small',
-  type: 'none',
+  type: 'arrow',
   onClick: () => {},
 };
 

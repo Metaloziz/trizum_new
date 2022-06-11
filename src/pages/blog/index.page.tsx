@@ -1,8 +1,9 @@
-import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
+
 import appStore, { Roles } from '@app/stores/appStore';
 import BlogPage from '@components/blog-page/BlogPage';
 import Custom404 from '@pages/404.page';
+import { observer } from 'mobx-react-lite';
 
 type Props = Record<string, unknown>;
 
@@ -15,7 +16,7 @@ const IndexPage: FC<Props> = observer(() => {
     case Roles.TeacherEducation:
     case Roles.Tutor:
     case Roles.Student:
-      //для ученика дизэйбл кнопки тест
+      // для ученика дизэйбл кнопки тест
       return <BlogPage />;
     case Roles.FranchiseeAdmin:
     default:

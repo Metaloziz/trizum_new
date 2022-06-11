@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React, { FC } from 'react';
 import styles from './CustomImageWrapper.module.scss';
 
@@ -21,8 +22,7 @@ const CustomImageWrapper: FC<Props> = ({ children, className, variant }) => {
     default:
       typeImgStyle = styles.none;
   }
-  const finalStyle = `${className} ${typeImgStyle}`;
-  return <div className={finalStyle}>{children}</div>;
+  return <div className={cn(className, typeImgStyle)}>{children}</div>;
 };
 
 export default CustomImageWrapper;

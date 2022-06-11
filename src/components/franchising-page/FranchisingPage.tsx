@@ -7,6 +7,7 @@ import {
   colNamesCurator,
   listCuratorType,
   listCurator,
+  city,
 } from '@components/moks-data/moks-data-curator';
 import Table from '@components/table/Table';
 import styles from './FranchisingPage.module.scss';
@@ -63,7 +64,12 @@ const FranchisingPage = () => {
         <div className={styles.infoContent}>
           <InformationItem title={'Телефон'} variant={'input'} />
           <InformationItem title={'E-mail'} variant={'input'} />
-          <InformationItem title={'Город'} variant={'input'} />
+          <InformationItem
+            title={'Город'}
+            variant={'select'}
+            placeholder={'Москва'}
+            option={city}
+          />
         </div>
         <div className={styles.findBtn}>
           <InformationItem title={'Номер счёта'} variant={'input'} />

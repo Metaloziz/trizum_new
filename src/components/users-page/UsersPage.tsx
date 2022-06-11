@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
@@ -31,7 +32,7 @@ const UsersPage = observer(() => {
           <InformationItem variant={'select'} title={'Статус'} />
           <InformationItem variant={'select'} title={'Юр.лицо'} />
         </div>
-        <div className={`${styles.column} ${styles.flexColumn}`}>
+        <div className={cn(styles.column, styles.flexColumn)}>
           <div>
             <InformationItem
               variant={'calendar'}

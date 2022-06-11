@@ -1,8 +1,10 @@
+import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
+import download from '@svgs/download.svg';
 import styles from './InputFile.module.scss';
 
 const InputFile = () => {
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState('Drag-n-Drop');
 
   const getFileName = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.currentTarget.files;
@@ -18,6 +20,9 @@ const InputFile = () => {
           <span id={'text'}>{fileName}</span>
         </div>
         <input type={'file'} onChange={getFileName} id={'file'} />
+        <div className={styles.download}>
+          <Image src={download} alt={'download'} width={'20'} height={'20'} />
+        </div>
       </label>
     </div>
   );

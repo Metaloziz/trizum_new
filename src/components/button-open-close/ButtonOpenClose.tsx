@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 import iconClosed from '@svgs/closed-lock.svg';
@@ -16,9 +17,11 @@ const ButtonOpenClose: FC<Props> = ({ isOpen }) => {
     <Image src={iconClosed} alt={'lock'} width={16} height={20} />
   );
 
-  const finalStyle = `${styles.customButton} ${open ? '' : styles.closed}`;
   return (
-    <button className={finalStyle} onClick={() => setOpen(!open)}>
+    <button
+      className={cn(styles.customButton, !open && styles.closed)}
+      onClick={() => setOpen(!open)}
+    >
       <span className={styles.icon}>{iconButton}</span>
       {open ? 'Разблокировать' : 'Заблокировать'}
     </button>

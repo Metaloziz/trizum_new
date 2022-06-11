@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React, { ChangeEvent, FC, useState } from 'react';
 import BackButton from '@components/backButton/BackButton';
 import CustomButton from '@components/custom-button/CustomButton';
@@ -140,7 +141,7 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
                 />
               </div>
             </div>
-            <div className={`${styles.rowSettings} ${styles.timeExecution}`}>
+            <div className={cn(styles.rowSettings, styles.timeExecution)}>
               <span>Время выполнения</span>
               <InformationItem
                 type={'number'}

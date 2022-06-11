@@ -12,8 +12,7 @@ type Props = {
 
 const TextFieldCalendar: FC<Props> = (props) => {
   const { onSelectDate, type, value, icon, iconParams, dataAuto } = props;
-  if(type){
-
+  if (type) {
   }
   return (
     <div style={{ display: 'flex' }}>

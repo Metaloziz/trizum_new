@@ -1,6 +1,5 @@
-import { observer } from 'mobx-react-lite';
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
+
 import appStore, { Roles } from '@app/stores/appStore';
 import AdminMain from '@components/admin-main/AdminMain';
 import FranchiseeAdminMain from '@components/franchisee-admin-main';
@@ -10,6 +9,9 @@ import { StudentMain } from '@components/pupil-main/StudentMain';
 import TeacherEducationMain from '@components/teacher-education/TeacherEducationMain';
 import TeacherMain from '@components/teacher-main/teacherMain';
 import TutorMain from '@components/tutor-main';
+import { observer } from 'mobx-react-lite';
+import Head from 'next/head';
+
 import styles from './Home.module.scss';
 
 const Home = observer((props: any) => {

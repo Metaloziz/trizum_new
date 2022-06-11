@@ -1,11 +1,13 @@
-import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
+
 import appStore, { Roles } from '@app/stores/appStore';
 import Navigation from '@components/navigation/Navigation';
 import { Routes } from '@constants/Routes';
 import homeImage from '@svgs/student-navigation-link-home.svg';
 import paymentImage from '@svgs/student-navigation-link-payment.svg';
 import resultsImage from '@svgs/student-navigation-link-results.svg';
+import { observer } from 'mobx-react-lite';
+
 import styles from './Sidebar.module.scss';
 
 export type LinkT = { label: string; href: string; imageSrc: string };
@@ -59,13 +61,7 @@ const Links = {
   },
   Rate: { label: 'Тарифы', href: Rate, imageSrc: paymentImage },
 };
-const studentLinks = [
-  Links.Index,
-  Links.Statistic,
-  Links.Payment,
-  Links.Games,
-  Links.Blog,
-];
+const studentLinks = [Links.Index, Links.Statistic, Links.Payment, Links.Games, Links.Blog];
 const teacherLinks = [
   Links.Index,
   Links.Classes,
@@ -152,11 +148,13 @@ const Sidebar: FC = observer(() => {
         setLinks(adminLinks);
         break;
       default:
-        setLinks([Links.Index]);
+        setLinks([]);
     }
   }, [role]);
   console.log(links);
-  return (
+  return !links.length ? (
+    <div className={styles.sidebar_hidden} />
+  ) : (
     <aside className={styles.sidebar}>
       <Navigation
         links={links}

@@ -1,4 +1,5 @@
 const path = require('path');
+
 const removeImports = require('next-remove-imports')();
 
 module.exports = removeImports({

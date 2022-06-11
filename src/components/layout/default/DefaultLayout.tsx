@@ -1,22 +1,27 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
+
+import appStore, { Roles } from '@app/stores/appStore';
 import RoleButtons from '@components/role-buttons/RoleButtons';
 import Sidebar from '@components/sidebar/Sidebar';
-import styles from './DefaultLayout.module.scss';
+import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
+
 import Header from '../../header/Header';
 
-interface Props {
-  children?: ReactNode;
-}
+import styles from './DefaultLayout.module.scss';
 
-const DefaultLayout: FC<Props> = ({ children, ...rest }) => {
+type Props = Record<string, any>;
+
+const DefaultLayout: FC<Props> = observer(({ children, ...rest }) => {
+  const { role } = appStore;
   return (
-    <div className={styles.layout}>
+    <div className={cn(styles.layout, role === Roles.Unauthorized && styles.layout_unauth)}>
       <Header className={styles.header} />
       <Sidebar />
       <div className={styles.content}>{children}</div>
       <RoleButtons />
     </div>
   );
-};
+});
 
 export default DefaultLayout;

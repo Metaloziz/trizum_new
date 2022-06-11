@@ -10,7 +10,9 @@
       display: none;
     }
   }
-
+&_hidden {
+  width: 0;
+}
 }
 
 $navigation-link-font-map: (

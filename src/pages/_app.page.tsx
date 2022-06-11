@@ -1,11 +1,12 @@
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
-import { AppContext, AppProps } from 'next/app';
-// import { Provider } from 'react-redux';
 import appStore, { Roles } from '@app/stores/appStore';
 import Layout from '@components/layout/Layout';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import { AppContext, AppProps } from 'next/app';
+// import { Provider } from 'react-redux';
 import '@styles/normalize.scss';
 import 'react-calendar/dist/Calendar.css';
+import Head from 'next/head';
 
 console.log(process.env.asd, 'asd');
 const App = (props: AppProps) => {
@@ -18,14 +19,17 @@ const App = (props: AppProps) => {
   return (
     // <BrowserRouter>
     <Layout>
+      <Head>
+        <title>Trizum</title>
+      </Head>
       <Component {...pageProps} />
     </Layout>
-    //{/*</BrowserRouter>*/}
+    // {/*</BrowserRouter>*/}
   );
 };
 
-App.getInitialProps = async (appContext: AppContext) => {
-  //здесь вставить запрос на авторизацию.
+App.getInitialProps = async (appContext: AppContext) =>
+  // здесь вставить запрос на авторизацию.
   // const auth = await fetch('api/v1/me')
   // const sms = await fetch('api/v1/sms')
   // const { data } = await axios.post(
@@ -50,13 +54,12 @@ App.getInitialProps = async (appContext: AppContext) => {
   // console.log(resMe.data);
   // const jwt = jwt_decode(res2.data.data.token);
   // console.log(jwt.role);
-  return {
+  ({
     pageProps: {
       role: Roles.Teacher,
       info: 'res2.data.data',
       // me: resMe,
     },
-  };
-};
+  });
 
 export default App;

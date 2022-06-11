@@ -3,6 +3,9 @@
   grid-template-columns: min-content auto;
   grid-template-rows: min-content auto;
   height: 100vh;
+  &_unauth {
+    grid-template-columns: 0 100%;
+  }
 }
 
 .header {

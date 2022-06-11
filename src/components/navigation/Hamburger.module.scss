@@ -1,5 +1,6 @@
+@import "../../styles/variables";
 $width: 28px;
-$height: $width / 1.4;
+$height: calc(#{$width} / 1.4);
 $thickness: 3px;
 
 .hamburger {

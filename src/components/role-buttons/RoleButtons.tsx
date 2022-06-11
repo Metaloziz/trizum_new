@@ -34,7 +34,7 @@ const RoleButtons = observer(() => {
   const [isOpen, setIsOpen] = useState(true);
   const onClick = (name: Roles): void => {
     appStore.setRole(name);
-    router.push('/');
+    // router.push('/');
   };
   return (
     <div className={styles.container}>

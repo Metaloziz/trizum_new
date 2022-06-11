@@ -1,8 +1,10 @@
 import { useState } from 'react';
+
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import TextEditor from '@components/text-editor/TextEditor';
+
 import styles from './AddNewsPage.module.scss';
 
 const roleNew = [
@@ -19,15 +21,13 @@ const AddNewsPage = () => {
         <div className={styles.wrapContent}>
           <h1>Добавление новости</h1>
           <div className={styles.wrapBtn}>
-            <CustomButton onClick={() => setShowModal(true)}>
-              Добавить новость
-            </CustomButton>
+            <CustomButton onClick={() => setShowModal(true)}>Добавить новость</CustomButton>
           </div>
           <div className={styles.inputWrap}>
-            <InformationItem variant={'file'} title={'Изображение новости'} />
+            <InformationItem variant="file" title="Изображение новости" />
           </div>
           <div className={styles.inputWrap}>
-            <InformationItem title={'Заголовок новости'} variant={'input'} />
+            <InformationItem title="Заголовок новости" variant="input" />
           </div>
           <div className={styles.editorBlock}>
             <h3>Описание</h3>
@@ -48,17 +48,17 @@ const AddNewsPage = () => {
               <div className={styles.choiceBlock}>
                 <div className={styles.inputBlock}>
                   <InformationItem
-                    variant={'input'}
-                    title={'Наименование теста'}
-                    placeholder={'Название'}
+                    variant="input"
+                    title="Наименование теста"
+                    placeholder="Название"
                   />
                 </div>
                 <div className={styles.modalSelect}>
                   <InformationItem
-                    variant={'select'}
-                    title={'Роль:'}
+                    variant="select"
+                    title="Роль:"
                     option={roleNew}
-                    placeholder={'Ваша роль'}
+                    placeholder="Ваша роль"
                   />
                 </div>
               </div>

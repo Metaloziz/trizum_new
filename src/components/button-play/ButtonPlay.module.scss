@@ -16,13 +16,12 @@
   transition: all 0.5s ease;
 
 
-  &:hover {
-    background: linear-gradient(0deg, #9181FA, #9181FA), #CFD8DC;
-    border: 3px solid #F3EEFD;
-    box-sizing: border-box;
-    box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
-
-  }
+  //&:hover {
+  //  background: linear-gradient(0deg, #9181FA, #9181FA), #CFD8DC;
+  //  border: 3px solid #F3EEFD;
+  //  box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
+  //
+  //}
 
   &:hover .playButton {
     color: #ffffff;
@@ -104,6 +103,25 @@
   &.medium {
     width: 85px;
     height: 85px;
+
+    > span {
+      width: 17px !important;
+      height: 17px !important;
+    }
+
+    > span + span {
+      font-family: 'Aqum';
+      height: auto !important;
+      width: auto !important;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 11px;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 
 

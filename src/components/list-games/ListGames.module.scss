@@ -1,0 +1,9 @@
+.gamesContent {
+  margin: 33px 20px;
+  display: flex;
+  flex-wrap: wrap;
+
+  @media (max-width: 1600px) {
+    justify-content: space-evenly;
+  }
+}

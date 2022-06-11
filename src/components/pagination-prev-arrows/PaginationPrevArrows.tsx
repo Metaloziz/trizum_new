@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { FC, useState } from 'react';
 import hoverPrevious from '@svgs/hover-prev-pagination.svg';
 import previous from '@svgs/prev-pagination.svg';
-import styles from './PaginationPrevArrows.module.scss';
 
 const PaginationPrevArrows: FC = () => {
   const [isShowHover, setShowHover] = useState(false);

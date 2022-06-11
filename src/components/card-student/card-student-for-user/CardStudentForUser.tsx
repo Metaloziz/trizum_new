@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import Image from 'next/image';
 import React, { FC, useState } from 'react';
 import BasicModal from '@components/basic-modal/BasicModal';
@@ -88,7 +89,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
           </div>
         </div>
       </div>
-      <div className={`${styles.row} ${styles.buttonGroup}`}>
+      <div className={cn(styles.row, styles.buttonGroup)}>
         <div className={styles.social}>
           <span>Ссылки на чаты:</span>
           <Image

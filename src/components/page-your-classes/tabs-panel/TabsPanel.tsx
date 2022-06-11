@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React from 'react';
 import styles from './TabsPanel.module.scss';
 
@@ -7,7 +8,7 @@ const TabsPanel = () => {
       <div className={styles.button}>
         <span>Группа 1А</span>
       </div>
-      <div className={`${styles.button} ${styles.active}`}>
+      <div className={cn(styles.button, styles.active)}>
         <span>Группа 1Б</span>
       </div>
       <div className={styles.button}>

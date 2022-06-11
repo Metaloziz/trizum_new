@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { FC } from 'react';
 import InputFile from '@components/input-file/InputFile';
 import CustomSelect from '@components/select/CustomSelect';
@@ -39,15 +40,12 @@ const InformationItem: FC<Props> = (props) => {
     id,
     type,
   } = props;
-  const finalStyle = `${styles.content} ${
-    size === 'large' ? styles.large : ''
-  }`;
   return (
     <div className={styles.wrapBlockItem}>
       <div>
         <p>{title}</p>
       </div>
-      <div className={finalStyle}>
+      <div className={cn(styles.content, size === 'large' && styles.large)}>
         {variant === 'select' && (
           <CustomSelect options={option} placeholder={placeholder} />
         )}

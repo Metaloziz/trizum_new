@@ -33,7 +33,7 @@ const IndexPage = () => {
             </button>
           </div>
           <div className={styles.btnBlock}>
-            <CustomButton>Опубликовть</CustomButton>
+            <CustomButton>Опубликовать</CustomButton>
           </div>
         </div>
       </div>

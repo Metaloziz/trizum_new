@@ -1,0 +1,10 @@
+.settings {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+
+  > span {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}

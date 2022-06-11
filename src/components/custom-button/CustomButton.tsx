@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React, { FC, useState } from 'react';
 import buttonImage from '@svgs/arrow-btn.svg';
@@ -69,17 +71,24 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
       sizeButton = '';
   }
 
-  const finalStyle = `${styles.customButton} ${typeButtonStyle} ${sizeButton}`;
   return (
-    <button
-      className={finalStyle}
+    <motion.button
+      // whileHover={{
+      //   background: 'linear-gradient(90deg, #0439AD 0%, #38028F 100%)',
+      //   transition: {
+      //     delay: 0.2,
+      //     ease: [0.17, 0.67, 0.83, 0.67],
+      //     duration: 0.5,
+      //   },
+      // }}
+      className={cn(styles.customButton, typeButtonStyle, sizeButton)}
       onClick={onClick}
       onMouseOver={() => setShowHover(true)}
       onMouseOut={() => setShowHover(false)}
     >
       <span className={styles.arrowBtn}>{iconButton}</span>
       {children}
-    </button>
+    </motion.button>
   );
 };
 

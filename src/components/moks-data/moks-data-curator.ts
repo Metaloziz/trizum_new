@@ -11,6 +11,12 @@ export const colNamesCurator = [
   'БИК банка ИНН банка КПП банка',
 ];
 
+export const city = [
+  { value: 'Москва', label: 'Москва' },
+  { value: 'Аюта', label: 'Аюта' },
+  { value: 'Адлер', label: 'Адлер' },
+];
+
 export const listCurator = [
   {
     id: 1,

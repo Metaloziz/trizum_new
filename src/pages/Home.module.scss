@@ -3,6 +3,7 @@
 }
 
 .main {
+  position: relative;
   display: grid;
   grid-template: repeat(2, auto) / auto 105px 90px 45px auto;
   grid-row-gap: 25px;

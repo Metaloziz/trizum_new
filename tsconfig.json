@@ -27,5 +27,6 @@
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "index.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts",
+    "index.scss.d.ts", "**/*.ts", "**/*.tsx"]
 }

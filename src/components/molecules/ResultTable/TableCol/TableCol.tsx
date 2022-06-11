@@ -1,5 +1,7 @@
-import cn from 'classnames';
 import React, { FC } from 'react';
+
+import cn from 'classnames';
+
 import styles from './TableCol.module.scss';
 
 type Props = {
@@ -7,7 +9,7 @@ type Props = {
   isHeader?: boolean;
 };
 
-const TableCol: FC<Props> = (props) => {
+const TableCol: FC<Props> = props => {
   const { value, isHeader } = props;
   return (
     <div
@@ -19,6 +21,10 @@ const TableCol: FC<Props> = (props) => {
       {value || ''}
     </div>
   );
+};
+TableCol.defaultProps = {
+  value: '',
+  isHeader: false,
 };
 
 export default TableCol;

@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
 import Results from '@components/results/Results';
@@ -6,7 +7,7 @@ import styles from '@pages/statistic/Statistic.module.scss';
 
 type Props = Record<string, unknown>;
 
-const IndexPage: FC<Props> = () => {
+const IndexPage: FC<Props> = observer(() => {
   switch (appStore.role) {
     case Roles.Teacher:
     case Roles.Admin:
@@ -20,6 +21,6 @@ const IndexPage: FC<Props> = () => {
     default:
       return <Custom404 />;
   }
-};
+});
 
 export default IndexPage;

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import teacherEducationStore from '@app/stores/TeacherEducationStore';
-import TeacherMainItem from '@pages/teacher-main/teacher-main-item/TeacherMainItem';
+import BlogItem from '@components/molecules/BlogItem';
 import styles from './TeacherEducationMain.module.scss';
 
 const TeacherEducationMain = () => {
@@ -28,13 +28,13 @@ const TeacherEducationMain = () => {
     <div className={styles.container}>
       {tests.map((item) => {
         return (
-          <TeacherMainItem
+          <BlogItem
             key={item.id}
             title={item.title}
             text={item.text}
             imgSrc={item.img}
-            onTestClick={() => onTestClick(item.id)}
-            onTheoryClick={() => onTheoryClick(item.id)}
+            // onTestClick={() => onTestClick(item.id)}
+            // onTheoryClick={() => onTheoryClick(item.id)}
           />
         );
       })}

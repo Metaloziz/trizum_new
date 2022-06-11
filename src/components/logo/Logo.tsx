@@ -9,7 +9,7 @@ export const Logo = () => {
   return (
     <Link href={Index} passHref>
       <a className={styles.logo}>
-        <Image src={logoImage} alt={'Тризум'} />;
+        <Image src={logoImage} alt={'Тризум'} />
       </a>
     </Link>
   );

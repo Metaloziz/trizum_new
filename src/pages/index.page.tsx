@@ -1,4 +1,6 @@
+import { observer } from 'mobx-react-lite';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
 import AdminMain from '@components/admin-main/AdminMain';
 import FranchiseeAdminMain from '@components/franchisee-admin-main';
@@ -10,38 +12,41 @@ import TeacherMain from '@components/teacher-main/teacherMain';
 import TutorMain from '@components/tutor-main';
 import styles from './Home.module.scss';
 
-export default function Home(props: any) {
+const Home = observer((props: any) => {
   const { role } = appStore;
-  let part: any;
-  switch (role) {
-    case Roles.Student:
-      part = <StudentMain />;
-      break;
-    case Roles.TeacherEducation:
-      part = <TeacherEducationMain />;
-      break;
-    case Roles.Teacher:
-      part = <TeacherMain />;
-      break;
-    case Roles.FranchiseeAdmin:
-      part = <FranchiseeAdminMain />;
-      break;
-    case Roles.Franchisee:
-      part = <FranchiseeMain />;
-      break;
-    case Roles.Methodist:
-      part = <MethodistMain />;
-      break;
-    case Roles.Tutor:
-      part = <TutorMain />;
-      break;
-    case Roles.Admin:
-      part = <AdminMain />;
-      break;
-    case Roles.Unauthorized:
-    default:
-      part = <>Unauthorized</>;
-  }
+  const [part, setPart] = useState(<>Unauthorized</>);
+  useEffect(() => {
+    switch (role) {
+      case Roles.Student:
+        setPart(<StudentMain />);
+        break;
+      case Roles.TeacherEducation:
+        setPart(<TeacherEducationMain />);
+        break;
+      case Roles.Teacher:
+        setPart(<TeacherMain />);
+        break;
+      case Roles.FranchiseeAdmin:
+        setPart(<FranchiseeAdminMain />);
+        break;
+      case Roles.Franchisee:
+        setPart(<FranchiseeMain />);
+        break;
+      case Roles.Methodist:
+        setPart(<MethodistMain />);
+        break;
+      case Roles.Tutor:
+        setPart(<TutorMain />);
+        break;
+      case Roles.Admin:
+        setPart(<AdminMain />);
+        break;
+      case Roles.Unauthorized:
+      default:
+        setPart(<>Unauthorized</>);
+    }
+  }, [role]);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -52,4 +57,5 @@ export default function Home(props: any) {
       {part}
     </div>
   );
-}
+});
+export default Home;

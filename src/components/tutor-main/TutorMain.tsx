@@ -1,12 +1,12 @@
-import React, {FC} from 'react';
-import styles from './TutorMain.module.scss'
+import React, { FC } from 'react';
+import FranchisingPage from '@components/franchising-page/FranchisingPage';
 
-type Props = Record<string, unknown>
+type Props = Record<string, unknown>;
 
-const TutorMain:FC<Props> = (props) => {
+const TutorMain: FC<Props> = (props) => {
   return (
     <div>
-      FranchiseeAdmin
+      <FranchisingPage />
     </div>
   );
 };

@@ -1,20 +1,20 @@
 import { FC, ReactNode } from 'react';
+import RoleButtons from '@components/role-buttons/RoleButtons';
 import Sidebar from '@components/sidebar/Sidebar';
 import styles from './DefaultLayout.module.scss';
 import Header from '../../header/Header';
-import {GetServerSideProps} from "next";
 
 interface Props {
   children?: ReactNode;
 }
 
-const DefaultLayout: FC<Props> = ({ children,...rest }) => {
+const DefaultLayout: FC<Props> = ({ children, ...rest }) => {
   return (
-
     <div className={styles.layout}>
-      <Header className={styles.header}/>
-      <Sidebar/>
+      <Header className={styles.header} />
+      <Sidebar />
       <div className={styles.content}>{children}</div>
+      <RoleButtons />
     </div>
   );
 };

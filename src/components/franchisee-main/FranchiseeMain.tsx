@@ -1,12 +1,12 @@
-import React, {FC} from 'react';
-import styles from './FranchiseeMain.module.scss'
+import React, { FC } from 'react';
+import ScheduleDnD from '@components/schedule/ScheduleDnD';
 
-type Props = Record<string, unknown>
+type Props = Record<string, unknown>;
 
-const FranchiseeMain:FC<Props> = (props) => {
+const FranchiseeMain: FC<Props> = (props) => {
   return (
     <div>
-      FranchiseeAdmin
+      <ScheduleDnD />
     </div>
   );
 };

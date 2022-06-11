@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import NavigationLink from '@components/link/NavigationLink';
+import { LinkT } from '@components/sidebar/Sidebar';
 
 interface Props {
-  links: { label: string; href: string; imageSrc: string }[];
+  links: LinkT[];
   onClick?: () => void;
   className?: string;
   linkClassName?: string;
@@ -18,20 +19,23 @@ const Navigation: FC<Props> = ({
   linkWrapperClassName,
   linkImageClassName,
   activeClassName,
-}) => (
-  <nav>
-    {links.map((link, i: number) => (
-      <NavigationLink
-        key={i}
-        link={link}
-        wrapperClassName={linkWrapperClassName}
-        imageClassName={linkImageClassName}
-        className={linkClassName}
-        onClick={onClick}
-        activeClassName={activeClassName}
-      />
-    ))}
-  </nav>
-);
+}) => {
+  console.log(links);
+  return (
+    <nav>
+      {links.map((link, i: number) => (
+        <NavigationLink
+          key={i}
+          link={link}
+          wrapperClassName={linkWrapperClassName}
+          imageClassName={linkImageClassName}
+          className={linkClassName}
+          onClick={onClick}
+          activeClassName={activeClassName}
+        />
+      ))}
+    </nav>
+  );
+};
 
 export default Navigation;

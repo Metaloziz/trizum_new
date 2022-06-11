@@ -1,9 +1,10 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
 import ClassesPage from '@components/classes-page/ClassesPage';
 import Custom404 from '@pages/404.page';
 
-const YourClasses = () => {
+const IndexPage = observer(() => {
   switch (appStore.role) {
     case Roles.Teacher:
     case Roles.FranchiseeAdmin:
@@ -17,6 +18,6 @@ const YourClasses = () => {
     default:
       return <Custom404 />;
   }
-};
+});
 
-export default YourClasses;
+export default IndexPage;

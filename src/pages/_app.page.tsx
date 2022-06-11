@@ -10,10 +10,11 @@ import 'react-calendar/dist/Calendar.css';
 console.log(process.env.asd, 'asd');
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
-  console.log(pageProps.role);
-  appStore.setRole(pageProps.role);
+  // console.log(pageProps.role);
+  // appStore.setRole(pageProps.role);
   // console.log(pageProps.info);
   // console.log(pageProps.me);
+  console.log(appStore.role);
   return (
     // <BrowserRouter>
     <Layout>
@@ -51,7 +52,7 @@ App.getInitialProps = async (appContext: AppContext) => {
   // console.log(jwt.role);
   return {
     pageProps: {
-      role: Roles.FranchiseeAdmin,
+      role: Roles.Teacher,
       info: 'res2.data.data',
       // me: resMe,
     },

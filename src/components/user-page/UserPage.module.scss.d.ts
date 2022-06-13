@@ -2,6 +2,7 @@ export const buttonWrapper: string;
 export const container: string;
 export const labelBlock: string;
 export const modalInput: string;
+export const underlined: string;
 export const userData: string;
 export const userPic: string;
 export const userSetting: string;

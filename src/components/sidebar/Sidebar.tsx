@@ -66,8 +66,8 @@ const teacherLinks = [
   Links.Index,
   Links.Classes,
   Links.Statistic,
-  Links.Homework,
-  Links.Games,
+  // Links.Homework,
+  // Links.Games,
   Links.Blog,
   Links.UserInfo,
 ];

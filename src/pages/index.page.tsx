@@ -8,11 +8,14 @@ import MethodistMain from '@components/methodist-main';
 import { StudentMain } from '@components/pupil-main/StudentMain';
 import TeacherEducationMain from '@components/teacher-education/TeacherEducationMain';
 import TeacherMain from '@components/teacher-main/teacherMain';
+import TimePicker from '@components/time-picker';
 import TutorMain from '@components/tutor-main';
 import { observer } from 'mobx-react-lite';
 import Head from 'next/head';
 
 import styles from './Home.module.scss';
+
+const Asd = () => <TimePicker date="10:00" />;
 
 const Home = observer((props: any) => {
   const { role } = appStore;
@@ -45,7 +48,7 @@ const Home = observer((props: any) => {
         break;
       case Roles.Unauthorized:
       default:
-        setPart(<>Unauthorized</>);
+        setPart(<Asd/>);
     }
   }, [role]);
 

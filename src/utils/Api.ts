@@ -21,7 +21,7 @@ async function handleResponse(response: Response): Promise<any> {
 function handleHeaders(options?: ApiOptions): HeadersInit {
   return {
     'Content-Type': 'application/json',
-    ...(options?.token ? { Authorization: 'Bearer ' + options.token } : {}),
+    ...(options?.token ? { Authorization: `Bearer ${options.token}` } : {}),
     ...(options?.headers || {}),
   };
 }
@@ -44,79 +44,37 @@ function handleQueryParams(options?: ApiOptions): string {
 }
 
 export const Api = {
-  get: <T>(urlPath: string, options?: ApiOptions): Promise<T> => {
-    return fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(
-        options,
-      )}`,
-      {
-        method: 'GET',
-        cache: 'no-cache',
-        headers: handleHeaders(options),
-      },
-    ).then(handleResponse);
-  },
-  post: <T>(
-    urlPath: string,
-    data?: object,
-    options?: ApiOptions,
-  ): Promise<T> => {
-    return fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(
-        options,
-      )}`,
-      {
-        method: 'POST',
-        cache: 'no-cache',
-        body: JSON.stringify(data),
-        headers: handleHeaders(options),
-      },
-    ).then(handleResponse);
-  },
-  put: <T>(
-    urlPath: string,
-    data?: object,
-    options?: ApiOptions,
-  ): Promise<T> => {
-    return fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(
-        options,
-      )}`,
-      {
-        method: 'PUT',
-        cache: 'no-cache',
-        body: JSON.stringify(data),
-        headers: handleHeaders(options),
-      },
-    ).then(handleResponse);
-  },
-  patch: <T>(
-    urlPath: string,
-    data?: object,
-    options?: ApiOptions,
-  ): Promise<T> => {
-    return fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(
-        options,
-      )}`,
-      {
-        method: 'PATCH',
-        cache: 'no-cache',
-        body: JSON.stringify(data),
-        headers: handleHeaders(options),
-      },
-    ).then(handleResponse);
-  },
-  delete: <T>(urlPath: string, options?: ApiOptions): Promise<T> => {
-    return fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(
-        options,
-      )}`,
-      {
-        method: 'DELETE',
-        cache: 'no-cache',
-        headers: handleHeaders(options),
-      },
-    ).then(handleResponse);
-  },
+  get: <T>(urlPath: string, options?: ApiOptions): Promise<T> =>
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(options)}`, {
+      method: 'GET',
+      cache: 'no-cache',
+      headers: handleHeaders(options),
+    }).then(handleResponse),
+  post: <T>(urlPath: string, data?: object, options?: ApiOptions): Promise<T> =>
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(options)}`, {
+      method: 'POST',
+      cache: 'no-cache',
+      body: JSON.stringify(data),
+      headers: handleHeaders(options),
+    }).then(handleResponse),
+  put: <T>(urlPath: string, data?: object, options?: ApiOptions): Promise<T> =>
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(options)}`, {
+      method: 'PUT',
+      cache: 'no-cache',
+      body: JSON.stringify(data),
+      headers: handleHeaders(options),
+    }).then(handleResponse),
+  patch: <T>(urlPath: string, data?: object, options?: ApiOptions): Promise<T> =>
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(options)}`, {
+      method: 'PATCH',
+      cache: 'no-cache',
+      body: JSON.stringify(data),
+      headers: handleHeaders(options),
+    }).then(handleResponse),
+  delete: <T>(urlPath: string, options?: ApiOptions): Promise<T> =>
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}${urlPath}${handleQueryParams(options)}`, {
+      method: 'DELETE',
+      cache: 'no-cache',
+      headers: handleHeaders(options),
+    }).then(handleResponse),
 };

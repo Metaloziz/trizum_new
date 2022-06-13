@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import AdminInfoList from '@components/admin-info-list/AdminInfoList';
 import CustomButton from '@components/custom-button/CustomButton';
 import CustomPagination from '@components/custom-pagination/CustomPagination';
@@ -11,12 +12,9 @@ import {
   paidFor,
   legalAddress,
 } from '@components/moks-data/moks-data-select';
-import {
-  colNames,
-  list,
-  ListType,
-} from '@components/moks-data/moks-data-table';
+import { colNames, list, ListType } from '@components/moks-data/moks-data-table';
 import Table from '@components/table/Table';
+
 import styles from './ReportPage.module.scss';
 
 const ReportPage = () => {
@@ -43,12 +41,12 @@ const ReportPage = () => {
 
   const nextPage = () => {
     if (currentItem.length === count) {
-      setCurrentPage((prev) => prev + 1);
+      setCurrentPage(prev => prev + 1);
     }
   };
   const prevPage = () => {
     if (currentPage !== 1) {
-      setCurrentPage((prev) => prev - 1);
+      setCurrentPage(prev => prev - 1);
     }
   };
   return (
@@ -58,75 +56,48 @@ const ReportPage = () => {
           <div className={styles.wrapBlock}>
             <div className={styles.infoBlock}>
               <InformationItem
-                size={'large'}
-                title={'Выполнил Д/З'}
-                variant={'select'}
+                size="large"
+                title="Выполнил Д/З"
+                variant="select"
                 option={homework}
               />
+              <InformationItem size="large" title="Город" variant="select" option={city} />
+              <InformationItem size="large" title="Группа" variant="select" option={group} />
               <InformationItem
-                size={'large'}
-                title={'Город'}
-                variant={'select'}
-                option={city}
+                title="ФИО ученика"
+                variant="input"
+                onChange={valueText => console.log(valueText)}
               />
               <InformationItem
-                size={'large'}
-                title={'Группа'}
-                variant={'select'}
-                option={group}
-              />
-              <InformationItem
-                title={'ФИО ученика'}
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
-              />
-              <InformationItem
-                title={'Статус пользователя'}
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
+                title="Статус пользователя"
+                variant="input"
+                onChange={valueText => console.log(valueText)}
               />
             </div>
             <div className={`${styles.infoBlock} ${styles.franchiseesBlock}`}>
+              <InformationItem title="ФИО франчази" variant="select" option={franchisees} />
+              <InformationItem size="large" title="Оплачен" variant="select" option={paidFor} />
+              <InformationItem title="Дата рождения" variant="calendar" dataAuto="dateBirth" />
               <InformationItem
-                title={'ФИО франчази'}
-                variant={'select'}
-                option={franchisees}
-              />
-              <InformationItem
-                size={'large'}
-                title={'Оплачен'}
-                variant={'select'}
-                option={paidFor}
-              />
-              <InformationItem
-                title={'Дата рождения'}
-                variant={'calendar'}
-                dataAuto={'dateBirth'}
-              />
-              <InformationItem
-                title={'Возраст'}
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
+                title="Возраст"
+                variant="input"
+                onChange={valueText => console.log(valueText)}
               />
             </div>
             <div className={`${styles.infoBlock} ${styles.legalAddress}`}>
+              <InformationItem title="Юр. адрес" variant="select" option={legalAddress} />
               <InformationItem
-                title={'Юр. адрес'}
-                variant={'select'}
-                option={legalAddress}
+                title="Дата начала действия"
+                variant="calendar"
+                dataAuto="dateStart"
               />
               <InformationItem
-                title={'Дата начала действия'}
-                variant={'calendar'}
-                dataAuto={'dateStart'}
-              />
-              <InformationItem
-                title={'Дата окончания действия'}
-                variant={'calendar'}
-                dataAuto={'dateEnd'}
+                title="Дата окончания действия"
+                variant="calendar"
+                dataAuto="dateEnd"
               />
               <div className={styles.btnBlock}>
-                <CustomButton type={'addExel'}>Выгрузить в Excel</CustomButton>
+                <CustomButton type="addExel">Выгрузить в Excel</CustomButton>
                 <CustomButton>Найти</CustomButton>
               </div>
             </div>

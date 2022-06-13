@@ -1,0 +1,31 @@
+.container {
+  width: 300px;
+  position: relative;
+  display: flex;
+}
+
+.icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+}
+.selectContainer {
+  display: flex;
+  background: #fff;
+  border-radius: 8px;
+  overflow: auto;
+}
+.selectBlock {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    padding: 4px 8px;
+    display: block;
+  &:hover {
+    background: #eee;
+  }
+  }
+}

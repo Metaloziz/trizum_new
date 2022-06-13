@@ -1,10 +1,12 @@
-import Image from 'next/image';
 import { FC, useState } from 'react';
+
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import Setting from '@components/setting/Setting';
 import user from '@svgs/user.svg';
+import Image from 'next/image';
+
 import styles from './UserPage.module.scss';
 
 interface Props {
@@ -15,15 +17,12 @@ const UserPage: FC<Props> = ({ id }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <div className={styles.container}>
-      <div className={styles.user}>
+      <div>
         <div className={styles.wrapperUser}>
           <div className={styles.userPic}>
-            <Image src={user} width={'126'} height={'126'} alt={'user'} />
+            <Image src={user} width="126" height="126" alt="user" />
           </div>
-          <div
-            className={styles.userSetting}
-            onClick={() => setShowModal(true)}
-          >
+          <div className={styles.userSetting} onClick={() => setShowModal(true)}>
             <Setting />
           </div>
         </div>
@@ -32,19 +31,11 @@ const UserPage: FC<Props> = ({ id }) => {
         <h2>Днепровский Александр Алексеевич</h2>
         <div className={styles.labelBlock}>
           <label htmlFor={id}>Телефон:</label>
-          <InformationItem
-            id={id}
-            variant={'input'}
-            onChange={(valueText) => console.log(valueText)}
-          />
+          <InformationItem id={id} variant="input" onChange={valueText => console.log(valueText)} />
         </div>
         <div className={styles.labelBlock}>
           <label htmlFor={id}>Почта:</label>
-          <InformationItem
-            id={id}
-            variant={'input'}
-            onChange={(valueText) => console.log(valueText)}
-          />
+          <InformationItem id={id} variant="input" onChange={valueText => console.log(valueText)} />
         </div>
         <div className={styles.buttonWrapper}>
           <CustomButton>Сохранить</CustomButton>
@@ -58,22 +49,22 @@ const UserPage: FC<Props> = ({ id }) => {
           </div>
           <div className={styles.modalInput}>
             <p>Временный код</p>
-            <InformationItem
-              id={id}
-              variant={'input'}
-              placeholder={'4 _ _ _ '}
-            />
+            <InformationItem id={id} variant="input" placeholder="4 _ _ _ " />
           </div>
           <div>
             <CustomButton>Подтвердить изменения</CustomButton>
             <div>
-              <a>Отправить повторно</a>
+              <p className={styles.underlined}>Отправить повторно</p>
             </div>
           </div>
         </div>
       </BasicModal>
     </div>
   );
+};
+
+UserPage.defaultProps = {
+  id: '',
 };
 
 export default UserPage;

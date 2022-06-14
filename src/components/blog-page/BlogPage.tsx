@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import {FunctionComponent} from 'react';
 
 import BlogItem from '@components/molecules/BlogItem';
 
@@ -28,7 +28,7 @@ const items = [
 const BlogPage: FunctionComponent = () => (
   <div className={styles.container}>
     {items.map(item => (
-      <BlogItem key={item.id} title={item.title} text={item.text} imgSrc={item.img} />
+      <BlogItem key={item.id} title={item.title} text={item.text} imgSrc={item.img} id={item.id} />
     ))}
   </div>
 );

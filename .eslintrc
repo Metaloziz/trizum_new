@@ -52,7 +52,7 @@
       "off"
     ],
     "@typescript-eslint/no-magic-numbers": [
-      "error",
+      "warn",
       {
         "ignoreEnums": true,
         "ignoreNumericLiteralTypes": true

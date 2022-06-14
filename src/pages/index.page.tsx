@@ -15,7 +15,7 @@ import Head from 'next/head';
 
 import styles from './Home.module.scss';
 
-const Asd = () => <TimePicker date="10:00" />;
+const Asd = () => <TimePicker date={new Date()} />;
 
 const Home = observer((props: any) => {
   const { role } = appStore;

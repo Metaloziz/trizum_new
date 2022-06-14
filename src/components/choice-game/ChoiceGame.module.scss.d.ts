@@ -1,3 +1,4 @@
+export const backButton: string;
 export const container: string;
 export const innerContainer: string;
 export const prev: string;

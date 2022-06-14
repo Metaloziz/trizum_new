@@ -16,9 +16,7 @@ const IndexPage: FC<Props> = observer(() => {
     case Roles.TeacherEducation:
     case Roles.Tutor:
     case Roles.Student:
-      // для ученика дизэйбл кнопки тест
       return <BlogPage />;
-    case Roles.FranchiseeAdmin:
     default:
       return <Custom404 />;
   }

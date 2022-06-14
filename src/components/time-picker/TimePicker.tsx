@@ -31,7 +31,7 @@ for (let i = START_MIN; i < END_MIN; i += STEP_MINUTES) {
 const TimePicker: FC<Props> = props => {
   const { date } = props;
   const [isOpen, setIsOpen] = useState(false);
-  const actualDate = date ? moment(date).format('hh:mm') : '';
+  const actualDate = date ? moment(date).format('HH:MM') : '';
   const [value, setValue] = useState(
     date ? actualDate : `${START_HOUR.toString()}:${START_MIN.toString()}`,
   );

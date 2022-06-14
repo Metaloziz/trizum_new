@@ -1,4 +1,7 @@
+import { FC } from 'react';
+
 import ItemGames from '@components/list-games/item-games/ItemGames';
+
 import styles from './ListGames.module.scss';
 
 const items = [
@@ -9,7 +12,7 @@ const items = [
   },
   {
     id: 2,
-    title: 'Найди слова/числа/\n' + 'фигуры',
+    title: 'Найди слова/ числа/ фигуры',
     img: '/words.jpg',
   },
   {
@@ -19,7 +22,7 @@ const items = [
   },
   {
     id: 4,
-    title: 'Найди слова/числа/\n' + 'фигуры',
+    title: 'Найди слова/ числа/ фигуры',
     img: '/words.jpg',
   },
   {
@@ -29,7 +32,7 @@ const items = [
   },
   {
     id: 6,
-    title: 'Найди слова/числа/\n' + 'фигуры',
+    title: 'Найди слова/ числа/ фигуры',
     img: '/words.jpg',
   },
   {
@@ -39,19 +42,17 @@ const items = [
   },
   {
     id: 8,
-    title: 'Найди слова/числа/\n' + 'фигуры',
+    title: 'Найди слова/ числа/ фигуры',
     img: '/words.jpg',
   },
 ];
 
-const ListGames = () => {
-  return (
-    <div className={styles.gamesContent}>
-      {items.map((item) => {
-        return <ItemGames key={item.id} title={item.title} imgSrc={item.img} />;
-      })}
-    </div>
-  );
-};
+const ListGames: FC = () => (
+  <div className={styles.gamesContent}>
+    {items.map(item => (
+      <ItemGames key={item.id} title={item.title} imgSrc={item.img} />
+    ))}
+  </div>
+);
 
 export default ListGames;

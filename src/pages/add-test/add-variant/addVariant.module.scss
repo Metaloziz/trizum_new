@@ -1,0 +1,74 @@
+.variant {
+  > div > div:first-child {
+    width: auto;
+
+    > div:last-child {
+      width: 100%;
+
+      > div:last-child {
+        width: 100%;
+      }
+    }
+  }
+
+  .answer {
+    margin-bottom: 20px;
+    position: relative;
+
+    > div > div:last-child > div > input {
+      padding-right: 45px;
+    }
+
+    @media (max-width: 550px) {
+      > div {
+        flex-direction: column;
+
+        p {
+          margin-right: 0;
+          margin-bottom: 10px;
+          text-align: center;
+        }
+      }
+    }
+
+    .checkBox {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 20px;
+
+      @media (max-width: 550px) {
+        top: 38px;
+        transform: translateY(0);
+      }
+
+      > div > div:first-child {
+        display: none;
+      }
+
+      > div > div:last-child {
+        width: 100%;
+      }
+
+      > div > div:last-child input {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 1px solid black;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+
+        &:checked {
+          appearance: auto;
+          clip-path: circle(50% at 50% 50%);
+          background-color: blue;
+        }
+      }
+
+    }
+  }
+}

@@ -13,11 +13,15 @@ type ButtonSize = 'large' | 'normal' | 'medium' | 'small';
 interface ButtonPlayProps {
   title?: string;
   size?: ButtonSize;
+  onClick?: () => void;
 }
 
-const ButtonPlay: FC<ButtonPlayProps> = ({ title, size }) => {
+const ButtonPlay: FC<ButtonPlayProps> = props => {
+  const { title, size, onClick } = props;
   const [hover, setHover] = useState(false);
-
+  const onPlay = () => {
+    onClick && onClick();
+  };
   let ButtonSize = '';
   switch (size) {
     case 'large':
@@ -50,12 +54,12 @@ const ButtonPlay: FC<ButtonPlayProps> = ({ title, size }) => {
           background: 'linear-gradient(90deg, #7F28D9 0%, #7427CC 100%)',
           boxShadow: 'none',
         }}
-        onClick={() => console.log('play')}
+        onClick={onPlay}
         className={cn(styles.buttonPlay, ButtonSize)}
         onMouseOver={() => setHover(true)}
         onMouseOut={() => setHover(false)}
       >
-        <Image src={hover ? buttonPlayHover : buttonPlay} alt='play' width='73' height='73' />
+        <Image src={hover ? buttonPlayHover : buttonPlay} alt="play" width="73" height="73" />
         <span className={styles.playButton}>{title}</span>
       </motion.button>
     </div>

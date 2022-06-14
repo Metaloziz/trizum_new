@@ -61,13 +61,20 @@ const Links = {
   },
   Rate: { label: 'Тарифы', href: Rate, imageSrc: paymentImage },
 };
-const studentLinks = [Links.Index, Links.Statistic, Links.Payment, Links.Games, Links.Blog];
+const studentLinks = [
+  Links.Index,
+  // Links.Olympiads,
+  Links.Payment,
+  Links.Statistic,
+  Links.Games,
+  Links.Blog,
+];
 const teacherLinks = [
   Links.Index,
   Links.Classes,
   Links.Statistic,
   // Links.Homework,
-  // Links.Games,
+  Links.Games,
   Links.Blog,
   Links.UserInfo,
 ];

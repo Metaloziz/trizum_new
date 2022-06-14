@@ -5,6 +5,7 @@ import CardStudentTitle from '@components/card-student/card-student-title/CardSt
 import CustomButton from '@components/custom-button/CustomButton';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import Panel from '@components/panel/Panel';
+import { Routes } from '@constants/Routes';
 import avatar from '@public/img/pervoklasnin.jpg';
 import iconFlag from '@svgs/icon-flag.svg';
 import iconTablet from '@svgs/icon-tablet.svg';
@@ -14,6 +15,7 @@ import iconTelegram from '@svgs/telegram.svg';
 import iconWhatsApp from '@svgs/whats-app.svg';
 import cn from 'classnames';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import styles from './CardStudentForUser.module.scss';
 
@@ -23,11 +25,17 @@ interface Props {
 
 const CardStudentForUser: FC<Props> = ({ title }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const router = useRouter();
+  const olympiadId = 1;
+  const userId = 1;
+  const onParticipateClick = () => {
+    router.push(`${Routes.Olympiads}/${olympiadId}/${userId}`);
+  };
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
-        <CustomImageWrapper className={styles.image} variant='circle'>
-          <Image src={avatar} width='170' height='170' alt='student' />
+        <CustomImageWrapper className={styles.image} variant="circle">
+          <Image src={avatar} width="170" height="170" alt="student" />
         </CustomImageWrapper>
         <div>
           <CardStudentTitle>{title}</CardStudentTitle>
@@ -35,7 +43,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             <ul className={styles.list}>
               <li>
                 <span>
-                  <Image src={iconMonkey} width='25' height='25' alt='icon monkey' />
+                  <Image src={iconMonkey} width="25" height="25" alt="icon monkey" />
                 </span>
                 Статус:
               </li>
@@ -44,7 +52,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             <ul className={styles.list}>
               <li>
                 <span>
-                  <Image src={iconFlag} width='25' height='25' alt='flag' />
+                  <Image src={iconFlag} width="25" height="25" alt="flag" />
                 </span>
                 Город:
               </li>
@@ -53,7 +61,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             <ul className={styles.list}>
               <li>
                 <span>
-                  <Image src={iconParrot} width='25' height='25' alt='parrot' />
+                  <Image src={iconParrot} width="25" height="25" alt="parrot" />
                 </span>
                 Учитель:
               </li>
@@ -62,7 +70,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             <ul className={styles.list}>
               <li>
                 <span>
-                  <Image src={iconTablet} width='25' height='25' alt='icon tablet' />
+                  <Image src={iconTablet} width="25" height="25" alt="icon tablet" />
                 </span>
                 Следующее занятие:
               </li>
@@ -74,10 +82,10 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
       <div className={cn(styles.row, styles.buttonGroup)}>
         <div className={styles.social}>
           <span>Ссылки на чаты:</span>
-          <Image src={iconTelegram} width='25' height='25' alt='icon tablet' />
-          <Image src={iconWhatsApp} width='25' height='25' alt='icon tablet' />
+          <Image src={iconTelegram} width="25" height="25" alt="icon tablet" />
+          <Image src={iconWhatsApp} width="25" height="25" alt="icon tablet" />
         </div>
-        <CustomButton size='small' onClick={() => setShowModal(true)}>
+        <CustomButton size="small" onClick={() => setShowModal(true)}>
           Принять участие в олимпиаде
         </CustomButton>
       </div>
@@ -95,7 +103,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             </p>
           </div>
           <div className={styles.btn}>
-            <CustomButton>Принять участие в олимпиаде</CustomButton>
+            <CustomButton onClick={onParticipateClick}>Принять участие в олимпиаде</CustomButton>
           </div>
         </div>
       </BasicModal>

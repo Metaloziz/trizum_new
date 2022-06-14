@@ -1,6 +1,8 @@
 import { FC } from 'react';
 
 import ItemGames from '@components/list-games/item-games/ItemGames';
+import { Routes } from '@constants/Routes';
+import { useRouter } from 'next/router';
 
 import styles from './ListGames.module.scss';
 
@@ -47,12 +49,23 @@ const items = [
   },
 ];
 
-const ListGames: FC = () => (
-  <div className={styles.gamesContent}>
-    {items.map(item => (
-      <ItemGames key={item.id} title={item.title} imgSrc={item.img} />
-    ))}
-  </div>
-);
+const ListGames: FC = () => {
+  const router = useRouter();
+  const onClick = (id: number) => {
+    router.push(`${Routes.Games}/play/${id}`);
+  };
+  return (
+    <div className={styles.gamesContent}>
+      {items.map(item => (
+        <ItemGames
+          key={item.id}
+          onClick={() => onClick(item.id)}
+          title={item.title}
+          imgSrc={item.img}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default ListGames;

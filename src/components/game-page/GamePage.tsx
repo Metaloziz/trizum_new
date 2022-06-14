@@ -10,11 +10,11 @@ const GamePage: FC = () => (
     <ChoiceGame />
     <div className={styles.wrapperBlock}>
       <div className={styles.container}>
-        <div className={styles.blockShulte}>
+        <div>
           <div className={styles.imageTable}>
-            <img src='/table.jpg' alt='table' />
+            <img src="/table.jpg" alt="table" />
           </div>
-          <ButtonPlay title='Играть' size='large' />
+          <ButtonPlay title="Играть" size="large" />
         </div>
         <div className={styles.tableBtn}>
           <div />

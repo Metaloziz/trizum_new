@@ -8,7 +8,7 @@ import styles from '@pages/Home.module.scss';
 
 export const StudentMain: FC = () => (
   <main className={styles.main}>
-    <CardStudent title='Днепровский Александр Алексеевич' type='student' />
+    <CardStudent title="Днепровский Александр Алексеевич" type="student" />
     <WeeklyGrowth
       className={styles.weeklyGrowth}
       weeklyGrowth={[

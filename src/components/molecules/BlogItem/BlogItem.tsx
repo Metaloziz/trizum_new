@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import appStore, {Roles} from '@app/stores/appStore';
+import appStore, { Roles } from '@app/stores/appStore';
 import CustomButton from '@components/custom-button/CustomButton';
-import {Routes} from '@constants/Routes';
-import {observer} from 'mobx-react-lite';
+import { Routes } from '@constants/Routes';
+import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
 import styles from './BlogItem.module.scss';
 
@@ -20,6 +20,9 @@ const BlogItem: FC<Props> = observer(props => {
   const { title, imgSrc = '', text, id } = props;
   const { role } = appStore;
   const router = useRouter();
+  const onTestClick = () => {
+    router.push(`${Routes.Testing}/${id}`);
+  };
   const onReadTheoryClick = (): void => {
     router.push(`${Routes.Blog}/${id}`);
   };
@@ -33,7 +36,7 @@ const BlogItem: FC<Props> = observer(props => {
         <p>{text}</p>
         <div className={styles.containerButton}>
           <CustomButton onClick={onReadTheoryClick}>Прочитать теорию</CustomButton>
-          {role !== Roles.Student && <CustomButton>Пройти тест</CustomButton>}
+          {role !== Roles.Student && <CustomButton onClick={onTestClick}>Пройти тест</CustomButton>}
         </div>
       </div>
     </div>

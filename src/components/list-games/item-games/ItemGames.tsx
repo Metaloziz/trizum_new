@@ -1,14 +1,20 @@
 import { FC } from 'react';
+
 import ButtonPlay from '@components/button-play/ButtonPlay';
 import SettingsGames from '@components/settings-games/SettingsGames';
+
 import styles from './ItemGames.module.scss';
 
 interface Props {
   title?: string;
   imgSrc?: string;
+  onClick?: () => void;
 }
 
-const ItemGames: FC<Props> = ({ title, imgSrc }) => {
+const ItemGames: FC<Props> = ({ title, imgSrc, onClick }) => {
+  const onPlay = () => {
+    onClick && onClick();
+  };
   return (
     <div className={styles.content}>
       <div className={styles.titleBlock}>
@@ -18,7 +24,7 @@ const ItemGames: FC<Props> = ({ title, imgSrc }) => {
       <div className={styles.imageTable}>
         <img src={imgSrc} alt="games" />
       </div>
-      <ButtonPlay title={'Играть'} size={'medium'} />
+      <ButtonPlay onClick={onPlay} title="Играть" size="medium" />
     </div>
   );
 };

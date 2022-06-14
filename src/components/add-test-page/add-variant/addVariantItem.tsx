@@ -1,9 +1,11 @@
-import Image from 'next/image';
 import React from 'react';
+
 import InformationItem from '@components/information-item/InformationItem';
 import { stateVariantType } from '@pages/add-test/index.page';
 import checked from '@svgs/checked.svg';
 import isCheck from '@svgs/completedChecked.svg';
+import Image from 'next/image';
+
 import styles from './addVariant.module.scss';
 
 type ArrayItemProps = stateVariantType & {
@@ -26,14 +28,14 @@ const AddVariantItem = ({
     <div className={styles.variant}>
       <div className={styles.answer}>
         <InformationItem
-          title={'Вариант ответа'}
-          variant={'input'}
+          title="Вариант ответа"
+          variant="input"
           value={value}
-          onChange={(e) => handlerVariant(id, e)}
+          onChange={e => handlerVariant(id, e)}
         />
         <button className={styles.checkBox} onClick={onClickChecked}>
-          <Image src={completed ? isCheck : checked} alt={'checked'} />
-          {/*<Checked/>*/}
+          <Image src={completed ? isCheck : checked} alt="checked" />
+          {/* <Checked/> */}
         </button>
       </div>
     </div>

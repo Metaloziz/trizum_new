@@ -1,9 +1,6 @@
-import moment from 'moment';
 import React, { FC, SyntheticEvent, useState } from 'react';
-import { Calendar, momentLocalizer, stringOrDate } from 'react-big-calendar';
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+
 import BasicModal from '@components/basic-modal/BasicModal';
-import Button from '@components/custom-button/CustomButton';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import {
@@ -14,6 +11,10 @@ import {
 } from '@components/schedule/ScheduleComponents';
 import ScheduleModal from '@components/schedule/ScheduleModal';
 import CustomSelect from '@components/select/CustomSelect';
+import moment from 'moment';
+import { Calendar, momentLocalizer, stringOrDate } from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+
 import styles from './Schedule.module.scss';
 
 require('moment/locale/ru');
@@ -58,41 +59,29 @@ const eventsObj: object[] = [
 ];
 
 const formats = {
-  eventTimeRangeFormat: () => {
-    return '';
-  },
+  eventTimeRangeFormat: () => '',
 };
 
 const groups = ['group №1', 'group №2', 'group №3'];
-const createOptions = (arr: string[]) => {
-  return arr.map((el) => ({ value: el, label: el }));
-};
+const createOptions = (arr: string[]) => arr.map(el => ({ value: el, label: el }));
 const groupOptions = createOptions(groups);
 
-const ChildrenToolbar: FC = () => {
-  return (
-    <div className={styles.toolbarFlex}>
-      <InformationItem
-        title={'Дата'}
-        variant={'calendar'}
-        className={styles.toolbarDateSelect}
-      />
-      <CustomSelect
-        options={groupOptions}
-        placeholder={'Группа'}
-        className={styles.toolbarGroupSelect}
-      />
-      <CustomButton size={'small'}>Найти</CustomButton>
-    </div>
-  );
-};
+const ChildrenToolbar: FC = () => (
+  <div className={styles.toolbarFlex}>
+    <InformationItem title='Дата' variant='calendar' className={styles.toolbarDateSelect} />
+    <CustomSelect
+      options={groupOptions}
+      placeholder='Группа'
+      className={styles.toolbarGroupSelect}
+    />
+    <CustomButton size='small'>Найти</CustomButton>
+  </div>
+);
 
 const Schedule: FC = () => {
   const [events, setEvents] = useState<(ScheduleEvent | object)[]>(eventsObj);
   const [isVisible, setIsVisible] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState<
-    ScheduleEvent | null | object
-  >(null);
+  const [currentEvent, setCurrentEvent] = useState<ScheduleEvent | null | object>(null);
   const changeVisibility = () => {
     setIsVisible(!isVisible);
   };
@@ -107,9 +96,7 @@ const Schedule: FC = () => {
     end: stringOrDate;
     isAllDay: boolean;
   }) => {
-    const idx = events.findIndex(
-      (e) => (e as ScheduleEvent).id === (event as ScheduleEvent).id,
-    );
+    const idx = events.findIndex(e => (e as ScheduleEvent).id === (event as ScheduleEvent).id);
     const updatedEvent = { ...event, start, end };
     const nextEvents = [...events];
     nextEvents.splice(idx, 1, updatedEvent);
@@ -127,7 +114,7 @@ const Schedule: FC = () => {
     end: stringOrDate;
     isAllDay: boolean;
   }) => {
-    const nextEvents = events.map((existingEvent) => {
+    const nextEvents = events.map(existingEvent => {
       if ('id' in existingEvent && existingEvent.id === event.id) {
         const startAsAr = moment(start).format('HH-mm').split('-');
         const startMinutes = Number(startAsAr[0]) * 60 + Number(startAsAr[1]);
@@ -151,20 +138,17 @@ const Schedule: FC = () => {
     });
     setEvents(nextEvents);
   };
-  const onSelectEvent = (
-    event: object | ScheduleEvent,
-    e: SyntheticEvent<HTMLElement, Event>,
-  ) => {
-    const target = e.target;
+  const onSelectEvent = (event: object | ScheduleEvent, e: SyntheticEvent<HTMLElement, Event>) => {
+    const { target } = e;
     if ((target as HTMLImageElement).alt === 'Delete') {
       e.stopPropagation();
-      const newEvents = events.filter((e) => {
+      const newEvents = events.filter(e => {
         if ('id' in event && 'id' in e) {
           return e.id !== event.id;
         }
         return false;
       });
-      //TODO: request for delete and request for new data
+      // TODO: request for delete and request for new data
       setEvents(newEvents);
     } else {
       setCurrentEvent(event);
@@ -173,7 +157,7 @@ const Schedule: FC = () => {
   };
 
   const onApplyEventChanges = (event: ScheduleEvent) => {
-    const newEvents: (ScheduleEvent | object)[] = events.map((e) => {
+    const newEvents: (ScheduleEvent | object)[] = events.map(e => {
       if ('id' in e) {
         return e.id === event.id ? event : e;
       }
@@ -202,7 +186,7 @@ const Schedule: FC = () => {
         step={15}
         min={new Date(2022, 0, 1, 8, 0)}
         max={new Date(2022, 0, 5, 20, 30)}
-        defaultView={'week'}
+        defaultView='week'
         views={['week']}
         messages={{ next: 'next', previous: 'last', today: 'Текущая' }}
         // @ts-ignore
@@ -214,7 +198,7 @@ const Schedule: FC = () => {
           event: CustomEvent,
           eventWrapper: CustomEventWrapper,
           header: ScheduleHeader,
-          toolbar: (props) => (
+          toolbar: props => (
             <Toolbar {...props}>
               <ChildrenToolbar />
             </Toolbar>
@@ -222,17 +206,14 @@ const Schedule: FC = () => {
         }}
       />
       <BasicModal visibility={isVisible} changeVisibility={changeVisibility}>
-        <ScheduleModal
-          event={currentEvent as ScheduleEvent}
-          onApply={onApplyEventChanges}
-        />
+        <ScheduleModal event={currentEvent as ScheduleEvent} onApply={onApplyEventChanges} />
       </BasicModal>
     </div>
   );
 };
 
 export default Schedule;
-//defaultMessages = {
+// defaultMessages = {
 //     date: 'Date',
 //     time: 'Time',
 //     event: 'Event',

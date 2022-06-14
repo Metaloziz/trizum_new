@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { Table } from '@components/scheduler/table/Table';
 
-//TODO: delete
+// TODO: delete
 
 const list = [
   { id: 1, name: 'Jon De', age: 28 },
@@ -401,20 +402,12 @@ const data2 = {
   ],
 };
 
-const colNames = [
-  '1.12.2022',
-  '2.12.2022',
-  '3.12.2022',
-  '4.12.2022',
-  '5.12.2022',
-];
+const colNames = ['1.12.2022', '2.12.2022', '3.12.2022', '4.12.2022', '5.12.2022'];
 
-const CustomScheduler = () => {
-  return (
-    <div>
-      <Table list={list} colNames={colNames} />
-    </div>
-  );
-};
+const CustomScheduler = () => (
+  <div>
+    <Table list={list} colNames={colNames} />
+  </div>
+);
 
 export default CustomScheduler;

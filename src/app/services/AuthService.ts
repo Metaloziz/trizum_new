@@ -4,10 +4,7 @@ import { Api, ApiOptions } from '@utils/Api';
 
 const authService = {
   authenticate: async (options?: ApiOptions) => {
-    const { data } = await Api.get<DataResponse<UserAuth>>(
-      '/api/v1/auths',
-      options,
-    );
+    const { data } = await Api.get<DataResponse<UserAuth>>('/api/v1/auths', options);
     return data;
   },
 

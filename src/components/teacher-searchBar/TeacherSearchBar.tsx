@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
+
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import CustomSelect from '@components/select/CustomSelect';
+
 import styles from './teacherSearchBar.module.scss';
 
 type TeacherSearchBarProps = {
@@ -10,30 +12,24 @@ type TeacherSearchBarProps = {
   cities: string[];
 };
 
-const TeacherSearchBar: FC<TeacherSearchBarProps> = (props) => {
+const TeacherSearchBar: FC<TeacherSearchBarProps> = props => {
   const { cities, groups, schools } = props;
-  const createOptions = (arr: string[]) => {
-    return arr.map((el) => ({ value: el, label: el }));
-  };
+  const createOptions = (arr: string[]) => arr.map(el => ({ value: el, label: el }));
   const groupOptions = createOptions(groups);
   const schoolOptions = createOptions(schools);
   const citiesOptions = createOptions(cities);
   return (
-    //TODO: откуда получаем данны по группе, школам, городам? Бэк или хардкод
+    // TODO: откуда получаем данны по группе, школам, городам? Бэк или хардкод
     <div className={styles.wrapper}>
       <div className={styles.flexWrapper}>
-        <InformationItem
-          title={'Дата'}
-          variant={'calendar'}
-          className={styles.dateSelect}
-        />
-        <CustomSelect options={groupOptions} placeholder={'Группа'} className={styles.groupSelect}/>
-        {/*<div className={styles.flex}>*/}
-
-         {/* <CustomSelect options={schoolOptions} placeholder={'Школа'} />
-          <CustomSelect options={citiesOptions} placeholder={'Город'} />*/}
-        {/*</div>*/}
-        {/*<div className={styles.flex}>
+        <InformationItem title='Дата' variant='calendar' className={styles.dateSelect} />
+        <CustomSelect options={groupOptions} placeholder='Группа' className={styles.groupSelect} />
+        {/* <div className={styles.flex}> */}
+        
+        {/* <CustomSelect options={schoolOptions} placeholder={'Школа'} />
+          <CustomSelect options={citiesOptions} placeholder={'Город'} /> */}
+        {/* </div> */}
+        {/* <div className={styles.flex}>
           <InformationItem
             title={'ФИО франчайзи'}
             variant={'input'}
@@ -45,9 +41,9 @@ const TeacherSearchBar: FC<TeacherSearchBarProps> = (props) => {
             label={'Юр. адрес'}
             additionalCn={styles.select}
           />
-        </div>*/}
+        </div> */}
       </div>
-      <CustomButton size={'small'}>Найти</CustomButton>
+      <CustomButton size='small'>Найти</CustomButton>
     </div>
   );
 };

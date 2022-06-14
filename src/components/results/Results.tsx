@@ -1,3 +1,14 @@
+import React, { FC, useState } from 'react';
+
+import FilterItem from '@components/atoms/FilterItem/FilterItem';
+import BlueButton from '@components/atoms/GameResultItem/BlueButton';
+import UserCard from '@components/atoms/userCard';
+import CustomButton from '@components/custom-button/CustomButton';
+import CalendarResults from '@components/molecules/CalendarResults';
+import ResultTable from '@components/molecules/ResultTable';
+import SelectResults from '@components/molecules/SelectResults/SelectResults';
+import Tablet from '@components/tablet/Tablet';
+import buttonImage from '@svgs/arrow-onleft-btn.svg';
 import {
   ArcElement,
   CategoryScale,
@@ -18,20 +29,11 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
-import {AnyObject} from 'chart.js/types/basic';
+import { AnyObject } from 'chart.js/types/basic';
 import Image from 'next/image';
-import React, {FC, useState} from 'react';
-import {Line} from 'react-chartjs-2';
-import {SingleValue} from 'react-select';
-import FilterItem from '@components/atoms/FilterItem/FilterItem';
-import BlueButton from '@components/atoms/GameResultItem/BlueButton';
-import UserCard from '@components/atoms/userCard';
-import CustomButton from '@components/custom-button/CustomButton';
-import CalendarResults from '@components/molecules/CalendarResults';
-import ResultTable from '@components/molecules/ResultTable';
-import SelectResults from '@components/molecules/SelectResults/SelectResults';
-import Tablet from '@components/tablet/Tablet';
-import buttonImage from '@svgs/arrow-onleft-btn.svg';
+import { Line } from 'react-chartjs-2';
+import { SingleValue } from 'react-select';
+
 import styles from './Results.module.scss';
 
 Chart.register(
@@ -62,7 +64,9 @@ const Utils = {
     red: '#ea7979',
   },
 };
-let width: any, height: any, gradient: any;
+let width: any;
+let height: any;
+let gradient: any;
 
 function getGradient(ctx: any, chartArea: any) {
   const chartWidth = chartArea.right - chartArea.left;
@@ -77,7 +81,7 @@ function getGradient(ctx: any, chartArea: any) {
     gradient.addColorStop(0.5, Utils.CHART_COLORS.yellow);
     gradient.addColorStop(1, Utils.CHART_COLORS.red);
   }
-
+  
   return gradient;
 }
 
@@ -85,17 +89,17 @@ const MONOTONE = 'monotone' as const;
 
 const config = {
   data: {
-    labels: labels,
+    labels,
     datasets: [
       {
         label: 'My First dataset',
         backgroundColor: 'red',
         borderWidth: 2,
         pointRadius: 0,
-        borderColor: function (context: any) {
-          const chart = context.chart;
+        borderColor(context: any) {
+          const { chart } = context;
           const { ctx, chartArea } = chart;
-
+          
           if (!chartArea) {
             // This case happens on initial chart load
             return;
@@ -116,10 +120,7 @@ const config = {
     scales: {
       x: {
         grid: {
-          color: function (
-            context: ScriptableScaleContext,
-            options: AnyObject,
-          ) {
+          color(context: ScriptableScaleContext, options: AnyObject) {
             return '#fff';
           },
         },
@@ -194,37 +195,27 @@ const Results: FC<Props> = () => {
   const [selectValue, setSelectValue] = useState<SingleValue<ValueLabelT>>();
   const mockSelectData: ValueLabelT[] = [{ value: 'value', label: 'label' }];
   const onGameNameClick = (selectedGame: ValueLabelT) => {
-    if (
-      selectedGame.value === 'total' &&
-      !selectedGames.includes(selectedGame)
-    ) {
+    if (selectedGame.value === 'total' && !selectedGames.includes(selectedGame)) {
       setSelectedGames([selectedGame]);
       return;
     }
-    if (
-      selectedGame.value !== 'total' &&
-      selectedGames.find((el) => el.value === 'total')
-    ) {
-      const newGames = selectedGames.filter((game) => game.value !== 'total');
+    if (selectedGame.value !== 'total' && selectedGames.find(el => el.value === 'total')) {
+      const newGames = selectedGames.filter(game => game.value !== 'total');
       setSelectedGames([...newGames, selectedGame]);
       return;
     }
     if (selectedGames.includes(selectedGame)) {
-      setSelectedGames(
-        selectedGames.filter((elem) => elem.value !== selectedGame.value),
-      );
-      return;
+      setSelectedGames(selectedGames.filter(elem => elem.value !== selectedGame.value));
     } else {
       setSelectedGames([...selectedGames, selectedGame]);
     }
   };
-
+  
   const onChangeSelect = (value: SingleValue<ValueLabelT>) => {
     setSelectValue(value);
   };
   const onViewChangeClick = (value: ResultsView) => {
     if (view === value) {
-      return;
     } else {
       setView(value);
     }
@@ -233,7 +224,7 @@ const Results: FC<Props> = () => {
     <div className={styles.container}>
       <div className={styles.back}>
         <button className={styles.buttonArrow}>
-          <Image src={buttonImage} alt={'arrow'} width={26} height={13} />
+          <Image src={buttonImage} alt='arrow' width={26} height={13} />
         </button>
         <span>На предыдущую страницу</span>
       </div>
@@ -241,19 +232,19 @@ const Results: FC<Props> = () => {
         <Tablet>
           <div className={styles.blockTop}>
             <div className={styles.user}>
-              <UserCard
-                city={'Москва'}
-                status={'Ученик'}
-                fullName={'Днепровская А.А.'}
-              />
+              <UserCard city='Москва' status='Ученик' fullName='Днепровская А.А.' />
             </div>
             <div className={styles.filters}>
               <div className={styles.badges}>
-                <FilterItem title={' Те, что окрашены в красный цвет'} />
-                <FilterItem title={' Те, что окрашены в красный цвет'} />
-                <FilterItem title={' Те, что окрашены в красный цвет'} />
+                <FilterItem title=' Те, что окрашены в красный цвет' />
+                <FilterItem title=' Те, что окрашены в красный цвет' />
+                <FilterItem title=' Те, что окрашены в красный цвет' />
               </div>
-              <SelectResults options={options} onChange={onChangeSelect} className={styles.filters_select}/>
+              <SelectResults
+                options={options}
+                onChange={onChangeSelect}
+                className={styles.filters_select}
+              />
             </div>
           </div>
           {view === ResultsView.Table ? (
@@ -264,83 +255,74 @@ const Results: FC<Props> = () => {
           <div className={styles.buttons}>
             <div className={styles.buttonsView}>
               <BlueButton
-                title={'Таблица'}
+                title='Таблица'
                 onClick={() => onViewChangeClick(ResultsView.Table)}
                 isActive={view === ResultsView.Table}
-                type={'small'}
+                type='small'
               />
               <BlueButton
-                title={'График'}
+                title='График'
                 isActive={view === ResultsView.Chart}
                 onClick={() => onViewChangeClick(ResultsView.Chart)}
-                type={'small'}
+                type='small'
               />
             </div>
             <div className={styles.buttonsColumn}>
               <div className={styles.gamesSelect}>
                 <div className={styles.gamesSelect_items}>
-                  {gamesAr.map((game) => {
-                    return (
-                      <BlueButton
-                        key={game.value}
-                        title={game.label}
-                        onClick={() => onGameNameClick(game)}
-                        isActive={selectedGames.includes(game)}
-                      />
-                    );
-                  })}
+                  {gamesAr.map(game => (
+                    <BlueButton
+                      key={game.value}
+                      title={game.label}
+                      onClick={() => onGameNameClick(game)}
+                      isActive={selectedGames.includes(game)}
+                    />
+                  ))}
                   <SelectResults
-                    //TODO: мультивыбор
+                    // TODO: мультивыбор
                     options={gamesArr}
-                    minWidth={'150px'}
+                    minWidth='150px'
                     onChange={onChangeSelect}
                     className={styles.gamesSelect_select}
                   />
                 </div>
-                <CustomButton type={'primary'} size={'thin'}>
+                <CustomButton type='primary' size='thin'>
                   Найти
                 </CustomButton>
               </div>
               <div className={styles.gamesFields}>
-                <CalendarResults
-                  value={''}
-                  onChange={() => console.log('asd')}
-                />
-                <CalendarResults
-                  value={''}
-                  onChange={() => console.log('asd')}
-                />
+                <CalendarResults value='' onChange={() => console.log('asd')} />
+                <CalendarResults value='' onChange={() => console.log('asd')} />
                 <SelectResults
                   options={mockSelectData}
-                  minWidth={'150px'}
+                  minWidth='150px'
                   onChange={onChangeSelect}
                   className={styles.gamesSelect_select}
                 />
                 <SelectResults
                   options={mockSelectData}
-                  minWidth={'150px'}
+                  minWidth='150px'
                   onChange={onChangeSelect}
                   className={styles.gamesSelect_select}
                 />
                 <SelectResults
                   options={mockSelectData}
-                  minWidth={'150px'}
+                  minWidth='150px'
                   onChange={onChangeSelect}
                   className={styles.gamesSelect_select}
                 />
-
               </div>
             </div>
           </div>
         </Tablet>
-        {/*<div className={styles.description}>*/}
-        {/*  <h4>Скорость распознавания образов</h4>*/}
-        {/*  <p className={styles.text}>*/}
-        {/*    На экране будут появляться группы шариков с разными цветами, буквами*/}
-        {/*    и символами. Те, что окрашены в красный цвет - можно уничтожать, все*/}
-        {/*    остальные нельзя.*/}
-        {/*  </p>*/}
-        {/*</div>*/}
+        {/* <div className={styles.description}> */}
+        {/*  <h4>Скорость распознавания образов</h4> */}
+        {/*  <p className={styles.text}> */}
+        {/*    На экране будут появляться группы шариков с разными цветами, буквами */}
+        {/*    и символами. Те, что окрашены в красный цвет - можно уничтожать, все */}
+        {/*    остальные нельзя. */}
+        {/*  </p> */}
+        {/* </div> */}
       </div>
     </div>
   );

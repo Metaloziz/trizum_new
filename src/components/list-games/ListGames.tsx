@@ -1,4 +1,5 @@
 import ItemGames from '@components/list-games/item-games/ItemGames';
+
 import styles from './ListGames.module.scss';
 
 const items = [
@@ -44,14 +45,12 @@ const items = [
   },
 ];
 
-const ListGames = () => {
-  return (
-    <div className={styles.gamesContent}>
-      {items.map((item) => {
-        return <ItemGames key={item.id} title={item.title} imgSrc={item.img} />;
-      })}
-    </div>
-  );
-};
+const ListGames = () => (
+  <div className={styles.gamesContent}>
+    {items.map(item => (
+      <ItemGames key={item.id} title={item.title} imgSrc={item.img} />
+    ))}
+  </div>
+);
 
 export default ListGames;

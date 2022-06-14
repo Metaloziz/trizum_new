@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react';
+
 import styles from './TextField.module.scss';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
   label?: string;
 }
 
-const TextField: FC<Props> = (props) => {
+const TextField: FC<Props> = props => {
   const { type, id, onChange, placeholder, value, label } = props;
   const [titleValue, setTitleValue] = useState(value);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +23,7 @@ const TextField: FC<Props> = (props) => {
       {label && <p>{label}</p>}
       <input
         placeholder={placeholder}
-        type={type ? type : 'text'}
+        type={type || 'text'}
         id={id}
         value={titleValue}
         onChange={handleChange}

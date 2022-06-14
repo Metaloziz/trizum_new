@@ -1,5 +1,7 @@
 import { FC } from 'react';
+
 import { ListType } from '@components/moks-data/moks-data-table';
+
 import styles from './Table.module.scss';
 
 interface IList {
@@ -38,9 +40,7 @@ const Table: FC<Props> = ({ list, colNames, loading }) => {
               {' '}
               {colNames !== undefined &&
                 colNames.length > 0 &&
-                colNames.map((headerItem, index) => (
-                  <th key={index}>{headerItem}</th>
-                ))}
+                colNames.map((headerItem, index) => <th key={index}>{headerItem}</th>)}
             </tr>
           </thead>
           <tbody>

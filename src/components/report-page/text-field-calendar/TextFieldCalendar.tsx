@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import CustomCalendar from '@components/calendar/CustomCalendar';
 
 type Props = {
@@ -10,13 +11,13 @@ type Props = {
   dataAuto: string;
 };
 
-const TextFieldCalendar: FC<Props> = (props) => {
+const TextFieldCalendar: FC<Props> = props => {
   const { onSelectDate, type, value, icon, iconParams, dataAuto } = props;
   if (type) {
   }
   return (
     <div style={{ display: 'flex' }}>
-      <input type="text" value={value} />
+      <input type='text' value={value} />
       <div>
         <CustomCalendar
           setTitle={onSelectDate}

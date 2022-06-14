@@ -1,4 +1,4 @@
-import {action, makeAutoObservable, makeObservable, observable} from 'mobx';
+import { action, makeAutoObservable, makeObservable, observable } from 'mobx';
 
 const items = [
   {
@@ -22,25 +22,26 @@ const items = [
 ];
 
 class TeacherEducationStore {
-  tests:any[] = items
-
-  test:any = {}
-
+  tests: any[] = items;
+  
+  test: any = {};
+  
   constructor() {
-    makeObservable(this,{
-      test:observable,
-      tests:observable,
-      setTests:action.bound,
-      setCurrentTest:action.bound,
+    makeObservable(this, {
+      test: observable,
+      tests: observable,
+      setTests: action.bound,
+      setCurrentTest: action.bound,
     });
   }
-
-  setTests(tests:any[]){
-    this.tests = tests
+  
+  setTests(tests: any[]) {
+    this.tests = tests;
   }
-
-  setCurrentTest(test:any){
-    this.test = test
+  
+  setCurrentTest(test: any) {
+    this.test = test;
   }
 }
-export default new TeacherEducationStore()
+
+export default new TeacherEducationStore();

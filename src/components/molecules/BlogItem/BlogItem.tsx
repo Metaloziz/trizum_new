@@ -1,6 +1,8 @@
-import Image from 'next/image';
 import { FC } from 'react';
+
 import CustomButton from '@components/custom-button/CustomButton';
+import Image from 'next/image';
+
 import styles from './BlogItem.module.scss';
 
 interface Props {
@@ -9,12 +11,12 @@ interface Props {
   text: string;
 }
 
-const BlogItem: FC<Props> = (props) => {
+const BlogItem: FC<Props> = props => {
   const { title, imgSrc = '', text } = props;
   return (
     <div className={styles.containerItem}>
       <div className={styles.wrapperTeacherImg}>
-        <Image src={imgSrc} width={'300px'} height={'300px'} alt={'Images'} />
+        <Image src={imgSrc} width='300px' height='300px' alt='Images' />
       </div>
       <div className={styles.itemText}>
         <h2>{title}</h2>

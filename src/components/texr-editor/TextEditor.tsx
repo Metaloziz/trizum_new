@@ -1,15 +1,15 @@
-import { EditorState } from 'draft-js';
 import React, { useEffect, useState } from 'react';
+
+import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
+
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import styles from './TextEditor.module.scss';
 
-//TODO: delete
+// TODO: delete
 
 const TextEditor = () => {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty(),
-  );
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
   useEffect(() => {
   }, [editorState]);
   return (

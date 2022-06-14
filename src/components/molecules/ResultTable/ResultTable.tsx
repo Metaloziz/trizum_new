@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
+
 import { resultTableData } from '@components/moks-data/mock-data-resultTable';
 import TableHeader from '@components/molecules/ResultTable/TableHeader';
 import TableRow from '@components/molecules/ResultTable/TableRow/TableRow';
+
 import styles from './ResultTable.module.scss';
 
 type Props = {};
@@ -11,22 +13,15 @@ for (let i = 1; i <= 30; i++) {
 }
 const mock = resultTableData;
 
-const ResultTable: FC<Props> = () => {
-  return (
-    <div className={styles.tableWrapper}>
-      <div className={styles.table}>
-        <TableHeader values={dates} />
-        {mock.map((el) => (
-          <TableRow
-            title={el.title}
-            isHeader={el.isHeader}
-            values={el.data}
-            key={Math.random()}
-          />
-        ))}
-      </div>
+const ResultTable: FC<Props> = () => (
+  <div className={styles.tableWrapper}>
+    <div className={styles.table}>
+      <TableHeader values={dates} />
+      {mock.map(el => (
+        <TableRow title={el.title} isHeader={el.isHeader} values={el.data} key={Math.random()} />
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 export default ResultTable;

@@ -1,9 +1,11 @@
-import Image from 'next/image';
 import React, { FC, useState } from 'react';
+
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import avatar from '@public/img/pervoklasnin.jpg';
 import iconFlag from '@svgs/flag.svg';
+import Image from 'next/image';
+
 import styles from './CardStudentForTeacher.module.scss';
 
 const data = [
@@ -25,13 +27,13 @@ const CardStudentForTeacher: FC<Props> = ({ title, flag }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
-        <CustomImageWrapper className={styles.image} variant={'circle'}>
-          <Image src={avatar} width={'170'} height={'170'} alt={'student'} />
+        <CustomImageWrapper className={styles.image} variant='circle'>
+          <Image src={avatar} width='170' height='170' alt='student' />
         </CustomImageWrapper>
         <div>
           <CardStudentTitle>{title}</CardStudentTitle>
           <div className={styles.mt20}>
-            {data.map((item) => (
+            {data.map(item => (
               <ul key={item.title} className={styles.list}>
                 <li>{item.title}:</li>
                 <li>{item.description}</li>
@@ -40,10 +42,8 @@ const CardStudentForTeacher: FC<Props> = ({ title, flag }) => {
           </div>
         </div>
       </div>
-      <CustomImageWrapper className={styles.flag} variant={'none'}>
-        {showFlag && (
-          <Image src={iconFlag} width={'33'} height={'33'} alt={'Flag'} />
-        )}
+      <CustomImageWrapper className={styles.flag} variant='none'>
+        {showFlag && <Image src={iconFlag} width='33' height='33' alt='Flag' />}
       </CustomImageWrapper>
     </div>
   );

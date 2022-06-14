@@ -1,7 +1,9 @@
-import className from 'classnames';
 import React, { FC, useState } from 'react';
+
 import PaginationNextArrows from '@components/pagination-next-arrow/PaginationNextArrows';
 import PaginationPrevArrows from '@components/pagination-prev-arrows/PaginationPrevArrows';
+import className from 'classnames';
+
 import styles from './Step.module.scss';
 
 interface Props {
@@ -29,7 +31,7 @@ const Step: FC<Props> = ({ countStep, onChange, isRenderButtons }) => {
         </button>
       )}
       <ul className={styles.countList}>
-        {steps.map((item) => (
+        {steps.map(item => (
           <li
             onClick={() => setStep(item)}
             key={item}

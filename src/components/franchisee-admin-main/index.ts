@@ -1,1 +1,1 @@
-export {default} from './FranchiseeAdminMain'
+export { default } from './FranchiseeAdminMain';

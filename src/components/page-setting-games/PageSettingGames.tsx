@@ -1,9 +1,11 @@
-import cn from 'classnames';
 import React, { ChangeEvent, FC, useState } from 'react';
+
 import BackButton from '@components/backButton/BackButton';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import TextEditor from '@components/text-editor/TextEditor';
+import cn from 'classnames';
+
 import styles from './PageSettingGames.module.scss';
 
 interface Props {
@@ -27,17 +29,11 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
           <BackButton />
         </div>
         <div className={styles.infoButton}>
-          <button
-            className={styles.buttonGroup}
-            onClick={() => console.log('Для младшей группы')}
-          >
+          <button className={styles.buttonGroup} onClick={() => console.log('Для младшей группы')}>
             Для младшей группы
           </button>
           <span>Тестовый</span>
-          <button
-            className={styles.buttonAdd}
-            onClick={() => console.log('Добавить')}
-          >
+          <button className={styles.buttonAdd} onClick={() => console.log('Добавить')}>
             +
           </button>
         </div>
@@ -49,9 +45,9 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             <span>Наименование шаблона</span>
             <div className={styles.pattern}>
               <InformationItem
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
-                placeholder={'Шаблон 1'}
+                variant='input'
+                onChange={valueText => console.log(valueText)}
+                placeholder='Шаблон 1'
               />
             </div>
           </div>
@@ -62,19 +58,19 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
               <div>
                 <span>от</span>
                 <InformationItem
-                  type={'number'}
-                  title={''}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  type='number'
+                  title=''
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
               <div>
                 <span>до</span>
                 <InformationItem
-                  type={'number'}
-                  title={''}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  type='number'
+                  title=''
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
             </div>
@@ -83,19 +79,19 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
               <div>
                 <span>от</span>
                 <InformationItem
-                  type={'number'}
-                  title={''}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  type='number'
+                  title=''
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
               <div>
                 <span>до</span>
                 <InformationItem
-                  type={'number'}
-                  title={''}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  type='number'
+                  title=''
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
             </div>
@@ -104,19 +100,19 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
               <div>
                 <span>от</span>
                 <InformationItem
-                  type={'number'}
-                  title={''}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  type='number'
+                  title=''
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
               <div>
                 <span>до</span>
                 <InformationItem
-                  type={'number'}
-                  title={''}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  type='number'
+                  title=''
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
             </div>
@@ -125,29 +121,29 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
               <div>
                 <span>от</span>
                 <InformationItem
-                  type={'number'}
-                  title={''}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  type='number'
+                  title=''
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
               <div>
                 <span>до</span>
                 <InformationItem
-                  type={'number'}
-                  title={''}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  type='number'
+                  title=''
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
             </div>
             <div className={cn(styles.rowSettings, styles.timeExecution)}>
               <span>Время выполнения</span>
               <InformationItem
-                type={'number'}
-                title={''}
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
+                type='number'
+                title=''
+                variant='input'
+                onChange={valueText => console.log(valueText)}
               />
             </div>
           </div>
@@ -158,10 +154,10 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
           <div className={styles.radioGroup}>
             <label>
               <input
-                type={'radio'}
-                value={'level'}
-                id={'level'}
-                name={'currentRadioValue'}
+                type='radio'
+                value='level'
+                id='level'
+                name='currentRadioValue'
                 onChange={handlerRadioChange}
                 checked={currentRadioValue === 'level'}
               />
@@ -169,30 +165,28 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             </label>
             <label>
               <input
-                type={'radio'}
-                value={' jump'}
-                id={' jump'}
-                name={'currentRadioValue'}
+                type='radio'
+                value=' jump'
+                id=' jump'
+                name='currentRadioValue'
                 onChange={handlerRadioChange}
                 checked={currentRadioValue === ' jump'}
               />
               <span>
-                Баллы за прыжок (начисляется если был прыжок и уровень пройден
-                после прыжка)
+                Баллы за прыжок (начисляется если был прыжок и уровень пройден после прыжка)
               </span>
             </label>
             <label>
               <input
-                type={'radio'}
-                value={'errorJump'}
-                id={'errorJump'}
-                name={'currentRadioValue'}
+                type='radio'
+                value='errorJump'
+                id='errorJump'
+                name='currentRadioValue'
                 onChange={handlerRadioChange}
                 checked={currentRadioValue === 'errorJump'}
               />
               <span>
-                Если ошибка, после прыжка, игру возвращаем на предыдущий уровень
-                (штрафа нет)
+                Если ошибка, после прыжка, игру возвращаем на предыдущий уровень (штрафа нет)
               </span>
             </label>
           </div>
@@ -200,34 +194,34 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             <p>
               Если выполняет
               <InformationItem
-                type={'number'}
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
+                type='number'
+                variant='input'
+                onChange={valueText => console.log(valueText)}
               />
               уровня подряд за
               <InformationItem
-                type={'number'}
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
+                type='number'
+                variant='input'
+                onChange={valueText => console.log(valueText)}
               />
               секунд
             </p>
             <p>
               и
               <InformationItem
-                type={'number'}
-                title={''}
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
+                type='number'
+                title=''
+                variant='input'
+                onChange={valueText => console.log(valueText)}
               />
               % ошибок, то система <span>ПРЕДЛАГАЕТ</span> поднять на
             </p>
             <p>
               <InformationItem
-                type={'number'}
-                title={''}
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
+                type='number'
+                title=''
+                variant='input'
+                onChange={valueText => console.log(valueText)}
               />
               уровней один раз.
             </p>

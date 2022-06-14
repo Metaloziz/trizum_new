@@ -1,17 +1,15 @@
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { Navigate } from 'react-router';
+
 import appStore, { Roles } from '@app/stores/appStore';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
-import {
-  games,
-  groupLevel,
-  pattern,
-} from '@components/moks-data/moks-data-addHomeWork';
+import { games, groupLevel, pattern } from '@components/moks-data/moks-data-addHomeWork';
 import Step from '@components/step/Step';
 import TextEditor from '@components/text-editor/TextEditor';
 import Custom404 from '@pages/404.page';
+import { useRouter } from 'next/router';
+import { Navigate } from 'react-router';
+
 import styles from './HomeworkAddEditPage.module.scss';
 
 const HomeworkAddEditPage = () => {
@@ -29,10 +27,10 @@ const HomeworkAddEditPage = () => {
           <h1>Домашнее задание</h1>
           <div className={styles.level}>
             <InformationItem
-              title={'Уровень группы*'}
-              variant={'select'}
+              title='Уровень группы*'
+              variant='select'
               option={groupLevel}
-              placeholder={'Младшая'}
+              placeholder='Младшая'
             />
           </div>
           <div className={styles.editorWrapper}>
@@ -44,46 +42,46 @@ const HomeworkAddEditPage = () => {
           <div className={styles.sampleChoice}>
             <div className={styles.sampleBlock}>
               <InformationItem
-                title={'Игра'}
-                variant={'select'}
+                title='Игра'
+                variant='select'
                 option={games}
-                placeholder={'Память и ритм'}
+                placeholder='Память и ритм'
               />
               <InformationItem
-                title={'Шаблон'}
-                variant={'select'}
+                title='Шаблон'
+                variant='select'
                 option={pattern}
-                placeholder={'Память и ритм'}
+                placeholder='Память и ритм'
               />
             </div>
             <div className={styles.sampleBlock}>
               <InformationItem
-                title={'Игра'}
-                variant={'select'}
+                title='Игра'
+                variant='select'
                 option={games}
-                placeholder={'Память и ритм'}
+                placeholder='Память и ритм'
               />
               <InformationItem
-                title={'Шаблон'}
-                variant={'select'}
+                title='Шаблон'
+                variant='select'
                 option={pattern}
-                placeholder={'Память и ритм'}
+                placeholder='Память и ритм'
               />
             </div>
           </div>
           <div className={styles.sampleChoice}>
             <div className={styles.sampleBlock}>
               <InformationItem
-                title={'Игра'}
-                variant={'select'}
+                title='Игра'
+                variant='select'
                 option={games}
-                placeholder={'Память и ритм'}
+                placeholder='Память и ритм'
               />
               <InformationItem
-                title={'Шаблон'}
-                variant={'select'}
+                title='Шаблон'
+                variant='select'
                 option={pattern}
-                placeholder={'Память и ритм'}
+                placeholder='Память и ритм'
               />
             </div>
             <div className={`${styles.sampleBlock} ${styles.sampleAdd}`}>

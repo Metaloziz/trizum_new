@@ -43,3 +43,14 @@
 .wrapBlockItem + .wrapBlockItem {
   margin-top: 15px;
 }
+
+.numberFormat {
+  background-color: $color-white;
+  border-radius: 10px;
+  box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+  width: 100%;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  padding: 12px 13px 13px;
+}

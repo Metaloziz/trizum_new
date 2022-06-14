@@ -1,6 +1,7 @@
-import React, {FC} from 'react';
-import Select, {CSSObjectWithLabel, SingleValue} from 'react-select';
-import {ValueLabelT} from '@components/results/Results';
+import React, { FC } from 'react';
+
+import { ValueLabelT } from '@components/results/Results';
+import Select, { CSSObjectWithLabel, SingleValue } from 'react-select';
 
 type Props = {
   options: ValueLabelT[];
@@ -9,8 +10,8 @@ type Props = {
   className?: string;
 };
 
-const SelectResults: FC<Props> = (props) => {
-  const {options, minWidth, onChange,className} = props;
+const SelectResults: FC<Props> = props => {
+  const { options, minWidth, onChange, className } = props;
   const selectStyles = {
     control: (base: CSSObjectWithLabel) => ({
       ...base,
@@ -26,7 +27,7 @@ const SelectResults: FC<Props> = (props) => {
       alignItems: 'center',
       justifyContent: 'center',
     }),
-    indicatorSeparator: () => ({borderColor: 'transparent'}),
+    indicatorSeparator: () => ({ borderColor: 'transparent' }),
     dropdownIndicator: (base: CSSObjectWithLabel) => ({
       ...base,
       color: '#979797',
@@ -70,14 +71,12 @@ const SelectResults: FC<Props> = (props) => {
     }),
     option: (
       base: CSSObjectWithLabel,
-      {isFocused, isSelected}: { isFocused: boolean; isSelected: boolean },
-    ) => {
-      return {
-        ...base,
-        color: isSelected ? '#292EF9' : '#000',
-        backgroundColor: isFocused ? '#fff' : '#E6EEF8',
-      };
-    },
+      { isFocused, isSelected }: { isFocused: boolean; isSelected: boolean },
+    ) => ({
+      ...base,
+      color: isSelected ? '#292EF9' : '#000',
+      backgroundColor: isFocused ? '#fff' : '#E6EEF8',
+    }),
   };
   return (
     <Select
@@ -86,7 +85,7 @@ const SelectResults: FC<Props> = (props) => {
       styles={selectStyles}
       onChange={onChange}
       className={className || ''}
-      placeholder={'Выбрать значение...'}
+      placeholder='Выбрать значение...'
     />
   );
 };

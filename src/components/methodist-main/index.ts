@@ -1,1 +1,1 @@
-export {default} from './MethodistMain'
+export { default } from './MethodistMain';

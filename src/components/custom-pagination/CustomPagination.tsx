@@ -1,9 +1,11 @@
-import classNames from 'classNames';
 import { FC, useState } from 'react';
+
 import { listCuratorType } from '@components/moks-data/moks-data-curator';
 import { ListType } from '@components/moks-data/moks-data-table';
 import PaginationNextArrows from '@components/pagination-next-arrow/PaginationNextArrows';
 import PaginationPrevArrows from '@components/pagination-prev-arrows/PaginationPrevArrows';
+import classNames from 'classNames';
+
 import styles from './CustomPagination.module.scss';
 
 type CurrentItemType = ListType[] | listCuratorType[];
@@ -18,9 +20,8 @@ interface Props {
   next: () => void;
 }
 
-const CustomPagination: FC<Props> = (props) => {
-  const { currentItem, currentPage, count, total, paginate, prev, next } =
-    props;
+const CustomPagination: FC<Props> = props => {
+  const { currentItem, currentPage, count, total, paginate, prev, next } = props;
   const pageNumbers = [];
   const countPage = Math.ceil(total / count);
   for (let i = 1; i <= countPage; i++) {

@@ -1,7 +1,9 @@
-import Image from 'next/image';
 import { ChangeEvent, FC, useState } from 'react';
+
 import CustomCalendar from '@components/calendar/CustomCalendar';
 import closeCalendar from '@svgs/button.svg';
+import Image from 'next/image';
+
 import styles from './TextFieldCalendar.module.scss';
 
 interface Props {
@@ -10,7 +12,7 @@ interface Props {
   value?: string;
 }
 
-const TextFieldCalendar: FC<Props> = (props) => {
+const TextFieldCalendar: FC<Props> = props => {
   const { dataAuto, onChange, value } = props;
   const [title, setTitle] = useState<string>(value || '');
   const deleteTitle = () => {
@@ -23,9 +25,9 @@ const TextFieldCalendar: FC<Props> = (props) => {
   return (
     <div className={styles.textFieldCalendar}>
       <div className={styles.inputCalendar}>
-        <input type={'text'} value={title} onChange={handleChange} />
+        <input type='text' value={title} onChange={handleChange} />
         <div className={styles.closeCalendar} onClick={deleteTitle}>
-          <Image src={closeCalendar} alt={'close'} width={12} height={12} />
+          <Image src={closeCalendar} alt='close' width={12} height={12} />
         </div>
       </div>
       <div>

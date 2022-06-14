@@ -6,8 +6,7 @@ const useComponentVisible = (
   onClose?: () => void,
   constanta?: boolean,
 ) => {
-  const [isComponentVisible, setIsComponentVisible] =
-    useState(initialIsVisible);
+  const [isComponentVisible, setIsComponentVisible] = useState(initialIsVisible);
   const ref = useRef<HTMLDivElement>(null);
   const element =
     typeof window !== 'undefined' &&

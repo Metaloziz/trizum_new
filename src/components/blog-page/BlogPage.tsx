@@ -1,6 +1,11 @@
-import {FunctionComponent} from 'react';
+import { FunctionComponent } from 'react';
 
+import appStore, { Roles } from '@app/stores/appStore';
+import Button from '@components/custom-button/CustomButton';
 import BlogItem from '@components/molecules/BlogItem';
+import { Routes } from '@constants/Routes';
+import { observer } from 'mobx-react-lite';
+import { useRouter } from 'next/router';
 
 import styles from './BlogPage.module.scss';
 
@@ -25,12 +30,34 @@ const items = [
   },
 ];
 
-const BlogPage: FunctionComponent = () => (
-  <div className={styles.container}>
-    {items.map(item => (
-      <BlogItem key={item.id} title={item.title} text={item.text} imgSrc={item.img} id={item.id} />
-    ))}
-  </div>
-);
+const BlogPage: FunctionComponent = observer(() => {
+  const { role } = appStore;
+  const router = useRouter();
+  const onClickAddPost = () => {
+    router.push(`${Routes.Blog}/add-post`);
+  };
+  const onClickAddTest = () => {
+    router.push(`${Routes.Blog}/add-test`);
+  };
+  return (
+    <div className={styles.container}>
+      {role === Roles.Methodist && (
+        <>
+          <Button onClick={onClickAddPost}>Добавить статью</Button>
+          <Button onClick={onClickAddTest}>Добавить тест</Button>
+        </>
+      )}
+      {items.map(item => (
+        <BlogItem
+          key={item.id}
+          title={item.title}
+          text={item.text}
+          imgSrc={item.img}
+          id={item.id}
+        />
+      ))}
+    </div>
+  );
+});
 
 export default BlogPage;

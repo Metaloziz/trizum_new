@@ -1,0 +1,318 @@
+.content {
+  padding: 33px 100px 20px 20px;
+  box-sizing: border-box;
+
+  @media (max-width: 1600px) {
+    padding-right: 50px;
+  }
+
+  @media (max-width: 1000px) {
+    padding-right: 20px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 30px 10px;
+  }
+
+  h1 {
+    font-family: 'Aqum';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 28px;
+
+    @media (max-width: 550px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  .inputWrap {
+    & > div {
+      justify-content: space-between;
+    }
+
+    & > div > div > div {
+      width: 100%;
+    }
+  }
+
+  .inputWrap + .inputWrap {
+    margin-top: 20px;
+  }
+
+  .wrapContent {
+    width: 640px;
+
+    @media (max-width: 1000px) {
+      width: 100%;
+    }
+
+    .btnBlock {
+      margin-top: 40px;
+    }
+
+    .addBlock {
+      margin-top: 30px;
+
+      .addField {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        text-decoration-line: underline;
+        color: #2E8EFE;
+        width: 50%;
+        margin-left: auto;
+        margin-top: 24px;
+        cursor: pointer;
+        display: block;
+
+        @media (max-width: 550px) {
+          width: 100%;
+          text-align: right;
+        }
+      }
+    }
+
+    .btnAddTest {
+      margin: 20px 0;
+    }
+  }
+
+  .innerContent {
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 30px;
+    padding: 62px 43px 42px;
+    box-sizing: border-box;
+
+    @media (max-width: 550px) {
+      padding: 35px 10px;
+    }
+  }
+
+  .editorBlock {
+    margin-top: 30px;
+
+    .editorWrapper {
+      width: 640px;
+
+      @media (max-width: 1000px) {
+        width: 540px;
+      }
+
+      @media (max-width: 700px) {
+        width: 420px;
+      }
+
+      @media (max-width: 550px) {
+        width: 390px;
+      }
+
+      @media (max-width: 550px) {
+        width: 270px;
+      }
+    }
+
+    h3 {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+      margin-bottom: 15px;
+    }
+  }
+
+  & .modalContainer {
+    width: 1210px;
+    padding: 45px 120px 64px;
+    box-sizing: border-box;
+
+    @media (max-width: 1300px) {
+      width: 1000px;
+    }
+
+    @media (max-width: 1100px) {
+      width: 850px;
+      padding: 40px 20px;
+    }
+
+    @media (max-width: 900px) {
+      width: 600px;
+    }
+
+    @media (max-width: 700px) {
+      width: 100%;
+    }
+
+    h2 {
+      font-family: 'Aqum';
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 23px;
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      text-align: center;
+      text-transform: uppercase;
+
+      @media (max-width: 700px) {
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+
+    .addNameTest {
+      margin-bottom: 24px;
+
+      p {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+        margin-bottom: 13px;
+
+        @media (max-width: 900px) {
+          text-align: center;
+        }
+      }
+
+      .titleInput {
+        position: relative;
+        width: 70%;
+        @media (max-width: 900px) {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+
+        > div > div:last-child {
+          width: 100%;
+
+          > div {
+            width: 80%;
+
+            @media (max-width: 550px) {
+              width: 100%;
+            }
+          }
+        }
+
+        > div > div:first-child {
+          display: none;
+        }
+      }
+    }
+
+    .textQuestion {
+      margin-bottom: 23px;
+
+      p {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+        margin-bottom: 13px;
+      }
+    }
+
+    .addVariant {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media (max-width: 550px) {
+        flex-direction: column;
+      }
+
+      button {
+        padding: 0;
+        background: none;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        text-decoration-line: underline;
+        color: #2E8DFE;
+        border-radius: 0;
+        margin-right: 29px;
+
+        @media (max-width: 550px) {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
+
+        span {
+          display: none;
+        }
+      }
+
+      .choiceAnswer {
+        display: flex;
+        align-items: center;
+
+        p {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 17px;
+          display: flex;
+          align-items: center;
+          color: #000000;
+        }
+      }
+    }
+
+    .btnSave {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 40px;
+    }
+
+    .switchToggle {
+      margin-left: 14px;
+      margin-right: 14px;
+    }
+
+    .choiceBlock {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      @media (max-width: 900px) {
+        flex-direction: column;
+      }
+
+      .selectBlock {
+        width: 25%;
+        @media (max-width: 900px) {
+          width: 100%;
+        }
+
+        > div {
+          justify-content: flex-end;
+          @media (max-width: 900px) {
+            justify-content: flex-start;
+          }
+        }
+
+        > div p {
+          margin: 0;
+        }
+
+        > div > div:first-child {
+          width: auto;
+          margin-right: 10px;
+        }
+
+        > div > div:last-child {
+          width: 140px;
+
+        }
+      }
+    }
+  }
+}
+
+

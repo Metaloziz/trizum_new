@@ -1,12 +1,14 @@
-import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
+
 import appStore, { Roles } from '@app/stores/appStore';
+import AddTest from '@components/add-test-page/AddTest';
 import Custom404 from '@pages/404.page';
+import { observer } from 'mobx-react-lite';
 
 const IndexPage: FC = observer(() => {
   switch (appStore.role) {
     case Roles.Methodist:
-      return <div>schedule</div>;
+      return <AddTest />;
     default:
       return <Custom404 />;
   }

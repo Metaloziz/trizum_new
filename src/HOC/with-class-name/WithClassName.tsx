@@ -6,12 +6,8 @@ type Props = {
   [key: string]: any;
 };
 
-const WithClassName = ({
-  Component,
-  className,
-  ...props
-}: Props): JSX.Element => {
-  return <Component className={className} {...props} />;
-};
+const WithClassName = ({ Component, className, ...props }: Props): JSX.Element => (
+  <Component className={className} {...props} />
+);
 
 export default WithClassName;

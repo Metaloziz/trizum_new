@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import styles from './Table.module.scss';
 
 interface IList {
@@ -14,31 +15,27 @@ interface Props {
   height?: string;
 }
 
-export const Table: FC<Props> = ({ list, colNames }) => {
-  return (
-    <div className={styles.table}>
-      {list !== undefined && list.length > 0 && (
-        <table cellSpacing={'0'} style={{ width: 'auto', height: 'auto' }}>
-          <thead>
-            <tr className={styles.th}>
-              {colNames !== undefined &&
-                colNames.length > 0 &&
-                colNames.map((headerItem, index) => (
-                  <th key={index}>{headerItem}</th>
-                ))}
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(list).map((obj, index) => (
-              <tr key={index}>
-                {Object.values(obj).map((value, index2) => (
-                  <td key={index2}>{value}</td>
-                ))}
-              </tr>
+export const Table: FC<Props> = ({ list, colNames }) => (
+  <div className={styles.table}>
+    {list !== undefined && list.length > 0 && (
+      <table cellSpacing='0' style={{ width: 'auto', height: 'auto' }}>
+        <thead>
+        <tr className={styles.th}>
+          {colNames !== undefined &&
+            colNames.length > 0 &&
+            colNames.map((headerItem, index) => <th key={index}>{headerItem}</th>)}
+        </tr>
+        </thead>
+        <tbody>
+        {Object.values(list).map((obj, index) => (
+          <tr key={index}>
+            {Object.values(obj).map((value, index2) => (
+              <td key={index2}>{value}</td>
             ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  );
-};
+          </tr>
+        ))}
+        </tbody>
+      </table>
+    )}
+  </div>
+);

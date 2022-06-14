@@ -1,10 +1,11 @@
-import { useRouter } from 'next/router';
 import { FC, ReactNode, useEffect } from 'react';
+
 import { AuthGuard } from '@app/common/AuthGuard';
 import { RoleId } from '@app/enums/RoleId';
 import { UserAuth } from '@app/models/auth/UserAuth';
 import { Routes } from '@constants/Routes';
 import { useAuthContext } from '@contexts/AuthContext';
+import { useRouter } from 'next/router';
 
 interface Props {
   children: ReactNode;
@@ -18,10 +19,8 @@ function checkGuardAccess(guard?: AuthGuard, auth?: UserAuth) {
       (guard.disallowAuth && auth) ||
       (guard.allowAuth &&
         auth &&
-        ((guard.roleIds?.length &&
-          !guard.roleIds.includes(auth.roleId as RoleId)) ||
-          (guard.excludeRoleIds?.length &&
-            guard.excludeRoleIds.includes(auth.roleId as RoleId)))))
+        ((guard.roleIds?.length && !guard.roleIds.includes(auth.roleId as RoleId)) ||
+          (guard.excludeRoleIds?.length && guard.excludeRoleIds.includes(auth.roleId as RoleId)))))
   ) {
     return false;
   }
@@ -35,8 +34,7 @@ const Guard: FC<Props> = ({ children, guard }) => {
   useEffect(() => {
     const allowAccess = checkGuardAccess(guard, auth);
     if (!allowAccess) {
-      const redirect =
-        guard?.redirect ?? Routes.Signin + `?redirect=${router.asPath}`;
+      const redirect = guard?.redirect ?? `${Routes.Signin}?redirect=${router.asPath}`;
       router.push(redirect);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

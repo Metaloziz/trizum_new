@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import { FC } from 'react';
 
 import appStore, {Roles} from '@app/stores/appStore';
 import CustomButton from '@components/custom-button/CustomButton';

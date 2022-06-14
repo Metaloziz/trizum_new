@@ -1,13 +1,17 @@
-import Image from 'next/image';
 import React, { FC, useState } from 'react';
-import CardStudentButtonGroup from '@components/card-student/card-student-for-teacher/card-student-button-group/CardStudentButtonGroup';
+
+import CardStudentButtonGroup
+  from '@components/card-student/card-student-for-teacher/card-student-button-group/CardStudentButtonGroup';
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import avatar from '@public/img/pervoklasnin.jpg';
 import iconSettingsBlue from '@svgs/icon-setting-blue.svg';
 import iconSettings from '@svgs/icon-settings.svg';
-import styles from './CardStudentExtended.module.scss';
+import Image from 'next/image';
+
 import modals from '../../../app/stores/CardStudentExtended';
+
+import styles from './CardStudentExtended.module.scss';
 
 const data = [
   { title: 'Статус', description: 'Ученик' },
@@ -27,13 +31,13 @@ const CardStudentExtended: FC<Props> = ({ title }) => {
     <div className={styles.wrapper}>
       <div className={styles.rowWrapper}>
         <div className={styles.row}>
-          <CustomImageWrapper className={styles.image} variant={'circle'}>
-            <Image src={avatar} width={'170'} height={'170'} alt={'student'} />
+          <CustomImageWrapper className={styles.image} variant='circle'>
+            <Image src={avatar} width='170' height='170' alt='student' />
           </CustomImageWrapper>
           <div className={styles.title}>
             <CardStudentTitle>{title}</CardStudentTitle>
             <div className={styles.mt20}>
-              {data.map((item) => (
+              {data.map(item => (
                 <ul key={item.title} className={styles.list}>
                   <li>{item.title}:</li>
                   <li>{item.description}</li>
@@ -51,19 +55,9 @@ const CardStudentExtended: FC<Props> = ({ title }) => {
         onMouseOut={() => setShow(false)}
       >
         {isShow ? (
-          <Image
-            src={iconSettingsBlue}
-            width={'30'}
-            height={'30'}
-            alt={'Settings'}
-          />
+          <Image src={iconSettingsBlue} width='30' height='30' alt='Settings' />
         ) : (
-          <Image
-            src={iconSettings}
-            width={'30'}
-            height={'30'}
-            alt={'Settings'}
-          />
+          <Image src={iconSettings} width='30' height='30' alt='Settings' />
         )}
       </div>
     </div>

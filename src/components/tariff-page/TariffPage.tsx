@@ -1,12 +1,10 @@
 import { useState, ChangeEvent } from 'react';
+
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
-import {
-  newstatus,
-  tariff,
-  month,
-} from '@components/moks-data/moks-data-tariff';
+import { newstatus, tariff, month } from '@components/moks-data/moks-data-tariff';
 import TextEditor from '@components/text-editor/TextEditor';
+
 import styles from './TariffPage.module.scss';
 
 const IndexPage = () => {
@@ -22,49 +20,41 @@ const IndexPage = () => {
           <div>
             <div className={styles.inputBlock}>
               <InformationItem
-                variant={'input'}
-                onChange={(valueText) => console.log(valueText)}
-                placeholder={'имя тарифа'}
+                variant='input'
+                onChange={valueText => console.log(valueText)}
+                placeholder='имя тарифа'
               />
             </div>
             <div className={styles.infoBlock}>
               <div>
+                <InformationItem title='Статус' variant='select' option={newstatus} />
                 <InformationItem
-                  title={'Статус'}
-                  variant={'select'}
-                  option={newstatus}
+                  title='Дата начала действия'
+                  variant='calendar'
+                  dataAuto='dateAction'
                 />
                 <InformationItem
-                  title={'Дата начала действия'}
-                  variant={'calendar'}
-                  dataAuto={'dateAction'}
+                  title='Дата окончания действия'
+                  variant='calendar'
+                  dataAuto='endAction'
                 />
-                <InformationItem
-                  title={'Дата окончания действия'}
-                  variant={'calendar'}
-                  dataAuto={'endAction'}
-                />
-                <InformationItem
-                  title={'Тариф после'}
-                  variant={'select'}
-                  option={tariff}
-                />
+                <InformationItem title='Тариф после' variant='select' option={tariff} />
               </div>
               <div>
                 <InformationItem
-                  title={'Старая цена'}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  title='Старая цена'
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
                 <InformationItem
-                  title={'Новая цена'}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  title='Новая цена'
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
                 <InformationItem
-                  title={'Код тарифа'}
-                  variant={'input'}
-                  onChange={(valueText) => console.log(valueText)}
+                  title='Код тарифа'
+                  variant='input'
+                  onChange={valueText => console.log(valueText)}
                 />
               </div>
             </div>
@@ -79,52 +69,50 @@ const IndexPage = () => {
                 <div className={styles.inputTariff}>
                   <div>
                     <input
-                      type={'radio'}
-                      value={'twoChildren'}
-                      id={'twoChildren'}
-                      name={'currentRadioValue'}
+                      type='radio'
+                      value='twoChildren'
+                      id='twoChildren'
+                      name='currentRadioValue'
                       onChange={handlerRadioChange}
                       checked={currentRadioValue === 'twoChildren'}
                     />
                   </div>
-                  <label htmlFor={'twoChildren'}>
-                    Тариф для второго ребёнка
-                  </label>
+                  <label htmlFor='twoChildren'>Тариф для второго ребёнка</label>
                 </div>
                 <div className={styles.inputTariff}>
                   <div>
                     <input
-                      type={'radio'}
-                      value={'registration'}
-                      id={'registration'}
-                      name={'currentRadioValue'}
+                      type='radio'
+                      value='registration'
+                      id='registration'
+                      name='currentRadioValue'
                       onChange={handlerRadioChange}
                       checked={currentRadioValue === 'registration'}
                     />
                   </div>
-                  <label htmlFor={'registration'}>
+                  <label htmlFor='registration'>
                     Тариф для новых клиентов (активируется при регистрации)
                   </label>
                 </div>
                 <div className={styles.inputTariff}>
                   <div>
                     <input
-                      type={'radio'}
-                      value={'firstPayment'}
-                      id={'firstPayment'}
-                      name={'currentRadioValue'}
+                      type='radio'
+                      value='firstPayment'
+                      id='firstPayment'
+                      name='currentRadioValue'
                       onChange={handlerRadioChange}
                       checked={currentRadioValue === 'firstPayment'}
                     />
                   </div>
-                  <label htmlFor={'firstPayment'}>
+                  <label htmlFor='firstPayment'>
                     Тариф для новых клиентов (предполагается при первой оплате)
                   </label>
                 </div>
                 <div className={styles.selectTraffic}>
                   <InformationItem
-                    title={'Сколько месяцев действует'}
-                    variant={'select'}
+                    title='Сколько месяцев действует'
+                    variant='select'
                     option={month}
                   />
                 </div>

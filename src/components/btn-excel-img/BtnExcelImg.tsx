@@ -1,8 +1,10 @@
-import Image from 'next/image';
 import { useState } from 'react';
+
 import CustomButton from '@components/custom-button/CustomButton';
 import btnExcelHover from '@svgs/btn-excel-hover.svg';
 import btnExcel from '@svgs/btn-excel.svg';
+import Image from 'next/image';
+
 import styles from './BtnExcelImg.module.scss';
 
 const BtnExcelImg = () => {
@@ -15,12 +17,7 @@ const BtnExcelImg = () => {
     >
       <CustomButton>Выгрузиль в Excel</CustomButton>
       <div className={styles.excelPic}>
-        <Image
-          src={hover ? btnExcelHover : btnExcel}
-          alt={'excel'}
-          width={14}
-          height={19}
-        />
+        <Image src={hover ? btnExcelHover : btnExcel} alt='excel' width={14} height={19} />
       </div>
     </div>
   );

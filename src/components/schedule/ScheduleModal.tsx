@@ -1,8 +1,10 @@
-import moment from 'moment';
 import React, { FC, useState } from 'react';
+
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import { ScheduleEvent } from '@components/schedule/ScheduleDnD';
+import moment from 'moment';
+
 import styles from './ScheduleModal.module.scss';
 
 type ScheduleModalProps = {
@@ -10,17 +12,13 @@ type ScheduleModalProps = {
   onApply: (event: ScheduleEvent) => void;
 };
 
-const ScheduleModal: FC<ScheduleModalProps> = (props) => {
+const ScheduleModal: FC<ScheduleModalProps> = props => {
   const { event, onApply } = props;
   const [title, setTitle] = useState(event.title);
   const [cl, setClass] = useState(event.class);
   const [lesson, setLesson] = useState(event.lesson);
-  const [start, setStart] = useState(
-    moment(event.start, 'D.M.YYYY').format('DD.MM.YYYY'),
-  );
-  const [end, setEnd] = useState(
-    moment(event.end, 'D.M.YYYY').format('DD.MM.YYYY'),
-  );
+  const [start, setStart] = useState(moment(event.start, 'D.M.YYYY').format('DD.MM.YYYY'));
+  const [end, setEnd] = useState(moment(event.end, 'D.M.YYYY').format('DD.MM.YYYY'));
   const applyChanges = () => {
     const newEvent: ScheduleEvent = {
       title,
@@ -43,21 +41,21 @@ const ScheduleModal: FC<ScheduleModalProps> = (props) => {
     <div className={styles.wrapper}>
       <h4>Редактирование урока</h4>
       <InformationItem
-        title={'Время начала урока'}
-        variant={'calendar'}
+        title='Время начала урока'
+        variant='calendar'
         value={start}
         onChange={handleStartChange}
       />
       <InformationItem
-        title={'Время окончания урока'}
-        variant={'calendar'}
+        title='Время окончания урока'
+        variant='calendar'
         value={end}
         onChange={handleEndChange}
       />
-      <InformationItem title={'Учитель'} variant={'input'} />
-      <InformationItem title={'Статус'} variant={'input'} />
-      {/*<TextField value={cl} onChange={setClass} label={'Учитель'} />*/}
-      {/*<TextField value={cl} onChange={setClass} label={'Статус'} />*/}
+      <InformationItem title='Учитель' variant='input' />
+      <InformationItem title='Статус' variant='input' />
+      {/* <TextField value={cl} onChange={setClass} label={'Учитель'} /> */}
+      {/* <TextField value={cl} onChange={setClass} label={'Статус'} /> */}
       <CustomButton onClick={applyChanges}>Сохранить</CustomButton>
     </div>
   );

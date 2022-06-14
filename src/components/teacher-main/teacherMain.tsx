@@ -1,8 +1,10 @@
+import { FC } from 'react';
+
+import Schedule from '@components/schedule/Schedule';
+import ScheduleDnD from '@components/schedule/ScheduleDnD';
+import TeacherSearchBar from '@components/teacher-searchBar/TeacherSearchBar';
+
 import styles from './teacherMain.module.scss';
-import {FC} from "react";
-import TeacherSearchBar from "@components/teacher-searchBar/TeacherSearchBar";
-import ScheduleDnD from "@components/schedule/ScheduleDnD";
-import Schedule from "@components/schedule/Schedule";
 
 const groups = ['group №1', 'group №2', 'group №3'];
 const schools = ['school №1', 'school №2', 'school №3'];
@@ -29,13 +31,12 @@ const items = [
   },
 ];
 
-const TeacherMain: FC = () => {
-  return (
-    <div className={styles.container}>
-      {/*<TeacherSearchBar cities={cities} groups={groups} schools={schools} />*/}
-      <Schedule />
-      {/*<ScheduleDnD />*/}
-      {/* {items.map((item) => {
+const TeacherMain: FC = () => (
+  <div className={styles.container}>
+    {/* <TeacherSearchBar cities={cities} groups={groups} schools={schools} /> */}
+    <Schedule />
+    {/* <ScheduleDnD /> */}
+    {/* {items.map((item) => {
         return (
           <TeacherMainItem
             key={item.id}
@@ -44,8 +45,7 @@ const TeacherMain: FC = () => {
             imgSrc={item.img}
           />
         );
-      })}*/}
-    </div>
-  );
-};
-export default TeacherMain
+      })} */}
+  </div>
+);
+export default TeacherMain;

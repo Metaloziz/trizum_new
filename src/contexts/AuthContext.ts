@@ -1,8 +1,9 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react';
+
 import { UserAuth } from '@app/models/auth/UserAuth';
 import { Client } from '@app/models/user/Client';
 import { Manager } from '@app/models/user/Manager';
-import {Roles} from "@app/stores/appStore";
+import { Roles } from '@app/stores/appStore';
 
 export interface AuthContextValue {
   auth?: UserAuth;

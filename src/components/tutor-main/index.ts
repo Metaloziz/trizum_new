@@ -1,1 +1,1 @@
-export {default} from './TutorMain'
+export { default } from './TutorMain';

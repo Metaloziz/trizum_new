@@ -23,7 +23,7 @@ export function convertToString(
   date: Date,
   option: Intl.DateTimeFormatOptions = { hour12: false },
 ) {
-  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], option);
+  return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], option)}`;
 }
 
 export function convertToDateString(

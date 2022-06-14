@@ -1,10 +1,11 @@
-import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
+
 import { AuthGuard } from '@app/common/AuthGuard';
 import authService from '@app/services/AuthService';
 import { Routes } from '@constants/Routes';
 import { useAuthContext } from '@contexts/AuthContext';
 import { getProfile } from '@utils/Auth';
+import { useRouter } from 'next/router';
 
 export default function SignIn() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function SignIn() {
 
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target as any;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setInputs(values => ({ ...values, [name]: value }));
   };
 
   async function handleSubmit(event: FormEvent) {
@@ -30,11 +31,7 @@ export default function SignIn() {
         userId: result.userId,
         roleId: result.roleId,
       };
-      const profile = await getProfile(
-        result.token,
-        result.roleId,
-        router.locale,
-      );
+      const profile = await getProfile(result.token, result.roleId, router.locale);
 
       setUserAuthenticated({ auth, profile });
       router.push((router.query.redirect as string) || Routes.Index);
@@ -49,21 +46,11 @@ export default function SignIn() {
       <form onSubmit={handleSubmit}>
         <label>
           Email
-          <input
-            name="email"
-            type="text"
-            value={inputs.email}
-            onChange={handleChange}
-          />
+          <input name='email' type='text' value={inputs.email} onChange={handleChange} />
         </label>
         <label>
           Password
-          <input
-            name="password"
-            type="password"
-            value={inputs.password}
-            onChange={handleChange}
-          />
+          <input name='password' type='password' value={inputs.password} onChange={handleChange} />
         </label>
         <button type="submit">Sign in</button>
       </form>

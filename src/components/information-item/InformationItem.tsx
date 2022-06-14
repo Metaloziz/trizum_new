@@ -68,15 +68,15 @@ const InformationItem: FC<Props> = props => {
     default:
       part = <TextField onChange={onChange} id={id} placeholder={placeholder} type={type} />;
   }
-  
+
   switch (mask) {
     case 'phone':
       part = (
         <NumberFormat
           className={styles.numberFormat}
           // customInput={TextField}
-          format='+7 (###) ###-####'
-          mask='_'
+          format="+7 (###) ###-####"
+          mask="_"
           // onChange={onChange}
           id={id}
           placeholder={placeholder}
@@ -88,8 +88,8 @@ const InformationItem: FC<Props> = props => {
         <NumberFormat
           className={styles.numberFormat}
           // customInput={TextField}
-          format='############'
-          mask='_'
+          format="############"
+          mask="_"
           // onChange={onChange}
           id={id}
           placeholder={placeholder}
@@ -99,7 +99,7 @@ const InformationItem: FC<Props> = props => {
     default:
       part = <TextField />;
   }
-  
+
   return (
     <div className={cn(styles.wrapBlockItem, className)}>
       {title && <p>{title}</p>}
@@ -122,6 +122,7 @@ InformationItem.defaultProps = {
   id: '',
   type: '',
   value: '',
+  mask: undefined,
 };
 
 export default InformationItem;

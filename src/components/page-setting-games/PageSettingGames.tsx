@@ -45,9 +45,9 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             <span>Наименование шаблона</span>
             <div className={styles.pattern}>
               <InformationItem
-                variant='input'
+                variant="input"
                 onChange={valueText => console.log(valueText)}
-                placeholder='Шаблон 1'
+                placeholder="Шаблон 1"
               />
             </div>
           </div>
@@ -58,18 +58,18 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
               <div>
                 <span>от</span>
                 <InformationItem
-                  type='number'
-                  title=''
-                  variant='input'
+                  type="number"
+                  title=""
+                  variant="input"
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
               <div>
                 <span>до</span>
                 <InformationItem
-                  type='number'
-                  title=''
-                  variant='input'
+                  type="number"
+                  title=""
+                  variant="input"
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
@@ -79,18 +79,18 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
               <div>
                 <span>от</span>
                 <InformationItem
-                  type='number'
-                  title=''
-                  variant='input'
+                  type="number"
+                  title=""
+                  variant="input"
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
               <div>
                 <span>до</span>
                 <InformationItem
-                  type='number'
-                  title=''
-                  variant='input'
+                  type="number"
+                  title=""
+                  variant="input"
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
@@ -100,18 +100,18 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
               <div>
                 <span>от</span>
                 <InformationItem
-                  type='number'
-                  title=''
-                  variant='input'
+                  type="number"
+                  title=""
+                  variant="input"
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
               <div>
                 <span>до</span>
                 <InformationItem
-                  type='number'
-                  title=''
-                  variant='input'
+                  type="number"
+                  title=""
+                  variant="input"
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
@@ -121,18 +121,18 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
               <div>
                 <span>от</span>
                 <InformationItem
-                  type='number'
-                  title=''
-                  variant='input'
+                  type="number"
+                  title=""
+                  variant="input"
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
               <div>
                 <span>до</span>
                 <InformationItem
-                  type='number'
-                  title=''
-                  variant='input'
+                  type="number"
+                  title=""
+                  variant="input"
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
@@ -140,9 +140,9 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             <div className={cn(styles.rowSettings, styles.timeExecution)}>
               <span>Время выполнения</span>
               <InformationItem
-                type='number'
-                title=''
-                variant='input'
+                type="number"
+                title=""
+                variant="input"
                 onChange={valueText => console.log(valueText)}
               />
             </div>
@@ -154,10 +154,10 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
           <div className={styles.radioGroup}>
             <label>
               <input
-                type='radio'
-                value='level'
-                id='level'
-                name='currentRadioValue'
+                type="radio"
+                value="level"
+                id="level"
+                name="currentRadioValue"
                 onChange={handlerRadioChange}
                 checked={currentRadioValue === 'level'}
               />
@@ -165,10 +165,10 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             </label>
             <label>
               <input
-                type='radio'
-                value=' jump'
-                id=' jump'
-                name='currentRadioValue'
+                type="radio"
+                value=" jump"
+                id=" jump"
+                name="currentRadioValue"
                 onChange={handlerRadioChange}
                 checked={currentRadioValue === ' jump'}
               />
@@ -178,10 +178,10 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             </label>
             <label>
               <input
-                type='radio'
-                value='errorJump'
-                id='errorJump'
-                name='currentRadioValue'
+                type="radio"
+                value="errorJump"
+                id="errorJump"
+                name="currentRadioValue"
                 onChange={handlerRadioChange}
                 checked={currentRadioValue === 'errorJump'}
               />
@@ -194,14 +194,14 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             <p>
               Если выполняет
               <InformationItem
-                type='number'
-                variant='input'
+                type="number"
+                variant="input"
                 onChange={valueText => console.log(valueText)}
               />
               уровня подряд за
               <InformationItem
-                type='number'
-                variant='input'
+                type="number"
+                variant="input"
                 onChange={valueText => console.log(valueText)}
               />
               секунд
@@ -209,18 +209,18 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
             <p>
               и
               <InformationItem
-                type='number'
-                title=''
-                variant='input'
+                type="number"
+                title=""
+                variant="input"
                 onChange={valueText => console.log(valueText)}
               />
               % ошибок, то система <span>ПРЕДЛАГАЕТ</span> поднять на
             </p>
             <p>
               <InformationItem
-                type='number'
-                title=''
-                variant='input'
+                type="number"
+                title=""
+                variant="input"
                 onChange={valueText => console.log(valueText)}
               />
               уровней один раз.

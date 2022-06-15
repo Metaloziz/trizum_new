@@ -1,7 +1,9 @@
-import Image from 'next/image';
 import React, { useState } from 'react';
+
 import settingsGamesHover from '@svgs/settings-game-hover.svg';
 import settingsGames from '@svgs/settings-game.svg';
+import Image from 'next/image';
+
 import styles from './SettingsGames.module.scss';
 
 const SettingsGames = () => {
@@ -15,9 +17,9 @@ const SettingsGames = () => {
     >
       <Image
         src={isShowHover ? settingsGamesHover : settingsGames}
-        alt={'setting'}
-        width={'16'}
-        height={'16'}
+        alt="setting"
+        width="16"
+        height="16"
       />
     </div>
   );

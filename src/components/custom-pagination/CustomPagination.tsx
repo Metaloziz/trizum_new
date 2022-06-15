@@ -11,7 +11,8 @@ import styles from './CustomPagination.module.scss';
 type CurrentItemType = ListType[] | listCuratorType[];
 
 interface Props {
-  currentItem: CurrentItemType;
+  currentItem?: CurrentItemType;
+  length?: number;
   currentPage: number;
   count: number;
   total: number;
@@ -61,7 +62,7 @@ const CustomPagination: FC<Props> = props => {
         ))}
       </ul>
       <button
-        disabled={currentItem.length !== count}
+        disabled={currentItem?.length !== count || false}
         className={styles.next}
         onClick={() => {
           navigate(activeStepCount + 1, () => next());
@@ -71,6 +72,11 @@ const CustomPagination: FC<Props> = props => {
       </button>
     </div>
   );
+};
+
+CustomPagination.defaultProps = {
+  currentItem: undefined,
+  length: undefined,
 };
 
 export default CustomPagination;

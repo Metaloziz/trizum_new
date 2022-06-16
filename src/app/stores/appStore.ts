@@ -24,12 +24,18 @@ export enum Roles {
 class AppStore {
   role: Roles = Roles.Unauthorized;
 
+  token = '';
+
   constructor() {
     makeAutoObservable(this);
   }
 
   setRole(role: Roles): void {
     this.role = role;
+  }
+
+  setToken(token: string) {
+    this.token = token;
   }
 }
 

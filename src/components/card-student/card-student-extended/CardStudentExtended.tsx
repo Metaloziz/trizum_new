@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 
-import CardStudentButtonGroup
-  from '@components/card-student/card-student-for-teacher/card-student-button-group/CardStudentButtonGroup';
+import CardStudentButtonGroup from '@components/card-student/card-student-for-teacher/card-student-button-group/CardStudentButtonGroup';
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import avatar from '@public/img/pervoklasnin.jpg';
@@ -31,8 +30,8 @@ const CardStudentExtended: FC<Props> = ({ title }) => {
     <div className={styles.wrapper}>
       <div className={styles.rowWrapper}>
         <div className={styles.row}>
-          <CustomImageWrapper className={styles.image} variant='circle'>
-            <Image src={avatar} width='170' height='170' alt='student' />
+          <CustomImageWrapper className={styles.image} variant="circle">
+            <Image src={avatar} width="170" height="170" alt="student" />
           </CustomImageWrapper>
           <div className={styles.title}>
             <CardStudentTitle>{title}</CardStudentTitle>
@@ -55,9 +54,9 @@ const CardStudentExtended: FC<Props> = ({ title }) => {
         onMouseOut={() => setShow(false)}
       >
         {isShow ? (
-          <Image src={iconSettingsBlue} width='30' height='30' alt='Settings' />
+          <Image src={iconSettingsBlue} width="30" height="30" alt="Settings" />
         ) : (
-          <Image src={iconSettings} width='30' height='30' alt='Settings' />
+          <Image src={iconSettings} width="30" height="30" alt="Settings" />
         )}
       </div>
     </div>

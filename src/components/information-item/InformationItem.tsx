@@ -9,7 +9,7 @@ import NumberFormat from 'react-number-format';
 
 import styles from './InformationItem.module.scss';
 
-type VariantType = 'select' | 'input' | 'calendar' | 'file';
+type VariantType = 'select' | 'input' | 'calendar' | 'file' | 'phone' | 'inn';
 
 type SizeType = 'large' | 'normal';
 
@@ -64,12 +64,6 @@ const InformationItem: FC<Props> = props => {
     case 'file':
       part = <InputFile />;
       break;
-    case 'input':
-    default:
-      part = <TextField onChange={onChange} id={id} placeholder={placeholder} type={type} />;
-  }
-
-  switch (mask) {
     case 'phone':
       part = (
         <NumberFormat
@@ -96,8 +90,9 @@ const InformationItem: FC<Props> = props => {
         />
       );
       break;
+    case 'input':
     default:
-      part = <TextField />;
+      part = <TextField onChange={onChange} id={id} placeholder={placeholder} type={type} />;
   }
 
   return (

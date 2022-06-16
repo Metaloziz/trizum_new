@@ -7,6 +7,7 @@ import { AppContext, AppProps } from 'next/app';
 import '@styles/normalize.scss';
 import 'react-calendar/dist/Calendar.css';
 import Head from 'next/head';
+import authService from '@app/services/AuthService';
 
 console.log(process.env.asd, 'asd');
 const App = (props: AppProps) => {
@@ -28,7 +29,13 @@ const App = (props: AppProps) => {
   );
 };
 
-App.getInitialProps = async (appContext: AppContext) =>
+App.getInitialProps = async (appContext: AppContext) => {
+  // const { code } = await authService.sms({ phone: '79001001010' });
+  // const {
+  //   data: { token },
+  // } = await authService.login({ phone: '79001001010', smsCode: code });
+  // const jwt = jwtDecode(token);
+  // const user = await authService.loadme()
   // здесь вставить запрос на авторизацию.
   // const auth = await fetch('api/v1/me')
   // const sms = await fetch('api/v1/sms')
@@ -54,12 +61,13 @@ App.getInitialProps = async (appContext: AppContext) =>
   // console.log(resMe.data);
   // const jwt = jwt_decode(res2.data.data.token);
   // console.log(jwt.role);
-  ({
+  return {
     pageProps: {
       role: Roles.Teacher,
-      info: 'res2.data.data',
+      // token: jwt,
       // me: resMe,
     },
-  });
+  };
+};
 
 export default App;

@@ -66,13 +66,12 @@ const FranchisingPage = () => {
         <div className={styles.infoContent}>
           <InformationItem title="Полное наименование" variant="input" />
           <InformationItem title="Короткое наименование" variant="input" />
-          <InformationItem title="ИНН" variant="input" mask="inn" />
+          <InformationItem title="ИНН" variant="inn" />
         </div>
         <div className={styles.infoContent}>
           <InformationItem
             title="Телефон"
-            variant="input"
-            mask="phone"
+            variant="phone"
             onChange={() => handleMask(mask)}
             value="mask"
           />

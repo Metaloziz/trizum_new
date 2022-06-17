@@ -1,6 +1,7 @@
-import TokenService from '@app/services/tokenService';
-import appStore from '@app/stores/appStore';
+/* ts-ignore */
 import axios, { AxiosRequestConfig } from 'axios';
+
+import TokenService from './tokenService';
 
 const instance = axios.create({
   baseURL: 'https://backschool.sitetopic.ru/',
@@ -10,7 +11,6 @@ const instance = axios.create({
 });
 instance.interceptors.request.use(
   (config: AxiosRequestConfig<{ headers: { 'Content-Type': string } }>) => {
-    // debugger
     const token = TokenService.getLocalAccessToken();
     if (token) {
       // @ts-ignore
@@ -19,20 +19,13 @@ instance.interceptors.request.use(
     }
     return config;
   },
-  error => {
-    console.log(error, 'error');
-    return Promise.reject(error);
-  },
+  error => Promise.reject(error),
 );
 instance.interceptors.response.use(
   res => res,
   async err => {
     const originalConfig = err.config;
-    // debugger
-    if (
-      // originalConfig.url !== '/auth/signin' &&
-      err.response
-    ) {
+    if (originalConfig.url !== '/auth/signin' && err.response) {
       // Access Token was expired
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;

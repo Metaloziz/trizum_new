@@ -29,16 +29,13 @@ const authService = {
   },
 
   sms: async (data: RequestSMS) => {
+    debugger
     const res: AxiosResponse<ResponseSMS> = await instance.post(Paths.SMS, data);
     return res.data;
   },
 
-  me: async (token: string) => {
-    const res: AxiosResponse<ResponseMe> = await instance.get(Paths.Me, {
-      headers: {
-        Authorization: token,
-      },
-    });
+  me: async () => {
+    const res: AxiosResponse<ResponseMe> = await instance.get(Paths.Me);
     return res.data;
   },
 

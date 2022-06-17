@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 import { AuthGuard } from '@app/common/AuthGuard';
-import authService from '@app/services/AuthService';
+import authService from '@app/services/authService';
 import { Routes } from '@constants/Routes';
 import { useAuthContext } from '@contexts/AuthContext';
 import { getProfile } from '@utils/Auth';

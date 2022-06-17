@@ -7,7 +7,7 @@ import { AppContext, AppProps } from 'next/app';
 import '@styles/normalize.scss';
 import 'react-calendar/dist/Calendar.css';
 import Head from 'next/head';
-import authService from '@app/services/AuthService';
+import authService from '@app/services/authService';
 
 console.log(process.env.asd, 'asd');
 const App = (props: AppProps) => {

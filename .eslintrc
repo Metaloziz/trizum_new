@@ -36,7 +36,9 @@
     "no-param-reassign": "off",
     "no-restricted-exports": "off",
     "no-plusplus": "off",
+    "class-methods-use-this": "off",
     "semi": "off",
+    "no-underscore-dangle": "off",
     "semi-style": "off",
     "no-extra-semi": "off",
     "no-multiple-empty-lines": [

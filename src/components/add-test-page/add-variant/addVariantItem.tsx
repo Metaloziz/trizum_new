@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { stateVariantType } from '@components/add-test-page/AddTest';
 import InformationItem from '@components/information-item/InformationItem';
-import { stateVariantType } from '@pages/add-test/index.page';
 import checked from '@svgs/checked.svg';
 import isCheck from '@svgs/completedChecked.svg';
 import Image from 'next/image';

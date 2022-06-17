@@ -99,7 +99,7 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
-      <div className={styles.modalContent}>
+      <div>
         <BasicModal visibility={showModal} changeVisibility={setShowModal}>
           <div className={styles.modalContainer}>
             <h2>Добавление теста</h2>

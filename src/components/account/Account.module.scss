@@ -1,6 +1,14 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
+.abs {
+  position: absolute;
+  top: -10px;
+  left: 70px;
+  color: #fff;
+  opacity: 0.5;
+}
 .container {
+  position: relative;
   display: flex;
   justify-content: space-between;
 

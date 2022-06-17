@@ -30,13 +30,13 @@ class AppStore {
     makeAutoObservable(this);
   }
 
-  setRole(role: Roles): void {
+  setRole = (role: Roles): void => {
     this.role = role;
-  }
+  };
 
-  setToken(token: string) {
+  setToken = (token: string) => {
     this.token = token;
-  }
+  };
 }
 
 export default new AppStore();

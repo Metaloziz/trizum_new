@@ -3,6 +3,7 @@ import { Roles } from '@app/stores/appStore';
 import {
   RequestLogin,
   RequestSMS,
+  ResponseLoadMe,
   ResponseLogin,
   ResponseMe,
   ResponseSMS,
@@ -11,7 +12,7 @@ import { AxiosResponse } from 'axios';
 
 enum Paths {
   Auth = 'api/v1/auth',
-  Login = 'api/v1/auth',
+  Login = 'api/v1/login',
   SMS = 'api/v1/sms',
   Me = 'api/v1/me',
   LoadMe = 'api/v1/loadme',
@@ -29,7 +30,6 @@ const authService = {
   },
 
   sms: async (data: RequestSMS) => {
-    debugger
     const res: AxiosResponse<ResponseSMS> = await instance.post(Paths.SMS, data);
     return res.data;
   },
@@ -39,8 +39,9 @@ const authService = {
     return res.data;
   },
 
-  loadme: async (token: string) => {
-    const res = await instance.get(Paths.LoadMe);
+  loadme: async () => {
+    const res: AxiosResponse<ResponseLoadMe> = await instance.get(Paths.LoadMe);
+    return res.data;
   },
 };
 

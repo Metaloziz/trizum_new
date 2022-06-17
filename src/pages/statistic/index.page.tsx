@@ -1,9 +1,10 @@
-import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
+
 import appStore, { Roles } from '@app/stores/appStore';
 import Results from '@components/results/Results';
 import Custom404 from '@pages/404.page';
 import styles from '@pages/statistic/Statistic.module.scss';
+import { observer } from 'mobx-react-lite';
 
 type Props = Record<string, unknown>;
 

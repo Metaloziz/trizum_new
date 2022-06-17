@@ -13,8 +13,6 @@ type VariantType = 'select' | 'input' | 'calendar' | 'file' | 'phone' | 'inn';
 
 type SizeType = 'large' | 'normal';
 
-type MaskType = 'phone' | 'inn';
-
 interface Option {
   value: string;
   label: string;
@@ -23,7 +21,6 @@ interface Option {
 interface Props {
   title?: string;
   variant: VariantType;
-  mask?: MaskType;
   option?: Option[];
   size?: SizeType;
   placeholder?: string;
@@ -40,7 +37,6 @@ const InformationItem: FC<Props> = props => {
   const {
     title,
     variant,
-    mask,
     option = [],
     size = 'normal',
     placeholder = '',
@@ -117,7 +113,6 @@ InformationItem.defaultProps = {
   id: '',
   type: '',
   value: '',
-  mask: undefined,
 };
 
 export default InformationItem;

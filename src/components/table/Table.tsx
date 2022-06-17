@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import InformationItem from '@components/information-item/InformationItem';
 import { ListType } from '@components/moks-data/moks-data-table';
 
 import styles from './Table.module.scss';
@@ -22,9 +23,9 @@ interface Props {
   list?: IList[];
   // list?: ListType;
   colNames?: string[];
-  width?: string;
-  height?: string;
-  loading: boolean;
+  // width?: string;
+  // height?: string;
+  loading?: boolean;
 }
 
 const Table: FC<Props> = ({ list, colNames, loading }) => {
@@ -46,9 +47,12 @@ const Table: FC<Props> = ({ list, colNames, loading }) => {
           <tbody>
             {Object.values(list).map((obj, index) => (
               <tr key={index}>
-                {Object.values(obj).map((value, index2) => (
-                  <td key={index2}>{value as any}</td>
-                ))}
+                {Object.values(obj).map((value, index2) => {
+                  if (typeof value === 'function') {
+                    return <td key={index2}>{value()}</td>;
+                  }
+                  return <td key={index2}>{value as any}</td>;
+                })}
               </tr>
             ))}
           </tbody>
@@ -56,6 +60,12 @@ const Table: FC<Props> = ({ list, colNames, loading }) => {
       )}
     </div>
   );
+};
+
+Table.defaultProps = {
+  list: [],
+  colNames: [],
+  loading: false,
 };
 
 export default Table;

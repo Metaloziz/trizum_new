@@ -72,7 +72,7 @@ const studentLinks = [
 const teacherLinks = [
   Links.Index,
   Links.Classes,
-  Links.Statistic,
+  // Links.Statistic,
   // Links.Homework,
   Links.Games,
   Links.Blog,

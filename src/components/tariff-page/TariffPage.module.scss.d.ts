@@ -11,3 +11,4 @@ export const inputBlock: string;
 export const inputTariff: string;
 export const selectTraffic: string;
 export const traffic: string;
+export const listTariff: string;

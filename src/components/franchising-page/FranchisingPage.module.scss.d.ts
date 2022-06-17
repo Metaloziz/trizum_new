@@ -9,3 +9,4 @@ export const modalWrap: string;
 export const paginationCuratorBlock: string;
 export const tableContent: string;
 export const wrapStaticBlock: string;
+export const deleteBtn: string;

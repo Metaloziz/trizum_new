@@ -81,7 +81,7 @@ function getGradient(ctx: any, chartArea: any) {
     gradient.addColorStop(0.5, Utils.CHART_COLORS.yellow);
     gradient.addColorStop(1, Utils.CHART_COLORS.red);
   }
-  
+
   return gradient;
 }
 
@@ -99,11 +99,12 @@ const config = {
         borderColor(context: any) {
           const { chart } = context;
           const { ctx, chartArea } = chart;
-          
+
           if (!chartArea) {
             // This case happens on initial chart load
             return;
           }
+          // eslint-disable-next-line consistent-return
           return getGradient(ctx, chartArea);
         },
         data: [0, 80, 5, 2, 20, 70, 45, 65, 5, 2, 20, 70, 45, 65],
@@ -180,7 +181,7 @@ const gamesAr: ValueLabelT[] = [
 
 enum ResultsView {
   Table = 0,
-  Chart = 1,
+  // Chart = 1,
 }
 
 const gamesArr = [
@@ -210,12 +211,13 @@ const Results: FC<Props> = () => {
       setSelectedGames([...selectedGames, selectedGame]);
     }
   };
-  
+
   const onChangeSelect = (value: SingleValue<ValueLabelT>) => {
     setSelectValue(value);
   };
   const onViewChangeClick = (value: ResultsView) => {
     if (view === value) {
+      // true
     } else {
       setView(value);
     }

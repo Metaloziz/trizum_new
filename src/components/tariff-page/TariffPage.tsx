@@ -27,33 +27,43 @@ const TariffPage: FC = () => {
             </div>
             <div className={styles.infoBlock}>
               <div>
-                <InformationItem title="Статус" variant="select" option={newstatus} />
                 <InformationItem
-                  title="Дата начала действия"
-                  variant="calendar"
-                  dataAuto="dateAction"
+                  title='Статус'
+                  variant='select'
+                  option={newstatus}
+                  placeholder='Активен'
                 />
                 <InformationItem
-                  title="Дата окончания действия"
-                  variant="calendar"
-                  dataAuto="endAction"
+                  title='Дата начала действия'
+                  variant='calendar'
+                  dataAuto='dateAction'
                 />
-                <InformationItem title="Тариф после" variant="select" option={tariff} />
+                <InformationItem
+                  title='Дата окончания действия'
+                  variant='calendar'
+                  dataAuto='endAction'
+                />
+                <InformationItem
+                  title='Тариф после'
+                  variant='select'
+                  option={tariff}
+                  placeholder='Тариф 1'
+                />
               </div>
               <div>
                 <InformationItem
-                  title="Старая цена"
-                  variant="input"
+                  title='Старая цена'
+                  variant='input'
                   onChange={valueText => console.log(valueText)}
                 />
                 <InformationItem
-                  title="Новая цена"
-                  variant="input"
+                  title='Новая цена'
+                  variant='input'
                   onChange={valueText => console.log(valueText)}
                 />
                 <InformationItem
-                  title="Код тарифа"
-                  variant="input"
+                  title='Код тарифа'
+                  variant='input'
                   onChange={valueText => console.log(valueText)}
                 />
               </div>
@@ -111,8 +121,8 @@ const TariffPage: FC = () => {
                 </div>
                 <div className={styles.selectTraffic}>
                   <InformationItem
-                    title="Сколько месяцев действует"
-                    variant="select"
+                    title='Сколько месяцев действует'
+                    variant='select'
                     option={month}
                   />
                 </div>
@@ -120,13 +130,11 @@ const TariffPage: FC = () => {
             </div>
           </div>
         </div>
-        <div className={styles.addTariff}>
-          <div>
-            <button onClick={() => console.log('привет')}>+</button>
-          </div>
-        </div>
       </div>
       <div className={styles.btnTraffic}>
+        <div className={styles.listTariff}>
+          <CustomButton>Список тарифов</CustomButton>
+        </div>
         <CustomButton>Сохранить</CustomButton>
       </div>
     </div>

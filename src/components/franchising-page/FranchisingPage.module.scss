@@ -248,6 +248,17 @@
 
   & .btnBlock {
     margin-top: 30px;
+    display: flex;
+    width: 500px;
+    justify-content: space-between;
+
+    .deleteBtn button {
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+      &:hover {
+        background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+      }
+    }
   }
 
 }

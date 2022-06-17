@@ -49,7 +49,7 @@ const FranchisingPage = () => {
   };
 
   const handleMask = (value: string): void => {
-    console.log(value)
+    console.log(value);
     if (Number.isInteger(value)) {
       setMask(value);
     }
@@ -59,27 +59,22 @@ const FranchisingPage = () => {
     <div className={styles.contentBlock}>
       <div className={styles.wrapStaticBlock}>
         <div className={styles.bigButton}>
-          <CustomButton type="bigButton" size="large" onClick={() => setShowModal(true)}>
+          <CustomButton type='bigButton' size='large' onClick={() => setShowModal(true)}>
             Добавить
           </CustomButton>
         </div>
         <div className={styles.infoContent}>
-          <InformationItem title="Полное наименование" variant="input" />
-          <InformationItem title="Короткое наименование" variant="input" />
-          <InformationItem title="ИНН" variant="inn" />
+          <InformationItem title='Полное наименование' variant='input' />
+          <InformationItem title='Короткое наименование' variant='input' />
+          <InformationItem title='ИНН' variant='inn' />
         </div>
         <div className={styles.infoContent}>
-          <InformationItem
-            title="Телефон"
-            variant="phone"
-            onChange={() => handleMask(mask)}
-            value="mask"
-          />
-          <InformationItem title="E-mail" variant="input" />
-          <InformationItem title="Город" variant="select" placeholder="Москва" option={city} />
+          <InformationItem title='Телефон' variant='phone' />
+          <InformationItem title='E-mail' variant='input' />
+          <InformationItem title='Город' variant='select' placeholder='Москва' option={city} />
         </div>
         <div className={styles.findBtn}>
-          <InformationItem title="Номер счёта" variant="input" />
+          <InformationItem title='Номер счёта' variant='input' />
           <div className={styles.btnText}>
             <CustomButton>Найти</CustomButton>
           </div>
@@ -104,28 +99,31 @@ const FranchisingPage = () => {
           <div className={styles.modalWrap}>
             <div className={styles.modalContent}>
               <div>
-                <InformationItem title="Полное наименование" variant="input" />
-                <InformationItem title="Короткое наименование" variant="input" />
-                <InformationItem title="ИНН" variant="input" />
-                <InformationItem title="Юр. адрес" variant="input" />
-                <InformationItem title="Фактический адрес" variant="input" />
-                <InformationItem title="Наименование школы" variant="input" />
-                <InformationItem title="ОГРН" variant="input" />
-                <InformationItem title="КПП" variant="input" />
-                <InformationItem title="Расчётный счёт" variant="input" />
+                <InformationItem title='Полное наименование' variant='input' />
+                <InformationItem title='Короткое наименование' variant='input' />
+                <InformationItem title='ИНН' variant='input' />
+                <InformationItem title='Юр. адрес' variant='input' />
+                <InformationItem title='Фактический адрес' variant='input' />
+                <InformationItem title='Наименование школы' variant='input' />
+                <InformationItem title='ОГРН' variant='input' />
+                <InformationItem title='КПП' variant='input' />
+                <InformationItem title='Расчётный счёт' variant='input' />
               </div>
               <div>
-                <InformationItem title="Телефон" variant="input" />
-                <InformationItem title="E-mail" variant="input" />
-                <InformationItem title="Город" variant="input" />
-                <InformationItem title="КПП" variant="input" />
-                <InformationItem title="Корр. счёт банка" variant="input" />
-                <InformationItem title="БИК банка" variant="input" />
-                <InformationItem title="ИНН банка" variant="input" />
-                <InformationItem title="КПП банка" variant="input" />
+                <InformationItem title='Телефон' variant='input' />
+                <InformationItem title='E-mail' variant='input' />
+                <InformationItem title='Город' variant='input' />
+                <InformationItem title='КПП' variant='input' />
+                <InformationItem title='Корр. счёт банка' variant='input' />
+                <InformationItem title='БИК банка' variant='input' />
+                <InformationItem title='ИНН банка' variant='input' />
+                <InformationItem title='КПП банка' variant='input' />
               </div>
             </div>
             <div className={styles.btnBlock}>
+              <div className={styles.deleteBtn}>
+                <CustomButton onClick={() => console.log('Сохранить')}>Удалить</CustomButton>
+              </div>
               <CustomButton onClick={() => console.log('Сохранить')}>Сохранить</CustomButton>
             </div>
           </div>

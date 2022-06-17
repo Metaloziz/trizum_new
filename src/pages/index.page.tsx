@@ -48,7 +48,7 @@ const Home = observer((props: any) => {
         break;
       case Roles.Unauthorized:
       default:
-        setPart(<Asd/>);
+        setPart(<Asd />);
     }
   }, [role]);
 

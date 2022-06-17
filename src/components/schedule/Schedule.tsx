@@ -155,7 +155,8 @@ const Schedule: FC = () => {
       changeVisibility();
     }
   };
-  const FullToolbar: FC<ToolbarProps<object | ScheduleEvent, object>> = (props) => (
+  // eslint-disable-next-line react/no-unstable-nested-components
+  const FullToolbar: FC<ToolbarProps<object | ScheduleEvent, object>> = props => (
     <Toolbar {...props}>
       <ChildrenToolbar />
     </Toolbar>

@@ -1,13 +1,14 @@
-import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
+
 import appStore, { Roles } from '@app/stores/appStore';
 import teacherEducationStore from '@app/stores/TeacherEducationStore';
 import TestResultPage from '@components/test-result-page/TestResultPage';
 import Custom404 from '@pages/404.page';
+import { observer } from 'mobx-react-lite';
 
 const Theory: FC = observer(() => {
   const { test } = teacherEducationStore;
-  //TODO: проверка если теста нет, то запрос за ним
+  // TODO: проверка если теста нет, то запрос за ним
   switch (appStore.role) {
     case Roles.Teacher:
     case Roles.Admin:

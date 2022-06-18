@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {FC, ReactNode, useEffect, useState} from 'react';
 
-import CustomPagination from '@components/custom-pagination/CustomPagination';
+import CustomPagination, { CurrentItemType } from '@components/custom-pagination/CustomPagination';
 import { listCurator, listCuratorType } from '@components/moks-data/moks-data-curator';
 import RateChoice from '@components/rate-choice/RateChoice';
 import SettingsGames from '@components/settings-games/SettingsGames';
@@ -11,15 +11,23 @@ import styles from './Rate.module.scss';
 
 const colNames = [
   'Название тарифа',
-  'Cтоимость',
+  'Стоимость',
   'Дата начала действия',
   'Дата окончания действия',
   'Название  тарифа',
   'Статус',
   '',
 ];
-
-const mocks1 = [
+type Mock1 ={
+  name:string
+  price:string
+  dataStart:string
+  dateEnd:string
+  nameTariff:string
+  status:string
+  settings: ()=>JSX.Element
+}
+const mocks1:Mock1[] = [
   {
     name: 'Самойленко И.Н.',
     price: 'Москва',
@@ -127,11 +135,11 @@ const Rate: FC = () => {
     };
     getData();
   }, []);
-  
+
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;
   const currentItem = data.slice(firstItemIndex, lastItemIndex);
-  
+  console.log(currentItem);
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   const nextPage = () => {
     if (currentItem.length === count) {
@@ -143,17 +151,28 @@ const Rate: FC = () => {
       setCurrentPage(prev => prev - 1);
     }
   };
-  
+
   return (
     <div className={styles.counter}>
       <RateChoice />
       <div className={styles.tableBlock}>
-        <Table list={currentItem} colNames={colNames} loading={false} />
+        <Table list={currentItem} colNames={colNames} loading={false}>
+          {currentItem.map((el) => (
+            <tr key={el.name}>
+              <td>{el.name}</td>
+              <td>{el.price}</td>
+              <td>{el.dataStart}</td>
+              <td>{el.dateEnd}</td>
+              <td>{el.nameTariff}</td>
+              <td>{el.status}</td>
+            </tr>
+          ))}
+        </Table>
       </div>
       <div className={styles.paginationRateBlock}>
         <CustomPagination
           currentPage={currentPage}
-          currentItem={currentItem}
+          length={currentItem.length}
           paginate={paginate}
           count={count}
           next={nextPage}

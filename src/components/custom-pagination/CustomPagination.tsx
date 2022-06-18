@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import styles from './CustomPagination.module.scss';
 
-type CurrentItemType = ListType[] | listCuratorType[];
+export type CurrentItemType = ListType[] | listCuratorType[] | any[];
 
 interface Props {
   currentItem?: CurrentItemType;

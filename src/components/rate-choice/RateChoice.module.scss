@@ -1,0 +1,238 @@
+.rateBlock {
+  padding: 32px 26px 50px 45px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  box-shadow: 0 20px 70px rgba(86, 89, 146, 0.1);
+  border-radius: 30px;
+  margin-bottom: 30px;
+
+  @media (max-width: 1100px) {
+    padding: 30px 15px;
+  }
+
+  p {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+
+    @media (max-width: 1100px) {
+      margin-bottom: 10px;
+    }
+  }
+
+  .rateName {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+      margin-bottom: 0;
+    }
+
+    .rateTariff {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 44%;
+
+      @media (max-width: 1100px) {
+        flex-direction: column;
+        width: 31%;
+      }
+
+      @media (max-width: 800px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      p {
+        width: auto;
+      }
+
+      .rateInput {
+        width: 61%;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+
+        > div {
+          width: 100%;
+        }
+      }
+    }
+
+    .rateStatus {
+      display: flex;
+      align-items: center;
+      width: 21%;
+      justify-content: space-between;
+
+      @media (max-width: 1100px) {
+        flex-direction: column;
+        width: 31%;
+      }
+
+      @media (max-width: 800px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .rateSelect {
+        width: 172px;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+
+        > div {
+          width: 100%;
+        }
+      }
+    }
+
+    .ratePrice {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 28%;
+
+      @media (max-width: 1100px) {
+        flex-direction: column;
+        width: 31%;
+      }
+
+      @media (max-width: 800px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .rateBlockInput {
+        display: flex;
+        box-shadow: none;
+        align-items: center;
+        justify-content: space-between;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+      }
+
+      .rateValue {
+        margin-top: 0;
+        width: 48%;
+
+        > div {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .dataChoice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+    }
+
+    .dataEnd {
+      display: flex;
+      align-items: center;
+      width: 60%;
+      justify-content: space-between;
+
+      @media (max-width: 1500px) {
+        width: 70%;
+      }
+
+      @media (max-width: 1100px) {
+        width: 60%;
+      }
+
+      @media (max-width: 800px) {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      p {
+        width: auto;
+      }
+
+      > div {
+        display: flex;
+        align-items: center;
+        width: 48%;
+        justify-content: space-between;
+
+
+        @media (max-width: 1100px) {
+          flex-direction: column;
+        }
+
+        @media (max-width: 800px) {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    .dataCalendar {
+      width: auto;
+
+      @media (max-width: 800px) {
+        width: 100%;
+      }
+
+      > div {
+        width: 190px;
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+      }
+    }
+
+    .btnBlock {
+      width: 22%;
+      display: flex;
+      justify-content: space-between;
+
+      @media (max-width: 1600px) {
+        width: 28%;
+      }
+
+      @media (max-width: 1100px) {
+        width: 35%;
+      }
+
+      @media (max-width: 900px) {
+        flex-direction: column;
+      }
+
+      @media (max-width: 550px) {
+        width: 100%;
+      }
+
+      .btnAdd {
+        button {
+          background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+          margin-left: 10px;
+
+          @media (max-width: 900px) {
+            width: 100%;
+            margin: 10px 0 0 0;
+          }
+
+          &:hover {
+            background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+          }
+        }
+      }
+    }
+  }
+}

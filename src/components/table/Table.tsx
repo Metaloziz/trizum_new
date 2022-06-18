@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import InformationItem from '@components/information-item/InformationItem';
 import { ListType } from '@components/moks-data/moks-data-table';
@@ -23,12 +23,14 @@ interface Props {
   list?: IList[];
   // list?: ListType;
   colNames?: string[];
+  children?: ReactNode;
   // width?: string;
   // height?: string;
   loading?: boolean;
 }
 
-const Table: FC<Props> = ({ list, colNames, loading }) => {
+const Table: FC<Props> = props => {
+  const { list, colNames, loading, children } = props;
   if (loading) {
     return <h2>Loading...</h2>;
   }
@@ -37,7 +39,7 @@ const Table: FC<Props> = ({ list, colNames, loading }) => {
       {list !== undefined && list.length > 0 && (
         <table>
           <thead>
-            <tr className={styles.th}>
+            <tr>
               {' '}
               {colNames !== undefined &&
                 colNames.length > 0 &&
@@ -45,7 +47,8 @@ const Table: FC<Props> = ({ list, colNames, loading }) => {
             </tr>
           </thead>
           <tbody>
-            {Object.values(list).map((obj, index) => (
+            {children}
+            {/* {Object.values(list).map((obj, index) => (
               <tr key={index}>
                 {Object.values(obj).map((value, index2) => {
                   if (typeof value === 'function') {
@@ -54,7 +57,7 @@ const Table: FC<Props> = ({ list, colNames, loading }) => {
                   return <td key={index2}>{value as any}</td>;
                 })}
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
       )}
@@ -66,6 +69,7 @@ Table.defaultProps = {
   list: [],
   colNames: [],
   loading: false,
+  children: undefined,
 };
 
 export default Table;

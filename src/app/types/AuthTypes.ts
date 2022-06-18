@@ -31,6 +31,6 @@ export type ResponseLoadMe = {
   franchise: null | string;
   city: null | string;
   birthdate: null | string;
-  sex: null | string;
+  sex: null | boolean;
   balance: string;
 };

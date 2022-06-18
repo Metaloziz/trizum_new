@@ -1,4 +1,5 @@
 import instance from '@app/services/config';
+import franchiseService from '@app/services/franchiseService';
 import { Roles } from '@app/stores/appStore';
 import {
   RequestLogin,
@@ -9,14 +10,7 @@ import {
   ResponseSMS,
 } from '@app/types/AuthTypes';
 import { AxiosResponse } from 'axios';
-
-enum Paths {
-  Auth = 'api/v1/auth',
-  Login = 'api/v1/login',
-  SMS = 'api/v1/sms',
-  Me = 'api/v1/me',
-  LoadMe = 'api/v1/loadme',
-}
+import {Paths} from "@app/enums/Paths";
 
 const authService = {
   authenticate: async (data: any) => {

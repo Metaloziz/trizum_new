@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 
+import franchiseStore from '@app/stores/franchiseStore';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
 import CustomPagination from '@components/custom-pagination/CustomPagination';
+import FranchisingModal from '@components/franchising-page/franchising-modal/FranchisingModal';
 import InformationItem from '@components/information-item/InformationItem';
 import {
   colNamesCurator,
@@ -11,10 +13,13 @@ import {
   city,
 } from '@components/moks-data/moks-data-curator';
 import Table from '@components/table/Table';
+import { observer } from 'mobx-react-lite';
 
 import styles from './FranchisingPage.module.scss';
 
-const FranchisingPage = () => {
+const FranchisingPage = observer(() => {
+  const { franchises, getAllFranchise } = franchiseStore;
+  const [isLoaded, setIsLoaded] = useState(false);
   const [mask, setMask] = useState('+7');
   const [showModal, setShowModal] = useState<boolean>(false);
   const [data, setData] = useState<listCuratorType[]>(listCurator); // State для главных данных
@@ -47,15 +52,13 @@ const FranchisingPage = () => {
       setCurrentPage(prev => prev - 1);
     }
   };
-
-  const handleMask = (value: string): void => {
-    console.log(value)
-    if (Number.isInteger(value)) {
-      setMask(value);
-    }
-  };
-
-  return (
+  useEffect(() => {
+    getAllFranchise().then(() => setIsLoaded(true));
+  }, []);
+  console.log(franchises);
+  return !isLoaded ? (
+    <>Loading...</>
+  ) : (
     <div className={styles.contentBlock}>
       <div className={styles.wrapStaticBlock}>
         <div className={styles.bigButton}>
@@ -69,12 +72,7 @@ const FranchisingPage = () => {
           <InformationItem title="ИНН" variant="inn" />
         </div>
         <div className={styles.infoContent}>
-          <InformationItem
-            title="Телефон"
-            variant="phone"
-            onChange={() => handleMask(mask)}
-            value="mask"
-          />
+          <InformationItem title="Телефон" variant="phone" />
           <InformationItem title="E-mail" variant="input" />
           <InformationItem title="Город" variant="select" placeholder="Москва" option={city} />
         </div>
@@ -86,7 +84,21 @@ const FranchisingPage = () => {
         </div>
       </div>
       <div className={styles.tableContent}>
-        <Table list={currentItem} colNames={colNamesCurator} loading={loading} />
+        <Table list={currentItem} colNames={colNamesCurator} loading={loading}>
+          {franchises.map((item, idx) => (
+            <tr key={item.inn || idx}>
+              <td>{`${item.fullName || ''} ${item.shortName}`}</td>
+              <td>{item.city || '-'}</td>
+              <td>{item.legalAddress || '-'}</td>
+              <td>{item.phone ? `${item.phone} ${item.email}` : '-'}</td>
+              <td>{item.ogrn ? `${item.ogrn} ${item.inn} ${item.kpp}` : '-'}</td>
+              <td>{item.checkingAccount || '-'}</td>
+              <td>{item.bankBill || '-'}</td>
+              <td>{item.bankName || '-'}</td>
+              <td>{item.bankBIK ? `${item.bankBIK} ${item.bankINN} ${item.bankKPP}` : '-'}</td>
+            </tr>
+          ))}
+        </Table>
       </div>
       <div className={styles.paginationCuratorBlock}>
         <CustomPagination
@@ -100,39 +112,10 @@ const FranchisingPage = () => {
         />
       </div>
       <div className={styles.modalContent}>
-        <BasicModal visibility={showModal} changeVisibility={setShowModal}>
-          <div className={styles.modalWrap}>
-            <div className={styles.modalContent}>
-              <div>
-                <InformationItem title="Полное наименование" variant="input" />
-                <InformationItem title="Короткое наименование" variant="input" />
-                <InformationItem title="ИНН" variant="input" />
-                <InformationItem title="Юр. адрес" variant="input" />
-                <InformationItem title="Фактический адрес" variant="input" />
-                <InformationItem title="Наименование школы" variant="input" />
-                <InformationItem title="ОГРН" variant="input" />
-                <InformationItem title="КПП" variant="input" />
-                <InformationItem title="Расчётный счёт" variant="input" />
-              </div>
-              <div>
-                <InformationItem title="Телефон" variant="input" />
-                <InformationItem title="E-mail" variant="input" />
-                <InformationItem title="Город" variant="input" />
-                <InformationItem title="КПП" variant="input" />
-                <InformationItem title="Корр. счёт банка" variant="input" />
-                <InformationItem title="БИК банка" variant="input" />
-                <InformationItem title="ИНН банка" variant="input" />
-                <InformationItem title="КПП банка" variant="input" />
-              </div>
-            </div>
-            <div className={styles.btnBlock}>
-              <CustomButton onClick={() => console.log('Сохранить')}>Сохранить</CustomButton>
-            </div>
-          </div>
-        </BasicModal>
+        <FranchisingModal showModal={showModal} setShowModal={() => setShowModal(false)} />
       </div>
     </div>
   );
-};
+});
 
 export default FranchisingPage;

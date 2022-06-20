@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import {FC, useEffect, useState} from 'react';
 
+import authService from '@app/services/authService';
+import tokenService from '@app/services/tokenService';
 import appStore, { Roles } from '@app/stores/appStore';
 import AdminMain from '@components/admin-main/AdminMain';
 import FranchiseeAdminMain from '@components/franchisee-admin-main';
@@ -10,16 +12,16 @@ import TeacherEducationMain from '@components/teacher-education/TeacherEducation
 import TeacherMain from '@components/teacher-main/teacherMain';
 import TimePicker from '@components/time-picker';
 import TutorMain from '@components/tutor-main';
+import { AxiosError } from 'axios';
 import { observer } from 'mobx-react-lite';
 import Head from 'next/head';
 
 import styles from './Home.module.scss';
-
-const Asd = () => <TimePicker date={new Date()} />;
+import Login from './login/index.page';
 
 const Home = observer((props: any) => {
   const { role } = appStore;
-  const [part, setPart] = useState(<>Unauthorized</>);
+  const [part, setPart] = useState(<></>);
   useEffect(() => {
     switch (role) {
       case Roles.Student:
@@ -48,7 +50,7 @@ const Home = observer((props: any) => {
         break;
       case Roles.Unauthorized:
       default:
-        setPart(<Asd/>);
+        setPart(<Login />);
     }
   }, [role]);
 

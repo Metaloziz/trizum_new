@@ -21,7 +21,7 @@ const Navigation: FC<Props> = ({
                                  wrapperClassName,
                                  imageClassName,
                                  activeClassName,
-}) => {
+                               }) => {
   const router = useRouter();
   const { label, href, imageSrc } = link;
   const isActive = router.asPath === href;
@@ -39,6 +39,15 @@ const Navigation: FC<Props> = ({
       </Link>
     </div>
   );
+};
+
+Navigation.defaultProps = {
+  onClick: () => {
+  },
+  className: '',
+  wrapperClassName: '',
+  activeClassName: '',
+  imageClassName: '',
 };
 
 export default Navigation;

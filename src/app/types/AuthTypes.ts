@@ -16,26 +16,8 @@ export type ResponseLogin = {
 export type ResponseMe = {
   id: string;
   email: string;
-  roles: string;
-  lastSession: string;
   phone: string;
-  images: string[];
-  userAchievements: string[];
-  franchisee: string;
-  picture: null;
-  firstName: string;
-  middleName: null;
-  lastName: string;
-  city: string | null;
-  birthdate: string;
-  sex: boolean;
-  statusCode: string | null;
-  statusName: string | null;
-  roleCode: Roles;
-  roleName: string;
-  created: string;
-  secondChild: string | null;
-  balance: string;
+  role: string;
 };
 
 export type ResponseLoadMe = {
@@ -49,6 +31,6 @@ export type ResponseLoadMe = {
   franchise: null | string;
   city: null | string;
   birthdate: null | string;
-  sex: null | string;
+  sex: null | boolean;
   balance: string;
 };

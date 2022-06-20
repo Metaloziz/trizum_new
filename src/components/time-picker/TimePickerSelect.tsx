@@ -1,4 +1,4 @@
-import React, {FC, ForwardedRef, forwardRef, Ref, useEffect, useState} from 'react';
+import React, { FC, ForwardedRef, forwardRef, Ref, useEffect, useState } from 'react';
 
 import styles from './TimePicker.module.scss';
 

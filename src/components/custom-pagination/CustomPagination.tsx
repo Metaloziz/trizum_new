@@ -4,11 +4,11 @@ import { listCuratorType } from '@components/moks-data/moks-data-curator';
 import { ListType } from '@components/moks-data/moks-data-table';
 import PaginationNextArrows from '@components/pagination-next-arrow/PaginationNextArrows';
 import PaginationPrevArrows from '@components/pagination-prev-arrows/PaginationPrevArrows';
-import classNames from 'classNames';
+import classNames from 'classnames';
 
 import styles from './CustomPagination.module.scss';
 
-type CurrentItemType = ListType[] | listCuratorType[];
+export type CurrentItemType = ListType[] | listCuratorType[] | any[];
 
 interface Props {
   currentItem?: CurrentItemType;

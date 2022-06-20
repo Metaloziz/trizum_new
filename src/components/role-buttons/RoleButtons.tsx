@@ -11,36 +11,38 @@ type Props = {
   name: string;
   onClick: () => void;
   active: string;
+  disabled?: boolean;
 };
 
 const buttons = Object.values(Roles);
 
 const ButtonItem: FC<Props> = props => {
-  const { name, active, onClick } = props;
+  const { name, active, disabled, onClick } = props;
   return (
     <button
       type="button"
       className={cn(styles.button, active === name && styles.button_active)}
       onClick={onClick}
+      disabled={disabled}
     >
       {name}
     </button>
   );
 };
 
-const RoleButtons = observer(() => {
-  console.log(appStore.role);
+const RoleButtons: FC<{ onClick: (role: Roles) => void }> = observer(props => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const onClick = (name: Roles): void => {
-    appStore.setRole(name);
+    props.onClick(name);
+    // appStore.setRole(name);
     // router.push('/');
   };
   return (
     <div className={styles.container}>
-      <button className={styles.button} onClick={() => setIsOpen(!isOpen)}>
+      {/* <button className={styles.button} onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? 'Скрыть' : 'Показать'}
-      </button>
+      </button> */}
       {isOpen &&
         buttons.map(el => (
           <ButtonItem
@@ -48,6 +50,7 @@ const RoleButtons = observer(() => {
             name={el}
             onClick={() => onClick(el as Roles)}
             active={appStore.role}
+            disabled={el === Roles.Unauthorized}
           />
         ))}
     </div>

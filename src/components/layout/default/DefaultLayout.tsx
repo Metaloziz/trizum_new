@@ -19,7 +19,7 @@ const DefaultLayout: FC<Props> = observer(({ children, ...rest }) => {
       <Header className={styles.header} />
       <Sidebar />
       <div className={styles.content}>{children}</div>
-      <RoleButtons />
+      {/* <RoleButtons /> */}
     </div>
   );
 });

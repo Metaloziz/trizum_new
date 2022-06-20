@@ -1,39 +1,54 @@
 import appStore, { Roles } from '@app/stores/appStore';
 import Layout from '@components/layout/Layout';
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 import { AppContext, AppProps } from 'next/app';
 // import { Provider } from 'react-redux';
 import '@styles/normalize.scss';
 import 'react-calendar/dist/Calendar.css';
 import Head from 'next/head';
-import authService from '@app/services/AuthService';
+
+import { useEffect, useState } from 'react';
+
+import tokenService from '@app/services/tokenService';
+import authService from '@app/services/authService';
 
 console.log(process.env.asd, 'asd');
-const App = (props: AppProps) => {
+const App = (props: AppProps<{ token: string }>) => {
   const { Component, pageProps } = props;
-  // console.log(pageProps.role);
-  // appStore.setRole(pageProps.role);
-  // console.log(pageProps.info);
-  // console.log(pageProps.me);
-  console.log(appStore.role);
+  console.log(pageProps.token, 'token');
+  const [isLoaded, setIsLoaded] = useState(false);
+  const asd = async () => {
+    const token = await tokenService.getUser();
+    if (token.length) {
+      try {
+        const res = await authService.loadme();
+        console.log(res.role);
+        appStore.setRole(res.role as Roles);
+      } catch (e) {
+        console.log((e as Error).message);
+      }
+    }
+    setIsLoaded(true);
+  };
+  useEffect(() => {
+    asd();
+  }, []);
   return (
     // <BrowserRouter>
     <Layout>
       <Head>
         <title>Trizum</title>
       </Head>
-      <Component {...pageProps} />
+      {!isLoaded ? <>Loading...</> : <Component {...pageProps} />}
     </Layout>
     // {/*</BrowserRouter>*/}
   );
 };
 
-App.getInitialProps = async (appContext: AppContext) => {
+App.getInitialProps = async (appContext: AppContext) =>
   // const { code } = await authService.sms({ phone: '79001001010' });
   // const {
   //   data: { token },
-  // } = await authService.login({ phone: '79001001010', smsCode: code });
+  // } =
   // const jwt = jwtDecode(token);
   // const user = await authService.loadme()
   // здесь вставить запрос на авторизацию.
@@ -61,13 +76,10 @@ App.getInitialProps = async (appContext: AppContext) => {
   // console.log(resMe.data);
   // const jwt = jwt_decode(res2.data.data.token);
   // console.log(jwt.role);
-  return {
+  ({
     pageProps: {
-      role: Roles.Teacher,
-      // token: jwt,
-      // me: resMe,
+      token: '',
     },
-  };
-};
+  });
 
 export default App;

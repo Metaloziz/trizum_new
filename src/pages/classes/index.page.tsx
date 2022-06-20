@@ -1,8 +1,9 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
+
 import appStore, { Roles } from '@app/stores/appStore';
 import ClassesPage from '@components/classes-page/ClassesPage';
 import Custom404 from '@pages/404.page';
+import { observer } from 'mobx-react-lite';
 
 const IndexPage = observer(() => {
   switch (appStore.role) {

@@ -18,3 +18,6 @@ export const switchToggle: string;
 export const textQuestion: string;
 export const titleInput: string;
 export const wrapContent: string;
+export const blockAdd: string;
+export const addText: string;
+export const modalContent: string;

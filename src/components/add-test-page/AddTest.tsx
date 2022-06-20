@@ -15,6 +15,11 @@ export type stateVariantType = {
   value: string;
 };
 
+export type stateFieldType = {
+  id: number;
+  value: string;
+};
+
 const roles = [
   {
     value: 'Роль 1',
@@ -33,6 +38,7 @@ const roles = [
 const IndexPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [variant, setVariant] = useState<Array<stateVariantType>>([]);
+
   const [isTextActive, setTextIsActive] = useState<boolean>(true);
 
   const addVariant = () => {
@@ -86,13 +92,17 @@ const IndexPage = () => {
               <TextEditor />
             </div>
           </div>
-          <div className={styles.addBlock}>
-            <InformationItem title="Вариант ответа" variant="input" />
-            <InformationItem title="Вариант ответа" variant="input" />
-            <InformationItem title="Вариант ответа" variant="input" />
-            <button className={styles.addField} onClick={() => console.log('Добавить еще поле')}>
-              Добавить еще поле
-            </button>
+         <div className={styles.blockAdd}>
+           {isTextActive && (
+             <AddVariantList
+               items={variant}
+               handlerVariant={handlerVariant}
+               handleChecked={handleChecked}
+             />
+           )}
+         </div>
+          <div className={styles.addText}>
+            <CustomButton onClick={addVariant}>Добавить еще поле</CustomButton>
           </div>
           <div className={styles.btnBlock}>
             <CustomButton>Опубликовть</CustomButton>

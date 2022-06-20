@@ -221,13 +221,12 @@
   }
 
   & p {
-    margin-bottom: 5px;
+    margin-top: 10px;
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
     line-height: 30px;
     color: #BABEC6;
-
     @media (max-width: 550px) {
       font-size: 14px;
       line-height: 20px;
@@ -257,7 +256,6 @@
     line-height: 30px;
     text-transform: uppercase;
     color: #2E8DFD;
-
     @media (max-width: 550px) {
       font-size: 18px;
       line-height: 20px;

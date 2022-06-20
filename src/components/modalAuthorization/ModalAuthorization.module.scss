@@ -1,0 +1,91 @@
+.wrapContent {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+
+  .authorization h2{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    color: #2E8DFD;
+  }
+
+  @media (max-width: 550px) {
+    padding: 30px 15px;
+  }
+
+
+  & p {
+    margin-bottom: 5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    color: #BABEC6;
+
+    @media (max-width: 550px) {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  & a {
+    display: block;
+    margin-top: 19px;
+    margin-bottom: 5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    color: #BABEC6;
+    text-decoration: underline;
+
+    @media (max-width: 550px) {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  & span {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #2E8DFD;
+
+    @media (max-width: 550px) {
+      font-size: 18px;
+      line-height: 20px;
+    }
+  }
+
+  & input {
+    width: 266px;
+    margin-top: 12px;
+    padding: 9px 30px 10px;
+    border: 1px solid #BABEC6;
+    border-radius: 26px;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #000000;
+    text-align: center;
+
+    @media (max-width: 550px) {
+      font-size: 18px;
+      line-height: 20px;
+    }
+  }
+
+  .modalInput div > div {
+    width: 100%;
+  }
+}

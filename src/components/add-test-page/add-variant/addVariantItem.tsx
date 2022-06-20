@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 
+import { AnswerT } from '@app/types/CourseTypes';
 import { stateVariantType } from '@components/add-test-page/AddTest';
 import InformationItem from '@components/information-item/InformationItem';
 import checked from '@svgs/checked.svg';
@@ -8,20 +9,15 @@ import Image from 'next/image';
 
 import styles from './addVariant.module.scss';
 
-type ArrayItemProps = stateVariantType & {
-  handlerVariant: (id: number, value: string) => void;
-  handleChecked: (id: number, isChecked: boolean) => void;
+type ArrayItemProps = AnswerT & {
+  handlerVariant: (value: string) => void;
+  handleChecked: (text: string, isChecked: boolean) => void;
 };
 
-const AddVariantItem = ({
-  id,
-  completed,
-  value,
-  handlerVariant,
-  handleChecked,
-}: ArrayItemProps) => {
+const AddVariantItem: FC<ArrayItemProps> = props => {
+  const { handlerVariant, handleChecked, text, correct } = props;
   const onClickChecked = () => {
-    handleChecked(id, !completed);
+    handleChecked(text, correct);
   };
 
   return (
@@ -30,11 +26,11 @@ const AddVariantItem = ({
         <InformationItem
           title="Вариант ответа"
           variant="input"
-          value={value}
-          onChange={e => handlerVariant(id, e)}
+          value={text}
+          onChange={e => handlerVariant(e)}
         />
         <button className={styles.checkBox} onClick={onClickChecked}>
-          <Image src={completed ? isCheck : checked} alt="checked" />
+          <Image src={correct ? isCheck : checked} alt="checked" />
           {/* <Checked/> */}
         </button>
       </div>

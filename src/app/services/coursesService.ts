@@ -7,6 +7,8 @@ import {
   ResponseOneCourse,
 } from '@app/types/CourseTypes';
 
+
+
 const coursesService = {
   getAllCourses: async (): Promise<ResponseCourses[]> => {
     const { data } = await instance.get(Paths.Courses);

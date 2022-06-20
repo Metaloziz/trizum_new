@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ChangeEvent, ComponentType, FC } from 'react';
 
 import InputFile from '@components/input-file/InputFile';
 import CustomSelect from '@components/select/CustomSelect';
@@ -28,6 +28,7 @@ interface Props {
   className?: string;
   inputClassName?: string;
   onChange?: (value: string) => void;
+  onChangeEvent?: (value: ChangeEvent<HTMLInputElement>) => void;
   id?: string;
   type?: string;
   value?: string;
@@ -42,6 +43,7 @@ const InformationItem: FC<Props> = props => {
     placeholder = '',
     dataAuto = '',
     onChange,
+    onChangeEvent,
     id,
     type,
     className,
@@ -55,7 +57,7 @@ const InformationItem: FC<Props> = props => {
       part = <TextFieldCalendar dataAuto={dataAuto} value={value} onChange={onChange} />;
       break;
     case 'select':
-      part = <CustomSelect options={option} placeholder={placeholder} />;
+      part = <CustomSelect options={option} placeholder={placeholder} onChange={onChange} />;
       break;
     case 'file':
       part = <InputFile />;
@@ -64,11 +66,11 @@ const InformationItem: FC<Props> = props => {
       part = (
         <NumberFormat
           className={styles.numberFormat}
-          // customInput={TextField}
+          // customInput={<TextField /> as unknown as ComponentType<unknown>}
           format="+7 (###) ###-####"
           mask="_"
-          // onChange={onChange}
           id={id}
+          onChange={onChangeEvent}
           placeholder={placeholder}
         />
       );
@@ -80,7 +82,6 @@ const InformationItem: FC<Props> = props => {
           // customInput={TextField}
           format="############"
           mask="_"
-          // onChange={onChange}
           id={id}
           placeholder={placeholder}
         />
@@ -88,7 +89,15 @@ const InformationItem: FC<Props> = props => {
       break;
     case 'input':
     default:
-      part = <TextField onChange={onChange} id={id} placeholder={placeholder} type={type} />;
+      part = (
+        <TextField
+          onChange={e => onChange && onChange(e.target.value)}
+          id={id}
+          placeholder={placeholder}
+          type={type}
+          value={value}
+        />
+      );
   }
 
   return (

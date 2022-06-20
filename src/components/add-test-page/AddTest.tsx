@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 
+import { AnswerT } from '@app/types/CourseTypes';
 import AddVariantList from '@components/add-test-page/add-variant/addVariantList';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
@@ -32,18 +33,21 @@ const roles = [
 
 const IndexPage = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [variant, setVariant] = useState<Array<stateVariantType>>([]);
-  const [isTextActive, setTextIsActive] = useState<boolean>(true);
-
+  const [variants, setVariants] = useState<Array<AnswerT>>([]);
+  const [isTextActive, setTextIsActive] = useState<boolean>(false);
+  const [title, setTitle] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [answers, setAnswers] = useState<AnswerT[]>([]);
   const addVariant = () => {
-    setVariant(value => [...value, { id: Date.now(), value: '', completed: false }]);
+    setVariants(value => [...value, { text: '', correct: false }]);
   };
 
-  const handlerVariant = (id: number, value: string) => {
-    setVariant(variants =>
-      variants.map(item => {
-        if (item.id === id) {
-          item.value = value;
+  const handlerVariant = (value: string) => {
+    setVariants(vars =>
+      vars.map(item => {
+        if (item.text === answer) {
+          item.text = value;
         }
         return item;
       }),
@@ -54,48 +58,96 @@ const IndexPage = () => {
     setTextIsActive(value);
   };
 
-  const handleChecked = (id: number, value: boolean) => {
-    setVariant(variants =>
-      variants.map(item => {
-        if (item.id === id) {
-          item.completed = value;
-        }
-        return item;
-      }),
+  const handleChecked = (text: string, value: boolean) => {
+    setVariants(vars =>
+      vars.map(item => (item.text === text ? { ...item, correct: value } : item)),
     );
-    console.log(variant);
   };
 
+  const onEditorChange = (state: any) => {};
+  const onTitleChange = (str: string) => {
+    setTitle(str);
+  };
+  const onAnswerOptionChange = (str: string) => {
+    setAnswer(str);
+  };
+  const onAddAnswerClick = () => {
+    const obj: AnswerT = {
+      text: answer,
+      correct: isCorrect,
+    };
+    setAnswers([obj, ...answers]);
+    setAnswer('');
+    setIsCorrect(false);
+  };
   return (
     <div className={styles.content}>
       <div className={styles.innerContent}>
         <div className={styles.wrapContent}>
           <h1>Добавление теста</h1>
-          <div className={styles.btnAddTest}>
-            <CustomButton onClick={() => setShowModal(true)}>Добавить тест</CustomButton>
-          </div>
           <div className={styles.inputWrap}>
-            <InformationItem variant="file" title="Изображение новости" />
+            <InformationItem
+              title="Наименование теста"
+              variant="input"
+              value={title}
+              onChange={onTitleChange}
+            />
           </div>
-          <div className={styles.inputWrap}>
-            <InformationItem title="Заголовок новости" variant="input" />
+          <div className={styles.selectBlock}>
+            <InformationItem
+              title="Роль: "
+              variant="select"
+              placeholder="Ваша роль"
+              option={roles}
+            />
           </div>
           <div className={styles.editorBlock}>
-            <h3>Описание</h3>
+            <h3>Текст вопроса</h3>
             <div className={styles.editorWrapper}>
-              <TextEditor />
+              <TextEditor onChange={onEditorChange} />
             </div>
           </div>
           <div className={styles.addBlock}>
-            <InformationItem title="Вариант ответа" variant="input" />
-            <InformationItem title="Вариант ответа" variant="input" />
-            <InformationItem title="Вариант ответа" variant="input" />
-            <button className={styles.addField} onClick={() => console.log('Добавить еще поле')}>
+            <InformationItem
+              title="Вариант ответа"
+              variant="input"
+              value={answer}
+              onChange={onAnswerOptionChange}
+            />
+            <button className={styles.addField} type="button" onClick={onAddAnswerClick}>
               Добавить еще поле
             </button>
+            {!isTextActive && (
+              <AddVariantList
+                items={variants}
+                handlerVariant={handlerVariant}
+                handleChecked={handleChecked}
+              />
+            )}
+            <div className={styles.addVariant}>
+              {!isTextActive && (
+                <div>
+                  <CustomButton onClick={addVariant}>Добавить вариант</CustomButton>
+                </div>
+              )}
+              <div className={styles.choiceAnswer}>
+                <p>Вариативный</p>
+                <div className={styles.switchToggle}>
+                  <Toggle defaultValue={isTextActive} onChange={handleToggleChange} />
+                </div>
+                <p>Текстовый</p>
+              </div>
+            </div>
+            {!!answers.length && (
+              <ul>
+                {answers.map(elem => (
+                  <li key={elem.text}>{elem.text}</li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className={styles.btnBlock}>
-            <CustomButton>Опубликовть</CustomButton>
+            <CustomButton>Сохранить</CustomButton>
           </div>
         </div>
       </div>
@@ -125,7 +177,7 @@ const IndexPage = () => {
             </div>
             {!isTextActive && (
               <AddVariantList
-                items={variant}
+                items={variants}
                 handlerVariant={handlerVariant}
                 handleChecked={handleChecked}
               />

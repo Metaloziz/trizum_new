@@ -66,7 +66,7 @@ const studentLinks = [
   // Links.Olympiads,
   Links.Payment,
   Links.Statistic,
-  Links.Games,
+  // Links.Games,
   Links.Blog,
 ];
 const teacherLinks = [

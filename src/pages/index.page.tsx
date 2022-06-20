@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import authService from '@app/services/authService';
 import tokenService from '@app/services/tokenService';

@@ -1,0 +1,433 @@
+.containerOlympiad {
+  margin-bottom: 46px;
+  position: relative;
+  background: #FFFFFF;
+  padding: 24px 65px;
+  box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 1280px) {
+    padding: 30px 20px;
+  }
+
+  @media (max-width: 800px) {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #BABEC6;
+    bottom: -46px;
+    left: 0;
+  }
+
+  p {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+  }
+
+  .choiceStart {
+    width: 37%;
+
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+
+    > div + div {
+      margin-top: 20px;
+    }
+
+    .nameOlympiad {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @media (max-width: 1280px) {
+        flex-direction: column;
+      }
+
+      p {
+        flex: 0 0 20%;
+
+        @media (max-width: 1280px) {
+          margin-bottom: 10px;
+          text-align: center;
+        }
+      }
+
+      .infoInput {
+        justify-content: flex-end;
+
+        @media (max-width: 1280px) {
+          justify-content: flex-start;
+        }
+
+        > div {
+          width: 87%;
+
+          @media (max-width: 1280px) {
+            width: 100%;
+            margin-left: 0;
+          }
+        }
+      }
+    }
+
+    .calendarOlympiad {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 1280px) {
+        flex-direction: column;
+      }
+
+      p {
+        flex: 0 0 25%;
+
+        @media (max-width: 1280px) {
+          margin-bottom: 10px;
+          text-align: center;
+        }
+      }
+
+      .infoCalendar {
+        > div {
+          width: 190px;
+
+          @media (max-width: 1280px) {
+            width: 100%;
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .choiceGroup {
+    width: 17%;
+
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+
+    > div + div {
+      margin-top: 20px;
+    }
+
+    .groupOlympiad {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 1280px) {
+        flex-direction: column;
+      }
+
+      > div {
+        justify-content: flex-end;
+
+        @media (max-width: 1280px) {
+          justify-content: flex-start;
+
+          > div {
+            margin-left: 0;
+            width: 100%;
+          }
+        }
+      }
+
+      p {
+        flex: 0 0 40%;
+
+        @media (max-width: 1280px) {
+          margin-bottom: 10px;
+          text-align: center;
+        }
+
+      }
+    }
+  }
+
+  .choicePlace {
+    width: 20%;
+
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+
+    > div + div {
+      margin-top: 20px;
+    }
+
+    .cityOlympiad {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 1280px) {
+        flex-direction: column;
+      }
+
+      p {
+        flex: 0 0 20%;
+
+        @media (max-width: 1280px) {
+          margin-bottom: 10px;
+          text-align: center;
+        }
+      }
+
+      .infoInput > div {
+        width: 90%;
+
+        @media (max-width: 1280px) {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  .btnOlympiad {
+
+    @media (max-width: 800px) {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 440px) {
+      flex-direction: column;
+    }
+
+    .addOlympiad button {
+      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+      margin-bottom: 23px;
+
+      @media (max-width: 800px) {
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 440px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      &:hover {
+        background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+      }
+    }
+  }
+
+  .modalOlympiad {
+    padding: 44px 120px 37px;
+    width: 1210px;
+
+    @media (max-width: 1300px) {
+      width: 990px;
+    }
+
+    @media (max-width: 1100px) {
+      padding: 40px;
+      width: 700px;
+    }
+
+    @media (max-width: 800px) {
+      width: 500px;
+    }
+
+    @media (max-width: 550px) {
+      width: 100%;
+      padding: 40px 10px;
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 23px;
+      text-transform: uppercase;
+      margin-bottom: 31px;
+      text-align: center;
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      @media (max-width: 550px) {
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+    }
+
+    .modalName {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+
+      @media (max-width: 1100px) {
+        flex-direction: column;
+      }
+
+      p {
+        flex: 0 0 20%;
+        @media (max-width: 1100px) {
+          flex: 0 0 100%;
+          margin-bottom: 10px;
+        }
+
+      }
+
+      .modalInput > div {
+        width: 45%;
+
+        @media (max-width: 1300px) {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+    }
+
+    .modalChoice {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+
+      @media (max-width: 800px) {
+        flex-direction: column;
+      }
+
+      .modalCalendar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @media (max-width: 1300px) {
+          flex-direction: column;
+          width: 45%;
+        }
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+
+        .calendar {
+          > div {
+            width: 100%;
+            margin-left: 0;
+          }
+        }
+
+        > div {
+          justify-content: flex-end;
+        }
+
+        p {
+          flex: 0 0 45%;
+
+          @media (max-width: 1300px) {
+            margin-bottom: 10px;
+            flex: 0 0 100%;
+          }
+
+          @media (max-width: 800px) {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+
+    .modalEditor {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      @media (max-width: 1100px) {
+        flex-direction: column;
+
+        p {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+      }
+
+      .editor {
+        width: 770px;
+
+        @media (max-width: 1100px) {
+          width: 400px;
+          margin: 0 auto;
+        }
+
+        @media (max-width: 550px) {
+          width: 300px;
+        }
+
+        @media (max-width: 400px) {
+          width: 280px;
+        }
+      }
+    }
+
+    .modalSelect {
+      display: flex;
+      justify-content: space-between;
+
+      @media (max-width: 800px) {
+        flex-direction: column;
+      }
+
+      > div {
+        width: 40%;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+      }
+
+      .selectBlock {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        @media (max-width: 1100px) {
+          flex-direction: column;
+        }
+
+        .select > div {
+          width: 100%;
+        }
+
+        p {
+          flex: 0 0 30%;
+
+          @media (max-width: 1100px) {
+            flex: 0 0 100%;
+            margin-bottom: 10px;
+          }
+        }
+      }
+
+    }
+
+    .saveBtn {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

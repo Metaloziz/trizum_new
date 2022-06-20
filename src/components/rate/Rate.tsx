@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useEffect, useState} from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 
 import CustomPagination, { CurrentItemType } from '@components/custom-pagination/CustomPagination';
 import { listCurator, listCuratorType } from '@components/moks-data/moks-data-curator';
@@ -18,16 +18,16 @@ const colNames = [
   'Статус',
   '',
 ];
-type Mock1 ={
-  name:string
-  price:string
-  dataStart:string
-  dateEnd:string
-  nameTariff:string
-  status:string
-  settings: ()=>JSX.Element
-}
-const mocks1:Mock1[] = [
+type Mock1 = {
+  name: string;
+  price: string;
+  dataStart: string;
+  dateEnd: string;
+  nameTariff: string;
+  status: string;
+  settings: () => JSX.Element;
+};
+const mocks1: Mock1[] = [
   {
     name: 'Самойленко И.Н.',
     price: 'Москва',
@@ -157,7 +157,7 @@ const Rate: FC = () => {
       <RateChoice />
       <div className={styles.tableBlock}>
         <Table list={currentItem} colNames={colNames} loading={false}>
-          {currentItem.map((el) => (
+          {currentItem.map(el => (
             <tr key={el.name}>
               <td>{el.name}</td>
               <td>{el.price}</td>

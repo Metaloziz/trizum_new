@@ -9,4 +9,8 @@ export const keepPlaying: string;
 export const leftBtn: string;
 export const main: string;
 export const tableBtn: string;
+export const container: string;
+export const homeworks: string;
+export const keepPlaying: string;
+export const main: string;
 export const weeklyGrowth: string;

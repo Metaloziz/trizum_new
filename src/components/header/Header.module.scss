@@ -16,6 +16,10 @@
   .accountBlock {
     display: flex;
     align-items: center;
+
+    @media (max-width: 440px) {
+      width: 48%;
+    }
   }
 
   .burgerBlock {
@@ -25,6 +29,10 @@
 
     @media (max-width: 1280px) {
       display: block;
+    }
+
+    @media (max-width: 550px) {
+      margin-right: 10px;
     }
   }
 }

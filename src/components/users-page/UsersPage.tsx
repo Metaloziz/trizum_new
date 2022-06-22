@@ -4,6 +4,7 @@ import BasicModal from '@components/basic-modal/BasicModal';
 import CardStudent from '@components/card-student/CardStudent';
 import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
+import Toggle from '@components/toggle/Toggle';
 import StudentPageFranchiseeModalAddUser
   from '@components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents
@@ -19,6 +20,10 @@ import styles from './UsersPage.module.scss';
 
 const UsersPage = observer(() => {
   const [isModalAddUser, setModalAddUser] = useState<boolean>(false);
+  const [isTextActive, setTextIsActive] = useState<boolean>(true);
+  const handleToggleChange = (value: boolean) => {
+    setTextIsActive(value);
+  };
   return (
     <div className={styles.wrapper}>
       <div className={styles.search}>
@@ -31,7 +36,16 @@ const UsersPage = observer(() => {
         <div className={styles.column}>
           <InformationItem variant='select' title='Оплачен' />
           <InformationItem variant='select' title='Роль' />
-          <InformationItem variant='select' title='Статус' />
+          <div className={styles.toggleChoice}>
+            <p>Активен</p>
+            <Toggle
+              className={styles.myToggle}
+              defaultValue={isTextActive}
+              onChange={handleToggleChange}
+              size='large'
+            />
+            <p>Заблокирован</p>
+          </div>
           <InformationItem variant='select' title='Юр.лицо' />
         </div>
         <div className={cn(styles.column, styles.flexColumn)}>

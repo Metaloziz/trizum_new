@@ -3,296 +3,234 @@
   box-sizing: border-box;
 
   @media (max-width: 1600px) {
-    padding-right: 50px;
+    padding-right: 20px
   }
 
-  @media (max-width: 1000px) {
-    padding-right: 20px;
-  }
 
   @media (max-width: 550px) {
     padding: 30px 10px;
   }
 
-  h1 {
-    font-family: 'Aqum';
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 26px;
-    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 28px;
-
-    @media (max-width: 550px) {
-      font-size: 16px;
-      line-height: 20px;
-    }
-  }
-
-  .inputWrap {
-    & > div {
-      justify-content: space-between;
-    }
-
-    & > div > div > div {
-      width: 100%;
-    }
-  }
-
-  .inputWrap + .inputWrap {
-    margin-top: 20px;
-  }
-
-  .wrapContent {
-    width: 640px;
-
-    @media (max-width: 1000px) {
-      width: 100%;
-    }
-
-    .btnBlock {
-      margin-top: 40px;
-    }
-
-    .wrapBtn {
-      margin: 20px 0;
-    }
-  }
-
   .innerContent {
-    background: #ffffff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border-radius: 30px;
-    padding: 62px 43px 42px;
-    box-sizing: border-box;
+    max-width: 1210px;
 
-    @media (max-width: 550px) {
-      padding: 35px 10px;
-    }
-
-
-  }
-
-  .editorBlock {
-    margin-top: 30px;
-
-    .editorWrapper {
-      width: 640px;
-
-      @media (max-width: 1000px) {
-        width: 540px;
-      }
-
-      @media (max-width: 700px) {
-        width: 420px;
-      }
+    h1 {
+      margin-bottom: 30px;
+      font-family: 'Aqum';
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 23px;
+      text-align: center;
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
 
       @media (max-width: 550px) {
-        width: 390px;
-      }
-
-      @media (max-width: 550px) {
-        width: 270px;
+        font-size: 20px;
+        line-height: 20px;
       }
     }
 
-    h3 {
+    p {
       font-weight: 600;
       font-size: 14px;
       line-height: 17px;
       color: #000000;
-      margin-bottom: 15px;
     }
-  }
 
-  .modalWrap {
-    .modalInner {
-      width: 1210px;
-      padding: 45px 120px 50px;
+    .nameBlock {
       display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      height: 700px;
       justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 25px;
 
-      @media (max-width: 1300px) {
-        width: 950px;
-        padding: 30px 20px;
+      @media (max-width: 1100px) {
+        .addNews {
+          @media (max-width: 800px) {
+            width: 100%;
+          }
+
+          button {
+            white-space: nowrap;
+          }
+        }
+
+        @media (max-width: 800px) {
+          flex-direction: column;
+          justify-content: flex-start;
+        }
       }
 
-      @media (max-width: 1000px) {
+      .newsInput {
+        width: 60%;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+
+        > div {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
+
+      .newsSelect {
+        width: 140px;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+
+        > div {
+          width: 100%;
+        }
+      }
+
+      .selectBlock {
+        display: flex;
+        align-items: center;
+        margin: 0 10px;
+
+        @media (max-width: 800px) {
+          width: 100%;
+          margin: 20px 0;
+
+          p {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+
+    .newsEditor {
+      margin-top: 20px;
+      width: 1210px;
+
+      @media (max-width: 1500px) {
+        width: 1050px;
+      }
+
+      @media (max-width: 1100px) {
+        width: 850px;
+      }
+
+      @media (max-width: 900px) {
         width: 750px;
       }
 
       @media (max-width: 800px) {
+        width: 650px;
+      }
+
+      @media (max-width: 700px) {
         width: 550px;
       }
 
       @media (max-width: 600px) {
-        width: 100%;
+        width: 400px;
+        margin: 20px auto 0;
       }
 
-      h2 {
-        margin-bottom: 22px;
-        font-family: 'Aqum';
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 23px;
-        text-align: center;
-        text-transform: uppercase;
-        background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        @media (max-width: 600px) {
-          font-size: 16px;
-          line-height: 18px;
-        }
-      }
-
-      .choiceBlock {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-
-        @media (max-width: 800px) {
-          flex-direction: column-reverse;
-
-          .inputBlock {
-            > div {
-              flex-direction: column;
-            }
-          }
-        }
-
-        > div:first-child {
-          width: 75%;
-
-          @media (max-width: 1000px) {
-            width: 65%
-          }
-
-          @media (max-width: 800px) {
-            width: 100%;
-            margin-top: 20px;
-          }
-
-          > div:first-child {
-            width: 30%;
-          }
-
-          > div:last-child {
-            width: 80%;
-
-            @media (max-width: 800px) {
-              width: 100%;
-            }
-
-            > div {
-              width: 100%;
-              @media (max-width: 800px) {
-                > div {
-                  width: 100%;
-                  margin-top: 10px;
-                }
-              }
-
-            }
-          }
-        }
-
-        > div:last-child {
-          width: 20%;
-          margin-top: 0;
-          justify-content: flex-end;
-
-          @media (max-width: 1000px) {
-            width: 30%
-          }
-
-          @media (max-width: 800px) {
-            width: 100%;
-          }
-        }
-
-        .modalSelect {
-
-          @media (max-width: 800px) {
-            > div {
-              flex-direction: column;
-              align-items: flex-start;
-
-              > div {
-                margin-bottom: 10px;
-              }
-            }
-          }
-
-
-          > div > div:first-child {
-            width: auto;
-            margin-right: 10px;
-          }
-
-          > div > div:last-child {
-            width: 140px;
-
-            @media (max-width: 800px) {
-              width: 100%;
-            }
-          }
-        }
-      }
-
-      .description {
-        display: flex;
-        margin-top: 20px;
-        justify-content: space-between;
-
-        @media (max-width: 600px) {
-          flex-direction: column;
-        }
-
-        p {
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 17px;
-          color: #000000;
-
-          @media (max-width: 600px) {
-            margin-bottom: 10px;
-          }
-        }
-
-        .textBlock {
-          width: 730px;
-
-          @media (max-width: 1000px) {
-            width: 500px;
-          }
-
-          @media (max-width: 600px) {
-            width: 400px;
-          }
-
-          @media (max-width: 4400px) {
-            width: 280px;
-          }
-
-          @media (max-width: 4400px) {
-            width: 240px;
-          }
-
-        }
-      }
-
-      .btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      @media (max-width: 440px) {
+        width: 290px;
       }
     }
+
+    .newsBtn {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 56px;
+
+      @media (max-width: 800px) {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  .modalInner {
+    width: 1210px;
+    padding: 40px 30px 30px;
+
+    @media (max-width: 1300px) {
+      width: 1000px;
+    }
+
+    @media (max-width: 1000px) {
+      width: 800px;
+    }
+
+    @media (max-width: 800px) {
+      width: 590px;
+    }
+
+    @media (max-width: 600px) {
+      width: 100%;
+      padding: 40px 10px 30px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-family: 'Aqum';
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 23px;
+      text-align: center;
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      @media (max-width: 600px) {
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+    }
+
+    .inputBlock {
+      .inputAdd {
+        > div {
+          width: 100%;
+          margin: 20px 0;
+        }
+      }
+    }
+
+    .textBlock {
+      margin: 20px auto 0;
+      width: 1140px;
+
+      @media (max-width: 1300px) {
+        width: 930px;
+      }
+
+      @media (max-width: 1000px) {
+        width: 730px;
+      }
+
+      @media (max-width: 800px) {
+        width: 500px;
+      }
+
+      @media (max-width: 600px) {
+        width: 350px;
+      }
+
+      @media (max-width: 440px) {
+        width: 280px;
+      }
+    }
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
   }
 }

@@ -20,6 +20,21 @@ export type ResponseMe = {
   role: string;
 };
 
+// export type ResponseLoadMe = {
+//   id: string;
+//   firstName: string;
+//   middleName: null | string;
+//   lastName: string;
+//   email: string;
+//   phone: string;
+//   role: string;
+//   franchise: null | string;
+//   city: null | string;
+//   birthdate: null | string;
+//   sex: null | boolean;
+//   balance: string;
+// };
+
 export type ResponseLoadMe = {
   id: string;
   firstName: string;
@@ -30,7 +45,15 @@ export type ResponseLoadMe = {
   role: string;
   franchise: null | string;
   city: null | string;
-  birthdate: null | string;
-  sex: null | boolean;
-  balance: string;
+  birthdate: {
+    date: string;
+    timezone_type: string;
+    timezone: string;
+  };
+  sex: null | string;
+  status: string;
+  avatar: {
+    id: string;
+    path: string;
+  };
 };

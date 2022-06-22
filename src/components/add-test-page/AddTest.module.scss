@@ -30,103 +30,178 @@
     }
   }
 
-  .inputWrap {
-    & > div {
-      justify-content: space-between;
-    }
-
-    & > div > div > div {
-      width: 100%;
-    }
-  }
-
-  .inputWrap + .inputWrap {
-    margin-top: 20px;
-  }
-
-  .wrapContent {
-    width: 640px;
-
-    @media (max-width: 1000px) {
-      width: 100%;
-    }
-
-    .btnBlock {
-      margin-top: 40px;
-    }
-
-    .addBlock {
-      margin-top: 30px;
-
-      .addField {
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 17px;
-        text-decoration-line: underline;
-        color: #2E8EFE;
-        width: 50%;
-        margin-left: auto;
-        margin-top: 24px;
-        cursor: pointer;
-        display: block;
-
-        @media (max-width: 550px) {
-          width: 100%;
-          text-align: right;
-        }
-      }
-    }
-
-    .btnAddTest {
-      margin: 20px 0;
-    }
-  }
-
   .innerContent {
-    background: #ffffff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border-radius: 30px;
-    padding: 62px 43px 42px;
-    box-sizing: border-box;
+    max-width: 960px;
 
-    @media (max-width: 550px) {
-      padding: 35px 10px;
-    }
-  }
-
-  .editorBlock {
-    margin-top: 30px;
-
-    .editorWrapper {
-      width: 640px;
-
-      @media (max-width: 1000px) {
-        width: 540px;
-      }
-
-      @media (max-width: 700px) {
-        width: 420px;
-      }
-
-      @media (max-width: 550px) {
-        width: 390px;
-      }
-
-      @media (max-width: 550px) {
-        width: 270px;
-      }
+    h1 {
+      margin-bottom: 50px;
+      font-family: 'Aqum';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 23px;
+      text-align: center;
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    h3 {
+    p {
       font-weight: 600;
       font-size: 14px;
       line-height: 17px;
       color: #000000;
-      margin-bottom: 15px;
+    }
+
+    .wrapContent {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-bottom: 33px;
+      margin-bottom: 20px;
+
+      @media (max-width: 550px) {
+        flex-direction: column;
+      }
+
+
+      &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: #BABEC6;
+        left: 0;
+        bottom: 0;
+      }
+
+      .nameInput {
+        width: 100%;
+
+        > div {
+          margin-left: 0;
+          width: 94%;
+          margin-right: 10px;
+
+          @media (max-width: 550px) {
+            width: 100%;
+            margin: 0 0 20px;
+          }
+        }
+      }
+
+      .nameSelect {
+        display: flex;
+        align-items: center;
+      }
+
+      .selectRoles {
+        width: 140px;
+        margin-left: 10px;
+
+        @media (max-width: 550px) {
+          width: 100%;
+        }
+
+        > div {
+          width: 100%;
+        }
+      }
+    }
+
+    .testEditor {
+      width: 960px;
+      margin: 10px auto 0;
+
+      @media (max-width: 1100px) {
+        width: 850px;
+      }
+
+      @media (max-width: 900px) {
+        width: 700px;
+      }
+
+      @media (max-width: 750px) {
+        width: 550px;
+      }
+
+      @media (max-width: 600px) {
+        width: 450px;
+      }
+
+      @media (max-width: 500px) {
+        width: 350px;
+      }
+
+      @media (max-width: 374px) {
+        width: 290px;
+      }
+
+    }
+
+    .choice {
+      margin-top: 20px;
+
+      .addBtn button {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        text-decoration-line: underline;
+        color: #2E8DFE;
+        background: none;
+        padding: 0;
+        margin-right: 30px;
+
+        @media (max-width: 550px) {
+          margin: 0 0 20px;
+        }
+
+        > span {
+          display: none;
+        }
+      }
+
+      .choiceToggle {
+        display: flex;
+        align-items: center;
+      }
+
+      .addInput {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media (max-width: 550px) {
+          flex-direction: column;
+        }
+      }
+
+      .testStep {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        width: 50%;
+        margin-left: auto;
+
+        @media (max-width: 1100px) {
+          width: 100%;
+        }
+
+        @media (max-width: 550px) {
+          flex-direction: column;
+
+          > button {
+            margin-top: 20px;
+          }
+        }
+      }
+
     }
   }
 
-  & .modalContainer {
+
+  .modalContainer {
     width: 1210px;
     padding: 45px 120px 64px;
     box-sizing: border-box;
@@ -146,6 +221,7 @@
 
     @media (max-width: 700px) {
       width: 100%;
+      padding: 40px 10px;
     }
 
     h2 {
@@ -166,152 +242,111 @@
       }
     }
 
-    .addNameTest {
-      margin-bottom: 24px;
+    p {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+    }
 
-      p {
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 17px;
-        color: #000000;
-        margin-bottom: 13px;
+    .titleInput {
+      display: flex;
+      align-items: center;
 
-        @media (max-width: 900px) {
-          text-align: center;
-        }
+      @media (max-width: 650px) {
+        flex-direction: column;
       }
 
-      .titleInput {
-        position: relative;
-        width: 70%;
-        @media (max-width: 900px) {
-          width: 100%;
-          margin-bottom: 20px;
-        }
+      .testInput > div {
+        width: 100%;
+      }
 
-        > div > div:last-child {
-          width: 100%;
+      p {
+        flex: 0 0 20%;
 
-          > div {
-            width: 80%;
-
-            @media (max-width: 550px) {
-              width: 100%;
-            }
-          }
-        }
-
-        > div > div:first-child {
-          display: none;
+        @media (max-width: 650px) {
+          flex: 0 0 100%;
+          margin-bottom: 10px;
         }
       }
     }
 
     .textQuestion {
-      margin-bottom: 23px;
-
-      p {
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 17px;
-        color: #000000;
-        margin-bottom: 13px;
-      }
-    }
-
-    .addVariant {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-between;
+      margin: 20px 0 25px;
 
-      @media (max-width: 550px) {
+      @media (max-width: 650px) {
         flex-direction: column;
       }
 
+      .textEditorModal {
+        width: 760px;
+
+        @media (max-width: 900px) {
+          width: 400px;
+        }
+
+        @media (max-width: 500px) {
+          width: 345px;
+        }
+
+        @media (max-width: 440px) {
+          width: 290px;
+        }
+
+        @media (max-width: 374px) {
+          width: 250px;
+        }
+      }
+
+      p {
+        flex: 0 0 20%;
+
+        @media (max-width: 650px) {
+          flex: 0 0 100%;
+          margin-bottom: 10px;
+          text-align: center;
+        }
+      }
+    }
+
+    .variantBtn {
+      display: flex;
+
+      @media (max-width: 650px) {
+        justify-content: center;
+      }
+
+      p {
+        flex: 0 0 21%;
+
+        @media (max-width: 650px) {
+          display: none;
+        }
+      }
+
       button {
-        padding: 0;
-        background: none;
         font-weight: 600;
         font-size: 14px;
         line-height: 17px;
         text-decoration-line: underline;
         color: #2E8DFE;
-        border-radius: 0;
-        margin-right: 29px;
+        background: none;
+        padding: 0;
 
-        @media (max-width: 550px) {
-          margin-right: 0;
-          margin-bottom: 20px;
-        }
-
-        span {
+        > span {
           display: none;
-        }
-      }
-
-      .choiceAnswer {
-        display: flex;
-        align-items: center;
-
-        p {
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 17px;
-          display: flex;
-          align-items: center;
-          color: #000000;
         }
       }
     }
 
     .btnSave {
       display: flex;
-      justify-content: flex-end;
-      margin-top: 40px;
+      margin-top: 100px;
+      justify-content: center;
     }
 
-    .switchToggle {
-      margin-left: 14px;
-      margin-right: 14px;
-    }
-
-    .choiceBlock {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      @media (max-width: 900px) {
-        flex-direction: column;
-      }
-
-      .selectBlock {
-        width: 25%;
-        @media (max-width: 900px) {
-          width: 100%;
-        }
-
-        > div {
-          justify-content: flex-end;
-          @media (max-width: 900px) {
-            justify-content: flex-start;
-          }
-        }
-
-        > div p {
-          margin: 0;
-        }
-
-        > div > div:first-child {
-          width: auto;
-          margin-right: 10px;
-        }
-
-        > div > div:last-child {
-          width: 140px;
-
-        }
-      }
-    }
   }
 }
 

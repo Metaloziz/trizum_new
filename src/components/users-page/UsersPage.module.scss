@@ -59,6 +59,19 @@
     width: 100%;
     margin-top: 15px;
   }
+
+  .toggleChoice {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+
+    p {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+    }
+  }
 }
 
 .cardWrapper {
@@ -84,7 +97,7 @@
   }
 
   @media (max-width: 800px) {
-      margin-top: 15px;
+    margin-top: 15px;
   }
 }
 

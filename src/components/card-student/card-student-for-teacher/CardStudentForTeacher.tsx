@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
+import CustomButton from '@components/custom-button/CustomButton';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import avatar from '@public/img/pervoklasnin.jpg';
 import iconFlag from '@svgs/flag.svg';
@@ -40,6 +41,10 @@ const CardStudentForTeacher: FC<Props> = ({ title, flag }) => {
               </ul>
             ))}
           </div>
+          <div className={styles.btnBlock}>
+            <CustomButton>Посмотреть Д/З</CustomButton>
+            <CustomButton>Статистика</CustomButton>
+          </div>
         </div>
       </div>
       <CustomImageWrapper className={styles.flag} variant='none'>
@@ -49,4 +54,7 @@ const CardStudentForTeacher: FC<Props> = ({ title, flag }) => {
   );
 };
 
+CardStudentForTeacher.defaultProps = {
+  flag: false,
+};
 export default CardStudentForTeacher;

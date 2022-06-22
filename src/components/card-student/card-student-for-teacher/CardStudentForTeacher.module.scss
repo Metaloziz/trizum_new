@@ -19,6 +19,7 @@
   .row {
     display: flex;
     padding: 24px 0 0 0;
+    position: relative;
 
     @media (max-width: 1300px) {
       flex-direction: column;
@@ -27,6 +28,43 @@
 
     @media (max-width: 550px) {
       flex-direction: row;
+    }
+
+    .btnBlock {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 11px;
+
+      @media (max-width: 1600px) {
+        position: static;
+        transform: translateY(0);
+        width: 90%;
+        margin-bottom: 20px;
+      }
+
+      @media (max-width: 1300px) {
+        width: 100%;
+      }
+      @media (max-width: 550px) {
+        button {
+          font-size: 13px;
+        }
+      }
+
+      button + button {
+        margin-top: 15px;
+      }
+
+      button:last-child {
+        background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+
+        &:hover {
+          background: linear-gradient(90deg, #2E8EFE 0%, #2675F6 100%);
+        }
+      }
     }
   }
 
@@ -69,7 +107,7 @@
     color: #FFFFFF;
 
     @media (max-width: 550px) {
-      margin-bottom: 13px;
+      margin-bottom: 20px;
       font-size: 12px;
       margin-top: 9px;
     }

@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import appStore, { Roles } from '@app/stores/appStore';
 import Navigation from '@components/navigation/Navigation';
 import { Routes } from '@constants/Routes';
+import listGames from '@svgs/list-games.svg';
 import homeImage from '@svgs/student-navigation-link-home.svg';
 import paymentImage from '@svgs/student-navigation-link-payment.svg';
 import resultsImage from '@svgs/student-navigation-link-results.svg';
@@ -38,7 +39,7 @@ const Links = {
     href: Statistic,
     imageSrc: resultsImage,
   },
-  Games: { label: 'Список игр', href: Games, imageSrc: paymentImage },
+  Games: { label: 'Список игр', href: Games, imageSrc: listGames },
   Blog: { label: 'Статьи', href: Blog, imageSrc: paymentImage },
   Classes: { label: 'Классы', href: Classes, imageSrc: paymentImage },
   UserInfo: {

@@ -6,4 +6,6 @@ export enum Paths {
   LoadMe = 'api/v1/loadme',
   Franchises = '/api/v1/franchises',
   Courses = '/api/v1/courses',
+  Users = '/api/v1/users',
+  Presets = '/api/v1/gamepresets',
 }

@@ -1,0 +1,27 @@
+.containerChoice {
+  max-width: 510px;
+
+  @media (max-width: 1100px) {
+    max-width: 100%
+  }
+
+  @media (max-width: 600px) {
+    order: 3;
+  }
+}
+
+.title {
+  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 13px;
+  text-transform: uppercase;
+
+  @media (max-width: 1100px) {
+    font-size: 13px;
+    text-align: center;
+  }
+}

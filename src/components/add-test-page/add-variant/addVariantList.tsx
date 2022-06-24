@@ -11,7 +11,7 @@ type ArrayItem = {
 type VariantListType = {
   items: Array<ArrayItem>;
   handlerVariant: (id: number, value: string) => void;
-  handleChecked: (id: number, isChecked: boolean) => void;
+  handleChecked?: (id: number, isChecked: boolean) => void;
 };
 
 const AddVariantList = ({ items, handlerVariant, handleChecked }: VariantListType) => (
@@ -28,5 +28,7 @@ const AddVariantList = ({ items, handlerVariant, handleChecked }: VariantListTyp
     ))}
   </div>
 );
-
+AddVariantList.defaultProps = {
+  handleChecked: undefined,
+};
 export default AddVariantList;

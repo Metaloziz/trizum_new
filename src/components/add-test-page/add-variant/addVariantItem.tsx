@@ -10,7 +10,7 @@ import styles from './addVariant.module.scss';
 
 type ArrayItemProps = stateVariantType & {
   handlerVariant: (id: number, value: string) => void;
-  handleChecked: (id: number, isChecked: boolean) => void;
+  handleChecked?: (id: number, isChecked: boolean) => void;
 };
 
 const AddVariantItem = ({
@@ -21,25 +21,31 @@ const AddVariantItem = ({
   handleChecked,
 }: ArrayItemProps) => {
   const onClickChecked = () => {
-    handleChecked(id, !completed);
+    handleChecked && handleChecked(id, !completed);
   };
 
   return (
     <div className={styles.variant}>
       <div className={styles.answer}>
         <InformationItem
-          title="Вариант ответа"
-          variant="input"
+          title='Вариант ответа'
+          variant='input'
           value={value}
           onChange={e => handlerVariant(id, e)}
         />
-        <button className={styles.checkBox} onClick={onClickChecked}>
-          <Image src={completed ? isCheck : checked} alt="checked" />
-          {/* <Checked/> */}
-        </button>
+        {handleChecked && (
+          <button className={styles.checkBox} onClick={onClickChecked}>
+            <Image src={completed ? isCheck : checked} alt='checked' />
+            {/* <Checked/> */}
+          </button>
+        )}
       </div>
     </div>
   );
+};
+
+AddVariantItem.defaultProps = {
+  handleChecked: undefined,
 };
 
 export default AddVariantItem;

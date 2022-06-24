@@ -10,14 +10,17 @@ type UserType = 'student' | 'teacher' | 'extended';
 interface Props {
   title: string;
   type: UserType;
+  isFooterDisabled?: boolean;
 }
 
-const CardStudent: FC<Props> = ({ title, type }) => (
+const CardStudent: FC<Props> = ({ title, type, isFooterDisabled }) => (
   <>
-    {type === 'student' && <CardStudentForUser title={title} />}
+    {type === 'student' && <CardStudentForUser title={title} isFooterDisabled={isFooterDisabled} />}
     {type === 'teacher' && <CardStudentForTeacher title={title} flag />}
     {type === 'extended' && <CardStudentExtended title={title} />}
   </>
 );
-
+CardStudent.defaultProps = {
+  isFooterDisabled: false,
+};
 export default CardStudent;

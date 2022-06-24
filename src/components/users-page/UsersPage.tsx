@@ -39,7 +39,6 @@ const UsersPage = observer(() => {
           <div className={styles.toggleChoice}>
             <p>Активен</p>
             <Toggle
-              className={styles.myToggle}
               defaultValue={isTextActive}
               onChange={handleToggleChange}
               size='large'

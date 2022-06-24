@@ -1,0 +1,43 @@
+.mainContainer {
+  padding: 30px 20px 20px;
+
+  @media (max-width: 600px) {
+    padding: 30px 10px;
+  }
+
+  .firstContainer {
+    display: flex;
+
+    @media (max-width: 1100px) {
+      flex-direction: column;
+
+      div + div {
+        margin-top: 20px;
+      }
+    }
+
+    .homeworksChecking {
+      height: 246px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar {
+        width: 0;
+      }
+    }
+
+    > div {
+      width: 48%;
+
+      @media (max-width: 1100px) {
+        width: 100%;
+      }
+    }
+  }
+
+  .keepPlaying {
+    margin-top: 30px;
+    max-width: 100%;
+  }
+}
+

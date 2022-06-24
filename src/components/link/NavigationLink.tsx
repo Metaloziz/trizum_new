@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import styles from './NavigationLink.module.scss';
+
 interface Props {
   onClick?: () => void;
   link: { label: string; href: string; imageSrc: string };
@@ -31,7 +33,7 @@ const Navigation: FC<Props> = ({
       <Link passHref href={href || '/'}>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a className={cn(className, isActive && activeClassName)} onClick={onClick}>
-          <div className={imageClassName}>
+          <div className={cn(styles.imageBlock, imageClassName)}>
             <Image src={imageSrc} width={40} height={40} alt={label} />
           </div>
           {label}

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import styles from './AdminInfoItem.module.scss';
 
 interface Props {
@@ -6,13 +7,11 @@ interface Props {
   value: number;
 }
 
-const AdminInfoItem: FC<Props> = ({ title, value }) => {
-  return (
-    <div className={styles.content}>
-      <p>{title}</p>
-      <span>{value}</span>
-    </div>
-  );
-};
+const AdminInfoItem: FC<Props> = ({ title, value }) => (
+  <div className={styles.content}>
+    <p>{title}</p>
+    <span>{value}</span>
+  </div>
+);
 
 export default AdminInfoItem;

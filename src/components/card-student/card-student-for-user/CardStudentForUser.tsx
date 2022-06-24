@@ -21,9 +21,10 @@ import styles from './CardStudentForUser.module.scss';
 
 interface Props {
   title: string;
+  isFooterDisabled?: boolean;
 }
 
-const CardStudentForUser: FC<Props> = ({ title }) => {
+const CardStudentForUser: FC<Props> = ({ title, isFooterDisabled }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
   const olympiadId = 1;
@@ -31,6 +32,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
   const onParticipateClick = () => {
     router.push(`${Routes.Olympiads}/${olympiadId}/${userId}`);
   };
+  
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
@@ -70,7 +72,7 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
             <ul className={styles.list}>
               <li>
                 <span>
-                  <Image src={iconTablet} width="25" height="25" alt="icon tablet" />
+                  <Image src={iconTablet} width='25' height='25' alt='icon tablet' />
                 </span>
                 Следующее занятие:
               </li>
@@ -79,20 +81,22 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
           </div>
         </div>
       </div>
-      <div className={cn(styles.row, styles.buttonGroup)}>
-        <div className={styles.social}>
-          <span>Ссылки на чаты:</span>
-          <Image src={iconTelegram} width="25" height="25" alt="icon tablet" />
-          <Image src={iconWhatsApp} width="25" height="25" alt="icon tablet" />
+      {!isFooterDisabled && (
+        <div className={cn(styles.row, styles.buttonGroup)}>
+          <div className={styles.social}>
+            <span>Ссылки на чаты:</span>
+            <Image src={iconTelegram} width='25' height='25' alt='icon tablet' />
+            <Image src={iconWhatsApp} width='25' height='25' alt='icon tablet' />
+          </div>
+          <CustomButton size='small' onClick={() => setShowModal(true)}>
+            Принять участие в олимпиаде
+          </CustomButton>
         </div>
-        <CustomButton size="small" onClick={() => setShowModal(true)}>
-          Принять участие в олимпиаде
-        </CustomButton>
-      </div>
+      )}
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>
         <div className={styles.modalContent}>
           <Panel className={styles.panel}>Олимпиада - неделя антипазла</Panel>
-          <div className={styles.modalText}>
+          <div>
             <p>
               Высокий уровень вовлечения представителей целевой аудитории является четким
               доказательством простого факта: реализация намеченных плановых заданий создаёт
@@ -109,6 +113,10 @@ const CardStudentForUser: FC<Props> = ({ title }) => {
       </BasicModal>
     </div>
   );
+};
+
+CardStudentForUser.defaultProps = {
+  isFooterDisabled: false,
 };
 
 export default CardStudentForUser;

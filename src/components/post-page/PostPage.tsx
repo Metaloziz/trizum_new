@@ -7,11 +7,11 @@ import Image from 'next/image';
 import styles from './PostPage.module.scss';
 
 const PostPage: FC = () => (
-  <div>
+  <div className={styles.mainWrap}>
     <BackButton />
     <div className={styles.wrapperResult}>
       <div className={styles.imageTeacher}>
-        <Image src={resultIcon} width="406" height="426" alt="resultIcon" />
+        <Image src={resultIcon} width='406' height='426' alt='resultIcon' />
       </div>
       <div className={styles.textResult}>
         <div>

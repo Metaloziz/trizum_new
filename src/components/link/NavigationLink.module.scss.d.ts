@@ -1,0 +1,1 @@
+export const imageBlock: string;

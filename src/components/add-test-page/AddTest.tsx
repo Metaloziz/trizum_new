@@ -37,12 +37,24 @@ const IndexPage = () => {
   const [variantModal, setVariantModal] = useState<Array<stateVariantType>>([]);
   const [isTextActive, setTextIsActive] = useState<boolean>(true);
   
-  const addVariant = () => {
-    setVariant(value => [...value, { id: Date.now(), value: '', completed: false }]);
-  };
   
   const addVariantModal = () => {
     setVariantModal(value => [...value, { id: Date.now(), value: '', completed: false }]);
+  };
+  
+  const handlerVariantModal = (id: number, value: string) => {
+    setVariantModal(variants =>
+      variants.map(item => {
+        if (item.id === id) {
+          item.value = value;
+        }
+        return item;
+      }),
+    );
+  };
+  
+  const addVariant = () => {
+    setVariant(value => [...value, { id: Date.now(), value: '', completed: false }]);
   };
   
   const handlerVariant = (id: number, value: string) => {
@@ -132,13 +144,10 @@ const IndexPage = () => {
               <TextEditor />
             </div>
           </div>
-          {!isTextActive && (
             <AddVariantList
               items={variantModal}
-              handlerVariant={handlerVariant}
-              handleChecked={handleChecked}
+              handlerVariant={handlerVariantModal}
             />
-          )}
           <div className={styles.variantBtn} onClick={addVariantModal}>
             <p />
             <CustomButton>Добавить вариант</CustomButton>

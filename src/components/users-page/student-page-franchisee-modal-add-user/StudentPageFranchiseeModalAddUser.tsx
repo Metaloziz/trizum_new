@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
+import authService from '@app/services/authService';
+import groupsService from '@app/services/groupsService';
 import { Roles } from '@app/stores/appStore';
+import { RequestRegister } from '@app/types/AuthTypes';
 import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import StudentInformation from '@components/users-page/student-information/StudentInformation';
+import CustomSelect, { Option } from '@components/select/CustomSelect';
+import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
+import TextField from '@components/text-field/TextField';
 import StudentPageTitle from '@components/users-page/student-page-title/StudentPageTitle';
 import { yupResolver } from '@hookform/resolvers/yup';
 import avatar from '@public/img/pervoklasnin.jpg';
@@ -13,24 +17,30 @@ import * as yup from 'yup';
 
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
+type Props = {
+  onAddUser: (data: RequestRegister) => void;
+};
+
 type AddUserT = {
-  name: string;
-  surname: string;
-  patronymic: string;
-  role: Roles;
-  sex: string;
-  city: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  role: Option | undefined;
+  sex: Option | undefined;
+  city: Option | undefined;
   phone: string;
-  birthday: string;
+  birthdate: string | undefined;
   email: string;
-  group: string;
+  group: Option | undefined;
   // teacher: string;
   image?: string;
 };
+
 export enum SexEnum {
   Male = 'Мужской',
   Female = 'Женский',
 }
+
 export const RoleNames = {
   teacher: 'Учитель',
   student: 'Ученик',
@@ -38,38 +48,58 @@ export const RoleNames = {
   franchise: 'Франчайзи',
 };
 const teachers = ['Иванов'];
-const groups = ['группа 1'];
-const roleOptions = Object.values(RoleNames).map(el => ({ label: el, value: el }));
+const cities = ['Moscow'];
+
+const roleOptions = [
+  { label: RoleNames.student, value: Roles.Student },
+  { label: RoleNames.teacher, value: Roles.Teacher },
+  { label: RoleNames.teacherEducation, value: Roles.TeacherEducation },
+  { label: RoleNames.franchise, value: Roles.Franchisee },
+];
+const citiesOptions = cities.map(el => ({ label: el, value: el }));
 const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
-const teacherOptions = teachers.map(el => ({ label: el, value: el }));
-const groupOptions = groups.map(el => ({ label: el, value: el }));
+
 const defaultValues: AddUserT = {
-  name: '',
-  surname: '',
-  patronymic: '',
-  role: Roles.Student,
-  sex: '',
-  city: '',
+  firstName: '',
+  middleName: '',
+  lastName: '',
+  role: roleOptions[0],
+  sex: undefined,
+  city: undefined,
   phone: '',
-  birthday: '',
+  birthdate: undefined,
   email: '',
-  group: '',
+  group: undefined,
   // teacher: '',
 };
 
-const StudentPageFranchiseeModalAddUser = () => {
+const StudentPageFranchiseeModalAddUser: FC<Props> = props => {
+  const { onAddUser } = props;
   const [image, setImage] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [groups, setGroups] = useState<Option[]>([]);
+  const load = async () => {
+    try {
+      const res = await groupsService.getGroups();
+      const groupOptions: Option[] = res.map(el => ({ label: el.code, value: el.id }));
+      setGroups(groupOptions);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoaded(true);
+    }
+  };
   const schema = yup.object().shape({
-    name: yup.string().required('Обязательное поле'),
-    surname: yup.string().required('Обязательное поле'),
-    patronymic: yup.string().required('Обязательное поле'),
-    role: yup.string().required('Обязательное поле'),
-    sex: yup.string().required('Обязательное поле'),
-    city: yup.string().required('Обязательное поле'),
+    firstName: yup.string().required('Обязательное поле'),
+    middleName: yup.string().required('Обязательное поле'),
+    lastName: yup.string().required('Обязательное поле'),
+    role: yup.object().required('Обязательное поле'),
+    sex: yup.object().required('Обязательное поле'),
+    city: yup.object().required('Обязательное поле'),
     phone: yup.string().required('Обязательное поле'),
-    birthday: yup.string().required('Обязательное поле'),
+    birthdate: yup.string().required('Обязательное поле'),
     email: yup.string().required('Обязательное поле').email(),
-    group: yup.string().required('Обязательное поле'),
+    group: yup.object().required('Обязательное поле'),
     // teacher: yup.string().required('Обязательное поле'),
   });
   const {
@@ -78,10 +108,30 @@ const StudentPageFranchiseeModalAddUser = () => {
     control,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema), defaultValues });
-  console.log(errors);
-  const onAddClick = (values: AddUserT) => {
-    console.log(values, 'values');
+
+  const onAddClick = async (values: AddUserT) => {
+    const qwe: RequestRegister = {
+      isSecondChild: false,
+      sex: (values.sex?.label as SexEnum) === SexEnum.Male,
+      franchiseId: '1ecf563a-2a69-6610-a812-f92a3af0f8be',
+      tariffId: '',
+      birthdate: values.birthdate || '',
+      city: values.city?.label || '',
+      role: values.role?.value || '',
+      groupId: values.group?.value || '',
+      email: values.email,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      middleName: values.middleName,
+      phone: values.phone,
+    };
+    onAddUser(qwe);
   };
+
+  useEffect(() => {
+    load();
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <StudentPageTitle>Добавление/изменение пользователя</StudentPageTitle>
@@ -90,133 +140,101 @@ const StudentPageFranchiseeModalAddUser = () => {
           <Image src={avatar} width="290" height="290" alt="student" />
         </div>
         <div className={styles.table}>
-          <div className={styles.table}>
-            <div className={styles.infoItem}>
-              <span>Фамилия:</span>
-              <Controller
-                name="surname"
-                render={({ field }) => <InformationItem {...field} title="" variant="input" />}
-                control={control}
+          <Controller
+            name="middleName"
+            render={({ field }) => (
+              <TextField {...field} label="Фамилия" error={errors.middleName?.message} />
+            )}
+            control={control}
+          />
+          <Controller
+            name="firstName"
+            render={({ field }) => (
+              <TextField {...field} label="Имя" error={errors.firstName?.message} />
+            )}
+            control={control}
+          />
+          <Controller
+            name="lastName"
+            render={({ field }) => (
+              <TextField {...field} label="Отчество" error={errors.lastName?.message} />
+            )}
+            control={control}
+          />
+          <Controller
+            name="city"
+            render={({ field }) => (
+              <CustomSelect
+                {...field}
+                title="Город"
+                options={citiesOptions}
+                // @ts-ignore
+                error={errors.city?.message}
               />
-              {errors.surname?.message}
-            </div>
-            <div className={styles.infoItem}>
-              <span>Имя:</span>
-              <Controller
-                name="name"
-                render={({ field }) => <InformationItem {...field} title="" variant="input" />}
-                control={control}
+            )}
+            control={control}
+          />
+          <Controller
+            name="role"
+            render={({ field }) => (
+              <CustomSelect
+                {...field}
+                title="Роль"
+                options={roleOptions}
+                // @ts-ignore
+                error={errors.role?.message}
               />
-              {errors.name?.message}
-            </div>
-            <div className={styles.infoItem}>
-              <span>Отчество:</span>
-              <Controller
-                name="patronymic"
-                render={({ field }) => <InformationItem {...field} title="" variant="input" />}
-                control={control}
-              />
-              {errors.patronymic?.message}
-            </div>
-            <div className={styles.selectWrapper}>
-              <div className={styles.selectWidth}>
-                <Controller
-                  render={({ field }) => (
-                    <InformationItem
-                      {...field}
-                      variant="select"
-                      title="Роль:"
-                      option={roleOptions}
-                    />
-                  )}
-                  name="role"
-                  control={control}
-                />
-              </div>
-            </div>
-            <div className={styles.infoItem}>
-              <span>Город:</span>
-              <Controller
-                name="city"
-                render={({ field }) => <InformationItem {...field} title="" variant="input" />}
-                control={control}
-              />
-            </div>
-            <div className={styles.infoItem}>
-              <span>Телефон:</span>
-              <Controller
-                name="phone"
-                render={({ field }) => (
-                  <InformationItem
-                    {...field}
-                    title=""
-                    onChangeEvent={field.onChange}
-                    variant="phone"
-                  />
-                )}
-                control={control}
-              />
-            </div>
-            <div className={styles.infoItem}>
-              <span>Дата рождения:</span>
-              <Controller
-                name="birthday"
-                render={({ field }) => <InformationItem {...field} title="" variant="calendar" />}
-                control={control}
-              />
-            </div>
-            <div className={styles.infoItem}>
-              <span>Почта:</span>
-              <Controller
-                name="email"
-                render={({ field }) => <InformationItem {...field} title="" variant="input" />}
-                control={control}
-              />
-            </div>
-            <div className={styles.selectWrapper}>
-              <div className={styles.selectWidth}>
-                <Controller
-                  name="sex"
-                  render={({ field }) => (
-                    <InformationItem {...field} variant="select" title="Пол:" option={sexOptions} />
-                  )}
-                  control={control}
-                />
-              </div>
-            </div>
-            {/*  <div className={styles.selectWrapper}>
-              <div className={styles.selectWidth}>
-                <Controller
-                  name="teacher"
-                  render={({ field }) => (
-                    <InformationItem
-                      {...field}
-                      variant="select"
-                      title="Учитель:"
-                      option={teacherOptions}
-                    />
-                  )}
-                  control={control}
-                />
-              </div>
-            </div> */}
-            <div className={styles.selectWrapper}>
-              <div className={styles.selectWidth}>
-                <Controller
-                  name="group"
-                  render={({ field }) => (
-                    <InformationItem
-                      {...field}
-                      variant="select"
-                      title="Группа:"
-                      option={groupOptions}
-                    />
-                  )}
-                  control={control}
-                />
-              </div>
-            </div>
+            )}
+            control={control}
+          />
+          <Controller
+            name="phone"
+            render={({ field }) => (
+              <TextField {...field} label="Телефон" error={errors.phone?.message} />
+            )}
+            control={control}
+          />
+          <div className={styles.infoItem}>
+            <span>Дата рождения:</span>
+            <Controller
+              name="birthdate"
+              render={({ field }) => <TextFieldCalendar {...field} dataAuto="" />}
+              control={control}
+            />
           </div>
+          <Controller
+            name="email"
+            render={({ field }) => (
+              <TextField {...field} label="Почта" error={errors.email?.message} />
+            )}
+            control={control}
+          />
+          <Controller
+            name="sex"
+            render={({ field }) => (
+              <CustomSelect
+                {...field}
+                title="Пол"
+                options={sexOptions}
+                // @ts-ignore
+                error={errors.sex?.message}
+              />
+            )}
+            control={control}
+          />
+          <Controller
+            name="group"
+            render={({ field }) => (
+              <CustomSelect
+                {...field}
+                title="Группа"
+                options={groups}
+                // @ts-ignore
+                error={errors.group?.message}
+              />
+            )}
+            control={control}
+          />
         </div>
       </div>
       <div className={styles.button}>

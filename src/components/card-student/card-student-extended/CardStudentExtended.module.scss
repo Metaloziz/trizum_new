@@ -40,6 +40,22 @@
   }
 
   .title {
+    h3 {
+      margin: 0;
+      padding: 0 60px 0 0;
+      font-family: 'Aqum', sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+
+      @media (max-width: 600px) {
+        font-size: 11px;
+        padding-right: 40px;
+      }
+    }
+
     @media (max-width: 800px) {
       padding-right: 50px;
     }
@@ -83,17 +99,13 @@
       line-height: 15px;
     }
 
-    li {
-      margin-right: 14px;
-
+    span {
+      display: block;
+      margin-left: 14px;
+      color: #000000;
       @media (max-width: 550px) {
         margin-right: 5px;
       }
-    }
-
-    li:last-child {
-      margin-right: 0;
-      color: #000000;
     }
   }
 
@@ -130,6 +142,61 @@
 
 }
 
+.buttonWrapper {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  margin-top: 10px;
+  padding: 0 0 20px 110px;
+
+  @media (max-width: 1500px) {
+    padding-left: 50px;
+  }
+
+  @media (max-width: 1400px) {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: inherit;
+    padding-left: 5px;
+
+    button + button {
+      margin-top: 15px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: row;
+    justify-content: space-between;
+
+    button + button {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 550px) {
+    margin-top: 0;
+    button {
+      padding-right: 40px;
+      padding-left: 9px;
+    }
+  }
+
+  @media (max-width: 374px) {
+    flex-direction: column;
+
+    button + button {
+      margin-top: 15px;
+    }
+  }
+
+  & > * {
+    margin-right: 20px;
+
+    @media (max-width: 550px) {
+      margin-right: 0;
+    }
+  }
+}
 
 
 

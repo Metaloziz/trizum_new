@@ -13,7 +13,7 @@ interface Props {
   className?: string;
   title?: string;
   error?: string;
-  value: Option;
+  value?: Option;
 }
 
 const CustomSelect: FC<Props> = props => {

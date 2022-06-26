@@ -8,7 +8,7 @@ type Props = {
   error?: string;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-const TextField: FC<Props> = props => {
+const TextField = (props: Props) => {
   const { type, onChange, value, error, label, ...rest } = props;
   return (
     <div className={styles.textField}>

@@ -1,6 +1,5 @@
 import { ChangeEvent, ComponentType, FC } from 'react';
 
-import { OptionsT } from '@components/homework-add-edit-page/SampleBlock/SampleBlock';
 import InputFile from '@components/input-file/InputFile';
 import CustomSelect from '@components/select/CustomSelect';
 import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
@@ -30,7 +29,7 @@ interface Props {
   className?: string;
   inputClassName?: string;
   onChange?: (value: string) => void;
-  onChangeSelect?: (value: SingleValue<OptionsT>) => void;
+  onChangeSelect?: (value: Option) => void;
   onChangeEvent?: (value: ChangeEvent<HTMLInputElement>) => void;
   id?: string;
   type?: string;
@@ -98,7 +97,7 @@ const InformationItem: FC<Props> = props => {
           id={id}
           placeholder={placeholder}
           type={type}
-          value={value}
+          value={value || ''}
         />
       );
   }

@@ -8,4 +8,6 @@ export enum Paths {
   Courses = '/api/v1/courses',
   Users = '/api/v1/users',
   Presets = '/api/v1/gamepresets',
+  Groups = '/api/v1/groups',
+  Register = '/api/v1/register',
 }

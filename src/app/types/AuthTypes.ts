@@ -42,3 +42,19 @@ export type ResponseLoadMe = {
     path: string;
   };
 };
+
+export type RequestRegister = {
+  phone: string;
+  email: string;
+  role: string;
+  franchiseId: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  city: string;
+  birthdate: string;
+  sex: boolean;
+  groupId: string;
+  tariffId: string;
+  isSecondChild: boolean;
+};

@@ -9,6 +9,7 @@
   @media (max-width: 440px) {
     padding: 30px 10px;
   }
+
   h3 {
     font-family: Aqum, sans-serif;
     font-size: 24px;
@@ -20,6 +21,7 @@
     margin-bottom: 16px;
     text-align: center;
   }
+
   .innerContent {
     display: flex;
     justify-content: space-between;
@@ -152,6 +154,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 2%;
+
       & > div {
         flex: 0 0 48%;
         margin-bottom: 16px;
@@ -169,6 +172,10 @@
         padding: 22px 45px;
         box-sizing: border-box;
         min-height: 135px;
+
+        & > div:not(:last-child) {
+          margin-bottom: 16px;
+        }
 
         @media (max-width: 550px) {
           padding: 20px 15px;

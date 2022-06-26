@@ -2,17 +2,12 @@ import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } fro
 
 import coursesStore from '@app/stores/coursesStore';
 import worksStore from '@app/stores/WorksStore';
-import { HomeworkType } from '@app/types/HomeworkTypes';
 import { CourseObjT, WorkObjT } from '@app/types/UserTypes';
-import { PresetT } from '@app/types/WorkTypes';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
-import SampleBlock, { OptionsT } from '@components/homework-add-edit-page/SampleBlock/SampleBlock';
-import InformationItem from '@components/information-item/InformationItem';
-import { groupLevel, pattern } from '@components/moks-data/moks-data-addHomeWork';
+import SampleBlock from '@components/homework-add-edit-page/SampleBlock/SampleBlock';
 import CustomSelect, { Option } from '@components/select/CustomSelect';
 import Step from '@components/step/Step';
-import TextEditor from '@components/text-editor/TextEditor';
 import TextField from '@components/text-field/TextField';
 import { Routes } from '@constants/Routes';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,7 +15,7 @@ import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
-import { ActionMeta, GroupBase, SingleValue } from 'react-select';
+import { SingleValue } from 'react-select';
 import * as yup from 'yup';
 
 import styles from './HomeworkAddEditPage.module.scss';
@@ -30,12 +25,14 @@ enum GroupLevels {
   Middle = 'Средняя группа',
   High = 'Старшая группа',
 }
+
 const levelOptions = Object.values(GroupLevels).map(el => ({ value: el, label: el }));
 
 const games = [
   { label: 'Game 1', value: '1ecf31fb-222b-6204-8413-076f8e3360c0' },
   { label: 'Game 2', value: '1ecf31bd-b244-6f90-bb56-97d57702980c' },
 ];
+
 type DefaultValues = {
   title: string;
   level: Option;
@@ -46,52 +43,64 @@ const defaultValues: DefaultValues = {
   level: levelOptions[0],
 };
 
+const DEFAULT_GAME_PRESET_AMOUNT = 3;
+
 const HomeworkAddEditPage = observer(() => {
   const { getPresets, presets } = worksStore;
 
   const router = useRouter();
+
+  const [actualGames, setActualGames] = useState(games);
   const [isLoaded, setIsLoaded] = useState(false);
   const [description, setDescription] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(!coursesStore.newCourse);
   const [title, setTitle] = useState('');
   const [level, setLevel] = useState('');
   const [index, setIndex] = useState(0);
-  const hwAr: MutableRefObject<WorkObjT[]> = useRef([]);
+  const [gamePresetAmount, setGamePresetAmount] = useState(DEFAULT_GAME_PRESET_AMOUNT);
+  const [gamePresetAmountAr, setGamePresetAmountAr] = useState<number[]>([]);
+  const homeworksAr: MutableRefObject<WorkObjT[]> = useRef([]);
+  let presetsAr: (Option & { index: number })[] = [];
   const schema = yup.object().shape({
     title: yup.string().required('Обязательное поле'),
     level: yup.object().required('Обязательное поле'),
   });
   const {
-    register,
     handleSubmit,
     control,
-    resetField,
-    setValue,
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema), defaultValues });
+
+  const increaseGamePresetAmount = () => {
+    setGamePresetAmount(value => value + 1);
+    setGamePresetAmountAr(ar => [...ar, ar?.length]);
+  };
+
   const onChangeVisibility = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
   const onChangeLevel = (option: Option) => {
     setLevel(option.label);
   };
+
   const onAddHWClick = () => {
     coursesStore.setNewCourse({ level, title });
     router.push(`${Routes.Homework}/add`);
   };
 
   const onLoad = async () => {
-    // запрос за играми и пресетами
+    // запрос за играми?? и пресетами
     await getPresets();
     setIsLoaded(true);
   };
-  let presetsAr: (SingleValue<OptionsT> & { index: number })[] = [];
 
-  const onSelectPattern = (value: SingleValue<OptionsT> & { index: number }) => {
+  const onSelectPattern = (value: Option & { index: number }) => {
     if (value) {
       const searchedIndex = presetsAr.findIndex(el => el.index === value.index);
       if (searchedIndex !== -1) {
@@ -99,6 +108,15 @@ const HomeworkAddEditPage = observer(() => {
       }
       presetsAr.push(value);
     }
+  };
+
+  const helper = () => {
+    const res: number[] = [];
+    setGamePresetAmountAr([]);
+    for (let i = 0; i < gamePresetAmount; i++) {
+      res.push(i);
+    }
+    setGamePresetAmountAr(res);
   };
 
   const onSave = (values: DefaultValues) => {
@@ -112,13 +130,17 @@ const HomeworkAddEditPage = observer(() => {
         gamePresets: presetsAr.map(el => el.value),
       },
     };
-    hwAr.current.push(qwe);
+    homeworksAr.current.push(qwe);
     setDescription('');
     setIndex(idx => idx + 1);
     presetsAr = [];
     reset({});
+    setGamePresetAmount(DEFAULT_GAME_PRESET_AMOUNT);
+    helper();
+    setActualGames([...games]);
     console.log(qwe);
   };
+
   const onSubmit = () => {
     if (coursesStore.newCourse) {
       const qwe: CourseObjT = {
@@ -126,7 +148,7 @@ const HomeworkAddEditPage = observer(() => {
         groupLevel: coursesStore.newCourse.level,
         creationDate: moment(new Date()).format('DD.MM.yyyy'),
         description: '',
-        hw: hwAr.current,
+        hw: homeworksAr.current,
       };
       console.log(qwe);
     }
@@ -134,6 +156,11 @@ const HomeworkAddEditPage = observer(() => {
   useEffect(() => {
     onLoad();
   }, []);
+
+  useEffect(() => {
+    helper();
+  }, []);
+
   return !isLoaded ? (
     <>Loading...</>
   ) : (
@@ -201,21 +228,18 @@ const HomeworkAddEditPage = observer(() => {
             </div>
             <div className={styles.sample}>
               <div className={styles.sampleChoice}>
-                <SampleBlock
-                  games={games}
-                  patterns={presets}
-                  onSelectPattern={onSelectPattern}
-                  index={2}
-                />
-                <SampleBlock
-                  games={games}
-                  patterns={presets}
-                  onSelectPattern={onSelectPattern}
-                  index={2}
-                />
+                {gamePresetAmountAr.map(idx => (
+                  <SampleBlock
+                    key={idx}
+                    games={actualGames}
+                    patterns={presets}
+                    onSelectPattern={onSelectPattern}
+                    index={idx}
+                  />
+                ))}
                 <div className={`${styles.sampleBlock} ${styles.sampleAdd}`}>
                   <div>
-                    <button onClick={() => console.log('заглушка')}>+</button>
+                    <button onClick={increaseGamePresetAmount}>+</button>
                   </div>
                 </div>
               </div>

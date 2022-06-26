@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import CardStudentForTeacher from '@components/card-student/card-student-for-teacher/CardStudentForTeacher';
-import CardStudentForUser from '@components/card-student/card-student-for-user/CardStudentForUser';
+import CardStudentForStudent from '@components/card-student/card-student-for-user/CardStudentForStudent';
 
 import CardStudentExtended from './card-student-extended/CardStudentExtended';
 
@@ -12,11 +12,20 @@ interface Props {
   type: UserType;
 }
 
+const mockStudent = {
+  fullName: 'string',
+  role: 'string',
+  city: 'string',
+  phone: 'string',
+  birthdate: 'string',
+  email: 'string',
+};
+
 const CardStudent: FC<Props> = ({ title, type }) => (
   <>
-    {type === 'student' && <CardStudentForUser title={title} />}
+    {type === 'student' && <CardStudentForStudent user={mockStudent} />}
     {type === 'teacher' && <CardStudentForTeacher title={title} flag />}
-    {type === 'extended' && <CardStudentExtended title={title} />}
+    {/* {type === 'extended' && <CardStudentExtended title={title} />} */}
   </>
 );
 

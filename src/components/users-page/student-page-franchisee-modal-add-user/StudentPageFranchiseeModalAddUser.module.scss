@@ -94,7 +94,10 @@
 }
 
 .table {
-  width: 528px;
+  width: 550px;
+  & > div {
+    margin-bottom: 24px;
+  }
 
   @media(max-width: 1000px) {
     width: 380px;

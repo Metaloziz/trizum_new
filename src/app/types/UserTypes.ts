@@ -26,3 +26,22 @@ export type UserT = {
   playResults: string[];
   isSecondChild: boolean;
 };
+
+export type WorkObjT = {
+  index: number;
+  type: string;
+  work: {
+    title: string;
+    description: string;
+    groupLevel: string;
+    gamePresets: string[];
+  };
+};
+
+export type CourseObjT = {
+  title: string;
+  description: string;
+  creationDate: string;
+  groupLevel: string;
+  hw: WorkObjT[];
+};

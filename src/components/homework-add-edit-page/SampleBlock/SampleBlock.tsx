@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react';
 import { PresetT } from '@app/types/WorkTypes';
 import styles from '@components/homework-add-edit-page/HomeworkAddEditPage.module.scss';
 import InformationItem from '@components/information-item/InformationItem';
+import { Option } from '@components/select/CustomSelect';
 import { SingleValue } from 'react-select';
 
 export type OptionsT = { value: string; label: string };
@@ -11,7 +12,7 @@ type Props = {
   index: number;
   games: OptionsT[];
   patterns: PresetT[];
-  onSelectPattern: (patternId: SingleValue<OptionsT> & { index: number }) => void;
+  onSelectPattern: (patternId: Option & { index: number }) => void;
 };
 
 const SampleBlock: FC<Props> = props => {

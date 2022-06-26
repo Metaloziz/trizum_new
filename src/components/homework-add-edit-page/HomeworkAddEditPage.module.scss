@@ -9,7 +9,17 @@
   @media (max-width: 440px) {
     padding: 30px 10px;
   }
-
+  h3 {
+    font-family: Aqum, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 26px;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    text-align: center;
+  }
   .innerContent {
     display: flex;
     justify-content: space-between;
@@ -20,7 +30,7 @@
   }
 
   .editorWrapper {
-    width: 640px;
+    //width: 640px;
 
     @media (max-width: 1900px) {
       width: 500px;
@@ -67,6 +77,10 @@
     padding: 29px 65px 35px 45px;
     box-sizing: border-box;
 
+    & > *:not(:last-child) {
+      margin-bottom: 24px;
+    }
+
     @media (max-width: 1600px) {
       padding-right: 30px;
       padding-left: 30px;
@@ -87,7 +101,7 @@
       }
 
       > div:last-child {
-        width: 140px;
+        //width: 140px;
         margin-left: 25px;
       }
     }
@@ -134,11 +148,18 @@
     }
 
     .sampleChoice {
-      width: 48%;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2%;
+      & > div {
+        flex: 0 0 48%;
+        margin-bottom: 16px;
+      }
 
       @media (max-width: 1400px) {
         width: 100%;
-        margin-bottom: 10px;
+        //margin-bottom: 10px;
       }
 
       .sampleBlock {
@@ -182,9 +203,6 @@
         }
       }
 
-      .sampleBlock + .sampleBlock {
-        margin-top: 10px;
-      }
 
       .sampleAdd {
         position: relative;
@@ -251,7 +269,9 @@
         margin-top: 20px;
       }
     }
-
-
   }
+}
+
+.modalWrapper {
+  padding: 16px;
 }

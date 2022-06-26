@@ -36,31 +36,17 @@ const Table: FC<Props> = props => {
   }
   return (
     <div className={styles.tableContent}>
-      {list !== undefined && list.length > 0 && (
-        <table>
-          <thead>
-            <tr>
-              {' '}
-              {colNames !== undefined &&
-                colNames.length > 0 &&
-                colNames.map((headerItem, index) => <th key={index}>{headerItem}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {children}
-            {/* {Object.values(list).map((obj, index) => (
-              <tr key={index}>
-                {Object.values(obj).map((value, index2) => {
-                  if (typeof value === 'function') {
-                    return <td key={index2}>{value()}</td>;
-                  }
-                  return <td key={index2}>{value as any}</td>;
-                })}
-              </tr>
-            ))} */}
-          </tbody>
-        </table>
-      )}
+      <table>
+        <thead>
+          <tr>
+            {' '}
+            {colNames !== undefined &&
+              colNames.length > 0 &&
+              colNames.map((headerItem, index) => <th key={index}>{headerItem}</th>)}
+          </tr>
+        </thead>
+        <tbody>{children}</tbody>
+      </table>
     </div>
   );
 };

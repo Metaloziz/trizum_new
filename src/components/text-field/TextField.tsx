@@ -1,33 +1,20 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react';
 
 import styles from './TextField.module.scss';
 
-interface Props {
-  type?: string;
-  id?: string;
-  onChange?: (value: ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  value?: string;
+type Props = {
+  value: string;
   label?: string;
-}
+  error?: string;
+} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 const TextField: FC<Props> = props => {
-  const { type, id, onChange, placeholder, value, label } = props;
-  const [titleValue, setTitleValue] = useState(value);
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitleValue(e.target.value);
-    onChange && onChange(e);
-  };
+  const { type, onChange, value, error, label, ...rest } = props;
   return (
     <div className={styles.textField}>
       {label && <p>{label}</p>}
-      <input
-        placeholder={placeholder}
-        type={type || 'text'}
-        id={id}
-        value={titleValue}
-        onChange={handleChange}
-      />
+      <input {...rest} onChange={onChange} value={value} type={type || 'text'} />
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   );
 };

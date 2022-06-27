@@ -1,25 +1,30 @@
 @import "../../../styles/variables";
+
 .calendar {
   max-width: 150px;
   min-width: 100px;
   width: 100%;
   position: relative;
+
   & > div {
     position: absolute;
     right: 0;
     top: 0;
   }
+
   & > div > div {
     margin-right: 3px;
-    display: flex!important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
   }
+
   @media(max-width: 756px) {
     max-width: 100%;
     min-width: 100%;
   }
 }
+
 .input {
   display: block;
   width: 100%;
@@ -29,10 +34,18 @@
   appearance: none;
   border: none;
   outline: none;
-  padding: 8px 35px 8px 15px ;
-  font-size: 14px;
+  padding: 8px 35px 8px 15px;
+  font-size: 11px;
+  line-height: 13px;
   font-family: inherit;
-  &:hover, &:focus{
+  color: #000000;
+  font-weight: 600;
+
+  &::placeholder {
+    color: #000000;
+  }
+
+  &:hover, &:focus {
     appearance: none;
     border: none;
     outline: none;

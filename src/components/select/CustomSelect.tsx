@@ -16,7 +16,6 @@ interface Props {
   options: SelectOptions[];
   placeholder?: string;
   onChange?: OnChangeValue<any, any>;
-  label?: string;
   className?: string;
   // id: string;
 }
@@ -26,9 +25,6 @@ const CustomSelect: FC<Props> = ({ options, placeholder, className, onChange }) 
   const instanceId = useId();
   return (
     <div className={cn(styles.selectWrap, className)}>
-      <div className={styles.selectArrow}>
-        <Image src={selectArrow} alt='arrow' />
-      </div>
       <Select
         id={id}
         instanceId={instanceId}
@@ -39,6 +35,13 @@ const CustomSelect: FC<Props> = ({ options, placeholder, className, onChange }) 
       />
     </div>
   );
+};
+
+CustomSelect.defaultProps = {
+  placeholder: '',
+  onChange: () => {
+  },
+  className: '',
 };
 
 export default CustomSelect;

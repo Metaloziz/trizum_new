@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import CardStudentForTeacher from '@components/card-student/card-student-for-teacher/CardStudentForTeacher';
-import CardStudentForUser from '@components/card-student/card-student-for-user/CardStudentForUser';
+import CardStudentForStudent from '@components/card-student/card-student-for-user/CardStudentForStudent';
 
 import CardStudentExtended from './card-student-extended/CardStudentExtended';
 
@@ -10,17 +10,23 @@ type UserType = 'student' | 'teacher' | 'extended';
 interface Props {
   title: string;
   type: UserType;
-  isFooterDisabled?: boolean;
 }
 
-const CardStudent: FC<Props> = ({ title, type, isFooterDisabled }) => (
+const mockStudent = {
+  fullName: 'string',
+  role: 'string',
+  city: 'string',
+  phone: 'string',
+  birthdate: 'string',
+  email: 'string',
+};
+
+const CardStudent: FC<Props> = ({ title, type }) => (
   <>
-    {type === 'student' && <CardStudentForUser title={title} isFooterDisabled={isFooterDisabled} />}
+    {type === 'student' && <CardStudentForStudent user={mockStudent} />}
     {type === 'teacher' && <CardStudentForTeacher title={title} flag />}
-    {type === 'extended' && <CardStudentExtended title={title} />}
+    {/* {type === 'extended' && <CardStudentExtended title={title} />} */}
   </>
 );
-CardStudent.defaultProps = {
-  isFooterDisabled: false,
-};
+
 export default CardStudent;

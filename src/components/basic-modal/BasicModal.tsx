@@ -19,7 +19,7 @@ const BasicModal: FC<Props> = ({ children, visibility, changeVisibility }) => {
     <div className={styles.modal} onClick={() => changeVisibility(false)}>
       <div className={styles.content} onClick={e => e.stopPropagation()}>
         <div className={styles.btnClose} onClick={() => changeVisibility(false)}>
-          <Image src={buttonClose} width='14' height='14' alt='Х' />
+          <Image src={buttonClose} width="14" height="14" alt="Х" />
         </div>
         {children}
       </div>

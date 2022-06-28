@@ -230,6 +230,7 @@
       }
 
       > div {
+        margin-bottom: 24px;
         @media (max-width: 1000px) {
           flex-direction: column;
 

@@ -13,6 +13,7 @@
     font-weight: 600;
     font-size: 14px;
     margin-right: 10px;
+    white-space: nowrap;
   }
 
   & > div {
@@ -28,7 +29,7 @@
   }
 
   svg {
-    display: none !important;
+    fill: #000;
   }
 
   .selectArrow {
@@ -42,5 +43,14 @@
 
   &:hover .selectArrow {
     opacity: 0.5;
+  }
+  .error {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    font-weight: 600;
+    transform: translate(-50%);
   }
 }

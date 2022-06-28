@@ -20,21 +20,6 @@ export type ResponseMe = {
   role: string;
 };
 
-// export type ResponseLoadMe = {
-//   id: string;
-//   firstName: string;
-//   middleName: null | string;
-//   lastName: string;
-//   email: string;
-//   phone: string;
-//   role: string;
-//   franchise: null | string;
-//   city: null | string;
-//   birthdate: null | string;
-//   sex: null | boolean;
-//   balance: string;
-// };
-
 export type ResponseLoadMe = {
   id: string;
   firstName: string;
@@ -56,4 +41,20 @@ export type ResponseLoadMe = {
     id: string;
     path: string;
   };
+};
+
+export type RequestRegister = {
+  phone: string;
+  email: string;
+  role: string;
+  franchiseId: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  city: string;
+  birthdate: string;
+  sex: boolean;
+  groupId: string;
+  tariffId: string;
+  isSecondChild: boolean;
 };

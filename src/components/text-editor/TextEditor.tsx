@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { EditorState } from 'draft-js';
 import dynamic from 'next/dynamic';
@@ -10,13 +10,21 @@ import styles from './TextEditor.module.scss';
 const Editor = dynamic<EditorProps>(() => import('react-draft-wysiwyg').then(mod => mod.Editor), {
   ssr: false,
 });
+type Props = {
+  onChange?: (state: any) => void;
+};
 
-const TextEditor = () => {
+const TextEditor: FC<Props> = props => {
+  const { onChange } = props;
+  const handleChange = (state: any) => {
+    console.log(state);
+  };
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   return (
     <div>
       <Editor
+        onChange={handleChange}
         editorState={editorState}
         onEditorStateChange={setEditorState}
         wrapperClassName={styles.wrapper}
@@ -57,5 +65,8 @@ const TextEditor = () => {
       />
     </div>
   );
+};
+TextEditor.defaultProps = {
+  onChange: undefined,
 };
 export default TextEditor;

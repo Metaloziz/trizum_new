@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { AnswerT } from '@app/types/CourseTypes';
 import AddVariantItem from '@components/add-test-page/add-variant/addVariantItem';
 
 type ArrayItem = {
@@ -9,26 +10,23 @@ type ArrayItem = {
 };
 
 type VariantListType = {
-  items: Array<ArrayItem>;
-  handlerVariant: (id: number, value: string) => void;
-  handleChecked?: (id: number, isChecked: boolean) => void;
+  items: AnswerT[];
+  handlerVariant: (value: string) => void;
+  handleChecked: (value: string, isChecked: boolean) => void;
 };
 
 const AddVariantList = ({ items, handlerVariant, handleChecked }: VariantListType) => (
   <div>
-    {items.map(({ id, completed, value }) => (
+    {items.map(({ correct, text }) => (
       <AddVariantItem
-        key={id}
-        id={id}
-        completed={completed}
-        value={value}
+        key={text}
+        correct={correct}
+        text={text}
         handlerVariant={handlerVariant}
         handleChecked={handleChecked}
       />
     ))}
   </div>
 );
-AddVariantList.defaultProps = {
-  handleChecked: undefined,
-};
+
 export default AddVariantList;

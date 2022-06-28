@@ -9,7 +9,7 @@ import styles from './CardStudentButtonGroup.module.scss';
 
 const CardStudentButtonGroup = () => (
   <div className={styles.wrapper}>
-    <CustomButton type='parents' size='small' onClick={() => modals.changeParents()}>
+    <CustomButton type="parents" size="small" onClick={() => modals.changeParents()}>
       Родители
     </CustomButton>
     <ButtonOpenClose isOpen={false} />

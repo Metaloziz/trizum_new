@@ -26,16 +26,6 @@ const FranchisingPage = observer(() => {
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      // пример запроса на сервер
-      // const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
-      // setData(res.data);
-      setLoading(false);
-    };
-    getData();
-  }, []);
 
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;
@@ -95,7 +85,7 @@ const FranchisingPage = observer(() => {
               <td>{item.checkingAccount || '-'}</td>
               <td>{item.bankBill || '-'}</td>
               <td>{item.bankName || '-'}</td>
-              <td>{item.bankBIK ? `${item.bankBIK} ${item.bankINN} ${item.bankKPP}` : '-'}</td>
+              <td>{item.bankBik ? `${item.bankBik} ${item.bankInn} ${item.bankKpp}` : '-'}</td>
             </tr>
           ))}
         </Table>
@@ -112,7 +102,7 @@ const FranchisingPage = observer(() => {
         />
       </div>
       <div className={styles.modalContent}>
-        <FranchisingModal showModal={showModal} setShowModal={() => setShowModal(false)} />
+        <FranchisingModal showModal={showModal} onClose={() => setShowModal(false)} />
       </div>
     </div>
   );

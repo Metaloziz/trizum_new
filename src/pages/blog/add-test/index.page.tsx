@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 const IndexPage: FC = observer(() => {
   switch (appStore.role) {
     case Roles.Methodist:
+    case Roles.Admin:
       return <AddTest />;
     default:
       return <Custom404 />;

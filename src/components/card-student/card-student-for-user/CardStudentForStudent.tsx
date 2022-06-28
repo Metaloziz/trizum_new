@@ -1,16 +1,13 @@
 import React, { FC, useState } from 'react';
 
 import BasicModal from '@components/basic-modal/BasicModal';
-import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
 import CustomButton from '@components/custom-button/CustomButton';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
 import Panel from '@components/panel/Panel';
 import { Routes } from '@constants/Routes';
 import avatar from '@public/img/pervoklasnin.jpg';
 import iconFlag from '@svgs/icon-flag.svg';
-import iconTablet from '@svgs/icon-tablet.svg';
 import iconMonkey from '@svgs/monkey.svg';
-import iconParrot from '@svgs/parrot.svg';
 import iconTelegram from '@svgs/telegram.svg';
 import iconWhatsApp from '@svgs/whats-app.svg';
 import cn from 'classnames';
@@ -19,12 +16,21 @@ import { useRouter } from 'next/router';
 
 import styles from './CardStudentForUser.module.scss';
 
-interface Props {
-  title: string;
-  isFooterDisabled?: boolean;
-}
+type Props = {
+  user: {
+    fullName: string;
+    role: string;
+    city: string;
+    phone: string;
+    birthdate: string;
+    email: string;
+  };
+};
 
-const CardStudentForUser: FC<Props> = ({ title, isFooterDisabled }) => {
+const CardStudentForStudent: FC<Props> = props => {
+  const {
+    user: { birthdate, city, phone, role, email, fullName },
+  } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
   const olympiadId = 1;
@@ -32,7 +38,6 @@ const CardStudentForUser: FC<Props> = ({ title, isFooterDisabled }) => {
   const onParticipateClick = () => {
     router.push(`${Routes.Olympiads}/${olympiadId}/${userId}`);
   };
-  
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
@@ -40,7 +45,7 @@ const CardStudentForUser: FC<Props> = ({ title, isFooterDisabled }) => {
           <Image src={avatar} width="170" height="170" alt="student" />
         </CustomImageWrapper>
         <div>
-          <CardStudentTitle>{title}</CardStudentTitle>
+          <h3 className={styles.title}>{fullName}</h3>
           <div className={styles.mt15}>
             <ul className={styles.list}>
               <li>
@@ -49,7 +54,7 @@ const CardStudentForUser: FC<Props> = ({ title, isFooterDisabled }) => {
                 </span>
                 Статус:
               </li>
-              <li>Ученик</li>
+              <li>{role}</li>
             </ul>
             <ul className={styles.list}>
               <li>
@@ -58,9 +63,9 @@ const CardStudentForUser: FC<Props> = ({ title, isFooterDisabled }) => {
                 </span>
                 Город:
               </li>
-              <li>Москва</li>
+              <li>{city}</li>
             </ul>
-            <ul className={styles.list}>
+            {/* <ul className={styles.list}>
               <li>
                 <span>
                   <Image src={iconParrot} width="25" height="25" alt="parrot" />
@@ -68,31 +73,29 @@ const CardStudentForUser: FC<Props> = ({ title, isFooterDisabled }) => {
                 Учитель:
               </li>
               <li>Евсеев Виктор Петрович</li>
-            </ul>
-            <ul className={styles.list}>
+            </ul> */}
+            {/* <ul className={styles.list}>
               <li>
                 <span>
-                  <Image src={iconTablet} width='25' height='25' alt='icon tablet' />
+                  <Image src={iconTablet} width="25" height="25" alt="icon tablet" />
                 </span>
                 Следующее занятие:
               </li>
               <li>01.02.2021 в 18:00</li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
-      {!isFooterDisabled && (
-        <div className={cn(styles.row, styles.buttonGroup)}>
-          <div className={styles.social}>
-            <span>Ссылки на чаты:</span>
-            <Image src={iconTelegram} width='25' height='25' alt='icon tablet' />
-            <Image src={iconWhatsApp} width='25' height='25' alt='icon tablet' />
-          </div>
-          <CustomButton size='small' onClick={() => setShowModal(true)}>
-            Принять участие в олимпиаде
-          </CustomButton>
+      <div className={cn(styles.row, styles.buttonGroup)}>
+        <div className={styles.social}>
+          <span>Ссылки на чаты:</span>
+          <Image src={iconTelegram} width="25" height="25" alt="icon tablet" />
+          <Image src={iconWhatsApp} width="25" height="25" alt="icon tablet" />
         </div>
-      )}
+        <CustomButton size="small" onClick={() => setShowModal(true)}>
+          Принять участие в олимпиаде
+        </CustomButton>
+      </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>
         <div className={styles.modalContent}>
           <Panel className={styles.panel}>Олимпиада - неделя антипазла</Panel>
@@ -115,8 +118,4 @@ const CardStudentForUser: FC<Props> = ({ title, isFooterDisabled }) => {
   );
 };
 
-CardStudentForUser.defaultProps = {
-  isFooterDisabled: false,
-};
-
-export default CardStudentForUser;
+export default CardStudentForStudent;

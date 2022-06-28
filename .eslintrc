@@ -29,7 +29,7 @@
     "no-debugger": "error",
     "no-unused-vars": "off",
     "no-undef": "off",
-    "no-unused-expressions": "warn",
+    "no-unused-expressions": "off",
     "no-magic-numbers": "off",
     "default-param-last": "off",
     "no-use-before-define": "off",
@@ -54,7 +54,7 @@
       "off"
     ],
     "@typescript-eslint/no-magic-numbers": [
-      "warn",
+      "off",
       {
         "ignoreEnums": true,
         "ignoreNumericLiteralTypes": true
@@ -73,8 +73,10 @@
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/mouse-events-have-key-events": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "react/prop-types": 0,
+    "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
     "react/button-has-type": "warn",
     "react/display-name": "off",

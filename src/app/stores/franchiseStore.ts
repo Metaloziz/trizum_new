@@ -1,5 +1,5 @@
 import franchiseService from '@app/services/franchiseService';
-import { Franchise } from '@app/types/FranchiseTypes';
+import { Franchise, RequestCreateFranchise } from '@app/types/FranchiseTypes';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 class FranchiseStore {
@@ -12,8 +12,13 @@ class FranchiseStore {
   getAllFranchise = async () => {
     const res = await franchiseService.getAll();
     runInAction(() => {
-      this.franchises = res;
+      this.franchises = res.reverse();
     });
+  };
+
+  createFranchise = async (data: RequestCreateFranchise) => {
+    await franchiseService.create(data);
+    await this.getAllFranchise();
   };
 }
 export default new FranchiseStore();

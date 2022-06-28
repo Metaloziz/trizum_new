@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 
+import { AnswerT } from '@app/types/CourseTypes';
 import { stateVariantType } from '@components/add-test-page/AddTest';
 import InformationItem from '@components/information-item/InformationItem';
 import checked from '@svgs/checked.svg';
@@ -8,44 +9,33 @@ import Image from 'next/image';
 
 import styles from './addVariant.module.scss';
 
-type ArrayItemProps = stateVariantType & {
-  handlerVariant: (id: number, value: string) => void;
-  handleChecked?: (id: number, isChecked: boolean) => void;
+type ArrayItemProps = AnswerT & {
+  handlerVariant: (value: string) => void;
+  handleChecked: (text: string, isChecked: boolean) => void;
 };
 
-const AddVariantItem = ({
-  id,
-  completed,
-  value,
-  handlerVariant,
-  handleChecked,
-}: ArrayItemProps) => {
+const AddVariantItem: FC<ArrayItemProps> = props => {
+  const { handlerVariant, handleChecked, text, correct } = props;
   const onClickChecked = () => {
-    handleChecked && handleChecked(id, !completed);
+    handleChecked(text, correct);
   };
 
   return (
     <div className={styles.variant}>
       <div className={styles.answer}>
         <InformationItem
-          title='Вариант ответа'
-          variant='input'
-          value={value}
-          onChange={e => handlerVariant(id, e)}
+          title="Вариант ответа"
+          variant="input"
+          value={text}
+          onChange={e => handlerVariant(e)}
         />
-        {handleChecked && (
-          <button className={styles.checkBox} onClick={onClickChecked}>
-            <Image src={completed ? isCheck : checked} alt='checked' />
-            {/* <Checked/> */}
-          </button>
-        )}
+        <button className={styles.checkBox} onClick={onClickChecked}>
+          <Image src={correct ? isCheck : checked} alt="checked" />
+          {/* <Checked/> */}
+        </button>
       </div>
     </div>
   );
-};
-
-AddVariantItem.defaultProps = {
-  handleChecked: undefined,
 };
 
 export default AddVariantItem;

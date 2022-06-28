@@ -1,9 +1,13 @@
 import React, { FC, useState } from 'react';
 
+import { ResponseUserT } from '@app/services/usersService';
+import { UserT } from '@app/types/UserTypes';
+import ButtonOpenClose from '@components/button-open-close/ButtonOpenClose';
 import CardStudentButtonGroup from '@components/card-student/card-student-for-teacher/card-student-button-group/CardStudentButtonGroup';
 import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
+import CustomButton from '@components/custom-button/CustomButton';
 import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
-import avatar from '@public/img/pervoklasnin.jpg';
+import mockAvatar from '@public/img/pervoklasnin.jpg';
 import iconSettingsBlue from '@svgs/icon-setting-blue.svg';
 import iconSettings from '@svgs/icon-settings.svg';
 import Image from 'next/image';
@@ -12,40 +16,55 @@ import modals from '../../../app/stores/CardStudentExtended';
 
 import styles from './CardStudentExtended.module.scss';
 
-const data = [
-  { title: 'Статус', description: 'Ученик' },
-  { title: 'Город', description: 'Москва' },
-  { title: 'Телефон', description: '+7(950)55 33 570' },
-  { title: 'Дата рождения', description: '03.09.1993 г.' },
-  { title: 'Почта', description: 'sanya@yandex.ru' },
-];
+type Props = {
+  user: ResponseUserT;
+};
 
-interface Props {
-  title: string;
-}
-
-const CardStudentExtended: FC<Props> = ({ title }) => {
+const CardStudentExtended: FC<Props> = props => {
+  const {
+    user: { email, role, phone, id },
+  } = props;
+  // const name = `${middleName} ${firstName} ${lastName}`;
   const [isShow, setShow] = useState<boolean>(false);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.rowWrapper}>
         <div className={styles.row}>
           <CustomImageWrapper className={styles.image} variant="circle">
-            <Image src={avatar} width="170" height="170" alt="student" />
+            <Image src={mockAvatar} width="170" height="170" alt="avatar" />
+            {/* <Image src={avatar ? avatar.path : mockAvatar} width="170" height="170" alt="avatar" /> */}
           </CustomImageWrapper>
           <div className={styles.title}>
-            <CardStudentTitle>{title}</CardStudentTitle>
+            <h3>{role}</h3>
+            {/* <h3>{name}</h3> */}
             <div className={styles.mt20}>
-              {data.map(item => (
-                <ul key={item.title} className={styles.list}>
-                  <li>{item.title}:</li>
-                  <li>{item.description}</li>
-                </ul>
-              ))}
+              <p className={styles.list}>
+                Статус: <span>{role}</span>
+              </p>
+              {/* <p className={styles.list}> */}
+              {/*  Город: <span>{city}</span> */}
+              {/* </p> */}
+              <p className={styles.list}>
+                Телефон: <span>{phone}</span>
+              </p>
+              <p className={styles.list}>
+                Почта: <span>{email}</span>
+              </p>
+              {/* <p className={styles.list}> */}
+              {/*  Дата рождения: <span>{birthdate && birthdate.date}</span> */}
+              {/* </p> */}
             </div>
           </div>
         </div>
-        <CardStudentButtonGroup />
+        <div className={styles.buttonWrapper}>
+          {role === 'student' && (
+            <CustomButton type="parents" size="small" onClick={() => modals.changeParents()}>
+              Родители
+            </CustomButton>
+          )}
+          <ButtonOpenClose isOpen={false} />
+        </div>
       </div>
       <div
         className={styles.settings}

@@ -16,6 +16,12 @@ export type stateVariantType = {
   value: string;
 };
 
+export type stateFieldType = {
+  id: number;
+  value: string;
+};
+
+
 const rolesNew = [
   {
     value: 'Роль 1',
@@ -36,12 +42,11 @@ const IndexPage = () => {
   const [variant, setVariant] = useState<Array<stateVariantType>>([]);
   const [variantModal, setVariantModal] = useState<Array<stateVariantType>>([]);
   const [isTextActive, setTextIsActive] = useState<boolean>(true);
-  
-  
+
   const addVariantModal = () => {
     setVariantModal(value => [...value, { id: Date.now(), value: '', completed: false }]);
   };
-  
+
   const handlerVariantModal = (id: number, value: string) => {
     setVariantModal(variants =>
       variants.map(item => {
@@ -52,11 +57,11 @@ const IndexPage = () => {
       }),
     );
   };
-  
+
   const addVariant = () => {
     setVariant(value => [...value, { id: Date.now(), value: '', completed: false }]);
   };
-  
+
   const handlerVariant = (id: number, value: string) => {
     setVariant(variants =>
       variants.map(item => {

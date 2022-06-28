@@ -2,7 +2,6 @@ import React, { FC, SyntheticEvent, useState } from 'react';
 
 import appStore, { Roles } from '@app/stores/appStore';
 import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import {
   CustomEvent,
@@ -12,6 +11,7 @@ import {
 } from '@components/schedule/ScheduleComponents';
 import ScheduleModal from '@components/schedule/ScheduleModal';
 import CustomSelect from '@components/select/CustomSelect';
+import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 import { Calendar, momentLocalizer, stringOrDate } from 'react-big-calendar';
@@ -69,33 +69,120 @@ const groups = ['group №1', 'group №2', 'group №3'];
 const createOptions = (arr: string[]) => arr.map(el => ({ value: el, label: el }));
 
 const groupOptions = createOptions(groups);
+// const { role } = appStore;
+const ChildrenToolbar: FC = observer(() => {
+  const { role } = appStore;
 
-const ChildrenToolbar: FC = () => (
-  <div className={styles.toolbarFlex}>
-    <InformationItem title="Дата" variant="calendar" className={styles.toolbarDateSelect} />
-    {/*  <CustomSelect
-        options={groupOptions}
-        placeholder={'ФИО франчайзи'}
-        className={styles.toolbarGroupSelect}
+  return (
+    <div className={styles.toolbarFlex}>
+      <InformationItem
+        title="Дата"
+        variant="calendar"
+        className={cn(styles.toolbarDateSelect, styles.choiceData)}
       />
-      <CustomSelect
-        options={groupOptions}
-        placeholder={'Юр. адрес'}
-        className={styles.toolbarGr oupSelect}
-      />
-      <CustomSelect
-        options={groupOptions}
-        placeholder={'Город'}
-        className={styles.toolbarGroupSelect}
-      /> */}
-    <CustomSelect
-      options={groupOptions}
-      placeholder="Группа"
-      className={styles.toolbarGroupSelect}
-    />
-    <CustomButton size="small">Найти</CustomButton>
-  </div>
-);
+      {role === Roles.FranchiseeAdmin && (
+        <div className={styles.optionBlockAdmin}>
+          <div className={styles.group}>
+            <p>Группа</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder="Группа"
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+          <div className={styles.nameAdmin}>
+            <p>ФИО Учителя</p>
+            <InformationItem variant="input" placeholder="Лунёв А.Н" size="large" />
+          </div>
+        </div>
+      )}
+      {role === Roles.Franchisee && (
+        <>
+          <div className={styles.group}>
+            <p>Группа</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder="Группа"
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+          <div className={styles.city}>
+            <p>Город</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder="Город"
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+        </>
+      )}
+      {role === Roles.Methodist && (
+        <div className={styles.wrapAdmin}>
+          <div className={styles.group}>
+            <p>Группа</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder="Группа"
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+          <div className={styles.city}>
+            <p>Город</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder="Город"
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+          <div className={styles.nameAdmin}>
+            <p>ФИО франчайзи</p>
+            <InformationItem variant="input" placeholder="Лунёв А.Н" size="large" />
+          </div>
+          <div className={styles.urAddress}>
+            <p>Юр.адрес</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder=""
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+        </div>
+      )}
+      {role === Roles.Admin && (
+        <div className={styles.wrapAdmin}>
+          <div className={styles.group}>
+            <p>Группа</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder="Группа"
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+          <div className={styles.city}>
+            <p>Город</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder="Город"
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+          <div className={styles.nameAdmin}>
+            <p>ФИО франчайзи</p>
+            <InformationItem variant="input" placeholder="Лунёв А.Н" size="large" />
+          </div>
+          <div className={styles.urAddress}>
+            <p>Юр.адрес</p>
+            <CustomSelect
+              options={groupOptions}
+              placeholder=""
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+});
 
 const ScheduleDnD: FC = observer(() => {
   const { role } = appStore;

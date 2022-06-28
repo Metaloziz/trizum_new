@@ -1,7 +1,7 @@
 import React, { FC, SyntheticEvent, useState } from 'react';
 
+import appStore, { Roles } from '@app/stores/appStore';
 import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
 import InformationItem from '@components/information-item/InformationItem';
 import {
   CustomEvent,
@@ -11,6 +11,8 @@ import {
 } from '@components/schedule/ScheduleComponents';
 import ScheduleModal from '@components/schedule/ScheduleModal';
 import CustomSelect from '@components/select/CustomSelect';
+import cn from 'classnames';
+import { observer } from 'mobx-react';
 import moment from 'moment';
 import { Calendar, momentLocalizer, stringOrDate, ToolbarProps } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
@@ -63,18 +65,34 @@ const formats = {
 };
 
 const groups = ['group №1', 'group №2', 'group №3'];
+const cityGroups = ['Аюта', 'Нежданная', 'Ростов на дону'];
 const createOptions = (arr: string[]) => arr.map(el => ({ value: el, label: el }));
 const groupOptions = createOptions(groups);
+const groupsCities = createOptions(cityGroups);
 
 const ChildrenToolbar: FC = () => (
-  <div className={styles.toolbarFlex}>
-    <InformationItem title="Дата" variant="calendar" className={styles.toolbarDateSelect} />
-    <CustomSelect
-      options={groupOptions}
-      placeholder="Группа"
-      className={styles.toolbarGroupSelect}
+  <div className={cn(styles.toolbarFlex)}>
+    <InformationItem
+      title="Дата"
+      variant="calendar"
+      className={cn(styles.toolbarDateSelect, styles.choiceData)}
     />
-    <CustomButton size="small">Найти</CustomButton>
+    <div className={styles.group}>
+      <p>Группа</p>
+      <CustomSelect
+        options={groupOptions}
+        placeholder="Группа"
+        className={styles.toolbarGroupSelect}
+      />
+    </div>
+    <div className={styles.city}>
+      <p>Город</p>
+      <CustomSelect
+        options={groupsCities}
+        placeholder="Город"
+        className={styles.toolbarGroupSelect}
+      />
+    </div>
   </div>
 );
 
@@ -155,12 +173,13 @@ const Schedule: FC = () => {
       changeVisibility();
     }
   };
+
   // eslint-disable-next-line react/no-unstable-nested-components
-  const FullToolbar: FC<ToolbarProps<object | ScheduleEvent, object>> = props => (
-    <Toolbar {...props}>
-      <ChildrenToolbar />
-    </Toolbar>
-  );
+  const FullToolbar: FC<ToolbarProps<object | ScheduleEvent, object>> = observer(props => {
+    const { role } = appStore;
+    return <Toolbar {...props}>{role === Roles.Teacher && <ChildrenToolbar />}</Toolbar>;
+  });
+
   const onApplyEventChanges = (event: ScheduleEvent) => {
     const newEvents: (ScheduleEvent | object)[] = events.map(e => {
       if ('id' in e) {

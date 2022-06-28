@@ -90,7 +90,7 @@ const HomeworkAddEditPage = observer(() => {
   };
 
   const onAddHWClick = () => {
-    coursesStore.setNewCourse({ level, title });
+    // coursesStore.setNewCourse({ level, title });
     router.push(`${Routes.Homework}/add`);
   };
 
@@ -142,16 +142,16 @@ const HomeworkAddEditPage = observer(() => {
   };
 
   const onSubmit = () => {
-    if (coursesStore.newCourse) {
-      const qwe: CourseObjT = {
-        title: coursesStore.newCourse.title,
-        groupLevel: coursesStore.newCourse.level,
-        creationDate: moment(new Date()).format('DD.MM.yyyy'),
-        description: '',
-        hw: homeworksAr.current,
-      };
-      console.log(qwe);
-    }
+    // if (coursesStore.newCourse) {
+    //   const qwe: CourseObjT = {
+    //     title: coursesStore.newCourse.title,
+    //     groupLevel: coursesStore.newCourse.level,
+    //     creationDate: moment(new Date()).format('DD.MM.yyyy'),
+    //     description: '',
+    //     hw: homeworksAr.current,
+    //   };
+    //   console.log(qwe);
+    // }
   };
   useEffect(() => {
     onLoad();
@@ -186,7 +186,7 @@ const HomeworkAddEditPage = observer(() => {
       )}
       {coursesStore.newCourse && (
         <>
-          <h3>Курс: {coursesStore.newCourse.title}</h3>
+          {/* <h3>Курс: {coursesStore.newCourse.title}</h3> */}
           <div className={styles.innerContent}>
             <div className={styles.homeWork}>
               <h1>Домашнее задание</h1>

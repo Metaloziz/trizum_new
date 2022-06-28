@@ -7,6 +7,11 @@ import {
   ResponseOneCourse,
 } from '@app/types/CourseTypes';
 
+export type MockType = {
+  id: string;
+  code: string;
+};
+
 const coursesService = {
   getAllCourses: async (): Promise<ResponseCourses[]> => {
     const { data } = await instance.get(Paths.Courses);
@@ -28,8 +33,8 @@ const coursesService = {
     const { data } = await instance.delete(`${Paths.Courses}/${id}`);
     return data;
   },
-  getAllWorks: async (): Promise<any[]> => {
-    const { data } = await instance.get(Paths.Courses);
+  getAllWorks: async (): Promise<MockType[]> => {
+    const { data } = await instance.get(Paths.Works);
     return data;
   },
   getOneWork: async (id: string): Promise<any> => {

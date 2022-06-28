@@ -57,7 +57,7 @@ const InformationItem: FC<Props> = props => {
   let part;
   switch (variant) {
     case 'calendar':
-      part = <TextFieldCalendar dataAuto={dataAuto} value={value} onChange={onChange} />;
+      // part = <TextFieldCalendar dataAuto={dataAuto} value={value} onChange={onChange} />;
       break;
     case 'select':
       part = <CustomSelect options={option} placeholder={placeholder} onChange={onChangeSelect} />;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import authService from '@app/services/authService';
 import usersService, { ResponseUserT } from '@app/services/usersService';
+import usersStore from '@app/stores/usersStore';
 import { RequestRegister } from '@app/types/AuthTypes';
 import { UserT } from '@app/types/UserTypes';
 import BasicModal from '@components/basic-modal/BasicModal';
@@ -19,51 +20,18 @@ import modals from '../../app/stores/CardStudentExtended';
 
 import styles from './UsersPage.module.scss';
 
-const mockUser: Partial<UserT> = {
-  birthdate: {
-    date: '20.01.2000',
-    timezone: '',
-    timezone_type: '',
-  },
-  city: 'Moscow',
-  role: 'student',
-  email: 'asd@asd.asd',
-  firstName: 'Al',
-  middleName: 'Co',
-  lastName: 'Party',
-  status: 'student',
-  avatar: {
-    path: mockAvatar as unknown as string,
-    id: '',
-  },
-  phone: '79005005555',
-};
-
 const UsersPage = observer(() => {
+  const { users, usersTotalCount, getUsers,createUser } = usersStore;
   const [isModalAddUser, setModalAddUser] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [users, setUsers] = useState<ResponseUserT[]>([]);
 
   const load = async () => {
-    try {
-      const res = await usersService.getAllUsers();
-      setUsers(res.reverse());
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setIsLoaded(true);
-    }
+    await getUsers();
+    setIsLoaded(true);
   };
-  const onAddUser = async (data: RequestRegister) => {
+  const onAddUser = (data: RequestRegister) => {
     setModalAddUser(false);
-    try {
-      const res = await authService.register(data);
-      const resUsers = await usersService.getAllUsers();
-      setUsers(resUsers.reverse());
-      console.log(resUsers, 'res');
-    } catch (e) {
-      console.log(e);
-    }
+    createUser(data);
   };
   useEffect(() => {
     load();

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import coursesStore from '@app/stores/coursesStore';
-import { ResponseCourses } from '@app/types/CourseTypes';
+import { ResponseCourse } from '@app/types/CourseTypes';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
 import CustomPagination from '@components/custom-pagination/CustomPagination';
@@ -11,6 +11,7 @@ import SettingsGames from '@components/settings-games/SettingsGames';
 import Table from '@components/table/Table';
 import TextField from '@components/text-field/TextField';
 import { observer } from 'mobx-react-lite';
+import moment from 'moment';
 import { useRouter } from 'next/router';
 
 import styles from './MethodistMain.module.scss';
@@ -32,7 +33,7 @@ const levelOptions = [
 const MethodistMain: FC = observer(() => {
   const { getCourses, createCourse, courses } = coursesStore;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentCourse, setCurrentCourse] = useState<ResponseCourses>();
+  const [currentCourse, setCurrentCourse] = useState<ResponseCourse>();
   const [title, setTitle] = useState('');
   const [level, setLevel] = useState('');
   const router = useRouter();
@@ -47,19 +48,15 @@ const MethodistMain: FC = observer(() => {
     value && setLevel(value.label);
   };
   const onAddHWClick = () => {
-    createCourse({ code: title });
+    createCourse({ title, level, works: [] });
     setIsModalOpen(false);
-    // coursesStore.setNewCourse({ level, title });
-    // router.push(`${Routes.Homework}/add`);
   };
-  const onEditHWClick = () => {
-
-  }
+  const onEditHWClick = () => {};
 
   const onSettingsClick = (id: string) => {
     const course = courses.find(el => el.id === id);
     setCurrentCourse(course);
-    course && setTitle(course.code);
+    course && setTitle(course.title);
   };
 
   useEffect(() => {
@@ -103,15 +100,13 @@ const MethodistMain: FC = observer(() => {
         <Table loading={false} colNames={colNames}>
           {courses.map(el => (
             <tr key={el.id}>
-              <td>{el.id}</td>
-              <td>{el.code}</td>
+              <td>{el.title}</td>
+              <td>{el.level}</td>
+              <td>{el.works?.length || el.worksCount}</td>
+              <td>{moment(new Date()).format('DD.MM.yyyy')}</td>
               <td>
                 <SettingsGames onClick={() => onSettingsClick(el.id)} />
               </td>
-              {/* <td>{el.groupLevel}</td> */}
-              {/* <td>{el.numberLessons}</td> */}
-              {/* <td>{el.date}</td> */}
-              {/* <td>{el.settings}</td> */}
             </tr>
           ))}
         </Table>

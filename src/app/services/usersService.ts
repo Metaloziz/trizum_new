@@ -7,10 +7,16 @@ export type ResponseUserT = {
   phone: string | null;
   role: string;
 };
+
+type FullResponseUserT = {
+  total: number;
+  users: ResponseUserT[];
+};
+
 type RequestUserT = {};
 
 const usersService = {
-  getAllUsers: async (): Promise<ResponseUserT[]> => {
+  getAllUsers: async (): Promise<FullResponseUserT> => {
     const { data } = await instance.get(Paths.Users);
     return data;
   },

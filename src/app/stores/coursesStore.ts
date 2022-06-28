@@ -1,5 +1,5 @@
 import coursesService, { MockType } from '@app/services/coursesService';
-import { AnswerT, RequestCreateCourse, ResponseCourses } from '@app/types/CourseTypes';
+import { AnswerT, RequestCreateCourse, ResponseCourse } from '@app/types/CourseTypes';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 type NewCourse = {
@@ -8,9 +8,8 @@ type NewCourse = {
 };
 
 class CoursesStore {
-  newCourse?: ResponseCourses = undefined;
 
-  courses: ResponseCourses[] = [];
+  courses: ResponseCourse[] = [];
 
   homeworks: MockType[] = [];
 
@@ -27,11 +26,8 @@ class CoursesStore {
 
   createCourse = async (data: RequestCreateCourse) => {
     try {
-      const res = await coursesService.createCourse(data);
+      await coursesService.createCourse(data);
       await this.getCourses();
-      runInAction(() => {
-        this.newCourse = res;
-      });
     } catch (e) {
       console.warn(e);
     }
@@ -39,11 +35,8 @@ class CoursesStore {
 
   editCourse = async (data: RequestCreateCourse) => {
     try {
-      const res = await coursesService.createCourse(data);
+      await coursesService.createCourse(data);
       await this.getCourses();
-      runInAction(() => {
-        this.newCourse = res;
-      });
     } catch (e) {
       console.warn(e);
     }

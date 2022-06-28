@@ -17,8 +17,8 @@ export type RequestCreateFranchise = {
   city: string;
   bankBill: string;
   bankName: string;
-  bankBIK: string;
-  bankINN: string;
-  bankKPP: string;
+  bankBik: string;
+  bankInn: string;
+  bankKpp: string;
 };
 export type Franchise = Partial<RequestCreateFranchise> & ResponseFranchise;

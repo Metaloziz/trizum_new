@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import franchiseService from '@app/services/franchiseService';
+import franchiseStore from '@app/stores/franchiseStore';
 import { RequestCreateFranchise } from '@app/types/FranchiseTypes';
 import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
@@ -13,7 +14,7 @@ import * as yup from 'yup';
 
 type Props = {
   showModal: boolean;
-  setShowModal: () => void;
+  onClose: () => void;
 };
 
 const defaultValues: RequestCreateFranchise = {
@@ -31,14 +32,13 @@ const defaultValues: RequestCreateFranchise = {
   city: '',
   bankBill: '',
   bankName: '',
-  bankBIK: '',
-  bankINN: '',
-  bankKPP: '',
+  bankBik: '',
+  bankInn: '',
+  bankKpp: '',
 };
 
 const FranchisingModal: FC<Props> = props => {
-  const { showModal, setShowModal } = props;
-  const [shortName, setShortName] = useState('');
+  const { showModal, onClose } = props;
 
   const schema = yup.object().shape({
     fullName: yup.string().required('Обязательное поле'),
@@ -55,9 +55,9 @@ const FranchisingModal: FC<Props> = props => {
     city: yup.string().required('Обязательное поле'),
     bankBill: yup.string().required('Обязательное поле'),
     bankName: yup.string().required('Обязательное поле'),
-    bankBIK: yup.string().required('Обязательное поле'),
-    bankINN: yup.string().required('Обязательное поле'),
-    bankKPP: yup.string().required('Обязательное поле'),
+    bankBik: yup.string().required('Обязательное поле'),
+    bankInn: yup.string().required('Обязательное поле'),
+    bankKpp: yup.string().required('Обязательное поле'),
   });
   const {
     handleSubmit,
@@ -68,15 +68,15 @@ const FranchisingModal: FC<Props> = props => {
 
   const onSaveClick = async (values: RequestCreateFranchise) => {
     try {
-      const res = await franchiseService.create(values);
-      setShowModal();
-      console.log(res);
+      await franchiseStore.createFranchise(values);
+      reset();
+      onClose();
     } catch (e) {
       console.log(e);
     }
   };
   return (
-    <BasicModal visibility={showModal} changeVisibility={setShowModal}>
+    <BasicModal visibility={showModal} changeVisibility={onClose}>
       <div className={styles.modalWrap}>
         <div className={styles.modalContent}>
           <div>
@@ -201,23 +201,23 @@ const FranchisingModal: FC<Props> = props => {
               control={control}
             />
             <Controller
-              name="bankBIK"
+              name="bankBik"
               render={({ field }) => (
-                <TextField {...field} label="БИК банка" error={errors.bankBIK?.message} />
+                <TextField {...field} label="БИК банка" error={errors.bankBik?.message} />
               )}
               control={control}
             />
             <Controller
-              name="bankINN"
+              name="bankInn"
               render={({ field }) => (
-                <TextField {...field} label="ИНН банка" error={errors.bankINN?.message} />
+                <TextField {...field} label="ИНН банка" error={errors.bankInn?.message} />
               )}
               control={control}
             />
             <Controller
-              name="bankKPP"
+              name="bankKpp"
               render={({ field }) => (
-                <TextField {...field} label="КПП банка" error={errors.bankKPP?.message} />
+                <TextField {...field} label="КПП банка" error={errors.bankKpp?.message} />
               )}
               control={control}
             />

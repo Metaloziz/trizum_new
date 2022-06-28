@@ -2,7 +2,7 @@ import { Paths } from '@app/enums/Paths';
 import instance from '@app/services/config';
 import {
   RequestCreateCourse,
-  ResponseCourses,
+  ResponseCourse,
   ResponseDeleteCourse,
   ResponseOneCourse,
 } from '@app/types/CourseTypes';
@@ -13,7 +13,7 @@ export type MockType = {
 };
 
 const coursesService = {
-  getAllCourses: async (): Promise<ResponseCourses[]> => {
+  getAllCourses: async (): Promise<ResponseCourse[]> => {
     const { data } = await instance.get(Paths.Courses);
     return data;
   },
@@ -21,7 +21,7 @@ const coursesService = {
     const { data } = await instance.get(`${Paths.Courses}/${id}`);
     return data;
   },
-  createCourse: async (options: RequestCreateCourse): Promise<ResponseCourses> => {
+  createCourse: async (options: RequestCreateCourse): Promise<ResponseCourse> => {
     const { data } = await instance.post(Paths.Courses, options);
     return data;
   },

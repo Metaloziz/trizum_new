@@ -1,20 +1,29 @@
-export type ResponseCourses = {
-  id: string;
-  code: string;
+export type ResponseWork = {
+  type: string;
+  index: number;
+  workId: string;
 };
+
+export type ResponseCourse = {
+  id: string;
+  title: string;
+  level: string;
+  works?: ResponseWork[];
+  worksCount:number
+};
+
 export type ResponseOneCourse = {
   id: string;
   code: string;
   works: ResponseWork[];
 };
 
-export type ResponseWork = {
-  id: string;
-  code: string;
-};
 export type RequestCreateCourse = {
-  code: string;
+  title: string;
+  level: string;
+  works: ResponseWork[];
 };
+
 export type ResponseDeleteCourse = {
   result: string;
 };

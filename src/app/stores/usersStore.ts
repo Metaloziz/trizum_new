@@ -15,7 +15,7 @@ class UsersStore {
   getUsers = async () => {
     const res = await usersService.getAllUsers();
     runInAction(() => {
-      this.users = res.users.reverse();
+      this.users = res.items.reverse();
       this.usersTotalCount = res.total;
     });
   };

@@ -11,3 +11,4 @@ export const toolbarFlexWrapper: string;
 export const toolbarGroupSelect: string;
 export const toolbarWrapper: string;
 export const wrapper: string;
+export const childrenWrap: string;

@@ -30,7 +30,15 @@ export type ResponseLoadMe = {
   role: string;
   franchise: null | string;
   city: null | string;
-  birthdate: null | string;
-  sex: null | boolean;
-  balance: string;
+  birthdate: {
+    date: string;
+    timezone_type: string;
+    timezone: string;
+  };
+  sex: null | string;
+  status: string;
+  avatar: {
+    id: string;
+    path: string;
+  };
 };

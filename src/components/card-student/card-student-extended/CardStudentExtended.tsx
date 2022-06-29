@@ -22,11 +22,10 @@ type Props = {
 
 const CardStudentExtended: FC<Props> = props => {
   const {
-    user: { email, role, phone, id },
+    user: { email, roleCode, phone, id },
   } = props;
   // const name = `${middleName} ${firstName} ${lastName}`;
   const [isShow, setShow] = useState<boolean>(false);
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.rowWrapper}>
@@ -36,11 +35,11 @@ const CardStudentExtended: FC<Props> = props => {
             {/* <Image src={avatar ? avatar.path : mockAvatar} width="170" height="170" alt="avatar" /> */}
           </CustomImageWrapper>
           <div className={styles.title}>
-            <h3>{role}</h3>
+            <h3>{roleCode}</h3>
             {/* <h3>{name}</h3> */}
             <div className={styles.mt20}>
               <p className={styles.list}>
-                Статус: <span>{role}</span>
+                Статус: <span>{roleCode}</span>
               </p>
               {/* <p className={styles.list}> */}
               {/*  Город: <span>{city}</span> */}
@@ -58,8 +57,8 @@ const CardStudentExtended: FC<Props> = props => {
           </div>
         </div>
         <div className={styles.buttonWrapper}>
-          {role === 'student' && (
-            <CustomButton type="parents" size="small" onClick={() => modals.changeParents()}>
+          {roleCode === 'admin' && (
+            <CustomButton type='parents' size='small' onClick={() => modals.changeParents()}>
               Родители
             </CustomButton>
           )}

@@ -299,7 +299,7 @@
     flex: 0 0 20%;
     margin: 0 10px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
     color: #000000;
 
@@ -350,7 +350,7 @@
   p {
     flex: 0 0 20%;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
     color: #000000;
     margin: 0 10px;
@@ -379,7 +379,7 @@
   > p {
     flex: 0 0 20%;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
     color: #000000;
     margin: 0 10px;
@@ -399,6 +399,10 @@
 .wrapAdmin {
   display: flex;
   align-items: center;
+
+  @media (max-width: 1280px) {
+    align-items: flex-end;
+  }
 
   @media (max-width: 850px) {
     flex-direction: column;
@@ -432,7 +436,7 @@
   > p {
     flex: 0 0 20%;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 17px;
     color: #000000;
     margin: 0 10px;
@@ -456,7 +460,141 @@
 }
 
 .choiceData {
+  > div {
+    width: 160px !important;
+
+    @media (max-width: 850px) {
+      width: 100% !important;
+    }
+  }
+
+  p {
+    font-size: 13px;
+  }
+
   @media (max-width: 1280px) {
     flex-direction: column;
+  }
+}
+
+.modalWrap {
+  width: 1210px;
+  padding: 40px 80px;
+
+  @media (max-width: 1250px) {
+    width: 1000px;
+  }
+
+  @media (max-width: 1050px) {
+    width: 850px;
+  }
+
+  @media (max-width: 900px) {
+    width: 700px;
+    padding: 40px 20px;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
+
+  h2 {
+    font-family: 'Aqum';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 23px;
+    text-align: center;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    margin-bottom: 34px;
+
+    @media (max-width: 700px) {
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    flex: 0 0 20%;
+    white-space: nowrap;
+    margin-right: 5px;
+
+    @media (max-width: 900px) {
+      text-align: center;
+      margin: 0 0 10px;
+    }
+  }
+
+  .modalInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
+
+    > div:last-child {
+      padding-right: 0;
+    }
+
+    > div {
+      width: 33%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 20px;
+
+      @media (max-width: 900px) {
+        flex-direction: column;
+        width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+      }
+
+
+      > div {
+        justify-content: flex-end;
+
+        @media (max-width: 900px) {
+          width: 100%;
+          justify-content: center;
+
+          > div {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    //.nameTeacher {
+    //  display: flex;
+    //  align-items: center;
+    //}
+    //
+    //.nameGroup {
+    //  display: flex;
+    //  align-items: center;
+    //}
+    //
+    //.levelGroup {
+    //  display: flex;
+    //  align-items: center;
+    //}
+  }
+
+  .modalBtn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 34px;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+    }
   }
 }

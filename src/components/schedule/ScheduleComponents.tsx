@@ -1,7 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import appStore, { Roles } from '@app/stores/appStore';
+import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
+import InformationItem from '@components/information-item/InformationItem';
 import styles from '@components/schedule/Schedule.module.scss';
 import { EventProps } from '@components/schedule/ScheduleDnD';
 import iconDelete from '@svgs/delete.svg';
@@ -22,8 +24,12 @@ import { ToolbarProps } from 'react-big-calendar';
 // type qwe = FC<ToolbarProps<object, object>> | undefined
 
 export const Toolbar: FC<ToolbarProps> = props => {
+  const [isVisible, setIsVisible] = useState(false);
   const { onNavigate, date, children } = props;
   const { role } = appStore;
+  const changeVisibility = () => {
+    setIsVisible(!isVisible);
+  };
   return (
     <div className={styles.toolbarWrapper}>
       <div className={styles.toolbarFlexWrapper}>
@@ -31,56 +37,76 @@ export const Toolbar: FC<ToolbarProps> = props => {
         <div className={styles.buttons}>
           {role === Roles.Teacher && (
             <>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none' size='small'>
                 Предыдущая
               </CustomButton>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none' size='small'>
                 Текущая
               </CustomButton>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none' size='small'>
                 Следующая
               </CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
           {role === Roles.FranchiseeAdmin && (
             <>
-              <CustomButton type="none">Добавить группу</CustomButton>
-              <CustomButton type="none">+ Добавить</CustomButton>
-              <CustomButton type="none">Предыдущая</CustomButton>
-              <CustomButton type="none">Текущая</CustomButton>
-              <CustomButton type="none">Следующая</CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton onClick={() => setIsVisible(!isVisible)} type='none'>
+                Добавить группу
+              </CustomButton>
+              <CustomButton type='none'>+ Добавить</CustomButton>
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+                Предыдущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+                Текущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+                Следующая
+              </CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
           {role === Roles.Franchisee && (
             <>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none' size='small'>
                 Предыдущая
               </CustomButton>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none' size='small'>
                 Текущая
               </CustomButton>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none' size='small'>
                 Следующая
               </CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
           {role === Roles.Methodist && (
             <>
-              <CustomButton type="none">Предыдущая</CustomButton>
-              <CustomButton type="none">Текущая</CustomButton>
-              <CustomButton type="none">Следующая</CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+                Предыдущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+                Текущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+                Следующая
+              </CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
           {role === Roles.Admin && (
             <>
-              <CustomButton type="none">Предыдущая</CustomButton>
-              <CustomButton type="none">Текущая</CustomButton>
-              <CustomButton type="none">Следующая</CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+                Предыдущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+                Текущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+                Следующая
+              </CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
         </div>
@@ -133,6 +159,28 @@ export const Toolbar: FC<ToolbarProps> = props => {
         {/* <CustomButton size="small">Найти</CustomButton> */}
         {/* </div> */}
       </div>
+      <BasicModal visibility={isVisible} changeVisibility={changeVisibility}>
+        <div className={styles.modalWrap}>
+          <h2>Добавить группу</h2>
+          <div className={styles.modalInfo}>
+            <div className={styles.nameTeacher}>
+              <p>ФИО Учителя</p>
+              <InformationItem variant='input' />
+            </div>
+            <div className={styles.nameGroup}>
+              <p>Название группы</p>
+              <InformationItem variant='input' />
+            </div>
+            <div className={styles.levelGroup}>
+              <p>Уровень группы</p>
+              <InformationItem variant='select' />
+            </div>
+          </div>
+          <div className={styles.modalBtn}>
+            <CustomButton>Сохранить</CustomButton>
+          </div>
+        </div>
+      </BasicModal>
     </div>
   );
 };

@@ -69,7 +69,6 @@ const groups = ['group №1', 'group №2', 'group №3'];
 const createOptions = (arr: string[]) => arr.map(el => ({ value: el, label: el }));
 
 const groupOptions = createOptions(groups);
-// const { role } = appStore;
 const ChildrenToolbar: FC = observer(() => {
   const { role } = appStore;
 
@@ -119,7 +118,6 @@ const ChildrenToolbar: FC = observer(() => {
       {role === Roles.Methodist && (
         <div className={styles.wrapAdmin}>
           <div className={styles.group}>
-            <p>Группа</p>
             <CustomSelect
               options={groupOptions}
               placeholder="Группа"
@@ -151,7 +149,6 @@ const ChildrenToolbar: FC = observer(() => {
       {role === Roles.Admin && (
         <div className={styles.wrapAdmin}>
           <div className={styles.group}>
-            <p>Группа</p>
             <CustomSelect
               options={groupOptions}
               placeholder="Группа"

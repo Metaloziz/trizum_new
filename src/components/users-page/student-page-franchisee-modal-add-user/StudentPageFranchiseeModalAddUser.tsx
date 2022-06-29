@@ -27,11 +27,12 @@ type AddUserT = {
   lastName: string;
   role: Option | undefined;
   sex: Option | undefined;
-  city: Option | undefined;
+  city: string;
   phone: string;
   birthdate: string | undefined;
   email: string;
   group: Option | undefined;
+  teacher: Option | undefined;
   // teacher: string;
   image?: string;
 };
@@ -65,11 +66,12 @@ const defaultValues: AddUserT = {
   lastName: '',
   role: roleOptions[0],
   sex: undefined,
-  city: undefined,
+  city: '',
   phone: '',
   birthdate: undefined,
   email: '',
   group: undefined,
+  teacher: undefined,
   // teacher: '',
 };
 
@@ -95,11 +97,12 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = props => {
     lastName: yup.string().required('Обязательное поле'),
     role: yup.object().required('Обязательное поле'),
     sex: yup.object().required('Обязательное поле'),
-    city: yup.object().required('Обязательное поле'),
+    city: yup.string().required('Обязательное поле'),
     phone: yup.string().required('Обязательное поле'),
     birthdate: yup.string().required('Обязательное поле'),
     email: yup.string().required('Обязательное поле').email(),
     group: yup.object().required('Обязательное поле'),
+    teacher: yup.object().required('Обязательное поле'),
     // teacher: yup.string().required('Обязательное поле'),
   });
   const {
@@ -116,9 +119,10 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = props => {
       franchiseId: '1ecf563a-2a69-6610-a812-f92a3af0f8be',
       tariffId: '',
       birthdate: values.birthdate || '',
-      city: values.city?.label || '',
+      city: values.city,
       role: values.role?.value || '',
       groupId: values.group?.value || '',
+      teacherId: values.teacher?.value || '',
       email: values.email,
       firstName: values.firstName,
       lastName: values.lastName,
@@ -155,40 +159,49 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = props => {
             control={control}
           />
           <Controller
-            name="lastName"
+            name='lastName'
             render={({ field }) => (
-              <TextField {...field} label="Отчество" error={errors.lastName?.message} />
+              <TextField {...field} label='Отчество' error={errors.lastName?.message} />
+            )}
+            control={control}
+          />
+          <div className={styles.roleSex}>
+            <Controller
+              name='role'
+              render={({ field }) => (
+                <CustomSelect
+                  {...field}
+                  title='Роль'
+                  options={roleOptions}
+                  // @ts-ignore
+                  error={errors.role?.message}
+                />
+              )}
+              control={control}
+            />
+            <Controller
+              name='sex'
+              render={({ field }) => (
+                <CustomSelect
+                  {...field}
+                  title='Пол'
+                  options={sexOptions}
+                  // @ts-ignore
+                  error={errors.sex?.message}
+                />
+              )}
+              control={control}
+            />
+          </div>
+          <Controller
+            name='city'
+            render={({ field }) => (
+              <TextField {...field} label='Город' error={errors.lastName?.message} />
             )}
             control={control}
           />
           <Controller
-            name="city"
-            render={({ field }) => (
-              <CustomSelect
-                {...field}
-                title="Город"
-                options={citiesOptions}
-                // @ts-ignore
-                error={errors.city?.message}
-              />
-            )}
-            control={control}
-          />
-          <Controller
-            name="role"
-            render={({ field }) => (
-              <CustomSelect
-                {...field}
-                title="Роль"
-                options={roleOptions}
-                // @ts-ignore
-                error={errors.role?.message}
-              />
-            )}
-            control={control}
-          />
-          <Controller
-            name="phone"
+            name='phone'
             render={({ field }) => (
               <TextField {...field} label="Телефон" error={errors.phone?.message} />
             )}
@@ -197,44 +210,48 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = props => {
           <div className={styles.infoItem}>
             <span>Дата рождения:</span>
             <Controller
-              name="birthdate"
-              render={({ field }) => <TextFieldCalendar {...field} dataAuto="" />}
+              name='birthdate'
+              render={({ field }) => <TextFieldCalendar {...field} dataAuto='' />}
               control={control}
             />
           </div>
-          <Controller
-            name="email"
-            render={({ field }) => (
-              <TextField {...field} label="Почта" error={errors.email?.message} />
-            )}
-            control={control}
-          />
-          <Controller
-            name="sex"
-            render={({ field }) => (
-              <CustomSelect
-                {...field}
-                title="Пол"
-                options={sexOptions}
-                // @ts-ignore
-                error={errors.sex?.message}
-              />
-            )}
-            control={control}
-          />
-          <Controller
-            name="group"
-            render={({ field }) => (
-              <CustomSelect
-                {...field}
-                title="Группа"
-                options={groups}
-                // @ts-ignore
-                error={errors.group?.message}
-              />
-            )}
-            control={control}
-          />
+          <div className={styles.emailChoice}>
+            <Controller
+              name='email'
+              render={({ field }) => (
+                <TextField {...field} label='Почта' error={errors.email?.message} />
+              )}
+              control={control}
+            />
+          </div>
+          <div className={styles.choiceGroup}>
+            <Controller
+              name='teacher'
+              render={({ field }) => (
+                <CustomSelect
+                  {...field}
+                  title='Учитель'
+                  options={groups}
+                  // @ts-ignore
+                  error={errors.group?.message}
+                />
+              )}
+              control={control}
+            />
+            <Controller
+              name='group'
+              render={({ field }) => (
+                <CustomSelect
+                  {...field}
+                  title='Группа'
+                  options={groups}
+                  // @ts-ignore
+                  error={errors.group?.message}
+                />
+              )}
+              control={control}
+            />
+          </div>
         </div>
       </div>
       <div className={styles.button}>

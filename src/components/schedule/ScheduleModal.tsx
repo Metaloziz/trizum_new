@@ -78,12 +78,12 @@ const ScheduleModal: FC<ScheduleModalProps> = (props) => {
         <div className={styles.saveSelect}>
           <p>Статус</p>
           <InformationItem
-            variant="select"
-            placeholder="Активен"
+            variant='select'
+            placeholder='Активен'
             className={styles.activeSelect}
           />
         </div>
-
+        <CustomButton onClick={applyChanges}>Редактировать группу</CustomButton>
         <CustomButton onClick={applyChanges}>Сохранить</CustomButton>
       </div>
       {/* <InformationItem */}

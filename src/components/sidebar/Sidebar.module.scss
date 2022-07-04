@@ -40,7 +40,9 @@ $navigation-link-font-map: (
 }
 
 .activeLink {
-  background-color: $color-purple;
+  background: #B793F0;
+  color: #20189d;
+  -webkit-text-fill-color: #20189d;
 }
 
 .linkWrapper {

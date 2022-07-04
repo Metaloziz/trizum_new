@@ -8,10 +8,11 @@ type Props = {
   onChange: (value: SingleValue<ValueLabelT>) => void;
   minWidth?: string;
   className?: string;
+  placeholder?: string;
 };
 
 const SelectResults: FC<Props> = props => {
-  const { options, minWidth, onChange, className } = props;
+  const { options, minWidth, onChange, className, placeholder } = props;
   const selectStyles = {
     control: (base: CSSObjectWithLabel) => ({
       ...base,
@@ -88,6 +89,12 @@ const SelectResults: FC<Props> = props => {
       placeholder='Выбрать значение...'
     />
   );
+};
+
+SelectResults.defaultProps = {
+  minWidth: '',
+  className: '',
+  placeholder: '',
 };
 
 export default SelectResults;

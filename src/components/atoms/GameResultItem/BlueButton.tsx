@@ -20,4 +20,9 @@ const BlueButton: FC<Props> = props => {
   );
 };
 
+BlueButton.defaultProps = {
+  isActive: false,
+  type: undefined,
+};
+
 export default BlueButton;

@@ -1,37 +1,27 @@
-import { useEffect, useState } from 'react';
-
-import AdminInfoList from '@components/admin-info-list/AdminInfoList';
-import CustomButton from '@components/custom-button/CustomButton';
-import CustomPagination from '@components/custom-pagination/CustomPagination';
-import InformationItem from '@components/information-item/InformationItem';
-import {
-  homework,
-  group,
-  city,
-  franchisees,
-  paidFor,
-  legalAddress,
-} from '@components/moks-data/moks-data-select';
-import { colNames, list, ListType } from '@components/moks-data/moks-data-table';
-import Table from '@components/table/Table';
+import React, { useEffect, useState } from 'react';
 
 import styles from './ReportPage.module.scss';
+
+import AdminInfoList from 'components/admin-info-list/AdminInfoList';
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
+import {
+  city,
+  franchisees,
+  group,
+  homework,
+  legalAddress,
+  paidFor,
+} from 'components/moks-data/moks-data-select';
+import { colNames, list, ListType } from 'components/moks-data/moks-data-table';
+import Pagination from 'components/molecules/Pagination';
+import Table from 'components/table/Table';
 
 const ReportPage = () => {
   const [data, setData] = useState<ListType[]>(list); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      // пример запроса на сервер
-      // const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
-      // setData(res.data);
-      setLoading(false);
-    };
-    getData();
-  }, []);
 
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;
@@ -97,8 +87,8 @@ const ReportPage = () => {
                 dataAuto="dateEnd"
               />
               <div className={styles.btnBlock}>
-                <CustomButton type="addExel">Выгрузить в Excel</CustomButton>
-                <CustomButton>Найти</CustomButton>
+                <Button type="addExel">Выгрузить в Excel</Button>
+                <Button>Найти</Button>
               </div>
             </div>
           </div>
@@ -106,14 +96,11 @@ const ReportPage = () => {
             <Table list={currentItem} colNames={colNames} loading={loading} />
           </div>
           <div className={styles.paginationBlock}>
-            <CustomPagination
+            <Pagination
+              totalCount={count}
               currentPage={currentPage}
-              currentItem={currentItem}
-              paginate={paginate}
-              count={count}
-              next={nextPage}
-              prev={prevPage}
-              total={list.length}
+              pageSize={list.length}
+              onPageChange={paginate}
             />
           </div>
         </div>

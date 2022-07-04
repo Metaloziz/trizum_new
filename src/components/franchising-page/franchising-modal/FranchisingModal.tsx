@@ -1,16 +1,17 @@
 import React, { FC, useState } from 'react';
 
-import franchiseService from '@app/services/franchiseService';
-import franchiseStore from '@app/stores/franchiseStore';
-import { RequestCreateFranchise } from '@app/types/FranchiseTypes';
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import styles from '@components/franchising-page/FranchisingPage.module.scss';
-import InformationItem from '@components/information-item/InformationItem';
-import TextField from '@components/text-field/TextField';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+
+import franchiseService from 'app/services/franchiseService';
+import franchiseStore from 'app/stores/franchiseStore';
+import { RequestCreateFranchise } from 'app/types/FranchiseTypes';
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
+import styles from 'components/franchising-page/FranchisingPage.module.scss';
+import InformationItem from 'components/information-item/InformationItem';
+import TextField from 'components/text-field/TextField';
 
 type Props = {
   showModal: boolean;
@@ -67,6 +68,7 @@ const FranchisingModal: FC<Props> = props => {
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   const onSaveClick = async (values: RequestCreateFranchise) => {
+    console.log(values);
     try {
       await franchiseStore.createFranchise(values);
       reset();
@@ -225,9 +227,9 @@ const FranchisingModal: FC<Props> = props => {
         </div>
         <div className={styles.btnBlock}>
           {/* <div className={styles.deleteBtn}> */}
-          {/*  <CustomButton onClick={() => console.log('Сохранить')}>Удалить</CustomButton> */}
+          {/*  <Button onClick={() => console.log('Сохранить')}>Удалить</CustomButton> */}
           {/* </div> */}
-          <CustomButton onClick={handleSubmit(onSaveClick)}>Сохранить</CustomButton>
+          <Button onClick={handleSubmit(onSaveClick)}>Сохранить</Button>
         </div>
       </div>
     </BasicModal>

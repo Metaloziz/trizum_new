@@ -1,6 +1,6 @@
-import { items } from '@components/moks-data/moks-data-admininfolist';
-
 import AdminInfoItem from './admin-info-item/AdminInfoItem';
+
+import { items } from 'components/moks-data/moks-data-admininfolist';
 
 const AdminInfoList = () => (
   <div>

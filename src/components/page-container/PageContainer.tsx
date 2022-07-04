@@ -1,5 +1,7 @@
-import classNames from 'classnames';
 import { ReactNode, FC } from 'react';
+
+import classNames from 'classnames';
+
 import styles from './PageContainer.module.scss';
 
 interface Props {

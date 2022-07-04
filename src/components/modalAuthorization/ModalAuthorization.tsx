@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-
 import styles from './ModalAuthorization.module.scss';
+
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
 
 const ModalAuthorization = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -19,7 +19,7 @@ const ModalAuthorization = () => {
           <InformationItem variant="phone" />
         </div>
         <div>
-          <CustomButton>Подтвердить изменения</CustomButton>
+          <Button>Подтвердить изменения</Button>
           <div>
             <p>Забыли пароль?</p>
           </div>

@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react';
 
-import appStore, { Roles } from '@app/stores/appStore';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
-import { useRouter } from 'next/router';
 
 import styles from './RoleButtons.module.scss';
+
+import appStore, { Roles } from 'app/stores/appStore';
+import { useRouter } from 'next/router';
 
 type Props = {
   name: string;

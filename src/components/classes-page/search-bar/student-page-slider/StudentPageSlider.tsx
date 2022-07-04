@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Step from '@components/step/Step';
-
 import styles from './StudentPageSlider.module.scss';
+
+import Step from 'components/step/Step';
 
 const StudentPageSlider = () => (
   <div className={styles.wrapper}>

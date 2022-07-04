@@ -1,23 +1,21 @@
-import { Paths } from '@app/enums/Paths';
-import instance from '@app/services/config';
+import { Paths } from 'app/enums/Paths';
+import instance from 'app/services/config';
 import {
   RequestCreateCourse,
+  RequestEditCourse,
   ResponseCourse,
   ResponseDeleteCourse,
   ResponseOneCourse,
-} from '@app/types/CourseTypes';
-
-export type MockType = {
-  id: string;
-  code: string;
-};
+  ResponseOneFullCourse,
+  ResponseWork,
+} from 'app/types/CourseTypes';
 
 const coursesService = {
   getAllCourses: async (): Promise<ResponseCourse[]> => {
     const { data } = await instance.get(Paths.Courses);
     return data;
   },
-  getOneCourse: async (id: string): Promise<ResponseOneCourse> => {
+  getOneCourse: async (id: string): Promise<ResponseOneFullCourse> => {
     const { data } = await instance.get(`${Paths.Courses}/${id}`);
     return data;
   },
@@ -25,28 +23,20 @@ const coursesService = {
     const { data } = await instance.post(Paths.Courses, options);
     return data;
   },
-  editCourse: async (options: ResponseOneCourse): Promise<ResponseOneCourse> => {
-    const { data } = await instance.post(Paths.Courses, options);
+  editCourse: async (options: RequestEditCourse, id: string): Promise<ResponseOneFullCourse> => {
+    const { data } = await instance.post(`${Paths.Courses}/${id}`, options);
     return data;
   },
   deleteCourse: async (id: string): Promise<ResponseDeleteCourse> => {
     const { data } = await instance.delete(`${Paths.Courses}/${id}`);
     return data;
   },
-  getAllWorks: async (): Promise<MockType[]> => {
+  getAllWorks: async (): Promise<ResponseWork[]> => {
     const { data } = await instance.get(Paths.Works);
     return data;
   },
   getOneWork: async (id: string): Promise<any> => {
-    const { data } = await instance.get(`${Paths.Courses}/${id}`);
-    return data;
-  },
-  createWork: async (options: any): Promise<any> => {
-    const { data } = await instance.post(Paths.Courses, options);
-    return data;
-  },
-  deleteWork: async (id: string): Promise<any> => {
-    const { data } = await instance.delete(`${Paths.Courses}/${id}`);
+    const { data } = await instance.get(`${Paths.Works}/${id}`);
     return data;
   },
 };

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import settingsHover from '@svgs/settings-hover.svg';
-import settings from '@svgs/settings.svg';
-import Image from 'next/image';
+import settingsHover from 'assets/svgs/settings-hover.svg';
+import settings from 'assets/svgs/settings.svg';
+import Image from 'components/image/Image';
 
 const Setting = () => {
   const [isShowHover, setShowHover] = useState(false);
@@ -10,7 +10,7 @@ const Setting = () => {
   return (
     <div onMouseOver={() => setShowHover(true)} onMouseOut={() => setShowHover(false)}>
       <div>
-        <Image src={isShowHover ? settingsHover : settings} alt='setting' width='25' height='25' />
+        <Image src={isShowHover ? settingsHover : settings} alt="setting" width="25" height="25" />
       </div>
     </div>
   );

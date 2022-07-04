@@ -1,10 +1,13 @@
-import classNames from 'classnames';
 import { useState, FC } from 'react';
-import Account from '@components/account/Account';
-import Burger from '@components/burger/Burger';
-import DropDownMenu from '@components/drop-down-menu/DropDownMenu';
-import Logo from '@components/logo/Logo';
+
+import classNames from 'classnames';
+
 import styles from './Header.module.scss';
+
+import Account from 'components/account/Account';
+import Burger from 'components/burger/Burger';
+import DropDownMenu from 'components/drop-down-menu/DropDownMenu';
+import Logo from 'components/logo/Logo';
 
 type Props = { className: string };
 
@@ -14,9 +17,11 @@ const Header: FC<Props> = ({ className }) => {
   const handleClose = () => {
     setActive(false);
   };
+
   return (
     <header
       className={classNames(styles.header, className, {
+        // @ts-ignore
         [styles.open]: isOpen,
       })}
     >

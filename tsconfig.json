@@ -1,32 +1,27 @@
 {
   "compilerOptions": {
-    "typeRoots": ["src", "node_modules/@types"],
-    "target": "es2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {
-      "@*": ["./src/*"],
-      "@public/*": ["./public/*"],
-      "@svgs/*": ["./public/svgs/*"],
-      "@images/*": ["./public/images/*"],
-      "@fonts/*": ["./public/fonts/*"]
-    },
     "noEmit": true,
-    "incremental": true,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    "jsx": "react-jsx",
+    "baseUrl": "src",
   },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts",
-    "index.scss.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "src"
+  ]
 }

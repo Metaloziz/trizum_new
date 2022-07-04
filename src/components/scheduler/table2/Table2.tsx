@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { ClassTime } from '@components/scheduler/classTime/ClassTime';
-// import ScheduledLesson from '@components/scheduler/scheduledLesson/ScheduledLesson';
+import { ClassTime } from 'components/scheduler/classTime/ClassTime';
+// import ScheduledLesson from 'components/scheduler/scheduledLesson/ScheduledLesson';
 
 interface IScheduler {
   id: number;
@@ -26,7 +26,6 @@ const Table2: FC<Props> = ({ data }) => (
   <table>
     <thead>
       <tr>
-        <th />
         {data.dates.map(date => (
           <th key={date}>{date}</th>
         ))}

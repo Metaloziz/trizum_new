@@ -1,17 +1,19 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Routes } from '@constants/Routes';
-import logoImage from '@images/logo.png';
+import { NavLink } from 'react-router-dom';
+
 import styles from './Logo.module.scss';
 
+import { AppRoutes } from 'app/enums/AppRoutes';
+import logoImage from 'assets/images/logo.png';
+import Image from 'components/image/Image';
+
 export const Logo = () => {
-  const { Index } = Routes;
+  const { Index } = AppRoutes;
   return (
-    <Link href={Index} passHref>
-      <a className={styles.logo}>
-        <Image src={logoImage} alt={'Тризум'} />
-      </a>
-    </Link>
+    <NavLink to={Index}>
+      <span className={styles.logo}>
+        <Image src={logoImage} alt="Тризум" />
+      </span>
+    </NavLink>
   );
 };
 

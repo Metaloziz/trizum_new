@@ -1,5 +1,6 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
+
 .abs {
   position: absolute;
   top: -10px;
@@ -7,6 +8,7 @@
   color: #fff;
   opacity: 0.5;
 }
+
 .container {
   position: relative;
   display: flex;
@@ -46,7 +48,13 @@
     }
   }
 }
-
+.span{
+  position: absolute;
+  top: 0;
+  left: 70px;
+  color: #d7c4e8;
+  opacity: 0.5;
+}
 .notification {
   display: none;
   position: absolute;
@@ -61,6 +69,9 @@
 $logout-font-map: (text-decoration: underline);
 
 .logout {
+
+  @include disable-default-button-style();
+
   @include link-font($logout-font-map...);
 
   @media (max-width: 600px) {

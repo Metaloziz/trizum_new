@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
-import TableCol from '@components/molecules/ResultTable/TableCol/TableCol';
-
 import styles from './ResultTable.module.scss';
+
+import TableCol from 'components/molecules/ResultTable/TableCol/TableCol';
 
 type Props = {
   values: string[];

@@ -1,6 +1,6 @@
-import { Paths } from '@app/enums/Paths';
-import instance from '@app/services/config';
-import { RequestCreateFranchise, ResponseFranchise } from '@app/types/FranchiseTypes';
+import { Paths } from 'app/enums/Paths';
+import instance from 'app/services/config';
+import { RequestCreateFranchise, ResponseFranchise } from 'app/types/FranchiseTypes';
 
 const franchiseService = {
   getAll: async (): Promise<ResponseFranchise[]> => {

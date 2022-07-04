@@ -1,6 +1,13 @@
-import coursesService, { MockType } from '@app/services/coursesService';
-import { AnswerT, RequestCreateCourse, ResponseCourse } from '@app/types/CourseTypes';
 import { makeAutoObservable, runInAction } from 'mobx';
+
+import coursesService from 'app/services/coursesService';
+import {
+  RequestCreateCourse,
+  RequestEditCourse,
+  ResponseCourse,
+  ResponseOneFullCourse,
+  ResponseWork,
+} from 'app/types/CourseTypes';
 
 type NewCourse = {
   title: string;
@@ -8,20 +15,34 @@ type NewCourse = {
 };
 
 class CoursesStore {
-
   courses: ResponseCourse[] = [];
 
-  homeworks: MockType[] = [];
+  currentCourse?: ResponseOneFullCourse = undefined;
+
+  homeworks: ResponseWork[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  setCurrentCourse = (course?: ResponseOneFullCourse) => {
+    this.currentCourse = course;
+  };
 
   getCourses = async () => {
     const res = await coursesService.getAllCourses();
     runInAction(() => {
       this.courses = res.reverse();
     });
+  };
+
+  getOneCourse = async (id: string) => {
+    try {
+      const res = await coursesService.getOneCourse(id);
+      this.setCurrentCourse(res);
+    } catch (e) {
+      console.warn(e);
+    }
   };
 
   createCourse = async (data: RequestCreateCourse) => {
@@ -33,10 +54,10 @@ class CoursesStore {
     }
   };
 
-  editCourse = async (data: RequestCreateCourse) => {
+  editCourse = async (data: RequestEditCourse, id: string) => {
     try {
-      await coursesService.createCourse(data);
-      await this.getCourses();
+      const res = await coursesService.editCourse(data, id);
+      this.setCurrentCourse(res);
     } catch (e) {
       console.warn(e);
     }
@@ -45,11 +66,8 @@ class CoursesStore {
   getHomeworks = async () => {
     const res = await coursesService.getAllWorks();
     runInAction(() => {
-      this.homeworks = res;
+      this.homeworks = res.reverse();
     });
   };
-  // setNewCourse = (course: NewCourse) => {
-  //   this.newCourse = course;
-  // };
 }
 export default new CoursesStore();

@@ -1,18 +1,18 @@
 import { FC } from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import Panel from '@components/panel/Panel';
-import requisitiesImage from '@images/qr-code.png';
-import Image from 'next/image';
-import Link from 'next/link';
+import { NavLink } from 'react-router-dom';
 
 import styles from './Requisites.module.scss';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {
-}
+import requisitiesImage from 'assets/images/qr-code.png';
+import Button from 'components/button/Button';
+import Image from 'components/image/Image';
+import Panel from 'components/panel/Panel';
 
-const Requisites: FC<Props> = ({}) => (
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+type Props = Record<string, unknown>;
+
+const Requisites: FC<Props> = props => (
   <div className={styles.wrapper}>
     <div className={styles.panelBlock}>
       <Panel>Реквизиты для оплаты</Panel>
@@ -29,16 +29,16 @@ const Requisites: FC<Props> = ({}) => (
           <span>Сумма к оплате: 99 999 рублей</span>
         </div>
         <div className={styles.containerBtn}>
-          <CustomButton>Скачать платежное поручение</CustomButton>
+          <Button>Скачать платежное поручение</Button>
           <div className={styles.infoLink}>
-            <Link href={' '}>
-              <a>Скачать договор</a>
-            </Link>
+            <NavLink to={' '}>
+              <p>Скачать договор</p>
+            </NavLink>
           </div>
         </div>
       </div>
       <div className={styles.qrImg}>
-        <Image src={requisitiesImage} alt='qr-code' width={231} height={231} />
+        <Image src={requisitiesImage} alt="qr-code" width={231} height={231} />
       </div>
     </div>
   </div>

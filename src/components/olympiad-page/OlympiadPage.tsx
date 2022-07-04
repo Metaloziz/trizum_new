@@ -1,9 +1,9 @@
 import React from 'react';
 
-import CardStudent from '@components/card-student/CardStudent';
-import Homework from '@components/homework/Homework';
-
 import styles from './OlympiadPage.module.scss';
+
+import CardStudent from 'components/card-student/CardStudent';
+import Homework from 'components/homework/Homework';
 
 const desc = {
   needToDo: '',

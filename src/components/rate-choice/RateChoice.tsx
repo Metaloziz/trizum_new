@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-
 import styles from './RateChoice.module.scss';
+
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
 
 const newStatus = [
   { value: 'Активен', label: 'Активен' },
@@ -16,22 +16,22 @@ const RateChoice: FC = () => (
     <div className={styles.rateName}>
       <div className={styles.rateTariff}>
         <p>Наименование/код тарифа</p>
-        <InformationItem className={styles.rateInput} variant='input' />
+        <InformationItem className={styles.rateInput} variant="input" />
       </div>
       <div className={styles.rateStatus}>
         <p>Статус</p>
         <InformationItem
           className={styles.rateSelect}
-          variant='select'
-          placeholder='Активен'
+          variant="select"
+          placeholder="Активен"
           option={newStatus}
         />
       </div>
       <div className={styles.ratePrice}>
         <p>Стоимость</p>
         <div className={styles.rateBlockInput}>
-          <InformationItem className={styles.rateValue} variant='input' placeholder='От' />
-          <InformationItem className={styles.rateValue} variant='input' placeholder='До' />
+          <InformationItem className={styles.rateValue} variant="input" placeholder="От" />
+          <InformationItem className={styles.rateValue} variant="input" placeholder="До" />
         </div>
       </div>
     </div>
@@ -39,17 +39,17 @@ const RateChoice: FC = () => (
       <div className={styles.dataEnd}>
         <div>
           <p>Дата начала действия</p>
-          <InformationItem className={styles.dataCalendar} variant='calendar' />
+          <InformationItem className={styles.dataCalendar} variant="calendar" />
         </div>
         <div>
           <p>Дата окончания действия</p>
-          <InformationItem className={styles.dataCalendar} variant='calendar' />
+          <InformationItem className={styles.dataCalendar} variant="calendar" />
         </div>
       </div>
       <div className={styles.btnBlock}>
-        <CustomButton>Найти</CustomButton>
+        <Button>Найти</Button>
         <div className={styles.btnAdd}>
-          <CustomButton>Добавить</CustomButton>
+          <Button>Добавить</Button>
         </div>
       </div>
     </div>

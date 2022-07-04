@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-import CardStudentForTeacher from '@components/card-student/card-student-for-teacher/CardStudentForTeacher';
-import CardStudentForStudent from '@components/card-student/card-student-for-user/CardStudentForStudent';
-
 import CardStudentExtended from './card-student-extended/CardStudentExtended';
+
+import CardStudentForTeacher from 'components/card-student/card-student-for-teacher/CardStudentForTeacher';
+import CardStudentForStudent from 'components/card-student/card-student-for-user/CardStudentForStudent';
 
 type UserType = 'student' | 'teacher' | 'extended';
 

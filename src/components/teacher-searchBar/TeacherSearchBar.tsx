@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import CustomSelect from '@components/select/CustomSelect';
-
 import styles from './teacherSearchBar.module.scss';
+
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
+import CustomSelect from 'components/select/CustomSelect';
 
 type TeacherSearchBarProps = {
   groups: string[];
@@ -43,7 +43,7 @@ const TeacherSearchBar: FC<TeacherSearchBarProps> = props => {
           />
         </div> */}
       </div>
-      <CustomButton size="small">Найти</CustomButton>
+      <Button size="small">Найти</Button>
     </div>
   );
 };

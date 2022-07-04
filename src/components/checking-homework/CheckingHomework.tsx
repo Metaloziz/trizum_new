@@ -1,17 +1,17 @@
 import React from 'react';
 
-import CardStudent from '@components/card-student/CardStudent';
-import ChoiceInfoList from '@components/checking-homework/choice-info/choice-info-list/ChoiceInfoList';
-import Homeworks from '@containers/homeworks/Homeworks';
-
 import styles from './CheckingHomework.module.scss';
+
+import CardStudent from 'components/card-student/CardStudent';
+import ChoiceInfoList from 'components/checking-homework/choice-info/choice-info-list/ChoiceInfoList';
+import Homeworks from 'containers/homeworks/Homeworks';
 
 const CheckingHomework = () => {
   const a = '';
   return (
     <div className={styles.mainContainer}>
       <div className={styles.firstContainer}>
-        <CardStudent title='Днепровский Александр Алексеевич' type='student' isFooterDisabled />
+        <CardStudent title="Днепровский Александр Алексеевич" type="student" />
         <Homeworks
           className={styles.homeworksChecking}
           homeworks={[

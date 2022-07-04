@@ -1,12 +1,12 @@
 import React from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import ButtonAddParent from '@components/users-page/button-add-parent/ButtonAddParent';
-import StudentInformation from '@components/users-page/student-information/StudentInformation';
-import StudentPageTitle from '@components/users-page/student-page-title/StudentPageTitle';
-import StudentParents from '@components/users-page/student-parents/StudentParent';
-
 import styles from './StudentPageFranchiseeModalSetting.module.scss';
+
+import Button from 'components/button/Button';
+import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
+import StudentInformation from 'components/users-page/student-information/StudentInformation';
+import StudentPageTitle from 'components/users-page/student-page-title/StudentPageTitle';
+import StudentParents from 'components/users-page/student-parents/StudentParent';
 
 const StudentPageFranchiseeModalSetting = () => (
   <div className={styles.wrapper}>
@@ -14,12 +14,12 @@ const StudentPageFranchiseeModalSetting = () => (
     <StudentInformation />
     <div className={styles.divider} />
     <StudentPageTitle>Родители ученика*</StudentPageTitle>
-    <StudentParents />
+    {/* <StudentParents /> */}
     <div className={styles.buttonAddParent}>
       <ButtonAddParent />
     </div>
     <div className={styles.button}>
-      <CustomButton>Сохранить</CustomButton>
+      <Button>Сохранить</Button>
     </div>
   </div>
 );

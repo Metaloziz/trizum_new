@@ -1,13 +1,14 @@
 import { FC } from 'react';
 
-import appStore, { Roles } from '@app/stores/appStore';
-import CustomButton from '@components/custom-button/CustomButton';
-import { Routes } from '@constants/Routes';
 import { observer } from 'mobx-react-lite';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 import styles from './BlogItem.module.scss';
+
+import { AppRoutes } from 'app/enums/AppRoutes';
+import appStore, { Roles } from 'app/stores/appStore';
+import Button from 'components/button/Button';
+import Image from 'components/image/Image';
+import { useRouter } from 'next/router';
 
 interface Props {
   title: string;
@@ -21,10 +22,10 @@ const BlogItem: FC<Props> = observer(props => {
   const { role } = appStore;
   const router = useRouter();
   const onTestClick = () => {
-    router.push(`${Routes.Testing}/${id}`);
+    router.push(`${AppRoutes.Testing}/${id}`);
   };
   const onReadTheoryClick = (): void => {
-    router.push(`${Routes.Blog}/${id}`);
+    router.push(`${AppRoutes.Blog}/${id}`);
   };
   return (
     <div className={styles.containerItem}>
@@ -35,8 +36,8 @@ const BlogItem: FC<Props> = observer(props => {
         <h2>{title}</h2>
         <p>{text}</p>
         <div className={styles.containerButton}>
-          <CustomButton onClick={onReadTheoryClick}>Прочитать теорию</CustomButton>
-          {role !== Roles.Student && <CustomButton onClick={onTestClick}>Пройти тест</CustomButton>}
+          <Button onClick={onReadTheoryClick}>Прочитать теорию</Button>
+          {role !== Roles.Student && <Button onClick={onTestClick}>Пройти тест</Button>}
         </div>
       </div>
     </div>

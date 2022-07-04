@@ -2,12 +2,12 @@
   position: relative;
   max-width: 1300px;
   min-height: 244px;
-  padding: 24px 70px 0 0;
+  padding: 24px 0 0 0;
   margin: 0 auto 10px auto;
   display: flex;
   flex-direction: column;
   border-radius: 30px;
-  background-image: url('../../../../public/img/bg-program-large.jpg');
+  background-image: url('../../../public/img/bg-program-large.jpg');
   background-position: bottom center;
   background-size: cover;
 
@@ -21,7 +21,6 @@
 
   .rowWrapper {
     display: flex;
-    justify-content: space-between;
 
     @media (max-width: 800px) {
       flex-direction: column;
@@ -147,7 +146,6 @@
   box-sizing: border-box;
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
   margin-top: 10px;
   padding: 0 0 20px 110px;
 
@@ -161,13 +159,8 @@
     align-items: inherit;
     padding-left: 5px;
 
-    button {
-      width: 100%;
-    }
-
     button + button {
       margin-top: 15px;
-      margin-left: 0 !important;
     }
   }
 
@@ -176,8 +169,7 @@
     justify-content: space-between;
 
     button + button {
-      margin-left: 20px !important;
-      margin-top: 0 !important;
+      margin-top: 0;
     }
   }
 
@@ -193,13 +185,16 @@
     flex-direction: column;
 
     button + button {
-      margin-top: 15px !important;
-      margin-left: 0 !important;
+      margin-top: 15px;
     }
   }
 
-  button + button {
-    margin-left: 20px;
+  & > * {
+    margin-right: 20px;
+
+    @media (max-width: 550px) {
+      margin-right: 0;
+    }
   }
 }
 

@@ -1,13 +1,11 @@
-import React, { FC, ReactNode, useEffect, useState } from 'react';
-
-import CustomPagination, { CurrentItemType } from '@components/custom-pagination/CustomPagination';
-import { listCurator, listCuratorType } from '@components/moks-data/moks-data-curator';
-import RateChoice from '@components/rate-choice/RateChoice';
-import SettingsGames from '@components/settings-games/SettingsGames';
-import { settings } from '@components/settings-games/SettingsGames.module.scss';
-import Table from '@components/table/Table';
+import React, { FC, useEffect, useState } from 'react';
 
 import styles from './Rate.module.scss';
+
+import Pagination from 'components/molecules/Pagination';
+import RateChoice from 'components/rate-choice/RateChoice';
+import SettingsGames from 'components/settings-games/SettingsGames';
+import Table from 'components/table/Table';
 
 const colNames = [
   'Название тарифа',
@@ -170,14 +168,11 @@ const Rate: FC = () => {
         </Table>
       </div>
       <div className={styles.paginationRateBlock}>
-        <CustomPagination
+        <Pagination
+          totalCount={count}
           currentPage={currentPage}
-          length={currentItem.length}
-          paginate={paginate}
-          count={count}
-          next={nextPage}
-          prev={prevPage}
-          total={mocks1.length}
+          pageSize={mocks1.length}
+          onPageChange={paginate}
         />
       </div>
     </div>

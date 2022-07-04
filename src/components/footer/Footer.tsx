@@ -1,11 +1,15 @@
+import { link } from 'fs';
+
 import { FC } from 'react';
-import Navigation from '@components/navigation/Navigation';
+
 import styles from './Footer.module.scss';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {}
+import Navigation from 'components/navigation/Navigation';
 
-const Footer: FC<Props> = ({}) => {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+type Props = Record<string, unknown>;
+
+const Footer: FC<Props> = props => {
   const copyright = `© NextJS ${new Date().getFullYear()}`;
 
   return (

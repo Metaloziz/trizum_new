@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import TextEditor from '@components/text-editor/TextEditor';
-
 import styles from './AddNewsPage.module.scss';
+
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
+import TextEditor from 'components/text-editor/TextEditor';
 
 const roleNew = [
   { value: 'Доступно ролям', label: 'Доступно ролям' },
@@ -21,13 +21,13 @@ const AddNewsPage = () => {
         <h1>Добавление статьи</h1>
         <p>Наименование теста</p>
         <div className={styles.nameBlock}>
-          <InformationItem className={styles.newsInput} variant='input' placeholder='Название' />
+          <InformationItem className={styles.newsInput} variant="input" placeholder="Название" />
           <div className={styles.selectBlock}>
             <p>Роль:</p>
-            <InformationItem className={styles.newsSelect} variant='select' option={roleNew} />
+            <InformationItem className={styles.newsSelect} variant="select" option={roleNew} />
           </div>
           <div className={styles.addNews}>
-            <CustomButton onClick={() => setShowModal(!showModal)}>Добавление статьи</CustomButton>
+            <Button onClick={() => setShowModal(!showModal)}>Добавление статьи</Button>
           </div>
         </div>
         <div>
@@ -37,7 +37,7 @@ const AddNewsPage = () => {
           </div>
         </div>
         <div className={styles.newsBtn}>
-          <CustomButton>Сохранить</CustomButton>
+          <Button>Сохранить</Button>
         </div>
       </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>
@@ -46,7 +46,7 @@ const AddNewsPage = () => {
             <h2>Добавление статьи</h2>
             <div className={styles.inputBlock}>
               <p>Наименование статьи</p>
-              <InformationItem className={styles.inputAdd} variant='input' placeholder='Название' />
+              <InformationItem className={styles.inputAdd} variant="input" placeholder="Название" />
             </div>
             <div>
               <p>Описание урока</p>
@@ -56,7 +56,7 @@ const AddNewsPage = () => {
             </div>
           </div>
           <div className={styles.btn}>
-            <CustomButton>Сохранить</CustomButton>
+            <Button>Сохранить</Button>
           </div>
         </div>
       </BasicModal>

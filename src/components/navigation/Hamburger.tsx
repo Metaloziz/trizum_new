@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import styles from './Hamburger.module.scss';
 
 interface Props {

@@ -1,17 +1,17 @@
 import { FC } from 'react';
 
-import BackButton from '@components/backButton/BackButton';
-import resultIcon from '@svgs/result-icon.svg';
-import Image from 'next/image';
-
 import styles from './PostPage.module.scss';
+
+import resultIcon from 'assets/svgs/result-icon.svg';
+import BackButton from 'components/backButton/BackButton';
+import Image from 'components/image/Image';
 
 const PostPage: FC = () => (
   <div className={styles.mainWrap}>
     <BackButton />
     <div className={styles.wrapperResult}>
       <div className={styles.imageTeacher}>
-        <Image src={resultIcon} width='406' height='426' alt='resultIcon' />
+        <Image src={resultIcon} width="406" height="426" alt="resultIcon" />
       </div>
       <div className={styles.textResult}>
         <div>

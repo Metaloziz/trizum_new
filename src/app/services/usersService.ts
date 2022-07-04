@@ -1,53 +1,31 @@
-import { Paths } from '@app/enums/Paths';
-import instance from '@app/services/config';
-
-export type FranchiseT = {
-  id: string;
-  shortName: string;
-};
-
-export type GroupT = {
-  userGroupId: string;
-  groupId: string;
-  groupCode: string;
-  groupType: string | null;
-};
-
-export type ResponseUserT = {
-  id: string;
-  firstName: string;
-  middleName: string | null;
-  lastName: string;
-  phone: string | null;
-  email: string | null;
-  roleCode: string;
-  franchise: FranchiseT | null;
-  city: string | null;
-  groups: GroupT[];
-  status: string;
-  avatar: any | null; // obj
-};
-
-export type FullResponseUserT = {
-  page: number;
-  perPage: number;
-  total: number;
-  items: ResponseUserT[];
-};
-
-type RequestUserT = {};
+import { Paths } from 'app/enums/Paths';
+import instance from 'app/services/config';
+import {
+  FullResponseUserT,
+  RequestParenting,
+  RequestUsersParams,
+  ResponseOneUser,
+  ResponseParenting,
+  ResponseUserT,
+} from 'app/types/UserTypes';
 
 const usersService = {
-  getAllUsers: async (): Promise<FullResponseUserT> => {
-    const { data } = await instance.get(Paths.Users);
+  getAllUsers: async (params?: RequestUsersParams): Promise<FullResponseUserT> => {
+    const { data } = await instance.get(Paths.Users, {
+      params: { ...params, per_page: params?.perPage },
+    });
     return data;
   },
-  getOneUser: async (): Promise<ResponseUserT> => {
-    const { data } = await instance.get(Paths.Users);
+  getOneUser: async (id: string): Promise<ResponseOneUser> => {
+    const { data } = await instance.get(`${Paths.Users}/${id}`);
     return data;
   },
   updateUser: async (): Promise<ResponseUserT> => {
     const { data } = await instance.put(Paths.Users);
+    return data;
+  },
+  createParenting: async (params: RequestParenting): Promise<ResponseParenting> => {
+    const { data } = await instance.post(Paths.Parentings, params);
     return data;
   },
 };

@@ -1,13 +1,9 @@
 import { useEffect } from 'react';
 
-// import { AuthGuard } from '@app/common/AuthGuard';
-import BlankLayout from '@components/layout/blank/BlankLayout';
-import { Routes } from '@constants/Routes';
-import { useRouter } from 'next/router';
-// import { useAuthContext } from '@contexts/AuthContext';
+// import { AuthGuard } from 'app/common/AuthGuard';
 
-export default () => {
-  const router = useRouter();
+export default () => (
+  // const router = useRouter();
   // const { clearUserAuthenticated } = useAuthContext();
 
   // useEffect(() => {
@@ -15,8 +11,8 @@ export default () => {
   //   router.push(Routes.Index);
   // });
 
-  return <>Loading...</>;
-};
+  <>Loading...</>
+);
 
 // SignOut.layout = BlankLayout;
 

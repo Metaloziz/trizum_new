@@ -22,6 +22,10 @@
 .column {
   width: 400px;
 
+  & > div:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
   @media (max-width: 1500px) {
     padding: 0 20px;
     width: 33%;
@@ -135,6 +139,10 @@
   @media (max-width: 800px) {
     margin-top: 15px;
   }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
 }
 
 

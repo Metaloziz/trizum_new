@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
 
-import PaginationNextArrows from '@components/pagination-next-arrow/PaginationNextArrows';
-import PaginationPrevArrows from '@components/pagination-prev-arrows/PaginationPrevArrows';
 import className from 'classnames';
 
 import styles from './Step.module.scss';
+
+import PaginationNextArrows from 'components/pagination-next-arrow/PaginationNextArrows';
+import PaginationPrevArrows from 'components/pagination-prev-arrows/PaginationPrevArrows';
 
 interface Props {
   countStep: number;

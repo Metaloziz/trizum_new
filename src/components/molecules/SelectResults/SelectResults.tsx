@@ -1,18 +1,18 @@
 import React, { FC } from 'react';
 
-import { ValueLabelT } from '@components/results/Results';
 import Select, { CSSObjectWithLabel, SingleValue } from 'react-select';
+
+import { ValueLabelT } from 'components/results/Results';
 
 type Props = {
   options: ValueLabelT[];
   onChange: (value: SingleValue<ValueLabelT>) => void;
   minWidth?: string;
   className?: string;
-  placeholder?: string;
 };
 
 const SelectResults: FC<Props> = props => {
-  const { options, minWidth, onChange, className, placeholder } = props;
+  const { options, minWidth, onChange, className } = props;
   const selectStyles = {
     control: (base: CSSObjectWithLabel) => ({
       ...base,
@@ -86,15 +86,9 @@ const SelectResults: FC<Props> = props => {
       styles={selectStyles}
       onChange={onChange}
       className={className || ''}
-      placeholder='Выбрать значение...'
+      placeholder="Выбрать значение..."
     />
   );
-};
-
-SelectResults.defaultProps = {
-  minWidth: '',
-  className: '',
-  placeholder: '',
 };
 
 export default SelectResults;

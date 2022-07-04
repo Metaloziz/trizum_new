@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-import { AnswerT } from '@app/types/CourseTypes';
-import AddVariantList from '@components/add-test-page/add-variant/addVariantList';
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import TextEditor from '@components/text-editor/TextEditor';
-import Toggle from '@components/toggle/Toggle';
-
 import styles from './AddTest.module.scss';
+
+import { AnswerT } from 'app/types/CourseTypes';
+import AddVariantList from 'components/add-test-page/add-variant/addVariantList';
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
+import TextEditor from 'components/text-editor/TextEditor';
+import Toggle from 'components/toggle/Toggle';
 
 export type stateVariantType = {
   id: number;
@@ -62,7 +62,6 @@ const IndexPage = () => {
     setVariants(vars =>
       vars.map(item => (item.text === text ? { ...item, correct: value } : item)),
     );
-    console.log(variant);
   };
 
   const onEditorChange = (state: any) => {};
@@ -128,7 +127,7 @@ const IndexPage = () => {
             <div className={styles.addVariant}>
               {!isTextActive && (
                 <div>
-                  <CustomButton onClick={addVariant}>Добавить вариант</CustomButton>
+                  <Button onClick={addVariant}>Добавить вариант</Button>
                 </div>
               )}
               <div className={styles.choiceAnswer}>
@@ -148,7 +147,7 @@ const IndexPage = () => {
             )}
           </div>
           <div className={styles.btnBlock}>
-            <CustomButton>Сохранить</CustomButton>
+            <Button>Сохранить</Button>
           </div>
         </div>
       </div>
@@ -186,7 +185,7 @@ const IndexPage = () => {
             <div className={styles.addVariant}>
               {!isTextActive && (
                 <div>
-                  <CustomButton onClick={addVariant}>Добавить вариант</CustomButton>
+                  <Button onClick={addVariant}>Добавить вариант</Button>
                 </div>
               )}
               <div className={styles.choiceAnswer}>
@@ -198,7 +197,7 @@ const IndexPage = () => {
               </div>
             </div>
             <div className={styles.btnSave}>
-              <CustomButton>Сохранить</CustomButton>
+              <Button>Сохранить</Button>
             </div>
           </div>
         </BasicModal>

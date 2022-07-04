@@ -23,9 +23,9 @@ const items = [
 
 class TeacherEducationStore {
   tests: any[] = items;
-  
+
   test: any = {};
-  
+
   constructor() {
     makeObservable(this, {
       test: observable,
@@ -34,11 +34,11 @@ class TeacherEducationStore {
       setCurrentTest: action.bound,
     });
   }
-  
+
   setTests(tests: any[]) {
     this.tests = tests;
   }
-  
+
   setCurrentTest(test: any) {
     this.test = test;
   }

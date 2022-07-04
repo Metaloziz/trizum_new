@@ -1,5 +1,5 @@
 @mixin indicator-background($background) {
-  background: url('../../../../public/svgs/skill-grow-triangle.svg') repeat-y center top / 10px 25px,
+  background: url('../../../assets/svgs/skill-grow-triangle.svg') repeat-y center top / 10px 25px,
   $background;
 }
 

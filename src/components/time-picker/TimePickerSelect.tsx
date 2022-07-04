@@ -14,7 +14,7 @@ type Props = {
 
 const TimePickerSelect = forwardRef((props: Props, ref: Ref<HTMLDivElement>) => {
   const { minutes, hours, onSelect, defaultValue } = props;
-  console.log(ref);
+
   const [min, setMin] = useState(
     defaultValue ? parseInt(defaultValue.split(':')[ONE], 10) : minutes[ZERO],
   );
@@ -29,9 +29,7 @@ const TimePickerSelect = forwardRef((props: Props, ref: Ref<HTMLDivElement>) => 
     setMin(value);
     onSelect(`${hour}:${value}`);
   };
-  useEffect(() => {
-    console.log(ref);
-  }, [ref]);
+
   return (
     <div ref={ref} className={styles.selectContainer}>
       <div className={styles.selectBlock}>

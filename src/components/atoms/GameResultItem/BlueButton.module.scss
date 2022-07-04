@@ -12,21 +12,13 @@
   font-size: 11px;
   text-align: center;
   white-space: nowrap;
-  margin-right: 5px;
-
-  &:last-child {
-    margin-right: 0;
-  }
-
   &_small {
     min-width: 75px;
   }
-
-  &_active {
+  &_active{
     background: $color-deep-blue;
     color: $color-white;
   }
-
   @media(max-width: 756px) {
     width: 100%;
   }

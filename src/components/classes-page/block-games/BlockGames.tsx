@@ -1,9 +1,12 @@
 import React from 'react';
 
-import Panel from '@components/panel/Panel';
-import Image from 'next/image';
-
 import styles from './BlockGames.module.scss';
+
+import cardsGame from 'assets/svgs/cards.svg';
+import fossilGame from 'assets/svgs/fossil.svg';
+import starGame from 'assets/svgs/star.svg';
+import Image from 'components/image/Image';
+import Panel from 'components/panel/Panel';
 
 const BlockGames = () => (
   <div className={styles.blockGames}>
@@ -13,19 +16,19 @@ const BlockGames = () => (
     <div className={styles.games}>
       <ul>
         <li>
-          <Image src='/img/fossil.svg' width='32' height='32' alt='fossil' />
+          <Image src={fossilGame} width="32" height="32" alt="fossil" />
         </li>
         <li>игра 1</li>
       </ul>
       <ul>
         <li>
-          <Image src='/img/star.svg' width='32' height='32' alt='star' />
+          <Image src={starGame} width="32" height="32" alt="star" />
         </li>
         <li>игра 2</li>
       </ul>
       <ul>
         <li>
-          <Image src='/img/cards.svg' width='32' height='32' alt='cards' />
+          <Image src={cardsGame} width="32" height="32" alt="cards" />
         </li>
         <li>игра 3</li>
       </ul>

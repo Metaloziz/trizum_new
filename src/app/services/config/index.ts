@@ -1,6 +1,6 @@
-import TokenService from '@app/services/tokenService';
-import appStore from '@app/stores/appStore';
 import axios, { AxiosRequestConfig } from 'axios';
+
+import TokenService from 'app/services/tokenService';
 
 const instance = axios.create({
   baseURL: 'https://backschool.sitetopic.ru/',

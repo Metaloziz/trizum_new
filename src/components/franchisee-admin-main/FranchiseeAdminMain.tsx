@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import ScheduleDnD from '@components/schedule/ScheduleDnD';
+import ScheduleDnD from 'components/schedule/ScheduleDnD';
 
 type Props = Record<string, unknown>;
 

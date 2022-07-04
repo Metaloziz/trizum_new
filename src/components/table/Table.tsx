@@ -1,8 +1,5 @@
 import { FC, ReactNode } from 'react';
 
-import InformationItem from '@components/information-item/InformationItem';
-import { ListType } from '@components/moks-data/moks-data-table';
-
 import styles from './Table.module.scss';
 
 interface IList {

@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import Step from '@components/step/Step';
-import { Routes } from '@constants/Routes';
-import resultIcon from '@svgs/result-icon.svg';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-
 import styles from './TestPage.module.scss';
+
+import { AppRoutes } from 'app/enums/AppRoutes';
+import resultIcon from 'assets/svgs/result-icon.svg';
+import Button from 'components/button/Button';
+import Image from 'components/image/Image';
+import Step from 'components/step/Step';
+import { useRouter } from 'next/router';
 
 const TestPage = () => {
   const [currentRadioValue, setCurrentRadioValue] = useState('inputChoice1');
@@ -16,7 +16,7 @@ const TestPage = () => {
     setCurrentRadioValue(e.currentTarget.value);
   };
   const onEndTest = () => {
-    router.push(`${Routes.Testing}/result/${router.query.id}`);
+    router.push(`${AppRoutes.Testing}/result/${router.query.id}`);
   };
   return (
     <div className={styles.wrapperTesting}>
@@ -25,7 +25,7 @@ const TestPage = () => {
       </div>
       <div className={styles.choiceWrap}>
         <div className={styles.endTest}>
-          <CustomButton onClick={onEndTest}>Закончить тест</CustomButton>
+          <Button onClick={onEndTest}>Закончить тест</Button>
         </div>
         <div className={styles.stepStyle}>
           <Step countStep={30} isRenderButtons />
@@ -118,7 +118,7 @@ const TestPage = () => {
             </div>
           </div>
           <div>
-            <CustomButton>Ответить</CustomButton>
+            <Button>Ответить</Button>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { AnswerT } from '@app/types/CourseTypes';
-import AddVariantItem from '@components/add-test-page/add-variant/addVariantItem';
+import { AnswerT } from 'app/types/CourseTypes';
+import AddVariantItem from 'components/add-test-page/add-variant/addVariantItem';
 
 type ArrayItem = {
   id: number;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import CustomSelect from '@components/select/CustomSelect';
-
 import styles from './SearchByGroup.module.scss';
+
+import Button from 'components/button/Button';
+import CustomSelect from 'components/select/CustomSelect';
 
 const SearchByGroup = () => (
   <div className={styles.wrapper}>
@@ -18,7 +18,7 @@ const SearchByGroup = () => (
         <CustomSelect options={[{ label: '1', value: '2' }]} placeholder="Группа" />
       </div>
     </div>
-    <CustomButton size="small">Найти</CustomButton>
+    <Button size="small">Найти</Button>
   </div>
 );
 

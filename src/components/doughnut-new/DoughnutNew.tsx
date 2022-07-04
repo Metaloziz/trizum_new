@@ -116,7 +116,7 @@ const config = {
 
 const DoughnutNew: FC = () => (
   <div className={styles.canvasBlock}>
-    <Doughnut className={styles.canvas} {...config}>
+    <Doughnut {...config}>
       <p style={{ position: 'relative', left: '194px' }}>Правильных ответов</p>
     </Doughnut>
   </div>

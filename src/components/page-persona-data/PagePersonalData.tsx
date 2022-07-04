@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import setting from '@public/svgs/settings.svg';
-import user from '@public/svgs/user.svg';
-import Image from 'next/image';
-
 import styles from './PagePersonalData.module.scss';
+
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
+import Image from 'components/image/Image';
+import setting from 'public/svgs/settings.svg';
+import user from 'public/svgs/user.svg';
 
 const PagePersonalData = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -15,10 +15,10 @@ const PagePersonalData = () => {
       <div className={styles.user}>
         <div className={styles.wrapperUser}>
           <div className={styles.userPic}>
-            <Image src={user} width='126' height='126' alt='user' />
+            <Image src={user} width="126" height="126" alt="user" />
           </div>
           <div className={styles.userSetting} onClick={() => setShowModal(true)}>
-            <Image src={setting} width='25' height='25' alt='settings' />
+            <Image src={setting} width="25" height="25" alt="settings" />
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@ const PagePersonalData = () => {
             <input />
           </div>
           <div className={styles.buttonWrapper}>
-            <CustomButton>Сохранить</CustomButton>
+            <Button>Сохранить</Button>
           </div>
         </form>
       </div>
@@ -46,11 +46,11 @@ const PagePersonalData = () => {
           </div>
           <div>
             <p>Временный код</p>
-            <input type='text' placeholder='4 _ _ _' />
+            <input type="text" placeholder="4 _ _ _" />
           </div>
           <div>
-            <CustomButton>Подтвердить изменения</CustomButton>
-            <a>Отправить повторно</a>
+            <Button>Подтвердить изменения</Button>
+            <p>Отправить повторно</p>
           </div>
         </div>
       </BasicModal>

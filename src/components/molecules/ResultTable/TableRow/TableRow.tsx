@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 
-import TableCol from '@components/molecules/ResultTable/TableCol/TableCol';
 import cn from 'classnames';
 
 import styles from './TableRow.module.scss';
+
+import TableCol from 'components/molecules/ResultTable/TableCol/TableCol';
 
 type Props = {
   title: string;

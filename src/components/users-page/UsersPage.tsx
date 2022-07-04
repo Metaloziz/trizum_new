@@ -1,18 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
-import authService from '@app/services/authService';
-import usersService, { ResponseUserT } from '@app/services/usersService';
-import usersStore from '@app/stores/usersStore';
-import { RequestRegister } from '@app/types/AuthTypes';
-import { UserT } from '@app/types/UserTypes';
-import BasicModal from '@components/basic-modal/BasicModal';
-import CardStudentExtended from '@components/card-student/card-student-extended/CardStudentExtended';
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import StudentPageFranchiseeModalAddUser from '@components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
-import StudentPageFranchiseeModalParents from '@components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
-import StudentPageFranchiseeModalSetting from '@components/users-page/student-page-franchisee-modal-setting/StudentPageFranchiseeModalSetting';
-import mockAvatar from '@public/img/pervoklasnin.jpg';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -20,22 +7,79 @@ import modals from '../../app/stores/CardStudentExtended';
 
 import styles from './UsersPage.module.scss';
 
+import { RoleNames, Roles } from 'app/stores/appStore';
+import usersStore from 'app/stores/usersStore';
+import { RequestRegister } from 'app/types/AuthTypes';
+import { ResponseOneUser } from 'app/types/UserTypes';
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
+import CardStudentExtended from 'components/card-student/card-student-extended/CardStudentExtended';
+import InformationItem from 'components/information-item/InformationItem';
+import Pagination from 'components/molecules/Pagination';
+import CustomSelect, { Option } from 'components/select/CustomSelect';
+import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
+import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
+import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
+import StudentPageFranchiseeModalSetting from 'components/users-page/student-page-franchisee-modal-setting/StudentPageFranchiseeModalSetting';
+
+const roleOptions = [
+  { label: 'Все', value: 'all' },
+  { label: RoleNames.student, value: Roles.Student },
+  { label: RoleNames.parent, value: Roles.Parent },
+  { label: RoleNames.teacherEducation, value: Roles.TeacherEducation },
+  { label: RoleNames.teacher, value: Roles.Teacher },
+  { label: RoleNames.franchiseeAdmin, value: Roles.FranchiseeAdmin },
+  { label: RoleNames.franchisee, value: Roles.Franchisee },
+  { label: RoleNames.tutor, value: Roles.Tutor },
+  { label: RoleNames.methodist, value: Roles.Methodist },
+  { label: RoleNames.admin, value: Roles.Admin },
+];
+
 const UsersPage = observer(() => {
-  const { users, usersTotalCount, getUsers,createUser } = usersStore;
-  const [isModalAddUser, setModalAddUser] = useState<boolean>(false);
+  const { users, usersTotalCount, getUsers, createUser, getOneUser, currentUser, page, perPage } =
+    usersStore;
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [user, setCurrentUser] = useState<ResponseOneUser>();
+  const [currentPage, setCurrentPage] = useState<number | string>(page);
+  const [selectedRole, setSelectedRole] = useState<Option>();
+
+  const onSelectRole = (option: Option) => {
+    option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
+  };
 
   const load = async () => {
     await getUsers();
     setIsLoaded(true);
   };
+
+  const onSearchClick = () => {
+    getUsers({ role: selectedRole?.value as Roles, page: currentPage });
+  };
+
+  const onPageChange = (p: string | number) => {
+    setCurrentPage(p);
+    getUsers({ page: p, role: selectedRole?.value as Roles });
+  };
+
   const onAddUser = (data: RequestRegister) => {
-    setModalAddUser(false);
+    setIsModalOpen(false);
     createUser(data);
   };
+
+  const onEditUserClick = async (id: string) => {
+    const res = await getOneUser(id);
+    if (res) {
+      setCurrentUser(res);
+      setIsModalOpen(true);
+    }
+  };
+
   useEffect(() => {
     load();
   }, []);
+
+  const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
 
   return !isLoaded ? (
     <>Loading...</>
@@ -43,15 +87,24 @@ const UsersPage = observer(() => {
     <div className={styles.wrapper}>
       <div className={styles.search}>
         <div className={styles.column}>
-          <InformationItem variant="calendar" title="Дата" dataAuto="date" />
-          <InformationItem variant="select" title="Выполнил Д/З" />
+          <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" />
+          {/* <InformationItem variant="calendar" title="Дата" dataAuto="date" /> */}
+          {/* <InformationItem variant="select" title="Выполнил Д/З" /> */}
           <InformationItem variant="select" title="Город" />
-          <InformationItem variant="select" title="Группа" />
+          {selectedRole && (selectedRole.value as Roles) === Roles.Student && (
+            <InformationItem variant="select" title="Группа" />
+          )}
         </div>
         <div className={styles.column}>
           <InformationItem variant="select" title="Оплачен" />
-          <InformationItem variant="select" title="Роль" />
-          <InformationItem variant="select" title="Статус" />
+          <CustomSelect
+            onChange={onSelectRole}
+            value={selectedRole}
+            title="Роль"
+            options={roleOptions}
+          />
+          {/* <InformationItem variant="select" title="Роль" /> */}
+          {/* <InformationItem variant="select" title="Статус" /> */}
           <InformationItem variant="select" title="Юр.лицо" />
         </div>
         <div className={cn(styles.column, styles.flexColumn)}>
@@ -60,23 +113,36 @@ const UsersPage = observer(() => {
             <InformationItem variant="input" title="ФИО" />
           </div>
           <div className={styles.buttons}>
-            <CustomButton size="small">Найти</CustomButton>
-            <CustomButton type="addUser" size="small" onClick={() => setModalAddUser(true)}>
+            <Button size="small" onClick={onSearchClick}>
+              Найти
+            </Button>
+            <Button type="addUser" size="small" onClick={() => setIsModalOpen(true)}>
               Добавить пользователя
-            </CustomButton>
+            </Button>
           </div>
         </div>
       </div>
       <div className={styles.cardWrapper}>
         {users.map(u => (
-          <CardStudentExtended key={u.id} user={u} />
+          <CardStudentExtended key={u.id} user={u} onEditUserClick={onEditUserClick} />
         ))}
+      </div>
+      <div className={styles.pagination}>
+        <Pagination
+          totalCount={usersTotalCount}
+          currentPage={currentPage}
+          pageSize={Number(perPage)}
+          onPageChange={onPageChange}
+        />
       </div>
       <BasicModal visibility={modals.isParents} changeVisibility={() => modals.changeParents()}>
         <StudentPageFranchiseeModalParents />
       </BasicModal>
-      <BasicModal visibility={isModalAddUser} changeVisibility={setModalAddUser}>
-        <StudentPageFranchiseeModalAddUser onAddUser={onAddUser} />
+      <BasicModal visibility={isModalOpen} changeVisibility={setIsModalOpen}>
+        <StudentPageFranchiseeModalAddUser
+          onCloseModal={() => setIsModalOpen(false)}
+          user={currentUser}
+        />
       </BasicModal>
       <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
         <StudentPageFranchiseeModalSetting />

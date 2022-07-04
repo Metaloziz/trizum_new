@@ -1,12 +1,13 @@
 import React, { FC, Ref, useEffect, useRef, useState } from 'react';
 
-import TextField from '@components/text-field/TextField';
-import TimePickerSelect from '@components/time-picker/TimePickerSelect';
-import time from '@svgs/calendar_grey.svg';
 import moment from 'moment';
-import Image from 'next/image';
 
 import styles from './TimePicker.module.scss';
+
+import time from 'assets/svgs/calendar_grey.svg';
+import Image from 'components/image/Image';
+import TextField from 'components/text-field/TextField';
+import TimePickerSelect from 'components/time-picker/TimePickerSelect';
 
 type Props = {
   date?: Date;
@@ -37,12 +38,13 @@ const TimePicker: FC<Props> = props => {
   );
   const ref = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLButtonElement>(null);
+
   const onOpenSelect = (): void => {
     setIsOpen(true);
   };
-  const onSelectDate = (v: string): void => {
-    console.log(v);
-  };
+
+  const onSelectDate = (v: string): void => {};
+
   const onBlur = (e: Event): void => {
     if (imgRef.current && imgRef.current.contains(e.target as Node)) {
       setIsOpen(true);
@@ -52,11 +54,13 @@ const TimePicker: FC<Props> = props => {
       setIsOpen(false);
     }
   };
+
   useEffect(() => {
     document.addEventListener('click', onBlur);
     // console.log(ref, 'ref');
     return () => document.removeEventListener('click', onBlur);
   });
+
   return (
     <div className={styles.container}>
       <TextField value={value} />

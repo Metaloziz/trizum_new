@@ -235,5 +235,12 @@
   }
 }
 .modalWrapper {
-  padding: 16px;
+  padding: 48px 32px;
+  & > *:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+.modalButtons {
+  display: flex;
+  gap: 24px;
 }

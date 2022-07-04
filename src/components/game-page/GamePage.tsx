@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
-import ButtonPlay from '@components/button-play/ButtonPlay';
-import ChoiceGame from '@components/choice-game/ChoiceGame';
-
 import styles from './GamePage.module.scss';
+
+import ButtonPlay from 'components/button-play/ButtonPlay';
+import ChoiceGame from 'components/choice-game/ChoiceGame';
 
 const GamePage: FC = () => (
   <div className={styles.inner}>

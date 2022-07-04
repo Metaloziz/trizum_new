@@ -1,11 +1,10 @@
 import { FC, ReactNode, useEffect } from 'react';
 
-import appStore, { Roles } from '@app/stores/appStore';
-import { Routes } from '@constants/Routes';
-import { GetServerSideProps, NextComponentType } from 'next';
-import { useRouter } from 'next/router';
-
 import DefaultLayout from './default/DefaultLayout';
+
+import { AppRoutes } from 'app/enums/AppRoutes';
+import appStore, { Roles } from 'app/stores/appStore';
+import { useRouter } from 'next/router';
 
 interface Props {
   children?: ReactNode;

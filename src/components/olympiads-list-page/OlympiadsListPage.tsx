@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-
-import CustomPagination from '@components/custom-pagination/CustomPagination';
-import Table from '@components/table/Table';
-
-import { listCurator, listCuratorType } from '../moks-data/moks-data-curator';
+import React from 'react';
 
 import styles from './OlympiadsListPage.module.scss';
+
+import Pagination from 'components/molecules/Pagination';
+import Table from 'components/table/Table';
 
 export const colNames = ['№', 'ФИО', 'Возраст', 'Дата', 'Количество баллов', 'Результаты'];
 
@@ -77,23 +75,16 @@ const mock1 = [
 ];
 
 const OlympiadsListPage = () => {
-  const a = (b: number) => {};
+  const fake = () => {};
+  const fake1 = (num: number) => {};
   return (
     <div className={styles.container}>
       <h2>Результаты олимпиады</h2>
       <div className={styles.tableBlock}>
-        <Table loading={false} list={mock1} colNames={colNames} />
+        <Table loading={false} colNames={colNames} />
       </div>
       <div className={styles.pagination}>
-        <CustomPagination
-          length={mock1.length}
-          currentPage={1}
-          count={2}
-          total={10}
-          paginate={a}
-          prev={() => console.log('prev')}
-          next={() => console.log('prev')}
-        />
+        <Pagination totalCount={10} currentPage={1} pageSize={mock1.length} onPageChange={fake1} />
       </div>
     </div>
   );

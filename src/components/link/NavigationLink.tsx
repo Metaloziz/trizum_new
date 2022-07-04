@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
 import cn from 'classnames';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { NavLink } from 'react-router-dom';
 
 import styles from './NavigationLink.module.scss';
+
+import Image from 'components/image/Image';
 
 interface Props {
   onClick?: () => void;
@@ -17,39 +17,33 @@ interface Props {
 }
 
 const Navigation: FC<Props> = ({
-                                 link,
-                                 onClick,
-                                 className,
-                                 wrapperClassName,
-                                 imageClassName,
-                                 activeClassName,
-                               }) => {
-  const router = useRouter();
+  link,
+  onClick,
+  className,
+  wrapperClassName,
+  imageClassName,
+  activeClassName,
+}) => {
   const { label, href, imageSrc } = link;
-  const isActive = router.asPath === href;
-  
+  // const isActive = router.asPath === href;
+  console.log(activeClassName);
   return (
     <div className={wrapperClassName}>
-      <Link passHref href={href || '/'}>
+      {/* <NavLink to={link.href} className={({isActive})=>cn(className, isActive && activeClassName)}> */}
+      <NavLink
+        to={link.href}
+        className={({ isActive }) => `${className} ${isActive && activeClassName}`}
+      >
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a className={cn(className, isActive && activeClassName)} onClick={onClick}>
+        <a className={cn(className)} onClick={onClick}>
           <div className={cn(styles.imageBlock, imageClassName)}>
             <Image src={imageSrc} width={40} height={40} alt={label} />
           </div>
           {label}
         </a>
-      </Link>
+      </NavLink>
     </div>
   );
-};
-
-Navigation.defaultProps = {
-  onClick: () => {
-  },
-  className: '',
-  wrapperClassName: '',
-  activeClassName: '',
-  imageClassName: '',
 };
 
 export default Navigation;

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomPagination from '@components/custom-pagination/CustomPagination';
-import { listCurator } from '@components/moks-data/moks-data-curator';
-import NameOlympiad from '@components/name-olimpiad/NameOlympiad';
-import SettingsGames from '@components/settings-games/SettingsGames';
-import Table from '@components/table/Table';
-
 import styles from './AddOlympiad.module.scss';
+
+import Pagination from 'components/molecules/Pagination';
+import NameOlympiad from 'components/name-olimpiad/NameOlympiad';
+import SettingsGames from 'components/settings-games/SettingsGames';
+import Table from 'components/table/Table';
 
 const colNames = [
   'Название олимпиады',
@@ -129,7 +127,7 @@ const AddOlympiad = () => {
     };
     getData();
   }, []);
-  
+
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;
   const currentItem = data.slice(firstItemIndex, lastItemIndex);
@@ -144,13 +142,13 @@ const AddOlympiad = () => {
       setCurrentPage(prev => prev - 1);
     }
   };
-  
+
   return (
     <div className={styles.containerAdd}>
       <NameOlympiad />
       <div className={styles.tableWrap}>
         <h2>Список Олимпиады</h2>
-        <Table list={currentItem} colNames={colNames} loading={false}>
+        <Table colNames={colNames} loading={false}>
           {currentItem.map(item => (
             <tr key={item.name}>
               <td>{item.name}</td>
@@ -165,14 +163,11 @@ const AddOlympiad = () => {
         </Table>
       </div>
       <div className={styles.paginationOlympiad}>
-        <CustomPagination
+        <Pagination
+          totalCount={count}
           currentPage={currentPage}
-          currentItem={currentItem}
-          paginate={paginate}
-          count={count}
-          next={nextPage}
-          prev={prevPage}
-          total={mocks.length}
+          pageSize={mocks.length}
+          onPageChange={paginate}
         />
       </div>
     </div>

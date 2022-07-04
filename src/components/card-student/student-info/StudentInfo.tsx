@@ -1,19 +1,19 @@
 import React from 'react';
 
-import iconFlag from '@svgs/icon-flag.svg';
-import iconTablet from '@svgs/icon-tablet.svg';
-import iconMonkey from '@svgs/monkey.svg';
-import iconParrot from '@svgs/parrot.svg';
-import Image from 'next/image';
-
 import styles from './StudentInfo.module.scss';
+
+import iconFlag from 'assets/svgs/icon-flag.svg';
+import iconTablet from 'assets/svgs/icon-tablet.svg';
+import iconMonkey from 'assets/svgs/monkey.svg';
+import iconParrot from 'assets/svgs/parrot.svg';
+import Image from 'components/image/Image';
 
 const StudentInfo = () => (
   <>
     <ul className={styles.list}>
       <li>
         <span>
-          <Image src={iconMonkey} width='25' height='25' alt='icon monkey' />
+          <Image src={iconMonkey} width="25" height="25" alt="icon monkey" />
         </span>
         Статус:
       </li>
@@ -22,7 +22,7 @@ const StudentInfo = () => (
     <ul className={styles.list}>
       <li>
         <span>
-          <Image src={iconFlag} width='25' height='25' alt='flag' />
+          <Image src={iconFlag} width="25" height="25" alt="flag" />
         </span>
         Город:
       </li>
@@ -32,7 +32,7 @@ const StudentInfo = () => (
     <ul className={styles.list}>
       <li>
         <span>
-          <Image src={iconParrot} width='25' height='25' alt='parrot' />
+          <Image src={iconParrot} width="25" height="25" alt="parrot" />
         </span>
         Учитель:
       </li>
@@ -41,7 +41,7 @@ const StudentInfo = () => (
     <ul className={styles.list}>
       <li>
         <span>
-          <Image src={iconTablet} width='25' height='25' alt='icon tablet' />
+          <Image src={iconTablet} width="25" height="25" alt="icon tablet" />
         </span>
         Следующее занятие:
       </li>

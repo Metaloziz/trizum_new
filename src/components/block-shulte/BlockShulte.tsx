@@ -1,13 +1,13 @@
-import ButtonPlay from '@components/button-play/ButtonPlay';
-
 import styles from './BlockShulte.module.scss';
+
+import ButtonPlay from 'components/button-play/ButtonPlay';
 
 const BlockShulte = () => (
   <div className={styles.wrapperBlock}>
     <div className={styles.container}>
-      <div className={styles.blockShulte}>
+      <div>
         <div>
-          <img src='/table.jpg' alt='table' />
+          <img src="/table.jpg" alt="table" />
         </div>
         <ButtonPlay />
       </div>

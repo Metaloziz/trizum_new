@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 
-import BackButton from '@components/backButton/BackButton';
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import TextEditor from '@components/text-editor/TextEditor';
 import cn from 'classnames';
 
 import styles from './PageSettingGames.module.scss';
+
+import BackButton from 'components/backButton/BackButton';
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
+import TextEditor from 'components/text-editor/TextEditor';
 
 interface Props {
   onChange?: (value: string) => void;
@@ -234,7 +235,7 @@ const PageSettingGames: FC<Props> = ({ onChange }) => {
         <TextEditor />
       </div>
       <div className={styles.buttonSaveWrapper}>
-        <CustomButton>Сохранить</CustomButton>
+        <Button>Сохранить</Button>
       </div>
     </div>
   );

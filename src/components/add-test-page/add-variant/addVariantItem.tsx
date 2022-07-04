@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 
-import { AnswerT } from '@app/types/CourseTypes';
-import { stateVariantType } from '@components/add-test-page/AddTest';
-import InformationItem from '@components/information-item/InformationItem';
-import checked from '@svgs/checked.svg';
-import isCheck from '@svgs/completedChecked.svg';
-import Image from 'next/image';
-
 import styles from './addVariant.module.scss';
+
+import { AnswerT } from 'app/types/CourseTypes';
+import checked from 'assets/svgs/checked.svg';
+import isCheck from 'assets/svgs/completedChecked.svg';
+import { stateVariantType } from 'components/add-test-page/AddTest';
+import Image from 'components/image/Image';
+import InformationItem from 'components/information-item/InformationItem';
 
 type ArrayItemProps = AnswerT & {
   handlerVariant: (value: string) => void;

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-
 import styles from './MethodistChoice.module.scss';
+
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
 
 const MethodistChoice: FC = () => (
   <div className={styles.methodistChoice}>
@@ -32,9 +32,9 @@ const MethodistChoice: FC = () => (
     </div>
     <div className={styles.btnWrap}>
       <div className={styles.btnBlock}>
-        <CustomButton>Добавить</CustomButton>
+        <Button>Добавить</Button>
       </div>
-      <CustomButton>Найти</CustomButton>
+      <Button>Найти</Button>
     </div>
   </div>
 );

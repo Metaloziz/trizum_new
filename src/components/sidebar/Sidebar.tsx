@@ -1,15 +1,16 @@
 import { FC, useEffect, useState } from 'react';
 
-import appStore, { Roles } from '@app/stores/appStore';
-import Navigation from '@components/navigation/Navigation';
-import { Routes } from '@constants/Routes';
-import listGames from '@svgs/list-games.svg';
-import homeImage from '@svgs/student-navigation-link-home.svg';
-import paymentImage from '@svgs/student-navigation-link-payment.svg';
-import resultsImage from '@svgs/student-navigation-link-results.svg';
 import { observer } from 'mobx-react-lite';
 
 import styles from './Sidebar.module.scss';
+
+import { AppRoutes } from 'app/enums/AppRoutes';
+import appStore, { Roles } from 'app/stores/appStore';
+import listGames from 'assets/svgs/list-games.svg';
+import homeImage from 'assets/svgs/student-navigation-link-home.svg';
+import paymentImage from 'assets/svgs/student-navigation-link-payment.svg';
+import resultsImage from 'assets/svgs/student-navigation-link-results.svg';
+import Navigation from 'components/navigation/Navigation';
 
 export type LinkT = { label: string; href: string; imageSrc: string };
 
@@ -28,7 +29,7 @@ const {
   Homework,
   Franchising,
   Rate,
-} = Routes;
+} = AppRoutes;
 
 const Links = {
   Index: { label: 'Главная', href: Index, imageSrc: homeImage },
@@ -126,7 +127,6 @@ const adminLinks = [
 ];
 const Sidebar: FC = observer(() => {
   const { role } = appStore;
-  console.log(role);
   const [links, setLinks] = useState([Links.Index]);
 
   useEffect(() => {
@@ -159,7 +159,6 @@ const Sidebar: FC = observer(() => {
         setLinks([]);
     }
   }, [role]);
-  console.log(links);
   return !links.length ? (
     <div className={styles.sidebar_hidden} />
   ) : (

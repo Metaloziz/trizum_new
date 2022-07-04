@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import franchiseStore from '@app/stores/franchiseStore';
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import CustomPagination from '@components/custom-pagination/CustomPagination';
-import FranchisingModal from '@components/franchising-page/franchising-modal/FranchisingModal';
-import InformationItem from '@components/information-item/InformationItem';
-import {
-  colNamesCurator,
-  listCuratorType,
-  listCurator,
-  city,
-} from '@components/moks-data/moks-data-curator';
-import Table from '@components/table/Table';
 import { observer } from 'mobx-react-lite';
 
 import styles from './FranchisingPage.module.scss';
+
+import franchiseStore from 'app/stores/franchiseStore';
+import Button from 'components/button/Button';
+import FranchisingModal from 'components/franchising-page/franchising-modal/FranchisingModal';
+import InformationItem from 'components/information-item/InformationItem';
+import {
+  city,
+  colNamesCurator,
+  listCurator,
+  listCuratorType,
+} from 'components/moks-data/moks-data-curator';
+import Pagination from 'components/molecules/Pagination';
+import Table from 'components/table/Table';
 
 const FranchisingPage = observer(() => {
   const { franchises, getAllFranchise } = franchiseStore;
@@ -52,9 +52,9 @@ const FranchisingPage = observer(() => {
     <div className={styles.contentBlock}>
       <div className={styles.wrapStaticBlock}>
         <div className={styles.bigButton}>
-          <CustomButton type="bigButton" size="large" onClick={() => setShowModal(true)}>
+          <Button type="bigButton" size="large" onClick={() => setShowModal(true)}>
             Добавить
-          </CustomButton>
+          </Button>
         </div>
         <div className={styles.infoContent}>
           <InformationItem title="Полное наименование" variant="input" />
@@ -69,7 +69,7 @@ const FranchisingPage = observer(() => {
         <div className={styles.findBtn}>
           <InformationItem title="Номер счёта" variant="input" />
           <div className={styles.btnText}>
-            <CustomButton>Найти</CustomButton>
+            <Button>Найти</Button>
           </div>
         </div>
       </div>
@@ -91,14 +91,11 @@ const FranchisingPage = observer(() => {
         </Table>
       </div>
       <div className={styles.paginationCuratorBlock}>
-        <CustomPagination
+        <Pagination
+          totalCount={count}
           currentPage={currentPage}
-          currentItem={currentItem}
-          paginate={paginate}
-          count={count}
-          next={nextPage}
-          prev={prevPage}
-          total={listCurator.length}
+          pageSize={listCurator.length}
+          onPageChange={paginate}
         />
       </div>
       <div className={styles.modalContent}>

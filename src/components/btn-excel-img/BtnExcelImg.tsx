@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import btnExcelHover from '@svgs/btn-excel-hover.svg';
-import btnExcel from '@svgs/btn-excel.svg';
-import Image from 'next/image';
-
 import styles from './BtnExcelImg.module.scss';
+
+import btnExcelHover from 'assets/svgs/btn-excel-hover.svg';
+import btnExcel from 'assets/svgs/btn-excel.svg';
+import Button from 'components/button/Button';
+import Image from 'components/image/Image';
 
 const BtnExcelImg = () => {
   const [hover, setHover] = useState(false);
@@ -15,9 +15,9 @@ const BtnExcelImg = () => {
       onMouseOver={() => setHover(true)}
       onMouseOut={() => setHover(false)}
     >
-      <CustomButton>Выгрузиль в Excel</CustomButton>
+      <Button>Выгрузиль в Excel</Button>
       <div className={styles.excelPic}>
-        <Image src={hover ? btnExcelHover : btnExcel} alt='excel' width={14} height={19} />
+        <Image src={hover ? btnExcelHover : btnExcel} alt="excel" width={14} height={19} />
       </div>
     </div>
   );

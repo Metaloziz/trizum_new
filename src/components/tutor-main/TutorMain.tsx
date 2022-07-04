@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import FranchisingPage from '@components/franchising-page/FranchisingPage';
+import FranchisingPage from 'components/franchising-page/FranchisingPage';
 
 type Props = Record<string, unknown>;
 

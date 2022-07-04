@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-import avatar from '@images/avatar.png';
-import Image from 'next/image';
-
 import styles from './UserCard.module.scss';
+
+import avatar from 'assets/images/avatar.png';
+import Image from 'components/image/Image';
 
 type Props = {
   fullName: string;
@@ -16,7 +16,7 @@ const UserCard: FC<Props> = props => {
   return (
     <div className={styles.card}>
       <span className={styles.avatar}>
-        <Image src={avatar} width={50} height={50} alt='avatar' />
+        <Image src={avatar} width={50} height={50} alt="avatar" />
       </span>
       <div className={styles.info}>
         <div className={styles.name}>{fullName}</div>

@@ -1,10 +1,11 @@
 import { FC } from 'react';
 
-import resultPic from '@public/result-pic.jpg';
-import exclude from '@svgs/exclude.svg';
-import Image from 'next/image';
+import resultPic from 'public/result-pic.jpg';
 
 import styles from './TestResultPage.module.scss';
+
+import exclude from 'assets/svgs/exclude.svg';
+import Image from 'components/image/Image';
 
 type Props = Record<string, unknown>;
 
@@ -16,7 +17,7 @@ const TestResultPage: FC<Props> = props => (
       </div>
       <div className={styles.itemBlock}>
         <div className={styles.itemPic}>
-          <Image src={resultPic} width='300px' height='300px' alt='Images' />
+          <Image src={resultPic} width="300px" height="300px" alt="Images" />
         </div>
         <div className={styles.itemText}>
           <h2>Результат тестирования</h2>
@@ -32,7 +33,7 @@ const TestResultPage: FC<Props> = props => (
           </div>
           <div className={styles.recommendations}>
             <div className={styles.reqPic}>
-              <Image src={exclude} width='34px' height='34px' alt='Exclude' />
+              <Image src={exclude} width="34px" height="34px" alt="Exclude" />
             </div>
             <p>Рекомендуем повторить теорию и опробовать еще раз</p>
           </div>

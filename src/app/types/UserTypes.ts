@@ -1,47 +1,80 @@
-export type UserT = {
+import { Roles } from 'app/stores/appStore';
+import { TimeZoneType } from 'app/types/AuthTypes';
+
+export type RequestUsersParams = {
+  role?: Roles;
+  page?: string | number;
+  perPage?: string;
+};
+
+export type RequestCreateUser = {
+  role: string;
+  franchiseId: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  city: string;
+  birthdate: string;
+  sex: boolean | null;
+  phone: string | null;
+  email: string | null;
+};
+
+export type FranchiseT = {
+  id: string;
+  shortName: string;
+};
+
+export type ResponseOneUserGroupT = {
+  userGroupId: string;
+  groupId: string;
+  groupCode: string;
+  groupType: null | string;
+};
+
+export type ResponseUserT = {
   id: string;
   firstName: string;
-  middleName: null | string;
+  middleName: string | null;
   lastName: string;
-  email: string;
-  phone: string;
-  role: string;
-  franchise: null | string;
-  city: null | string;
-  birthdate: {
-    date: string;
-    timezone_type: string;
-    timezone: string;
-  };
-  sex: null | string;
-  status: string;
-  avatar: {
-    id: string;
-    path: string;
-  };
-  userGroups: string[];
-  parentings: string;
-  offsprings: string;
-  tariff: string;
-  playResults: string[];
-  isSecondChild: boolean;
+  phone: string | null;
+  email: string | null;
+  roleCode: Roles;
+  franchise: FranchiseT | null;
+  city: string | null;
+  groups: ResponseOneUserGroupT[];
+  status: UserStatusT;
+  avatar: any | null; // obj
 };
 
-export type WorkObjT = {
-  index: number;
-  type: string;
-  work: {
-    title: string;
-    description: string;
-    groupLevel: string;
-    gamePresets: string[];
-  };
+export type FullResponseUserT = {
+  page: string;
+  perPage: string;
+  total: number;
+  items: ResponseUserT[];
 };
 
-export type CourseObjT = {
-  title: string;
-  description: string;
-  creationDate: string;
-  groupLevel: string;
-  hw: WorkObjT[];
+type UserStatusT = 'active';
+
+export type ResponseOneUser = {
+  birthdate: TimeZoneType;
+  sex: boolean | null;
+  createdAt: TimeZoneType;
+  groups: ResponseOneUserGroupT[];
+  parents: any[];
+  tariff: null | any;
+  payedUntill: null | any;
+  isSecondChild: null | boolean;
+} & ResponseUserT;
+
+export type RequestParenting = {
+  parentId: string;
+  childId: string;
+  isMain: boolean;
+};
+
+export type ResponseParenting = {
+  id: string;
+  childId: string;
+  parentId: string;
 };

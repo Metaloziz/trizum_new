@@ -1,74 +1,67 @@
-import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } from 'react';
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 
-import coursesStore from '@app/stores/coursesStore';
-import worksStore from '@app/stores/WorksStore';
-import { CourseObjT, WorkObjT } from '@app/types/UserTypes';
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import SampleBlock from '@components/homework-add-edit-page/SampleBlock/SampleBlock';
-import CustomSelect, { Option } from '@components/select/CustomSelect';
-import Step from '@components/step/Step';
-import TextField from '@components/text-field/TextField';
-import { Routes } from '@constants/Routes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react-lite';
-import moment from 'moment';
-import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
-import { SingleValue } from 'react-select';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import styles from './HomeworkAddEditPage.module.scss';
 
-enum GroupLevels {
-  Low = 'Младшая группа',
-  Middle = 'Средняя группа',
-  High = 'Старшая группа',
-}
-
-const levelOptions = Object.values(GroupLevels).map(el => ({ value: el, label: el }));
-
-const games = [
-  { label: 'Game 1', value: '1ecf31fb-222b-6204-8413-076f8e3360c0' },
-  { label: 'Game 2', value: '1ecf31bd-b244-6f90-bb56-97d57702980c' },
-];
+import { AppRoutes } from 'app/enums/AppRoutes';
+import { WorkTypes } from 'app/enums/WorkTypes';
+import coursesStore from 'app/stores/coursesStore';
+import gamesStore from 'app/stores/gamesStore';
+import worksStore from 'app/stores/WorksStore';
+import { RequestCreateWork } from 'app/types/WorkTypes';
+import Button from 'components/button/Button';
+import SampleBlock from 'components/homework-add-edit-page/SampleBlock/SampleBlock';
+import { Option } from 'components/select/CustomSelect';
+import Step from 'components/step/Step';
+import TextField from 'components/text-field/TextField';
+import { getOption } from 'utils/getOption';
 
 type DefaultValues = {
   title: string;
-  level: Option;
 };
+
+export type PresetWithOrderT = { index: number; label: string; value: string };
 
 const defaultValues: DefaultValues = {
   title: '',
-  level: levelOptions[0],
 };
 
 const DEFAULT_GAME_PRESET_AMOUNT = 3;
 
 const HomeworkAddEditPage = observer(() => {
-  const { getPresets, presets } = worksStore;
+  const { setCurrentCourse, currentCourse } = coursesStore;
+  const { currentHomework, createHomework, editHomework, setCurrentWork } = worksStore;
+  const { getPresets, presets, games, getGames } = gamesStore;
 
-  const router = useRouter();
+  const [gameOptions, setGameOptions] = useState<Option[]>([]);
 
-  const [actualGames, setActualGames] = useState(games);
+  useEffect(() => {
+    setGameOptions(games.map(g => getOption(g[0], g[0])));
+  }, [games]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [description, setDescription] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(!coursesStore.newCourse);
-  const [title, setTitle] = useState('');
-  const [level, setLevel] = useState('');
-  const [index, setIndex] = useState(0);
+
   const [gamePresetAmount, setGamePresetAmount] = useState(DEFAULT_GAME_PRESET_AMOUNT);
   const [gamePresetAmountAr, setGamePresetAmountAr] = useState<number[]>([]);
-  const homeworksAr: MutableRefObject<WorkObjT[]> = useRef([]);
-  let presetsAr: (Option & { index: number })[] = [];
+  const homeworksAr: MutableRefObject<RequestCreateWork[]> = useRef([]);
+  const presetsAr: MutableRefObject<PresetWithOrderT[]> = useRef([]);
+
+  const navigate = useNavigate();
+
   const schema = yup.object().shape({
     title: yup.string().required('Обязательное поле'),
-    level: yup.object().required('Обязательное поле'),
   });
+
   const {
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
@@ -77,37 +70,24 @@ const HomeworkAddEditPage = observer(() => {
     setGamePresetAmountAr(ar => [...ar, ar?.length]);
   };
 
-  const onChangeVisibility = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
-  const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const onChangeLevel = (option: Option) => {
-    setLevel(option.label);
-  };
-
   const onAddHWClick = () => {
     // coursesStore.setNewCourse({ level, title });
-    router.push(`${Routes.Homework}/add`);
+    // router.push(`${AppRoutes.Homework}/add`);
   };
 
-  const onLoad = async () => {
+  const load = async () => {
     // запрос за играми?? и пресетами
+    await getGames();
     await getPresets();
     setIsLoaded(true);
   };
 
-  const onSelectPattern = (value: Option & { index: number }) => {
-    if (value) {
-      const searchedIndex = presetsAr.findIndex(el => el.index === value.index);
-      if (searchedIndex !== -1) {
-        presetsAr.splice(searchedIndex, 1);
-      }
-      presetsAr.push(value);
+  const onSelectPattern = (value: PresetWithOrderT) => {
+    const searchedIndex = presetsAr.current.findIndex(el => el.index === value.index);
+    if (searchedIndex !== -1) {
+      presetsAr.current.splice(searchedIndex, 1);
     }
+    presetsAr.current.push(value);
   };
 
   const helper = () => {
@@ -120,41 +100,41 @@ const HomeworkAddEditPage = observer(() => {
   };
 
   const onSave = (values: DefaultValues) => {
-    const qwe = {
-      type: 'homework',
-      index,
-      work: {
+    if (!currentHomework) {
+      const qwe: RequestCreateWork = {
+        type: WorkTypes.HW,
         title: values.title,
-        groupLevel: values.level.label,
-        description,
-        gamePresets: presetsAr.map(el => el.value),
-      },
-    };
-    homeworksAr.current.push(qwe);
+        text: description,
+        gamePresets: presetsAr.current.map(el => el.value),
+      };
+      createHomework(qwe);
+    }
+    if (currentHomework) {
+      const qwe: RequestCreateWork = {
+        type: currentHomework.type as WorkTypes,
+        title: values.title,
+        text: description,
+        gamePresets: [],
+      };
+      editHomework(qwe, currentHomework.id);
+      setCurrentWork(undefined);
+    }
+    reset();
     setDescription('');
-    setIndex(idx => idx + 1);
-    presetsAr = [];
-    reset({});
-    setGamePresetAmount(DEFAULT_GAME_PRESET_AMOUNT);
-    helper();
-    setActualGames([...games]);
-    console.log(qwe);
+    navigate(AppRoutes.Homework);
+    // router.push(AppRoutes.Homework);
+    // homeworksAr.current.push(qwe);
+    // setDescription('');
+    // setIndex(idx => idx + 1);
+    // presetsAr = [];
+    // reset({});
+    // setGamePresetAmount(DEFAULT_GAME_PRESET_AMOUNT);
+    // helper();
+    // setActualGames([...games]);
   };
 
-  const onSubmit = () => {
-    // if (coursesStore.newCourse) {
-    //   const qwe: CourseObjT = {
-    //     title: coursesStore.newCourse.title,
-    //     groupLevel: coursesStore.newCourse.level,
-    //     creationDate: moment(new Date()).format('DD.MM.yyyy'),
-    //     description: '',
-    //     hw: homeworksAr.current,
-    //   };
-    //   console.log(qwe);
-    // }
-  };
   useEffect(() => {
-    onLoad();
+    load();
   }, []);
 
   useEffect(() => {
@@ -165,95 +145,58 @@ const HomeworkAddEditPage = observer(() => {
     <>Loading...</>
   ) : (
     <div className={styles.content}>
-      {!coursesStore.newCourse && (
-        <BasicModal visibility={isModalOpen} changeVisibility={onChangeVisibility}>
-          <div className={styles.modalWrapper}>
+      <div className={styles.innerContent}>
+        <div className={styles.homeWork}>
+          <h1>Домашнее задание</h1>
+          <Controller
+            name="title"
+            render={({ field }) => (
+              <TextField
+                {...field}
+                placeholder="Название..."
+                label="Название"
+                error={errors.title?.message}
+              />
+            )}
+            control={control}
+          />
+          <div className={styles.editorWrapper}>
+            {/* <h3>Описание</h3> */}
             <TextField
-              onChange={onTitleChange}
-              placeholder="Название курса..."
-              value={title}
-              label="Название курса"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              placeholder="Описание..."
+              label="Описание"
             />
-            <CustomSelect
-              value={levelOptions[0]}
-              options={levelOptions}
-              placeholder="Уровень группы"
-              onChange={onChangeLevel}
-            />
-            <CustomButton onClick={onAddHWClick}>Добвить домашку</CustomButton>
+            {/* <TextEditor /> */}
           </div>
-        </BasicModal>
-      )}
-      {coursesStore.newCourse && (
-        <>
-          {/* <h3>Курс: {coursesStore.newCourse.title}</h3> */}
-          <div className={styles.innerContent}>
-            <div className={styles.homeWork}>
-              <h1>Домашнее задание</h1>
-              <Controller
-                name="title"
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    placeholder="Название..."
-                    label="Название"
-                    error={errors.title?.message}
-                  />
-                )}
-                control={control}
+        </div>
+        <div className={styles.sample}>
+          <div className={styles.sampleChoice}>
+            {gamePresetAmountAr.map(idx => (
+              <SampleBlock
+                key={idx}
+                games={gameOptions}
+                patterns={presets}
+                onSelectPattern={onSelectPattern}
+                index={idx}
               />
-              <Controller
-                name="level"
-                render={({ field }) => (
-                  <CustomSelect
-                    {...field}
-                    options={levelOptions}
-                    title="Уровень группы*"
-                    placeholder="Младшая"
-                    error={errors.level?.label as unknown as string}
-                  />
-                )}
-                control={control}
-              />
-              <div className={styles.editorWrapper}>
-                {/* <h3>Описание</h3> */}
-                <TextField
-                  value={description}
-                  onChange={e => setDescription(e.target.value)}
-                  placeholder="Описание..."
-                  label="Описание"
-                />
-                {/* <TextEditor /> */}
-              </div>
-            </div>
-            <div className={styles.sample}>
-              <div className={styles.sampleChoice}>
-                {gamePresetAmountAr.map(idx => (
-                  <SampleBlock
-                    key={idx}
-                    games={actualGames}
-                    patterns={presets}
-                    onSelectPattern={onSelectPattern}
-                    index={idx}
-                  />
-                ))}
-                <div className={`${styles.sampleBlock} ${styles.sampleAdd}`}>
-                  <div>
-                    <button onClick={increaseGamePresetAmount}>+</button>
-                  </div>
-                </div>
+            ))}
+            <div className={`${styles.sampleBlock} ${styles.sampleAdd}`}>
+              <div>
+                <button onClick={increaseGamePresetAmount}>+</button>
               </div>
             </div>
           </div>
-          <div className={styles.homeBtn}>
-            <CustomButton onClick={handleSubmit(onSave)}>Сохранить</CustomButton>
-            <CustomButton onClick={onSubmit}>Отправить</CustomButton>
-            <div>
-              <Step countStep={7} />
-            </div>
-          </div>
-        </>
-      )}
+        </div>
+      </div>
+      <div className={styles.homeBtn}>
+        <Button onClick={handleSubmit(onSave)}>Сохранить</Button>
+        {/* <CustomButton onClick={onSubmit}>Отправить</CustomButton> */}
+        <div>
+          <Step countStep={7} />
+        </div>
+      </div>
     </div>
   );
 });

@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import CardStudent from '@components/card-student/CardStudent';
-import WeeklyGrowth from '@components/weekly-growth/WeeklyGrowth';
-import Homeworks from '@containers/homeworks/Homeworks';
-import KeepPlaying from '@containers/keep-playing/KeepPlaying';
-import styles from '@pages/Home.module.scss';
+import CardStudent from 'components/card-student/CardStudent';
+import WeeklyGrowth from 'components/weekly-growth/WeeklyGrowth';
+import Homeworks from 'containers/homeworks/Homeworks';
+import KeepPlaying from 'containers/keep-playing/KeepPlaying';
+import styles from 'pages/home/Home.module.scss';
 
 export const StudentMain: FC = () => (
   <main className={styles.main}>

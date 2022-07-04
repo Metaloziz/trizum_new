@@ -1,14 +1,15 @@
 import { useState, FC } from 'react';
 
-import calendar from '@app/stores/Calendar';
-import useComponentVisible from '@HOC/drop-down-hook/DropDownHook';
-import calendarImage from '@svgs/calendar-pic.svg';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
-import Image from 'next/image';
 import Calendar from 'react-calendar';
 
 import styles from './CustomCalendar.module.scss';
+
+import calendar from 'app/stores/Calendar';
+import calendarImage from 'assets/svgs/calendar-pic.svg';
+import Image from 'components/image/Image';
+import useComponentVisible from 'HOC/drop-down-hook/DropDownHook';
 import 'react-calendar/dist/Calendar.css';
 
 interface Props {
@@ -21,10 +22,10 @@ interface Props {
 const CustomCalendar: FC<Props> = ({ setTitle, icon, iconParams, dataAuto }) => {
   const [date, setDate] = useState(new Date());
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false, dataAuto);
-  const changeDate = (date: Date) => {
-    const title = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
-    setDate(date);
-    setTitle(title == '' ? '' : moment(title, 'D.M.YYYY').format('DD.MM.YYYY'));
+  const changeDate = (date1: Date) => {
+    const title = `${date1.getDate()}.${date1.getMonth() + 1}.${date1.getFullYear()}`;
+    setDate(date1);
+    setTitle(title === '' ? '' : moment(title, 'D.M.YYYY').format('DD.MM.YYYY'));
     setIsComponentVisible(false);
     calendar.setShow(false);
   };
@@ -38,7 +39,7 @@ const CustomCalendar: FC<Props> = ({ setTitle, icon, iconParams, dataAuto }) => 
       <div className={styles.calendarImage}>
         <Image
           src={calendarImage}
-          alt='calendar'
+          alt="calendar"
           width={30}
           height={30}
           onClick={onClick}

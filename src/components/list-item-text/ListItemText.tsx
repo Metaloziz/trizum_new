@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 
-import InputFile from '@components/input-file/InputFile';
-import CustomSelect from '@components/select/CustomSelect';
-import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
-import TextField from '@components/text-fild/TextField';
+import InputFile from 'components/input-file/InputFile';
+import CustomSelect from 'components/select/CustomSelect';
+import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
 
 type VariantType = 'select' | 'input' | 'calendar' | 'file';
 
@@ -29,7 +28,7 @@ const ListItemText: FC<Props> = props => {
       </div>
       <div>
         {variant === 'select' && <CustomSelect options={option} placeholder={' '} />}
-        {variant === 'input' && <TextField onChange={onChange} />}
+        {/* {variant === 'input' && <TextField onChange={onChange} />} */}
         {variant === 'calendar' && <TextFieldCalendar dataAuto={dataAuto} />}
         {variant === 'file' && <InputFile />}
       </div>

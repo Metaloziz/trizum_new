@@ -1,7 +1,11 @@
+import { TimeZoneType } from 'app/types/AuthTypes';
+
 export type ResponseWork = {
+  id: string;
+  title: string;
+  text: string;
   type: string;
-  index: number;
-  workId: string;
+  gamePresetCount: number;
 };
 
 export type ResponseCourse = {
@@ -9,7 +13,8 @@ export type ResponseCourse = {
   title: string;
   level: string;
   works?: ResponseWork[];
-  worksCount:number
+  worksCount: number;
+  createdAt: TimeZoneType;
 };
 
 export type ResponseOneCourse = {
@@ -22,6 +27,18 @@ export type RequestCreateCourse = {
   title: string;
   level: string;
   works: ResponseWork[];
+};
+
+export type RequestEditCourseWork = {
+  type: string;
+  index: number;
+  workId: string;
+};
+
+export type RequestEditCourse = {
+  title: string;
+  level: string;
+  works: RequestEditCourseWork[];
 };
 
 export type ResponseDeleteCourse = {
@@ -52,13 +69,25 @@ export type TestT = {
   };
 };
 
-export type WorkT = {
+export type GamePresetT = {
+  gamePreset: {
+    id: string;
+    name: string;
+    gameId: string;
+  };
+};
+
+export type WorkWithCourseBonded = {
   id: string;
-  code: string;
-  picture?: string;
-  /* мб код вместо тайтла подойдет */
+  index: number;
+  work: Omit<ResponseWork, 'gamePresetCount'> & { gamePresets?: GamePresetT[] };
+};
+
+export type ResponseOneFullCourse = {
+  id: string;
   title: string;
-  /* хз сколько слов */
-  description: string;
-  tests: TestT[];
+  level: string;
+  worksCount: number;
+  createdAt: TimeZoneType;
+  works: WorkWithCourseBonded[];
 };

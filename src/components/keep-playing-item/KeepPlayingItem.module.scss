@@ -87,7 +87,7 @@
 
 .blue {
   & .minutesLeft {
-    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat center,
+    background: url(../../public/svgs/minutes-left-circle.svg) no-repeat center,
     $color-blue;
   }
 
@@ -108,7 +108,7 @@
 
 .gradient-violet {
   & .minutesLeft {
-    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat center,
+    background: url(../../public/svgs/minutes-left-circle.svg) no-repeat center,
     $gradient-violet;
   }
 
@@ -134,7 +134,7 @@
 
 .gradient-blue-darker {
   & .minutesLeft {
-    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat center,
+    background: url(../../public/svgs/minutes-left-circle.svg) no-repeat center,
     $gradient-blue-darker;
   }
 
@@ -160,7 +160,7 @@
 
 .aquamarine {
   & .minutesLeft {
-    background: url(../../../public/svgs/minutes-left-circle.svg) no-repeat center,
+    background: url(../../public/svgs/minutes-left-circle.svg) no-repeat center,
     $color-aquamarine;
   }
 

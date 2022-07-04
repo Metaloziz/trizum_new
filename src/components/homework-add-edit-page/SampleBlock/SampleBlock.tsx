@@ -1,14 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { PresetT } from '@app/types/WorkTypes';
-import styles from '@components/homework-add-edit-page/HomeworkAddEditPage.module.scss';
-import CustomSelect, { Option } from '@components/select/CustomSelect';
+import { PresetT } from 'app/types/WorkTypes';
+import { PresetWithOrderT } from 'components/homework-add-edit-page/HomeworkAddEditPage';
+import styles from 'components/homework-add-edit-page/HomeworkAddEditPage.module.scss';
+import CustomSelect, { Option } from 'components/select/CustomSelect';
 
 type Props = {
   index: number;
   games: Option[];
   patterns: PresetT[];
-  onSelectPattern: (patternId: Option & { index: number }) => void;
+  onSelectPattern: (patternId: PresetWithOrderT) => void;
 };
 
 const SampleBlock: FC<Props> = props => {

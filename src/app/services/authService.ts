@@ -1,14 +1,16 @@
-import { Paths } from '@app/enums/Paths';
-import instance from '@app/services/config';
+import { AxiosResponse } from 'axios';
+
+import { Paths } from 'app/enums/Paths';
+import instance from 'app/services/config';
 import {
-  RequestLogin, RequestRegister,
+  RequestLogin,
+  RequestRegister,
   RequestSMS,
   ResponseLoadMe,
   ResponseLogin,
   ResponseMe,
   ResponseSMS,
-} from '@app/types/AuthTypes';
-import { AxiosResponse } from 'axios';
+} from 'app/types/AuthTypes';
 
 const authService = {
   authenticate: async (data: any) => {

@@ -1,15 +1,5 @@
 import React, { FC, useState } from 'react';
 
-import FilterItem from '@components/atoms/FilterItem/FilterItem';
-import BlueButton from '@components/atoms/GameResultItem/BlueButton';
-import UserCard from '@components/atoms/userCard';
-import BackButton from '@components/backButton/BackButton';
-import CustomButton from '@components/custom-button/CustomButton';
-import CalendarResults from '@components/molecules/CalendarResults';
-import ResultTable from '@components/molecules/ResultTable';
-import SelectResults from '@components/molecules/SelectResults/SelectResults';
-import Tablet from '@components/tablet/Tablet';
-import buttonImage from '@svgs/arrow-onleft-btn.svg';
 import {
   ArcElement,
   CategoryScale,
@@ -31,11 +21,21 @@ import {
   Tooltip,
 } from 'chart.js';
 import { AnyObject } from 'chart.js/types/basic';
-import Image from 'next/image';
 import { Line } from 'react-chartjs-2';
 import { SingleValue } from 'react-select';
 
 import styles from './Results.module.scss';
+
+import buttonImage from 'assets/svgs/arrow-onleft-btn.svg';
+import FilterItem from 'components/atoms/FilterItem/FilterItem';
+import BlueButton from 'components/atoms/GameResultItem/BlueButton';
+import UserCard from 'components/atoms/userCard';
+import Button from 'components/button/Button';
+import Image from 'components/image/Image';
+import CalendarResults from 'components/molecules/CalendarResults';
+import ResultTable from 'components/molecules/ResultTable';
+import SelectResults from 'components/molecules/SelectResults/SelectResults';
+import Tablet from 'components/tablet/Tablet';
 
 Chart.register(
   ArcElement,
@@ -63,8 +63,6 @@ const Utils = {
     blue: '#4c8f9b',
     yellow: '#ecd7aa',
     red: '#ea7979',
-    lait: '#b09fff',
-    violet: '#8d79f6',
   },
 };
 let width: any;
@@ -84,24 +82,7 @@ function getGradient(ctx: any, chartArea: any) {
     gradient.addColorStop(0.5, Utils.CHART_COLORS.yellow);
     gradient.addColorStop(1, Utils.CHART_COLORS.red);
   }
-  
-  return gradient;
-}
 
-function getGradientTwo(ctx2: any, chartArea2: any) {
-  const chartWidth = chartArea2.right - chartArea2.left;
-  const chartHeight = chartArea2.bottom - chartArea2.top;
-  if (!gradient || width !== chartWidth || height !== chartHeight) {
-    // Create the gradient because this is either the first render
-    // or the size of the chart has changed
-    width = chartWidth;
-    height = chartHeight;
-    gradient = ctx2.createLinearGradient(0, chartArea2.bottom, 0, chartArea2.top);
-    gradient.addColorStop(0, Utils.CHART_COLORS.blue);
-    gradient.addColorStop(0.5, Utils.CHART_COLORS.lait);
-    gradient.addColorStop(1, Utils.CHART_COLORS.violet);
-  }
-  
   return gradient;
 }
 
@@ -112,7 +93,6 @@ const config = {
     labels,
     datasets: [
       {
-        type: 'line',
         label: 'My First dataset',
         backgroundColor: 'red',
         borderWidth: 2,
@@ -120,7 +100,7 @@ const config = {
         borderColor(context: any) {
           const { chart } = context;
           const { ctx, chartArea } = chart;
-          
+
           if (!chartArea) {
             // This case happens on initial chart load
             return;
@@ -129,26 +109,6 @@ const config = {
           return getGradient(ctx, chartArea);
         },
         data: [0, 80, 5, 2, 20, 70, 45, 65, 5, 2, 20, 70, 45, 65],
-        cubicInterpolationMode: MONOTONE,
-      },
-      {
-        type: 'line',
-        label: 'My Second dataset',
-        backgroundColor: 'blue',
-        borderWidth: 2,
-        pointRadius: 0,
-        borderColor(context: any) {
-          const { chart } = context;
-          const { ctx2, chartArea2 } = chart;
-          
-          if (!chartArea2) {
-            // This case happens on initial chart load
-            return;
-          }
-          // eslint-disable-next-line consistent-return
-          return getGradientTwo(ctx2, chartArea2);
-        },
-        data: [10, 20, 30, 40, 50, 60, 77, 58, 85, 20, 43, 63, 15, 31],
         cubicInterpolationMode: MONOTONE,
       },
     ],
@@ -212,10 +172,10 @@ export type ValueLabelT = {
 };
 const gamesAr: ValueLabelT[] = [
   { value: 'total', label: 'Общий балл' },
-  { value: 'memoryAndRhythm', label: 'Память и ритм' },
-  { value: 'findWords', label: 'Найди слова' },
-  { value: 'flyInCube', label: 'Мухи в кубе' },
-  { value: 'AntiPuzzle', label: 'Антипазл' },
+  // { value: 'memoryAndRhythm', label: 'Память и ритм' },
+  // { value: 'findWords', label: 'Найди слова' },
+  // { value: 'flyInCube', label: 'Мухи в кубе' },
+  // { value: 'AntiPuzzle', label: 'Антипазл' },
   { value: 'memory', label: 'Память' },
   { value: 'attention', label: 'Внимание' },
 ];
@@ -266,85 +226,28 @@ const Results: FC<Props> = () => {
   return (
     <div className={styles.container}>
       <div className={styles.back}>
-        <BackButton />
+        <button className={styles.buttonArrow}>
+          <Image src={buttonImage} alt="arrow" width={26} height={13} />
+        </button>
+        <span>На предыдущую страницу</span>
       </div>
       <div className={styles.main}>
         <Tablet>
           <div className={styles.blockTop}>
             <div className={styles.user}>
-              <div className={styles.userBlock}>
-                <UserCard city='Москва' status='Ученик' fullName='Днепровская А.А.' />
-              </div>
-              <div className={styles.buttonsView}>
-                <BlueButton
-                  title='Таблица'
-                  onClick={() => onViewChangeClick(ResultsView.Table)}
-                  isActive={view === ResultsView.Table}
-                  type='small'
-                />
-                <BlueButton
-                  title='График'
-                  isActive={view === ResultsView.Chart}
-                  onClick={() => onViewChangeClick(ResultsView.Chart)}
-                  type='small'
-                />
-              </div>
+              <UserCard city="Москва" status="Ученик" fullName="Днепровская А.А." />
             </div>
-            <div className={styles.filterBlock}>
-              <div className={styles.blockBtn}>
-                {gamesAr.map(game => (
-                  <BlueButton
-                    key={game.value}
-                    title={game.label}
-                    onClick={() => onGameNameClick(game)}
-                    isActive={selectedGames.includes(game)}
-                  />
-                ))}
+            <div className={styles.filters}>
+              <div className={styles.badges}>
+                <FilterItem title=" Те, что окрашены в красный цвет" />
+                <FilterItem title=" Те, что окрашены в красный цвет" />
+                <FilterItem title=" Те, что окрашены в красный цвет" />
               </div>
-              <div className={styles.gamesFields}>
-                <CalendarResults
-                  value=''
-                  onChange={() => console.log('asd')}
-                  placeholder='Начало периода'
-                />
-                <CalendarResults
-                  value=''
-                  onChange={() => console.log('asd')}
-                  placeholder='Конец периода'
-                />
-                <SelectResults
-                  options={mockSelectData}
-                  minWidth='150px'
-                  onChange={onChangeSelect}
-                  className={styles.gamesSelect_select}
-                  placeholder='ФИО ученика'
-                />
-                <SelectResults
-                  options={mockSelectData}
-                  minWidth='150px'
-                  onChange={onChangeSelect}
-                  className={styles.gamesSelect_select}
-                  placeholder='Группа'
-                />
-              </div>
-              <div className={styles.filters}>
-                <div className={styles.badges}>
-                  <FilterItem title=' Те, что окрашены в красный цвет' />
-                  <FilterItem title=' Те, что окрашены в красный цвет' />
-                  <FilterItem title=' Те, что окрашены в красный цвет' />
-                </div>
-                <SelectResults
-                  options={options}
-                  onChange={onChangeSelect}
-                  className={styles.filters_select}
-                  placeholder='Последний положительно пройденный уровень'
-                />
-              </div>
-              <div className={styles.findBtn}>
-                <CustomButton type='primary' size='thin'>
-                  Найти
-                </CustomButton>
-              </div>
+              <SelectResults
+                options={options}
+                onChange={onChangeSelect}
+                className={styles.filters_select}
+              />
             </div>
           </div>
           {view === ResultsView.Table ? (
@@ -352,6 +255,68 @@ const Results: FC<Props> = () => {
           ) : (
             <Line className={styles.canvas} {...config} />
           )}
+          <div className={styles.buttons}>
+            <div className={styles.buttonsView}>
+              <BlueButton
+                title="Таблица"
+                onClick={() => onViewChangeClick(ResultsView.Table)}
+                isActive={view === ResultsView.Table}
+                type="small"
+              />
+              {/* <BlueButton */}
+              {/*  title="График" */}
+              {/*  isActive={view === ResultsView.Chart} */}
+              {/*  onClick={() => onViewChangeClick(ResultsView.Chart)} */}
+              {/*  type="small" */}
+              {/* /> */}
+            </div>
+            <div className={styles.buttonsColumn}>
+              <div className={styles.gamesSelect}>
+                <div className={styles.gamesSelect_items}>
+                  {gamesAr.map(game => (
+                    <BlueButton
+                      key={game.value}
+                      title={game.label}
+                      onClick={() => onGameNameClick(game)}
+                      isActive={selectedGames.includes(game)}
+                    />
+                  ))}
+                  <SelectResults
+                    // TODO: мультивыбор
+                    options={gamesArr}
+                    minWidth="150px"
+                    onChange={onChangeSelect}
+                    className={styles.gamesSelect_select}
+                  />
+                </div>
+                <Button type="primary" size="thin">
+                  Найти
+                </Button>
+              </div>
+              <div className={styles.gamesFields}>
+                <CalendarResults value="" onChange={() => console.log('asd')} />
+                <CalendarResults value="" onChange={() => console.log('asd')} />
+                <SelectResults
+                  options={mockSelectData}
+                  minWidth="150px"
+                  onChange={onChangeSelect}
+                  className={styles.gamesSelect_select}
+                />
+                <SelectResults
+                  options={mockSelectData}
+                  minWidth="150px"
+                  onChange={onChangeSelect}
+                  className={styles.gamesSelect_select}
+                />
+                <SelectResults
+                  options={mockSelectData}
+                  minWidth="150px"
+                  onChange={onChangeSelect}
+                  className={styles.gamesSelect_select}
+                />
+              </div>
+            </div>
+          </div>
         </Tablet>
         {/* <div className={styles.description}> */}
         {/*  <h4>Скорость распознавания образов</h4> */}

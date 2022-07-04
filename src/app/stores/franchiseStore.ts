@@ -1,6 +1,7 @@
-import franchiseService from '@app/services/franchiseService';
-import { Franchise, RequestCreateFranchise } from '@app/types/FranchiseTypes';
 import { makeAutoObservable, runInAction } from 'mobx';
+
+import franchiseService from 'app/services/franchiseService';
+import { Franchise, RequestCreateFranchise } from 'app/types/FranchiseTypes';
 
 class FranchiseStore {
   franchises: Franchise[] = [];

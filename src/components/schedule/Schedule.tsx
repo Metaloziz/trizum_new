@@ -1,16 +1,5 @@
 import React, { FC, SyntheticEvent, useState } from 'react';
 
-import appStore, { Roles } from '@app/stores/appStore';
-import BasicModal from '@components/basic-modal/BasicModal';
-import InformationItem from '@components/information-item/InformationItem';
-import {
-  CustomEvent,
-  CustomEventWrapper,
-  ScheduleHeader,
-  Toolbar,
-} from '@components/schedule/ScheduleComponents';
-import ScheduleModal from '@components/schedule/ScheduleModal';
-import CustomSelect from '@components/select/CustomSelect';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import moment from 'moment';
@@ -18,6 +7,18 @@ import { Calendar, momentLocalizer, stringOrDate, ToolbarProps } from 'react-big
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
 import styles from './Schedule.module.scss';
+
+import appStore, { Roles } from 'app/stores/appStore';
+import BasicModal from 'components/basic-modal/BasicModal';
+import InformationItem from 'components/information-item/InformationItem';
+import {
+  CustomEvent,
+  CustomEventWrapper,
+  ScheduleHeader,
+  Toolbar,
+} from 'components/schedule/ScheduleComponents';
+import ScheduleModal from 'components/schedule/ScheduleModal';
+import CustomSelect from 'components/select/CustomSelect';
 
 require('moment/locale/ru');
 

@@ -1,0 +1,99 @@
+@import "./styles/global";
+@font-face {
+  font-family: 'Aqum';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Aqum'), url('assets/fonts/Aqum/Aqum.ttf') format('ttf'),
+  local('Aqum'), url('assets/fonts/Aqum/Aqum.woff2') format('woff2'),
+  local('Aqum'), url('assets/fonts/Aqum/Aqum.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Regular.ttf') format('ttf'),
+  local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Regular.woff2') format('woff2'),
+  local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Medium.ttf') format('ttf'),
+  local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Medium.woff2') format('woff2'),
+  local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Medium.woff') format('woff');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Bold.ttf') format('ttf'),
+  local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Bold.woff2') format('woff2'),
+  local('Montserrat'), url('assets/fonts/Montserrat/Montserrat-Bold.woff') format('woff');
+}
+
+body {
+  margin: 0;
+  font-family: $font-face-base;
+  /* полоса прокрутки (скроллбар) */
+  &::-webkit-scrollbar {
+    width: 8px; /* ширина для вертикального скролла */
+    background: #EAEEFD;
+
+    @media (max-width: 900px) {
+      width: 0;
+    }
+  }
+
+  /* ползунок скроллбара */
+  &::-webkit-scrollbar-thumb {
+    background: #4778EC;
+    border-radius: 10px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd,
+span {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  appearance: none;
+  color: inherit;
+  font-family: inherit;
+  background: none;
+  font-size: inherit;
+}

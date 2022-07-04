@@ -1,3 +1,6 @@
+@import "src/styles/variables";
+@import "src/styles/mixins";
+
 .buttonPlay {
   display: flex;
   align-items: center;
@@ -14,14 +17,6 @@
   transform: translate(-50%, -50%);
   cursor: pointer;
   transition: all 0.5s ease;
-
-
-  //&:hover {
-  //  background: linear-gradient(0deg, #9181FA, #9181FA), #CFD8DC;
-  //  border: 3px solid #F3EEFD;
-  //  box-shadow: -4px -4px 12px rgba(253, 255, 255, 0.8), 4px 4px 12px rgba(187, 195, 206, 0.6);
-  //
-  //}
 
   &:hover .playButton {
     color: #ffffff;
@@ -63,8 +58,8 @@
       height: 110px;
 
       > span {
-        width: auto !important;
-        height: 25px !important;
+        width: auto;
+        height: 25px;
       }
     }
 
@@ -73,7 +68,7 @@
       height: 85px;
 
       > span {
-        height: 18px !important;
+        height: 18px;
       }
     }
 
@@ -95,7 +90,7 @@
 
     &:hover {
       background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
-      box-shadow: 0px 0px 10px rgba(189, 189, 189, 0.5);
+      box-shadow: 0 0 10px rgba(189, 189, 189, 0.5);
 
     }
   }
@@ -105,26 +100,19 @@
     height: 85px;
 
     > span {
-      width: 17px !important;
-      height: 17px !important;
+      width: 17px;
+      height: 17px;
     }
 
     > span + span {
-      font-family: 'Aqum';
-      height: auto !important;
-      width: auto !important;
-      font-weight: 700;
+      height: auto;
+      width: auto;
       font-size: 12px;
-      line-height: 11px;
       align-items: center;
       text-align: center;
-      background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      @include font-gradient;
     }
   }
-
-
 }
 
 .small {
@@ -138,8 +126,8 @@
   flex-grow: 0;
 
   > span {
-    width: 17px !important;
-    height: 17px !important;
+    width: 17px;
+    height: 17px;
   }
 
   > span + span {
@@ -171,5 +159,21 @@
     @media (max-width: 600px) {
       width: 13px;
     }
+  }
+}
+
+.xs {
+  width: 85px;
+  height: 85px;
+  gap: 6px;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .playButton {
+    margin-top: 0;
+    font-size: 12px;
   }
 }

@@ -1,22 +1,24 @@
 import { FC } from 'react';
 
-import tokenService from '@app/services/tokenService';
-import appStore, { Roles } from '@app/stores/appStore';
-import { Routes } from '@constants/Routes';
-import avatar from '@images/avatar.png';
 import { observer } from 'mobx-react-lite';
-import Image from 'next/image';
-import Link from 'next/link';
 
 import styles from './Account.module.scss';
 
+import { AppRoutes } from 'app/enums/AppRoutes';
+import tokenService from 'app/services/tokenService';
+import appStore, { Roles } from 'app/stores/appStore';
+import avatar from 'assets/images/avatar.png';
+import Image from 'components/image/Image';
+
 const Account: FC = observer(() => {
   // const { Signout } = Routes;
+  // const router = useRouter();
   const activeNotification = true;
   const { setRole } = appStore;
   const logout = async () => {
     await tokenService.removeUser();
     setRole(Roles.Unauthorized);
+    // router.push(Routes.Index);
   };
   return (
     <div className={styles.container}>
@@ -24,7 +26,7 @@ const Account: FC = observer(() => {
         <Image src={avatar} width={53} height={53} alt="avatar" />
         <div className={styles.notification} />
       </button>
-      <span className={styles.abs}>{appStore.role}</span>
+      <span className={styles.span}>{appStore.role}</span>
       <button className={styles.logout} onClick={logout}>
         Выйти из аккаунта
       </button>

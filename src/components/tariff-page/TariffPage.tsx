@@ -1,71 +1,55 @@
 import { useState, ChangeEvent, FC } from 'react';
 
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import { newstatus, tariff, month } from '@components/moks-data/moks-data-tariff';
-import TextEditor from '@components/text-editor/TextEditor';
-
 import styles from './TariffPage.module.scss';
+
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
+import { newstatus, tariff, month } from 'components/moks-data/moks-data-tariff';
+import TextEditor from 'components/text-editor/TextEditor';
 
 const TariffPage: FC = () => {
   const [currentRadioValue, setCurrentRadioValue] = useState('twoChildren');
   const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentRadioValue(e.currentTarget.value);
   };
-
+  const fake = () => {};
   return (
     <div className={styles.traffic}>
       <div className={styles.content}>
         <div className={styles.innerContent}>
           <div>
             <div className={styles.inputBlock}>
-              <InformationItem
-                variant="input"
-                onChange={valueText => console.log(valueText)}
-                placeholder="имя тарифа"
-              />
+              <InformationItem variant="input" onChange={fake} placeholder="имя тарифа" />
             </div>
             <div className={styles.infoBlock}>
               <div>
                 <InformationItem
-                  title='Статус'
-                  variant='select'
+                  title="Статус"
+                  variant="select"
                   option={newstatus}
-                  placeholder='Активен'
+                  placeholder="Активен"
                 />
                 <InformationItem
-                  title='Дата начала действия'
-                  variant='calendar'
-                  dataAuto='dateAction'
+                  title="Дата начала действия"
+                  variant="calendar"
+                  dataAuto="dateAction"
                 />
                 <InformationItem
-                  title='Дата окончания действия'
-                  variant='calendar'
-                  dataAuto='endAction'
+                  title="Дата окончания действия"
+                  variant="calendar"
+                  dataAuto="endAction"
                 />
                 <InformationItem
-                  title='Тариф после'
-                  variant='select'
+                  title="Тариф после"
+                  variant="select"
                   option={tariff}
-                  placeholder='Тариф 1'
+                  placeholder="Тариф 1"
                 />
               </div>
               <div>
-                <InformationItem
-                  title='Старая цена'
-                  variant='input'
-                  onChange={valueText => console.log(valueText)}
-                />
-                <InformationItem
-                  title='Новая цена'
-                  variant='input'
-                  onChange={valueText => console.log(valueText)}
-                />
-                <InformationItem
-                  title='Код тарифа'
-                  variant='input'
-                  onChange={valueText => console.log(valueText)}
-                />
+                <InformationItem title="Старая цена" variant="input" onChange={fake} />
+                <InformationItem title="Новая цена" variant="input" onChange={fake} />
+                <InformationItem title="Код тарифа" variant="input" onChange={fake} />
               </div>
             </div>
           </div>
@@ -121,8 +105,8 @@ const TariffPage: FC = () => {
                 </div>
                 <div className={styles.selectTraffic}>
                   <InformationItem
-                    title='Сколько месяцев действует'
-                    variant='select'
+                    title="Сколько месяцев действует"
+                    variant="select"
                     option={month}
                   />
                 </div>
@@ -133,9 +117,9 @@ const TariffPage: FC = () => {
       </div>
       <div className={styles.btnTraffic}>
         <div className={styles.listTariff}>
-          <CustomButton>Список тарифов</CustomButton>
+          <Button>Список тарифов</Button>
         </div>
-        <CustomButton>Сохранить</CustomButton>
+        <Button>Сохранить</Button>
       </div>
     </div>
   );

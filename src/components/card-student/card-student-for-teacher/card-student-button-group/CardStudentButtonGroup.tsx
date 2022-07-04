@@ -1,17 +1,17 @@
 import React from 'react';
 
-import ButtonOpenClose from '@components/button-open-close/ButtonOpenClose';
-import CustomButton from '@components/custom-button/CustomButton';
-
 import modals from '../../../../app/stores/CardStudentExtended';
 
 import styles from './CardStudentButtonGroup.module.scss';
 
+import ButtonOpenClose from 'components/button-open-close/ButtonOpenClose';
+import Button from 'components/button/Button';
+
 const CardStudentButtonGroup = () => (
   <div className={styles.wrapper}>
-    <CustomButton type="parents" size="small" onClick={() => modals.changeParents()}>
+    <Button type="parents" size="small" onClick={() => modals.changeParents()}>
       Родители
-    </CustomButton>
+    </Button>
     <ButtonOpenClose isOpen={false} />
   </div>
 );

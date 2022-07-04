@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import Schedule from '@components/schedule/Schedule';
-import ScheduleDnD from '@components/schedule/ScheduleDnD';
-import TeacherSearchBar from '@components/teacher-searchBar/TeacherSearchBar';
-
 import styles from './teacherMain.module.scss';
+
+import Schedule from 'components/schedule/Schedule';
+import ScheduleDnD from 'components/schedule/ScheduleDnD';
+import TeacherSearchBar from 'components/teacher-searchBar/TeacherSearchBar';
 
 const groups = ['group №1', 'group №2', 'group №3'];
 const schools = ['school №1', 'school №2', 'school №3'];

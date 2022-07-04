@@ -1,10 +1,11 @@
 import { FC } from 'react';
 
-import { KeepPlayingProps } from '@app/types/ComponentsProps';
-import ChoiceInfoItem from '@components/checking-homework/choice-info/choice-info-item/ChoiceInfoItem';
 import cn from 'classnames';
 
 import styles from './ChoiceInfoList.module.scss';
+
+import { KeepPlayingProps } from 'app/types/ComponentsProps';
+import ChoiceInfoItem from 'components/checking-homework/choice-info/choice-info-item/ChoiceInfoItem';
 
 const ChoiceInfoList: FC<KeepPlayingProps> = ({ className, games }) => (
   <div className={cn(styles.containerChoice, className)}>

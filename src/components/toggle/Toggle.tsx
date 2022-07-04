@@ -15,12 +15,12 @@ interface Toggles {
 
 const Toggle: FC<Toggles> = ({ onChange, defaultValue, className, size }) => {
   const [switchActive, updateSwitchActive] = useState<boolean>(defaultValue);
-  
+
   const onClickChangeToggle = () => {
     updateSwitchActive(!switchActive);
     onChange(!switchActive);
   };
-  
+
   let sizeToggle = '';
   switch (size) {
     case 'small':
@@ -32,7 +32,7 @@ const Toggle: FC<Toggles> = ({ onChange, defaultValue, className, size }) => {
     default:
       sizeToggle = '';
   }
-  
+
   return (
     <div
       className={cn(className, sizeToggle, !switchActive && styles.active)}

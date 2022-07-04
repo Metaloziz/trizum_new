@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react';
 
-import settingsGamesHover from '@svgs/settings-game-hover.svg';
-import settingsGames from '@svgs/settings-game.svg';
-import Image from 'next/image';
-
 import styles from './SettingsGames.module.scss';
 
+import settingsGamesHover from 'assets/svgs/settings-game-hover.svg';
+import settingsGames from 'assets/svgs/settings-game.svg';
+import Image from 'components/image/Image';
+
 type Props = {
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const SettingsGames: FC<Props> = props => {

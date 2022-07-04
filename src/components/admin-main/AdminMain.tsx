@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
-import ReportPage from '@components/report-page';
-
 import styles from './AdminMain.module.scss';
+
+import ReportPage from 'components/report-page';
 
 type Props = Record<string, unknown>;
 

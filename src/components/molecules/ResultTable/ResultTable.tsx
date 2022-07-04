@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 
-import { resultTableData } from '@components/moks-data/mock-data-resultTable';
-import TableHeader from '@components/molecules/ResultTable/TableHeader';
-import TableRow from '@components/molecules/ResultTable/TableRow/TableRow';
-
 import styles from './ResultTable.module.scss';
+
+import { resultTableData } from 'components/moks-data/mock-data-resultTable';
+import TableHeader from 'components/molecules/ResultTable/TableHeader';
+import TableRow from 'components/molecules/ResultTable/TableRow/TableRow';
 
 type Props = {};
 const dates: string[] = [];

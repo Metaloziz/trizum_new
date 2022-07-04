@@ -1,13 +1,14 @@
 import { FC, useState } from 'react';
 
-import { KeepPlayingItemProps } from '@app/types/ComponentsProps';
-import DoughnutNew from '@components/doughnut-new/DoughnutNew';
-import ProgressBar from '@components/progress-bar/ProgressBar';
-import play from '@svgs/play.svg';
 import cn from 'classnames';
-import Image from 'next/image';
 
 import styles from './ChoiceInfoItem.module.scss';
+
+import { KeepPlayingItemProps } from 'app/types/ComponentsProps';
+import play from 'assets/svgs/play.svg';
+import DoughnutNew from 'components/doughnut-new/DoughnutNew';
+import Image from 'components/image/Image';
+import ProgressBar from 'components/progress-bar/ProgressBar';
 
 const barData = [
   { title: 'Количество верных ответов', bgColor: '#4FC1D6', completed: 70 },
@@ -24,9 +25,10 @@ const ChoiceInfoItem: FC<KeepPlayingItemProps> = ({ title, minutesLeft, colorThe
   const toggleShow = () => setShow(!isShow);
   return (
     <div>
+      {/* @ts-ignore */}
       <div className={cn(styles.container, styles[colorTheme], isShow && styles.activeShow)}>
         <button onClick={toggleShow}>
-          <Image src={play} alt='play' />
+          <Image src={play} alt="play" />
         </button>
         <span className={styles.title}>{title}</span>
         <span className={styles.minutesLeft}>

@@ -1,0 +1,1 @@
+export type ResponseGame = [string];

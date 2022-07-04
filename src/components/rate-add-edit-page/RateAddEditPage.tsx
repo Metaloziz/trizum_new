@@ -1,7 +1,7 @@
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-
 import styles from './RateAddEditPage.module.scss';
+
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
 
 const RateAddEditPage = () => (
   <div className={styles.innerContent}>
@@ -28,7 +28,7 @@ const RateAddEditPage = () => (
         </div>
       </div>
       <div className={styles.addBtn}>
-        <CustomButton>Добавить</CustomButton>
+        <Button>Добавить</Button>
       </div>
     </div>
     <div className={styles.start}>

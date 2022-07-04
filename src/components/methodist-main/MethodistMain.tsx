@@ -1,20 +1,25 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
-import coursesStore from '@app/stores/coursesStore';
-import { ResponseCourse } from '@app/types/CourseTypes';
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import CustomPagination from '@components/custom-pagination/CustomPagination';
-import InformationItem from '@components/information-item/InformationItem';
-import CustomSelect, { Option } from '@components/select/CustomSelect';
-import SettingsGames from '@components/settings-games/SettingsGames';
-import Table from '@components/table/Table';
-import TextField from '@components/text-field/TextField';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
-import { useRouter } from 'next/router';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './MethodistMain.module.scss';
+
+import { AppRoutes } from 'app/enums/AppRoutes';
+import { EditAddLabels } from 'app/enums/CommonEnums';
+import { DateTime } from 'app/enums/DateTime';
+import { GroupLevels } from 'app/enums/GroupLevels';
+import coursesStore from 'app/stores/coursesStore';
+import { RequestEditCourse, ResponseCourse } from 'app/types/CourseTypes';
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
+import Pagination from 'components/molecules/Pagination';
+import CustomSelect, { Option } from 'components/select/CustomSelect';
+import SettingsGames from 'components/settings-games/SettingsGames';
+import Table from 'components/table/Table';
+import TextField from 'components/text-field/TextField';
 
 export const colNames = [
   'Наименование комплекса домашнего задания',
@@ -23,44 +28,106 @@ export const colNames = [
   'Дата создания комплекса',
   ' ',
 ];
-
-const levelOptions = [
-  { value: 'label 1', label: 'label 1' },
-  { value: 'label 2', label: 'label 2' },
-  { value: 'label 3', label: 'label 3' },
-];
+const groupLevelOptions = Object.values(GroupLevels).map(el => ({ value: el, label: el }));
 
 const MethodistMain: FC = observer(() => {
-  const { getCourses, createCourse, courses } = coursesStore;
+  const {
+    getCourses,
+    createCourse,
+    courses,
+    currentCourse,
+    getOneCourse,
+    editCourse,
+    setCurrentCourse,
+  } = coursesStore;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentCourse, setCurrentCourse] = useState<ResponseCourse>();
   const [title, setTitle] = useState('');
-  const [level, setLevel] = useState('');
-  const router = useRouter();
-  const a = (b: number) => {};
-  const onChangeVisibility = () => {
-    setIsModalOpen(!isModalOpen);
+  const [level, setLevel] = useState<Option>(groupLevelOptions[0]);
+  const navigate = useNavigate();
+
+  const onCloseModal = () => {
+    setTitle('');
+    setLevel(groupLevelOptions[0]);
+    setIsModalOpen(false);
+    setCurrentCourse();
   };
+
+  const onOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
   const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
   const onChangeLevel = (value: Option) => {
-    value && setLevel(value.label);
+    value && setLevel(value);
   };
-  const onAddHWClick = () => {
-    createCourse({ title, level, works: [] });
+
+  const onSaveCourseClick = async () => {
+    if (!currentCourse) {
+      createCourse({ title, level: level.label, works: [] });
+    }
+    if (currentCourse) {
+      const { id } = currentCourse;
+      const newCourse: RequestEditCourse = {
+        level: level.value,
+        title,
+        works: currentCourse?.works
+          ? currentCourse.works.map(el => ({
+              type: el.work.type,
+              workId: el.work.id,
+              index: el.index,
+            }))
+          : [],
+      };
+      await editCourse(newCourse, id);
+      setCurrentCourse();
+    }
+    setTitle('');
+    setLevel(groupLevelOptions[0]);
     setIsModalOpen(false);
   };
-  const onEditHWClick = () => {};
 
-  const onSettingsClick = (id: string) => {
-    const course = courses.find(el => el.id === id);
-    setCurrentCourse(course);
-    course && setTitle(course.title);
+  const onEditHWClick = () => {
+    if (currentCourse) {
+      getOneCourse(currentCourse.id);
+      setTimeout(() => setIsModalOpen(false));
+      navigate(AppRoutes.Homework);
+    }
   };
 
+  const onSettingsClick = async (id: string) => {
+    const course = courses.find(el => el.id === id);
+    if (course) {
+      await getOneCourse(course.id);
+      setIsModalOpen(true);
+      // setCurrentCourseItem(course);
+      // setTitle(course.title);
+      // const lvl = groupLevelOptions.filter(el => el.label === course.level)[0];
+      // setLevel(lvl);
+      // setIsModalOpen(true);
+    }
+  };
+  console.log(currentCourse, 'currentCourse');
+
   useEffect(() => {
-    getCourses();
+    if (!courses.length) {
+      getCourses();
+    }
+  }, [courses]);
+
+  useEffect(() => {
+    if (currentCourse) {
+      setTitle(currentCourse.title);
+      setLevel(groupLevelOptions.filter(el => el.label === currentCourse.level)[0]);
+    }
+  }, [currentCourse]);
+
+  useEffect(() => {
+    if (currentCourse) {
+      setCurrentCourse();
+    }
   }, []);
   return (
     <div className={styles.mainBlock}>
@@ -90,9 +157,9 @@ const MethodistMain: FC = observer(() => {
         </div>
         <div className={styles.btnWrap}>
           <div className={styles.btnBlock}>
-            <CustomButton onClick={onChangeVisibility}>Добавить</CustomButton>
+            <Button onClick={onOpenModal}>Добавить</Button>
           </div>
-          <CustomButton>Найти</CustomButton>
+          <Button>Найти</Button>
         </div>
       </div>
 
@@ -103,7 +170,7 @@ const MethodistMain: FC = observer(() => {
               <td>{el.title}</td>
               <td>{el.level}</td>
               <td>{el.works?.length || el.worksCount}</td>
-              <td>{moment(new Date()).format('DD.MM.yyyy')}</td>
+              <td>{moment(el.createdAt.date).format(DateTime.DdMmYyyy)}</td>
               <td>
                 <SettingsGames onClick={() => onSettingsClick(el.id)} />
               </td>
@@ -112,52 +179,34 @@ const MethodistMain: FC = observer(() => {
         </Table>
       </div>
       <div className={styles.pagination}>
-        <CustomPagination
-          length={5}
+        <Pagination
+          totalCount={5}
           currentPage={1}
-          count={2}
-          total={3}
-          paginate={a}
-          prev={() => console.log('prev')}
-          next={() => console.log('prev')}
+          pageSize={3}
+          onPageChange={() => console.log('changed page')}
         />
       </div>
-      <BasicModal visibility={isModalOpen} changeVisibility={onChangeVisibility}>
-        {!currentCourse && (
-          <div className={styles.modalWrapper}>
-            <h3>Добавить курс</h3>
-            <TextField
-              onChange={onTitleChange}
-              placeholder="Название курса..."
-              value={title}
-              label="Название курса"
-            />
-            <CustomSelect
-              options={levelOptions}
-              placeholder="Уровень группы"
-              onChange={onChangeLevel}
-            />
-            <CustomButton onClick={onAddHWClick}>Добавить курс</CustomButton>
+      <BasicModal visibility={isModalOpen} changeVisibility={onCloseModal}>
+        <div className={styles.modalWrapper}>
+          <h3>{currentCourse ? EditAddLabels.Edit : EditAddLabels.Add} курс</h3>
+          <TextField
+            onChange={onTitleChange}
+            placeholder="Название курса..."
+            value={title}
+            label="Название курса"
+          />
+          <CustomSelect
+            value={level}
+            options={groupLevelOptions}
+            placeholder="Уровень группы"
+            onChange={onChangeLevel}
+          />
+          {/* todo: вывод домашек если редактирование курса */}
+          <div className={styles.modalButtons}>
+            <Button onClick={onEditHWClick}>Добавить домашнее задание</Button>
+            <Button onClick={onSaveCourseClick}>Сохранить</Button>
           </div>
-        )}
-        {currentCourse && (
-          <div className={styles.modalWrapper}>
-            <h3>Редактировать курс</h3>
-            <TextField
-              onChange={onTitleChange}
-              placeholder="Название курса..."
-              value={title}
-              label="Название курса"
-            />
-            <CustomSelect
-              options={levelOptions}
-              placeholder="Уровень группы"
-              onChange={onChangeLevel}
-            />
-            <CustomButton onClick={onEditHWClick}>Добавить домашку</CustomButton>
-            <CustomButton onClick={onAddHWClick}>Сохранить</CustomButton>
-          </div>
-        )}
+        </div>
       </BasicModal>
     </div>
   );

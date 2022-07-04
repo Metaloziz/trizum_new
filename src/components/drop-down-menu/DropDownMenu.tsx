@@ -1,14 +1,15 @@
 import { FC } from 'react';
 
-import Navigation from '@components/navigation/Navigation';
-import { Routes } from '@constants/Routes';
-import useComponentVisible from '@HOC/drop-down-hook/DropDownHook';
-import homeImage from '@svgs/student-navigation-link-home.svg';
-import paymentImage from '@svgs/student-navigation-link-payment.svg';
-import resultsImage from '@svgs/student-navigation-link-results.svg';
 import cn from 'classnames';
 
 import styles from './DropDownMenu.module.scss';
+
+import { AppRoutes } from 'app/enums/AppRoutes';
+import homeImage from 'assets/svgs/student-navigation-link-home.svg';
+import paymentImage from 'assets/svgs/student-navigation-link-payment.svg';
+import resultsImage from 'assets/svgs/student-navigation-link-results.svg';
+import Navigation from 'components/navigation/Navigation';
+import useComponentVisible from 'HOC/drop-down-hook/DropDownHook';
 
 interface Props {
   active: boolean;
@@ -22,7 +23,7 @@ const DropDownMenu: FC<Props> = ({ active, onClose }) => {
     onClose,
     true,
   );
-  const { Index, Results, Payment } = Routes;
+  const { Index, Payment } = AppRoutes;
   return (
     <div className={cn(styles.dropDownMenu, active && styles.showDropDown)} ref={ref}>
       {isComponentVisible && (
@@ -31,7 +32,7 @@ const DropDownMenu: FC<Props> = ({ active, onClose }) => {
             { label: 'Главная', href: Index, imageSrc: homeImage },
             {
               label: 'Ваши результаты',
-              href: Results,
+              href: AppRoutes.Statistic,
               imageSrc: resultsImage,
             },
             { label: 'Оплата', href: Payment, imageSrc: paymentImage },

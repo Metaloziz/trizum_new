@@ -8,11 +8,13 @@ const Tablet: FC<TabletProps> = props => {
   return (
     <div className={styles.container}>
       <div className={styles.display}>
-        {children}
-        <div className={styles.tableBtn}>
-          <div />
-          <div />
-        </div>
+        <>
+          {children}
+          <div className={styles.tableBtn}>
+            <div />
+            <div />
+          </div>
+        </>
         <div className={styles.leftBtn} />
       </div>
     </div>

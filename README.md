@@ -1,76 +1,46 @@
-# Next.js TypeScript Starter
+# Getting Started with Create React App
 
-## Features
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-- ⚡️ Next.js 12
-- ⚛️ React 17
-- ⛑ TypeScript
-- 📏 ESLint — Find problems in your code
-- 💖 Prettier — Code Formatter for consistent style
-- 🐶 Husky — For running scripts before committing
-- 🖌 Renovate — Keep your dependencies up to date
-- 🚫 lint-staged — To run ESLint and Prettier against staged Git files
-- 👷 PR Workflow — Run Type Check & Linters on all Pull Requests
-- ⚙️ EditorConfig - Maintain consistent coding styles across editors and IDEs
-- 🗂 Path Mapping — Import components or images using the `@` prefix
+## Available Scripts
 
-## Quick Start
+In the project directory, you can run:
 
-The best way to start with this template is using [Create Next App](https://nextjs.org/docs/api-reference/create-next-app).
+### `npm start`
 
-```
-yarn create next-app -e https://github.com/jpedroschmitz/typescript-nextjs-starter
-# or
-npx create-next-app -e https://github.com/jpedroschmitz/typescript-nextjs-starter
-```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Development
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-To start the project locally, run:
+### `npm test`
 
-```bash
-npm run dev
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Open `http://localhost:3000` with your browser to see the result. To change the port:
+### `npm run build`
 
-```bash
-PORT=4000 npm run dev
-```
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Requirements
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-- Node.js >= 12.22.0
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### Integrate Ant Design
+### `npm run eject`
 
-Install Ant Design core and its icon set with the following command:
-```
-npm install antd @ant-design/icons --save
-```
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-Manually import the antd.css file at the very top of your pages/_app.page.tsx file:
-```
-import 'antd/dist/antd.css';
-```
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-For example:
-```
-import { CustomButton, Space, DatePicker, Card } from 'antd';
-import { CiCircleFilled } from '@ant-design/icons';
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-export default function Home() {
-  const onChange = () => {};
-  return (
-    <div style={{ padding: 100 }}>
-      <Space direction="vertical">
-        <CustomButton type="primary">Primary CustomButton</CustomButton>
-        <CustomButton type="ghost">Ghost CustomButton</CustomButton>
-        <DatePicker onChange={onChange} />
-        <CiCircleFilled />
-      </Space>
-    </div>
-  );
-}
-```
-### this app was built on Next js
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

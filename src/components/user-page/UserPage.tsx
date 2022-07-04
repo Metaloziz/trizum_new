@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 
-import BasicModal from '@components/basic-modal/BasicModal';
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import Setting from '@components/setting/Setting';
-import user from '@svgs/user.svg';
-import Image from 'next/image';
-
 import styles from './UserPage.module.scss';
+
+import user from 'assets/svgs/user.svg';
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
+import Image from 'components/image/Image';
+import InformationItem from 'components/information-item/InformationItem';
+import Setting from 'components/setting/Setting';
 
 interface Props {
   id?: string;
@@ -15,6 +15,7 @@ interface Props {
 
 const UserPage: FC<Props> = ({ id }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const fake = () => {};
   return (
     <div className={styles.container}>
       <div>
@@ -31,14 +32,14 @@ const UserPage: FC<Props> = ({ id }) => {
         <h2>Днепровский Александр Алексеевич</h2>
         <div className={styles.labelBlock}>
           <label htmlFor={id}>Телефон:</label>
-          <InformationItem id={id} variant="input" onChange={valueText => console.log(valueText)} />
+          <InformationItem id={id} variant="input" onChange={fake} />
         </div>
         <div className={styles.labelBlock}>
           <label htmlFor={id}>Почта:</label>
-          <InformationItem id={id} variant="input" onChange={valueText => console.log(valueText)} />
+          <InformationItem id={id} variant="input" onChange={fake} />
         </div>
         <div className={styles.buttonWrapper}>
-          <CustomButton>Сохранить</CustomButton>
+          <Button>Сохранить</Button>
         </div>
       </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>
@@ -52,7 +53,7 @@ const UserPage: FC<Props> = ({ id }) => {
             <InformationItem id={id} variant="input" placeholder="4 _ _ _ " />
           </div>
           <div>
-            <CustomButton>Подтвердить изменения</CustomButton>
+            <Button>Подтвердить изменения</Button>
             <div>
               <p className={styles.underlined}>Отправить повторно</p>
             </div>

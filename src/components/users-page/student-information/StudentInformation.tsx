@@ -1,11 +1,12 @@
 import React from 'react';
 
-import InformationItem from '@components/information-item/InformationItem';
-import avatar from '@public/img/pervoklasnin.jpg';
-import Image from 'next/image';
 import { Controller } from 'react-hook-form';
 
 import styles from './StudentInformation.module.scss';
+
+import Image from 'components/image/Image';
+import InformationItem from 'components/information-item/InformationItem';
+import avatar from 'public/img/pervoklasnin.jpg';
 
 const StudentInformation = () => (
   <div className={styles.row}>

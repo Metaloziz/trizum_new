@@ -144,18 +144,14 @@
     justify-content: space-between;
     align-items: center;
 
-    @media (max-width: 800px) {
-      flex-direction: column;
-      align-items: center;
-
-      > div {
-        width: 100%;
-      }
-    }
-
     @media (max-width: 600px) {
       align-items: flex-end;
 
+    }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      align-items: center;
     }
 
     .saveSelect {
@@ -173,11 +169,6 @@
         line-height: 17px;
         color: #000000;
 
-        @media (max-width: 800px) {
-          flex: 0;
-          margin-right: 10px;
-        }
-
         @media (max-width: 600px) {
           margin-bottom: 10px;
         }
@@ -185,10 +176,6 @@
 
       .activeSelect {
         width: 170px;
-
-        @media (max-width: 800px) {
-          width: 100%;
-        }
 
         @media (max-width: 500px) {
           width: 300px;
@@ -208,10 +195,7 @@
 
   button {
     display: inline-block;
-    @media (max-width: 800px) {
-      margin-top: 20px;
-      width: 100%;
-    }
+    //margin-top: 30px;
   }
 
   @media(max-width: 1280px) {

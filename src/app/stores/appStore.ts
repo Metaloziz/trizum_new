@@ -3,6 +3,8 @@ import { makeAutoObservable } from 'mobx';
 export enum Roles {
   /* Ученик */
   Student = 'student',
+  /* Ученик */
+  Parent = 'parent',
   /* Учитель на обучении */
   TeacherEducation = 'teacherEducation',
   /* Учитель */
@@ -20,6 +22,18 @@ export enum Roles {
   /* Неавторизованный */
   Unauthorized = 'unauthorized',
 }
+
+export const RoleNames = {
+  student: 'Ученик',
+  parent: 'Родитель',
+  teacherEducation: 'Учитель на обучении',
+  teacher: 'Учитель',
+  franchiseeAdmin: 'Администратор франчайзи',
+  franchisee: 'Франчайзи',
+  methodist: 'Методист',
+  tutor: 'Куратор',
+  admin: 'Центр',
+};
 
 class AppStore {
   role: Roles = Roles.Unauthorized;

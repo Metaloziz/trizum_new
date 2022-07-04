@@ -1,4 +1,4 @@
-import { Roles } from '@app/stores/appStore';
+import { Roles } from 'app/stores/appStore';
 
 export type RequestSMS = { phone: string };
 export type RequestLogin = { phone: string; smsCode: number };
@@ -13,11 +13,18 @@ export type ResponseLogin = {
     id: string;
   };
 };
+
 export type ResponseMe = {
   id: string;
   email: string;
   phone: string;
   role: string;
+};
+
+export type TimeZoneType = {
+  date: string;
+  timezone_type: number;
+  timezone: string;
 };
 
 export type ResponseLoadMe = {
@@ -30,11 +37,7 @@ export type ResponseLoadMe = {
   role: string;
   franchise: null | string;
   city: null | string;
-  birthdate: {
-    date: string;
-    timezone_type: string;
-    timezone: string;
-  };
+  birthdate: TimeZoneType;
   sex: null | string;
   status: string;
   avatar: {
@@ -44,18 +47,17 @@ export type ResponseLoadMe = {
 };
 
 export type RequestRegister = {
-  phone: string;
-  email: string;
-  role: string;
+  phone?: string;
+  email?: string;
+  role: Roles;
   franchiseId: string;
   firstName: string;
-  lastName: string;
   middleName: string;
+  lastName: string;
   city: string;
   birthdate: string;
   sex: boolean;
-  groupId: string;
-  teacherId: string;
-  tariffId: string;
-  isSecondChild: boolean;
+  groupId?: string;
+  tariffId?: string;
+  isSecondChild?: boolean;
 };

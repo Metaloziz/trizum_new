@@ -1,55 +1,115 @@
 import React, { FC, useState } from 'react';
 
-import { ResponseUserT } from '@app/services/usersService';
-import { UserT } from '@app/types/UserTypes';
-import ButtonOpenClose from '@components/button-open-close/ButtonOpenClose';
-import CardStudentButtonGroup from '@components/card-student/card-student-for-teacher/card-student-button-group/CardStudentButtonGroup';
-import CardStudentTitle from '@components/card-student/card-student-title/CardStudentTitle';
-import CustomButton from '@components/custom-button/CustomButton';
-import CustomImageWrapper from '@components/custom-image-wrapper/CustomImageWrapper';
-import mockAvatar from '@public/img/pervoklasnin.jpg';
-import iconSettingsBlue from '@svgs/icon-setting-blue.svg';
-import iconSettings from '@svgs/icon-settings.svg';
-import Image from 'next/image';
-
 import modals from '../../../app/stores/CardStudentExtended';
 
 import styles from './CardStudentExtended.module.scss';
 
+import { RoleNames, Roles } from 'app/stores/appStore';
+import { ResponseUserT } from 'app/types/UserTypes';
+import iconSettingsBlue from 'assets/svgs/icon-setting-blue.svg';
+import iconSettings from 'assets/svgs/icon-settings.svg';
+import ButtonOpenClose from 'components/button-open-close/ButtonOpenClose';
+import Button from 'components/button/Button';
+import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
+import Image from 'components/image/Image';
+import mockAvatar from 'public/img/pervoklasnin.jpg';
+
 type Props = {
   user: ResponseUserT;
+  onEditUserClick: (id: string) => void;
 };
 
 const CardStudentExtended: FC<Props> = props => {
   const {
-    user: { email, roleCode, phone, id },
+    user: {
+      email,
+      phone,
+      id,
+      firstName,
+      lastName,
+      middleName,
+      city,
+      avatar,
+      groups,
+      status,
+      roleCode,
+      franchise,
+    },
+    onEditUserClick,
   } = props;
-  // const name = `${middleName} ${firstName} ${lastName}`;
   const [isShow, setShow] = useState<boolean>(false);
+  const name = `${middleName ?? ''} ${firstName ?? ''} ${lastName ?? ''}`.trim();
+  let role;
+  switch (roleCode) {
+    case Roles.Student:
+      role = RoleNames.student;
+      break;
+    case Roles.Parent:
+      role = RoleNames.parent;
+      break;
+    case Roles.Teacher:
+      role = RoleNames.teacher;
+      break;
+    case Roles.TeacherEducation:
+      role = RoleNames.teacherEducation;
+      break;
+    case Roles.Tutor:
+      role = RoleNames.tutor;
+      break;
+    case Roles.Methodist:
+      role = RoleNames.methodist;
+      break;
+    case Roles.Admin:
+      role = RoleNames.admin;
+      break;
+    case Roles.FranchiseeAdmin:
+      role = RoleNames.franchiseeAdmin;
+      break;
+    case Roles.Franchisee:
+      role = RoleNames.franchisee;
+      break;
+    default:
+      role = '-';
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.rowWrapper}>
         <div className={styles.row}>
           <CustomImageWrapper className={styles.image} variant="circle">
-            <Image src={mockAvatar} width="170" height="170" alt="avatar" />
-            {/* <Image src={avatar ? avatar.path : mockAvatar} width="170" height="170" alt="avatar" /> */}
+            <Image src={avatar ? avatar.path : mockAvatar} width="170" height="170" alt="avatar" />
           </CustomImageWrapper>
           <div className={styles.title}>
-            <h3>{roleCode}</h3>
-            {/* <h3>{name}</h3> */}
+            <h3>{name}</h3>
             <div className={styles.mt20}>
               <p className={styles.list}>
-                Статус: <span>{roleCode}</span>
+                Статус: <span>{role}</span>
               </p>
-              {/* <p className={styles.list}> */}
-              {/*  Город: <span>{city}</span> */}
-              {/* </p> */}
-              <p className={styles.list}>
-                Телефон: <span>{phone}</span>
-              </p>
-              <p className={styles.list}>
-                Почта: <span>{email}</span>
-              </p>
+              {city && (
+                <p className={styles.list}>
+                  Город: <span>{city}</span>
+                </p>
+              )}
+              {phone && roleCode !== Roles.Student && (
+                <p className={styles.list}>
+                  Телефон: <span>{phone}</span>
+                </p>
+              )}
+              {email && roleCode !== Roles.Student && (
+                <p className={styles.list}>
+                  Почта: <span>{email}</span>
+                </p>
+              )}
+              {!!groups.length && roleCode === Roles.Student && (
+                <p className={styles.list}>
+                  Группа: <span>{groups[0].groupCode}</span>
+                </p>
+              )}
+              {franchise && roleCode === Roles.Student && (
+                <p className={styles.list}>
+                  Группа: <span>{franchise.shortName}</span>
+                </p>
+              )}
               {/* <p className={styles.list}> */}
               {/*  Дата рождения: <span>{birthdate && birthdate.date}</span> */}
               {/* </p> */}
@@ -57,10 +117,10 @@ const CardStudentExtended: FC<Props> = props => {
           </div>
         </div>
         <div className={styles.buttonWrapper}>
-          {roleCode === 'admin' && (
-            <CustomButton type='parents' size='small' onClick={() => modals.changeParents()}>
+          {roleCode === Roles.Student && (
+            <Button type="parents" size="small" onClick={() => modals.changeParents()}>
               Родители
-            </CustomButton>
+            </Button>
           )}
           <ButtonOpenClose isOpen={false} />
         </div>
@@ -72,7 +132,13 @@ const CardStudentExtended: FC<Props> = props => {
         onMouseOut={() => setShow(false)}
       >
         {isShow ? (
-          <Image src={iconSettingsBlue} width="30" height="30" alt="Settings" />
+          <Image
+            src={iconSettingsBlue}
+            width="30"
+            height="30"
+            alt="Settings"
+            onClick={() => onEditUserClick(id)}
+          />
         ) : (
           <Image src={iconSettings} width="30" height="30" alt="Settings" />
         )}

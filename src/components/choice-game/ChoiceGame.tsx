@@ -1,12 +1,12 @@
 import { FC } from 'react';
 
-import BackButton from '@components/backButton/BackButton';
-import CustomButton from '@components/custom-button/CustomButton';
-import InformationItem from '@components/information-item/InformationItem';
-import { group, months, template, year } from '@components/moks-data/moks-data-choice-game';
-import Step from '@components/step/Step';
-
 import styles from './ChoiceGame.module.scss';
+
+import BackButton from 'components/backButton/BackButton';
+import Button from 'components/button/Button';
+import InformationItem from 'components/information-item/InformationItem';
+import { group, months, template, year } from 'components/moks-data/moks-data-choice-game';
+import Step from 'components/step/Step';
 
 const ChoiceGame: FC = () => (
   <div className={styles.container}>
@@ -43,7 +43,7 @@ const ChoiceGame: FC = () => (
         </div>
       </div>
       <div className={styles.wrapperBtn}>
-        <CustomButton>Выбрать настройки</CustomButton>
+        <Button>Выбрать настройки</Button>
       </div>
     </div>
   </div>

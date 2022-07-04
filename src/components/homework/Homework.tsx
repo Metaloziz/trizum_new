@@ -1,9 +1,10 @@
 import { FC } from 'react';
 
-import { HomeworkProps } from '@app/types/ComponentsProps';
 import classNames from 'classnames';
 
 import styles from './Homework.module.scss';
+
+import { HomeworkProps } from 'app/types/ComponentsProps';
 
 const Homework: FC<HomeworkProps> = ({
   gameTitle,

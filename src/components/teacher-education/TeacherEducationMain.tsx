@@ -1,10 +1,10 @@
 import React from 'react';
 
-import teacherEducationStore from '@app/stores/TeacherEducationStore';
-import BlogItem from '@components/molecules/BlogItem';
-import { useRouter } from 'next/router';
-
 import styles from './TeacherEducationMain.module.scss';
+
+import teacherEducationStore from 'app/stores/TeacherEducationStore';
+import BlogItem from 'components/molecules/BlogItem';
+import { useRouter } from 'next/router';
 
 const TeacherEducationMain = () => {
   const router = useRouter();

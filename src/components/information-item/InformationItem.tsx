@@ -1,14 +1,15 @@
 import { ChangeEvent, ComponentType, FC } from 'react';
 
-import InputFile from '@components/input-file/InputFile';
-import CustomSelect from '@components/select/CustomSelect';
-import TextFieldCalendar from '@components/text-field-calendar/TextFieldCalendar';
-import TextField from '@components/text-field/TextField';
 import cn from 'classnames';
 import NumberFormat from 'react-number-format';
 import { SingleValue } from 'react-select';
 
 import styles from './InformationItem.module.scss';
+
+import InputFile from 'components/input-file/InputFile';
+import CustomSelect from 'components/select/CustomSelect';
+import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
+import TextField from 'components/text-field/TextField';
 
 type VariantType = 'select' | 'input' | 'calendar' | 'file' | 'phone' | 'inn';
 

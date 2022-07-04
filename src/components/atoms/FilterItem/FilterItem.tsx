@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-import close from '@svgs/close.svg';
-import Image from 'next/image';
-
 import styles from './FilterItem.module.scss';
+
+import close from 'assets/svgs/close.svg';
+import Image from 'components/image/Image';
 
 type Props = {
   title: string;
@@ -12,7 +12,7 @@ type Props = {
 const FilterItem: FC<Props> = ({ title }) => (
   <div className={styles.filter}>
     <span>{title}</span>
-    <Image src={close} alt='close' />
+    <Image src={close} alt="close" />
   </div>
 );
 

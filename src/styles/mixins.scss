@@ -1,3 +1,4 @@
+@import "variables";
 @mixin gradient-text($gradient) {
   color: transparent;
   //background-clip: text;
@@ -24,8 +25,26 @@
 }
 
 @mixin gradient-statistics-title($gradient) {
-  font-family: Aqum;
+  font-family: $font-aqum;
   font-size: 14px;
   text-transform: uppercase;
   @include gradient-text($gradient);
+}
+
+
+@mixin disable-default-button-style {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+@mixin font-gradient {
+  font-family: $font-aqum;
+  background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

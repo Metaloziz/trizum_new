@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-import buttonClose from '@svgs/button.svg';
-import Image from 'next/image';
-
 import styles from './BasicModal.module.scss';
+
+import buttonClose from 'assets/svgs/button.svg';
+import Image from 'components/image/Image';
 
 interface Props {
   children?: React.ReactNode;

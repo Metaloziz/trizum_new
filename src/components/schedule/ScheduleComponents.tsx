@@ -1,7 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import appStore, { Roles } from '@app/stores/appStore';
+import BasicModal from '@components/basic-modal/BasicModal';
 import CustomButton from '@components/custom-button/CustomButton';
+import InformationItem from '@components/information-item/InformationItem';
 import styles from '@components/schedule/Schedule.module.scss';
 import { EventProps } from '@components/schedule/ScheduleDnD';
 import iconDelete from '@svgs/delete.svg';
@@ -21,9 +23,43 @@ import { ToolbarProps } from 'react-big-calendar';
 // }
 // type qwe = FC<ToolbarProps<object, object>> | undefined
 
+type Mock1 = {
+  number: string;
+  valueCalendar: JSX.Element;
+  valueStart: JSX.Element;
+  valueEnd: JSX.Element;
+};
+
+const moksDatas: Mock1[] = [
+  {
+    number: 'N1',
+    valueCalendar: (
+      <InformationItem className={styles.valueCalendar} title='Дата урока' variant='calendar' />
+    ),
+    valueStart: (
+      <InformationItem className={styles.valueStart} title='Начало урока' variant='input' />
+    ),
+    valueEnd: <InformationItem className={styles.valueEnd} title='Конец урока' variant='input' />,
+  },
+  {
+    number: 'N2',
+    valueCalendar: (
+      <InformationItem className={styles.valueCalendar} title='Дата урока' variant='calendar' />
+    ),
+    valueStart: (
+      <InformationItem className={styles.valueStart} title='Начало урока' variant='input' />
+    ),
+    valueEnd: <InformationItem className={styles.valueEnd} title='Конец урока' variant='input' />,
+  },
+];
+
 export const Toolbar: FC<ToolbarProps> = props => {
+  const [isVisible, setIsVisible] = useState(false);
   const { onNavigate, date, children } = props;
   const { role } = appStore;
+  const changeVisibility = () => {
+    setIsVisible(!isVisible);
+  };
   return (
     <div className={styles.toolbarWrapper}>
       <div className={styles.toolbarFlexWrapper}>
@@ -31,56 +67,76 @@ export const Toolbar: FC<ToolbarProps> = props => {
         <div className={styles.buttons}>
           {role === Roles.Teacher && (
             <>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none' size='small'>
                 Предыдущая
               </CustomButton>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none' size='small'>
                 Текущая
               </CustomButton>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none' size='small'>
                 Следующая
               </CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
           {role === Roles.FranchiseeAdmin && (
             <>
-              <CustomButton type="none">Добавить группу</CustomButton>
-              <CustomButton type="none">+ Добавить</CustomButton>
-              <CustomButton type="none">Предыдущая</CustomButton>
-              <CustomButton type="none">Текущая</CustomButton>
-              <CustomButton type="none">Следующая</CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton onClick={() => setIsVisible(!isVisible)} type='none'>
+                Добавить группу
+              </CustomButton>
+              <CustomButton type='none'>+ Добавить</CustomButton>
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+                Предыдущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+                Текущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+                Следующая
+              </CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
           {role === Roles.Franchisee && (
             <>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none' size='small'>
                 Предыдущая
               </CustomButton>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none' size='small'>
                 Текущая
               </CustomButton>
-              <CustomButton type="none" size="small">
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none' size='small'>
                 Следующая
               </CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
           {role === Roles.Methodist && (
             <>
-              <CustomButton type="none">Предыдущая</CustomButton>
-              <CustomButton type="none">Текущая</CustomButton>
-              <CustomButton type="none">Следующая</CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+                Предыдущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+                Текущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+                Следующая
+              </CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
           {role === Roles.Admin && (
             <>
-              <CustomButton type="none">Предыдущая</CustomButton>
-              <CustomButton type="none">Текущая</CustomButton>
-              <CustomButton type="none">Следующая</CustomButton>
-              <CustomButton size="small">Найти</CustomButton>
+              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+                Предыдущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+                Текущая
+              </CustomButton>
+              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+                Следующая
+              </CustomButton>
+              <CustomButton size='small'>Найти</CustomButton>
             </>
           )}
         </div>
@@ -133,6 +189,96 @@ export const Toolbar: FC<ToolbarProps> = props => {
         {/* <CustomButton size="small">Найти</CustomButton> */}
         {/* </div> */}
       </div>
+      {/* <BasicModal visibility={isVisible} changeVisibility={changeVisibility}> */}
+      {/*  <div className={styles.modalWrap}> */}
+      {/*    <h2>Добавить группу</h2> */}
+      {/*    <div className={styles.modalInfo}> */}
+      {/*      <div className={styles.nameTeacher}> */}
+      {/*        <p>ФИО Учителя</p> */}
+      {/*        <InformationItem variant='input' /> */}
+      {/*      </div> */}
+      {/*      <div className={styles.nameGroup}> */}
+      {/*        <p>Название группы</p> */}
+      {/*        <InformationItem variant='input' /> */}
+      {/*      </div> */}
+      {/*      <div className={styles.levelGroup}> */}
+      {/*        <p>Уровень группы</p> */}
+      {/*        <InformationItem variant='select' /> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*    <div className={styles.modalBtn}> */}
+      {/*      <CustomButton>Сохранить</CustomButton> */}
+      {/*    </div> */}
+      {/*  </div> */}
+      {/* </BasicModal> */}
+      {/* <BasicModal visibility={isVisible} changeVisibility={changeVisibility}> */}
+      {/*  <div className={styles.modalWrapLessons}> */}
+      {/*    <h2>Редактирование урока</h2> */}
+      {/*    <div className={styles.blockDate}> */}
+      {/*      <div> */}
+      {/*        <p>Дата урока</p> */}
+      {/*        <InformationItem className={styles.calendarInfo} variant="calendar" /> */}
+      {/*      </div> */}
+      {/*      <div> */}
+      {/*        <p>Начало урока</p> */}
+      {/*        <InformationItem className={styles.infoInput} variant="input" /> */}
+      {/*      </div> */}
+      {/*      <div> */}
+      {/*        <p>Конец урока</p> */}
+      {/*        <InformationItem className={styles.infoInput} variant="input" /> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*    <div className={styles.statusInfo}> */}
+      {/*      <div> */}
+      {/*        <p>Статус</p> */}
+      {/*        <InformationItem className={styles.selectInfo} variant="select" /> */}
+      {/*      </div> */}
+      {/*      <div> */}
+      {/*        <p>ФИО Учителя</p> */}
+      {/*        <InformationItem className={styles.inputInfo} variant="input" /> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*    <div className={styles.levelInfo}> */}
+      {/*      <div> */}
+      {/*        <p>Название группы</p> */}
+      {/*        <InformationItem className={styles.nameInfo} variant="input" /> */}
+      {/*      </div> */}
+      {/*      <div> */}
+      {/*        <p>Уровень группы</p> */}
+      {/*        <InformationItem className={styles.levelSelect} variant="select" /> */}
+      {/*      </div> */}
+      {/*      <div className={styles.btnAddInfo}> */}
+      {/*        <CustomButton>Сохранить</CustomButton> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*  </div> */}
+      {/* </BasicModal> */}
+      <BasicModal visibility={isVisible} changeVisibility={changeVisibility}>
+        <div className={styles.modalAddLessons}>
+          <h2>Добавление уроков</h2>
+          <div className={styles.levelBlock}>
+            <div>
+              <p>Уровень</p>
+              <InformationItem className={styles.levelSelectBlock} variant='select' />
+            </div>
+            <div>
+              <p>Группа</p>
+              <InformationItem className={styles.levelSelectBlock} variant='select' />
+            </div>
+          </div>
+          {moksDatas.map(item => (
+            <div key={item.number} className={styles.numberChoice}>
+              <div>{item.number}</div>
+              {item.valueCalendar}
+              {item.valueStart}
+              {item.valueEnd}
+            </div>
+          ))}
+          <div className={styles.addLevelBtn}>
+            <CustomButton>Сохранить</CustomButton>
+          </div>
+        </div>
+      </BasicModal>
     </div>
   );
 };

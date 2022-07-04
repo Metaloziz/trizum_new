@@ -55,6 +55,7 @@ export type RequestRegister = {
   birthdate: string;
   sex: boolean;
   groupId: string;
+  teacherId: string;
   tariffId: string;
   isSecondChild: boolean;
 };

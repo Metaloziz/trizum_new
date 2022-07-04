@@ -27,13 +27,17 @@ class UsersStore {
   }
 
   getUsers = async (params?: RequestUsersParams) => {
-    const res = await usersService.getAllUsers(params);
-    runInAction(() => {
-      this.users = res.items;
-      this.usersTotalCount = res.total;
-      this.perPage = res.perPage;
-      this.page = res.page;
-    });
+    try {
+      const res = await usersService.getAllUsers(params);
+      runInAction(() => {
+        this.users = res.items;
+        this.usersTotalCount = res.total;
+        this.perPage = res.perPage;
+        this.page = res.page;
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   createUser = async (data: RequestRegister): Promise<ResponseUserT | undefined> => {

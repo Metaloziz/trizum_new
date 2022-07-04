@@ -73,3 +73,4 @@ export default function Home() {
   );
 }
 ```
+### this app was built on Next js

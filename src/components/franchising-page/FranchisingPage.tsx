@@ -77,7 +77,7 @@ const FranchisingPage = observer(() => {
         <Table list={currentItem} colNames={colNamesCurator} loading={loading}>
           {franchises.map((item, idx) => (
             <tr key={item.inn || idx}>
-              <td>{`${item.fullName || ''} ${item.shortName}`}</td>
+              <td>{item.shortName}</td>
               <td>{item.city || '-'}</td>
               <td>{item.legalAddress || '-'}</td>
               <td>{item.phone ? `${item.phone} ${item.email}` : '-'}</td>

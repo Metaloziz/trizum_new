@@ -26,9 +26,7 @@ const desc = {
 const OlympiadPage = () => (
   <div className={styles.container}>
     <div className={styles.row}>
-      <div>
-        <CardStudent title="Днепровский Александр Алексеевич" type="student" />
-      </div>
+      <div>{/* <CardStudent title="Днепровский Александр Алексеевич" type="student" /> */}</div>
       <Homework gameTitle="asd" description={desc} id={1} />
     </div>
   </div>

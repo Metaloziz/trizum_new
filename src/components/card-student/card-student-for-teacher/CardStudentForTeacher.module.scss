@@ -112,7 +112,7 @@
       margin-top: 9px;
     }
 
-    li {
+    span {
       margin-right: 14px;
 
       @media (max-width: 550px) {
@@ -120,7 +120,7 @@
       }
     }
 
-    li:last-child {
+    span:last-child {
       margin-right: 0;
       color: #000000;
     }

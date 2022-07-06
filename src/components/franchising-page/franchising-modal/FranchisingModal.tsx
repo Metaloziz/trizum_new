@@ -19,7 +19,7 @@ type Props = {
 };
 
 const defaultValues: RequestCreateFranchise = {
-  fullName: '',
+  // fullName: '',
   shortName: '',
   inn: '',
   legalAddress: '',
@@ -42,7 +42,7 @@ const FranchisingModal: FC<Props> = props => {
   const { showModal, onClose } = props;
 
   const schema = yup.object().shape({
-    fullName: yup.string().required('Обязательное поле'),
+    // fullName: yup.string().required('Обязательное поле'),
     shortName: yup.string().required('Обязательное поле'),
     inn: yup.string().required('Обязательное поле'),
     legalAddress: yup.string().required('Обязательное поле'),
@@ -82,7 +82,7 @@ const FranchisingModal: FC<Props> = props => {
       <div className={styles.modalWrap}>
         <div className={styles.modalContent}>
           <div>
-            <Controller
+            {/* <Controller
               name="fullName"
               render={({ field }) => (
                 <TextField
@@ -92,7 +92,7 @@ const FranchisingModal: FC<Props> = props => {
                 />
               )}
               control={control}
-            />
+            /> */}
             <Controller
               name="shortName"
               render={({ field }) => (

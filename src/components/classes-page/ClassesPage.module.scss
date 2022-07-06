@@ -9,6 +9,65 @@
     }
   }
 
+  .tabsWrapper {
+
+    @media (max-width: 900px) {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      width: 134px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+      background: #DEEBFF;
+      border: 1px solid #2E8DFD;
+      border-right: none;
+      border-radius: 25px 0 0 25px;
+      font-family: 'Montserrat', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      color: #000000;
+      cursor: pointer;
+      &_active {
+      background: #2E8DFD;
+      color: #FFFFFF;
+    }
+      &:hover {
+        background: #2E8DFD;
+        color: #FFFFFF;
+      }
+
+      span {
+        margin-left: -9px;
+      }
+
+      @media (max-width: 900px) {
+        width: 33%;
+        margin-bottom: 10px;
+        border-radius: 25px;
+        border-right: 1px solid #2E8DFD;
+      }
+
+      @media (max-width: 550px) {
+        width: 30%;
+        height: 40px;
+        font-size: 14px;
+        line-height: 18px;
+      }
+
+      @media (max-width: 374px) {
+        width: 1000%;
+      }
+    }
+  }
+
   .row {
     box-sizing: border-box;
     display: flex;

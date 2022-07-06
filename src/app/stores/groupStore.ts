@@ -1,10 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import groupsService from 'app/services/groupsService';
-import { ResponseGroup } from 'app/types/GroupTypes';
+import { ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
 
 class GroupStore {
-  groups: ResponseGroup[] = [];
+  groups: ResponseGroups[] = [];
+
+  currentGroup?: ResponseOneGroup;
 
   constructor() {
     makeAutoObservable(this);
@@ -13,6 +15,7 @@ class GroupStore {
   getGroups = async () => {
     try {
       const res = await groupsService.getGroups();
+      await this.getOneGroup(res[0].id);
       runInAction(() => {
         this.groups = res;
       });
@@ -20,7 +23,20 @@ class GroupStore {
     } catch (e) {
       console.warn(e);
     }
-    return [] as ResponseGroup[];
+    return [] as ResponseGroups[];
+  };
+
+  getOneGroup = async (id: string) => {
+    try {
+      const res = await groupsService.getOneGroup(id);
+      runInAction(() => {
+        this.currentGroup = res;
+      });
+      return res;
+    } catch (e) {
+      console.warn(e);
+    }
+    return undefined;
   };
 }
 export default new GroupStore();

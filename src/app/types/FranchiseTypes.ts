@@ -3,7 +3,7 @@ export type ResponseFranchise = {
   id: string;
 };
 export type RequestCreateFranchise = {
-  fullName: string;
+  // fullName: string;
   shortName: string;
   inn: string;
   legalAddress: string;
@@ -21,4 +21,5 @@ export type RequestCreateFranchise = {
   bankInn: string;
   bankKpp: string;
 };
-export type Franchise = Partial<RequestCreateFranchise> & ResponseFranchise;
+
+export type FullResponseFranchise = RequestCreateFranchise & ResponseFranchise;

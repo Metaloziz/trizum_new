@@ -11,7 +11,7 @@ const CheckingHomework = () => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.firstContainer}>
-        <CardStudent title="Днепровский Александр Алексеевич" type="student" />
+        {/* <CardStudent title="Днепровский Александр Алексеевич" type="student" /> */}
         <Homeworks
           className={styles.homeworksChecking}
           homeworks={[

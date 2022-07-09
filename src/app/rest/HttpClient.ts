@@ -1,159 +1,160 @@
-import Axios, { AxiosRequestConfig, AxiosResponse, Method } from "axios";
-
-import { StatusCodes } from "http-status-codes";
-import dateTransformer from "axios-date-reviver";
+import Axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
+import dateTransformer from 'axios-date-reviver';
+import { StatusCodes } from 'http-status-codes';
 
 export type PrerequestHook = () => Promise<void>;
 
 export class HttpClient {
+  private static readonly defaultTimeout = 300000;
 
-	private static readonly defaultTimeout = 300000;
-	private config: AxiosRequestConfig;
-	private prerequestHooks: Set<PrerequestHook> = new Set();
-	private allowedHttpCodes: Set<StatusCodes> = new Set();
+  private config: AxiosRequestConfig;
 
-	/**
-	 * Создание нового инстанса клиента для работы с back-сервисом
-	 * @param url вызываемый метод на стороне сервиса, начаинается с ведущего "/api/...""
-	 * @param method HTTP метод: GET, POST...
-	 */
-	constructor(readonly url: string, readonly method: Method) {
-		this.config = this.makeConfig();
-	}
+  private prerequestHooks: Set<PrerequestHook> = new Set();
 
-	private readonly makeConfig = (): AxiosRequestConfig => ({
-		baseURL: "https://backschool.sitetopic.ru",
-		url: this.url,
-		method: this.method,
-		timeout: HttpClient.defaultTimeout,
-	})
+  private allowedHttpCodes: Set<StatusCodes> = new Set();
 
-	private readonly applyPrerequestHooks = async (): Promise<void> => {
-		try {
-			for (const hook of Array.from(this.prerequestHooks)) {
-				await hook();
-			}
-		} catch (error) {
-			console.error(error);
-			throw error;
-		}
-	}
+  /**
+   * Создание нового инстанса клиента для работы с back-сервисом
+   * @param url вызываемый метод на стороне сервиса, начаинается с ведущего "/api/...""
+   * @param method HTTP метод: GET, POST...
+   */
+  constructor(readonly url: string, readonly method: Method) {
+    this.config = this.makeConfig();
+  }
 
-	private readonly toUrlEncoded = (input: Record<string, string>) => {
-		return Object.keys(input)
-			.map(key => {
-				const encodedKey = encodeURIComponent(key)
-				const encodedValue = encodeURIComponent((input as any)[key])
-				return `${encodedKey}=${encodedValue}`
-			})
-			.join('&');
-	}
+  private readonly makeConfig = (): AxiosRequestConfig => ({
+    baseURL: 'https://backschool.sitetopic.ru',
+    url: this.url,
+    method: this.method,
+    timeout: HttpClient.defaultTimeout,
+  });
 
-	withPrerequestHooks = (hooks: PrerequestHook[]) => {
-		for (const hook of Array.from(this.prerequestHooks)) {
-			this.prerequestHooks.add(hook);
-		};
-	}
+  private readonly applyPrerequestHooks = async (): Promise<void> => {
+    try {
+      for (const hook of Array.from(this.prerequestHooks)) {
+        await hook();
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
-	withJsonRequest = (data: object) => {
-		this.config = {
-			...this.config,
-			headers: {
-				...this.config.headers,
-				"Content-Type": "application/json",
-			},
-			data
-		};
-		return this;
-	}
+  private readonly toUrlEncoded = (input: Record<string, string>) =>
+    Object.keys(input)
+      .map(key => {
+        const encodedKey = encodeURIComponent(key);
+        const encodedValue = encodeURIComponent((input as any)[key]);
+        return `${encodedKey}=${encodedValue}`;
+      })
+      .join('&');
 
-	withXmlRequest = (data: string) => this.withPlainTextRequest(data, "application/xml");
+  withPrerequestHooks = (hooks: PrerequestHook[]) => {
+    for (const hook of Array.from(this.prerequestHooks)) {
+      this.prerequestHooks.add(hook);
+    }
+  };
 
-	withPlainTextRequest = (data: string, contentType = "text/plain") => {
-		this.config = {
-			...this.config,
-			headers: {
-				...this.config.headers,
-				"Content-Type": contentType,
-			},
-			data
-		};
-		return this;
-	}
+  withJsonRequest = (data: object) => {
+    this.config = {
+      ...this.config,
+      headers: {
+        ...this.config.headers,
+        'Content-Type': 'application/json',
+      },
+      data,
+    };
+    return this;
+  };
 
-	withUrlEncodedRequest = (data: Record<string, string>) => {
-		this.config = {
-			...this.config,
-			headers: {
-				...this.config.headers,
-				"Content-Type": "application/x-www-form-urlencoded",
-			},
-			data: this.toUrlEncoded(data)
-		};
-		return this;
-	}
+  withXmlRequest = (data: string) => this.withPlainTextRequest(data, 'application/xml');
 
-	withMultipartFormDataRequest = (data: FormData) => {
-		this.config = {
-			...this.config,
-			headers: {
-				...this.config.headers,
-				"Content-Type": "multipart/form-data",
-			},
-			data
-		};
-		return this;
-	}
+  withPlainTextRequest = (data: string, contentType = 'text/plain') => {
+    this.config = {
+      ...this.config,
+      headers: {
+        ...this.config.headers,
+        'Content-Type': contentType,
+      },
+      data,
+    };
+    return this;
+  };
 
-	withUrlParamsRequest = (params: Record<string, string>) => {
-		this.config.url = this.url + "?" + this.toUrlEncoded(params);
-		return this;
-	}
+  withUrlEncodedRequest = (data: Record<string, string>) => {
+    this.config = {
+      ...this.config,
+      headers: {
+        ...this.config.headers,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data: this.toUrlEncoded(data),
+    };
+    return this;
+  };
 
-	withBearerAuthorization = (token: string) => {
-		this.config = {
-			...this.config,
-			headers: {
-				...this.config.headers,
-				"Authorization": token.includes("Bearer ") ? token : `Bearer ${token}`
-			}
-		};
-		return this;
-	}
+  withMultipartFormDataRequest = (data: FormData) => {
+    this.config = {
+      ...this.config,
+      headers: {
+        ...this.config.headers,
+        'Content-Type': 'multipart/form-data',
+      },
+      data,
+    };
+    return this;
+  };
 
-	withAllowedHttpCodes = (...codes: StatusCodes[]) => {
-		codes.forEach(it => this.allowedHttpCodes.add(it));
-		this.config = {
-			...this.config,
-			validateStatus: status =>
-				status >= StatusCodes.OK && status < StatusCodes.MULTIPLE_CHOICES || codes.includes(status)
-		};
+  withUrlParamsRequest = (params: Record<string, string>) => {
+    this.config.url = `${this.url}?${this.toUrlEncoded(params)}`;
+    return this;
+  };
 
-		return this;
-	}
+  withBearerAuthorization = (token: string) => {
+    this.config = {
+      ...this.config,
+      headers: {
+        ...this.config.headers,
+        Authorization: token.includes('Bearer ') ? token : `Bearer ${token}`,
+      },
+    };
+    return this;
+  };
 
-	withJsonReviver = () => {
-		this.config.transformResponse = [dateTransformer];
-		return this
-	}
+  withAllowedHttpCodes = (...codes: StatusCodes[]) => {
+    codes.forEach(it => this.allowedHttpCodes.add(it));
+    this.config = {
+      ...this.config,
+      validateStatus: status =>
+        (status >= StatusCodes.OK && status < StatusCodes.MULTIPLE_CHOICES) ||
+        codes.includes(status),
+    };
 
-	withTimeout = (timeout: number) => {
-		this.config = {
-			...this.config,
-			timeout,
-		}
-		return this
-	}
+    return this;
+  };
 
-	withBlobResponse = () => {
-		this.config.responseType = "blob"
-		return this
-	}
+  withJsonReviver = () => {
+    this.config.transformResponse = [dateTransformer];
+    return this;
+  };
 
-	execute = async <TResponse>(): Promise<TResponse> => {
-		await this.applyPrerequestHooks();
+  withTimeout = (timeout: number) => {
+    this.config = {
+      ...this.config,
+      timeout,
+    };
+    return this;
+  };
 
-		const response = await Axios.request(this.config) as AxiosResponse<TResponse>;
-		return response.data;
-	}
+  withBlobResponse = () => {
+    this.config.responseType = 'blob';
+    return this;
+  };
+
+  execute = async <TResponse>(): Promise<TResponse> => {
+    await this.applyPrerequestHooks();
+
+    const response = (await Axios.request(this.config)) as AxiosResponse<TResponse>;
+    return response.data;
+  };
 }

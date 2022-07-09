@@ -227,7 +227,7 @@ const FranchisingModal: FC<Props> = props => {
         </div>
         <div className={styles.btnBlock}>
           {/* <div className={styles.deleteBtn}> */}
-          {/*  <Button onClick={() => console.log('Сохранить')}>Удалить</CustomButton> */}
+          {/*  <Button onClick={() => console.log('Сохранить')}>Удалить</Button> */}
           {/* </div> */}
           <Button onClick={handleSubmit(onSaveClick)}>Сохранить</Button>
         </div>

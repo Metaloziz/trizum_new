@@ -192,7 +192,7 @@ const HomeworkAddEditPage = observer(() => {
       </div>
       <div className={styles.homeBtn}>
         <Button onClick={handleSubmit(onSave)}>Сохранить</Button>
-        {/* <CustomButton onClick={onSubmit}>Отправить</CustomButton> */}
+        {/* <Button onClick={onSubmit}>Отправить</Button> */}
         <div>
           <Step countStep={7} />
         </div>

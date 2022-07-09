@@ -7,8 +7,10 @@ import { ToolbarProps } from 'react-big-calendar';
 import appStore, { Roles } from 'app/stores/appStore';
 import iconDelete from 'assets/svgs/delete.svg';
 import iconSettings from 'assets/svgs/icon-settings.svg';
-import CustomButton from 'components/button/Button';
+import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
 import Image from 'components/image/Image';
+import InformationItem from 'components/information-item/InformationItem';
 import styles from 'components/schedule/Schedule.module.scss';
 import { EventProps } from 'components/schedule/ScheduleDnD';
 
@@ -34,22 +36,22 @@ const moksDatas: Mock1[] = [
   {
     number: 'N1',
     valueCalendar: (
-      <InformationItem className={styles.valueCalendar} title='Дата урока' variant='calendar' />
+      <InformationItem className={styles.valueCalendar} title="Дата урока" variant="calendar" />
     ),
     valueStart: (
-      <InformationItem className={styles.valueStart} title='Начало урока' variant='input' />
+      <InformationItem className={styles.valueStart} title="Начало урока" variant="input" />
     ),
-    valueEnd: <InformationItem className={styles.valueEnd} title='Конец урока' variant='input' />,
+    valueEnd: <InformationItem className={styles.valueEnd} title="Конец урока" variant="input" />,
   },
   {
     number: 'N2',
     valueCalendar: (
-      <InformationItem className={styles.valueCalendar} title='Дата урока' variant='calendar' />
+      <InformationItem className={styles.valueCalendar} title="Дата урока" variant="calendar" />
     ),
     valueStart: (
-      <InformationItem className={styles.valueStart} title='Начало урока' variant='input' />
+      <InformationItem className={styles.valueStart} title="Начало урока" variant="input" />
     ),
-    valueEnd: <InformationItem className={styles.valueEnd} title='Конец урока' variant='input' />,
+    valueEnd: <InformationItem className={styles.valueEnd} title="Конец урока" variant="input" />,
   },
 ];
 
@@ -67,126 +69,126 @@ export const Toolbar: FC<ToolbarProps> = props => {
         <div className={styles.buttons}>
           {role === Roles.Teacher && (
             <>
-              <CustomButton onClick={() => onNavigate('PREV', date)} type='none' size='small'>
+              <Button onClick={() => onNavigate('PREV', date)} type="none" size="small">
                 Предыдущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none' size='small'>
+              </Button>
+              <Button onClick={() => onNavigate('TODAY', date)} type="none" size="small">
                 Текущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none' size='small'>
+              </Button>
+              <Button onClick={() => onNavigate('NEXT', date)} type="none" size="small">
                 Следующая
-              </CustomButton>
-              <CustomButton size='small'>Найти</CustomButton>
+              </Button>
+              <Button size="small">Найти</Button>
             </>
           )}
           {role === Roles.FranchiseeAdmin && (
             <>
-              <CustomButton onClick={() => setIsVisible(!isVisible)} type='none'>
+              <Button onClick={() => setIsVisible(!isVisible)} type="none">
                 Добавить группу
-              </CustomButton>
-              <CustomButton type='none'>+ Добавить</CustomButton>
-              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+              </Button>
+              <Button type="none">+ Добавить</Button>
+              <Button onClick={() => onNavigate('PREV', date)} type="none">
                 Предыдущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+              </Button>
+              <Button onClick={() => onNavigate('TODAY', date)} type="none">
                 Текущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+              </Button>
+              <Button onClick={() => onNavigate('NEXT', date)} type="none">
                 Следующая
-              </CustomButton>
-              <CustomButton size='small'>Найти</CustomButton>
+              </Button>
+              <Button size="small">Найти</Button>
             </>
           )}
           {role === Roles.Franchisee && (
             <>
-              <CustomButton onClick={() => onNavigate('PREV', date)} type='none' size='small'>
+              <Button onClick={() => onNavigate('PREV', date)} type="none" size="small">
                 Предыдущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none' size='small'>
+              </Button>
+              <Button onClick={() => onNavigate('TODAY', date)} type="none" size="small">
                 Текущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none' size='small'>
+              </Button>
+              <Button onClick={() => onNavigate('NEXT', date)} type="none" size="small">
                 Следующая
-              </CustomButton>
-              <CustomButton size='small'>Найти</CustomButton>
+              </Button>
+              <Button size="small">Найти</Button>
             </>
           )}
           {role === Roles.Methodist && (
             <>
-              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+              <Button onClick={() => onNavigate('PREV', date)} type="none">
                 Предыдущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+              </Button>
+              <Button onClick={() => onNavigate('TODAY', date)} type="none">
                 Текущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+              </Button>
+              <Button onClick={() => onNavigate('NEXT', date)} type="none">
                 Следующая
-              </CustomButton>
-              <CustomButton size='small'>Найти</CustomButton>
+              </Button>
+              <Button size="small">Найти</Button>
             </>
           )}
           {role === Roles.Admin && (
             <>
-              <CustomButton onClick={() => onNavigate('PREV', date)} type='none'>
+              <Button onClick={() => onNavigate('PREV', date)} type="none">
                 Предыдущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('TODAY', date)} type='none'>
+              </Button>
+              <Button onClick={() => onNavigate('TODAY', date)} type="none">
                 Текущая
-              </CustomButton>
-              <CustomButton onClick={() => onNavigate('NEXT', date)} type='none'>
+              </Button>
+              <Button onClick={() => onNavigate('NEXT', date)} type="none">
                 Следующая
-              </CustomButton>
-              <CustomButton size='small'>Найти</CustomButton>
+              </Button>
+              <Button size="small">Найти</Button>
             </>
           )}
         </div>
         {/* <div className={styles.buttons}> */}
         {/* {role === Roles.FranchiseeAdmin && ( */}
         {/*   <div> */}
-        {/*     <CustomButton type="none" size="small"> */}
+        {/*     <Button type="none" size="small"> */}
         {/*       Добавить группу */}
-        {/*     </CustomButton> */}
-        {/*     <CustomButton type="none">+ Добавить</CustomButton> */}
+        {/*     </Button> */}
+        {/*     <Button type="none">+ Добавить</Button> */}
         {/*   </div> */}
         {/* )} */}
         {/* { */}
         {/*   role === Roles.Franchisee && ( */}
         {/*     <> */}
-        {/*       <CustomButton onClick={() => onNavigate('PREV', date)} type="none" size="small"> */}
+        {/*       <Button onClick={() => onNavigate('PREV', date)} type="none" size="small"> */}
         {/*         <span>Предыдущая</span> */}
         {/*         <span className={styles.arrow}> */}
         {/*     <Image src={buttonImage} alt="arrow" width={26} height={13} className={styles.prev} /> */}
         {/*   </span> */}
-        {/*       </CustomButton> */}
-        {/*       <CustomButton onClick={() => onNavigate('TODAY', date)} type="none" size="small"> */}
+        {/*       </Button> */}
+        {/*       <Button onClick={() => onNavigate('TODAY', date)} type="none" size="small"> */}
         {/*         Текущая */}
-        {/*       </CustomButton> */}
-        {/*       <CustomButton onClick={() => onNavigate('NEXT', date)} type="none" size="small"> */}
+        {/*       </Button> */}
+        {/*       <Button onClick={() => onNavigate('NEXT', date)} type="none" size="small"> */}
         {/*         <span>Следующая</span> */}
         {/*         <span className={styles.arrow}> */}
         {/*     <Image src={buttonImage} alt="arrow" width={26} height={13} /> */}
         {/*   </span> */}
-        {/*       </CustomButton> */}
-        {/*       <CustomButton size="small">Найти</CustomButton> */}
+        {/*       </Button> */}
+        {/*       <Button size="small">Найти</Button> */}
         {/*     </> */}
         {/*   ) */}
         {/* } */}
-        {/* <CustomButton onClick={() => onNavigate('PREV', date)} type="none" size="small"> */}
+        {/* <Button onClick={() => onNavigate('PREV', date)} type="none" size="small"> */}
         {/*   <span>Предыдущая</span> */}
         {/*   <span className={styles.arrow}> */}
         {/*     <Image src={buttonImage} alt="arrow" width={26} height={13} className={styles.prev} /> */}
         {/*   </span> */}
-        {/* </CustomButton> */}
-        {/* <CustomButton onClick={() => onNavigate('TODAY', date)} type="none" size="small"> */}
+        {/* </Button> */}
+        {/* <Button onClick={() => onNavigate('TODAY', date)} type="none" size="small"> */}
         {/*   Текущая */}
-        {/* </CustomButton> */}
-        {/* <CustomButton onClick={() => onNavigate('NEXT', date)} type="none" size="small"> */}
+        {/* </Button> */}
+        {/* <Button onClick={() => onNavigate('NEXT', date)} type="none" size="small"> */}
         {/*   <span>Следующая</span> */}
         {/*   <span className={styles.arrow}> */}
         {/*     <Image src={buttonImage} alt="arrow" width={26} height={13} /> */}
         {/*   </span> */}
-        {/* </CustomButton> */}
-        {/* <CustomButton size="small">Найти</CustomButton> */}
+        {/* </Button> */}
+        {/* <Button size="small">Найти</Button> */}
         {/* </div> */}
       </div>
       {/* <BasicModal visibility={isVisible} changeVisibility={changeVisibility}> */}
@@ -207,7 +209,7 @@ export const Toolbar: FC<ToolbarProps> = props => {
       {/*      </div> */}
       {/*    </div> */}
       {/*    <div className={styles.modalBtn}> */}
-      {/*      <CustomButton>Сохранить</CustomButton> */}
+      {/*      <Button>Сохранить</Button> */}
       {/*    </div> */}
       {/*  </div> */}
       {/* </BasicModal> */}
@@ -248,7 +250,7 @@ export const Toolbar: FC<ToolbarProps> = props => {
       {/*        <InformationItem className={styles.levelSelect} variant="select" /> */}
       {/*      </div> */}
       {/*      <div className={styles.btnAddInfo}> */}
-      {/*        <CustomButton>Сохранить</CustomButton> */}
+      {/*        <Button>Сохранить</Button> */}
       {/*      </div> */}
       {/*    </div> */}
       {/*  </div> */}
@@ -259,11 +261,11 @@ export const Toolbar: FC<ToolbarProps> = props => {
           <div className={styles.levelBlock}>
             <div>
               <p>Уровень</p>
-              <InformationItem className={styles.levelSelectBlock} variant='select' />
+              <InformationItem className={styles.levelSelectBlock} variant="select" />
             </div>
             <div>
               <p>Группа</p>
-              <InformationItem className={styles.levelSelectBlock} variant='select' />
+              <InformationItem className={styles.levelSelectBlock} variant="select" />
             </div>
           </div>
           {moksDatas.map(item => (
@@ -275,7 +277,7 @@ export const Toolbar: FC<ToolbarProps> = props => {
             </div>
           ))}
           <div className={styles.addLevelBtn}>
-            <CustomButton>Сохранить</CustomButton>
+            <Button>Сохранить</Button>
           </div>
         </div>
       </BasicModal>

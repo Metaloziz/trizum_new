@@ -9,3 +9,5 @@ export function createStores() {
 export const stores = createStores();
 
 export const ApplicationContext = React.createContext(stores);
+
+export const useApplicationContext = () => React.useContext(ApplicationContext);

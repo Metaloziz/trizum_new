@@ -1,25 +1,68 @@
+import { Franchise, RequestCreateFranchise } from 'app/types/FranchiseTypes';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import franchiseService from 'app/services/franchiseService';
-import { FullResponseFranchise, RequestCreateFranchise } from 'app/types/FranchiseTypes';
+import { FranchisingRepository } from 'app/repositories/FranchisingRepository';
+import { FrinchisingViewModel } from 'app/viewModels/FrinchisingViewModel';
+import { Nullable } from 'app/types/Nullable';
+import React from 'react';
+import axios from 'axios';
 
-class FranchiseStore {
-  franchises: FullResponseFranchise[] = [];
+export class FranchiseStore {
+
+  private repository = new FranchisingRepository();
+
+  loading: boolean = false;
+  error: Nullable<Error> = null;
+  success: Nullable<React.ReactNode> = null;
+
+  entities: FrinchisingViewModel[] = [];
+  isDialogOpen: boolean = false;
+
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  getAllFranchise = async () => {
-    const res = await franchiseService.getAll();
-    runInAction(() => {
-      this.franchises = res.reverse();
+  openDialog = () => {
+    this.isDialogOpen = true;
+  }
+
+  closeDialog = () => {
+    this.isDialogOpen = false;
+  }
+
+  execute = async <T>(action: () => Promise<T>) => {
+    try {
+      this.loading = true;
+      await action();
+    } catch (error) {
+      //TODO: что делать в случае ошибку, выводить в Snackbar?
+      error = axios.isAxiosError(error)
+        ? new Error(error.message)
+        : typeof error === "string"
+          ? new Error(error)
+          : error;
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  list = async () => {
+    this.execute(async () => {
+      this.entities = await this.repository.list();
     });
   };
 
-  createFranchise = async (data: RequestCreateFranchise) => {
-    await franchiseService.create(data);
-    await this.getAllFranchise();
+  addOrEdit = async (model: FrinchisingViewModel) => {
+    this.execute(async () => {
+      await this.repository.addOrEdit(model);
+      await this.pull();
+    })
   };
+
+  pull = async () => {
+    this.execute(async () => {
+      await this.list();
+    })
+  }
 }
-export default new FranchiseStore();

@@ -19,6 +19,7 @@ import {
 } from 'components/schedule/ScheduleComponents';
 import ScheduleModal from 'components/schedule/ScheduleModal';
 import CustomSelect from 'components/select/CustomSelect';
+import { getOption } from 'utils/getOption';
 
 require('moment/locale/ru');
 
@@ -67,9 +68,9 @@ const formats = {
 
 const groups = ['group №1', 'group №2', 'group №3'];
 const cityGroups = ['Аюта', 'Нежданная', 'Ростов на дону'];
-const createOptions = (arr: string[]) => arr.map(el => ({ value: el, label: el }));
-const groupOptions = createOptions(groups);
-const groupsCities = createOptions(cityGroups);
+
+const groupOptions = groups.map(el => getOption(el, el));
+const groupsCities = cityGroups.map(el => getOption(el, el));
 
 const ChildrenToolbar: FC = () => (
   <div className={cn(styles.toolbarFlex)}>

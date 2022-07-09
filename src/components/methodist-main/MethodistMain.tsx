@@ -20,6 +20,7 @@ import CustomSelect, { Option } from 'components/select/CustomSelect';
 import SettingsGames from 'components/settings-games/SettingsGames';
 import Table from 'components/table/Table';
 import TextField from 'components/text-field/TextField';
+import { getOption } from 'utils/getOption';
 
 export const colNames = [
   'Наименование комплекса домашнего задания',
@@ -28,7 +29,7 @@ export const colNames = [
   'Дата создания комплекса',
   ' ',
 ];
-const groupLevelOptions = Object.values(GroupLevels).map(el => ({ value: el, label: el }));
+const groupLevelOptions = Object.values(GroupLevels).map(el => getOption(el, el));
 
 const MethodistMain: FC = observer(() => {
   const {
@@ -109,7 +110,6 @@ const MethodistMain: FC = observer(() => {
       // setIsModalOpen(true);
     }
   };
-  console.log(currentCourse, 'currentCourse');
 
   useEffect(() => {
     if (!courses.length) {

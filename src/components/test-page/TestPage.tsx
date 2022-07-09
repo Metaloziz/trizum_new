@@ -1,5 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import styles from './TestPage.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
@@ -7,16 +9,17 @@ import resultIcon from 'assets/svgs/result-icon.svg';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 import Step from 'components/step/Step';
-import { useRouter } from 'next/router';
 
 const TestPage = () => {
   const [currentRadioValue, setCurrentRadioValue] = useState('inputChoice1');
-  const router = useRouter();
+  const navigate = useNavigate();
   const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentRadioValue(e.currentTarget.value);
   };
+  const id = 2;
   const onEndTest = () => {
-    router.push(`${AppRoutes.Testing}/result/${router.query.id}`);
+    // todo: добавить реальный id
+    navigate(`${AppRoutes.Testing}/result/${id}`);
   };
   return (
     <div className={styles.wrapperTesting}>

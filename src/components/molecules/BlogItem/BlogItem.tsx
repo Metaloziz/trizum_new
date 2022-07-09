@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './BlogItem.module.scss';
 
@@ -8,7 +9,6 @@ import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import { useRouter } from 'next/router';
 
 interface Props {
   title: string;
@@ -20,12 +20,12 @@ interface Props {
 const BlogItem: FC<Props> = observer(props => {
   const { title, imgSrc = '', text, id } = props;
   const { role } = appStore;
-  const router = useRouter();
+  const navigate = useNavigate();
   const onTestClick = () => {
-    router.push(`${AppRoutes.Testing}/${id}`);
+    navigate(`${AppRoutes.Testing}/${id}`);
   };
   const onReadTheoryClick = (): void => {
-    router.push(`${AppRoutes.Blog}/${id}`);
+    navigate(`${AppRoutes.Blog}/${id}`);
   };
   return (
     <div className={styles.containerItem}>

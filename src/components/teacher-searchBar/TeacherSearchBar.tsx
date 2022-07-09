@@ -5,6 +5,7 @@ import styles from './teacherSearchBar.module.scss';
 import Button from 'components/button/Button';
 import InformationItem from 'components/information-item/InformationItem';
 import CustomSelect from 'components/select/CustomSelect';
+import { getOption } from 'utils/getOption';
 
 type TeacherSearchBarProps = {
   groups: string[];
@@ -14,10 +15,10 @@ type TeacherSearchBarProps = {
 
 const TeacherSearchBar: FC<TeacherSearchBarProps> = props => {
   const { cities, groups, schools } = props;
-  const createOptions = (arr: string[]) => arr.map(el => ({ value: el, label: el }));
-  const groupOptions = createOptions(groups);
-  const schoolOptions = createOptions(schools);
-  const citiesOptions = createOptions(cities);
+
+  const groupOptions = groups.map(el => getOption(el, el));
+  const schoolOptions = schools.map(el => getOption(el, el));
+  const citiesOptions = cities.map(el => getOption(el, el));
   return (
     // TODO: откуда получаем данны по группе, школам, городам? Бэк или хардкод
     <div className={styles.wrapper}>

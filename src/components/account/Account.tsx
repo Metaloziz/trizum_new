@@ -12,7 +12,6 @@ import Image from 'components/image/Image';
 
 const Account: FC = observer(() => {
   // const { Signout } = Routes;
-  // const router = useRouter();
   const activeNotification = true;
   const { setRole } = appStore;
   const logout = async () => {

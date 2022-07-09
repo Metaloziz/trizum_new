@@ -43,7 +43,7 @@ const CardStudentForTeacher: FC<Props> = props => {
         </div>
       </div>
       <CustomImageWrapper className={styles.flag} variant="none">
-       <Image src={iconFlag} width="33" height="33" alt="Flag" />
+        <Image src={iconFlag} width="33" height="33" alt="Flag" />
       </CustomImageWrapper>
     </div>
   );

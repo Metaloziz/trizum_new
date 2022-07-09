@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 const SignIn = () => {
-  // const router = useRouter();
   // const { setUserAuthenticated, clearUserAuthenticated } = useAuthContext();
   const [inputs, setInputs] = useState({
     email: '',

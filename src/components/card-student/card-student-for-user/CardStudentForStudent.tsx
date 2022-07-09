@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import cn from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './CardStudentForUser.module.scss';
 
@@ -14,7 +15,6 @@ import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
 import Panel from 'components/panel/Panel';
-import { useRouter } from 'next/router';
 import avatar from 'public/img/pervoklasnin.jpg';
 
 type Props = {
@@ -33,11 +33,11 @@ const CardStudentForStudent: FC<Props> = props => {
     user: { birthdate, city, phone, role, email, fullName },
   } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
-  const router = useRouter();
+  const navigate = useNavigate();
   const olympiadId = 1;
   const userId = 1;
   const onParticipateClick = () => {
-    router.push(`${AppRoutes.Olympiads}/${olympiadId}/${userId}`);
+    navigate(`${AppRoutes.Olympiads}/${olympiadId}/${userId}`);
   };
   return (
     <div className={styles.wrapper}>

@@ -1,20 +1,21 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import styles from './TeacherEducationMain.module.scss';
 
 import teacherEducationStore from 'app/stores/TeacherEducationStore';
 import BlogItem from 'components/molecules/BlogItem';
-import { useRouter } from 'next/router';
 
 const TeacherEducationMain = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { tests, setCurrentTest } = teacherEducationStore;
   const onTheoryClick = (id: string) => {
     const test = tests.find(t => t.id === id);
     // TODO: сделать слаг или айди
     if (test) {
       setCurrentTest(test);
-      router.push(`/test/theory/${id}`);
+      navigate(`/test/theory/${id}`);
     }
   };
 
@@ -23,7 +24,7 @@ const TeacherEducationMain = () => {
     if (test) {
       // сделать слаг или айди
       setCurrentTest(test);
-      router.push(`/test/${id}`);
+      navigate(`/test/${id}`);
     }
   };
   return (

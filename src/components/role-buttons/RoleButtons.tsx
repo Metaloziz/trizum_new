@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite';
 import styles from './RoleButtons.module.scss';
 
 import appStore, { Roles } from 'app/stores/appStore';
-import { useRouter } from 'next/router';
 
 type Props = {
   name: string;
@@ -32,7 +31,6 @@ const ButtonItem: FC<Props> = props => {
 };
 
 const RoleButtons: FC<{ onClick: (role: Roles) => void }> = observer(props => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const onClick = (name: Roles): void => {
     props.onClick(name);

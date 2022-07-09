@@ -1,13 +1,10 @@
-import { useEffect, useState, FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
 import styles from './PageLoading.module.scss';
 
-import { useRouter } from 'next/router';
-
 const PageLoading: FC = () => {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const onLoadStart = () => setIsLoading(true);
   const onLoadEnd = () => setIsLoading(false);

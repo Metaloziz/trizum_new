@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './BlogPage.module.scss';
 
@@ -9,7 +10,6 @@ import appStore, { Roles } from 'app/stores/appStore';
 import Img from 'assets/images/teacher.svg';
 import Button from 'components/button/Button';
 import BlogItem from 'components/molecules/BlogItem';
-import { useRouter } from 'next/router';
 
 const items = [
   {
@@ -34,12 +34,12 @@ const items = [
 
 const BlogPage: FunctionComponent = observer(() => {
   const { role } = appStore;
-  const router = useRouter();
+  const navigate = useNavigate();
   const onClickAddPost = () => {
-    router.push(`${AppRoutes.Blog}/add-post`);
+    navigate(`${AppRoutes.Blog}/add-post`);
   };
   const onClickAddTest = () => {
-    router.push(`${AppRoutes.Blog}/add-test`);
+    navigate(`${AppRoutes.Blog}/add-test`);
   };
   return (
     <div className={styles.container}>

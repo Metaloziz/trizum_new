@@ -55,20 +55,32 @@ const ScheduleModal: FC<ScheduleModalProps> = props => {
         <div className={styles.choiceTime}>
           <div className={styles.startLesson}>
             <p>Начало урока</p>
-            <InformationItem variant="input" placeholder="14:00" />
+            <InformationItem
+              variant="input"
+              className={styles.startInput}
+              placeholder="14:00"
+            />
           </div>
           <div className={styles.endLesson}>
             <p>Конец урока</p>
-            <InformationItem variant="input" placeholder="14:00" />
+            <InformationItem
+              variant="input"
+              className={styles.endInput}
+              placeholder="14:00"
+            />
           </div>
         </div>
       </div>
       <div className={styles.save}>
         <div className={styles.saveSelect}>
           <p>Статус</p>
-          <InformationItem variant="select" placeholder="Активен" className={styles.activeSelect} />
+          <InformationItem
+            variant='select'
+            placeholder='Активен'
+            className={styles.activeSelect}
+          />
         </div>
-
+        <Button onClick={applyChanges}>Редактировать группу</Button>
         <Button onClick={applyChanges}>Сохранить</Button>
       </div>
       {/* <InformationItem */}

@@ -400,6 +400,10 @@
   display: flex;
   align-items: center;
 
+  @media (max-width: 1280px) {
+    align-items: flex-end;
+  }
+
   @media (max-width: 850px) {
     flex-direction: column;
     width: 100%;
@@ -456,7 +460,609 @@
 }
 
 .choiceData {
+  > div {
+    width: 160px !important;
+
+    @media (max-width: 850px) {
+      width: 100% !important;
+    }
+  }
+
+  p {
+    font-size: 13px;
+  }
+
   @media (max-width: 1280px) {
     flex-direction: column;
   }
 }
+
+.modalWrap {
+  width: 1210px;
+  padding: 40px 80px;
+
+  @media (max-width: 1250px) {
+    width: 1000px;
+  }
+
+  @media (max-width: 1050px) {
+    width: 850px;
+  }
+
+  @media (max-width: 900px) {
+    width: 700px;
+    padding: 40px 20px;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
+
+  h2 {
+    font-family: 'Aqum';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 23px;
+    text-align: center;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    margin-bottom: 34px;
+
+    @media (max-width: 700px) {
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    flex: 0 0 20%;
+    white-space: nowrap;
+    margin-right: 5px;
+
+    @media (max-width: 900px) {
+      text-align: center;
+      margin: 0 0 10px;
+    }
+  }
+
+  .modalInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
+
+    > div:last-child {
+      padding-right: 0;
+    }
+
+    > div {
+      width: 33%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 20px;
+
+      @media (max-width: 900px) {
+        flex-direction: column;
+        width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+      }
+
+
+      > div {
+        justify-content: flex-end;
+
+        @media (max-width: 900px) {
+          width: 100%;
+          justify-content: center;
+
+          > div {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    //.nameTeacher {
+    //  display: flex;
+    //  align-items: center;
+    //}
+    //
+    //.nameGroup {
+    //  display: flex;
+    //  align-items: center;
+    //}
+    //
+    //.levelGroup {
+    //  display: flex;
+    //  align-items: center;
+    //}
+  }
+
+  .modalBtn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 34px;
+
+    @media (max-width: 900px) {
+      justify-content: center;
+    }
+  }
+}
+
+
+.modalWrapLessons {
+  width: 56vw;
+  padding: 40px 120px 50px;
+
+  @media (max-width: 1900px) {
+    width: 65vw;
+  }
+
+  @media (max-width: 1700px) {
+    width: 75vw;
+  }
+
+  @media (max-width: 1400px) {
+    width: 85vw;
+  }
+
+  @media (max-width: 1300px) {
+    width: 95vw;
+  }
+
+  @media (max-width: 1000px) {
+    width: 100vw;
+  }
+
+  @media (max-width: 800px) {
+    padding: 40px 15px;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+
+  h2 {
+    font-family: 'Aqum';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 23px;
+    text-align: center;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    margin-bottom: 34px;
+
+    @media (max-width: 700px) {
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+
+  .blockDate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 43px;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+      margin: 0;
+
+      .calendarInfo {
+        > div {
+          width: 100%;
+        }
+      }
+    }
+
+
+    > div {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 1300px) {
+        margin-right: 10px;
+      }
+
+      @media (max-width: 1000px) {
+        flex-direction: column;
+      }
+
+      @media (max-width: 800px) {
+        width: 100%;
+        margin: 0 0 20px;
+      }
+
+      p {
+        white-space: nowrap;
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+
+        @media (max-width: 1200px) {
+          white-space: normal;
+        }
+
+        @media (max-width: 1000px) {
+          margin: 0 0 10px;
+        }
+      }
+    }
+
+    .infoInput {
+      width: 65px;
+
+      @media (max-width: 800px) {
+        width: 100%;
+
+        > div {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .statusInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+      margin: 0;
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 1300px) {
+        margin-right: 10px;
+      }
+
+      @media (max-width: 1000px) {
+        flex-direction: column;
+        margin-right: 0;
+      }
+
+      @media (max-width: 800px) {
+        width: 100%;
+        margin: 0 0 20px;
+      }
+
+      p {
+        white-space: nowrap;
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+
+        @media (max-width: 1200px) {
+          white-space: normal;
+        }
+
+        @media (max-width: 1000px) {
+          margin: 0 0 10px;
+        }
+      }
+    }
+
+    .selectInfo {
+      @media (max-width: 800px) {
+        width: 100%;
+      }
+
+      > div {
+        width: 170px;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+      }
+    }
+
+    .inputInfo {
+      > div {
+        width: 330px;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .levelInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 1000px) {
+      align-items: flex-end;
+    }
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+
+      .nameInfo {
+        > div {
+          width: 100%;
+        }
+      }
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 1300px) {
+        margin-right: 10px;
+      }
+
+      @media (max-width: 1000px) {
+        flex-direction: column;
+        margin-right: 0;
+      }
+
+      @media (max-width: 800px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      p {
+        white-space: nowrap;
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+
+        @media (max-width: 1200px) {
+          white-space: normal;
+        }
+
+        @media (max-width: 1000px) {
+          margin: 0 0 10px;
+        }
+      }
+    }
+
+    .levelSelect {
+      > div {
+        width: 170px;
+
+        @media (max-width: 800px) {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .btnAddInfo {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+  }
+}
+
+.modalAddLessons {
+  width: 1155px;
+  padding: 40px 150px;
+
+  @media (max-width: 1200px) {
+    width: 900px;
+    padding: 40px 20px;
+  }
+
+  @media (max-width: 900px) {
+    width: 700px;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
+
+  h2 {
+    margin-bottom: 24px;
+    font-family: 'Aqum';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 23px;
+    text-align: center;
+    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @media (max-width: 700px) {
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+
+  .levelBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+      margin-bottom: 0;
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+
+      @media (max-width: 700px) {
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .levelSelectBlock {
+        > div {
+          width: 170px;
+
+          @media (max-width: 700px) {
+            width: 100%;
+            margin-bottom: 20px;
+          }
+        }
+      }
+
+      p {
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+
+        @media (max-width: 700px) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+
+  .numberChoice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+    }
+
+    .valueCalendar {
+      display: flex;
+      align-items: center;
+      margin-left: 16px;
+
+      @media (max-width: 700px) {
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 20px;
+
+        > div {
+          width: 100%;
+        }
+      }
+
+      p {
+        white-space: nowrap;
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+
+        @media (max-width: 700px) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .valueStart {
+      display: flex;
+      align-items: center;
+      margin-top: 0;
+      justify-content: flex-end;
+
+      @media (max-width: 700px) {
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      > div {
+        width: 65px;
+        @media (max-width: 700px) {
+          width: 100%;
+        }
+      }
+
+      p {
+        white-space: nowrap;
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+
+        @media (max-width: 700px) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .valueEnd {
+      display: flex;
+      align-items: center;
+      margin-top: 0;
+      justify-content: flex-end;
+
+      @media (max-width: 700px) {
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      > div {
+        width: 65px;
+        @media (max-width: 700px) {
+          width: 100%;
+        }
+      }
+
+      p {
+        white-space: nowrap;
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+
+        @media (max-width: 700px) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .addLevelBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .numberChoice + .numberChoice {
+    margin-top: 30px;
+  }
+}
+
+

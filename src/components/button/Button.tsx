@@ -3,6 +3,7 @@ import React, { FC, ReactElement, useState } from 'react';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 
+import { DefaultButtonProps } from 'app/types/DefaultButtonProps';
 import buttonImage from 'assets/svgs/arrow-btn.svg';
 import iconExelHover from 'assets/svgs/btn-excel-hover.svg';
 import iconExel from 'assets/svgs/btn-excel.svg';
@@ -13,22 +14,29 @@ import smallArrow from 'assets/svgs/small-arrow.svg';
 import styles from 'components/button/Button.module.scss';
 import Image from 'components/image/Image';
 
-type ButtonType = 'parents' | 'bigButton' | 'addUser' | 'addExel' | 'primary' | 'none' | 'arrow';
+type ButtonVariantType =
+  | 'parents'
+  | 'bigButton'
+  | 'addUser'
+  | 'addExel'
+  | 'primary'
+  | 'none'
+  | 'arrow';
 
 type ButtonSize = 'large' | 'small' | 'thin';
 
-interface Props {
+type Props = {
   children?: React.ReactNode;
   size?: ButtonSize;
-  type?: ButtonType;
+  variant?: ButtonVariantType;
   onClick?: () => void;
-}
+} & DefaultButtonProps;
 
-const Button: FC<Props> = ({ children, size, type, onClick }) => {
+const Button: FC<Props> = ({ children, size, variant, onClick, ...props }) => {
   const [isShowHover, setShowHover] = useState<boolean>(false);
   let iconButton: ReactElement;
   let typeButtonStyle: string;
-  switch (type) {
+  switch (variant) {
     case 'parents':
       typeButtonStyle = styles.parents;
       iconButton = <Image src={iconParents} alt="parents" width={20} height={16} />;
@@ -65,7 +73,8 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
       typeButtonStyle = '';
       iconButton = <Image src={buttonImage} alt="arrow" width={26} height={13} />;
   }
-  let sizeButton = '';
+  let sizeButton;
+
   switch (size) {
     case 'small':
       sizeButton = styles.small;
@@ -80,6 +89,7 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
       sizeButton = '';
   }
 
+  // @ts-ignore
   return (
     <motion.button
       // whileHover={{
@@ -90,12 +100,13 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
       //     duration: 0.5,
       //   },
       // }}
-      className={cn(styles.Button, type === 'none' && styles.none, typeButtonStyle, sizeButton)}
+      {...props}
+      className={cn(styles.Button, variant === 'none' && styles.none, typeButtonStyle, sizeButton)}
       onClick={onClick}
       onMouseOver={() => setShowHover(true)}
       onMouseOut={() => setShowHover(false)}
     >
-      {type !== 'none' && <span className={styles.arrowBtn}>{iconButton}</span>}
+      {variant !== 'none' && <span className={styles.arrowBtn}>{iconButton}</span>}
       {children}
     </motion.button>
   );
@@ -104,7 +115,7 @@ const Button: FC<Props> = ({ children, size, type, onClick }) => {
 Button.defaultProps = {
   children: undefined,
   size: 'small',
-  type: 'arrow',
+  variant: 'arrow',
   onClick: () => {},
 };
 

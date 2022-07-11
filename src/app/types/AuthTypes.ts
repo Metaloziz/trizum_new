@@ -56,7 +56,7 @@ export type RequestRegister = {
   lastName: string;
   city: string;
   birthdate: string;
-  sex: boolean;
+  sex: boolean; // todo мы везде используем такой тип - Option | undefined - может заменить ?
   groupId?: string;
   tariffId?: string;
   isSecondChild?: boolean;

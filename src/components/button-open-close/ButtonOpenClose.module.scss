@@ -1,7 +1,8 @@
 @import "../../styles/variables";
+
 .Button {
   position: relative;
-  background:  #59C252;
+  background: #59C252;
   box-sizing: border-box;
   padding: 12px 58px 11px 18px;
   color: $color-white;
@@ -34,9 +35,17 @@
 }
 
 .closed {
-  background:  #DB5552;
+  background: #DB5552;
 
   &:hover {
     background: #BD4D4B;
+  }
+}
+
+.disable {
+  background: #8A8A8A;
+
+  &:hover {
+    background: #8A8A8A;
   }
 }

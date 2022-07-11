@@ -52,7 +52,7 @@ const FranchisingPage = observer(() => {
     <div className={styles.contentBlock}>
       <div className={styles.wrapStaticBlock}>
         <div className={styles.bigButton}>
-          <Button type="bigButton" size="large" onClick={() => setShowModal(true)}>
+          <Button variant="bigButton" size="large" onClick={() => setShowModal(true)}>
             Добавить
           </Button>
         </div>

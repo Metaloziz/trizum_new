@@ -4,15 +4,15 @@ import modals from '../../../../app/stores/CardStudentExtended';
 
 import styles from './CardStudentButtonGroup.module.scss';
 
-import ButtonOpenClose from 'components/button-open-close/ButtonOpenClose';
+import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 
 const CardStudentButtonGroup = () => (
   <div className={styles.wrapper}>
-    <Button type="parents" size="small" onClick={() => modals.changeParents()}>
+    <Button variant="parents" size="small" onClick={() => modals.changeParents()}>
       Родители
     </Button>
-    <ButtonOpenClose isOpen={false} />
+    {/* <SetStatusButton isOpen={false} /> */}
   </div>
 );
 

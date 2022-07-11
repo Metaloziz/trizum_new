@@ -7,7 +7,6 @@ import {
   RequestParenting,
   RequestUsersParams,
   ResponseOneUser,
-  ResponseParenting,
   ResponseUserT,
 } from 'app/types/UserTypes';
 
@@ -27,30 +26,27 @@ class UsersStore {
   }
 
   getUsers = async (params?: RequestUsersParams) => {
-    try {
-      const res = await usersService.getAllUsers(params);
-      runInAction(() => {
-        this.users = res.items;
-        this.usersTotalCount = res.total;
-        this.perPage = res.perPage;
-        this.page = res.page;
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    const res = await usersService.getAllUsers(params);
+    runInAction(() => {
+      this.users = res.items;
+      this.usersTotalCount = res.total;
+      this.perPage = res.perPage;
+      this.page = res.page;
+    });
   };
 
   createUser = async (data: RequestRegister): Promise<ResponseUserT | undefined> => {
     try {
       const res = await authService.register(data);
-      console.log(res);
       await this.getUsers();
       return res;
     } catch (e) {
-      console.log(e);
+      console.warn(e);
     }
     return undefined;
   };
+
+  editUser = async () => {};
 
   createParenting = async (data: RequestParenting) => {
     try {

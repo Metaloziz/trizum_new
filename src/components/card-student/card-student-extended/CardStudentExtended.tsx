@@ -5,41 +5,45 @@ import modals from '../../../app/stores/CardStudentExtended';
 import styles from './CardStudentExtended.module.scss';
 
 import { RoleNames, Roles } from 'app/stores/appStore';
+import UsersStore from 'app/stores/usersStore';
 import { ResponseUserT } from 'app/types/UserTypes';
-import iconSettingsBlue from 'assets/svgs/icon-setting-blue.svg';
-import iconSettings from 'assets/svgs/icon-settings.svg';
-import ButtonOpenClose from 'components/button-open-close/ButtonOpenClose';
+import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
+import { EditUserIcon } from 'components/card-student/card-student-extended/edit-user-icon/EditUserIcon';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
-import mockAvatar from 'public/img/pervoklasnin.jpg';
+import mockAvatar from 'public/img/avatarDefault.png';
 
 type Props = {
   user: ResponseUserT;
   onEditUserClick: (id: string) => void;
 };
 
-const CardStudentExtended: FC<Props> = props => {
-  const {
-    user: {
-      email,
-      phone,
-      id,
-      firstName,
-      lastName,
-      middleName,
-      city,
-      avatar,
-      groups,
-      status,
-      roleCode,
-      franchise,
-    },
-    onEditUserClick,
-  } = props;
+const CardStudentExtended: FC<Props> = ({
+  user: {
+    email,
+    phone,
+    id,
+    firstName,
+    lastName,
+    middleName,
+    city,
+    avatar,
+    groups,
+    status,
+    roleCode,
+    franchise,
+  },
+  // onEditUserClick,
+}) => {
   const [isShow, setShow] = useState<boolean>(false);
+
+  const { getOneUser } = UsersStore;
+
   const name = `${middleName ?? ''} ${firstName ?? ''} ${lastName ?? ''}`.trim();
+
   let role;
+
   switch (roleCode) {
     case Roles.Student:
       role = RoleNames.student;
@@ -71,6 +75,15 @@ const CardStudentExtended: FC<Props> = props => {
     default:
       role = '-';
   }
+
+  const onEditUserClick = async () => {
+    try {
+      const responce = await getOneUser(id);
+      modals.changeSetting();
+    } catch (e) {
+      console.warn(e);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -118,31 +131,18 @@ const CardStudentExtended: FC<Props> = props => {
         </div>
         <div className={styles.buttonWrapper}>
           {roleCode === Roles.Student && (
-            <Button type="parents" size="small" onClick={() => modals.changeParents()}>
+            <Button variant="parents" size="small" onClick={() => modals.changeParents()}>
               Родители
             </Button>
           )}
-          <ButtonOpenClose isOpen={false} />
         </div>
       </div>
-      <div
-        className={styles.settings}
-        onClick={() => modals.changeSetting()}
+      <EditUserIcon
+        onClick={onEditUserClick}
         onMouseOver={() => setShow(true)}
         onMouseOut={() => setShow(false)}
-      >
-        {isShow ? (
-          <Image
-            src={iconSettingsBlue}
-            width="30"
-            height="30"
-            alt="Settings"
-            onClick={() => onEditUserClick(id)}
-          />
-        ) : (
-          <Image src={iconSettings} width="30" height="30" alt="Settings" />
-        )}
-      </div>
+        show={isShow}
+      />
     </div>
   );
 };

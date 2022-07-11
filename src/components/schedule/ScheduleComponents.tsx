@@ -33,13 +33,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
         <div className={styles.buttons}>
           {role === Roles.Teacher && (
             <>
-              <Button type="none" size="small">
+              <Button variant="none" size="small">
                 Предыдущая
               </Button>
-              <Button type="none" size="small">
+              <Button variant="none" size="small">
                 Текущая
               </Button>
-              <Button type="none" size="small">
+              <Button variant="none" size="small">
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -47,23 +47,23 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.FranchiseeAdmin && (
             <>
-              <Button type="none">Добавить группу</Button>
-              <Button type="none">+ Добавить</Button>
-              <Button type="none">Предыдущая</Button>
-              <Button type="none">Текущая</Button>
-              <Button type="none">Следующая</Button>
+              <Button variant="none">Добавить группу</Button>
+              <Button variant="none">+ Добавить</Button>
+              <Button variant="none">Предыдущая</Button>
+              <Button variant="none">Текущая</Button>
+              <Button variant="none">Следующая</Button>
               <Button size="small">Найти</Button>
             </>
           )}
           {role === Roles.Franchisee && (
             <>
-              <Button type="none" size="small">
+              <Button variant="none" size="small">
                 Предыдущая
               </Button>
-              <Button type="none" size="small">
+              <Button variant="none" size="small">
                 Текущая
               </Button>
-              <Button type="none" size="small">
+              <Button variant="none" size="small">
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -71,17 +71,17 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.Methodist && (
             <>
-              <Button type="none">Предыдущая</Button>
-              <Button type="none">Текущая</Button>
-              <Button type="none">Следующая</Button>
+              <Button variant="none">Предыдущая</Button>
+              <Button variant="none">Текущая</Button>
+              <Button variant="none">Следующая</Button>
               <Button size="small">Найти</Button>
             </>
           )}
           {role === Roles.Admin && (
             <>
-              <Button type="none">Предыдущая</Button>
-              <Button type="none">Текущая</Button>
-              <Button type="none">Следующая</Button>
+              <Button variant="none">Предыдущая</Button>
+              <Button variant="none">Текущая</Button>
+              <Button variant="none">Следующая</Button>
               <Button size="small">Найти</Button>
             </>
           )}

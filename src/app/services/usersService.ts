@@ -9,6 +9,8 @@ import {
   ResponseUserT,
 } from 'app/types/UserTypes';
 
+type UpdateUserPayloadT = Partial<ResponseUserT>;
+
 const usersService = {
   getAllUsers: async (params?: RequestUsersParams): Promise<FullResponseUserT> => {
     const { data } = await instance.get(Paths.Users, {
@@ -20,8 +22,8 @@ const usersService = {
     const { data } = await instance.get(`${Paths.Users}/${id}`);
     return data;
   },
-  updateUser: async (): Promise<ResponseUserT> => {
-    const { data } = await instance.put(Paths.Users);
+  updateUser: async (newUser: UpdateUserPayloadT, userId: string): Promise<ResponseUserT> => {
+    const { data } = await instance.post(`${Paths.Users}/${userId}`, newUser);
     return data;
   },
   createParenting: async (params: RequestParenting): Promise<ResponseParenting> => {

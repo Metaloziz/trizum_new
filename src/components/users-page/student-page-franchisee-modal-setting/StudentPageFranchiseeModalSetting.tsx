@@ -3,18 +3,20 @@ import React from 'react';
 import styles from './StudentPageFranchiseeModalSetting.module.scss';
 
 import Button from 'components/button/Button';
+import { Divider } from 'components/divider/Divider';
 import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
-import StudentInformation from 'components/users-page/student-information/StudentInformation';
+import StudentInformationForm from 'components/users-page/student-information-form/StudentInformationForm';
 import StudentPageTitle from 'components/users-page/student-page-title/StudentPageTitle';
-import StudentParents from 'components/users-page/student-parents/StudentParent';
+import StudentParentsForm from 'components/users-page/student-parents-form/StudentParentsForm';
 
 const StudentPageFranchiseeModalSetting = () => (
   <div className={styles.wrapper}>
     <StudentPageTitle>Добавление/изменение пользователя</StudentPageTitle>
-    <StudentInformation />
-    <div className={styles.divider} />
+    <StudentInformationForm />
+    <Divider />
+    {/* <div className={styles.divider} /> */}
     <StudentPageTitle>Родители ученика*</StudentPageTitle>
-    {/* <StudentParents /> */}
+    {/* <StudentParents  /> */}
     <div className={styles.buttonAddParent}>
       <ButtonAddParent />
     </div>

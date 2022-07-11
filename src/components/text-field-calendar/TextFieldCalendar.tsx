@@ -1,9 +1,11 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useState, useRef, LegacyRef, forwardRef } from 'react';
+
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import styles from './TextFieldCalendar.module.scss';
 
-import closeCalendar from 'assets/svgs/button.svg';
-import CustomCalendar from 'components/calendar/CustomCalendar';
+import calendarImage from 'assets/svgs/calendar-pic.svg';
 import Image from 'components/image/Image';
 
 interface Props {
@@ -13,23 +15,51 @@ interface Props {
   label?: string;
 }
 
+const ExampleCustomInput = forwardRef<HTMLInputElement>(({ value, onClick }: any, ref) => (
+  <input className={styles.input} type="text" onClick={onClick} value={value} ref={ref} />
+));
+
 const TextFieldCalendar = (props: Props) => {
   const { dataAuto, onChange, value, label } = props;
-  const [title, setTitle] = useState<string>(value || '');
-  const deleteTitle = () => {
-    setTitle('');
+
+  const [startDate, setStartDate] = useState(new Date());
+
+  const handleChangeDate = (date: Date | null) => {
+    if (date) {
+      setStartDate(date);
+    }
   };
+
+  const datepickerRef = useRef<any>(null); // OR React.createRef();  if you are not using hooks
+
+  // OPENS UP THE DATEPICKER WHEN THE CALENDAR ICON IS CLICKED FOR THE INPUT FIELD
+  const handleClickDatepickerIcon = () => {
+    const datepickerElement = datepickerRef.current;
+    // console.log("datepickerElement = ", datepickerElement);
+    // debugger
+    datepickerElement && datepickerElement?.handleFocus(true);
+  };
+
   return (
     <div className={styles.textFieldCalendar}>
       {label && <p>{label}</p>}
       <div className={styles.inputCalendar}>
-        <input type="text" value={value} onChange={onChange} />
-        <div className={styles.closeCalendar} onClick={deleteTitle}>
-          <Image src={closeCalendar} alt="close" width={12} height={12} />
-        </div>
+        <DatePicker
+          selected={startDate}
+          onChange={date => handleChangeDate(date)}
+          customInput={<ExampleCustomInput />}
+          ref={datepickerRef}
+          dateFormat="dd.MM.yyyy"
+        />
       </div>
       <div>
-        <CustomCalendar setTitle={setTitle} dataAuto={dataAuto} />
+        <Image
+          src={calendarImage}
+          alt="calendar"
+          width={30}
+          height={30}
+          onClick={handleClickDatepickerIcon}
+        />
       </div>
     </div>
   );

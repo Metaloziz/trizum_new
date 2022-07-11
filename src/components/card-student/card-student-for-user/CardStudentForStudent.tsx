@@ -15,7 +15,7 @@ import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapp
 import Image from 'components/image/Image';
 import Panel from 'components/panel/Panel';
 import { useRouter } from 'next/router';
-import avatar from 'public/img/pervoklasnin.jpg';
+import avatar from 'public/img/avatarDefault.png';
 
 type Props = {
   user: {

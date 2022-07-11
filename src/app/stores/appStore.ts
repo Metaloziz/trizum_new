@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 export enum Roles {
   /* Ученик */
   Student = 'student',
-  /* Ученик */
+  /* Родитель */
   Parent = 'parent',
   /* Учитель на обучении */
   TeacherEducation = 'teacherEducation',

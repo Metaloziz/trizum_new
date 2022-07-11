@@ -40,7 +40,7 @@ const UsersPage = observer(() => {
     usersStore;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [user, setCurrentUser] = useState<ResponseOneUser>();
+  // const [user, setCurrentUser] = useState<ResponseOneUser>();
   const [currentPage, setCurrentPage] = useState<number | string>(page);
   const [selectedRole, setSelectedRole] = useState<Option>();
 
@@ -67,12 +67,13 @@ const UsersPage = observer(() => {
     createUser(data);
   };
 
-  const onEditUserClick = async (id: string) => {
-    const res = await getOneUser(id);
-    if (res) {
-      setCurrentUser(res);
-      setIsModalOpen(true);
-    }
+  const onEditUserClick = (id: string) => {
+    console.log(id);
+    // const res = await getOneUser(id);
+    // if (res) {
+    //   setCurrentUser(res);
+    //   setIsModalOpen(true);
+    // }
   };
 
   useEffect(() => {
@@ -116,15 +117,15 @@ const UsersPage = observer(() => {
             <Button size="small" onClick={onSearchClick}>
               Найти
             </Button>
-            <Button type="addUser" size="small" onClick={() => setIsModalOpen(true)}>
+            <Button variant="addUser" size="small" onClick={() => setIsModalOpen(true)}>
               Добавить пользователя
             </Button>
           </div>
         </div>
       </div>
       <div className={styles.cardWrapper}>
-        {users.map(u => (
-          <CardStudentExtended key={u.id} user={u} onEditUserClick={onEditUserClick} />
+        {users.map(user => (
+          <CardStudentExtended key={user.id} user={user} onEditUserClick={onEditUserClick} />
         ))}
       </div>
       <div className={styles.pagination}>
@@ -139,13 +140,14 @@ const UsersPage = observer(() => {
         <StudentPageFranchiseeModalParents />
       </BasicModal>
       <BasicModal visibility={isModalOpen} changeVisibility={setIsModalOpen}>
+        <StudentPageFranchiseeModalAddUser onCloseModal={() => setIsModalOpen(false)} />
+      </BasicModal>
+      <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
+        {/* <StudentPageFranchiseeModalSetting /> */}
         <StudentPageFranchiseeModalAddUser
           onCloseModal={() => setIsModalOpen(false)}
           user={currentUser}
         />
-      </BasicModal>
-      <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
-        <StudentPageFranchiseeModalSetting />
       </BasicModal>
     </div>
   );

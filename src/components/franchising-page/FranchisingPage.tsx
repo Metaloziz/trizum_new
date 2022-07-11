@@ -1,117 +1,138 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import {
-  city,
-  colNamesCurator,
-  listCurator,
-  listCuratorType,
-} from 'components/moks-data/moks-data-curator';
+import { Box, Button, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { useEffect, useMemo } from "react";
 
-import Button from 'components/button/Button';
-import { FranchiseStore } from 'app/stores/franchiseStore';
-import FranchisingModal from 'components/franchising-page/franchising-modal/FranchisingModal';
-import InformationItem from 'components/information-item/InformationItem';
-import Pagination from 'components/molecules/Pagination';
-import Table from 'components/table/Table';
-import { observer } from 'mobx-react';
-import styles from './FranchisingPage.module.scss';
+import AddIcon from "@mui/icons-material/Add";
+import { AddOrEditDialog } from "./AddOrEditDialog";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { Filter } from "./Filter";
+import { FranchisingStore } from "components/franchising-page/stores";
+import { LoadingIndicator } from "./LoadingIndicator";
+import { observer } from "mobx-react";
 
 const FranchisingPage = observer(() => {
 
-  const store = useMemo(() => new FranchiseStore(), []);
-
-  //const { franchises, getAllFranchise } = franchiseStore;
-  //const [isLoaded, setIsLoaded] = useState(false);
-  //const [mask, setMask] = useState('+7');
-  //const [showModal, setShowModal] = useState<boolean>(false);
-
-  //#region move to store
-  const [data, setData] = useState<listCuratorType[]>(listCurator); // State для главных данных
-  const [loading, setLoading] = useState<boolean>(false); // State для загрузки
-  const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
-  const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
-
-  const lastItemIndex = currentPage * count;
-  const firstItemIndex = lastItemIndex - count;
-  const currentItem = data.slice(firstItemIndex, lastItemIndex);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const nextPage = () => {
-    if (currentItem.length === count) {
-      setCurrentPage(prev => prev + 1);
-    }
-  };
-  const prevPage = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(prev => prev - 1);
-    }
-  };
-  //endregion
+  const store = useMemo(() => new FranchisingStore(), []);
 
   useEffect(() => {
     store.pull();
   }, []);
 
-  if (store.loading) {
-    return <div>Получение данных</div>;
-  }
-
-  return <div className={styles.contentBlock}>
-    <div className={styles.wrapStaticBlock}>
-      <div className={styles.bigButton}>
-        <Button type="bigButton" size="large" onClick={store.openDialog}>
-          Добавить
-        </Button>
-      </div>
-      <div className={styles.infoContent}>
-        <InformationItem title="Полное наименование" variant="input" />
-        <InformationItem title="Короткое наименование" variant="input" />
-        <InformationItem title="ИНН" variant="inn" />
-      </div>
-      <div className={styles.infoContent}>
-        <InformationItem title="Телефон" variant="phone" />
-        <InformationItem title="E-mail" variant="input" />
-        <InformationItem title="Город" variant="select" placeholder="Москва" option={city} />
-      </div>
-      <div className={styles.findBtn}>
-        <InformationItem title="Номер счёта" variant="input" />
-        <div className={styles.btnText}>
-          <Button>Найти</Button>
-        </div>
-      </div>
-    </div>
-    <div className={styles.tableContent}>
-      <Table list={currentItem} colNames={colNamesCurator} loading={loading}>
-        {store.entities.length
-          ? store.entities.map((item, idx) => {
-            return <tr key={item.id}>
-              <td>{`${item.fullName || ''} ${item.shortName}`}</td>
-              <td>{item.city || '-'}</td>
-              <td>{item.legalAddress || '-'}</td>
-              <td>{item.phone ? `${item.phone} ${item.email}` : '-'}</td>
-              <td>{item.ogrn ? `${item.ogrn} ${item.inn} ${item.kpp}` : '-'}</td>
-              <td>{item.checkingAccount || '-'}</td>
-              <td>{item.bankBill || '-'}</td>
-              <td>{item.bankName || '-'}</td>
-              <td>{item.bankBik ? `${item.bankBik} ${item.bankInn} ${item.bankKpp}` : '-'}</td>
-            </tr>
-          })
-          : <tr>
-            <td colSpan={9}>Данные отсутствуют...</td>
-          </tr>}
-      </Table>
-    </div>
-    <div className={styles.paginationCuratorBlock}>
-      <Pagination
-        totalCount={count}
-        currentPage={currentPage}
-        pageSize={listCurator.length}
-        onPageChange={paginate}
-      />
-    </div>
-    <div className={styles.modalContent}>
-      <FranchisingModal showModal={store.isDialogOpen} onClose={store.closeDialog} />
-    </div>
-  </div>;
+  return <Box
+    sx={{
+      height: "100%",
+      overflow: "auto"
+    }}
+  >
+    <LoadingIndicator isLoading={store.isLoading} />
+    <AddOrEditDialog store={store} />
+    <Box
+      p={2}
+    >
+      <Box mb={1}>
+        <Stack spacing={1}>
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<AddIcon fontSize="small" />}
+            onClick={() => store.openDialog()}
+            sx={{
+              alignSelf: "flex-start",
+              backgroundColor: "#2e8dfd"
+            }}
+          >
+            Добавить
+          </Button>
+          <Filter store={store} />
+        </Stack>
+      </Box>
+      <TableContainer
+        component={Paper}
+      >
+        <Table size="small">
+          <TableHead>
+            <TableRow sx={{
+              "& > th": {
+                backgroundColor: "#2e8dfd",
+                color: "#fff",
+                verticalAlign: "top"
+              }
+            }}>
+              <TableCell>Полное/сокращенное наименование</TableCell>
+              <TableCell>Город</TableCell>
+              <TableCell>Юр. адрес</TableCell>
+              <TableCell>Телефон E-mail</TableCell>
+              <TableCell>ОГРН ИНН КПП</TableCell>
+              <TableCell>Расчётный счёт</TableCell>
+              <TableCell>Корр. счёт банка</TableCell>
+              <TableCell>Наименование банка</TableCell>
+              <TableCell>БИК/ИНН/КПП банка</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {store.entities.length
+              ? store.entities.map(entity => {
+                return <TableRow
+                  key={entity.id}
+                  hover
+                  sx={{
+                    "& > td": {
+                      verticalAlign: "top"
+                    }
+                  }}
+                >
+                  <TableCell>
+                    {entity.fullName && <><Typography variant="caption">{entity.fullName || ""}</Typography><br /></>}
+                    <Typography variant="caption">{entity.shortName || ""}</Typography>
+                  </TableCell>
+                  <TableCell><Typography variant="caption">{entity.city || "—"}</Typography></TableCell>
+                  <TableCell><Typography variant="caption">{entity.legalAddress || "—"}</Typography></TableCell>
+                  <TableCell>
+                    <Typography variant="caption">Телефон: {entity.phone || "—"}</Typography><br />
+                    <Typography variant="caption">E-mail: {entity.email || "—"}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="caption">ОГРН: {entity.ogrn || "—"}</Typography><br />
+                    <Typography variant="caption">ИНН: {entity.inn || "—"}</Typography><br />
+                    <Typography variant="caption">КПП: {entity.kpp || "—"}</Typography>
+                  </TableCell>
+                  <TableCell><Typography variant="caption">{entity.checkingAccount || "—"}</Typography></TableCell>
+                  <TableCell><Typography variant="caption">{entity.bankBill || "—"}</Typography></TableCell>
+                  <TableCell><Typography variant="caption">{entity.bankName || "—"}</Typography></TableCell>
+                  <TableCell>
+                    <Typography variant="caption">БИК: {entity.bankBik || "—"}</Typography><br />
+                    <Typography variant="caption">ИНН: {entity.bankInn || "—"}</Typography><br />
+                    <Typography variant="caption">КПП: {entity.bankKpp || "—"}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Stack direction="row">
+                      <IconButton
+                        size="small"
+                        onClick={() => store.openDialog(entity)}
+                        color="primary"
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        size="small"
+                        onClick={() => store.remove(entity.id!)}
+                        color="error"
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Stack>
+                  </TableCell>
+                </TableRow>
+              })
+              : <TableRow>
+                <TableCell colSpan={10}>Данные отсутствуют...</TableCell>
+              </TableRow>}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
+  </Box>;
 });
 
 export default FranchisingPage;

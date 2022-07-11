@@ -1,4 +1,4 @@
-import { FrinchisingViewModel } from "app/viewModels/FrinchisingViewModel";
+import { FranchisingViewModel } from "app/viewModels/FranchisingViewModel";
 import { HttpClient } from "app/rest/HttpClient";
 import { Paths } from "app/enums/Paths";
 import tokenService from "app/services/tokenService";
@@ -11,7 +11,7 @@ export class FranchisingRepository {
             .withTimeout(10000)
             .withBearerAuthorization(this.token)
             .withJsonReviver()
-            .execute<FrinchisingViewModel[]>();
+            .execute<FranchisingViewModel[]>();
     }
 
     readonly byId = async (id: string) => {
@@ -19,12 +19,19 @@ export class FranchisingRepository {
             .withTimeout(10000)
             .withBearerAuthorization(this.token)
             .withJsonReviver()
-            .execute<FrinchisingViewModel>();
+            .execute<FranchisingViewModel>();
     }
 
-    readonly addOrEdit = async (model: FrinchisingViewModel) => {
-        //TODO: метод редактирования записи: если id пустой - создание, в противном случае редактирование
-        return new HttpClient(model.id ? Paths.Franchises : Paths.Franchises, "POST")
+    readonly addOrEdit = async (model: FranchisingViewModel) => {
+        return new HttpClient(model.id ? `${Paths.Franchises}/${model.id}` : Paths.Franchises, "POST")
+            .withTimeout(10000)
+            .withBearerAuthorization(this.token)
+            .withJsonRequest(model)
+            .execute();
+    }
+
+    readonly remove = async (id: string) => {
+        return new HttpClient(`${Paths.Franchises}/${id}`, "DELETE")
             .withTimeout(10000)
             .withBearerAuthorization(this.token)
             .execute();

@@ -1,5 +1,5 @@
-export interface FrinchisingViewModel {
-    id?: string;            // если id пустой - создание, в противном случае редактирование
+export interface FranchisingViewModel {
+    id?: string;
     shortName: string;
     fullName: string;
     inn: string;

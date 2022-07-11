@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import franchiseService from 'app/services/franchiseService';
-import franchiseStore from 'app/stores/franchiseStore';
+import { FranchiseStore } from 'app/stores/franchiseStore';
 import { RequestCreateFranchise } from 'app/types/FranchiseTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
@@ -70,7 +70,7 @@ const FranchisingModal: FC<Props> = props => {
   const onSaveClick = async (values: RequestCreateFranchise) => {
     console.log(values);
     try {
-      await franchiseStore.createFranchise(values);
+      // await FranchiseStore.createFranchise(values);
       reset();
       onClose();
     } catch (e) {

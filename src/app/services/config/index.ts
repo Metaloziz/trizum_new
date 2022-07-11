@@ -4,10 +4,13 @@ import TokenService from 'app/services/tokenService';
 
 const instance = axios.create({
   baseURL: 'https://backschool.sitetopic.ru/',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': 'https://backschool.sitetopic.ru/',
   },
 });
+
 instance.interceptors.request.use(
   (config: AxiosRequestConfig<{ headers: { 'Content-Type': string } }>) => {
     const token = TokenService.getLocalAccessToken();

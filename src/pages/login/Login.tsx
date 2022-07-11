@@ -9,32 +9,32 @@ import Button from 'components/button/Button';
 import RoleButtons from 'components/role-buttons/RoleButtons';
 
 const Login = () => {
-  const [phone, setPhone] = useState('79001001010');
+  const [phone, setPhone] = useState('79601001010');
   const qwe = (role: Roles) => {
     switch (role) {
       case Roles.Student:
-        setPhone('79008008080');
+        setPhone('79608008080');
         break;
       case Roles.TeacherEducation:
-        setPhone('79007007070');
+        setPhone('79607007070');
         break;
       case Roles.Teacher:
-        setPhone('79006006060');
+        setPhone('79606006060');
         break;
       case Roles.FranchiseeAdmin:
-        setPhone('79005005050');
+        setPhone('79605005050');
         break;
       case Roles.Franchisee:
-        setPhone('79004004040');
+        setPhone('79604004040');
         break;
       case Roles.Methodist:
-        setPhone('79003003030');
+        setPhone('79603003030');
         break;
       case Roles.Tutor:
-        setPhone('79002002020');
+        setPhone('79602002020');
         break;
       case Roles.Admin:
-        setPhone('79001001010');
+        setPhone('79601001010');
         break;
       default:
         setPhone('');

@@ -19,7 +19,9 @@ const authService = {
   },
 
   login: async (data: RequestLogin) => {
-    const res: AxiosResponse<ResponseLogin> = await instance.post(Paths.Login, data);
+    const res: AxiosResponse<ResponseLogin> = await instance.post(Paths.Login, data, {
+      // withCredentials: true,
+    });
     return res.data;
   },
 

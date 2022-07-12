@@ -8,7 +8,7 @@ import Button from 'components/button/Button';
 import CardStudentTitle from 'components/card-student/card-student-title/CardStudentTitle';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
-import avatar from 'public/img/pervoklasnin.jpg';
+import avatar from 'public/img/avatarDefault.png';
 
 interface Props {
   user: ResponseUserT;

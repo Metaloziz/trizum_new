@@ -69,13 +69,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
         <div className={styles.buttons}>
           {role === Roles.Teacher && (
             <>
-              <Button onClick={() => onNavigate('PREV', date)} type="none" size="small">
+              <Button variant="none" size="small" onClick={() => onNavigate('PREV', date)}>
                 Предыдущая
               </Button>
-              <Button onClick={() => onNavigate('TODAY', date)} type="none" size="small">
+              <Button variant="none" size="small" onClick={() => onNavigate('TODAY', date)}>
                 Текущая
               </Button>
-              <Button onClick={() => onNavigate('NEXT', date)} type="none" size="small">
+              <Button variant="none" size="small" onClick={() => onNavigate('NEXT', date)}>
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -83,17 +83,17 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.FranchiseeAdmin && (
             <>
-              <Button onClick={() => setIsVisible(!isVisible)} type="none">
+              <Button variant="none" size="small" onClick={() => setIsVisible(!isVisible)}>
                 Добавить группу
               </Button>
-              <Button type="none">+ Добавить</Button>
-              <Button onClick={() => onNavigate('PREV', date)} type="none">
+              <Button variant="none" size="small" >+ Добавить</Button>
+              <Button variant="none" size="small" onClick={() => onNavigate('PREV', date)}>
                 Предыдущая
               </Button>
-              <Button onClick={() => onNavigate('TODAY', date)} type="none">
+              <Button variant="none" size="small" onClick={() => onNavigate('TODAY', date)}>
                 Текущая
               </Button>
-              <Button onClick={() => onNavigate('NEXT', date)} type="none">
+              <Button variant="none" size="small" onClick={() => onNavigate('NEXT', date)}>
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -101,13 +101,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.Franchisee && (
             <>
-              <Button onClick={() => onNavigate('PREV', date)} type="none" size="small">
+              <Button onClick={() => onNavigate('PREV', date)} variant="none" size="small">
                 Предыдущая
               </Button>
-              <Button onClick={() => onNavigate('TODAY', date)} type="none" size="small">
+              <Button onClick={() => onNavigate('TODAY', date)} variant="none" size="small">
                 Текущая
               </Button>
-              <Button onClick={() => onNavigate('NEXT', date)} type="none" size="small">
+              <Button onClick={() => onNavigate('NEXT', date)} variant="none" size="small">
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -115,13 +115,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.Methodist && (
             <>
-              <Button onClick={() => onNavigate('PREV', date)} type="none">
+              <Button onClick={() => onNavigate('PREV', date)} size="small" variant="none">
                 Предыдущая
               </Button>
-              <Button onClick={() => onNavigate('TODAY', date)} type="none">
+              <Button onClick={() => onNavigate('TODAY', date)} size="small" variant="none">
                 Текущая
               </Button>
-              <Button onClick={() => onNavigate('NEXT', date)} type="none">
+              <Button onClick={() => onNavigate('NEXT', date)} size="small" variant="none">
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -129,13 +129,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.Admin && (
             <>
-              <Button onClick={() => onNavigate('PREV', date)} type="none">
+              <Button onClick={() => onNavigate('PREV', date)} size="small" variant="none">
                 Предыдущая
               </Button>
-              <Button onClick={() => onNavigate('TODAY', date)} type="none">
+              <Button onClick={() => onNavigate('TODAY', date)} size="small" variant="none">
                 Текущая
               </Button>
-              <Button onClick={() => onNavigate('NEXT', date)} type="none">
+              <Button onClick={() => onNavigate('NEXT', date)} size="small" variant="none">
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -145,50 +145,50 @@ export const Toolbar: FC<ToolbarProps> = props => {
         {/* <div className={styles.buttons}> */}
         {/* {role === Roles.FranchiseeAdmin && ( */}
         {/*   <div> */}
-        {/*     <Button type="none" size="small"> */}
+        {/*     <CustomButton type="none" size="small"> */}
         {/*       Добавить группу */}
-        {/*     </Button> */}
-        {/*     <Button type="none">+ Добавить</Button> */}
+        {/*     </CustomButton> */}
+        {/*     <CustomButton type="none">+ Добавить</CustomButton> */}
         {/*   </div> */}
         {/* )} */}
         {/* { */}
         {/*   role === Roles.Franchisee && ( */}
         {/*     <> */}
-        {/*       <Button onClick={() => onNavigate('PREV', date)} type="none" size="small"> */}
+        {/*       <CustomButton onClick={() => onNavigate('PREV', date)} type="none" size="small"> */}
         {/*         <span>Предыдущая</span> */}
         {/*         <span className={styles.arrow}> */}
         {/*     <Image src={buttonImage} alt="arrow" width={26} height={13} className={styles.prev} /> */}
         {/*   </span> */}
-        {/*       </Button> */}
-        {/*       <Button onClick={() => onNavigate('TODAY', date)} type="none" size="small"> */}
+        {/*       </CustomButton> */}
+        {/*       <CustomButton onClick={() => onNavigate('TODAY', date)} type="none" size="small"> */}
         {/*         Текущая */}
-        {/*       </Button> */}
-        {/*       <Button onClick={() => onNavigate('NEXT', date)} type="none" size="small"> */}
+        {/*       </CustomButton> */}
+        {/*       <CustomButton onClick={() => onNavigate('NEXT', date)} type="none" size="small"> */}
         {/*         <span>Следующая</span> */}
         {/*         <span className={styles.arrow}> */}
         {/*     <Image src={buttonImage} alt="arrow" width={26} height={13} /> */}
         {/*   </span> */}
-        {/*       </Button> */}
-        {/*       <Button size="small">Найти</Button> */}
+        {/*       </CustomButton> */}
+        {/*       <CustomButton size="small">Найти</CustomButton> */}
         {/*     </> */}
         {/*   ) */}
         {/* } */}
-        {/* <Button onClick={() => onNavigate('PREV', date)} type="none" size="small"> */}
+        {/* <CustomButton onClick={() => onNavigate('PREV', date)} type="none" size="small"> */}
         {/*   <span>Предыдущая</span> */}
         {/*   <span className={styles.arrow}> */}
         {/*     <Image src={buttonImage} alt="arrow" width={26} height={13} className={styles.prev} /> */}
         {/*   </span> */}
-        {/* </Button> */}
-        {/* <Button onClick={() => onNavigate('TODAY', date)} type="none" size="small"> */}
+        {/* </CustomButton> */}
+        {/* <CustomButton onClick={() => onNavigate('TODAY', date)} type="none" size="small"> */}
         {/*   Текущая */}
-        {/* </Button> */}
-        {/* <Button onClick={() => onNavigate('NEXT', date)} type="none" size="small"> */}
+        {/* </CustomButton> */}
+        {/* <CustomButton onClick={() => onNavigate('NEXT', date)} type="none" size="small"> */}
         {/*   <span>Следующая</span> */}
         {/*   <span className={styles.arrow}> */}
         {/*     <Image src={buttonImage} alt="arrow" width={26} height={13} /> */}
         {/*   </span> */}
-        {/* </Button> */}
-        {/* <Button size="small">Найти</Button> */}
+        {/* </CustomButton> */}
+        {/* <CustomButton size="small">Найти</CustomButton> */}
         {/* </div> */}
       </div>
       {/* <BasicModal visibility={isVisible} changeVisibility={changeVisibility}> */}

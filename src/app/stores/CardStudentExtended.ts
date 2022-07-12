@@ -18,4 +18,6 @@ class CardStudentExtended {
   };
 }
 
-export default new CardStudentExtended();
+const modals = new CardStudentExtended();
+
+export default modals;

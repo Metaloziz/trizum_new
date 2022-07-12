@@ -19,23 +19,20 @@ const Navigation: FC<Props> = ({
   linkWrapperClassName,
   linkImageClassName,
   activeClassName,
-}) => {
-  console.log(links);
-  return (
-    <nav>
-      {links.map((link, i: number) => (
-        <NavigationLink
-          key={i}
-          link={link}
-          wrapperClassName={linkWrapperClassName}
-          imageClassName={linkImageClassName}
-          className={linkClassName}
-          onClick={onClick}
-          activeClassName={activeClassName}
-        />
-      ))}
-    </nav>
-  );
-};
+}) => (
+  <nav>
+    {links.map((link, i: number) => (
+      <NavigationLink
+        key={i}
+        link={link}
+        wrapperClassName={linkWrapperClassName}
+        imageClassName={linkImageClassName}
+        className={linkClassName}
+        onClick={onClick}
+        activeClassName={activeClassName}
+      />
+    ))}
+  </nav>
+);
 
 export default Navigation;

@@ -1,0 +1,62 @@
+@import "src/styles/mixins";
+
+.wrapper {
+  @include wrapperMixin();
+}
+
+.row {
+  padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 1200px) {
+    padding-left: 0;
+  }
+}
+
+.imageWrapper {
+  @include imageWrapperMixin();
+}
+
+.table {
+  width: 528px;
+
+  @media(max-width: 1000px) {
+    width: 380px;
+  }
+
+  @media(max-width: 800px) {
+    width: 340px;
+  }
+
+  @media(max-width: 700px) {
+    width: 250px;
+  }
+
+  @media(max-width: 550px) {
+    width: 100%;
+  }
+
+  & > * {
+    margin-bottom: -3px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.infoItem {
+  @include infoItemMixin();
+}
+
+.selectWrapper {
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.selectWidth {
+  @include selectWidthMixin();
+}
+

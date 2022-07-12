@@ -8,19 +8,23 @@ import * as yup from 'yup';
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
 import { SexEnum } from 'app/enums/CommonEnums';
-import store, { RoleNames, Roles } from 'app/stores/appStore';
+import { RoleNames, Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { ResponseOneUser } from 'app/types/UserTypes';
+import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
+import { Divider } from 'components/divider/Divider';
 import Image from 'components/image/Image';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
 import TextField from 'components/text-field/TextField';
+import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
 import StudentPageTitle from 'components/users-page/student-page-title/StudentPageTitle';
-import StudentParents from 'components/users-page/student-parents/StudentParent';
-import avatar from 'public/img/pervoklasnin.jpg';
+import StudentParentsForm from 'components/users-page/student-parents-form/StudentParentsForm';
+import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
+import avatar from 'public/img/avatarDefault.png';
 
 type Props = {
   onCloseModal: () => void;
@@ -33,7 +37,7 @@ type AddUserT = {
   lastName: string;
   role: Option;
   sex: Option | undefined;
-  city: Option;
+  city: string;
   phone?: string;
   birthdate: string | undefined;
   email?: string;
@@ -41,8 +45,6 @@ type AddUserT = {
   // teacher: string;
   image?: string;
 };
-
-const cities = ['Moscow'];
 
 const roleOptions = [
   { label: RoleNames.student, value: Roles.Student },
@@ -55,73 +57,35 @@ const roleOptions = [
   { label: RoleNames.methodist, value: Roles.Methodist },
   { label: RoleNames.admin, value: Roles.Admin },
 ];
-const citiesOptions: Option[] = cities.map(el => ({ label: el, value: el }));
 const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
 
-const StudentPageFranchiseeModalAddUser: FC<Props> = observer(props => {
-  const { onCloseModal, user } = props;
+const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
   const { getGroups, groups } = groupStore;
-  const { createUser } = usersStore;
+  const { createUser, currentUser } = usersStore;
   const [image, setImage] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isParentShown, setIsParentShown] = useState(false);
+  const [studentId, setStudentId] = useState('');
   // const [groupOptions, setGroupOptions] = useState<Option[]>([]);
 
-  useEffect(() => {
-    if (groups.length) {
-      // setGroupOptions(groups.map(el => ({ label: el.code, value: el.id })));
-    }
-  }, [groups]);
+  let selectedRole = '';
 
-  useEffect(() => {
-    // debugger
-    if (user) {
-      // const userRole = roleOptions.filter(el => el.label === user.roleCode)[0];
-      // const userCity = user.city
-      //   ? citiesOptions.filter(el => el.label === user.city)[0]
-      //   : citiesOptions[0];
-      // const userSex = sexOptions.find(el => el.label === checkSex(user.sex));
-      //
-      // reset({
-      //   phone: user.phone ?? '',
-      //   role: userRole,
-      //   city: userCity,
-      //   lastName: user.lastName,
-      //   middleName: user.middleName ?? '',
-      //   sex: userSex,
-      //   birthdate: moment(user.birthdate.date).format(DateTime.DdMmYyyy),
-      //   email: user.email ?? '',
-      //   firstName: user.firstName,
-      // });
-    }
-  }, [user]);
+  const findRole = () => roleOptions.find(el => el.value === user?.roleCode);
+  const findSex = () => (user?.sex ? sexOptions[0] : sexOptions[1]);
 
   const defaultValues = {
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    role: roleOptions[0],
-    sex: sexOptions[0],
-    city: citiesOptions[0],
-    phone: '',
-    birthdate: '',
-    email: '',
+    firstName: user?.firstName || '',
+    middleName: user?.middleName || '',
+    lastName: user?.lastName || '',
+    role: findRole() || roleOptions[0],
+    sex: findSex() || sexOptions[0],
+    city: user?.city || '',
+    phone: user?.phone || '',
+    birthdate: '01.01.2000', // todo как установить дату от юзера ?
+    email: user?.email || '',
     // group: undefined,
     // teacher: '',
   };
-
-  const load = async () => {
-    try {
-      const res = await getGroups();
-      // setGroupOptions(res.map(el => ({ label: el.code, value: el.id })));
-    } catch (e) {
-      console.warn(e);
-    } finally {
-      setIsLoaded(true);
-    }
-  };
-  useEffect(() => {
-    load();
-  }, []);
 
   const schema = yup.object().shape({
     firstName: yup.string().required('Обязательное поле'),
@@ -129,10 +93,16 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(props => {
     lastName: yup.string().required('Обязательное поле'),
     role: yup.object().required('Обязательное поле'),
     sex: yup.object().required('Обязательное поле'),
-    city: yup.object().required('Обязательное поле'),
-    // phone: yup.string().required('Обязательное поле'), // todo как сделать не обязательным ?
+    city: yup.string().required('Обязательное поле'),
+    phone:
+      selectedRole === Roles.Student
+        ? yup.string().notRequired()
+        : yup.string().required('Обязательное поле'),
     birthdate: yup.string().required('Обязательное поле'),
-    // email: yup.string().required('Обязательное поле').email(), // todo как сделать не обязательным ?
+    email:
+      selectedRole === Roles.Student
+        ? yup.string().notRequired()
+        : yup.string().required('Обязательное поле').email(),
     // group: yup.object().required('Обязательное поле'),
     // teacher: yup.string().required('Обязательное поле'),
   });
@@ -141,43 +111,55 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(props => {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
     watch,
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
-  const [isParentShown, setIsParentShown] = useState(false);
-  const [studentId, setStudentId] = useState('');
-  const selectedRole = watch('role').value;
+  selectedRole = watch('role').value;
 
-  const onAddClick = async (values: AddUserT) => {
-    const qwe: RequestRegister = {
-      sex: (values.sex?.label as SexEnum) === SexEnum.Male,
-      // todo: грузить франчайзи
-      franchiseId: '1ecf563a-2a69-6610-a812-f92a3af0f8be',
-      tariffId: '',
-      birthdate: values.birthdate || '',
-      city: values.city.label,
-      role: values.role.value as Roles,
-      // email: values.email,
-      // groupId: values.group?.value || '',
-      firstName: values.firstName,
-      lastName: values.lastName,
-      middleName: values.middleName,
-      // phone: values.phone ,
-      isSecondChild: false,
-    };
+  // useEffect(() => {
+  //   if (groups.length) {
+  //     setGroupOptions(groups.map(el => ({ label: el.code, value: el.id })));
+  //   }
+  // }, [groups]);
 
-    const res = await createUser(qwe);
-    if ((values.role.value as Roles) !== Roles.Student) {
-      onCloseModal();
-      reset();
-      return;
-    }
-    if (res?.id) {
-      setStudentId(res.id);
-      setIsParentShown(true);
-    }
-  };
+  // useEffect(() => {
+  // debugger
+  // if (user) {
+  // const userRole = roleOptions.filter(el => el.label === user.roleCode)[0];
+  // const userCity = user.city
+  //   ? citiesOptions.filter(el => el.label === user.city)[0]
+  //   : citiesOptions[0];
+  // const userSex = sexOptions.find(el => el.label === checkSex(user.sex));
+  //
+  // reset({
+  //   phone: user.phone ?? '',
+  //   role: userRole,
+  //   city: userCity,
+  //   lastName: user.lastName,
+  //   middleName: user.middleName ?? '',
+  //   sex: userSex,
+  //   birthdate: moment(user.birthdate.date).format(DateTime.DdMmYyyy),
+  //   email: user.email ?? '',
+  //   firstName: user.firstName,
+  // });
+  //   }
+  // }, [user]);
+
+  // const load = async () => {
+  //   try {
+  //     const res = await getGroups();
+  //     // setGroupOptions(res.map(el => ({ label: el.code, value: el.id })));
+  //   } catch (e) {
+  //     console.warn(e);
+  //   } finally {
+  //     setIsLoaded(true);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   load();
+  // }, []);
 
   const checkSex = (value: boolean | null): SexEnum => {
     if (value) {
@@ -189,7 +171,36 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(props => {
     return SexEnum.Male;
   };
 
-  const onSubmit: SubmitHandler<AddUserT> = data => console.log(data);
+  const onSubmit: SubmitHandler<AddUserT> = async values => {
+    const newPerson: RequestRegister = {
+      sex: (values.sex?.label as SexEnum) === SexEnum.Male,
+      // todo: грузить франчайзи
+      franchiseId: '1ecf563a-2a69-6610-a812-f92a3af0f8be',
+      tariffId: '',
+      birthdate: values.birthdate || '',
+      city: values.city,
+      role: values.role.value as Roles,
+      email: values.email,
+      // groupId: values.?.value || '',
+      firstName: values.firstName,
+      lastName: values.lastName,
+      middleName: values.middleName,
+      phone: values.phone,
+      isSecondChild: false,
+    };
+
+    const res = await createUser(newPerson);
+
+    if ((values.role.value as Roles) !== Roles.Student) {
+      onCloseModal();
+      reset();
+      return;
+    }
+    if (res?.id) {
+      setStudentId(res.id);
+      setIsParentShown(true);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -197,6 +208,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(props => {
       <div className={styles.row}>
         <div className={styles.imageWrapper}>
           <Image src={avatar} width="290" height="290" alt="student" />
+          {user && <SetStatusButton status={user?.status} id={user.id} />}
         </div>
         <div className={styles.table}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -224,13 +236,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(props => {
             <Controller
               name="city"
               render={({ field }) => (
-                <CustomSelect
-                  {...field}
-                  title="Город"
-                  options={citiesOptions}
-                  // @ts-ignore
-                  error={errors.city?.message}
-                />
+                <TextField {...field} label="Город" error={errors.lastName?.message} />
               )}
               control={control}
             />
@@ -260,7 +266,9 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(props => {
               <span>Дата рождения:</span>
               <Controller
                 name="birthdate"
-                render={({ field }) => <TextFieldCalendar {...field} dataAuto="" />}
+                render={({ field }) => (
+                  <TextFieldCalendar {...field} dataAuto="" value="01.01.2000" /> // todo value="01.01.2000" for dev
+                )}
                 control={control}
               />
             </div>
@@ -300,16 +308,18 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(props => {
             control={control}
           /> */}
             <div className={styles.button}>
-              <button type="submit">
-                <Button>Сохранить</Button>
-              </button>
+              <Button type="submit" disabled={isSubmitSuccessful}>
+                Сохранить
+              </Button>
             </div>
           </form>
         </div>
       </div>
+      <Divider />
+      <StudentPageTitle>Родители ученика*</StudentPageTitle>
 
       {isParentShown && studentId && (
-        <StudentParents studentId={studentId} onCloseModal={onCloseModal} />
+        <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
       )}
     </div>
   );

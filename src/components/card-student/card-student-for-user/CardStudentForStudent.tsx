@@ -15,7 +15,7 @@ import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
 import Panel from 'components/panel/Panel';
-import avatar from 'public/img/pervoklasnin.jpg';
+import avatar from 'public/img/avatarDefault.png';
 
 type Props = {
   user: {

@@ -54,11 +54,11 @@ export type FullResponseUserT = {
   items: ResponseUserT[];
 };
 
-type UserStatusT = 'active';
+export type UserStatusT = 'active' | 'blocked' | 'payed' | 'notPayed';
 
 export type ResponseOneUser = {
   birthdate: TimeZoneType;
-  sex: boolean | null;
+  sex: boolean | null; // male - true
   createdAt: TimeZoneType;
   groups: ResponseOneUserGroupT[];
   parents: any[];

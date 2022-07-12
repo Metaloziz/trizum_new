@@ -1,3 +1,5 @@
+@import "src/styles/mixins";
+
 .wrapper {
   position: relative;
   padding: 35px 56px;
@@ -32,7 +34,9 @@
   display: flex;
   justify-content: flex-end;
 }
+
 .wrapper {
+  @include wrapperMixin();
   width: 1053px;
   padding: 37px 56px 27px 57px;
 
@@ -67,25 +71,12 @@
 }
 
 .imageWrapper {
-  img {
-    border-radius: 50%;
-  }
 
-  @media (max-width: 1200px) {
-    width: 240px;
-    height: 240px;
-  }
-
-  @media (max-width: 1000px) {
-    width: 190px;
-    height: 190px;
-  }
-
-  @media(max-width: 800px) {
-    width: 190px;
-    height: 190px;
-  }
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  @include imageWrapperMixin();
   @media(max-width: 700px) {
     width: 130px;
     height: 130px;
@@ -138,6 +129,7 @@
 
 .table {
   width: 550px;
+
   & > form > div {
     margin-bottom: 24px;
     justify-content: space-between;
@@ -197,6 +189,7 @@
 }
 
 .infoItem {
+  @include infoItemMixin();
   height: 40px;
   display: flex;
   align-items: center;
@@ -293,41 +286,6 @@
 }
 
 .selectWidth {
-  width: 64%;
-
-  @media (max-width: 1000px) {
-    width: 76%;
-  }
-
-  @media (max-width: 800px) {
-    width: 81%;
-  }
-
-  @media (max-width: 700px) {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-
-    & > div {
-      flex-direction: column;
-
-      @media (max-width: 550px) {
-        width: 100%;
-      }
-    }
-
-    & > div > div {
-      width: 100%;
-
-      & > p {
-        text-align: center;
-        margin-bottom: 10px;
-
-        @media (max-width: 550px) {
-          text-align: center;
-        }
-      }
-    }
-  }
+  @include selectWidthMixin();
 }
 

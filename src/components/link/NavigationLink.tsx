@@ -26,12 +26,11 @@ const Navigation: FC<Props> = ({
 }) => {
   const { label, href, imageSrc } = link;
   // const isActive = router.asPath === href;
-  console.log(activeClassName);
   return (
     <div className={wrapperClassName}>
       {/* <NavLink to={link.href} className={({isActive})=>cn(className, isActive && activeClassName)}> */}
       <NavLink
-        to={link.href}
+        to={href}
         className={({ isActive }) => `${className} ${isActive && activeClassName}`}
       >
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

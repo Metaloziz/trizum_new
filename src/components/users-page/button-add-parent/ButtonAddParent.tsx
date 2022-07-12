@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import styles from './ButtonAddParent.module.scss';
 
-const ButtonAddParent = () => {
-  const onClick = () => {};
-  return (
-    <div className={styles.wrapper}>
-      <button className={styles.button} onClick={onClick}>
-        +
-      </button>
-    </div>
-  );
-};
+import { DefaultButtonProps } from 'app/types/DefaultButtonProps';
+
+const ButtonAddParent: FC<DefaultButtonProps> = props => (
+  <div className={styles.wrapper}>
+    <button {...props} type="button" className={styles.button}>
+      +
+    </button>
+  </div>
+);
 
 export default ButtonAddParent;

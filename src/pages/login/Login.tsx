@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styles from './Login.module.scss';
 
 import authService from 'app/services/authService';
 import tokenService from 'app/services/tokenService';
 import appStore, { Roles } from 'app/stores/appStore';
+import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import RoleButtons from 'components/role-buttons/RoleButtons';
 
@@ -51,15 +52,185 @@ const Login = () => {
       console.warn(e);
     }
   };
+  const [code, setCode] = useState<string>('');
+  const [showModal1, setShowModal1] = useState<boolean>(false);
+  const [showModal2, setShowModal2] = useState<boolean>(false);
+  const [showmodal, setShowModal] = useState<boolean>(true);
+  const [erorr, setErorr] = useState<boolean>(false);
+  const [seconds, setSeconds] = useState<number>(150);
+  const [timerActive, setTimerActive] = useState<boolean>(false);
+  useEffect(() => {
+    if (seconds > 0 && timerActive) {
+      setTimeout(setSeconds, 150, seconds - 1);
+    } else {
+      setTimerActive(false);
+    }
+  }, [seconds, timerActive]);
 
+  const sendPhone = async () => {
+    setShowModal1(false);
+    setShowModal2(true);
+    setShowModal(false);
+    setSeconds(150);
+    setTimerActive(!timerActive);
+    const getSMSCode = await authService.sms({ phone });
+    console.log('код по смс', getSMSCode);
+  };
+  const sendCode = async () => {
+    try {
+      const getToken = await authService.login({ phone, smsCode: Number(code) });
+      await tokenService.setUser(getToken.data.token);
+      const userData = await authService.loadme();
+      appStore.setRole(userData.role as Roles);
+    } catch (e) {
+      console.warn(e);
+      setErorr(true);
+    }
+  };
+
+  const repeatSMSCode = async () => {
+    setSeconds(150);
+    setTimerActive(!timerActive);
+    const getSMSCode = await authService.sms({ phone });
+    console.log('повторный код по смс', getSMSCode);
+  };
+  const sec = Math.round(seconds / 10);
+
+  const anotherNumber = () => {
+    setShowModal1(true);
+    setShowModal2(false);
+    setShowModal(true);
+    setTimerActive(false);
+  };
   return (
     <div className={styles.flex}>
-      <RoleButtons onClick={qwe} />
+      {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}
       <div className={styles.flexCol}>
         <Button onClick={onClick}>login</Button>
-        {/* <input type="text" value={phone} onChange={e => setPhone(e.target.value)} /> */}
+        <Button type="addUser" onClick={() => setShowModal1(true)}>
+          Модалка временно для логина
+        </Button>
       </div>
+      <BasicModal visibility={showModal1} changeVisibility={setShowModal1}>
+        <div className={styles.wrapContent}>
+          <div>
+            <p className={styles.modalTitle}>Авторизация</p>
+            <p className={styles.modalSubtitle}>Ваш номер телефона</p>
+            <div>
+              <input value={phone} onChange={e => setPhone(e.target.value)} />
+            </div>
+            <div>
+              <button type="submit" className={styles.modalButton} onClick={sendPhone}>
+                Войти
+              </button>
+            </div>
+          </div>
+        </div>
+      </BasicModal>
+      <BasicModal visibility={showModal2} changeVisibility={setShowModal2}>
+        <div className={styles.wrapContent}>
+          <div>
+            <p>Ваш телефон</p>
+            <div className={styles.phoneContainer}>
+              <span>+{phone}</span>
+            </div>
+            <p>Временный код</p>
+          </div>
+          <div className={styles.inputContainer}>
+            <input type="tel" value={code} onChange={e => setCode(e.target.value)} />
+          </div>
+          {erorr ? (
+            <p className={styles.textErorrRed}>
+              Неверный код
+              <br />
+              После трёх неверных попыток - блокировка.
+            </p>
+          ) : (
+            <div className={styles.blockErorr} />
+          )}
+          <div>
+            <Button onClick={sendCode}>Подтвердить изменения</Button>
+            <div>
+              {seconds !== 150 && seconds !== 0 ? (
+                <p className={styles.textErorr}>
+                  Сообщение отправлено. Повторно вы сможете запросить код через {sec} секунд.
+                </p>
+              ) : (
+                <p onClick={repeatSMSCode} className={styles.underlined}>
+                  Выслать код повторно
+                </p>
+              )}
+            </div>
+            <p onClick={anotherNumber} className={styles.anotherNumber}>
+              Ввести другой номер
+            </p>
+          </div>
+        </div>
+      </BasicModal>
     </div>
+    //
+    //
+    //
+    //
+    // <div className={styles.modal}>
+    //   <div className={styles.content}>
+    //     {showmodal ? (
+    //       <div className={styles.wrapContent}>
+    //         <div>
+    //           <p className={styles.modalTitle}>Авторизация</p>
+    //           <p className={styles.modalSubtitle}>Ваш номер телефона</p>
+    //           <div>
+    //             <input value={phone} onChange={e => setPhone(e.target.value)} />
+    //           </div>
+    //           <div>
+    //             <button type="submit" className={styles.modalButton} onClick={sendPhone}>
+    //               Войти
+    //             </button>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     ) : (
+    //       <div className={styles.wrapContent}>
+    //         <div>
+    //           <p>Ваш телефон</p>
+    //           <div className={styles.phoneContainer}>
+    //             <span>+{phone}</span>
+    //           </div>
+    //           <p>Временный код</p>
+    //         </div>
+    //         <div className={styles.inputContainer}>
+    //           <input type="tel" value={code} onChange={e => setCode(e.target.value)} />
+    //         </div>
+    //         {erorr ? (
+    //           <p className={styles.textErorr}>
+    //             Неверный код
+    //             <br />
+    //             После трёх неверных попыток - блокировка.
+    //           </p>
+    //         ) : (
+    //           <div className={styles.blockErorr} />
+    //         )}
+    //         <div>
+    //           <Button onClick={sendCode}>Подтвердить изменения</Button>
+    //           <div>
+    //             {seconds === 150 || seconds === 0 ? (
+    //               <p onClick={repeatSMSCode} className={styles.underlined}>
+    //                 Выслать код повторно
+    //               </p>
+    //             ) : (
+    //               <p className={styles.textErorr}>
+    //                 Сообщение отправлено. Повторно вы сможете запросить код через {sec} секунд.
+    //               </p>
+    //             )}
+    //           </div>
+    //             <p onClick={anotherNumber} className={styles.anotherNumber}>
+    //             Ввести другой номер
+    //           </p>
+    //         </div>
+    //       </div>
+    //     )}
+    //   </div>
+    // </div>
   );
 };
 

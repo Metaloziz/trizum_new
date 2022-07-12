@@ -46,7 +46,7 @@ const TextFieldCalendar = (props: Props) => {
       <div className={styles.inputCalendar}>
         <DatePicker
           selected={startDate}
-          onChange={date => handleChangeDate(date)}
+          onChange={(date: any) => handleChangeDate(date)}
           customInput={<ExampleCustomInput />}
           ref={datepickerRef}
           dateFormat="dd.MM.yyyy"

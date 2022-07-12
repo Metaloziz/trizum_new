@@ -35,4 +35,5 @@ class TokenService {
     localStorage.removeItem('user_secret');
   }
 }
+
 export default new TokenService();

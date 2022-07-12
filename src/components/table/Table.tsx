@@ -36,7 +36,6 @@ const Table: FC<Props> = props => {
       <table>
         <thead>
           <tr>
-            {' '}
             {colNames !== undefined &&
               colNames.length > 0 &&
               colNames.map((headerItem, index) => <th key={index}>{headerItem}</th>)}

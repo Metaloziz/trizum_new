@@ -103,6 +103,26 @@ const Login = () => {
     setTimerActive(false);
     setErorr(false);
   };
+  function filterWords(
+    number: number,
+    one: string | number,
+    two: string | number,
+    five: string | number,
+  ) {
+    let n = Math.abs(number);
+    n %= 100;
+    if (n >= 5 && n <= 20) {
+      return five;
+    }
+    n %= 10;
+    if (n === 1) {
+      return one;
+    }
+    if (n >= 2 && n <= 4) {
+      return two;
+    }
+    return five;
+  }
   return (
     <div className={styles.flex}>
       {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}
@@ -154,7 +174,8 @@ const Login = () => {
             <div>
               {seconds !== 150 && seconds !== 0 ? (
                 <p className={styles.textErorr}>
-                  Сообщение отправлено. Повторно вы сможете запросить код через {sec} секунд.
+                  Сообщение отправлено. Повторно вы сможете запросить код через {`${sec} `}
+                  {filterWords(sec, 'секунду', 'секунды', 'секунд')}.
                 </p>
               ) : (
                 <p onClick={repeatSMSCode} className={styles.underlined}>

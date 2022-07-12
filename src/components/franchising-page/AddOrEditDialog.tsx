@@ -3,7 +3,7 @@ import { Dialog, DialogTitle } from "./ui/Dialog";
 
 import { FranchisingStore } from "components/franchising-page/stores";
 import MuiPhoneNumber from "material-ui-phone-number";
-import { numberWithoutLeadingZero } from "./helpers/OnlyNumberWithoutLeadingZeroCallback";
+import { numberWithoutLeadingZero } from "./helpers/numberWithoutLeadingZero";
 import { observer } from "mobx-react";
 
 interface AddOrEditDialogProps {

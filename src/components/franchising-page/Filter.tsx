@@ -6,7 +6,7 @@ import { FranchisingFilterViewModel } from "./models/FranchisingFilterViewModel"
 import MuiPhoneNumber from "material-ui-phone-number";
 import { Nullable } from "app/types/Nullable";
 import SearchIcon from "@mui/icons-material/Search";
-import { numberWithoutLeadingZero } from "./helpers/OnlyNumberWithoutLeadingZeroCallback";
+import { numberWithoutLeadingZero } from "./helpers/numberWithoutLeadingZero";
 import { observer } from "mobx-react";
 import { useState } from "react";
 

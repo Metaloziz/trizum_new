@@ -57,11 +57,22 @@ const Login = () => {
   const [showModal2, setShowModal2] = useState<boolean>(false);
   const [showmodal, setShowModal] = useState<boolean>(true);
   const [erorr, setErorr] = useState<boolean>(false);
-  
+  const [seconds, setSeconds] = useState<number>(150);
+  const [timerActive, setTimerActive] = useState<boolean>(false);
+  useEffect(() => {
+    if (seconds > 0 && timerActive) {
+      setTimeout(setSeconds, 150, seconds - 1);
+    } else {
+      setTimerActive(false);
+    }
+  }, [seconds, timerActive]);
+
   const sendPhone = async () => {
     setShowModal1(false);
     setShowModal2(true);
     setShowModal(false);
+    setSeconds(150);
+    setTimerActive(!timerActive);
     const getSMSCode = await authService.sms({ phone });
     console.log('код по смс', getSMSCode);
   };
@@ -77,23 +88,20 @@ const Login = () => {
     }
   };
 
-  const [seconds, setSeconds] = useState<number>(150);
-  const [timerActive, setTimerActive] = useState<boolean>(false);
-  useEffect(() => {
-    if (seconds > 0 && timerActive) {
-      setTimeout(setSeconds, 150, seconds - 1);
-    } else {
-      setTimerActive(false);
-    }
-  }, [seconds, timerActive]);
   const repeatSMSCode = async () => {
     setSeconds(150);
     setTimerActive(!timerActive);
     const getSMSCode = await authService.sms({ phone });
     console.log('повторный код по смс', getSMSCode);
   };
-
   const sec = Math.round(seconds / 10);
+
+  const anotherNumber = () => {
+    setShowModal1(true);
+    setShowModal2(false);
+    setShowModal(true);
+    setTimerActive(false);
+  };
   return (
     <div className={styles.flex}>
       {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}
@@ -132,7 +140,7 @@ const Login = () => {
             <input type="tel" value={code} onChange={e => setCode(e.target.value)} />
           </div>
           {erorr ? (
-            <p className={styles.textErorr}>
+            <p className={styles.textErorrRed}>
               Неверный код
               <br />
               После трёх неверных попыток - блокировка.
@@ -143,16 +151,19 @@ const Login = () => {
           <div>
             <Button onClick={sendCode}>Подтвердить изменения</Button>
             <div>
-              {seconds === 150 || seconds === 0 ? (
-                <p onClick={repeatSMSCode} className={styles.underlined}>
-                  Выслать код повторно
-                </p>
-              ) : (
+              {seconds !== 150 && seconds !== 0 ? (
                 <p className={styles.textErorr}>
                   Сообщение отправлено. Повторно вы сможете запросить код через {sec} секунд.
                 </p>
+              ) : (
+                <p onClick={repeatSMSCode} className={styles.underlined}>
+                  Выслать код повторно
+                </p>
               )}
             </div>
+            <p onClick={anotherNumber} className={styles.anotherNumber}>
+              Ввести другой номер
+            </p>
           </div>
         </div>
       </BasicModal>
@@ -212,6 +223,9 @@ const Login = () => {
     //               </p>
     //             )}
     //           </div>
+    //             <p onClick={anotherNumber} className={styles.anotherNumber}>
+    //             Ввести другой номер
+    //           </p>
     //         </div>
     //       </div>
     //     )}

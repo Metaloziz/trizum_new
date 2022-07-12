@@ -30,6 +30,7 @@
     "framer-motion": "^6.3.11",
     "http-status-codes": "^2.2.0",
     "jwt-decode": "^3.1.2",
+    "material-ui-phone-number": "^3.0.0",
     "mobx": "^6.5.0",
     "mobx-react": "^7.3.0",
     "mobx-react-lite": "^3.3.0",

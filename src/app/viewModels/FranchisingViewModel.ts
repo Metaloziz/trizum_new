@@ -9,7 +9,7 @@ export interface FranchisingViewModel {
     ogrn: string;
     kpp: string;
     checkingAccount: string;
-    phone: string;
+    phone: number;
     email: string;
     city: string;
     bankBill: string;

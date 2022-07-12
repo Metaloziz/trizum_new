@@ -2,17 +2,52 @@ import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Box, B
 
 import ClearIcon from "@mui/icons-material/Clear";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { FranchisingStore } from "./stores";
+import { FranchisingFilterViewModel } from "./models/FranchisingFilterViewModel";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { Nullable } from "app/types/Nullable";
 import SearchIcon from "@mui/icons-material/Search";
+import { numberWithoutLeadingZero } from "./helpers/OnlyNumberWithoutLeadingZeroCallback";
 import { observer } from "mobx-react";
+import { useState } from "react";
 
 interface FilterProps {
-    store: FranchisingStore;
+    onChange: (filter: Nullable<FranchisingFilterViewModel>) => void;
 }
 
 export const Filter = observer((props: FilterProps) => {
+    const _defaultFilter = (): FranchisingFilterViewModel => ({
+        email: "",
+        fullName: "",
+        shortName: "",
+        inn: "",
+        city: "",
+        phone: null!,
+        checkingAccount: ""
+    });
+
+    const [filter, setFilter] = useState(_defaultFilter());
+    const [open, setOpen] = useState(false);
+
+    const applyFilter = () => {
+        props.onChange(filter);
+    }
+
+    const clearFilter = () => {
+        setOpen(false);
+        setFilter(_defaultFilter());
+        props.onChange(null);
+    }
+
+    const onChangePhone = (value: string) => {
+        setFilter(prev => ({ ...prev, phone: !value ? null! : parseInt(value.replace(/\D/g, "")) }));
+    }
+
     return <Box>
-        <Accordion>
+        <Accordion 
+            expanded={open} 
+            onChange={(_, expanded) => setOpen(expanded)}    
+            TransitionProps={{ unmountOnExit: true }}
+        >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
             >
@@ -24,8 +59,8 @@ export const Filter = observer((props: FilterProps) => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             label="Полное наименование"
-                            value=""
-                            onChange={() => { }}
+                            value={filter.fullName}
+                            onChange={({ target: { value } }) => setFilter(prev => ({ ...prev, fullName: value }))}
                             fullWidth
                             variant="outlined"
                             size="small"
@@ -34,29 +69,32 @@ export const Filter = observer((props: FilterProps) => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             label="Номер счета"
-                            value=""
-                            onChange={() => { }}
+                            value={filter.checkingAccount}
+                            onChange={({ target: { value } }) => numberWithoutLeadingZero(value, () => setFilter(prev => ({ ...prev, checkingAccount: value })))}
                             fullWidth
                             variant="outlined"
                             size="small"
                         />
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <TextField
+                        <MuiPhoneNumber
                             label="Телефон"
-                            value=""
-                            onChange={() => { }}
-                            fullWidth
+                            value={filter.phone}
+                            onChange={value => onChangePhone(value as string)}
+                            defaultCountry={"ru"}
+                            onlyCountries={["ru"]}
                             variant="outlined"
+                            fullWidth
                             size="small"
+                            countryCodeEditable={false}
                         />
                     </Grid>
                     {/* line 2*/}
                     <Grid item xs={12} sm={4}>
                         <TextField
                             label="Короткое наименование"
-                            value=""
-                            onChange={() => { }}
+                            value={filter.shortName}
+                            onChange={({ target: { value } }) => setFilter(prev => ({ ...prev, shortName: value }))}
                             fullWidth
                             variant="outlined"
                             size="small"
@@ -65,8 +103,8 @@ export const Filter = observer((props: FilterProps) => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             label="E-mail"
-                            value=""
-                            onChange={() => { }}
+                            value={filter.email}
+                            onChange={({ target: { value } }) => setFilter(prev => ({ ...prev, email: value }))}
                             fullWidth
                             variant="outlined"
                             size="small"
@@ -75,8 +113,8 @@ export const Filter = observer((props: FilterProps) => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             label="ИНН"
-                            value=""
-                            onChange={() => { }}
+                            value={filter.inn}
+                            onChange={({ target: { value } }) => numberWithoutLeadingZero(value, () => setFilter(prev => ({ ...prev, inn: value })))}
                             fullWidth
                             variant="outlined"
                             size="small"
@@ -86,8 +124,8 @@ export const Filter = observer((props: FilterProps) => {
                     <Grid item xs={12} sm={4}>
                         <TextField
                             label="Город"
-                            value=""
-                            onChange={() => { }}
+                            value={filter.city}
+                            onChange={({ target: { value } }) => setFilter(prev => ({ ...prev, city: value }))}
                             fullWidth
                             variant="outlined"
                             size="small"
@@ -109,24 +147,24 @@ export const Filter = observer((props: FilterProps) => {
                         variant="contained"
                         size="small"
                         startIcon={<SearchIcon fontSize="small" />}
-                        onClick={() => { }}
+                        onClick={applyFilter}
                         sx={{
                             alignSelf: "flex-end",
                             backgroundColor: "#2e8dfd"
                         }}
                     >
-                        Найти
+                        Применить
                     </Button>
                     <Button
                         size="small"
                         startIcon={<ClearIcon fontSize="small" />}
-                        onClick={() => { }}
+                        onClick={clearFilter}
                         sx={{
                             alignSelf: "flex-end"
                         }}
                         color="error"
                     >
-                        Очистить
+                        Сбросить
                     </Button>
                 </Stack>
             </AccordionActions>

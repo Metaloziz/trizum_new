@@ -1,19 +1,17 @@
 import { Button, DialogActions, DialogContent, Grid, TextField, Typography } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-import { Dialog, DialogTitle } from "./Dialog";
+import { Dialog, DialogTitle } from "./ui/Dialog";
 
 import { FranchisingStore } from "components/franchising-page/stores";
-import { FranchisingViewModel } from "app/viewModels/FranchisingViewModel";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { numberWithoutLeadingZero } from "./helpers/OnlyNumberWithoutLeadingZeroCallback";
 import { observer } from "mobx-react";
-import { useMemo } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 interface AddOrEditDialogProps {
     store: FranchisingStore;
 }
 
 export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
-    const { store, store: { editingEntity } } = props;
+    const { store } = props;
 
     return <Dialog
         maxWidth="md"
@@ -37,96 +35,109 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.fullName.isValidSync(store.editingEntity.fullName)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="Короткое наименование"
-                        value={editingEntity.shortName}
+                        value={store.editingEntity.shortName}
                         onChange={({ currentTarget: { value } }) => store.editingEntity.shortName = value}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.shortName.isValidSync(store.editingEntity.shortName)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="Юр. адрес"
-                        value={editingEntity.legalAddress}
+                        value={store.editingEntity.legalAddress}
                         onChange={({ currentTarget: { value } }) => store.editingEntity.legalAddress = value}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.legalAddress.isValidSync(store.editingEntity.legalAddress)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="Фактический адрес"
-                        value={editingEntity.actualAddress}
+                        value={store.editingEntity.actualAddress}
                         onChange={({ currentTarget: { value } }) => store.editingEntity.actualAddress = value}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.actualAddress.isValidSync(store.editingEntity.actualAddress)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField
+                    <MuiPhoneNumber
                         label="Телефон"
-                        value={editingEntity.phone}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.phone = value}
-                        fullWidth
+                        value={store.editingEntity.phone}
+                        onChange={value => store.onChangePhone(value as string)}
+                        defaultCountry={"ru"}
+                        onlyCountries={["ru"]}
                         variant="outlined"
+                        fullWidth
                         size="small"
+                        countryCodeEditable={false}
+                        error={!store.validateSchema.fields.phone.isValidSync(store.editingEntity.phone)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="E-mail"
-                        value={editingEntity.email}
+                        value={store.editingEntity.email}
                         onChange={({ currentTarget: { value } }) => store.editingEntity.email = value}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.email.isValidSync(store.editingEntity.email)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="ИНН"
-                        value={editingEntity.inn}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.inn = value}
+                        value={store.editingEntity.inn}
+                        onChange={({ currentTarget: { value } }) => numberWithoutLeadingZero(value, () => store.editingEntity.inn = value)}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.inn.isValidSync(store.editingEntity.inn)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="ОГРН"
-                        value={editingEntity.ogrn}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.ogrn = value}
+                        value={store.editingEntity.ogrn}
+                        onChange={({ currentTarget: { value } }) => numberWithoutLeadingZero(value, () => store.editingEntity.ogrn = value)}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.ogrn.isValidSync(store.editingEntity.ogrn)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="КПП"
-                        value={editingEntity.kpp}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.kpp = value}
+                        value={store.editingEntity.kpp}
+                        onChange={({ currentTarget: { value } }) => numberWithoutLeadingZero(value, () => store.editingEntity.kpp = value)}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.kpp.isValidSync(store.editingEntity.kpp)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="Город"
-                        value={editingEntity.city}
+                        value={store.editingEntity.city}
                         onChange={({ currentTarget: { value } }) => store.editingEntity.city = value}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.city.isValidSync(store.editingEntity.city)}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -135,81 +146,78 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="Наименование школы"
-                        value={editingEntity.schoolName}
+                        value={store.editingEntity.schoolName}
                         onChange={({ currentTarget: { value } }) => store.editingEntity.schoolName = value}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.schoolName.isValidSync(store.editingEntity.schoolName)}
                     />
                 </Grid>
-                {/* <Grid item xs={12} sm={6}>
-                    <TextField
-                        label=""
-                        value=""
-                        onChange={() => { }}
-                        fullWidth
-                        variant="outlined"
-                        size="small"
-                    />
-                </Grid> */}
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="Наименование банка"
-                        value={editingEntity.bankName}
+                        value={store.editingEntity.bankName}
                         onChange={({ currentTarget: { value } }) => store.editingEntity.bankName = value}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.bankName.isValidSync(store.editingEntity.bankName)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="Корр. счёт банка"
-                        value={editingEntity.bankBill}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.bankBill = value}
+                        value={store.editingEntity.bankBill}
+                        onChange={({ currentTarget: { value } }) => numberWithoutLeadingZero(value, () => store.editingEntity.bankBill = value)}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.bankBill.isValidSync(store.editingEntity.bankBill)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="БИК банка"
-                        value={editingEntity.bankBik}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.bankBik = value}
+                        value={store.editingEntity.bankBik}
+                        onChange={({ currentTarget: { value } }) => numberWithoutLeadingZero(value, () => store.editingEntity.bankBik = value)}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.bankBik.isValidSync(store.editingEntity.bankBik)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="ИНН банка"
-                        value={editingEntity.bankInn}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.bankInn = value}
+                        value={store.editingEntity.bankInn}
+                        onChange={({ currentTarget: { value } }) => numberWithoutLeadingZero(value, () => store.editingEntity.bankInn = value)}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.bankInn.isValidSync(store.editingEntity.bankInn)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="КПП банка"
-                        value={editingEntity.bankKpp}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.bankKpp = value}
+                        value={store.editingEntity.bankKpp}
+                        onChange={({ currentTarget: { value } }) => numberWithoutLeadingZero(value, () => store.editingEntity.bankKpp = value)}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.bankKpp.isValidSync(store.editingEntity.bankKpp)}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="Расчётный счёт"
-                        value={editingEntity.checkingAccount}
-                        onChange={({ currentTarget: { value } }) => store.editingEntity.checkingAccount = value}
+                        value={store.editingEntity.checkingAccount}
+                        onChange={({ currentTarget: { value } }) => numberWithoutLeadingZero(value, () => store.editingEntity.checkingAccount = value)}
                         fullWidth
                         variant="outlined"
                         size="small"
+                        error={!store.validateSchema.fields.checkingAccount.isValidSync(store.editingEntity.checkingAccount)}
                     />
                 </Grid>
             </Grid>
@@ -217,6 +225,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
         <DialogActions>
             <Button
                 onClick={store.addOrEdit}
+                disabled={!store.validateSchema.isValidSync(store.editingEntity)}
             >
                 {store.editingEntity?.id ? "Изменить" : "Добавить"}
             </Button>

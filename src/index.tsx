@@ -2,7 +2,16 @@ import 'index.scss';
 
 import App from './App';
 import ReactDOM from 'react-dom/client';
+import { configure } from 'mobx';
 import reportWebVitals from './reportWebVitals';
+
+configure({
+    enforceActions: "never",
+    //computedRequiresReaction: true,
+    //reactionRequiresObservable: true,
+    //observableRequiresReaction: true,
+    //disableErrorBoundaries: true
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(<App />);

@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Alert, Box, Button, IconButton, Paper, Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useEffect, useMemo } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -7,7 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Filter } from "./Filter";
 import { FranchisingStore } from "components/franchising-page/stores";
-import { LoadingIndicator } from "./LoadingIndicator";
+import { LoadingIndicator } from "./ui/LoadingIndicator";
 import { observer } from "mobx-react";
 
 const FranchisingPage = observer(() => {
@@ -26,6 +26,16 @@ const FranchisingPage = observer(() => {
   >
     <LoadingIndicator isLoading={store.isLoading} />
     <AddOrEditDialog store={store} />
+    <Snackbar open={store.success !== null} autoHideDuration={6000} onClose={() => store.success = null}>
+      <Alert onClose={() => store.success = null} severity="success" sx={{ width: '100%' }}>
+        {store.success}
+      </Alert>
+    </Snackbar>
+    <Snackbar open={store.error !== null} autoHideDuration={6000} onClose={() => store.error = null}>
+      <Alert onClose={() => store.error = null} severity="error" sx={{ width: '100%' }}>
+        {store.error?.message || "Произошла ошибка!"}
+      </Alert>
+    </Snackbar>
     <Box
       p={2}
     >
@@ -43,7 +53,9 @@ const FranchisingPage = observer(() => {
           >
             Добавить
           </Button>
-          <Filter store={store} />
+          <Filter
+            onChange={store.onChangeFilter}
+          />
         </Stack>
       </Box>
       <TableContainer
@@ -58,21 +70,31 @@ const FranchisingPage = observer(() => {
                 verticalAlign: "top"
               }
             }}>
-              <TableCell>Полное/сокращенное наименование</TableCell>
-              <TableCell>Город</TableCell>
-              <TableCell>Юр. адрес</TableCell>
-              <TableCell>Телефон E-mail</TableCell>
-              <TableCell>ОГРН ИНН КПП</TableCell>
-              <TableCell>Расчётный счёт</TableCell>
-              <TableCell>Корр. счёт банка</TableCell>
-              <TableCell>Наименование банка</TableCell>
-              <TableCell>БИК/ИНН/КПП банка</TableCell>
+              <TableCell>
+                Полное, сокращенное<br />
+                наименование
+              </TableCell>
+              <TableCell>
+                Город,<br />
+                Юр. адрес
+              </TableCell>
+              <TableCell>
+                Телефон,<br />
+                E-mail
+              </TableCell>
+              <TableCell>
+                Расчётный счёт,<br />
+                ОГРН, ИНН, КПП</TableCell>
+              <TableCell>
+                Наименование, Кор. счёт,<br />
+                БИК, ИНН, КПП банка
+              </TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {store.entities.length
-              ? store.entities.map(entity => {
+            {store.filteredEntities.length
+              ? store.filteredEntities.map(entity => {
                 return <TableRow
                   key={entity.id}
                   hover
@@ -86,21 +108,23 @@ const FranchisingPage = observer(() => {
                     {entity.fullName && <><Typography variant="caption">{entity.fullName || ""}</Typography><br /></>}
                     <Typography variant="caption">{entity.shortName || ""}</Typography>
                   </TableCell>
-                  <TableCell><Typography variant="caption">{entity.city || "—"}</Typography></TableCell>
-                  <TableCell><Typography variant="caption">{entity.legalAddress || "—"}</Typography></TableCell>
+                  <TableCell>
+                    <Typography variant="caption">Город: {entity.city || "—"}</Typography><br />
+                    <Typography variant="caption">Юр. адрес: {entity.legalAddress || "—"}</Typography>
+                  </TableCell>
                   <TableCell>
                     <Typography variant="caption">Телефон: {entity.phone || "—"}</Typography><br />
                     <Typography variant="caption">E-mail: {entity.email || "—"}</Typography>
                   </TableCell>
                   <TableCell>
+                    <Typography variant="caption">Расчётный счёт: {entity.checkingAccount || "—"}</Typography><br />
                     <Typography variant="caption">ОГРН: {entity.ogrn || "—"}</Typography><br />
                     <Typography variant="caption">ИНН: {entity.inn || "—"}</Typography><br />
                     <Typography variant="caption">КПП: {entity.kpp || "—"}</Typography>
                   </TableCell>
-                  <TableCell><Typography variant="caption">{entity.checkingAccount || "—"}</Typography></TableCell>
-                  <TableCell><Typography variant="caption">{entity.bankBill || "—"}</Typography></TableCell>
-                  <TableCell><Typography variant="caption">{entity.bankName || "—"}</Typography></TableCell>
                   <TableCell>
+                    <Typography variant="caption">Наименование: {entity.bankName || "—"}</Typography><br />
+                    <Typography variant="caption">Корр. счёт банка: {entity.bankBill || "—"}</Typography><br />
                     <Typography variant="caption">БИК: {entity.bankBik || "—"}</Typography><br />
                     <Typography variant="caption">ИНН: {entity.bankInn || "—"}</Typography><br />
                     <Typography variant="caption">КПП: {entity.bankKpp || "—"}</Typography>
@@ -126,7 +150,7 @@ const FranchisingPage = observer(() => {
                 </TableRow>
               })
               : <TableRow>
-                <TableCell colSpan={10}>Данные отсутствуют...</TableCell>
+                <TableCell colSpan={6}>Данные отсутствуют...</TableCell>
               </TableRow>}
           </TableBody>
         </Table>

@@ -33,6 +33,8 @@
     "no-ex-assign": "off",
     "no-restricted-syntax": "off",
     "no-await-in-loop": "off",
+    "import/no-named-default": "off",
+    "no-return-assign": "off",
     "no-unused-expressions": "off",
     "no-magic-numbers": "off",
     "default-param-last": "off",

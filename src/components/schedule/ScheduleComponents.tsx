@@ -86,7 +86,9 @@ export const Toolbar: FC<ToolbarProps> = props => {
               <Button variant="none" size="small" onClick={() => setIsVisible(!isVisible)}>
                 Добавить группу
               </Button>
-              <Button variant="none" size="small" >+ Добавить</Button>
+              <Button variant="none" size="small">
+                + Добавить
+              </Button>
               <Button variant="none" size="small" onClick={() => onNavigate('PREV', date)}>
                 Предыдущая
               </Button>

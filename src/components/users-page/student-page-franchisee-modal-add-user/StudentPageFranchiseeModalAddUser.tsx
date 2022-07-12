@@ -20,9 +20,6 @@ import Image from 'components/image/Image';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
 import TextField from 'components/text-field/TextField';
-import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
-import StudentPageTitle from 'components/users-page/student-page-title/StudentPageTitle';
-import StudentParentsForm from 'components/users-page/student-parents-form/StudentParentsForm';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import avatar from 'public/img/avatarDefault.png';
 
@@ -66,6 +63,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   const [isLoaded, setIsLoaded] = useState(false);
   const [isParentShown, setIsParentShown] = useState(false);
   const [studentId, setStudentId] = useState('');
+  const [selectedRole1, setSelectedRole1] = useState<Roles>();
   // const [groupOptions, setGroupOptions] = useState<Option[]>([]);
 
   let selectedRole = '';
@@ -95,12 +93,12 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     sex: yup.object().required('Обязательное поле'),
     city: yup.string().required('Обязательное поле'),
     phone:
-      selectedRole === Roles.Student
+      selectedRole1 === Roles.Student
         ? yup.string().notRequired()
         : yup.string().required('Обязательное поле'),
     birthdate: yup.string().required('Обязательное поле'),
     email:
-      selectedRole === Roles.Student
+      selectedRole1 === Roles.Student
         ? yup.string().notRequired()
         : yup.string().required('Обязательное поле').email(),
     // group: yup.object().required('Обязательное поле'),
@@ -116,7 +114,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   selectedRole = watch('role').value;
-
+  console.log(selectedRole);
   // useEffect(() => {
   //   if (groups.length) {
   //     setGroupOptions(groups.map(el => ({ label: el.code, value: el.id })));
@@ -204,7 +202,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
 
   return (
     <div className={styles.wrapper}>
-      <StudentPageTitle>Добавление/изменение пользователя</StudentPageTitle>
+      <h2>Добавление/изменение пользователя</h2>
       <div className={styles.row}>
         <div className={styles.imageWrapper}>
           <Image src={avatar} width="290" height="290" alt="student" />
@@ -245,6 +243,10 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
               render={({ field }) => (
                 <CustomSelect
                   {...field}
+                  onChange={e => {
+                    setSelectedRole1(e.value as Roles)
+                    field.onChange(e);
+                  }}
                   title="Роль"
                   options={roleOptions}
                   // @ts-ignore
@@ -262,16 +264,28 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                 control={control}
               />
             )}
-            <div className={styles.infoItem}>
+            {/* <div className={styles.infoItem}>
               <span>Дата рождения:</span>
               <Controller
                 name="birthdate"
                 render={({ field }) => (
-                  <TextFieldCalendar {...field} dataAuto="" value="01.01.2000" /> // todo value="01.01.2000" for dev
+                  <TextFieldCalendar
+                    {...field}
+                    dataAuto=""
+                    value="01.01.2000"
+                    onChange={e => console.log(e)}
+                  /> // todo value="01.01.2000" for dev
                 )}
                 control={control}
               />
-            </div>
+            </div> */}
+            <Controller
+              name="birthdate"
+              render={({ field }) => (
+                <TextField {...field} label="Дата рождения:" /> // todo value="01.01.2000" for dev
+              )}
+              control={control}
+            />
             {selectedRole !== Roles.Student && (
               <Controller
                 name="email"
@@ -315,11 +329,13 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
           </form>
         </div>
       </div>
-      <Divider />
-      <StudentPageTitle>Родители ученика*</StudentPageTitle>
 
       {isParentShown && studentId && (
-        <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
+        <>
+          <Divider />
+          <h2 className={styles.parentTitle}>Родители ученика*</h2>
+          <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
+        </>
       )}
     </div>
   );

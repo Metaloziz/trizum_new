@@ -44,3 +44,18 @@
   justify-content: center;
   align-items: flex-start;
 }
+
+.title {
+  margin-bottom: 30px;
+  font-family: 'Aqum', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 17px;
+  text-align: center;
+  color: #0439AD;
+
+  @media (max-width: 550px) {
+    font-size: 14px;
+  }
+}

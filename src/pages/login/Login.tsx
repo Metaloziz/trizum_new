@@ -107,7 +107,7 @@ const Login = () => {
       {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}
       <div className={styles.flexCol}>
         <Button onClick={onClick}>login</Button>
-        <Button type="addUser" onClick={() => setShowModal1(true)}>
+        <Button variant="addUser" onClick={() => setShowModal1(true)}>
           Модалка временно для логина
         </Button>
       </div>
@@ -149,7 +149,7 @@ const Login = () => {
             <div className={styles.blockErorr} />
           )}
           <div>
-            <Button onClick={sendCode}>Подтвердить изменения</Button>
+            <Button onClick={sendCode}>Отправить</Button>
             <div>
               {seconds !== 150 && seconds !== 0 ? (
                 <p className={styles.textErorr}>

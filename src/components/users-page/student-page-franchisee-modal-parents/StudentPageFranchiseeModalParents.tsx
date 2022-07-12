@@ -4,11 +4,10 @@ import styles from './StudentPageFranchiseeModalParents.module.scss';
 
 import Button from 'components/button/Button';
 import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
-import StudentPageTitle from 'components/users-page/student-page-title/StudentPageTitle';
 
 const StudentPageFranchiseeModalParents = () => (
   <div className={styles.wrapper}>
-    <StudentPageTitle>Родители ученика*</StudentPageTitle>
+    <h2>Родители ученика*</h2>
     {/* <StudentParents /> */}
     <div className={styles.buttonAddParent}>
       <ButtonAddParent />

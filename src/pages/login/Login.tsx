@@ -71,7 +71,7 @@ const Login = () => {
     setShowModal1(false);
     setShowModal2(true);
     setShowModal(false);
-    setSeconds(150);
+    setSeconds(140);
     setTimerActive(!timerActive);
     const getSMSCode = await authService.sms({ phone });
     console.log('код по смс', getSMSCode);
@@ -101,6 +101,7 @@ const Login = () => {
     setShowModal2(false);
     setShowModal(true);
     setTimerActive(false);
+    setErorr(false);
   };
   return (
     <div className={styles.flex}>

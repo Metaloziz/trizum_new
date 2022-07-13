@@ -7,6 +7,7 @@ import styles from './Pagination.module.scss';
 import { usePagination } from 'hooks/usePagination';
 
 const DOTS = '...';
+
 type Props = {
   totalCount: number;
   currentPage: number | string;
@@ -16,9 +17,14 @@ type Props = {
   onPageChange: (num: number) => void;
 };
 
-const Pagination: FC<Props> = props => {
-  const { onPageChange, pageSize, currentPage, siblingCount = 1, totalCount, className } = props;
-
+const Pagination: FC<Props> = ({
+  onPageChange,
+  pageSize,
+  currentPage,
+  siblingCount = 1,
+  totalCount,
+  className,
+}) => {
   const paginationRange = usePagination({
     currentPage,
     totalCount,
@@ -52,7 +58,11 @@ const Pagination: FC<Props> = props => {
       </li>
       {paginationRange.map(pageNumber => {
         if (pageNumber === DOTS) {
-          return <li className={styles.dots}>&#8230;</li>;
+          return (
+            <li key={pageNumber} className={styles.dots}>
+              &#8230;
+            </li>
+          );
         }
 
         return (

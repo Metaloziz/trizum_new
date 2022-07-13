@@ -29,7 +29,7 @@ $navigation-link-font-map: (
   font-weight: 600;
   background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  //-webkit-text-fill-color: transparent;
   display: flex;
   align-items: center;
   height: 52px;
@@ -41,7 +41,7 @@ $navigation-link-font-map: (
 }
 
 .activeLink {
-  background: $color-purple;
+  background: rgba(0, 184, 217, 0.12);
 }
 
 .linkWrapper {

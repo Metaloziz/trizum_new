@@ -219,9 +219,7 @@ const StudentParentsForm: FC<Props> = ({
           <Controller
             name="isMain"
             control={control}
-            render={(
-              { field: { value, ...props } }, // todo Controller + checkbox. Выделил Value так как оно не подходит для checkbox
-            ) => (
+            render={({ field: { value, ...props } }) => (
               <div className={styles.selectWrapper}>
                 <div className={styles.label}>
                   <label>

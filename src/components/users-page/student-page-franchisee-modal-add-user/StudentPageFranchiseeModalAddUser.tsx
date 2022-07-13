@@ -55,6 +55,7 @@ const roleOptions = [
   { label: RoleNames.methodist, value: Roles.Methodist },
   { label: RoleNames.admin, value: Roles.Admin },
 ];
+
 const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
 
 const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
@@ -81,11 +82,13 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     sex: findSex() || sexOptions[0],
     city: user?.city || '',
     phone: user?.phone || '',
-    birthdate: '01.01.2000', // todo как установить дату от юзера, так как при записи user?.birthdate ?
+    birthdate: user?.birthdate?.date || '01.01.2000', // todo как установить дату от юзера, так как при записи user?.birthdate ?
     email: user?.email || '',
     // group: undefined,
     // teacher: '',
   };
+
+  console.log(user);
 
   const schema = yup.object().shape({
     firstName: yup.string().required('Обязательное поле'),
@@ -116,17 +119,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   selectedRole = watch('role').value;
-
-  const checkSex = (value: boolean | null): SexEnum => {
-    // todo зачем это ?
-    if (value) {
-      return SexEnum.Male;
-    }
-    if (typeof value === 'boolean' && !value) {
-      return SexEnum.Female;
-    }
-    return SexEnum.Male;
-  };
 
   const onSubmit: SubmitHandler<AddUserT> = async values => {
     const newUserData: RequestRegister = {

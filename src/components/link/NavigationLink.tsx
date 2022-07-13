@@ -28,18 +28,18 @@ const Navigation: FC<Props> = ({
   // const isActive = router.asPath === href;
   return (
     <div className={wrapperClassName}>
-      {/* <NavLink to={link.href} className={({isActive})=>cn(className, isActive && activeClassName)}> */}
       <NavLink
         to={href}
         className={({ isActive }) => `${className} ${isActive && activeClassName}`}
+        onClick={onClick}
       >
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a className={cn(className)} onClick={onClick}>
-          <div className={cn(styles.imageBlock, imageClassName)}>
-            <Image src={imageSrc} width={40} height={40} alt={label} />
-          </div>
-          {label}
-        </a>
+        {/* <a className={cn(className)} onClick={onClick}> */}
+        <div className={cn(styles.imageBlock, imageClassName)}>
+          <Image src={imageSrc} width={40} height={40} alt={label} />
+        </div>
+        <span>{label}</span>
+        {/* </a> */}
       </NavLink>
     </div>
   );

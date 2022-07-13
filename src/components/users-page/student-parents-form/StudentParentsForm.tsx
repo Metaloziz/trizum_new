@@ -5,10 +5,11 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { SexEnum } from 'app/enums/CommonEnums';
+import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
-import { RequestParenting } from 'app/types/UserTypes';
+import { ParentT, RequestParenting } from 'app/types/UserTypes';
 import iconMedal from 'assets/svgs/medal.svg';
 import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
@@ -29,6 +30,7 @@ type Props = {
   isMainParent: boolean;
   setIsMainParent: (value: boolean, id: number) => void;
   setIsSubmitSuccessful: (isSuccess: boolean, id: number) => void;
+  parent?: ParentT;
 };
 
 type CreateParentPayloadT = Omit<
@@ -42,7 +44,11 @@ const StudentParentsForm: FC<Props> = ({
   id,
   isMainParent,
   setIsMainParent,
+  parent,
 }) => {
+  const { createUser } = usersStore;
+  const { updateUser } = usersService;
+
   const [isDisable, setIsDisable] = useState(false);
 
   const handlerRadioChange = () => {
@@ -64,15 +70,15 @@ const StudentParentsForm: FC<Props> = ({
   });
 
   const defaultValues = {
-    firstName: 'qwe',
-    middleName: 'qwe', // todo for dev
-    lastName: 'qwe',
-    city: 'Moscow',
-    phone: '8029',
-    email: 'asf@asdasdas.by',
+    firstName: parent?.parent.firstName || 'qwe',
+    middleName: parent?.parent.middleName || 'qwe', // todo for dev
+    lastName: parent?.parent.lastName || 'qwe',
+    city: parent?.parent.city || 'Moscow',
+    phone: parent?.parent.phone || '8029',
+    email: parent?.parent.email || 'asf@asdasdas.by',
     birthdate: '01.01.2000',
-    sex: sexOptions[0],
-    isMain: false,
+    sex: sexOptions[0], // todo how to set value from props ?
+    isMain: parent?.isMain || false,
     // group: undefined,
     // teacher: '',
   };
@@ -112,7 +118,14 @@ const StudentParentsForm: FC<Props> = ({
 
     try {
       setIsDisable(true);
-      const res = await usersStore.createUser(data);
+
+      let res;
+
+      if (parent) {
+        res = await updateUser(data, parent.parent.id); // todo так вообще норм писать ?
+      } else {
+        res = await createUser(data);
+      }
       if (res) {
         const newParent: RequestParenting = {
           parentId: res.id,

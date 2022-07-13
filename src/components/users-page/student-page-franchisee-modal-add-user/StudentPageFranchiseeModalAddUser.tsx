@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
 import { SexEnum } from 'app/enums/CommonEnums';
+import usersService from 'app/services/usersService';
 import { RoleNames, Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
 import usersStore from 'app/stores/usersStore';
@@ -59,6 +60,7 @@ const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
 const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
   const { getGroups, groups } = groupStore;
   const { createUser, currentUser } = usersStore;
+  const { updateUser } = usersService;
   const [image, setImage] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
   const [isParentShown, setIsParentShown] = useState(false);
@@ -79,7 +81,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     sex: findSex() || sexOptions[0],
     city: user?.city || '',
     phone: user?.phone || '',
-    birthdate: '01.01.2000', // todo как установить дату от юзера ?
+    birthdate: '01.01.2000', // todo как установить дату от юзера, так как при записи user?.birthdate ?
     email: user?.email || '',
     // group: undefined,
     // teacher: '',
@@ -114,52 +116,9 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   selectedRole = watch('role').value;
-  console.log(selectedRole);
-  // useEffect(() => {
-  //   if (groups.length) {
-  //     setGroupOptions(groups.map(el => ({ label: el.code, value: el.id })));
-  //   }
-  // }, [groups]);
-
-  // useEffect(() => {
-  // debugger
-  // if (user) {
-  // const userRole = roleOptions.filter(el => el.label === user.roleCode)[0];
-  // const userCity = user.city
-  //   ? citiesOptions.filter(el => el.label === user.city)[0]
-  //   : citiesOptions[0];
-  // const userSex = sexOptions.find(el => el.label === checkSex(user.sex));
-  //
-  // reset({
-  //   phone: user.phone ?? '',
-  //   role: userRole,
-  //   city: userCity,
-  //   lastName: user.lastName,
-  //   middleName: user.middleName ?? '',
-  //   sex: userSex,
-  //   birthdate: moment(user.birthdate.date).format(DateTime.DdMmYyyy),
-  //   email: user.email ?? '',
-  //   firstName: user.firstName,
-  // });
-  //   }
-  // }, [user]);
-
-  // const load = async () => {
-  //   try {
-  //     const res = await getGroups();
-  //     // setGroupOptions(res.map(el => ({ label: el.code, value: el.id })));
-  //   } catch (e) {
-  //     console.warn(e);
-  //   } finally {
-  //     setIsLoaded(true);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   load();
-  // }, []);
 
   const checkSex = (value: boolean | null): SexEnum => {
+    // todo зачем это ?
     if (value) {
       return SexEnum.Male;
     }
@@ -170,7 +129,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   };
 
   const onSubmit: SubmitHandler<AddUserT> = async values => {
-    const newPerson: RequestRegister = {
+    const newUserData: RequestRegister = {
       sex: (values.sex?.label as SexEnum) === SexEnum.Male,
       // todo: грузить франчайзи
       franchiseId: '1ecf563a-2a69-6610-a812-f92a3af0f8be',
@@ -187,7 +146,13 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       isSecondChild: false,
     };
 
-    const res = await createUser(newPerson);
+    let res;
+
+    if (user) {
+      res = await updateUser(newUserData, user.id); // todo так вообще норм писать ?
+    } else {
+      res = await createUser(newUserData);
+    }
 
     if ((values.role.value as Roles) !== Roles.Student) {
       onCloseModal();
@@ -244,7 +209,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                 <CustomSelect
                   {...field}
                   onChange={e => {
-                    setSelectedRole1(e.value as Roles)
+                    setSelectedRole1(e.value as Roles);
                     field.onChange(e);
                   }}
                   title="Роль"
@@ -329,13 +294,15 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
           </form>
         </div>
       </div>
-
+      {user?.parents && (
+        <StudentParentsFormContainer
+          studentId={studentId}
+          onCloseModal={onCloseModal}
+          parents={user.parents}
+        />
+      )}
       {isParentShown && studentId && (
-        <>
-          <Divider />
-          <h2 className={styles.parentTitle}>Родители ученика*</h2>
-          <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
-        </>
+        <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
       )}
     </div>
   );

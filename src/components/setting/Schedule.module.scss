@@ -1,0 +1,32 @@
+  .container {
+    //   position:absolute;
+      height: 60vh;
+      width: 40vw;
+      padding: 40px;
+  }
+  
+  .containerCropper {
+      height: 90%;
+      padding: 10px;
+  }
+  
+  .cropper {
+      height: 90%;
+      position: relative;
+  }
+  
+  .slider {
+      height: 10%;
+      display: flex;
+      align-items: center;
+      margin: auto;
+      width: 60%;
+  }
+  
+  .containerButtons {
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  

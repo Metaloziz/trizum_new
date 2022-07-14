@@ -61,3 +61,7 @@ export type RequestRegister = {
   tariffId?: string;
   isSecondChild?: boolean;
 };
+
+export type ResponseAvatar = {
+  image: string;
+};

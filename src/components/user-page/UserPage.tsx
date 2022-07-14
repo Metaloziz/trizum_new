@@ -2,34 +2,44 @@ import { FC, useState } from 'react';
 
 import styles from './UserPage.module.scss';
 
-import user from 'assets/svgs/user.svg';
+// import user from 'assets/svgs/user.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 import InformationItem from 'components/information-item/InformationItem';
 import Setting from 'components/setting/Setting';
 
+import appStore from 'app/stores/appStore'
+
 interface Props {
   id?: string;
 }
 
+
+
 const UserPage: FC<Props> = ({ id }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const {user} = appStore
+
+  console.log('ffffff', user)
+  console.log ('sdsd', user?.avatar?.path)
   const fake = () => {};
   return (
     <div className={styles.container}>
       <div>
         <div className={styles.wrapperUser}>
           <div className={styles.userPic}>
-            <Image src={user} width="126" height="126" alt="user" />
+            <Image src={`https://backschool.sitetopic.ru${user?.avatar?.path}`} width="126" height="126" alt="user" />
           </div>
-          <div className={styles.userSetting} onClick={() => setShowModal(true)}>
+          <div className={styles.userSetting}>
+            {/* <div className={styles.userSetting} onClick={() => setShowModal(true)}> */}
+
             <Setting />
           </div>
         </div>
       </div>
       <div className={styles.userData}>
-        <h2>Днепровский Александр Алексеевич</h2>
+        <h2>{`${user.firstName} ${user.middleName} ${user.lastName}`}</h2>
         <div className={styles.labelBlock}>
           <label htmlFor={id}>Телефон:</label>
           <InformationItem id={id} variant="input" onChange={fake} />

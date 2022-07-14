@@ -44,6 +44,7 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.14.7",
+    "react-easy-crop": "^4.4.0",
     "react-hook-form": "^7.32.2",
     "react-loader-spinner": "^5.1.5",
     "react-number-format": "^4.9.3",

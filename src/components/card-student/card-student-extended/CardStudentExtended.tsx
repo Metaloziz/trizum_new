@@ -129,7 +129,7 @@ const CardStudentExtended: FC<Props> = ({
         </div>
         <div className={styles.buttonWrapper}>
           {roleCode === Roles.Student && (
-            <Button variant="parents" size="small" onClick={() => modals.changeParents()}>
+            <Button variantType="parents" size="small" onClick={() => modals.changeParents()}>
               Родители
             </Button>
           )}

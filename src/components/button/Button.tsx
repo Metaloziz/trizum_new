@@ -1,10 +1,8 @@
 import React, { FC, ReactElement, useState } from 'react';
 
-import Button from '@mui/material/Button';
+import Button, { ButtonProps } from '@mui/material/Button';
 import cn from 'classnames';
-import { motion } from 'framer-motion';
 
-import { DefaultButtonProps } from 'app/types/DefaultButtonProps';
 import buttonImage from 'assets/svgs/arrow-btn.svg';
 import iconExelHover from 'assets/svgs/btn-excel-hover.svg';
 import iconExel from 'assets/svgs/btn-excel.svg';
@@ -29,12 +27,12 @@ type ButtonSize = 'large' | 'small' | 'thin';
 type Props = {
   children?: React.ReactNode;
   size?: ButtonSize;
-  variant?: ButtonVariantType;
+  variantType?: ButtonVariantType;
   onClick?: () => void;
-} & DefaultButtonProps;
+} & ButtonProps;
 
 const Button1: FC<Props> = props => {
-  const { children, disabled, size, variant, onClick, ...rest } = props;
+  const { children, disabled, size, variantType, onClick, ...rest } = props;
   const [isShowHover, setShowHover] = useState<boolean>(false);
   let iconButton: ReactElement;
   let sx = {
@@ -94,7 +92,7 @@ const Button1: FC<Props> = props => {
     width: '200px',
     height: '70px',
   };
-  switch (variant) {
+  switch (variantType) {
     case 'parents':
       sx = { ...sx, ...parents };
       iconButton = <Image src={iconParents} alt="parents" width={20} height={16} />;
@@ -155,7 +153,7 @@ const Button1: FC<Props> = props => {
       disabled={disabled}
     >
       {children}
-      {variant !== 'none' && (
+      {variantType !== 'none' && (
         <span
           className={cn(
             styles.arrowBtn,

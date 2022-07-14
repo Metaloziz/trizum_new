@@ -6,7 +6,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import {
   Alert,
   Box,
-  Button,
   IconButton,
   Paper,
   Snackbar,
@@ -25,6 +24,7 @@ import { AddOrEditDialog } from './AddOrEditDialog';
 import { Filter } from './Filter';
 import { LoadingIndicator } from './ui/LoadingIndicator';
 
+import Button from 'components/button/Button';
 import { FranchisingStore } from 'components/franchising-page/stores';
 
 const FranchisingPage = observer(() => {

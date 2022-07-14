@@ -9,7 +9,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Button,
   Grid,
   Paper,
   Stack,
@@ -23,6 +22,7 @@ import { numberWithoutLeadingZero } from './helpers/numberWithoutLeadingZero';
 import { FranchisingFilterViewModel } from './models/FranchisingFilterViewModel';
 
 import { Nullable } from 'app/types/Nullable';
+import Button from 'components/button/Button';
 
 interface FilterProps {
   onChange: (filter: Nullable<FranchisingFilterViewModel>) => void;

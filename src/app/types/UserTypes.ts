@@ -3,8 +3,8 @@ import { TimeZoneType } from 'app/types/AuthTypes';
 
 export type RequestUsersParams = {
   role?: Roles;
-  page?: string | number;
-  perPage?: string;
+  page?: number;
+  perPage?: number;
 };
 
 export type RequestCreateUser = {
@@ -49,7 +49,7 @@ export type ResponseUserT = {
 
 export type FullResponseUserT = {
   page: string;
-  perPage: string;
+  perPage: number;
   total: number;
   items: ResponseUserT[];
 };

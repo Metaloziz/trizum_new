@@ -5,9 +5,7 @@ import modals from '../../../app/stores/CardStudentExtended';
 import styles from './CardStudentExtended.module.scss';
 
 import { RoleNames, Roles } from 'app/stores/appStore';
-import UsersStore from 'app/stores/usersStore';
-import { ResponseUserT } from 'app/types/UserTypes';
-import SetStatusButton from 'components/button-open-close/SetStatusButton';
+import { ResponseOneUser, ResponseUserT } from 'app/types/UserTypes';
 import Button from 'components/button/Button';
 import { EditUserIcon } from 'components/card-student/card-student-extended/edit-user-icon/EditUserIcon';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
@@ -17,6 +15,7 @@ import mockAvatar from 'public/img/avatarDefault.png';
 type Props = {
   user: ResponseUserT;
   onEditUserClick: (id: string) => void;
+  getOneUser: (id: string) => Promise<ResponseOneUser | undefined>;
 };
 
 const CardStudentExtended: FC<Props> = ({
@@ -34,11 +33,10 @@ const CardStudentExtended: FC<Props> = ({
     roleCode,
     franchise,
   },
+  getOneUser,
   // onEditUserClick,
 }) => {
   const [isShow, setShow] = useState<boolean>(false);
-
-  const { getOneUser } = UsersStore;
 
   const name = `${middleName ?? ''} ${firstName ?? ''} ${lastName ?? ''}`.trim();
 

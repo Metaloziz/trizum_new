@@ -2,34 +2,38 @@ import { FC, useState } from 'react';
 
 import styles from './UserPage.module.scss';
 
-// import user from 'assets/svgs/user.svg';
+import appStore from 'app/stores/appStore';
+import gag from 'assets/svgs/user.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 import InformationItem from 'components/information-item/InformationItem';
 import Setting from 'components/setting/Setting';
 
-import appStore from 'app/stores/appStore'
-
 interface Props {
   id?: string;
 }
 
-
-
 const UserPage: FC<Props> = ({ id }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const {user} = appStore
-
-  console.log('ffffff', user)
-  console.log ('sdsd', user?.avatar?.path)
+  const { user } = appStore;
   const fake = () => {};
   return (
     <div className={styles.container}>
       <div>
         <div className={styles.wrapperUser}>
           <div className={styles.userPic}>
-            <Image src={`https://backschool.sitetopic.ru${user?.avatar?.path}`} width="126" height="126" alt="user" />
+            {user?.avatar !== null ? (
+              <Image
+                className={styles.avatarImage}
+                src={`https://backschool.sitetopic.ru${user?.avatar?.path}`}
+                width="320"
+                height="320"
+                alt="user"
+              />
+            ) : (
+              <Image src={gag} width="126" height="126" alt="user" />
+            )}
           </div>
           <div className={styles.userSetting}>
             {/* <div className={styles.userSetting} onClick={() => setShowModal(true)}> */}

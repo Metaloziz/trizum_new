@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useState } from 'react';
 
+import Button from '@mui/material/Button';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 
@@ -32,21 +33,78 @@ type Props = {
   onClick?: () => void;
 } & DefaultButtonProps;
 
-const Button: FC<Props> = ({ children, size, variant, onClick, ...props }) => {
+const Button1: FC<Props> = props => {
+  const { children, disabled, size, variant, onClick, ...rest } = props;
   const [isShowHover, setShowHover] = useState<boolean>(false);
   let iconButton: ReactElement;
-  let typeButtonStyle: string;
+  let sx = {
+    background: '#2675F6',
+    fontFamily: 'Montserrat',
+    padding: '16px 58px 17px 18px',
+    color: '#fff',
+    borderRadius: '25px',
+    fontWeight: 700,
+    fontSize: '14px',
+    lineHeight: '17px',
+    cursor: 'pointer',
+    textTransform: 'none!important',
+    transition: 'background .3s ease-in',
+    '&:hover': {
+      background: '#38028F',
+    },
+    '&:disabled': {
+      background: '#8A8A8A',
+    },
+  };
+  const none = {
+    padding: '7px 18px',
+  };
+  const primary = {
+    background: '#292EF9',
+  };
+  const addExelOrUser = {
+    background: '#7F28D9',
+    '&:hover': {
+      background: '#2E8EFE',
+    },
+  };
+  const bigButton = {
+    background: '#292EF9',
+    borderRadius: '90px',
+    textTransform: 'uppercase',
+    '&:hover': {
+      background: '#2E8EFE',
+    },
+  };
+  const parents = {
+    background: '#B4DEFF',
+    color: '#38028F',
+    '&:hover': {
+      background: '#72CEF3',
+    },
+  };
+  const small = {
+    padding: '12px 58px 11px 18px',
+  };
+  const thin = {
+    padding: '7px 70px 7px 18px',
+    maxHeight: '30px',
+  };
+  const large = {
+    width: '200px',
+    height: '70px',
+  };
   switch (variant) {
     case 'parents':
-      typeButtonStyle = styles.parents;
+      sx = { ...sx, ...parents };
       iconButton = <Image src={iconParents} alt="parents" width={20} height={16} />;
       break;
     case 'bigButton':
-      typeButtonStyle = styles.bigButton;
+      sx = { ...sx, ...bigButton };
       iconButton = <Image src={buttonImage} alt="arrow" width={36} height={19} />;
       break;
     case 'addUser':
-      typeButtonStyle = styles.addUser;
+      sx = { ...sx, ...addExelOrUser };
       iconButton = isShowHover ? (
         <Image src={iconPlusHover} alt="plus" width={18} height={18} />
       ) : (
@@ -54,7 +112,7 @@ const Button: FC<Props> = ({ children, size, variant, onClick, ...props }) => {
       );
       break;
     case 'addExel':
-      typeButtonStyle = styles.addExel;
+      sx = { ...sx, ...addExelOrUser };
       iconButton = isShowHover ? (
         <Image src={iconExelHover} alt="exel" width={14} height={19} />
       ) : (
@@ -62,61 +120,55 @@ const Button: FC<Props> = ({ children, size, variant, onClick, ...props }) => {
       );
       break;
     case 'primary':
-      typeButtonStyle = styles.primary;
+      sx = { ...sx, ...primary };
       iconButton = <Image src={smallArrow} alt="arrow" width={16} height={10} />;
       break;
     case 'none':
-      typeButtonStyle = '';
+      sx = { ...sx, ...none };
       iconButton = <></>;
       break;
     default:
-      typeButtonStyle = '';
+      sx = { ...sx, ...primary };
       iconButton = <Image src={buttonImage} alt="arrow" width={26} height={13} />;
   }
-  let sizeButton;
 
   switch (size) {
     case 'small':
-      sizeButton = styles.small;
+      sx = { ...sx, ...small };
       break;
     case 'large':
-      sizeButton = styles.large;
+      sx = { ...sx, ...large };
       break;
     case 'thin':
-      sizeButton = styles.thin;
+      sx = { ...sx, ...thin };
       break;
     default:
-      sizeButton = '';
+      sx = { ...sx };
   }
 
-  // @ts-ignore
   return (
-    <motion.button
-      // whileHover={{
-      //   background: 'linear-gradient(90deg, #0439AD 0%, #38028F 100%)',
-      //   transition: {
-      //     delay: 0.2,
-      //     ease: [0.17, 0.67, 0.83, 0.67],
-      //     duration: 0.5,
-      //   },
-      // }}
-      {...props}
-      className={cn(styles.Button, variant === 'none' && styles.none, typeButtonStyle, sizeButton)}
+    <Button
+      sx={sx}
       onClick={onClick}
       onMouseOver={() => setShowHover(true)}
       onMouseOut={() => setShowHover(false)}
+      disabled={disabled}
     >
-      {variant !== 'none' && <span className={styles.arrowBtn}>{iconButton}</span>}
       {children}
-    </motion.button>
+      {variant !== 'none' && (
+        <span
+          className={cn(
+            styles.arrowBtn,
+            size === 'large' && styles.arrowBtnL,
+            size === 'small' && styles.arrowBtnS,
+            size === 'thin' && styles.arrowBtnT,
+          )}
+        >
+          {iconButton}
+        </span>
+      )}
+    </Button>
   );
 };
 
-Button.defaultProps = {
-  children: undefined,
-  size: 'small',
-  variant: 'arrow',
-  onClick: () => {},
-};
-
-export default Button;
+export default Button1;

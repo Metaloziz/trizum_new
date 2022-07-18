@@ -18,6 +18,7 @@ const UserPage: FC<Props> = ({ id }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { user } = appStore;
   const fake = () => {};
+  console.log('hhhh', user?.avatar);
   return (
     <div className={styles.container}>
       <div>

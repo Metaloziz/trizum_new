@@ -1,20 +1,13 @@
 import React, { useState, useRef, useCallback } from 'react';
 
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  Grid,
-  TextField,
-  Typography,
-  Slider,
-} from '@mui/material';
+import { Button, Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
-import styles from './Schedule.module.scss';
-import authService from 'app/services/authService';
-import { generateDownload } from './utils/cropImage';
-import { Point, Area } from "react-easy-crop/types";
+import { Point, Area } from 'react-easy-crop/types';
 
+import styles from './Schedule.module.scss';
+import { getCroppedImg } from './utils/cropImage';
+
+import authService from 'app/services/authService';
 import settingsHover from 'assets/svgs/settings-hover.svg';
 import settings from 'assets/svgs/settings.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
@@ -23,44 +16,47 @@ import Image from 'components/image/Image';
 export type PresetWithOrderT = { index: number; label: string; value: string };
 
 const Setting = () => {
-  const [isShowHover, setShowHover] = useState(false);
+  const [isShowHover, setShowHover] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
-
+  const [image, setImage] = useState<any>('');
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState<number>(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>();
+  const [error, setError] = useState<boolean>(false);
   const inputRef = useRef<any>();
 
   const triggerFileSelectPopup = () => inputRef.current.click();
 
-  const [image, setImage] = React.useState<any>('');
-  const [croppedArea, setCroppedArea] = React.useState(null);
-  const [crop, setCrop] = React.useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = React.useState<any>(1);
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
 
-  // const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
-	// 	setCroppedArea(croppedAreaPixels);
-	// };
-  const onCropComplete = useCallback(
-    (croppedArea: Area, croppedAreaPixels: Area) => {
-      // console.log(croppedArea, croppedAreaPixels);
-    },
-    []
-  );
-
-  const onSelectFile = (event:any) => {
-		if (event.target.files && event.target.files.length > 0) {
-			const reader = new FileReader();
-			reader.readAsDataURL(event.target.files[0]);
-			reader.addEventListener("load", () => {
-				setImage(reader.result);
-			});
-		}
-	};
-
-  const onDownload =async () => {
-    const res = await authService.аvatar({image:image.split(',')[1]});
-    console.log(res)
+  const onSelectFile = (event: any) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.addEventListener('load', () => {
+        setImage(reader.result);
+      });
+    }
   };
-console.log('image', image)
-// console.log('croppedArea', croppedArea)
+
+  const onDownload = async () => {
+    try {
+      const croppedImage = await getCroppedImg(image, croppedAreaPixels);
+      if (croppedImage) {
+        const res = await authService.аvatar({ image: croppedImage.split(',')[1] });
+        setShowModal(false);
+        console.log(res);
+      } else {
+        throw new Error('фото не загрузилось или что-то пошло не так');
+      }
+    } catch (e) {
+      console.error(e);
+      setError(true);
+    }
+  };
   return (
     <div onMouseOver={() => setShowHover(true)} onMouseOut={() => setShowHover(false)}>
       <div>
@@ -96,33 +92,42 @@ console.log('image', image)
                     max={3}
                     step={0.1}
                     value={zoom}
-                    onChange={(e, zoom) => setZoom(zoom)}
+                    // eslint-disable-next-line @typescript-eslint/no-shadow
+                    onChange={(e, zoom) => setZoom(Number(zoom))}
                   />
                 </div>
               </>
             ) : null}
           </div>
 
-          <div className={styles.containerButtons}>
-            <input
-              type="file"
-              accept="image/*"
-              ref={inputRef}
-              onChange={onSelectFile}
-              style={{ display: 'none' }}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={triggerFileSelectPopup}
-              style={{ marginRight: '10px' }}
-            >
-              Выбрать файл
-            </Button>
-            <Button variant="contained" color="secondary" onClick={onDownload}>
-              Загрузить изображение
-            </Button>
-          </div>
+          {error ? (
+            <p className={styles.errorText}>
+              Фото не загрузилось или что-то пошло не так
+              <br />
+              Обновите страницу
+            </p>
+          ) : (
+            <div className={styles.containerButtons}>
+              <input
+                type="file"
+                accept="image/*"
+                ref={inputRef}
+                onChange={onSelectFile}
+                style={{ display: 'none' }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={triggerFileSelectPopup}
+                style={{ marginRight: '10px' }}
+              >
+                Выбрать файл
+              </Button>
+              <Button variant="contained" color="secondary" onClick={onDownload}>
+                Загрузить изображение
+              </Button>
+            </div>
+          )}
         </div>
       </BasicModal>
     </div>

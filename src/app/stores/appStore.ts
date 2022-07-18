@@ -1,7 +1,10 @@
-import { TimeZoneType } from 'app/types/AuthTypes';
-import { ResponseLoadMe } from './../types/AuthTypes';
-import  authService  from 'app/services/authService';
+/* eslint-disable max-classes-per-file */
 import { makeAutoObservable, runInAction } from 'mobx';
+
+import { ResponseLoadMe } from '../types/AuthTypes';
+
+import authService from 'app/services/authService';
+import { TimeZoneType } from 'app/types/AuthTypes';
 
 export enum Roles {
   /* Ученик */
@@ -40,36 +43,49 @@ export const RoleNames = {
 
 class EmptyUser {
   id;
+
   firstName;
-  middleName:null|string;
+
+  middleName: null | string;
+
   lastName;
+
   email;
+
   phone;
+
   role;
-  franchise:null|string;
-  city:null|string;
-  birthdate:TimeZoneType;
-  sex:null|string;
+
+  franchise: null | string;
+
+  city: null | string;
+
+  birthdate: TimeZoneType;
+
+  sex: null | string;
+
   status;
-  avatar:{id:string,path:string};
-  constructor(){
+
+  avatar: { id: string; path: string };
+
+  constructor() {
     this.id = '';
-    this.firstName='';
-    this.middleName= '' ;
-    this.lastName= '';
-    this.email= '';
-    this.phone= '';
-    this.role= '';
-    this.franchise= '';
-    this.city= '';
-    this.birthdate= {
+    this.firstName = '';
+    this.middleName = '';
+    this.lastName = '';
+    this.email = '';
+    this.phone = '';
+    this.role = '';
+    this.franchise = '';
+    this.city = '';
+    this.birthdate = {
       date: '',
-  timezone_type : 0,
-  timezone: ''
+      timezone_type: 0,
+      timezone: '',
     };
-    this.sex= '';
-    this.status= '';
-    this.avatar= {
+    this.sex = '';
+    this.status = '';
+    this.avatar = {
       id: '',
       path: '',
     };
@@ -93,13 +109,14 @@ class AppStore {
   setToken = (token: string) => {
     this.token = token;
   };
+
   setUser = async () => {
-    const res:ResponseLoadMe = await authService.loadme()
-    runInAction(()=>{
-      this.role = res.role as Roles
-      this.user = res
-    })
-  }
+    const res: ResponseLoadMe = await authService.loadme();
+    runInAction(() => {
+      this.role = res.role as Roles;
+      this.user = res;
+    });
+  };
 }
 
 export default new AppStore();

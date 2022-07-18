@@ -46,9 +46,9 @@ const Login = () => {
       const res1 = await authService.sms({ phone });
       const res2 = await authService.login({ phone, smsCode: res1.code });
       await tokenService.setUser(res2.data.token);
-      // await appStore.setUser()
-      const userData = await authService.loadme();
-      appStore.setRole(userData.role as Roles);
+      await appStore.setUser()
+      // const userData = await authService.loadme();
+      // appStore.setRole(userData.role as Roles);
     } catch (e) {
       console.warn(e);
     }

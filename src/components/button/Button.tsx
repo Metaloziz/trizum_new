@@ -29,7 +29,7 @@ type Props = {
   size?: ButtonSize;
   variantType?: ButtonVariantType;
   onClick?: () => void;
-} & ButtonProps;
+} & Omit<ButtonProps, 'size'>;
 
 const Button1: FC<Props> = props => {
   const { children, disabled, size, variantType, onClick, ...rest } = props;

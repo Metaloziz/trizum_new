@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import styles from './ReportPage.module.scss';
 
@@ -87,7 +87,7 @@ const ReportPage = () => {
                 dataAuto="dateEnd"
               />
               <div className={styles.btnBlock}>
-                <Button variant="addExel">Выгрузить в Excel</Button>
+                <Button variantType="addExel">Выгрузить в Excel</Button>
                 <Button>Найти</Button>
               </div>
             </div>

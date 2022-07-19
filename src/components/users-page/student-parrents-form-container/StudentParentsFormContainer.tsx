@@ -2,18 +2,23 @@ import React, { FC, useEffect, useState } from 'react';
 
 import style from './StudentParentsFormContainer.module.scss';
 
+import { ParentT } from 'app/types/UserTypes';
+import { Divider } from 'components/divider/Divider';
 import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
+import styles from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser.module.scss';
 import StudentParentsForm from 'components/users-page/student-parents-form/StudentParentsForm';
 
 type Props = {
   studentId: string;
   onCloseModal: () => void;
+  parents?: ParentT[];
 };
 
 type ParentsFormStateType = {
   id: number;
   isSuccessSubmit: boolean;
   isMain: boolean;
+  parent?: ParentT;
 };
 
 const MAX_PARENTS_COUNT = 3;
@@ -26,8 +31,20 @@ const INITIAL_PARENT_FORM_STATE: ParentsFormStateType[] = [
   },
 ];
 
-export const StudentParentsFormContainer: FC<Props> = ({ onCloseModal, studentId }) => {
-  const [parentState, setParentState] = useState(INITIAL_PARENT_FORM_STATE);
+const setInitialState = (parents?: ParentT[]): ParentsFormStateType[] => {
+  if (parents) {
+    return parents.map((parent, index) => ({
+      id: index + 1,
+      isSuccessSubmit: false,
+      isMain: parent.isMain,
+      parent,
+    }));
+  }
+  return INITIAL_PARENT_FORM_STATE;
+};
+
+export const StudentParentsFormContainer: FC<Props> = ({ onCloseModal, studentId, parents }) => {
+  const [parentState, setParentState] = useState(() => setInitialState(parents));
 
   const addForm = () => {
     const form: ParentsFormStateType = {
@@ -79,20 +96,25 @@ export const StudentParentsFormContainer: FC<Props> = ({ onCloseModal, studentId
   });
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.forms}>
-        {parentState.map(({ id, isMain }) => (
-          <StudentParentsForm
-            key={id}
-            id={id}
-            isMainParent={isMain}
-            setIsMainParent={setIsMainParent}
-            studentId={studentId}
-            setIsSubmitSuccessful={setIsSuccess}
-          />
-        ))}
+    <div>
+      <Divider />
+      <h2 className={styles.parentTitle}>Родители ученика*</h2>
+      <div className={style.wrapper}>
+        <div className={style.forms}>
+          {parentState.map(({ id, isMain, parent }) => (
+            <StudentParentsForm
+              key={id}
+              id={id}
+              isMainParent={isMain}
+              setIsMainParent={setIsMainParent}
+              studentId={studentId}
+              setIsSubmitSuccessful={setIsSuccess}
+              parent={parent}
+            />
+          ))}
+        </div>
+        <ButtonAddParent onClick={addForm} disabled={parentState.length === MAX_PARENTS_COUNT} />
       </div>
-      <ButtonAddParent onClick={addForm} disabled={parentState.length === MAX_PARENTS_COUNT} />
     </div>
   );
 };

@@ -1,13 +1,14 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react-lite';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
 import { SexEnum } from 'app/enums/CommonEnums';
+import usersService from 'app/services/usersService';
 import { RoleNames, Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
 import usersStore from 'app/stores/usersStore';
@@ -15,13 +16,13 @@ import { RequestRegister } from 'app/types/AuthTypes';
 import { ResponseOneUser } from 'app/types/UserTypes';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
-import { Divider } from 'components/divider/Divider';
 import Image from 'components/image/Image';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
-import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
 import TextField from 'components/text-field/TextField';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import avatar from 'public/img/avatarDefault.png';
+import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
+import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
 
 type Props = {
   onCloseModal: () => void;
@@ -45,7 +46,7 @@ type AddUserT = {
 
 const roleOptions = [
   { label: RoleNames.student, value: Roles.Student },
-  // { label: RoleNames.parent, value: Roles.Parent },
+  { label: RoleNames.parent, value: Roles.Parent },
   { label: RoleNames.teacherEducation, value: Roles.TeacherEducation },
   { label: RoleNames.teacher, value: Roles.Teacher },
   { label: RoleNames.franchiseeAdmin, value: Roles.FranchiseeAdmin },
@@ -54,11 +55,13 @@ const roleOptions = [
   { label: RoleNames.methodist, value: Roles.Methodist },
   { label: RoleNames.admin, value: Roles.Admin },
 ];
+
 const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
 
 const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
   const { getGroups, groups } = groupStore;
   const { createUser, currentUser } = usersStore;
+  const { updateUser } = usersService;
   const [image, setImage] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
   const [isParentShown, setIsParentShown] = useState(false);
@@ -78,24 +81,48 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     role: findRole() || roleOptions[0],
     sex: findSex() || sexOptions[0],
     city: user?.city || '',
-    phone: user?.phone || '',
-    birthdate: '01.01.2000', // todo как установить дату от юзера ?
+    phone: user?.phone || '111111',
+    birthdate: user?.birthdate?.date || '01.01.2000',
     email: user?.email || '',
     // group: undefined,
     // teacher: '',
   };
 
   const schema = yup.object().shape({
-    firstName: yup.string().required('Обязательное поле'),
-    middleName: yup.string().required('Обязательное поле'),
-    lastName: yup.string().required('Обязательное поле'),
+    // todo как добавить задержку при валидации ?
+    firstName: yup
+      .string()
+      .required('Обязательное поле')
+      .matches(REG_NAME, 'допустима только кириллица')
+      .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+      .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+    middleName: yup
+      .string()
+      .required('Обязательное поле')
+      .matches(REG_NAME, 'допустима только кириллица')
+      .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+      .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+    lastName: yup
+      .string()
+      .required('Обязательное поле')
+      .matches(REG_NAME, 'допустима только кириллица')
+      .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+      .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
     role: yup.object().required('Обязательное поле'),
     sex: yup.object().required('Обязательное поле'),
-    city: yup.string().required('Обязательное поле'),
+    city: yup
+      .string()
+      .required('Обязательное поле')
+      .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+      .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
     phone:
       selectedRole1 === Roles.Student
         ? yup.string().notRequired()
-        : yup.string().required('Обязательное поле'),
+        : yup
+            .string()
+            .required('Обязательное поле')
+            .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
+            .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`),
     birthdate: yup.string().required('Обязательное поле'),
     email:
       selectedRole1 === Roles.Student
@@ -111,66 +138,12 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     reset,
     formState: { errors, isSubmitSuccessful },
     watch,
-  } = useForm({ resolver: yupResolver(schema), defaultValues });
+  } = useForm({ resolver: yupResolver(schema), defaultValues, mode: 'onChange' });
 
   selectedRole = watch('role').value;
-  console.log(selectedRole);
-  // useEffect(() => {
-  //   if (groups.length) {
-  //     setGroupOptions(groups.map(el => ({ label: el.code, value: el.id })));
-  //   }
-  // }, [groups]);
 
-  // useEffect(() => {
-  // debugger
-  // if (user) {
-  // const userRole = roleOptions.filter(el => el.label === user.roleCode)[0];
-  // const userCity = user.city
-  //   ? citiesOptions.filter(el => el.label === user.city)[0]
-  //   : citiesOptions[0];
-  // const userSex = sexOptions.find(el => el.label === checkSex(user.sex));
-  //
-  // reset({
-  //   phone: user.phone ?? '',
-  //   role: userRole,
-  //   city: userCity,
-  //   lastName: user.lastName,
-  //   middleName: user.middleName ?? '',
-  //   sex: userSex,
-  //   birthdate: moment(user.birthdate.date).format(DateTime.DdMmYyyy),
-  //   email: user.email ?? '',
-  //   firstName: user.firstName,
-  // });
-  //   }
-  // }, [user]);
-
-  // const load = async () => {
-  //   try {
-  //     const res = await getGroups();
-  //     // setGroupOptions(res.map(el => ({ label: el.code, value: el.id })));
-  //   } catch (e) {
-  //     console.warn(e);
-  //   } finally {
-  //     setIsLoaded(true);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   load();
-  // }, []);
-
-  const checkSex = (value: boolean | null): SexEnum => {
-    if (value) {
-      return SexEnum.Male;
-    }
-    if (typeof value === 'boolean' && !value) {
-      return SexEnum.Female;
-    }
-    return SexEnum.Male;
-  };
-
-  const onSubmit: SubmitHandler<AddUserT> = async values => {
-    const newPerson: RequestRegister = {
+  const onSubmit = handleSubmit(async values => {
+    const newUserData: RequestRegister = {
       sex: (values.sex?.label as SexEnum) === SexEnum.Male,
       // todo: грузить франчайзи
       franchiseId: '1ecf563a-2a69-6610-a812-f92a3af0f8be',
@@ -187,7 +160,13 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       isSecondChild: false,
     };
 
-    const res = await createUser(newPerson);
+    let res;
+
+    if (user) {
+      res = await updateUser(newUserData, user.id); // вынести ?
+    } else {
+      res = await createUser(newUserData);
+    }
 
     if ((values.role.value as Roles) !== Roles.Student) {
       onCloseModal();
@@ -198,7 +177,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       setStudentId(res.id);
       setIsParentShown(true);
     }
-  };
+  });
 
   return (
     <div className={styles.wrapper}>
@@ -209,7 +188,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
           {user && <SetStatusButton status={user?.status} id={user.id} />}
         </div>
         <div className={styles.table}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form>
             <Controller
               name="middleName"
               render={({ field }) => (
@@ -244,12 +223,11 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                 <CustomSelect
                   {...field}
                   onChange={e => {
-                    setSelectedRole1(e.value as Roles)
+                    setSelectedRole1(e.value as Roles);
                     field.onChange(e);
                   }}
                   title="Роль"
                   options={roleOptions}
-                  // @ts-ignore
                   error={errors.role?.message}
                 />
               )}
@@ -302,7 +280,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                   {...field}
                   title="Пол"
                   options={sexOptions}
-                  // @ts-ignore
                   error={errors.sex?.message}
                 />
               )}
@@ -322,20 +299,22 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
             control={control}
           /> */}
             <div className={styles.button}>
-              <Button type="submit" disabled={isSubmitSuccessful}>
+              <Button type="submit" disabled={isSubmitSuccessful} onClick={onSubmit}>
                 Сохранить
               </Button>
             </div>
           </form>
         </div>
       </div>
-
+      {user?.parents && (
+        <StudentParentsFormContainer
+          studentId={studentId}
+          onCloseModal={onCloseModal}
+          parents={user.parents}
+        />
+      )}
       {isParentShown && studentId && (
-        <>
-          <Divider />
-          <h2 className={styles.parentTitle}>Родители ученика*</h2>
-          <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
-        </>
+        <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
+import Pagination from '@mui/material/Pagination';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -10,17 +11,14 @@ import styles from './UsersPage.module.scss';
 import { RoleNames, Roles } from 'app/stores/appStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
-import { ResponseOneUser } from 'app/types/UserTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import CardStudentExtended from 'components/card-student/card-student-extended/CardStudentExtended';
 import InformationItem from 'components/information-item/InformationItem';
-import Pagination from 'components/molecules/Pagination';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
-import StudentPageFranchiseeModalSetting from 'components/users-page/student-page-franchisee-modal-setting/StudentPageFranchiseeModalSetting';
 
 const roleOptions = [
   { label: 'Все', value: 'all' },
@@ -41,7 +39,7 @@ const UsersPage = observer(() => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
   // const [user, setCurrentUser] = useState<ResponseOneUser>();
-  const [currentPage, setCurrentPage] = useState<number | string>(page);
+  const [currentPage, setCurrentPage] = useState<number>(page);
   const [selectedRole, setSelectedRole] = useState<Option>();
 
   const onSelectRole = (option: Option) => {
@@ -57,9 +55,9 @@ const UsersPage = observer(() => {
     getUsers({ role: selectedRole?.value as Roles, page: currentPage });
   };
 
-  const onPageChange = (p: string | number) => {
-    setCurrentPage(p);
-    getUsers({ page: p, role: selectedRole?.value as Roles });
+  const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
+    setCurrentPage(newCurrentPage);
+    getUsers({ page: newCurrentPage - 1, role: selectedRole?.value as Roles });
   };
 
   const onAddUser = (data: RequestRegister) => {
@@ -117,7 +115,7 @@ const UsersPage = observer(() => {
             <Button size="small" onClick={onSearchClick}>
               Найти
             </Button>
-            <Button variant="addUser" size="small" onClick={() => setIsModalOpen(true)}>
+            <Button variantType="addUser" size="small" onClick={() => setIsModalOpen(true)}>
               Добавить пользователя
             </Button>
           </div>
@@ -125,15 +123,25 @@ const UsersPage = observer(() => {
       </div>
       <div className={styles.cardWrapper}>
         {users.map(user => (
-          <CardStudentExtended key={user.id} user={user} onEditUserClick={onEditUserClick} />
+          <CardStudentExtended
+            getOneUser={getOneUser}
+            key={user.id}
+            user={user}
+            onEditUserClick={onEditUserClick}
+          />
         ))}
       </div>
       <div className={styles.pagination}>
         <Pagination
-          totalCount={usersTotalCount}
-          currentPage={currentPage}
-          pageSize={Number(perPage)}
-          onPageChange={onPageChange}
+          count={Math.floor(usersTotalCount / perPage)}
+          color="primary"
+          size="large"
+          page={currentPage}
+          defaultValue={0}
+          // currentPage={currentPage}
+          boundaryCount={1}
+          // pageSize={}
+          onChange={onPageChange}
         />
       </div>
       <BasicModal visibility={modals.isParents} changeVisibility={() => modals.changeParents()}>

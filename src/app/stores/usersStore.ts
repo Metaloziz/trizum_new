@@ -13,11 +13,11 @@ import {
 class UsersStore {
   users: ResponseUserT[] = [];
 
-  usersTotalCount = 0;
+  usersTotalCount = 1;
 
-  page = '1';
+  page = 1;
 
-  perPage = '5';
+  perPage = 5;
 
   currentUser?: ResponseOneUser;
 
@@ -31,7 +31,7 @@ class UsersStore {
       this.users = res.items;
       this.usersTotalCount = res.total;
       this.perPage = res.perPage;
-      this.page = res.page;
+      this.page = Number(res.page);
     });
   };
 
@@ -45,8 +45,6 @@ class UsersStore {
     }
     return undefined;
   };
-
-  editUser = async () => {};
 
   createParenting = async (data: RequestParenting) => {
     try {

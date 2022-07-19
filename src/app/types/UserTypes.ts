@@ -3,8 +3,8 @@ import { TimeZoneType } from 'app/types/AuthTypes';
 
 export type RequestUsersParams = {
   role?: Roles;
-  page?: string | number;
-  perPage?: string;
+  page?: number;
+  perPage?: number;
 };
 
 export type RequestCreateUser = {
@@ -49,19 +49,41 @@ export type ResponseUserT = {
 
 export type FullResponseUserT = {
   page: string;
-  perPage: string;
+  perPage: number;
   total: number;
   items: ResponseUserT[];
 };
 
 export type UserStatusT = 'active' | 'blocked' | 'payed' | 'notPayed';
 
+export type ParentT = {
+  parentingId: string;
+  isMain: boolean;
+  parent: {
+    id: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    avatar: null;
+    role: string;
+    sex: boolean;
+    birthdate: {
+      date: string;
+      timezone_type: number;
+      timezone: string;
+    };
+    city: string;
+    phone: string;
+    email: string;
+  };
+};
+
 export type ResponseOneUser = {
   birthdate: TimeZoneType;
   sex: boolean | null; // male - true
   createdAt: TimeZoneType;
   groups: ResponseOneUserGroupT[];
-  parents: any[];
+  parents: ParentT[];
   tariff: null | any;
   payedUntill: null | any;
   isSecondChild: null | boolean;

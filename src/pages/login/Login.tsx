@@ -130,7 +130,7 @@ const Login = () => {
       {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}
       <div className={styles.flexCol}>
         <Button onClick={onClick}>login</Button>
-        <Button variant="addUser" onClick={() => setShowModal1(true)}>
+        <Button variantType="addUser" onClick={() => setShowModal1(true)}>
           Модалка временно для логина
         </Button>
       </div>

@@ -1,3 +1,8 @@
+NavLink {
+  color: black;
+}
+
+
 .imageBlock {
   width: 40px;
   height: 40px;
@@ -6,5 +11,6 @@
   > span {
     width: 40px !important;
     height: 40px !important;
+    color: black;
   }
 }

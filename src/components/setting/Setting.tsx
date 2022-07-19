@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 
-import { Button, Slider } from '@mui/material';
+import { Slider } from '@mui/material';
 import Cropper from 'react-easy-crop';
 import { Point, Area } from 'react-easy-crop/types';
 
@@ -11,6 +11,7 @@ import authService from 'app/services/authService';
 import settingsHover from 'assets/svgs/settings-hover.svg';
 import settings from 'assets/svgs/settings.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
+import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 
 export type PresetWithOrderT = { index: number; label: string; value: string };
@@ -69,66 +70,82 @@ const Setting = () => {
         />
       </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>
-        <div className={styles.container}>
-          <div className={styles.containerCropper}>
-            {image ? (
-              <>
-                <div className={styles.cropper}>
-                  <Cropper
-                    image={image}
-                    crop={crop}
-                    zoom={zoom}
-                    aspect={1}
-                    cropShape="round"
-                    onCropChange={setCrop}
-                    onZoomChange={setZoom}
-                    onCropComplete={onCropComplete}
-                  />
-                </div>
+        {image ? (
+          <div className={styles.container}>
+            <div className={styles.containerCropper}>
+              <div className={styles.cropper}>
+                <Cropper
+                  image={image}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1}
+                  cropShape="round"
+                  onCropChange={setCrop}
+                  onZoomChange={setZoom}
+                  onCropComplete={onCropComplete}
+                />
+              </div>
 
-                <div className={styles.slider}>
-                  <Slider
-                    min={1}
-                    max={3}
-                    step={0.1}
-                    value={zoom}
-                    // eslint-disable-next-line @typescript-eslint/no-shadow
-                    onChange={(e, zoom) => setZoom(Number(zoom))}
-                  />
-                </div>
-              </>
-            ) : null}
-          </div>
-
-          {error ? (
-            <p className={styles.errorText}>
-              Фото не загрузилось или что-то пошло не так
-              <br />
-              Обновите страницу
-            </p>
-          ) : (
-            <div className={styles.containerButtons}>
-              <input
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                onChange={onSelectFile}
-                style={{ display: 'none' }}
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={triggerFileSelectPopup}
-                style={{ marginRight: '10px' }}
-              >
-                Выбрать файл
-              </Button>
-              <Button variant="contained" color="secondary" onClick={onDownload}>
-                Загрузить изображение
-              </Button>
+              <div className={styles.slider}>
+                <Slider
+                  min={1}
+                  max={3}
+                  step={0.1}
+                  value={zoom}
+                  // eslint-disable-next-line @typescript-eslint/no-shadow
+                  onChange={(e, zoom) => setZoom(Number(zoom))}
+                />
+              </div>
             </div>
-          )}
-        </div>
+
+            {error ? (
+              <p className={styles.errorText}>
+                Фото не загрузилось или что-то пошло не так
+                <br />
+                Обновите страницу
+              </p>
+            ) : (
+              <div className={styles.containerButtons}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={inputRef}
+                  onChange={onSelectFile}
+                  style={{ display: 'none' }}
+                />
+                <div>
+                  <Button
+                    variant="addUser"
+                    size="small"
+                    onClick={triggerFileSelectPopup}
+                    style={{ marginRight: '10px' }}
+                  >
+                    Выбрать файл
+                  </Button>
+                </div>
+                <div className={styles.button}>
+                  <Button variant="arrow" size="small" onClick={onDownload}>
+                    Загрузить изображение
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className={styles.noImage}>
+            <input
+              type="file"
+              accept="image/*"
+              ref={inputRef}
+              onChange={onSelectFile}
+              style={{ display: 'none' }}
+            />
+
+            <Button variant="addUser" size='small' onClick={triggerFileSelectPopup}>
+              Выбрать файл
+            </Button>
+          </div>
+        )}
       </BasicModal>
     </div>
   );

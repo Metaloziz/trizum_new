@@ -138,9 +138,7 @@ const UsersPage = observer(() => {
           size="large"
           page={currentPage}
           defaultValue={0}
-          // currentPage={currentPage}
           boundaryCount={1}
-          // pageSize={}
           onChange={onPageChange}
         />
       </div>

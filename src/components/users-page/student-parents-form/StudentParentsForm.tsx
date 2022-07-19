@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -14,13 +14,12 @@ import iconMedal from 'assets/svgs/medal.svg';
 import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
-import InformationItem from 'components/information-item/InformationItem';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
-import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
 import TextField from 'components/text-field/TextField';
-import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
 import styles from 'components/users-page/student-parents-form/StudentParentsForm.module.scss';
 import user from 'public/svgs/user.svg';
+import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
+import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
 
 const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
 
@@ -56,31 +55,51 @@ const StudentParentsForm: FC<Props> = ({
   };
 
   const schema = yup.object().shape({
-    firstName: yup.string().required('Обязательное поле'),
-    middleName: yup.string().required('Обязательное поле'),
-    lastName: yup.string().required('Обязательное поле'),
-    city: yup.string().required('Обязательное поле'),
-    phone: yup.string().required('Обязательное поле'),
+    firstName: yup
+      .string()
+      .required('Обязательное поле')
+      .matches(REG_NAME, 'допустима только кириллица')
+      .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+      .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+    middleName: yup
+      .string()
+      .required('Обязательное поле')
+      .matches(REG_NAME, 'допустима только кириллица')
+      .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+      .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+    lastName: yup
+      .string()
+      .required('Обязательное поле')
+      .matches(REG_NAME, 'допустима только кириллица')
+      .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+      .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+    city: yup
+      .string()
+      .required('Обязательное поле')
+      .matches(REG_NAME, 'допустима только кириллица')
+      .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+      .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+    phone: yup
+      .string()
+      .required('Обязательное поле')
+      .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
+      .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`),
     email: yup.string().required('Обязательное поле').email(),
-    birthdate: yup.string().required('Обязательное поле'),
+    birthdate: yup.string().required('Обязательное поле'), // todo проверить после добавления dataPicker
     sex: yup.object().required('Обязательное поле'),
     isMain: yup.boolean().required('Обязательное поле'),
-    // group: yup.object().required('Обязательное поле'),
-    // teacher: yup.string().required('Обязательное поле'),
   });
 
   const defaultValues = {
-    firstName: parent?.parent.firstName || 'qwe',
-    middleName: parent?.parent.middleName || 'qwe', // todo for dev
-    lastName: parent?.parent.lastName || 'qwe',
-    city: parent?.parent.city || 'Moscow',
-    phone: parent?.parent.phone || '8029',
-    email: parent?.parent.email || 'asf@asdasdas.by',
+    firstName: parent?.parent.firstName || '',
+    middleName: parent?.parent.middleName || '',
+    lastName: parent?.parent.lastName || '',
+    city: parent?.parent.city || '',
+    phone: parent?.parent.phone || '',
+    email: parent?.parent.email || '',
     birthdate: '01.01.2000',
     sex: sexOptions[0], // todo how to set value from props ?
     isMain: parent?.isMain || false,
-    // group: undefined,
-    // teacher: '',
   };
 
   const {
@@ -149,7 +168,7 @@ const StudentParentsForm: FC<Props> = ({
         </div>
       </CustomImageWrapper>
       <div className={styles.table}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
           <Controller
             name="middleName"
             render={({ field }) => (
@@ -186,11 +205,10 @@ const StudentParentsForm: FC<Props> = ({
             control={control}
           />
           <div className={styles.infoItem}>
-            <span>Дата рождения:</span>
             <Controller
               name="birthdate"
               render={({ field }) => (
-                <TextFieldCalendar {...field} dataAuto="" value="01.01.2000" /> // todo value="01.01.2000" for dev
+                <TextField {...field} label="Дата рождения:" error={errors.birthdate?.message} />
               )}
               control={control}
             />
@@ -209,7 +227,6 @@ const StudentParentsForm: FC<Props> = ({
                 {...field}
                 title="Пол"
                 options={sexOptions}
-                // @ts-ignore
                 error={errors.sex?.message}
               />
             )}
@@ -238,7 +255,7 @@ const StudentParentsForm: FC<Props> = ({
               </div>
             )}
           />
-          <Button type="submit" disabled={isDisable}>
+          <Button type="submit" disabled={isDisable} onClick={handleSubmit(onSubmit)}>
             Сохранить
           </Button>
         </form>

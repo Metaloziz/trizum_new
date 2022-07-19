@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react-lite';
@@ -78,10 +78,10 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     firstName: user?.firstName || '',
     middleName: user?.middleName || '',
     lastName: user?.lastName || '',
-    role: findRole() || roleOptions[0],
+    role: findRole() || roleOptions[roleOptions.length - 1],
     sex: findSex() || sexOptions[0],
     city: user?.city || '',
-    phone: user?.phone || '111111',
+    phone: user?.phone || '',
     birthdate: user?.birthdate?.date || '01.01.2000',
     email: user?.email || '',
     // group: undefined,
@@ -89,7 +89,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   };
 
   const schema = yup.object().shape({
-    // todo как добавить задержку при валидации ?
     firstName: yup
       .string()
       .required('Обязательное поле')
@@ -113,6 +112,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     city: yup
       .string()
       .required('Обязательное поле')
+      .matches(REG_NAME, 'допустима только кириллица')
       .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
       .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
     phone:
@@ -123,12 +123,12 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
             .required('Обязательное поле')
             .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
             .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`),
-    birthdate: yup.string().required('Обязательное поле'),
+    birthdate: yup.string().required('Обязательное поле'), // todo проверить после добавления dataPicker
     email:
       selectedRole1 === Roles.Student
         ? yup.string().notRequired()
         : yup.string().required('Обязательное поле').email(),
-    // group: yup.object().required('Обязательное поле'),
+    // group: yup.object().required('Обязательное поле'), // todo разобраться в постмане как создавать нормально группы и потом перенести в код
     // teacher: yup.string().required('Обязательное поле'),
   });
 
@@ -138,9 +138,15 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     reset,
     formState: { errors, isSubmitSuccessful },
     watch,
-  } = useForm({ resolver: yupResolver(schema), defaultValues, mode: 'onChange' });
+  } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   selectedRole = watch('role').value;
+
+  useEffect(() => {
+    if (selectedRole !== Roles.Student) {
+      setIsParentShown(false);
+    }
+  }, [selectedRole]);
 
   const onSubmit = handleSubmit(async values => {
     const newUserData: RequestRegister = {
@@ -213,7 +219,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
             <Controller
               name="city"
               render={({ field }) => (
-                <TextField {...field} label="Город" error={errors.lastName?.message} />
+                <TextField {...field} label="Город" error={errors.city?.message} />
               )}
               control={control}
             />
@@ -233,6 +239,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
               )}
               control={control}
             />
+            {errors.role?.message}
             {selectedRole !== Roles.Student && (
               <Controller
                 name="phone"
@@ -260,7 +267,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
             <Controller
               name="birthdate"
               render={({ field }) => (
-                <TextField {...field} label="Дата рождения:" /> // todo value="01.01.2000" for dev
+                <TextField {...field} label="Дата рождения:" error={errors.birthdate?.message} /> // todo value="01.01.2000" for dev
               )}
               control={control}
             />

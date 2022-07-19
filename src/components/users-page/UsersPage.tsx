@@ -80,6 +80,8 @@ const UsersPage = observer(() => {
 
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
 
+  console.log('usersarr', users);
+
   return !isLoaded ? (
     <>Loading...</>
   ) : (

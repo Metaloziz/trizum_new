@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 import styles from './Table.module.scss';
 
 interface IList {
-  id?: number;
+  id?: string | number;
   studentName?: string;
   teacherName?: string;
   registrationDate?: string;

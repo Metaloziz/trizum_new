@@ -13,4 +13,5 @@ export enum Paths {
   Groups = '/api/v1/groups',
   Register = '/api/v1/register',
   Games = '/api/v1/games',
+  Tariffs = '/api/v1/tariffs',
 }

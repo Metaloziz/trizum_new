@@ -20,9 +20,9 @@
   align-items: center;
   text-align: center;
 
-  @media (max-width: 550px) {
-    padding: 30px 15px;
-  }
+  // @media (max-width: 550px) {
+  //   padding: 30px 15px;
+  // }
 
   & p {
     font-style: normal;
@@ -31,10 +31,10 @@
     line-height: 30px;
     color: #BABEC6;
 
-    @media (max-width: 550px) {
-      font-size: 14px;
-      line-height: 20px;
-    }
+    // @media (max-width: 550px) {
+    //   font-size: 14px;
+    //   line-height: 20px;
+    // }
   }
 
   & span {
@@ -44,10 +44,10 @@
     text-transform: uppercase;
     color: #2E8DFD;
 
-    @media (max-width: 550px) {
-      font-size: 18px;
-      line-height: 20px;
-    }
+    // @media (max-width: 550px) {
+    //   font-size: 18px;
+    //   line-height: 20px;
+    // }
   }
 
   & input {
@@ -64,10 +64,10 @@
     font-family: Montserrat;
     font-weight: 600;
 
-    @media (max-width: 550px) {
-      font-size: 18px;
-      line-height: 20px;
-    }
+    // @media (max-width: 550px) {
+    //   font-size: 18px;
+    //   line-height: 20px;
+    // }
   }
 }
 
@@ -180,7 +180,7 @@
   color: #FF4E4A !important;
 }
 .blockErorr { 
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .anotherNumber {
 font-family: Montserrat !important;

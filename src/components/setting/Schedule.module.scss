@@ -1,19 +1,17 @@
   .container {
     height: 560px;
     width: 480px;
-    padding: 27px 25px  10px;
   }
-  
+
   .containerCropper {
     height: 92%;
-    padding: 10px;
   }
-  
+
   .cropper {
     height: 92%;
     position: relative;
   }
-  
+
   .slider {
     height: 10%;
     display: flex;
@@ -21,7 +19,7 @@
     margin: auto;
     width: 70%;
   }
-  
+
   .containerButtons {
     height: 8%;
     display: flex;
@@ -37,7 +35,8 @@
     line-height: 19px;
     color: #FF4E4A;
     text-align: center;
-  }  
+  }
+
   .button {
     margin-left: 20px;
   }

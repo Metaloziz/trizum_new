@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 
-import styles from './BasicModal.module.scss';
+import DialogContent from '@mui/material/DialogContent';
 
-import buttonClose from 'assets/svgs/button.svg';
-import Image from 'components/image/Image';
+import { Dialog, DialogTitle } from '../franchising-page/ui/Dialog';
 
 interface Props {
   children?: React.ReactNode;
@@ -11,20 +10,21 @@ interface Props {
   changeVisibility: (value: boolean) => void;
 }
 
-const BasicModal: FC<Props> = ({ children, visibility, changeVisibility }) => {
-  if (!visibility) {
-    return null;
-  }
-  return (
-    <div className={styles.modal} onClick={() => changeVisibility(false)}>
-      <div className={styles.content} onClick={e => e.stopPropagation()}>
-        <div className={styles.btnClose} onClick={() => changeVisibility(false)}>
-          <Image src={buttonClose} width="14" height="14" alt="Х" />
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-};
+const BasicModal: FC<Props> = ({ children, visibility, changeVisibility }) => (
+  <Dialog
+    PaperProps={{
+      style: {
+        borderRadius: '30px',
+      },
+    }}
+    maxWidth="md"
+    // fullWidth
+    onClose={() => changeVisibility(false)}
+    open={visibility}
+  >
+    <DialogTitle onClose={() => changeVisibility(false)} />
+    <DialogContent>{children}</DialogContent>
+  </Dialog>
+);
 
 export default BasicModal;

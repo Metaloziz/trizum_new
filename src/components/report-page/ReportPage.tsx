@@ -87,7 +87,7 @@ const ReportPage = () => {
                 dataAuto="dateEnd"
               />
               <div className={styles.btnBlock}>
-                <Button variantType="addExel">Выгрузить в Excel</Button>
+                <Button variant="addExel">Выгрузить в Excel</Button>
                 <Button>Найти</Button>
               </div>
             </div>

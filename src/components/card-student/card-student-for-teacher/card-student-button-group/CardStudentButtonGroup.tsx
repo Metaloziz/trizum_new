@@ -8,7 +8,7 @@ import Button from 'components/button/Button';
 
 const CardStudentButtonGroup = () => (
   <div className={styles.wrapper}>
-    <Button variantType="parents" size="small" onClick={() => modals.changeParents()}>
+    <Button variant="parents" size="small" onClick={() => modals.changeParents()}>
       Родители
     </Button>
     {/* <SetStatusButton isOpen={false} /> */}

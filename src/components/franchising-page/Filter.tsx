@@ -10,6 +10,7 @@ import {
   AccordionSummary,
   Box,
   Grid,
+  Button,
   Paper,
   Stack,
   TextField,
@@ -22,7 +23,6 @@ import { numberWithoutLeadingZero } from './helpers/numberWithoutLeadingZero';
 import { FranchisingFilterViewModel } from './models/FranchisingFilterViewModel';
 
 import { Nullable } from 'app/types/Nullable';
-import Button from 'components/button/Button';
 
 interface FilterProps {
   onChange: (filter: Nullable<FranchisingFilterViewModel>) => void;
@@ -173,7 +173,7 @@ export const Filter = observer((props: FilterProps) => {
           >
             <Button
               variant="contained"
-              size="small"
+              // size="small"
               startIcon={<SearchIcon fontSize="small" />}
               onClick={applyFilter}
               sx={{

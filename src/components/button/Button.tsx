@@ -27,12 +27,12 @@ type ButtonSize = 'large' | 'small' | 'thin';
 type Props = {
   children?: React.ReactNode;
   size?: ButtonSize;
-  variantType?: ButtonVariantType;
+  variant?: ButtonVariantType;
   onClick?: () => void;
-} & Omit<ButtonProps, 'size'>;
+} & Omit<ButtonProps, 'size' | 'variant'>;
 
 const Button1: FC<Props> = props => {
-  const { children, disabled, size, variantType, onClick, ...rest } = props;
+  const { children, disabled, size, variant, onClick, ...rest } = props;
   const [isShowHover, setShowHover] = useState<boolean>(false);
   let iconButton: ReactElement;
   let sx = {
@@ -92,7 +92,7 @@ const Button1: FC<Props> = props => {
     width: '200px',
     height: '70px',
   };
-  switch (variantType) {
+  switch (variant) {
     case 'parents':
       sx = { ...sx, ...parents };
       iconButton = <Image src={iconParents} alt="parents" width={20} height={16} />;
@@ -153,7 +153,7 @@ const Button1: FC<Props> = props => {
       disabled={disabled}
     >
       {children}
-      {variantType !== 'none' && (
+      {variant !== 'none' && (
         <span
           className={cn(
             styles.arrowBtn,

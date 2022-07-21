@@ -10,6 +10,7 @@ import {
   Paper,
   Snackbar,
   Stack,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -24,7 +25,6 @@ import { AddOrEditDialog } from './AddOrEditDialog';
 import { Filter } from './Filter';
 import { LoadingIndicator } from './ui/LoadingIndicator';
 
-import Button from 'components/button/Button';
 import { FranchisingStore } from 'components/franchising-page/stores';
 
 const FranchisingPage = observer(() => {

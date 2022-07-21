@@ -44,7 +44,7 @@ export type ResponseUserT = {
   city: string | null;
   groups: ResponseOneUserGroupT[];
   status: UserStatusT;
-  avatar: any | null; // obj
+  avatar: any | null; // todo определить тип объекта
 };
 
 export type FullResponseUserT = {

@@ -115,7 +115,7 @@ const Setting = () => {
                 />
                 <div>
                   <Button
-                    variantType="addUser"
+                    variant="addUser"
                     size="small"
                     onClick={triggerFileSelectPopup}
                     style={{ marginRight: '10px' }}
@@ -124,7 +124,7 @@ const Setting = () => {
                   </Button>
                 </div>
                 <div className={styles.button}>
-                  <Button variantType="arrow" size="small" onClick={onDownload}>
+                  <Button variant="arrow" size="small" onClick={onDownload}>
                     Загрузить изображение
                   </Button>
                 </div>
@@ -141,7 +141,7 @@ const Setting = () => {
               style={{ display: 'none' }}
             />
 
-            <Button variantType="addUser" size='small' onClick={triggerFileSelectPopup}>
+            <Button variant="addUser" size="small" onClick={triggerFileSelectPopup}>
               Выбрать файл
             </Button>
           </div>

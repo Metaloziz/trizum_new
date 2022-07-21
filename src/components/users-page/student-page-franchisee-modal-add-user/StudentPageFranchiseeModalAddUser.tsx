@@ -190,11 +190,8 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     <>
       <h2>Добавление/изменение пользователя</h2>
       <Grid container spacing={{ xs: 2, sm: 8, md: 8 }} columns={{ xs: 2, sm: 12, md: 12 }}>
-        {/* <div > */}
-        {/* <div className={styles.row}> */}
         <Grid item xs={12} sm={5} md={5}>
-          {/* <div > */}
-          <div className={styles.wrapper}>
+          <div className={styles.avatar}>
             <Image
               className={styles.imageWrapper}
               src={avatar}
@@ -204,7 +201,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
             />
             {user && <SetStatusButton status={user?.status} id={user.id} />}
           </div>
-          {/* </div> */}
         </Grid>
         <Grid item xs={12} sm={7} md={7}>
           <div className={styles.table}>
@@ -262,9 +258,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                   control={control}
                 />
               )}
-              {/* БЫЛО ЗАКОМЕНТИРОВАНО ДО ТОГО, КАК НАЧАЛ ВСЕ МЕНЯТЬ */}
-              {/* !!!!!!!!! */}
-              {/* !!!!!!!!!!!!!!!!!!!!!! */}
               {/* <div className={styles.infoItem}>
               <span>Дата рождения:</span>
               <Controller
@@ -308,9 +301,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                 )}
                 control={control}
               />
-              {/* БЫЛО ЗАКОМЕНТИРОВАНО ДО ТОГО, КАК НАЧАЛ ВСЕ МЕНЯТЬ */}
-              {/* !!!!!!!!! */}
-              {/* !!!!!!!!!!!!!!!!!!!!!! */}
               {/*   <Controller
             name="group"
             render={({ field }) => (
@@ -332,21 +322,17 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
             </form>
           </div>
         </Grid>
-        {/* // </div> */}
-        {/*
-         */}
-        {user?.parents && (
-          <StudentParentsFormContainer
-            studentId={studentId}
-            onCloseModal={onCloseModal}
-            parents={user.parents}
-          />
-        )}
-        {isParentShown && studentId && (
-          <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
-        )}
-        {/* </div>  */}
       </Grid>
+      {user?.parents && (
+        <StudentParentsFormContainer
+          studentId={studentId}
+          onCloseModal={onCloseModal}
+          parents={user.parents}
+        />
+      )}
+      {isParentShown && studentId && (
+        <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
+      )}
     </>
   );
 });

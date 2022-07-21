@@ -278,7 +278,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
       </DialogContent>
       <DialogActions>
         <Button
-          variantType="primary"
+          variant="primary"
           onClick={store.addOrEdit}
           disabled={!store.validateSchema.isValidSync(store.editingEntity)}
         >

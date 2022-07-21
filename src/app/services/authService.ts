@@ -42,7 +42,7 @@ const authService = {
     return res.data;
   },
   register: async (params: RequestRegister) => {
-    const { data }: any = await instance.post(Paths.Register, params);
+    const { data }: AxiosResponse = await instance.post(Paths.Register, params);
     return data;
   },
   аvatar: async (params: ResponseAvatar) => {

@@ -136,6 +136,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   const {
     handleSubmit,
     control,
+    setError,
     reset,
     formState: { errors, isSubmitSuccessful },
     watch,
@@ -173,6 +174,22 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       res = await updateUser(newUserData, user.id); // вынести ?
     } else {
       res = await createUser(newUserData);
+      if (typeof res === 'string') {
+        if (res === 'email') {
+          setError('email', {
+            type: 'manual',
+            message: 'такой email уже используется!',
+          });
+        }
+        if (res === 'number') {
+          setError('phone', {
+            type: 'manual',
+            message: 'такой телефон уже используется!',
+          });
+        }
+
+        return; // здесь субмит обрывается при ошибке
+      }
     }
 
     if ((values.role.value as Roles) !== Roles.Student) {
@@ -180,7 +197,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       reset();
       return;
     }
-    if (res?.id) {
+    if (typeof res === 'object' && 'id' in res) {
       setStudentId(res.id);
       setIsParentShown(true);
     }

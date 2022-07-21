@@ -145,7 +145,7 @@ const StudentParentsForm: FC<Props> = ({
       } else {
         res = await createUser(data);
       }
-      if (res) {
+      if (typeof res === 'object') {
         const newParent: RequestParenting = {
           parentId: res.id,
           childId: studentId,

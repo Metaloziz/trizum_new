@@ -289,7 +289,7 @@ const Results: FC<Props> = () => {
                     className={styles.gamesSelect_select}
                   />
                 </div>
-                <Button variantType="primary" size="thin">
+                <Button variant="primary" size="thin">
                   Найти
                 </Button>
               </div>

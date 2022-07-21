@@ -96,7 +96,7 @@ const HomeworkList: FC = observer(() => {
             <td>{el.gamePresetCount}</td>
             <td>
               {currentCourse ? (
-                <Button variantType="none" onClick={() => onAddHwToCourse(el.id)}>
+                <Button variant="none" onClick={() => onAddHwToCourse(el.id)}>
                   add
                 </Button>
               ) : (

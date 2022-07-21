@@ -69,13 +69,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
         <div className={styles.buttons}>
           {role === Roles.Teacher && (
             <>
-              <Button variantType="none" size="small" onClick={() => onNavigate('PREV', date)}>
+              <Button variant="none" size="small" onClick={() => onNavigate('PREV', date)}>
                 Предыдущая
               </Button>
-              <Button variantType="none" size="small" onClick={() => onNavigate('TODAY', date)}>
+              <Button variant="none" size="small" onClick={() => onNavigate('TODAY', date)}>
                 Текущая
               </Button>
-              <Button variantType="none" size="small" onClick={() => onNavigate('NEXT', date)}>
+              <Button variant="none" size="small" onClick={() => onNavigate('NEXT', date)}>
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -83,19 +83,19 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.FranchiseeAdmin && (
             <>
-              <Button variantType="none" size="small" onClick={() => setIsVisible(!isVisible)}>
+              <Button variant="none" size="small" onClick={() => setIsVisible(!isVisible)}>
                 Добавить группу
               </Button>
-              <Button variantType="none" size="small">
+              <Button variant="none" size="small">
                 + Добавить
               </Button>
-              <Button variantType="none" size="small" onClick={() => onNavigate('PREV', date)}>
+              <Button variant="none" size="small" onClick={() => onNavigate('PREV', date)}>
                 Предыдущая
               </Button>
-              <Button variantType="none" size="small" onClick={() => onNavigate('TODAY', date)}>
+              <Button variant="none" size="small" onClick={() => onNavigate('TODAY', date)}>
                 Текущая
               </Button>
-              <Button variantType="none" size="small" onClick={() => onNavigate('NEXT', date)}>
+              <Button variant="none" size="small" onClick={() => onNavigate('NEXT', date)}>
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -103,13 +103,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.Franchisee && (
             <>
-              <Button onClick={() => onNavigate('PREV', date)} variantType="none" size="small">
+              <Button onClick={() => onNavigate('PREV', date)} variant="none" size="small">
                 Предыдущая
               </Button>
-              <Button onClick={() => onNavigate('TODAY', date)} variantType="none" size="small">
+              <Button onClick={() => onNavigate('TODAY', date)} variant="none" size="small">
                 Текущая
               </Button>
-              <Button onClick={() => onNavigate('NEXT', date)} variantType="none" size="small">
+              <Button onClick={() => onNavigate('NEXT', date)} variant="none" size="small">
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -117,13 +117,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.Methodist && (
             <>
-              <Button onClick={() => onNavigate('PREV', date)} size="small" variantType="none">
+              <Button onClick={() => onNavigate('PREV', date)} size="small" variant="none">
                 Предыдущая
               </Button>
-              <Button onClick={() => onNavigate('TODAY', date)} size="small" variantType="none">
+              <Button onClick={() => onNavigate('TODAY', date)} size="small" variant="none">
                 Текущая
               </Button>
-              <Button onClick={() => onNavigate('NEXT', date)} size="small" variantType="none">
+              <Button onClick={() => onNavigate('NEXT', date)} size="small" variant="none">
                 Следующая
               </Button>
               <Button size="small">Найти</Button>
@@ -131,13 +131,13 @@ export const Toolbar: FC<ToolbarProps> = props => {
           )}
           {role === Roles.Admin && (
             <>
-              <Button onClick={() => onNavigate('PREV', date)} size="small" variantType="none">
+              <Button onClick={() => onNavigate('PREV', date)} size="small" variant="none">
                 Предыдущая
               </Button>
-              <Button onClick={() => onNavigate('TODAY', date)} size="small" variantType="none">
+              <Button onClick={() => onNavigate('TODAY', date)} size="small" variant="none">
                 Текущая
               </Button>
-              <Button onClick={() => onNavigate('NEXT', date)} size="small" variantType="none">
+              <Button onClick={() => onNavigate('NEXT', date)} size="small" variant="none">
                 Следующая
               </Button>
               <Button size="small">Найти</Button>

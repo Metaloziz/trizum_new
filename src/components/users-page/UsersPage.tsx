@@ -115,7 +115,7 @@ const UsersPage = observer(() => {
             <Button size="small" onClick={onSearchClick}>
               Найти
             </Button>
-            <Button variantType="addUser" size="small" onClick={() => setIsModalOpen(true)}>
+            <Button variant="addUser" size="small" onClick={() => setIsModalOpen(true)}>
               Добавить пользователя
             </Button>
           </div>

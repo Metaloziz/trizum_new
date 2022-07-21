@@ -64,7 +64,6 @@ const getTotal = (text: any) => {
   const result = text.config.data.dataset[0].data.reduce((a: any, b: any) => a + b, 0);
   return `${result}% \n + Правильных ответов`;
 };
-console.log('getTotal', getTotal);
 const config = {
   data: {
     datasets: [

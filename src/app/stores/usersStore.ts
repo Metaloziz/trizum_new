@@ -9,6 +9,7 @@ import {
   ResponseOneUser,
   ResponseUserT,
 } from 'app/types/UserTypes';
+import { checkErrorMessage, ErrorMessageType } from 'utils/checkErrorMessage';
 
 class UsersStore {
   users: ResponseUserT[] = [];
@@ -35,9 +36,15 @@ class UsersStore {
     });
   };
 
-  createUser = async (data: RequestRegister): Promise<ResponseUserT | undefined> => {
+  createUser = async (
+    data: RequestRegister,
+  ): Promise<ResponseUserT | undefined | ErrorMessageType> => {
     try {
       const res = await authService.register(data);
+      const isError = checkErrorMessage(res);
+      if (isError) {
+        return isError;
+      }
       await this.getUsers();
       return res;
     } catch (e) {

@@ -1,7 +1,7 @@
 import { FullResponseFranchise } from 'app/types/FranchiseTypes';
 import { ResponseUserT } from 'app/types/UserTypes';
 
-export type ResponseGroups = { id: string; code: string; franchise: string };
+export type ResponseGroups = { id: string; code: string; franchise: string }; // todo I CAN
 
 export type ResponseOneGroup = {
   id: string;

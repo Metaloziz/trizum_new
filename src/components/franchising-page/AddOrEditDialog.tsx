@@ -1,10 +1,11 @@
-import { Button, DialogActions, DialogContent, Grid, TextField, Typography } from '@mui/material';
+import { DialogActions, DialogContent, Grid, TextField, Typography } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { observer } from 'mobx-react';
 
 import { numberWithoutLeadingZero } from './helpers/numberWithoutLeadingZero';
 import { Dialog, DialogTitle } from './ui/Dialog';
 
+import Button from 'components/button/Button';
 import { FranchisingStore } from 'components/franchising-page/stores';
 
 interface AddOrEditDialogProps {
@@ -15,7 +16,17 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
   const { store } = props;
 
   return (
-    <Dialog maxWidth="md" fullWidth onClose={store.closeDialog} open={store.isDialogOpen}>
+    <Dialog
+      PaperProps={{
+        style: {
+          borderRadius: '30px',
+        },
+      }}
+      maxWidth="md"
+      fullWidth
+      onClose={store.closeDialog}
+      open={store.isDialogOpen}
+    >
       <DialogTitle onClose={store.closeDialog}>
         {store.editingEntity?.id ? 'Редактирование записи' : 'Добавление новой записи'}
       </DialogTitle>
@@ -267,10 +278,11 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
       </DialogContent>
       <DialogActions>
         <Button
+          variantType="primary"
           onClick={store.addOrEdit}
           disabled={!store.validateSchema.isValidSync(store.editingEntity)}
         >
-          {store.editingEntity?.id ? 'Изменить' : 'Добавить'}
+          {store.editingEntity?.id ? 'Изменить' : 'Сохранить'}
         </Button>
       </DialogActions>
     </Dialog>

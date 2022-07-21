@@ -10,6 +10,8 @@ import {
   ResponseLogin,
   ResponseMe,
   ResponseSMS,
+  ResponseAvatar,
+  ResponseEditSelf,
 } from 'app/types/AuthTypes';
 
 const authService = {
@@ -35,13 +37,21 @@ const authService = {
     return res.data;
   },
 
-  loadme: async () => {
+  loadme: async (): Promise<ResponseLoadMe> => {
     const res: AxiosResponse<ResponseLoadMe> = await instance.get(Paths.LoadMe);
     return res.data;
   },
-  register: async (data: RequestRegister) => {
-    const res: AxiosResponse<any> = await instance.post(Paths.Register, data);
-    return res.data;
+  register: async (params: RequestRegister) => {
+    const { data }: any = await instance.post(Paths.Register, params);
+    return data;
+  },
+  аvatar: async (params: ResponseAvatar) => {
+    const { data } = await instance.post(Paths.Avatar, params);
+    return data;
+  },
+  editSelf: async (params: ResponseEditSelf) => {
+    const { data } = await instance.post(Paths.EditSelf, params);
+    return data;
   },
 };
 

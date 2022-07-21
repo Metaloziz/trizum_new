@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Grid } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -186,70 +187,85 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   });
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <h2>Добавление/изменение пользователя</h2>
-      <div className={styles.row}>
-        <div className={styles.imageWrapper}>
-          <Image src={avatar} width="290" height="290" alt="student" />
-          {user && <SetStatusButton status={user?.status} id={user.id} />}
-        </div>
-        <div className={styles.table}>
-          <form>
-            <Controller
-              name="middleName"
-              render={({ field }) => (
-                <TextField {...field} label="Фамилия" error={errors.middleName?.message} />
-              )}
-              control={control}
+      <Grid container spacing={{ xs: 2, sm: 8, md: 8 }} columns={{ xs: 2, sm: 12, md: 12 }}>
+        {/* <div > */}
+        {/* <div className={styles.row}> */}
+        <Grid item xs={12} sm={5} md={5}>
+          {/* <div > */}
+          <div className={styles.wrapper}>
+            <Image
+              className={styles.imageWrapper}
+              src={avatar}
+              width="290"
+              height="290"
+              alt="student"
             />
-            <Controller
-              name="firstName"
-              render={({ field }) => (
-                <TextField {...field} label="Имя" error={errors.firstName?.message} />
-              )}
-              control={control}
-            />
-            <Controller
-              name="lastName"
-              render={({ field }) => (
-                <TextField {...field} label="Отчество" error={errors.lastName?.message} />
-              )}
-              control={control}
-            />
-            <Controller
-              name="city"
-              render={({ field }) => (
-                <TextField {...field} label="Город" error={errors.city?.message} />
-              )}
-              control={control}
-            />
-            <Controller
-              name="role"
-              render={({ field }) => (
-                <CustomSelect
-                  {...field}
-                  onChange={e => {
-                    setSelectedRole1(e.value as Roles);
-                    field.onChange(e);
-                  }}
-                  title="Роль"
-                  options={roleOptions}
-                  error={errors.role?.message}
-                />
-              )}
-              control={control}
-            />
-            {errors.role?.message}
-            {selectedRole !== Roles.Student && (
+            {user && <SetStatusButton status={user?.status} id={user.id} />}
+          </div>
+          {/* </div> */}
+        </Grid>
+        <Grid item xs={12} sm={7} md={7}>
+          <div className={styles.table}>
+            <form>
               <Controller
-                name="phone"
+                name="middleName"
                 render={({ field }) => (
-                  <TextField {...field} label="Телефон" error={errors.phone?.message} />
+                  <TextField {...field} label="Фамилия" error={errors.middleName?.message} />
                 )}
                 control={control}
               />
-            )}
-            {/* <div className={styles.infoItem}>
+              <Controller
+                name="firstName"
+                render={({ field }) => (
+                  <TextField {...field} label="Имя" error={errors.firstName?.message} />
+                )}
+                control={control}
+              />
+              <Controller
+                name="lastName"
+                render={({ field }) => (
+                  <TextField {...field} label="Отчество" error={errors.lastName?.message} />
+                )}
+                control={control}
+              />
+              <Controller
+                name="city"
+                render={({ field }) => (
+                  <TextField {...field} label="Город" error={errors.lastName?.message} />
+                )}
+                control={control}
+              />
+              <Controller
+                name="role"
+                render={({ field }) => (
+                  <CustomSelect
+                    {...field}
+                    onChange={e => {
+                      setSelectedRole1(e.value as Roles);
+                      field.onChange(e);
+                    }}
+                    title="Роль"
+                    options={roleOptions}
+                    error={errors.role?.message}
+                  />
+                )}
+                control={control}
+              />
+              {selectedRole !== Roles.Student && (
+                <Controller
+                  name="phone"
+                  render={({ field }) => (
+                    <TextField {...field} label="Телефон" error={errors.phone?.message} />
+                  )}
+                  control={control}
+                />
+              )}
+              {/* БЫЛО ЗАКОМЕНТИРОВАНО ДО ТОГО, КАК НАЧАЛ ВСЕ МЕНЯТЬ */}
+              {/* !!!!!!!!! */}
+              {/* !!!!!!!!!!!!!!!!!!!!!! */}
+              {/* <div className={styles.infoItem}>
               <span>Дата рождения:</span>
               <Controller
                 name="birthdate"
@@ -264,35 +280,38 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                 control={control}
               />
             </div> */}
-            <Controller
-              name="birthdate"
-              render={({ field }) => (
-                <TextField {...field} label="Дата рождения:" error={errors.birthdate?.message} /> // todo value="01.01.2000" for dev
-              )}
-              control={control}
-            />
-            {selectedRole !== Roles.Student && (
               <Controller
-                name="email"
+                name="birthdate"
                 render={({ field }) => (
-                  <TextField {...field} label="Почта" error={errors.email?.message} />
+                  <TextField {...field} label="Дата рождения:" /> // todo value="01.01.2000" for dev
                 )}
                 control={control}
               />
-            )}
-            <Controller
-              name="sex"
-              render={({ field }) => (
-                <CustomSelect
-                  {...field}
-                  title="Пол"
-                  options={sexOptions}
-                  error={errors.sex?.message}
+              {selectedRole !== Roles.Student && (
+                <Controller
+                  name="email"
+                  render={({ field }) => (
+                    <TextField {...field} label="Почта" error={errors.email?.message} />
+                  )}
+                  control={control}
                 />
               )}
-              control={control}
-            />
-            {/*   <Controller
+              <Controller
+                name="sex"
+                render={({ field }) => (
+                  <CustomSelect
+                    {...field}
+                    title="Пол"
+                    options={sexOptions}
+                    error={errors.sex?.message}
+                  />
+                )}
+                control={control}
+              />
+              {/* БЫЛО ЗАКОМЕНТИРОВАНО ДО ТОГО, КАК НАЧАЛ ВСЕ МЕНЯТЬ */}
+              {/* !!!!!!!!! */}
+              {/* !!!!!!!!!!!!!!!!!!!!!! */}
+              {/*   <Controller
             name="group"
             render={({ field }) => (
               <CustomSelect
@@ -305,25 +324,30 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
             )}
             control={control}
           /> */}
-            <div className={styles.button}>
-              <Button type="submit" disabled={isSubmitSuccessful} onClick={onSubmit}>
-                Сохранить
-              </Button>
-            </div>
-          </form>
-        </div>
-      </div>
-      {user?.parents && (
-        <StudentParentsFormContainer
-          studentId={studentId}
-          onCloseModal={onCloseModal}
-          parents={user.parents}
-        />
-      )}
-      {isParentShown && studentId && (
-        <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
-      )}
-    </div>
+              <div className={styles.button}>
+                <Button type="submit" disabled={isSubmitSuccessful} onClick={onSubmit}>
+                  Сохранить
+                </Button>
+              </div>
+            </form>
+          </div>
+        </Grid>
+        {/* // </div> */}
+        {/*
+         */}
+        {user?.parents && (
+          <StudentParentsFormContainer
+            studentId={studentId}
+            onCloseModal={onCloseModal}
+            parents={user.parents}
+          />
+        )}
+        {isParentShown && studentId && (
+          <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
+        )}
+        {/* </div>  */}
+      </Grid>
+    </>
   );
 });
 

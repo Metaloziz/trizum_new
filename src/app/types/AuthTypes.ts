@@ -61,3 +61,13 @@ export type RequestRegister = {
   tariffId?: string;
   isSecondChild?: boolean;
 };
+
+export type ResponseAvatar = {
+  image: string;
+};
+
+export type ResponseEditSelf = {
+  phone: string;
+  smsCode: number;
+  email: string;
+};

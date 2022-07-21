@@ -1,0 +1,50 @@
+  .container {
+    height: 560px;
+    width: 480px;
+  }
+
+  .containerCropper {
+    height: 92%;
+  }
+
+  .cropper {
+    height: 92%;
+    position: relative;
+  }
+
+  .slider {
+    height: 10%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 70%;
+  }
+
+  .containerButtons {
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .errorText {
+    height: 10%;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    color: #FF4E4A;
+    text-align: center;
+  }
+
+  .button {
+    margin-left: 20px;
+  }
+
+  .noImage {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+  }

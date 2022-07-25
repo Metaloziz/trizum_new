@@ -24,6 +24,7 @@ import { StudentParentsFormContainer } from 'components/users-page/student-parre
 import avatar from 'public/img/avatarDefault.png';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
 import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
+import { setErrorFomMessage } from 'utils/setErrorFomMessage';
 
 type Props = {
   onCloseModal: () => void;
@@ -142,6 +143,8 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     watch,
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
+  console.log(isSubmitSuccessful);
+
   selectedRole = watch('role').value;
 
   useEffect(() => {
@@ -150,7 +153,11 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     }
   }, [selectedRole]);
 
+  console.log(errors);
+
   const onSubmit = handleSubmit(async values => {
+    console.log(values);
+
     const newUserData: RequestRegister = {
       sex: (values.sex?.label as SexEnum) === SexEnum.Male,
       // todo: грузить франчайзи
@@ -172,23 +179,15 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
 
     if (user) {
       res = await updateUser(newUserData, user.id); // вынести ?
+      if (typeof res === 'string') {
+        setErrorFomMessage(res, setError);
+        return;
+      }
     } else {
       res = await createUser(newUserData);
       if (typeof res === 'string') {
-        if (res === 'email') {
-          setError('email', {
-            type: 'manual',
-            message: 'такой email уже используется!',
-          });
-        }
-        if (res === 'number') {
-          setError('phone', {
-            type: 'manual',
-            message: 'такой телефон уже используется!',
-          });
-        }
-
-        return; // здесь субмит обрывается при ошибке
+        setErrorFomMessage(res, setError);
+        return;
       }
     }
 
@@ -246,7 +245,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
               <Controller
                 name="city"
                 render={({ field }) => (
-                  <TextField {...field} label="Город" error={errors.lastName?.message} />
+                  <TextField {...field} label="Город" error={errors.city?.message} />
                 )}
                 control={control}
               />

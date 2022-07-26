@@ -1,5 +1,6 @@
 import { Paths } from 'app/enums/Paths';
 import instance from 'app/services/config';
+import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
   FullResponseUserT,
   RequestParenting,
@@ -8,8 +9,6 @@ import {
   ResponseParenting,
   ResponseUserT,
 } from 'app/types/UserTypes';
-
-type UpdateUserPayloadT = Partial<ResponseUserT>;
 
 const usersService = {
   getAllUsers: async (params?: RequestUsersParams): Promise<FullResponseUserT> => {

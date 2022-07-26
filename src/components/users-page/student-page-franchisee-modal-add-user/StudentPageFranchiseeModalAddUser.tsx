@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grid } from '@mui/material';
@@ -9,12 +9,12 @@ import * as yup from 'yup';
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
 import { SexEnum } from 'app/enums/CommonEnums';
-import usersService from 'app/services/usersService';
 import { RoleNames, Roles } from 'app/stores/appStore';
-import groupStore from 'app/stores/groupStore';
+import franchiseeStore from 'app/stores/franchiseeStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { ResponseOneUser } from 'app/types/UserTypes';
+import { FranchisingViewModel } from 'app/viewModels/FranchisingViewModel';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
@@ -31,21 +31,6 @@ type Props = {
   user?: ResponseOneUser;
 };
 
-type AddUserT = {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  role: Option;
-  sex: Option | undefined;
-  city: string;
-  phone?: string;
-  birthdate: string | undefined;
-  email?: string;
-  // group: Option | undefined;
-  // teacher: string;
-  image?: string;
-};
-
 const roleOptions = [
   { label: RoleNames.student, value: Roles.Student },
   { label: RoleNames.parent, value: Roles.Parent },
@@ -58,14 +43,17 @@ const roleOptions = [
   { label: RoleNames.admin, value: Roles.Admin },
 ];
 
+const convertFranchiseeOptions = (franchisees: FranchisingViewModel[]): Option[] =>
+  franchisees.map(item => ({ value: item.id!, label: item.shortName })); // todo убрать знак - !
+
 const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
 
 const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
-  const { getGroups, groups } = groupStore;
-  const { createUser, currentUser } = usersStore;
-  const { updateUser } = usersService;
-  const [image, setImage] = useState('');
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { franchise } = franchiseeStore;
+  const franchiseOptions = convertFranchiseeOptions(franchise);
+
+  // const { getGroups, groups } = groupStore;
+  const { createUser, updateUser } = usersStore;
   const [isParentShown, setIsParentShown] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [selectedRole1, setSelectedRole1] = useState<Roles>();
@@ -74,6 +62,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
   let selectedRole = '';
 
   const findRole = () => roleOptions.find(el => el.value === user?.roleCode);
+  const findFranchisee = () => franchiseOptions.find(el => el.value === user?.franchise?.id);
   const findSex = () => (user?.sex ? sexOptions[0] : sexOptions[1]);
 
   const defaultValues = {
@@ -86,8 +75,8 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     phone: user?.phone || '',
     birthdate: user?.birthdate?.date || '01.01.2000',
     email: user?.email || '',
+    franchise: findFranchisee() || franchiseOptions[0],
     // group: undefined,
-    // teacher: '',
   };
 
   const schema = yup.object().shape({
@@ -130,8 +119,8 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       selectedRole1 === Roles.Student
         ? yup.string().notRequired()
         : yup.string().required('Обязательное поле').email(),
+    franchise: yup.object().required('Обязательное поле'),
     // group: yup.object().required('Обязательное поле'), // todo разобраться в постмане как создавать нормально группы и потом перенести в код
-    // teacher: yup.string().required('Обязательное поле'),
   });
 
   const {
@@ -143,8 +132,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     watch,
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
-  console.log(isSubmitSuccessful);
-
   selectedRole = watch('role').value;
 
   useEffect(() => {
@@ -153,16 +140,10 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
     }
   }, [selectedRole]);
 
-  console.log(errors);
-
   const onSubmit = handleSubmit(async values => {
-    console.log(values);
-
     const newUserData: RequestRegister = {
       sex: (values.sex?.label as SexEnum) === SexEnum.Male,
-      // todo: грузить франчайзи
-      franchiseId: '1ecf563a-2a69-6610-a812-f92a3af0f8be',
-      tariffId: '',
+      franchiseId: values.franchise.value,
       birthdate: values.birthdate || '',
       city: values.city,
       role: values.role.value as Roles,
@@ -265,6 +246,21 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                 )}
                 control={control}
               />
+              <Controller
+                name="franchise"
+                render={({ field }) => (
+                  <CustomSelect
+                    {...field}
+                    onChange={e => {
+                      field.onChange(e);
+                    }}
+                    title="Франшиза"
+                    options={franchiseOptions}
+                    error={errors.franchise?.message}
+                  />
+                )}
+                control={control}
+              />
               {selectedRole !== Roles.Student && (
                 <Controller
                   name="phone"
@@ -274,21 +270,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                   control={control}
                 />
               )}
-              {/* <div className={styles.infoItem}>
-              <span>Дата рождения:</span>
-              <Controller
-                name="birthdate"
-                render={({ field }) => (
-                  <TextFieldCalendar
-                    {...field}
-                    dataAuto=""
-                    value="01.01.2000"
-                    onChange={e => console.log(e)}
-                  /> // todo value="01.01.2000" for dev
-                )}
-                control={control}
-              />
-            </div> */}
               <Controller
                 name="birthdate"
                 render={({ field }) => (
@@ -317,19 +298,6 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                 )}
                 control={control}
               />
-              {/*   <Controller
-            name="group"
-            render={({ field }) => (
-              <CustomSelect
-                {...field}
-                title="Группа"
-                options={groupOptions}
-                // @ts-ignore
-                error={errors.group?.message}
-              />
-            )}
-            control={control}
-          /> */}
               <div className={styles.button}>
                 <Button type="submit" disabled={isSubmitSuccessful} onClick={onSubmit}>
                   Сохранить

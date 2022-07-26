@@ -1,4 +1,4 @@
-export type ErrorMessageType = 'email' | 'number';
+export type ErrorMessageType = 'email' | 'number' | 'phone';
 
 export const checkErrorMessage = (data: any): ErrorMessageType | undefined => {
   if (data?.error) {

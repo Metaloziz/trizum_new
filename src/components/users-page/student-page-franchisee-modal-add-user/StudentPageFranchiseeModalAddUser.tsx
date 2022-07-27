@@ -98,7 +98,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       .matches(REG_NAME, 'допустима только кириллица')
       .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
       .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-    role: yup.object().required('Обязательное поле'),
+    role: user ? yup.object().notRequired() : yup.object().required('Обязательное поле'),
     sex: yup.object().required('Обязательное поле'),
     city: yup
       .string()
@@ -119,7 +119,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       selectedRole1 === Roles.Student
         ? yup.string().notRequired()
         : yup.string().required('Обязательное поле').email(),
-    franchise: yup.object().required('Обязательное поле'),
+    franchise: user ? yup.object().notRequired() : yup.object().required('Обязательное поле'),
     // group: yup.object().required('Обязательное поле'), // todo разобраться в постмане как создавать нормально группы и потом перенести в код
   });
 
@@ -230,37 +230,41 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
                 )}
                 control={control}
               />
-              <Controller
-                name="role"
-                render={({ field }) => (
-                  <CustomSelect
-                    {...field}
-                    onChange={e => {
-                      setSelectedRole1(e.value as Roles);
-                      field.onChange(e);
-                    }}
-                    title="Роль"
-                    options={roleOptions}
-                    error={errors.role?.message}
+              {!user && ( // при редактировании нельзя менять роль и франшизу
+                <>
+                  <Controller
+                    name="role"
+                    render={({ field }) => (
+                      <CustomSelect
+                        {...field}
+                        onChange={e => {
+                          setSelectedRole1(e.value as Roles);
+                          field.onChange(e);
+                        }}
+                        title="Роль"
+                        options={roleOptions}
+                        error={errors.role?.message}
+                      />
+                    )}
+                    control={control}
                   />
-                )}
-                control={control}
-              />
-              <Controller
-                name="franchise"
-                render={({ field }) => (
-                  <CustomSelect
-                    {...field}
-                    onChange={e => {
-                      field.onChange(e);
-                    }}
-                    title="Франшиза"
-                    options={franchiseOptions}
-                    error={errors.franchise?.message}
+                  <Controller
+                    name="franchise"
+                    render={({ field }) => (
+                      <CustomSelect
+                        {...field}
+                        onChange={e => {
+                          field.onChange(e);
+                        }}
+                        title="Франшиза"
+                        options={franchiseOptions}
+                        error={errors.franchise?.message}
+                      />
+                    )}
+                    control={control}
                   />
-                )}
-                control={control}
-              />
+                </>
+              )}
               {selectedRole !== Roles.Student && (
                 <Controller
                   name="phone"

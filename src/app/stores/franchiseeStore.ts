@@ -1,8 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import franchiseService from 'app/services/franchiseService';
-import groupsService from 'app/services/groupsService';
-import { ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
 import { FranchisingViewModel } from 'app/viewModels/FranchisingViewModel';
 
 class FranchiseeStore {
@@ -43,7 +41,7 @@ class FranchiseeStore {
     } catch (e) {
       console.warn(e);
     }
-    return [] as ResponseGroups[];
+    return [] as FranchisingViewModel[];
   };
 }
 export default new FranchiseeStore();

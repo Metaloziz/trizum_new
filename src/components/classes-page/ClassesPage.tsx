@@ -47,7 +47,7 @@ const ClassesPage = observer(() => {
                   key={group.id}
                   onClick={() => onGroupClick(group.id)}
                 >
-                  <span>{group.code}</span>
+                  <span>{group.name}</span>
                 </div>
               ))}
           </div>
@@ -56,10 +56,11 @@ const ClassesPage = observer(() => {
           <BlockGames />
         </div>
         <div className={styles.blockCardStudents}>
-          {currentGroup &&
-            currentGroup.users.map(user => (
-              <CardStudent key={user.user.id} type="teacher" user={user.user} />
-            ))}
+          {/* ЗАКОМЕНТИРОВАНО ВО ВРЕМЯ ДОБАВЛЕНИЯ НОВОЙ ТИПИЗАЦИИ ГРУПП */}
+          {/* {currentGroup && */}
+          {/*  currentGroup.users.map(user => ( */}
+          {/*    <CardStudent key={user.user.id} type="teacher" user={user.user} /> */}
+          {/*  ))} */}
         </div>
       </div>
     </div>

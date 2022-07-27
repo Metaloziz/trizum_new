@@ -9,7 +9,8 @@ import modals from '../../app/stores/CardStudentExtended';
 import styles from './UsersPage.module.scss';
 
 import { RoleNames, Roles } from 'app/stores/appStore';
-import FranchiseeStore from 'app/stores/franchiseeStore';
+import franchiseeStore from 'app/stores/franchiseeStore';
+import groupStore from 'app/stores/groupStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
@@ -38,7 +39,8 @@ const UsersPage = observer(() => {
   const { users, usersTotalCount, getUsers, createUser, getOneUser, currentUser, page, perPage } =
     usersStore;
 
-  const { getFranchisee } = FranchiseeStore;
+  const { getFranchisee } = franchiseeStore;
+  const { getGroups } = groupStore;
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -80,6 +82,7 @@ const UsersPage = observer(() => {
   useEffect(() => {
     load();
     getFranchisee();
+    getGroups();
   }, []);
 
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};

@@ -11,19 +11,22 @@ import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 import { SexEnum } from 'app/enums/CommonEnums';
 import { RoleNames, Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
+import groupStore from 'app/stores/groupStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { ResponseOneUser } from 'app/types/UserTypes';
-import { FranchisingViewModel } from 'app/viewModels/FranchisingViewModel';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
+import CustomSelect from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import avatar from 'public/img/avatarDefault.png';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
 import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
+import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
+import { convertGroupOptions } from 'utils/convertGroupOptions';
+import { convertSexOptions } from 'utils/convertSexOptions';
 import { setErrorFomMessage } from 'utils/setErrorFomMessage';
 
 type Props = {
@@ -43,14 +46,15 @@ const roleOptions = [
   { label: RoleNames.admin, value: Roles.Admin },
 ];
 
-const convertFranchiseeOptions = (franchisees: FranchisingViewModel[]): Option[] =>
-  franchisees.map(item => ({ value: item.id!, label: item.shortName })); // todo убрать знак - !
-
-const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
-
-const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
+export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
   const { franchise } = franchiseeStore;
+  const { groups } = groupStore;
+
   const franchiseOptions = convertFranchiseeOptions(franchise);
+  const sexOptions = convertSexOptions();
+  const groupOptions = convertGroupOptions(groups);
+
+  console.log(groupOptions);
 
   // const { getGroups, groups } = groupStore;
   const { createUser, updateUser } = usersStore;
@@ -148,7 +152,7 @@ const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseMo
       city: values.city,
       role: values.role.value as Roles,
       email: values.email,
-      // groupId: values.?.value || '',
+      // groupId: values.?.value || '', // todo здесь нужен отдельный запрос на создание связи с группой
       firstName: values.firstName,
       lastName: values.lastName,
       middleName: values.middleName,

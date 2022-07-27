@@ -141,7 +141,7 @@ const StudentParentsForm: FC<Props> = ({
       let res;
 
       if (parent) {
-        res = await updateUser(data, parent.parent.id); // todo так вообще норм писать ?
+        res = await updateUser(data, parent.parent.id);
       } else {
         res = await createUser(data);
       }

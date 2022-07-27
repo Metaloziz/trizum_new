@@ -155,7 +155,7 @@ const UsersPage = observer(() => {
       <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
         {/* <StudentPageFranchiseeModalSetting /> */}
         <StudentPageFranchiseeModalAddUser
-          onCloseModal={() => setIsModalOpen(false)}
+          onCloseModal={() => modals.changeSetting()}
           user={currentUser}
         />
       </BasicModal>

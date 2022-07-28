@@ -15,4 +15,5 @@ export enum Paths {
   Games = '/api/v1/games',
   Avatar = '/api/v1/avatar_upload',
   EditSelf = '/api/v1/editself',
+  Tariffs = '/api/v1/tariffs',
 }

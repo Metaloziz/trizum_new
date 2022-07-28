@@ -12,6 +12,7 @@ import { SexEnum } from 'app/enums/CommonEnums';
 import { RoleNames, Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
+import tariffsStore from 'app/stores/tariffsStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { ResponseOneUser } from 'app/types/UserTypes';
@@ -27,6 +28,7 @@ import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
 import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
+import { convertTariffOptions } from 'utils/convertTariffOptions';
 import { setErrorFomMessage } from 'utils/setErrorFomMessage';
 
 type Props = {
@@ -49,24 +51,35 @@ const roleOptions = [
 export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
   const { franchise } = franchiseeStore;
   const { groups } = groupStore;
+  const { tariffs } = tariffsStore;
 
   const franchiseOptions = convertFranchiseeOptions(franchise);
   const sexOptions = convertSexOptions();
   const groupOptions = convertGroupOptions(groups);
-
-  console.log(groupOptions);
+  const tariffsOptions = convertTariffOptions(tariffs);
 
   // const { getGroups, groups } = groupStore;
   const { createUser, updateUser } = usersStore;
   const [isParentShown, setIsParentShown] = useState(false);
   const [studentId, setStudentId] = useState('');
-  const [selectedRole1, setSelectedRole1] = useState<Roles>();
+  const [selectedRole, setSelectedRole] = useState<Roles>();
   // const [groupOptions, setGroupOptions] = useState<Option[]>([]);
 
-  let selectedRole = '';
+  useEffect(() => {
+    if (selectedRole !== Roles.Student) {
+      setIsParentShown(false);
+    }
+  }, [selectedRole]);
+
+  useEffect(() => {
+    if (user?.roleCode) {
+      setSelectedRole(user.roleCode);
+    }
+  }, []);
 
   const findRole = () => roleOptions.find(el => el.value === user?.roleCode);
   const findFranchisee = () => franchiseOptions.find(el => el.value === user?.franchise?.id);
+  const findTariff = () => tariffsOptions.find(el => el.value === user?.tariff?.id);
   const findSex = () => (user?.sex ? sexOptions[0] : sexOptions[1]);
 
   const defaultValues = {
@@ -80,6 +93,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     birthdate: user?.birthdate?.date || '01.01.2000',
     email: user?.email || '',
     franchise: findFranchisee() || franchiseOptions[0],
+    tariff: findTariff() || tariffsOptions[0],
     // group: undefined,
   };
 
@@ -111,7 +125,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
       .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
     phone:
-      selectedRole1 === Roles.Student
+      selectedRole === Roles.Student
         ? yup.string().notRequired()
         : yup
             .string()
@@ -120,10 +134,14 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
             .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`),
     birthdate: yup.string().required('Обязательное поле'), // todo проверить после добавления dataPicker
     email:
-      selectedRole1 === Roles.Student
+      selectedRole === Roles.Student
         ? yup.string().notRequired()
         : yup.string().required('Обязательное поле').email(),
     franchise: user ? yup.object().notRequired() : yup.object().required('Обязательное поле'),
+    tariff:
+      selectedRole === Roles.Student
+        ? yup.object().required('Обязательное поле')
+        : yup.object().notRequired(),
     // group: yup.object().required('Обязательное поле'), // todo разобраться в постмане как создавать нормально группы и потом перенести в код
   });
 
@@ -136,14 +154,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     watch,
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
-  selectedRole = watch('role').value;
-
-  useEffect(() => {
-    if (selectedRole !== Roles.Student) {
-      setIsParentShown(false);
-    }
-  }, [selectedRole]);
-
   const onSubmit = handleSubmit(async values => {
     const newUserData: RequestRegister = {
       sex: (values.sex?.label as SexEnum) === SexEnum.Male,
@@ -151,13 +161,14 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       birthdate: values.birthdate || '',
       city: values.city,
       role: values.role.value as Roles,
-      email: values.email,
+      email: values.email || null,
       // groupId: values.?.value || '', // todo здесь нужен отдельный запрос на создание связи с группой
       firstName: values.firstName,
       lastName: values.lastName,
       middleName: values.middleName,
-      phone: values.phone,
+      phone: values.phone || null,
       isSecondChild: false,
+      tariffId: values.tariff.value,
     };
 
     let res;
@@ -242,7 +253,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                       <CustomSelect
                         {...field}
                         onChange={e => {
-                          setSelectedRole1(e.value as Roles);
+                          setSelectedRole(e.value as Roles);
                           field.onChange(e);
                         }}
                         title="Роль"
@@ -268,6 +279,23 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                     control={control}
                   />
                 </>
+              )}
+              {selectedRole === Roles.Student && (
+                <Controller
+                  name="tariff"
+                  render={({ field }) => (
+                    <CustomSelect
+                      {...field}
+                      onChange={e => {
+                        field.onChange(e);
+                      }}
+                      title="Тариф"
+                      options={tariffsOptions}
+                      error={errors.tariff?.message}
+                    />
+                  )}
+                  control={control}
+                />
               )}
               {selectedRole !== Roles.Student && (
                 <Controller

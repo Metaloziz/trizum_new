@@ -147,37 +147,37 @@ export class FranchisingStore {
 
     if (this.filter.fullName.trim()) {
       result = this.entities.filter(entity =>
-        entity.fullName.toLowerCase().includes(this.filter!.fullName.toLowerCase()),
+        (entity.fullName ?? "").toLowerCase().includes(this.filter!.fullName.toLowerCase()),
       );
     }
 
     if (this.filter.shortName.trim()) {
       result = this.entities.filter(entity =>
-        entity.shortName.toLowerCase().includes(this.filter!.shortName.toLowerCase()),
+        (entity.shortName ?? "").toLowerCase().includes(this.filter!.shortName.toLowerCase()),
       );
     }
 
     if (this.filter.inn.trim()) {
       result = this.entities.filter(entity =>
-        entity.inn.toLowerCase().includes(this.filter!.inn.toLowerCase()),
+        (entity.inn ?? "").toLowerCase().includes(this.filter!.inn.toLowerCase()),
       );
     }
 
     if (this.filter.email.trim()) {
       result = this.entities.filter(entity =>
-        entity.email.toLowerCase().includes(this.filter!.email.toLowerCase()),
+        (entity.email ?? "").toLowerCase().includes(this.filter!.email.toLowerCase()),
       );
     }
 
     if (this.filter.city.trim()) {
       result = this.entities.filter(entity =>
-        entity.city.toLowerCase().includes(this.filter!.city.toLowerCase()),
+        (entity.city ?? "").toLowerCase().includes(this.filter!.city.toLowerCase()),
       );
     }
 
     if (this.filter.checkingAccount.trim()) {
       result = this.entities.filter(entity =>
-        entity.checkingAccount.toLowerCase().includes(this.filter!.checkingAccount.toLowerCase()),
+        (entity.checkingAccount ?? "").toLowerCase().includes(this.filter!.checkingAccount.toLowerCase()),
       );
     }
 

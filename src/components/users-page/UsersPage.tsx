@@ -11,6 +11,7 @@ import styles from './UsersPage.module.scss';
 import { RoleNames, Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
+import tariffsStore from 'app/stores/tariffsStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
@@ -41,6 +42,7 @@ const UsersPage = observer(() => {
 
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
+  const { getTariffs } = tariffsStore;
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -83,6 +85,7 @@ const UsersPage = observer(() => {
     load();
     getFranchisee();
     getGroups();
+    getTariffs();
   }, []);
 
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};

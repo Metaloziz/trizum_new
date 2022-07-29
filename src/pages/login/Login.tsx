@@ -148,13 +148,12 @@ const Login = () => {
     <div className={styles.flex}>
       {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}
       <div className={styles.flexCol}>
-        <Button variantType="none" onClick={() => setIsAnalytic(true)}>
+        <Button variant="none" onClick={() => setIsAnalytic(true)}>
           Кнопка для аналитика
         </Button>
-        <Button variantType="none" onClick={() => setIsTester(true)}>
-          Кнопка для тестировщика
-        </Button>
-        <Button variantType="none" onClick={resetRole}>
+        Кнопка для тестировщика
+        <Button variant="none" onClick={() => setIsTester(true)} />
+        <Button variant="none" onClick={resetRole}>
           Сброс номера на основной
         </Button>
         <p style={{ maxWidth: 300, textAlign: 'center' }}>

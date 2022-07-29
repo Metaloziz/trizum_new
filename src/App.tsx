@@ -10,6 +10,7 @@ import Blog from 'pages/blog/Blog';
 import Classes from 'pages/classes/Classes';
 import Courses from 'pages/courses/Courses';
 import Franchising from 'pages/franchising/Franchising';
+import Game from 'pages/game/Game';
 import Games from 'pages/games/Games';
 import Home from 'pages/home/Home';
 import Homework from 'pages/homework/Homework';
@@ -34,6 +35,7 @@ const App = () => (
         <Route path={AppRoutes.Courses} element={<Courses />} />
         <Route path={AppRoutes.Franchising} element={<Franchising />} />
         <Route path={AppRoutes.Games} element={<Games />} />
+        <Route path={AppRoutes.Game} element={<Game />} />
         <Route path={AppRoutes.Homework} element={<Homework />} />
         <Route path={`${AppRoutes.Homework}${AppRoutes.Add}`} element={<HomeworkAddEdit />} />
         <Route path={AppRoutes.Signin} element={<Login />} />

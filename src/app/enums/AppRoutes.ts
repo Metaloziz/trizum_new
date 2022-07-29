@@ -1,6 +1,7 @@
 export const AppRoutes = {
   Index: '/',
   Statistic: '/statistic',
+  Game: '/game',
   Games: '/games',
   Blog: '/blog',
   Classes: '/classes',

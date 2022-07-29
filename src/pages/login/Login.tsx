@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
+import { Typography } from '@mui/material';
+import { Navigate } from 'react-router-dom';
+
 import styles from './Login.module.scss';
 
+import { AppRoutes } from 'app/enums/AppRoutes';
 import authService from 'app/services/authService';
 import tokenService from 'app/services/tokenService';
 import appStore, { Roles } from 'app/stores/appStore';
@@ -9,36 +13,48 @@ import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import RoleButtons from 'components/role-buttons/RoleButtons';
 
+const func = (isTester: boolean, isAnalytic: boolean) => {
+  if (isTester) return '7970';
+  if (isAnalytic) return '7930';
+  return '7960';
+};
+
 const Login = () => {
+  const [isTester, setIsTester] = useState(false);
+  const [isAnalytic, setIsAnalytic] = useState(false);
+  const resetRole = () => {
+    setIsAnalytic(false);
+    setIsTester(false);
+  };
   const [phone, setPhone] = useState('79601001010');
   const qwe = (role: Roles) => {
     switch (role) {
       case Roles.Student:
-        setPhone('79608008080');
+        setPhone(`${func(isTester, isAnalytic)}8008080`);
         break;
       case Roles.TeacherEducation:
-        setPhone('79607007070');
+        setPhone(`${func(isTester, isAnalytic)}7007070`);
         break;
       case Roles.Teacher:
-        setPhone('79606006060');
+        setPhone(`${func(isTester, isAnalytic)}6006060`);
         break;
       case Roles.FranchiseeAdmin:
-        setPhone('79605005050');
+        setPhone(`${func(isTester, isAnalytic)}5005050`);
         break;
       case Roles.Franchisee:
-        setPhone('79604004040');
+        setPhone(`${func(isTester, isAnalytic)}4004040`);
         break;
       case Roles.Methodist:
-        setPhone('79603003030');
+        setPhone(`${func(isTester, isAnalytic)}3003030`);
         break;
       case Roles.Tutor:
-        setPhone('79602002020');
+        setPhone(`${func(isTester, isAnalytic)}2002020`);
         break;
       case Roles.Admin:
-        setPhone('79601001010');
+        setPhone(`${func(isTester, isAnalytic)}1001010`);
         break;
       default:
-        setPhone('');
+        setPhone('79601001010');
     }
   };
   const onClick = async () => {
@@ -46,7 +62,7 @@ const Login = () => {
       const res1 = await authService.sms({ phone });
       const res2 = await authService.login({ phone, smsCode: res1.code });
       await tokenService.setUser(res2.data.token);
-      await appStore.setUser()
+      await appStore.setUser();
       // const userData = await authService.loadme();
       // appStore.setRole(userData.role as Roles);
     } catch (e) {
@@ -81,7 +97,7 @@ const Login = () => {
     try {
       const getToken = await authService.login({ phone, smsCode: Number(code) });
       await tokenService.setUser(getToken.data.token);
-      await appStore.setUser()
+      await appStore.setUser();
       // const userData = await authService.loadme();
       // appStore.setRole(userData.role as Roles);
     } catch (e) {
@@ -125,10 +141,25 @@ const Login = () => {
     }
     return five;
   }
+  if (appStore.role !== Roles.Unauthorized) {
+    return <Navigate to={AppRoutes.Index} />;
+  }
   return (
     <div className={styles.flex}>
       {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}
       <div className={styles.flexCol}>
+        <Button variant="none" onClick={() => setIsAnalytic(true)}>
+          Кнопка для аналитика
+        </Button>
+        Кнопка для тестировщика
+        <Button variant="none" onClick={() => setIsTester(true)} />
+        <Button variant="none" onClick={resetRole}>
+          Сброс номера на основной
+        </Button>
+        <p style={{ maxWidth: 300, textAlign: 'center' }}>
+          Сначала нажимаем на нужную роль (Аналитик или Тестировщик), потом выбираем роль для
+          приложения, потом жмем на логин. Ошиблись ролью - нажать на сброс и выбрать нужную.
+        </p>
         <Button onClick={onClick}>login</Button>
         <Button variant="addUser" onClick={() => setShowModal1(true)}>
           Модалка временно для логина

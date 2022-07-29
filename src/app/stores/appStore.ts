@@ -94,8 +94,6 @@ class EmptyUser {
 class AppStore {
   role: Roles = Roles.Unauthorized;
 
-  token = '';
-
   user = new EmptyUser();
 
   constructor() {
@@ -106,16 +104,16 @@ class AppStore {
     this.role = role;
   };
 
-  setToken = (token: string) => {
-    this.token = token;
-  };
-
   setUser = async () => {
-    const res: ResponseLoadMe = await authService.loadme();
-    runInAction(() => {
-      this.role = res.role as Roles;
-      this.user = res;
-    });
+    try {
+      const res: ResponseLoadMe = await authService.loadme();
+      runInAction(() => {
+        this.role = res.role as Roles;
+        this.user = res;
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 

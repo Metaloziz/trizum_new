@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
@@ -16,6 +16,13 @@ type Props = Record<string, any>;
 
 const DefaultLayout: FC<Props> = observer(({ children, ...rest }) => {
   const { role } = appStore;
+
+  const func = async () => {
+    await appStore.setUser();
+  };
+  useEffect(() => {
+    func();
+  }, []);
   return (
     <div className={cn(styles.layout, role === Roles.Unauthorized && styles.layout_unauth)}>
       <Header className={styles.header} />

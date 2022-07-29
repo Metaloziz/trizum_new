@@ -1,10 +1,14 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+
+import Pagination from '@mui/material/Pagination';
+import { observer } from 'mobx-react-lite';
+
+import tariffsStore from '../../app/stores/tariffsStore';
+import { TariffsType } from '../../app/types/TariffTypes';
 
 import styles from './Rate.module.scss';
 
-import Pagination from 'components/molecules/Pagination';
 import RateChoice from 'components/rate-choice/RateChoice';
-import SettingsGames from 'components/settings-games/SettingsGames';
 import Table from 'components/table/Table';
 
 const colNames = [
@@ -12,171 +16,86 @@ const colNames = [
   'Стоимость',
   'Дата начала действия',
   'Дата окончания действия',
-  'Название  тарифа',
   'Статус',
   '',
 ];
-type Mock1 = {
-  name: string;
-  price: string;
-  dataStart: string;
-  dateEnd: string;
-  nameTariff: string;
-  status: string;
-  settings: () => JSX.Element;
-};
-const mocks1: Mock1[] = [
-  {
-    name: 'Самойленко И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Болдырев И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Волков И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Безверхов И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Бакузов И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Кружкин И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Ложкин И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Цапля И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Кисилев И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Лампочкин И.Н.',
-    price: 'Москва',
-    dataStart: 'Москва, ул. Строителей, д.2',
-    dateEnd: '+7(950)7662323 email@yandex.ru',
-    nameTariff: '1224546565155   14455546565155   4414546565155',
-    status: '1546662132212',
-    settings: () => <SettingsGames />,
-  },
-];
 
-const Rate: FC = () => {
-  const [data, setData] = useState(mocks1); // State для главных данных
+const Rate = observer(() => {
+  const { tariffs, getTariffs } = tariffsStore;
+  const [data, setData] = useState(tariffs); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
-  const [count] = useState<number>(4); // State для отображения количества элементов на каждой странице
+  const [count] = useState<number>(10); // State для отображения количества элементов на каждой странице
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState<TariffsType[]>([]);
+
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      // пример запроса на сервер
-      // const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
-      // setData(res.data);
+      await getTariffs();
       setLoading(false);
+      setData(tariffs);
     };
     getData();
   }, []);
 
+  useEffect(() => {
+    const newData: TariffsType[] = data.filter((val: TariffsType) =>
+      val.name.toLowerCase().includes(input.toLowerCase()),
+    );
+    setOutput(newData);
+  }, [input]);
+
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;
-  const currentItem = data.slice(firstItemIndex, lastItemIndex);
-  console.log(currentItem);
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const nextPage = () => {
-    if (currentItem.length === count) {
-      setCurrentPage(prev => prev + 1);
-    }
+  const currentItem = output.slice(firstItemIndex, lastItemIndex);
+
+  const paginate = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
+    setCurrentPage(newCurrentPage);
   };
-  const prevPage = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(prev => prev - 1);
-    }
+  const filterData = (dataFilter: TariffsType[]) => {
+    setData(dataFilter);
   };
 
-  return (
+  return loading ? (
+    <>loading...</>
+  ) : (
     <div className={styles.counter}>
-      <RateChoice />
+      <RateChoice
+        filterData={filterData}
+        data={data}
+        input={input}
+        setInput={setInput}
+        setOutput={setOutput}
+        setCurrentPage={setCurrentPage}
+      />
       <div className={styles.tableBlock}>
         <Table list={currentItem} colNames={colNames} loading={false}>
-          {currentItem.map(el => (
-            <tr key={el.name}>
-              <td>{el.name}</td>
-              <td>{el.price}</td>
-              <td>{el.dataStart}</td>
-              <td>{el.dateEnd}</td>
-              <td>{el.nameTariff}</td>
-              <td>{el.status}</td>
-            </tr>
-          ))}
+          {currentItem &&
+            currentItem.map((el: TariffsType) => (
+              <tr key={el.id}>
+                <td>{el.name}</td>
+                <td>{el.newPrice}</td>
+                <td>{new Date(el.startedAt.date).toLocaleDateString()}</td>
+                <td>{new Date(el.endedAt.date).toLocaleDateString()}</td>
+                <td>{el.status}</td>
+              </tr>
+            ))}
         </Table>
       </div>
       <div className={styles.paginationRateBlock}>
         <Pagination
-          totalCount={count}
-          currentPage={currentPage}
-          pageSize={mocks1.length}
-          onPageChange={paginate}
+          count={Math.ceil(output.length / 10)}
+          onChange={paginate}
+          page={currentPage}
+          defaultValue={0}
+          boundaryCount={1}
+          color="primary"
+          size="large"
         />
       </div>
     </div>
   );
-};
+});
 
 export default Rate;

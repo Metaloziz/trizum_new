@@ -28,7 +28,7 @@ export function rotateSize(width: number, height: number, rotation: number) {
  */
 export async function getCroppedImg(
   imageSrc: string,
-  pixelCrop: { x: number; y: number; width: number; height: number; },
+  pixelCrop: { x: number; y: number; width: number; height: number },
   rotation = 0,
   flip = { horizontal: false, vertical: false },
 ) {

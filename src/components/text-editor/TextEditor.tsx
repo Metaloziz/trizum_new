@@ -19,7 +19,7 @@ const TextEditor: FC<Props> = props => {
   return (
     <div>
       <Editor
-        onChange={handleChange}
+        onChange={onChange}
         editorState={editorState}
         onEditorStateChange={setEditorState}
         wrapperClassName={styles.wrapper}

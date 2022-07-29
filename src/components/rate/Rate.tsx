@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import tariffsStore from '../../app/stores/tariffsStore';
 import { TariffsType } from '../../app/types/TariffTypes';
 
+import AddOrEditDialog from './AddOrEditDialog';
 import styles from './Rate.module.scss';
 
 import RateChoice from 'components/rate-choice/RateChoice';
@@ -61,6 +62,7 @@ const Rate = observer(() => {
     <>loading...</>
   ) : (
     <div className={styles.counter}>
+      <AddOrEditDialog store={tariffsStore} />
       <RateChoice
         filterData={filterData}
         data={data}

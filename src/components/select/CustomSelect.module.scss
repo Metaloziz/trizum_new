@@ -8,7 +8,7 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  z-index: 10;
+  //z-index: 10;
 
   .label {
     font-weight: 600;
@@ -39,12 +39,13 @@
     height: 7px;
     top: 10px;
     right: 18px;
-    z-index: 402;
+    //z-index: 402;
   }
 
   &:hover .selectArrow {
     opacity: 0.5;
   }
+
   .error {
     color: red;
     font-size: 12px;

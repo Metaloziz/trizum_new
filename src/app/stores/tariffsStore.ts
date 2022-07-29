@@ -1,11 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import groupsService from 'app/services/groupsService';
-import tariffsService, { ResponseTariffType } from 'app/services/tariffsService';
-import { GroupsItemsType, ResponseGroupType } from 'app/types/GroupTypes';
+import tariffsService from 'app/services/tafiffService';
+import { TariffsType } from 'app/types/TariffTypes';
 
 class TariffsStore {
-  tariffs: ResponseTariffType[] = [];
+  tariffs: TariffsType[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -13,7 +12,7 @@ class TariffsStore {
 
   getTariffs = async () => {
     try {
-      const res = await tariffsService.getAll();
+      const res = await tariffsService.getAllTariffs();
       runInAction(() => {
         this.tariffs = res;
       });

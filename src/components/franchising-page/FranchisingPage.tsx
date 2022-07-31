@@ -28,7 +28,6 @@ import { LoadingIndicator } from './ui/LoadingIndicator';
 import { FranchisingStore } from 'components/franchising-page/stores';
 
 const FranchisingPage = observer(() => {
-  console.log('FranchisingPage');
   const store = useMemo(() => new FranchisingStore(), []);
 
   useEffect(() => {

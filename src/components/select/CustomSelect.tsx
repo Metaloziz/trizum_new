@@ -14,10 +14,11 @@ interface Props {
   title?: string;
   error?: string;
   value?: Option;
+  defaultValue?: Option;
 }
 
 const CustomSelect: FC<Props> = props => {
-  const { options, placeholder, className, onChange, title, value, error } = props;
+  const { options, placeholder, className, onChange, title, value, error, defaultValue } = props;
   const id = useId();
   const instanceId = useId();
   const handleChange = (v: SingleValue<Option> | null, actionMeta: ActionMeta<Option>) => {
@@ -32,8 +33,11 @@ const CustomSelect: FC<Props> = props => {
         placeholder={placeholder}
         options={options}
         onChange={handleChange}
+        // value={options.filter(option => option.value === 'hidden')}
         value={value}
         components={{ IndicatorSeparator: () => null }}
+        defaultValue={defaultValue}
+        // selectedValue={{ value: 'hidden', label: 'Заблокированный' }}
       />
       {error && <p className={styles.error}>{error}</p>}
     </div>

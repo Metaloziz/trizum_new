@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FC } from 'react';
+import React, { useState, ChangeEvent, FC, useEffect } from 'react';
 
 import { observer } from 'mobx-react';
 import moment from 'moment';
@@ -10,21 +10,35 @@ import styles from './TariffPage.module.scss';
 
 import Button from 'components/button/Button';
 import InformationItem from 'components/information-item/InformationItem';
-import { newstatus, tariff, month } from 'components/moks-data/moks-data-tariff';
 import TextEditor from 'components/text-editor/TextEditor';
 
 type Props = {
   store: any;
 };
 
+export const newstatus = [
+  { value: 'active', label: 'Активный' },
+  { value: 'archive', label: 'Неактивный' },
+  { value: 'hidden', label: 'Заблокированный' },
+];
+
 const TariffPage: FC<Props> = observer(({ store }) => {
-  console.log('editingEntity', { ...store.editingEntity });
   const [currentRadioValue, setCurrentRadioValue] = useState('twoChildren');
+
+  useEffect(() => {
+    if (store.editingEntity.forSecondChild) {
+      setCurrentRadioValue('twoChildren');
+    }
+    if (store.editingEntity.forFirstPay) {
+      setCurrentRadioValue('registration');
+    }
+    if (store.editingEntity.forNewClient) {
+      setCurrentRadioValue('firstPayment');
+    }
+  }, []);
 
   const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentRadioValue(e.currentTarget.value);
-    console.log('setvalue', currentRadioValue);
-    console.log('e.currentTarget.value', e.currentTarget.value);
     if (e.currentTarget.value === 'twoChildren') {
       store.editingEntity.forSecondChild = true;
       store.editingEntity.forFirstPay = false;
@@ -40,6 +54,10 @@ const TariffPage: FC<Props> = observer(({ store }) => {
       store.editingEntity.forFirstPay = true;
       store.editingEntity.forNewClient = false;
     }
+  };
+
+  const editTariffs = () => {
+    store.addOrEdit();
   };
 
   return (
@@ -62,16 +80,18 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                 <InformationItem
                   title="Статус"
                   variant="select"
-                  value={store.editingEntity.status}
+                  selectValue={newstatus.find(
+                    (item: any) => item.value === store.editingEntity.status,
+                  )}
                   option={newstatus}
                   onChangeSelect={data => {
                     store.editingEntity.status = data.value;
                   }}
                   placeholder="Активен"
                 />
-                <div>
+                <div style={{ margin: '25px 0 0 0' }}>
                   <CustomDatePicker
-                    value={store.editingEntity.startedAt.date}
+                    value={store.editingEntity.startedAt?.date}
                     setValue={(data: any) => {
                       store.editingEntity.startedAt = {
                         date: moment(data).format('YYYY-MM-DD hh:mm:ss.000000'),
@@ -82,9 +102,9 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                     label="Дата начала действия"
                   />
                 </div>
-                <div>
+                <div style={{ margin: '25px 0 0 0' }}>
                   <CustomDatePicker
-                    value={store.editingEntity.endedAt.date}
+                    value={store.editingEntity.endedAt?.date}
                     setValue={(data: any) => {
                       store.editingEntity.endedAt = {
                         date: moment(data).format('YYYY-MM-DD hh:mm:ss.000000'),
@@ -95,12 +115,6 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                     label="Дата окончания действия"
                   />
                 </div>
-                {/* <InformationItem */}
-                {/*  title="Тариф после" */}
-                {/*  variant="select" */}
-                {/*  option={tariff} */}
-                {/*  placeholder="Тариф 1" */}
-                {/* /> */}
               </div>
               <div>
                 <InformationItem
@@ -142,6 +156,7 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                     });
                     store.editingEntity.description = allText;
                   }}
+                  defaultText={store.editingEntity.description}
                 />
               </div>
               <div className={styles.choiceTariff}>
@@ -188,13 +203,6 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                     Тариф для новых клиентов (предполагается при первой оплате)
                   </label>
                 </div>
-                {/* <div className={styles.selectTraffic}> */}
-                {/* <InformationItem */}
-                {/*  title="Сколько месяцев действует" */}
-                {/*  variant="select" */}
-                {/*  option={month} */}
-                {/* /> */}
-                {/* </div> */}
               </div>
             </div>
           </div>
@@ -204,7 +212,7 @@ const TariffPage: FC<Props> = observer(({ store }) => {
         <div className={styles.listTariff}>
           <Button>Список тарифов</Button>
         </div>
-        <Button>{store.editingEntity?.id ? 'Изменить' : 'Сохранить'}</Button>
+        <Button onClick={editTariffs}>{store.editingEntity?.id ? 'Изменить' : 'Сохранить'}</Button>
       </div>
     </div>
   );

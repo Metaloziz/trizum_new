@@ -1,12 +1,24 @@
-import { FullResponseFranchise } from 'app/types/FranchiseTypes';
+import { TimeZoneType } from './AuthTypes';
+
+import { FranchiseT } from 'app/types/FranchiseTypes';
+import { Nullable } from 'app/types/Nullable';
 import { ResponseUserT } from 'app/types/UserTypes';
 
-export type ResponseGroups = { id: string; code: string; franchise: string }; // todo I CAN
+export type ResponseGroups = {
+  id: string;
+  name: string;
+  type: Nullable<string>;
+  status: Nullable<string>;
+  level: Nullable<string>;
+  startedAt: TimeZoneType;
+  endedAt: TimeZoneType;
+  franchise: string;
+};
 
 export type ResponseOneGroup = {
   id: string;
   code: string;
-  franchise: FullResponseFranchise;
+  franchise: FranchiseT;
   users: [
     {
       id: string;
@@ -14,4 +26,15 @@ export type ResponseOneGroup = {
       user: ResponseUserT;
     },
   ];
+};
+
+export type CreateGroup = {
+  name: string;
+  franchiseId: string;
+  dateSince: string;
+  dateUntil: string;
+  type: string;
+  teacherId: string;
+  level: string;
+  courseId: string;
 };

@@ -32,12 +32,27 @@ class TariffsStore {
     makeAutoObservable(this);
   }
 
-  openDialog = () => {
+  openDialog = (editingEntity?: any) => {
+    this.editingEntity = editingEntity ? { ...editingEntity } : this._defaultValue();
     this.isDialogOpen = true;
   };
 
   closeDialog = () => {
     this.isDialogOpen = false;
+  };
+
+  addOrEdit = async () => {
+    const options: TariffsType | {} = { ...this.editingEntity };
+    try {
+      if (this.editingEntity.id) {
+        await tariffService.edit(this.editingEntity.id, options);
+      } else {
+        await tariffService.create({ ...this.editingEntity });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    this.closeDialog();
   };
 
   getTariffs = async () => {

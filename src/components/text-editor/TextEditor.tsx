@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { EditorState } from 'draft-js';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorProps, Editor } from 'react-draft-wysiwyg';
 
@@ -8,20 +8,21 @@ import styles from './TextEditor.module.scss';
 
 type Props = {
   onChange?: (state: any) => void;
+  defaultText?: string;
 };
 
-const TextEditor: FC<Props> = props => {
-  const { onChange } = props;
-
-  const handleChange = (state: any) => {};
+const TextEditor: FC<Props> = ({ defaultText, onChange }) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const _contentState = ContentState.createFromText(defaultText || '');
+  const raw = convertToRaw(_contentState);
+  const [contentState, setContentState] = useState(raw); // ContentState JSON
 
   return (
     <div>
       <Editor
         onChange={onChange}
-        editorState={editorState}
-        onEditorStateChange={setEditorState}
+        defaultContentState={contentState}
+        onContentStateChange={setContentState}
         wrapperClassName={styles.wrapper}
         editorClassName={styles.editor}
         toolbarClassName={styles.toolbar}

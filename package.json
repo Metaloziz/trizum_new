@@ -49,6 +49,9 @@
     "react-easy-crop": "^4.4.0",
     "react-hook-form": "^7.32.2",
     "react-loader-spinner": "^5.1.5",
+    "react-native": "^0.69.3",
+    "react-native-svg": "^12.4.3",
+    "react-native-web": "^0.18.7",
     "react-number-format": "^4.9.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -84,6 +87,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-native": "^0.69.3",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "eslint": "^8.18.0",

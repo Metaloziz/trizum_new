@@ -31,7 +31,7 @@ interface FilterProps {
 export const Filter = observer((props: FilterProps) => {
   const _defaultFilter = (): FranchisingFilterViewModel => ({
     email: '',
-    fullName: '',
+    // fullName: '',
     shortName: '',
     inn: '',
     city: '',
@@ -72,7 +72,7 @@ export const Filter = observer((props: FilterProps) => {
         <AccordionDetails>
           <Grid container spacing={2}>
             {/* line 1 */}
-            <Grid item xs={12} sm={4}>
+            {/*    <Grid item xs={12} sm={4}>
               <TextField
                 label="Полное наименование"
                 value={filter.fullName}
@@ -83,7 +83,7 @@ export const Filter = observer((props: FilterProps) => {
                 variant="outlined"
                 size="small"
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={4}>
               <TextField
                 label="Номер счета"

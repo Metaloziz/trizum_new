@@ -21,7 +21,7 @@ export class FranchisingStore {
     bankKpp: '',
     bankName: '',
     email: '',
-    fullName: '',
+    // fullName: '',
     shortName: '',
     schoolName: '',
     ogrn: '',
@@ -145,11 +145,11 @@ export class FranchisingStore {
 
     let result: FranchisingViewModel[] = [];
 
-    if (this.filter.fullName.trim()) {
+    /* if (this.filter.fullName.trim()) {
       result = this.entities.filter(entity =>
         entity.fullName.toLowerCase().includes(this.filter!.fullName.toLowerCase()),
       );
-    }
+    } */
 
     if (this.filter.shortName.trim()) {
       result = this.entities.filter(entity =>

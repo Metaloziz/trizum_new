@@ -7,13 +7,14 @@ import 'moment-timezone';
 
 import CustomDatePicker from './customDatePicker';
 import styles from './TariffPage.module.scss';
+import { StoreTariffType } from './types';
 
 import Button from 'components/button/Button';
 import InformationItem from 'components/information-item/InformationItem';
 import TextEditor from 'components/text-editor/TextEditor';
 
 type Props = {
-  store: any;
+  store: StoreTariffType;
 };
 
 export const newstatus = [

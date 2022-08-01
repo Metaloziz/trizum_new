@@ -5,11 +5,15 @@ import { TariffsType } from '../types/TariffTypes';
 import tariffService from 'app/services/tafiffService';
 
 class TariffsStore {
-  private _defaultValue = (): any => ({
+  private _defaultValue = (): TariffsType => ({
     code: '',
     description: '',
     durationMonths: 0,
-    endedAt: '',
+    endedAt: {
+      date: '',
+      timezone: '',
+      timezone_type: 0,
+    },
     forFirstPay: false,
     forNewClient: false,
     forSecondChild: true,
@@ -18,7 +22,11 @@ class TariffsStore {
     newPrice: '',
     oldPrice: '',
     prevTariff: null,
-    startedAt: '',
+    startedAt: {
+      date: '',
+      timezone: '',
+      timezone_type: 0,
+    },
     status: 'active',
   });
 
@@ -26,13 +34,13 @@ class TariffsStore {
 
   isDialogOpen: boolean = false;
 
-  editingEntity: any = this._defaultValue();
+  editingEntity: TariffsType = this._defaultValue();
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  openDialog = (editingEntity?: any) => {
+  openDialog = (editingEntity?: TariffsType) => {
     this.editingEntity = editingEntity ? { ...editingEntity } : this._defaultValue();
     this.isDialogOpen = true;
   };

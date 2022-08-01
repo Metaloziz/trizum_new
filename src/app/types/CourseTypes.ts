@@ -23,6 +23,11 @@ export type ResponseOneCourse = {
   works: ResponseWork[];
 };
 
+export type GetCoursesParams = {
+  perPage?: number;
+  page?: number;
+};
+
 export type RequestCreateCourse = {
   title: string;
   level: string;

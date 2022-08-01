@@ -28,7 +28,6 @@ type Props = {
   children?: React.ReactNode;
   size?: ButtonSize;
   variant?: ButtonVariantType;
-  onClick?: () => void;
 } & Omit<ButtonProps, 'size' | 'variant'>;
 
 const Button1: FC<Props> = props => {
@@ -151,6 +150,7 @@ const Button1: FC<Props> = props => {
       onMouseOver={() => setShowHover(true)}
       onMouseOut={() => setShowHover(false)}
       disabled={disabled}
+      {...rest}
     >
       {children}
       {variant !== 'none' && (

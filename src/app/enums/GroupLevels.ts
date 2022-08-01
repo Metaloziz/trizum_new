@@ -1,5 +1,5 @@
 export enum GroupLevels {
-  Junior = 'Младшая группа',
-  Middle = 'Средняя группа',
-  Senior = 'Старшая группа',
+  Easy = 'Младшая группа',
+  Medium = 'Средняя группа',
+  Hard = 'Старшая группа',
 }

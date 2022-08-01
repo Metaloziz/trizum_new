@@ -1,38 +1,45 @@
-// export type ResponseGroups = { id: string; code: string; franchise: string }; // todo I CAN
-//
-// export type ResponseOneGroup = {
-//   id: string;
-//   code: string;
-//   franchise: FullResponseFranchise;
-//   users: [
-//     {
-//       id: string;
-//       stats: any[];
-//       user: ResponseUserT;
-//     },
-//   ];
-// };
+import { TimeZoneType } from './AuthTypes';
 
-/// //////////////////////////////////// NEW GROUPS TYPE
+import { FranchiseT } from 'app/types/FranchiseTypes';
+import { Nullable } from 'app/types/Nullable';
+import { ResponseUserT } from 'app/types/UserTypes';
 
-export type GroupsItemsType = {
+export type ResponseGroups = {
   id: string;
   name: string;
-  course: string;
+  type: Nullable<string>;
+  status: Nullable<string>;
+  level: Nullable<string>;
+  startedAt: TimeZoneType;
+  endedAt: TimeZoneType;
   franchise: string;
 };
 
-export type ResponseGroupsType = {
-  items: GroupsItemsType[];
-  page: number;
-  perPage: number;
-  total: number;
+export type ResponseOneGroup = {
+  id: string;
+  code: string;
+  franchise: FranchiseT;
+  users: [
+    {
+      id: string;
+      stats: any[];
+      user: ResponseUserT;
+    },
+  ];
 };
 
-export type ResponseGroupType = {
-  id: string;
+export type CreateGroup = {
   name: string;
-  course: any; // todo нужно уточнить
-  franchise: any;
-  users: [];
+  franchiseId: string;
+  dateSince: string;
+  dateUntil: string;
+  type: string;
+  teacherId: string;
+  level: string;
+  courseId: string;
+};
+
+export type GroupParams = {
+  perPage?: number;
+  page?: number;
 };

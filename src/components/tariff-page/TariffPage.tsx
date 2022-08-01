@@ -210,7 +210,7 @@ const TariffPage: FC<Props> = observer(({ store }) => {
       </div>
       <div className={styles.btnTraffic}>
         <div className={styles.listTariff}>
-          <Button>Список тарифов</Button>
+          <Button onClick={store.closeDialog}>Список тарифов</Button>
         </div>
         <Button onClick={editTariffs}>{store.editingEntity?.id ? 'Изменить' : 'Сохранить'}</Button>
       </div>

@@ -8,7 +8,7 @@ class FranchiseeStore {
     {
       id: '',
       shortName: '',
-      fullName: '',
+      // fullName: '',
       inn: '',
       legalAddress: '',
       actualAddress: '',

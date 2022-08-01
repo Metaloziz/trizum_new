@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 import styles from './AddEditGroup.module.scss';
 
 import { GroupLevels } from 'app/enums/GroupLevels';
+import { GroupType } from 'app/enums/GroupTypes';
 import groupStore from 'app/stores/groupStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
@@ -15,11 +16,6 @@ import { getOption, getOptionMui } from 'utils/getOption';
 interface Props {
   isOpen: boolean;
   setIsOpen: () => void;
-}
-
-export enum GroupType {
-  Class = 'Класс',
-  Olympiad = 'Олимпиада',
 }
 
 const typeOptionsNames = Object.values(GroupType);
@@ -82,7 +78,7 @@ const AddEditGroup: FC<Props> = observer(props => {
   const handleAddGroup = async () => {
     await addGroup();
     cleanValues();
-    setIsOpen()
+    setIsOpen();
   };
 
   const onClose = () => {

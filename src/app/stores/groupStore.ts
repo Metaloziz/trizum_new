@@ -65,7 +65,7 @@ class GroupStore {
     this.execute(async () => {
       const resFranchise = await franchiseService.getAll();
       runInAction(() => {
-        this.franchise = resFranchise;
+        this.franchise = resFranchise as unknown[] as FranchiseT[];
       });
     });
   };

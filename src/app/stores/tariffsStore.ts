@@ -52,9 +52,9 @@ class TariffsStore {
     const options: TariffsType | {} = { ...this.editingEntity };
     try {
       if (this.editingEntity.id) {
-        await tariffService.edit(this.editingEntity.id, options);
+        await tariffsService.edit(this.editingEntity.id, options);
       } else {
-        await tariffService.create({ ...this.editingEntity });
+        await tariffsService.create({ ...this.editingEntity });
       }
     } catch (e) {
       console.log(e);

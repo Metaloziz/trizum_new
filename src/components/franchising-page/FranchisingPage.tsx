@@ -131,7 +131,7 @@ const FranchisingPage = observer(() => {
                       },
                     }}
                   >
-                    <TableCell>
+                    {/* <TableCell>
                       {entity.fullName && (
                         <>
                           <Typography variant="caption">{entity.fullName || ''}</Typography>
@@ -139,7 +139,7 @@ const FranchisingPage = observer(() => {
                         </>
                       )}
                       <Typography variant="caption">{entity.shortName || ''}</Typography>
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       <Typography variant="caption">Город: {entity.city || '—'}</Typography>
                       <br />

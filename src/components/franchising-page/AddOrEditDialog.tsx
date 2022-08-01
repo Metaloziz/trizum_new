@@ -37,7 +37,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
               Сведения об организации
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <TextField
               label="Полное наименование"
               value={store.editingEntity.fullName}
@@ -49,7 +49,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                 !store.validateSchema.fields.fullName.isValidSync(store.editingEntity.fullName)
               }
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6}>
             <TextField
               label="Короткое наименование"

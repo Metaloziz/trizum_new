@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 import styles from './ClassesPage.module.scss';
 
+import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
@@ -75,7 +76,10 @@ const ClassesPage = observer(() => {
           </div>
         </div>
       </div>
-      <AddEditGroup setIsOpen={() => setIsOpen(false)} isOpen={isOpen} />
+      {/* TODO: переделать по ролям */}
+      {appStore.role === Roles.Admin && (
+        <AddEditGroup setIsOpen={() => setIsOpen(false)} isOpen={isOpen} />
+      )}
     </>
   );
 });

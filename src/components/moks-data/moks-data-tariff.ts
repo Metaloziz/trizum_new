@@ -1,7 +1,7 @@
 export const newstatus = [
-  { value: 'Активный', label: 'Активный' },
-  { value: 'Неактивный', label: 'Неактивный' },
-  { value: 'Заблокированный', label: 'Заблокированный' },
+  { value: 'active', label: 'Активный' },
+  { value: 'archive', label: 'Неактивный' },
+  { value: 'hidden', label: 'Заблокированный' },
 ];
 
 export const tariff = [

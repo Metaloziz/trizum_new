@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 
+import tariffsStore from '../../app/stores/tariffsStore';
 import { TariffsType } from '../../app/types/TariffTypes';
 
 import CustomDatePicker from './customDatePicker';
@@ -121,7 +122,7 @@ const RateChoice: FC<Props> = ({
         <div className={styles.btnBlock}>
           <Button onClick={searchHundler}>Найти</Button>
           <div className={styles.btnAdd}>
-            <Button>Добавить</Button>
+            <Button onClick={() => tariffsStore.openDialog()}>Добавить</Button>
           </div>
         </div>
       </div>

@@ -7,8 +7,9 @@ export type TariffsType = {
   forNewClient: boolean;
   forSecondChild: boolean;
   newPrice: string;
+  durationMonths: number;
   oldPrice: string;
-  prevTariff: string;
+  prevTariff: number | null;
   startedAt: {
     date: string;
     timezone: string;

@@ -38,3 +38,8 @@ export type CreateGroup = {
   level: string;
   courseId: string;
 };
+
+export type GroupParams = {
+  perPage?: number;
+  page?: number;
+};

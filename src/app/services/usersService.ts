@@ -14,7 +14,12 @@ type UpdateUserPayloadT = Partial<ResponseUserT>;
 const usersService = {
   getAllUsers: async (params?: RequestUsersParams): Promise<FullResponseUserT> => {
     const { data } = await instance.get(Paths.Users, {
-      params: { ...params, per_page: params?.perPage },
+      params: {
+        page: params?.page,
+        role: params?.role,
+        per_page: params?.perPage,
+        franchise_id: params?.franchiseId,
+      },
     });
     return data;
   },

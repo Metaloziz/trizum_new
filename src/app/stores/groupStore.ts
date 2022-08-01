@@ -61,16 +61,24 @@ class GroupStore {
     }
   };
 
-  loadModal = () => {
+  loadInitialModal = () => {
     this.execute(async () => {
       const resFranchise = await franchiseService.getAll();
-      const resTeachers = await usersService.getAllUsers({
-        role: Roles.Teacher,
-        perPage: 10000,
-      } as RequestUsersParams);
-      const resCourses = await coursesService.getAllCourses({ perPage: 1000 });
       runInAction(() => {
         this.franchise = resFranchise;
+      });
+    });
+  };
+
+  loadModal = () => {
+    this.execute(async () => {
+      const resTeachers = await usersService.getAllUsers({
+        role: Roles.Teacher,
+        franchiseId: this.modalFields.franchiseId,
+        perPage: 10000,
+      } as RequestUsersParams);
+      const resCourses = await coursesService.getAllCourses({ perPage: 10000 });
+      runInAction(() => {
         this.teachers = resTeachers.items;
         this.courses = resCourses.items;
       });
@@ -79,7 +87,7 @@ class GroupStore {
 
   getGroups = async () => {
     await this.execute(async () => {
-      const res = await groupsService.getGroups();
+      const res = await groupsService.getGroups({ perPage: 1000 });
       await this.getOneGroup(res.items[0].id);
       runInAction(() => {
         this.groups = res.items;
@@ -98,6 +106,18 @@ class GroupStore {
       });
     });
   };
+
+  addGroup = async () => {
+    await groupsService.addGroup(this.modalFields);
+  };
+
+  cleanValues = () => {
+    this.modalFields = { ...this.defaultValues };
+  };
+
+  get filteredCourses() {
+    return this.courses.filter(el => el.level.includes(this.modalFields.level));
+  }
 
   get validateSchema() {
     return yup.object<Record<keyof GroupsViewModel, any>>().shape({

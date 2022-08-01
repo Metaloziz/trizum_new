@@ -7,6 +7,7 @@ export type RequestUsersParams = {
   role?: Roles;
   page?: number;
   perPage?: number;
+  franchiseId?: string;
 };
 
 export type RequestCreateUser = {

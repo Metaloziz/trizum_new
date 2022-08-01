@@ -8,11 +8,12 @@ interface Props {
   children?: React.ReactNode;
   visibility: boolean;
   title?: string;
+  fullWidth?: boolean;
   changeVisibility: (value: boolean) => void;
 }
 
 const BasicModal: FC<Props> = props => {
-  const { children, visibility, changeVisibility, title } = props;
+  const { children, visibility, changeVisibility, title, fullWidth } = props;
   return (
     <Dialog
       PaperProps={{
@@ -21,7 +22,7 @@ const BasicModal: FC<Props> = props => {
         },
       }}
       maxWidth="md"
-      // fullWidth
+      fullWidth={fullWidth}
       onClose={() => changeVisibility(false)}
       open={visibility}
     >

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import modals from '../../../app/stores/CardStudentExtended';
 
@@ -36,8 +36,6 @@ const CardStudentExtended: FC<Props> = ({
   getOneUser,
   // onEditUserClick,
 }) => {
-  const [isShow, setShow] = useState<boolean>(false);
-
   const name = `${middleName ?? ''} ${firstName ?? ''} ${lastName ?? ''}`.trim();
 
   let role;
@@ -135,12 +133,7 @@ const CardStudentExtended: FC<Props> = ({
           )}
         </div>
       </div>
-      <EditUserIcon
-        onClick={onEditUserClick}
-        onMouseOver={() => setShow(true)}
-        onMouseOut={() => setShow(false)}
-        show={isShow}
-      />
+      <EditUserIcon onClick={onEditUserClick} />
     </div>
   );
 };

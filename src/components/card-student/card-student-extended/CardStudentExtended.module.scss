@@ -126,9 +126,10 @@
     img {
 
       cursor: pointer;
+      filter: brightness(10);
 
       &:hover {
-        filter: brightness(10);
+        filter: brightness(1);
       }
     }
 

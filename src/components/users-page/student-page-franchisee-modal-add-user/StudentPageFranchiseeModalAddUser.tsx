@@ -9,18 +9,20 @@ import * as yup from 'yup';
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
 import { SexEnum } from 'app/enums/CommonEnums';
-import { RoleNames, Roles } from 'app/stores/appStore';
+import { Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
 import tariffsStore from 'app/stores/tariffsStore';
-import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { ResponseOneUser } from 'app/types/UserTypes';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import CustomSelect from 'components/select/CustomSelect';
+import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
+import { action } from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
+import { IsShowGroups } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isShowGroups';
+import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import avatar from 'public/img/avatarDefault.png';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
@@ -29,28 +31,15 @@ import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
 import { convertTariffOptions } from 'utils/convertTariffOptions';
-import { setErrorFomMessage } from 'utils/setErrorFomMessage';
 
 type Props = {
   onCloseModal: () => void;
   user?: ResponseOneUser;
 };
 
-const roleOptions = [
-  { label: RoleNames.student, value: Roles.Student },
-  { label: RoleNames.parent, value: Roles.Parent },
-  { label: RoleNames.teacherEducation, value: Roles.TeacherEducation },
-  { label: RoleNames.teacher, value: Roles.Teacher },
-  { label: RoleNames.franchiseeAdmin, value: Roles.FranchiseeAdmin },
-  { label: RoleNames.franchisee, value: Roles.Franchisee },
-  { label: RoleNames.tutor, value: Roles.Tutor },
-  { label: RoleNames.methodist, value: Roles.Methodist },
-  { label: RoleNames.admin, value: Roles.Admin },
-];
-
 export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
   const { franchise } = franchiseeStore;
-  const { groups } = groupStore;
+  const { groups, loadCurrentGroup } = groupStore;
   const { tariffs } = tariffsStore;
 
   const franchiseOptions = convertFranchiseeOptions(franchise);
@@ -59,7 +48,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const tariffsOptions = convertTariffOptions(tariffs);
 
   // const { getGroups, groups } = groupStore;
-  const { createUser, updateUser } = usersStore;
   const [isParentShown, setIsParentShown] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [selectedRole, setSelectedRole] = useState<Roles>();
@@ -69,6 +57,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     if (selectedRole !== Roles.Student) {
       setIsParentShown(false);
     }
+    loadCurrentGroup(franchiseOptions[0].value, selectedRole);
   }, [selectedRole]);
 
   useEffect(() => {
@@ -81,6 +70,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const findFranchisee = () => franchiseOptions.find(el => el.value === user?.franchise?.id);
   const findTariff = () => tariffsOptions.find(el => el.value === user?.tariff?.id);
   const findSex = () => (user?.sex ? sexOptions[0] : sexOptions[1]);
+  const findGroup = () => (user?.groups ? sexOptions[0] : sexOptions[1]);
 
   const defaultValues = {
     firstName: user?.firstName || '',
@@ -94,7 +84,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     email: user?.email || '',
     franchise: findFranchisee() || franchiseOptions[0],
     tariff: findTariff() || tariffsOptions[0],
-    // group: undefined,
+    group: { label: 'default', value: '' } || groupOptions[0], // todo cork
   };
 
   const schema = yup.object().shape({
@@ -171,32 +161,22 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       tariffId: values.tariff.value,
     };
 
-    let res;
-
-    if (user) {
-      res = await updateUser(newUserData, user.id); // вынести ?
-      if (typeof res === 'string') {
-        setErrorFomMessage(res, setError);
-        return;
-      }
-    } else {
-      res = await createUser(newUserData);
-      if (typeof res === 'string') {
-        setErrorFomMessage(res, setError);
-        return;
-      }
-    }
-
-    if ((values.role.value as Roles) !== Roles.Student) {
-      onCloseModal();
-      reset();
-      return;
-    }
-    if (typeof res === 'object' && 'id' in res) {
-      setStudentId(res.id);
-      setIsParentShown(true);
-    }
+    await action(
+      user,
+      newUserData,
+      setError,
+      values.sex.value as Roles,
+      onCloseModal,
+      reset,
+      setStudentId,
+      setIsParentShown,
+      values.group.value,
+    );
   });
+
+  const getCurrentGroups = (franchiseId: Option) => {
+    loadCurrentGroup(franchiseId.value, selectedRole);
+  };
 
   return (
     <>
@@ -270,6 +250,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                         {...field}
                         onChange={e => {
                           field.onChange(e);
+                          getCurrentGroups(e);
                         }}
                         title="Франшиза"
                         options={franchiseOptions}
@@ -297,14 +278,40 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                   control={control}
                 />
               )}
-              {selectedRole !== Roles.Student && (
+              {IsShowGroups(selectedRole) && (
                 <Controller
-                  name="phone"
+                  name="group"
                   render={({ field }) => (
-                    <TextField {...field} label="Телефон" error={errors.phone?.message} />
+                    <CustomSelect
+                      {...field}
+                      onChange={e => {
+                        field.onChange(e);
+                      }}
+                      title="Группы"
+                      options={groupOptions}
+                      error={errors.group?.message}
+                    />
                   )}
                   control={control}
                 />
+              )}
+              {selectedRole !== Roles.Student && (
+                <>
+                  <Controller
+                    name="phone"
+                    render={({ field }) => (
+                      <TextField {...field} label="Телефон" error={errors.phone?.message} />
+                    )}
+                    control={control}
+                  />
+                  <Controller
+                    name="email"
+                    render={({ field }) => (
+                      <TextField {...field} label="Почта" error={errors.email?.message} />
+                    )}
+                    control={control}
+                  />
+                </>
               )}
               <Controller
                 name="birthdate"
@@ -313,15 +320,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                 )}
                 control={control}
               />
-              {selectedRole !== Roles.Student && (
-                <Controller
-                  name="email"
-                  render={({ field }) => (
-                    <TextField {...field} label="Почта" error={errors.email?.message} />
-                  )}
-                  control={control}
-                />
-              )}
               <Controller
                 name="sex"
                 render={({ field }) => (

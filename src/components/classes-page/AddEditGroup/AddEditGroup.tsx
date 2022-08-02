@@ -8,6 +8,7 @@ import styles from './AddEditGroup.module.scss';
 import { GroupLevels } from 'app/enums/GroupLevels';
 import { GroupType } from 'app/enums/GroupTypes';
 import groupStore from 'app/stores/groupStore';
+import { GroupT, LevelGroupT } from 'app/types/GroupTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
@@ -141,7 +142,7 @@ const AddEditGroup: FC<Props> = observer(props => {
             label="Уровень"
             placeholder="Уровень"
             fullWidth
-            onChange={(event, child) => (modalFields.level = event.target.value)}
+            onChange={(event, child) => (modalFields.level = event.target.value as LevelGroupT)}
             value={modalFields.level}
           >
             {levelOptions}
@@ -151,7 +152,7 @@ const AddEditGroup: FC<Props> = observer(props => {
           <Select
             label="Тип"
             fullWidth
-            onChange={(event, child) => (modalFields.type = event.target.value)}
+            onChange={(event, child) => (modalFields.type = event.target.value as GroupT)}
             value={modalFields.type}
           >
             {typeOptions}

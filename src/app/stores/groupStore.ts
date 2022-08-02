@@ -4,12 +4,12 @@ import * as yup from 'yup';
 
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
-import groupsService from 'app/services/groupsService';
+import groupsService, { AddUserGroupPayloadType } from 'app/services/groupsService';
 import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
 import { ResponseCourse } from 'app/types/CourseTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
-import { CreateGroup, ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
+import { CreateGroup, GroupParams, ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
 import { RequestUsersParams, ResponseUserT } from 'app/types/UserTypes';
 import { GroupsViewModel } from 'app/viewModels/GroupsViewModel';
 
@@ -29,9 +29,9 @@ class GroupStore {
     franchiseId: '',
     dateSince: '',
     dateUntil: '',
-    type: '',
+    type: 'blocks',
     teacherId: '',
-    level: '',
+    level: 'easy',
     courseId: '',
   };
 
@@ -61,6 +61,42 @@ class GroupStore {
     }
   };
 
+  loadCurrentGroup = (franchiseId: string, selectedRole: Roles | undefined) => {
+    this.groups = []; // todo так на прямую можно менять ?
+    this.execute(async () => {
+      let copyGroups: ResponseGroups[] = [];
+      if (selectedRole === Roles.Student) {
+        await this.getGroups({ franchise_id: franchiseId, type: 'class' });
+
+        copyGroups = [...this.groups];
+
+        await this.getGroups({
+          franchise_id: franchiseId,
+          type: 'olympiad',
+        });
+
+        runInAction(() => {
+          this.groups = [...this.groups, ...copyGroups];
+        });
+      }
+
+      if (selectedRole === Roles.Teacher || selectedRole === Roles.TeacherEducation) {
+        copyGroups = [];
+        await this.getGroups({ franchise_id: franchiseId, type: 'blocks' });
+        // copyGroups = [...this.groups]; // todo проверить логику
+        // runInAction(() => {
+        //   this.groups = [...copyGroups];
+        // });
+      }
+    });
+  };
+
+  addUserGroup = (data: AddUserGroupPayloadType) => {
+    this.execute(async () => {
+      const response = await groupsService.addUserGroup(data);
+    });
+  };
+
   loadInitialModal = () => {
     this.execute(async () => {
       const resFranchise = await franchiseService.getAll();
@@ -85,9 +121,14 @@ class GroupStore {
     });
   };
 
-  getGroups = async () => {
+  getGroups = async (params?: GroupParams) => {
     await this.execute(async () => {
-      const res = await groupsService.getGroups({ perPage: 1000 });
+      const res = await groupsService.getGroups({
+        perPage: 1000,
+        franchise_id: params?.franchise_id,
+        type: params?.type,
+        level: params?.level,
+      });
       await this.getOneGroup(res.items[0].id);
       runInAction(() => {
         this.groups = res.items;

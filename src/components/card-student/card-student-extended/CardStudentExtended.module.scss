@@ -118,9 +118,19 @@
   }
 
   .settings {
+
     position: absolute;
     top: 21px;
     right: 70px;
+
+    img {
+
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(10);
+      }
+    }
 
     @media (max-width: 1400px) {
       right: 21px;

@@ -21,7 +21,8 @@ import Image from 'components/image/Image';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
 import { action } from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
-import { IsShowGroups } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isShowGroups';
+import { isMethodistTutor } from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
+import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
 import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import avatar from 'public/img/avatarDefault.png';
@@ -47,18 +48,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const groupOptions = convertGroupOptions(groups);
   const tariffsOptions = convertTariffOptions(tariffs);
 
-  // const { getGroups, groups } = groupStore;
   const [isParentShown, setIsParentShown] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [selectedRole, setSelectedRole] = useState<Roles>();
-  // const [groupOptions, setGroupOptions] = useState<Option[]>([]);
-
-  useEffect(() => {
-    if (selectedRole !== Roles.Student) {
-      setIsParentShown(false);
-    }
-    loadCurrentGroup(franchiseOptions[0].value, selectedRole);
-  }, [selectedRole]);
 
   useEffect(() => {
     if (user?.roleCode) {
@@ -66,25 +58,21 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     }
   }, []);
 
-  const findRole = () => roleOptions.find(el => el.value === user?.roleCode);
-  const findFranchisee = () => franchiseOptions.find(el => el.value === user?.franchise?.id);
-  const findTariff = () => tariffsOptions.find(el => el.value === user?.tariff?.id);
   const findSex = () => (user?.sex ? sexOptions[0] : sexOptions[1]);
-  const findGroup = () => (user?.groups ? sexOptions[0] : sexOptions[1]);
 
   const defaultValues = {
     firstName: user?.firstName || '',
     middleName: user?.middleName || '',
     lastName: user?.lastName || '',
-    role: findRole() || roleOptions[roleOptions.length - 1],
+    role: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
     sex: findSex() || sexOptions[0],
     city: user?.city || '',
     phone: user?.phone || '',
     birthdate: user?.birthdate?.date || '01.01.2000',
     email: user?.email || '',
-    franchise: findFranchisee() || franchiseOptions[0],
-    tariff: findTariff() || tariffsOptions[0],
-    group: { label: 'default', value: '' } || groupOptions[0], // todo cork
+    franchise: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
+    tariff: { label: 'не выбран', value: '' } || tariffsOptions[0],
+    group: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
   };
 
   const schema = yup.object().shape({
@@ -132,50 +120,60 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       selectedRole === Roles.Student
         ? yup.object().required('Обязательное поле')
         : yup.object().notRequired(),
-    // group: yup.object().required('Обязательное поле'), // todo разобраться в постмане как создавать нормально группы и потом перенести в код
   });
 
   const {
     handleSubmit,
     control,
     setError,
+    resetField,
     reset,
     formState: { errors, isSubmitSuccessful },
-    watch,
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   const onSubmit = handleSubmit(async values => {
     const newUserData: RequestRegister = {
       sex: (values.sex?.label as SexEnum) === SexEnum.Male,
-      franchiseId: values.franchise.value,
+      franchiseId: values.franchise.value || null,
       birthdate: values.birthdate || '',
       city: values.city,
       role: values.role.value as Roles,
       email: values.email || null,
-      // groupId: values.?.value || '', // todo здесь нужен отдельный запрос на создание связи с группой
       firstName: values.firstName,
       lastName: values.lastName,
       middleName: values.middleName,
       phone: values.phone || null,
-      isSecondChild: false,
-      tariffId: values.tariff.value,
+      isSecondChild: null,
+      tariffId: values.tariff.value || null,
     };
 
     await action(
       user,
       newUserData,
       setError,
-      values.sex.value as Roles,
+      values.role.value as Roles,
       onCloseModal,
       reset,
       setStudentId,
       setIsParentShown,
+      values.role.value,
+      values.franchise.value,
+      values.tariff.value,
       values.group.value,
     );
   });
 
   const getCurrentGroups = (franchiseId: Option) => {
+    resetField('group');
     loadCurrentGroup(franchiseId.value, selectedRole);
+  };
+
+  const changeRole = () => {
+    if (selectedRole !== Roles.Student) {
+      setIsParentShown(false);
+    }
+    loadCurrentGroup(franchiseOptions[0].value, selectedRole);
+    resetField('franchise');
   };
 
   return (
@@ -225,7 +223,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                 )}
                 control={control}
               />
-              {!user && ( // при редактировании нельзя менять роль и франшизу
+              {!user && (
                 <>
                   <Controller
                     name="role"
@@ -234,6 +232,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                         {...field}
                         onChange={e => {
                           setSelectedRole(e.value as Roles);
+                          changeRole();
                           field.onChange(e);
                         }}
                         title="Роль"
@@ -243,22 +242,24 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                     )}
                     control={control}
                   />
-                  <Controller
-                    name="franchise"
-                    render={({ field }) => (
-                      <CustomSelect
-                        {...field}
-                        onChange={e => {
-                          field.onChange(e);
-                          getCurrentGroups(e);
-                        }}
-                        title="Франшиза"
-                        options={franchiseOptions}
-                        error={errors.franchise?.message}
-                      />
-                    )}
-                    control={control}
-                  />
+                  {isMethodistTutor(selectedRole) && (
+                    <Controller
+                      name="franchise"
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          onChange={e => {
+                            field.onChange(e);
+                            getCurrentGroups(e);
+                          }}
+                          title="Франшиза"
+                          options={franchiseOptions}
+                          error={errors.franchise?.message}
+                        />
+                      )}
+                      control={control}
+                    />
+                  )}
                 </>
               )}
               {selectedRole === Roles.Student && (
@@ -278,7 +279,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                   control={control}
                 />
               )}
-              {IsShowGroups(selectedRole) && (
+              {isStudentTeacherEducation(selectedRole) && (
                 <Controller
                   name="group"
                   render={({ field }) => (
@@ -287,7 +288,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                       onChange={e => {
                         field.onChange(e);
                       }}
-                      title="Группы"
+                      title="Группа"
                       options={groupOptions}
                       error={errors.group?.message}
                     />

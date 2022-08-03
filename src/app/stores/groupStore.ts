@@ -62,7 +62,7 @@ class GroupStore {
   };
 
   loadCurrentGroup = (franchiseId: string, selectedRole: Roles | undefined) => {
-    this.groups = []; // todo так на прямую можно менять ?
+    this.groups = [];
     this.execute(async () => {
       let copyGroups: ResponseGroups[] = [];
       if (selectedRole === Roles.Student) {
@@ -80,13 +80,9 @@ class GroupStore {
         });
       }
 
-      if (selectedRole === Roles.Teacher || selectedRole === Roles.TeacherEducation) {
+      if (selectedRole === Roles.TeacherEducation) {
         copyGroups = [];
         await this.getGroups({ franchise_id: franchiseId, type: 'blocks' });
-        // copyGroups = [...this.groups]; // todo проверить логику
-        // runInAction(() => {
-        //   this.groups = [...copyGroups];
-        // });
       }
     });
   };
@@ -129,7 +125,7 @@ class GroupStore {
         type: params?.type,
         level: params?.level,
       });
-      await this.getOneGroup(res.items[0].id);
+      await this.getOneGroup(res.items[0].id); // спросить у Саши логику этого запроса
       runInAction(() => {
         this.groups = res.items;
         this.page = res.page;

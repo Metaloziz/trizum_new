@@ -1,4 +1,5 @@
 import { Roles } from 'app/stores/appStore';
+import { Nullable } from 'app/types/Nullable';
 
 export type RequestSMS = { phone: string };
 export type RequestLogin = { phone: string; smsCode: number };
@@ -50,16 +51,16 @@ export type RequestRegister = {
   phone: string | null;
   email: string | null;
   role: Roles;
-  franchiseId: string;
+  franchiseId?: Nullable<string>;
   firstName: string;
   middleName: string;
   lastName: string;
   city: string;
   birthdate: string;
   sex: boolean;
-  groupId?: string;
-  tariffId?: string;
-  isSecondChild?: boolean;
+  groupId?: Nullable<string>;
+  tariffId?: Nullable<string>;
+  isSecondChild?: Nullable<boolean>;
 };
 
 export type ResponseAvatar = {

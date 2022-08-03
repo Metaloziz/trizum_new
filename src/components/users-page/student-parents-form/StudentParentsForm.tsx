@@ -132,7 +132,6 @@ const StudentParentsForm: FC<Props> = ({
       email,
       birthdate,
       role: Roles.Parent,
-      isSecondChild: false,
     };
 
     try {

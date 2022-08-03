@@ -9,5 +9,5 @@ export const roleOptions = [
   { label: RoleNames.franchisee, value: Roles.Franchisee },
   { label: RoleNames.tutor, value: Roles.Tutor },
   { label: RoleNames.methodist, value: Roles.Methodist },
-  { label: RoleNames.admin, value: Roles.Admin },
+  // { label: RoleNames.admin, value: Roles.Admin }, disable
 ];

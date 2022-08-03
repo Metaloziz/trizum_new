@@ -61,12 +61,12 @@ class GroupStore {
     }
   };
 
-  loadCurrentGroup = (franchiseId: string, selectedRole: Roles | undefined) => {
+  loadCurrentGroups = (franchiseId: string, selectedRole: Roles | undefined) => {
     this.groups = [];
     this.execute(async () => {
       let copyGroups: ResponseGroups[] = [];
       if (selectedRole === Roles.Student) {
-        await this.getGroups({ franchise_id: franchiseId, type: 'class' });
+        await this.getGroups({ franchise_id: franchiseId, type: 'class' }, false);
 
         copyGroups = [...this.groups];
 
@@ -82,7 +82,7 @@ class GroupStore {
 
       if (selectedRole === Roles.TeacherEducation) {
         copyGroups = [];
-        await this.getGroups({ franchise_id: franchiseId, type: 'blocks' });
+        await this.getGroups({ franchise_id: franchiseId, type: 'blocks' }, false);
       }
     });
   };
@@ -117,7 +117,7 @@ class GroupStore {
     });
   };
 
-  getGroups = async (params?: GroupParams) => {
+  getGroups = async (params?: GroupParams, needOneGroup = true) => {
     await this.execute(async () => {
       const res = await groupsService.getGroups({
         perPage: 1000,
@@ -125,7 +125,10 @@ class GroupStore {
         type: params?.type,
         level: params?.level,
       });
-      await this.getOneGroup(res.items[0].id); // спросить у Саши логику этого запроса
+      if (needOneGroup) {
+        await this.getOneGroup(res.items[0].id); // спросить у Саши логику этого запроса
+      }
+
       runInAction(() => {
         this.groups = res.items;
         this.page = res.page;

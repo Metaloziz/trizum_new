@@ -40,7 +40,7 @@ type Props = {
 
 export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
   const { franchise } = franchiseeStore;
-  const { groups, loadCurrentGroup } = groupStore;
+  const { groups, loadCurrentGroups } = groupStore;
   const { tariffs } = tariffsStore;
 
   const franchiseOptions = convertFranchiseeOptions(franchise);
@@ -61,15 +61,15 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const findSex = () => (user?.sex ? sexOptions[0] : sexOptions[1]);
 
   const defaultValues = {
-    firstName: user?.firstName || '',
-    middleName: user?.middleName || '',
-    lastName: user?.lastName || '',
+    firstName: user?.firstName || 'ИВАНОВ',
+    middleName: user?.middleName || 'ИВАН',
+    lastName: user?.lastName || 'ИВАНОВИЧ',
     role: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
     sex: findSex() || sexOptions[0],
-    city: user?.city || '',
-    phone: user?.phone || '',
+    city: user?.city || 'МИНСК',
+    phone: user?.phone || '70000974671',
     birthdate: user?.birthdate?.date || '01.01.2000',
-    email: user?.email || '',
+    email: user?.email || 'winteriscoming7@yandex.byeee',
     franchise: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
     tariff: { label: 'не выбран', value: '' } || tariffsOptions[0],
     group: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
@@ -165,16 +165,20 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
 
   const getCurrentGroups = (franchiseId: Option) => {
     resetField('group');
-    loadCurrentGroup(franchiseId.value, selectedRole);
+    loadCurrentGroups(franchiseId.value, selectedRole);
   };
 
-  const changeRole = () => {
+  useEffect(() => {
     if (selectedRole !== Roles.Student) {
       setIsParentShown(false);
     }
-    loadCurrentGroup(franchiseOptions[0].value, selectedRole);
+
+    if (isStudentTeacherEducation(selectedRole)) {
+      loadCurrentGroups(franchiseOptions[0].value, selectedRole);
+    }
+
     resetField('franchise');
-  };
+  }, [selectedRole]);
 
   return (
     <>
@@ -232,7 +236,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                         {...field}
                         onChange={e => {
                           setSelectedRole(e.value as Roles);
-                          changeRole();
                           field.onChange(e);
                         }}
                         title="Роль"

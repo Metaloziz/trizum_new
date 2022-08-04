@@ -52,6 +52,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const [isParentShown, setIsParentShown] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [selectedRole, setSelectedRole] = useState<Roles>();
+  const [currentFranchiseId, setCurrentFranchiseId] = useState<string>('');
 
   useEffect(() => {
     if (user?.roleCode) {
@@ -255,6 +256,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                           onChange={e => {
                             field.onChange(e);
                             getCurrentGroups(e);
+                            setCurrentFranchiseId(e.value);
                           }}
                           title="Франшиза"
                           options={franchiseOptions}
@@ -348,13 +350,18 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       </Grid>
       {user?.parents && (
         <StudentParentsFormContainer
+          franchiseId={currentFranchiseId}
           studentId={studentId}
           onCloseModal={onCloseModal}
           parents={user.parents}
         />
       )}
       {isParentShown && studentId && (
-        <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
+        <StudentParentsFormContainer
+          franchiseId={currentFranchiseId}
+          studentId={studentId}
+          onCloseModal={onCloseModal}
+        />
       )}
     </>
   );

@@ -10,6 +10,7 @@ import StudentParentsForm from 'components/users-page/student-parents-form/Stude
 
 type Props = {
   studentId: string;
+  franchiseId: string;
   onCloseModal: () => void;
   parents?: ParentT[];
 };
@@ -35,7 +36,7 @@ const setInitialState = (parents?: ParentT[]): ParentsFormStateType[] => {
   if (parents) {
     return parents.map((parent, index) => ({
       id: index + 1,
-      isSuccessSubmit: false,
+      isSuccessSubmit: true,
       isMain: parent.isMain,
       parent,
     }));
@@ -43,8 +44,15 @@ const setInitialState = (parents?: ParentT[]): ParentsFormStateType[] => {
   return INITIAL_PARENT_FORM_STATE;
 };
 
-export const StudentParentsFormContainer: FC<Props> = ({ onCloseModal, studentId, parents }) => {
+export const StudentParentsFormContainer: FC<Props> = ({
+  onCloseModal,
+  studentId,
+  parents,
+  franchiseId,
+}) => {
   const [parentState, setParentState] = useState(() => setInitialState(parents));
+
+  console.log(parentState);
 
   const addForm = () => {
     const form: ParentsFormStateType = {
@@ -56,21 +64,34 @@ export const StudentParentsFormContainer: FC<Props> = ({ onCloseModal, studentId
     setParentState(newState);
   };
 
-  const setIsSuccess = (isSuccess: boolean, id: number) => {
+  const setIsSuccess = (isSuccess: boolean, idForm: number) => {
     setParentState(
-      parentState.map(form =>
-        form.id === id
-          ? {
-              ...form,
-              isSuccessSubmit: isSuccess,
-            }
-          : form,
-      ),
+      parentState.map(form => {
+        if (form.id === idForm) {
+          return {
+            ...form,
+            isSuccessSubmit: isSuccess,
+          };
+        }
+        return form;
+      }),
     );
 
     if (parentState.length < MAX_PARENTS_COUNT) {
       addForm();
     }
+  };
+
+  const isSubmitAnyForm = (form: ParentsFormStateType[]) => {
+    let result: boolean = false;
+
+    form.forEach(element => {
+      if (element.isSuccessSubmit) {
+        result = true;
+      }
+    });
+
+    return result;
   };
 
   const setIsMainParent = (isMain: boolean, id: number) => {
@@ -95,6 +116,8 @@ export const StudentParentsFormContainer: FC<Props> = ({ onCloseModal, studentId
     }
   });
 
+  console.log(isSubmitAnyForm(parentState));
+
   return (
     <div>
       <Divider />
@@ -104,12 +127,14 @@ export const StudentParentsFormContainer: FC<Props> = ({ onCloseModal, studentId
           {parentState.map(({ id, isMain, parent }) => (
             <StudentParentsForm
               key={id}
-              id={id}
+              localIdParentForm={id}
               isMainParent={isMain}
               setIsMainParent={setIsMainParent}
               studentId={studentId}
+              franchiseId={franchiseId}
               setIsSubmitSuccessful={setIsSuccess}
               parent={parent}
+              isSubmitAnyForm={isSubmitAnyForm(parentState)}
             />
           ))}
         </div>

@@ -5,17 +5,16 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { SexEnum } from 'app/enums/CommonEnums';
-import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
-import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
-import { ParentT, RequestParenting } from 'app/types/UserTypes';
+import { ParentT } from 'app/types/UserTypes';
 import iconMedal from 'assets/svgs/medal.svg';
 import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
+import { action } from 'components/users-page/student-parents-form/action';
 import styles from 'components/users-page/student-parents-form/StudentParentsForm.module.scss';
 import user from 'public/svgs/user.svg';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
@@ -24,12 +23,14 @@ import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
 const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
 
 type Props = {
-  id: number;
+  localIdParentForm: number;
   studentId: string;
+  franchiseId: string;
   isMainParent: boolean;
   setIsMainParent: (value: boolean, id: number) => void;
   setIsSubmitSuccessful: (isSuccess: boolean, id: number) => void;
   parent?: ParentT;
+  isSubmitAnyForm: boolean;
 };
 
 type CreateParentPayloadT = Omit<
@@ -40,18 +41,19 @@ type CreateParentPayloadT = Omit<
 const StudentParentsForm: FC<Props> = ({
   setIsSubmitSuccessful,
   studentId,
-  id,
+  franchiseId,
+  localIdParentForm,
   isMainParent,
   setIsMainParent,
   parent,
+  isSubmitAnyForm,
 }) => {
-  const { createUser } = usersStore;
-  const { updateUser } = usersService;
-
   const [isDisable, setIsDisable] = useState(false);
 
+  // console.log(isMainParent);
+
   const handlerRadioChange = () => {
-    setIsMainParent(!isMainParent, id);
+    setIsMainParent(!isMainParent, localIdParentForm);
   };
 
   const schema = yup.object().shape({
@@ -105,59 +107,39 @@ const StudentParentsForm: FC<Props> = ({
   const {
     handleSubmit,
     control,
+    setError,
     reset,
     formState: { errors, isSubmitSuccessful },
     watch,
   } = useForm({ mode: 'onChange', defaultValues, resolver: yupResolver(schema) });
 
-  const onSubmit: SubmitHandler<CreateParentPayloadT> = async ({
-    sex,
-    email,
-    birthdate,
-    firstName,
-    lastName,
-    middleName,
-    phone,
-    city,
-    isMain,
-  }) => {
-    const data: RequestRegister = {
-      sex: (sex?.label as SexEnum) === SexEnum.Male,
-      phone,
-      middleName,
-      city,
-      lastName,
-      firstName,
-      franchiseId: '1ecf563a-2a69-6610-a812-f92a3af0f8be',
-      email,
-      birthdate,
+  const onSubmit: SubmitHandler<CreateParentPayloadT> = async values => {
+    const newParent: RequestRegister = {
+      sex: (values.sex?.label as SexEnum) === SexEnum.Male,
+      phone: values.phone,
+      middleName: values.middleName,
+      city: values.city,
+      lastName: values.lastName,
+      firstName: values.firstName,
+      franchiseId,
+      email: values.email,
+      birthdate: values.birthdate,
       role: Roles.Parent,
     };
 
-    try {
-      setIsDisable(true);
-
-      let res;
-
-      if (parent) {
-        res = await updateUser(data, parent.parent.id);
-      } else {
-        res = await createUser(data);
-      }
-      if (typeof res === 'object') {
-        const newParent: RequestParenting = {
-          parentId: res.id,
-          childId: studentId,
-          isMain,
-        };
-        const response = await usersStore.createParenting(newParent);
-        setIsSubmitSuccessful(true, id);
-      }
-    } catch (e) {
-      setIsDisable(false);
-      console.warn(e);
-    }
+    action(
+      setIsDisable,
+      parent,
+      newParent,
+      setError,
+      studentId,
+      values.isMain,
+      setIsSubmitSuccessful,
+      localIdParentForm,
+    );
   };
+
+  console.log(isSubmitAnyForm);
 
   return (
     <div className={styles.row}>
@@ -235,16 +217,29 @@ const StudentParentsForm: FC<Props> = ({
           <Controller
             name="isMain"
             control={control}
-            render={({ field: { value, ...props } }) => (
+            render={({ field }) => (
               <div className={styles.selectWrapper}>
                 <div className={styles.label}>
                   <label>
-                    <input
-                      {...props}
+                    <TextField
+                      {...field}
                       type="checkbox"
-                      onChange={handlerRadioChange}
+                      onChange={e => {
+                        field.onChange(e);
+                        handlerRadioChange();
+                      }}
                       checked={isMainParent}
+                      disabled={isSubmitAnyForm}
+                      title="Основной"
+                      value="checkbox"
+                      error={errors.isMain?.message}
                     />
+                    {/*  <input */}
+                    {/*    {...props} */}
+                    {/*    type="checkbox" */}
+                    {/*    onChange={handlerRadioChange} */}
+                    {/*    checked={isMainParent} */}
+                    {/*  /> */}
                     Основной
                   </label>
                   <div className={styles.medal}>

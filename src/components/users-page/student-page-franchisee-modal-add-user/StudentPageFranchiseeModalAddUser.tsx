@@ -32,6 +32,7 @@ import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
 import { convertTariffOptions } from 'utils/convertTariffOptions';
+import { removeEmptyFields } from 'utils/removeEmptyFields';
 
 type Props = {
   onCloseModal: () => void;
@@ -134,22 +135,22 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const onSubmit = handleSubmit(async values => {
     const newUserData: RequestRegister = {
       sex: (values.sex?.label as SexEnum) === SexEnum.Male,
-      franchiseId: values.franchise.value || null,
-      birthdate: values.birthdate || '',
+      franchiseId: values.franchise.value,
+      birthdate: values.birthdate,
       city: values.city,
       role: values.role.value as Roles,
-      email: values.email || null,
+      email: values.email,
       firstName: values.firstName,
       lastName: values.lastName,
       middleName: values.middleName,
-      phone: values.phone || null,
-      isSecondChild: null,
-      tariffId: values.tariff.value || null,
+      phone: values.phone,
+      isSecondChild: false,
+      tariffId: values.tariff.value,
     };
 
     await action(
       user,
-      newUserData,
+      removeEmptyFields(newUserData),
       setError,
       values.role.value as Roles,
       onCloseModal,

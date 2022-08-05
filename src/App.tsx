@@ -22,7 +22,8 @@ import Pay from 'pages/pay/Pay';
 import Report from 'pages/report/Report';
 import Schedule from 'pages/schedule/Schedule';
 import Statistic from 'pages/statistic/Statistic';
-import Testing from 'pages/testing/Testing';
+import { CurrentTest } from 'pages/testing/CurrentTest/CurrentTest';
+import { Testing } from 'pages/testing/Testing';
 import UserInfo from 'pages/user-info/UserInfo';
 import Users from 'pages/users/Users';
 
@@ -51,7 +52,12 @@ const App = () => (
         <Route path={AppRoutes.Report} element={<Report />} />
         <Route path={AppRoutes.Schedule} element={<Schedule />} />
         <Route path={AppRoutes.Statistic} element={<Statistic />} />
-        <Route path={AppRoutes.Testing} element={<Testing />} />
+
+        <Route path={AppRoutes.Testing}>
+          <Route path="" element={<Testing />} />
+          <Route path=":id" element={<CurrentTest />} />
+        </Route>
+
         <Route path={AppRoutes.UserInfo} element={<UserInfo />} />
         <Route path={AppRoutes.Users} element={<Users />} />
       </Route>

@@ -60,7 +60,7 @@ const TariffPage: FC<Props> = observer(({ store }) => {
   const editTariffs = () => {
     store.addOrEdit();
   };
-
+  console.log('i need to test smthng');
   return (
     <div className={styles.traffic}>
       <div className={styles.content}>

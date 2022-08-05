@@ -44,7 +44,7 @@ export const action = async (
         isMain,
       };
       const res = await createParenting(newParenting);
-      await setIsSubmitSuccessful(true, localIdParentForm);
+      setIsSubmitSuccessful(true, localIdParentForm);
     }
   } catch (e) {
     setIsDisable(false);

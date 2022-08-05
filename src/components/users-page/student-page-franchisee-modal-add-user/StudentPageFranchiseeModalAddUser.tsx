@@ -22,6 +22,8 @@ import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
 import { action } from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
 import { isMethodistTutor } from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
+import { isStudentCreated } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentCreated';
+import { isStudentRole } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentRole';
 import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
 import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
@@ -222,123 +224,125 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                 )}
                 control={control}
               />
-              <Controller
-                name="city"
-                render={({ field }) => (
-                  <TextField {...field} label="Город" error={errors.city?.message} />
-                )}
-                control={control}
-              />
-              {!user && (
+              {isStudentCreated(isParentShown, studentId) && (
                 <>
                   <Controller
-                    name="role"
+                    name="city"
                     render={({ field }) => (
-                      <CustomSelect
-                        {...field}
-                        onChange={e => {
-                          setSelectedRole(e.value as Roles);
-                          field.onChange(e);
-                        }}
-                        title="Роль"
-                        options={roleOptions}
-                        error={errors.role?.message}
-                      />
+                      <TextField {...field} label="Город" error={errors.city?.message} />
                     )}
                     control={control}
                   />
-                  {isMethodistTutor(selectedRole) && (
+                  {!user && (
+                    <>
+                      <Controller
+                        name="role"
+                        render={({ field }) => (
+                          <CustomSelect
+                            {...field}
+                            onChange={e => {
+                              setSelectedRole(e.value as Roles);
+                              field.onChange(e);
+                            }}
+                            title="Роль"
+                            options={roleOptions}
+                            error={errors.role?.message}
+                          />
+                        )}
+                        control={control}
+                      />
+                      {isMethodistTutor(selectedRole) && (
+                        <Controller
+                          name="franchise"
+                          render={({ field }) => (
+                            <CustomSelect
+                              {...field}
+                              onChange={e => {
+                                field.onChange(e);
+                                getCurrentGroups(e);
+                                setCurrentFranchiseId(e.value);
+                              }}
+                              title="Франшиза"
+                              options={franchiseOptions}
+                              error={errors.franchise?.message}
+                            />
+                          )}
+                          control={control}
+                        />
+                      )}
+                    </>
+                  )}
+                  {isStudentRole(selectedRole) && (
                     <Controller
-                      name="franchise"
+                      name="tariff"
                       render={({ field }) => (
                         <CustomSelect
                           {...field}
                           onChange={e => {
                             field.onChange(e);
-                            getCurrentGroups(e);
-                            setCurrentFranchiseId(e.value);
                           }}
-                          title="Франшиза"
-                          options={franchiseOptions}
-                          error={errors.franchise?.message}
+                          title="Тариф"
+                          options={tariffsOptions}
+                          error={errors.tariff?.message}
                         />
                       )}
                       control={control}
                     />
                   )}
-                </>
-              )}
-              {selectedRole === Roles.Student && (
-                <Controller
-                  name="tariff"
-                  render={({ field }) => (
-                    <CustomSelect
-                      {...field}
-                      onChange={e => {
-                        field.onChange(e);
-                      }}
-                      title="Тариф"
-                      options={tariffsOptions}
-                      error={errors.tariff?.message}
+                  {isStudentTeacherEducation(selectedRole) && (
+                    <Controller
+                      name="group"
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          onChange={e => {
+                            field.onChange(e);
+                          }}
+                          title="Группа"
+                          options={groupOptions}
+                          error={errors.group?.message}
+                        />
+                      )}
+                      control={control}
                     />
                   )}
-                  control={control}
-                />
-              )}
-              {isStudentTeacherEducation(selectedRole) && (
-                <Controller
-                  name="group"
-                  render={({ field }) => (
-                    <CustomSelect
-                      {...field}
-                      onChange={e => {
-                        field.onChange(e);
-                      }}
-                      title="Группа"
-                      options={groupOptions}
-                      error={errors.group?.message}
-                    />
+                  {!isStudentRole(selectedRole) && (
+                    <>
+                      <Controller
+                        name="phone"
+                        render={({ field }) => (
+                          <TextField {...field} label="Телефон" error={errors.phone?.message} />
+                        )}
+                        control={control}
+                      />
+                      <Controller
+                        name="email"
+                        render={({ field }) => (
+                          <TextField {...field} label="Почта" error={errors.email?.message} />
+                        )}
+                        control={control}
+                      />
+                    </>
                   )}
-                  control={control}
-                />
-              )}
-              {selectedRole !== Roles.Student && (
-                <>
                   <Controller
-                    name="phone"
-                    render={({ field }) => (
-                      <TextField {...field} label="Телефон" error={errors.phone?.message} />
-                    )}
+                    name="birthdate"
+                    render={({ field }) => <TextField {...field} label="Дата рождения:" />}
                     control={control}
                   />
                   <Controller
-                    name="email"
+                    name="sex"
                     render={({ field }) => (
-                      <TextField {...field} label="Почта" error={errors.email?.message} />
+                      <CustomSelect
+                        {...field}
+                        title="Пол"
+                        options={sexOptions}
+                        error={errors.sex?.message}
+                      />
                     )}
                     control={control}
                   />
                 </>
               )}
-              <Controller
-                name="birthdate"
-                render={({ field }) => (
-                  <TextField {...field} label="Дата рождения:" /> // todo value="01.01.2000" for dev
-                )}
-                control={control}
-              />
-              <Controller
-                name="sex"
-                render={({ field }) => (
-                  <CustomSelect
-                    {...field}
-                    title="Пол"
-                    options={sexOptions}
-                    error={errors.sex?.message}
-                  />
-                )}
-                control={control}
-              />
               <div className={styles.button}>
                 <Button type="submit" disabled={isSubmitSuccessful} onClick={onSubmit}>
                   Сохранить

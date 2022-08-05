@@ -14,16 +14,16 @@ import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapp
 import Image from 'components/image/Image';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
-import { action } from 'components/users-page/student-parents-form/action';
 import styles from 'components/users-page/student-parents-form/StudentParentsForm.module.scss';
+import { action } from 'components/users-page/student-parents-form/utils/action';
+import { sexOptions } from 'components/users-page/student-parents-form/utils/sexOptions';
+import { MAIN_PARENT_ID } from 'components/users-page/student-parrents-form-container/store/store';
 import user from 'public/svgs/user.svg';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
 import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
 
-const sexOptions = Object.values(SexEnum).map(el => ({ label: el, value: el }));
-
 type Props = {
-  localIdParentForm: number;
+  localParentFormID: number;
   studentId: string;
   franchiseId: string;
   isMainParent: boolean;
@@ -42,18 +42,16 @@ const StudentParentsForm: FC<Props> = ({
   setIsSubmitSuccessful,
   studentId,
   franchiseId,
-  localIdParentForm,
+  localParentFormID,
   isMainParent,
   setIsMainParent,
   parent,
   isSubmitAnyForm,
 }) => {
-  const [isDisable, setIsDisable] = useState(false);
-
-  // console.log(isMainParent);
+  const [isDisableSubmit, setIsDisableSubmit] = useState(false);
 
   const handlerRadioChange = () => {
-    setIsMainParent(!isMainParent, localIdParentForm);
+    setIsMainParent(!isMainParent, localParentFormID);
   };
 
   const schema = yup.object().shape({
@@ -100,7 +98,7 @@ const StudentParentsForm: FC<Props> = ({
     phone: parent?.parent.phone || '',
     email: parent?.parent.email || '',
     birthdate: '01.01.2000',
-    sex: sexOptions[0], // todo how to set value from props ?
+    sex: sexOptions[0],
     isMain: parent?.isMain || false,
   };
 
@@ -108,9 +106,7 @@ const StudentParentsForm: FC<Props> = ({
     handleSubmit,
     control,
     setError,
-    reset,
-    formState: { errors, isSubmitSuccessful },
-    watch,
+    formState: { errors },
   } = useForm({ mode: 'onChange', defaultValues, resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<CreateParentPayloadT> = async values => {
@@ -128,18 +124,16 @@ const StudentParentsForm: FC<Props> = ({
     };
 
     action(
-      setIsDisable,
+      setIsDisableSubmit,
       parent,
       newParent,
       setError,
       studentId,
       values.isMain,
       setIsSubmitSuccessful,
-      localIdParentForm,
+      localParentFormID,
     );
   };
-
-  console.log(isSubmitAnyForm);
 
   return (
     <div className={styles.row}>
@@ -220,36 +214,34 @@ const StudentParentsForm: FC<Props> = ({
             render={({ field }) => (
               <div className={styles.selectWrapper}>
                 <div className={styles.label}>
-                  <label>
-                    <TextField
-                      {...field}
-                      type="checkbox"
-                      onChange={e => {
-                        field.onChange(e);
-                        handlerRadioChange();
-                      }}
-                      checked={isMainParent}
-                      disabled={isSubmitAnyForm}
-                      title="Основной"
-                      value="checkbox"
-                      error={errors.isMain?.message}
-                    />
-                    {/*  <input */}
-                    {/*    {...props} */}
-                    {/*    type="checkbox" */}
-                    {/*    onChange={handlerRadioChange} */}
-                    {/*    checked={isMainParent} */}
-                    {/*  /> */}
-                    Основной
-                  </label>
-                  <div className={styles.medal}>
-                    <Image src={iconMedal} width="20" height="20" alt="medal" />
-                  </div>
+                  {localParentFormID === MAIN_PARENT_ID && (
+                    <>
+                      <label>
+                        <TextField
+                          {...field}
+                          type="checkbox"
+                          onChange={e => {
+                            field.onChange(e);
+                            handlerRadioChange();
+                          }}
+                          checked={isMainParent}
+                          disabled={isSubmitAnyForm}
+                          title="Основной"
+                          value="checkbox"
+                          error={errors.isMain?.message}
+                        />
+                        Основной
+                      </label>
+                      <div className={styles.medal}>
+                        <Image src={iconMedal} width="20" height="20" alt="medal" />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             )}
           />
-          <Button type="submit" disabled={isDisable} onClick={handleSubmit(onSubmit)}>
+          <Button type="submit" disabled={isDisableSubmit} onClick={handleSubmit(onSubmit)}>
             Сохранить
           </Button>
         </form>

@@ -17,16 +17,19 @@ interface Props {
   id?: string | number;
 }
 
-const BlogItem: FC<Props> = observer(props => {
-  const { title, imgSrc = '', text, id } = props;
+const BlogItem: FC<Props> = observer(({ title, imgSrc = '', text, id }) => {
   const { role } = appStore;
+
   const navigate = useNavigate();
+
   const onTestClick = () => {
     navigate(`${AppRoutes.Testing}/${id}`);
   };
+
   const onReadTheoryClick = (): void => {
-    navigate(`${AppRoutes.Blog}/${id}`);
+    navigate(`${AppRoutes.Blog}/${title}`);
   };
+
   return (
     <div className={styles.containerItem}>
       <div className={styles.wrapperTeacherImg}>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { TextField } from '@mui/material';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -8,16 +7,13 @@ import styles from './ClassesPage.module.scss';
 
 import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
-import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import CardStudent from 'components/card-student/CardStudent';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
 import BlockGames from 'components/classes-page/block-games/BlockGames';
-import SearchBar from 'components/classes-page/search-bar/SearchBar';
 
 const ClassesPage = observer(() => {
   const { getGroups, groups, getOneGroup, currentGroup } = groupStore;
-  console.log({ ...groups });
   const [isLoaded, setIsLoaded] = useState(false);
 
   const load = async () => {

@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
+import { Article } from 'components/blog-page/Article/Article';
 import DefaultLayout from 'components/layout/default/DefaultLayout';
 import Rate from 'components/rate/Rate';
 import Blog from 'pages/blog/Blog';
@@ -30,7 +31,12 @@ const App = () => (
     <Routes>
       <Route path={AppRoutes.Index} element={<DefaultLayout />}>
         <Route path={AppRoutes.Index} element={<Home />} />
-        <Route path={AppRoutes.Blog} element={<Blog />} />
+
+        <Route path={AppRoutes.Blog}>
+          <Route path="" element={<Blog />} />
+          <Route path=":articleName" element={<Article />} />
+        </Route>
+
         <Route path={AppRoutes.Classes} element={<Classes />} />
         <Route path={AppRoutes.Courses} element={<Courses />} />
         <Route path={AppRoutes.Franchising} element={<Franchising />} />

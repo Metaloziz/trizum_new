@@ -4,43 +4,26 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './BlogPage.module.scss';
+import { blogsPreviews } from './data/blogsPreviews';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
-import Img from 'assets/images/teacher.svg';
 import Button from 'components/button/Button';
 import BlogItem from 'components/molecules/BlogItem';
 
-const items = [
-  {
-    id: 1,
-    img: Img,
-    title: 'Блок 1',
-    text: 'А также явные признаки победы институционализации призывают нас к новым свершениям, которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники тоталитаризма в науке являются только методом политического участия и в равной степени предоставлены сами себе. ',
-  },
-  {
-    id: 2,
-    img: Img,
-    title: 'Блок 2',
-    text: 'А также явные признаки победы институционализации призывают нас к новым свершениям, которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники тоталитаризма в науке являются только методом политического участия и в равной степени предоставлены сами себе. ',
-  },
-  {
-    id: 3,
-    img: Img,
-    title: 'Блок 3',
-    text: 'А также явные признаки победы институционализации призывают нас к новым свершениям, которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники тоталитаризма в науке являются только методом политического участия и в равной степени предоставлены сами себе. ',
-  },
-];
-
 const BlogPage: FunctionComponent = observer(() => {
   const { role } = appStore;
+
   const navigate = useNavigate();
+
   const onClickAddPost = () => {
     navigate(`${AppRoutes.Blog}/add-post`);
   };
+
   const onClickAddTest = () => {
     navigate(`${AppRoutes.Blog}/add-test`);
   };
+
   return (
     <div className={styles.container}>
       {role === Roles.Methodist && (
@@ -49,7 +32,7 @@ const BlogPage: FunctionComponent = observer(() => {
           <Button onClick={onClickAddTest}>Добавить тест</Button>
         </>
       )}
-      {items.map(item => (
+      {blogsPreviews.map(item => (
         <BlogItem
           key={item.id}
           title={item.title}

@@ -27,7 +27,6 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   res => {
-    console.log(res?.headers, 'headers');
     const token = res.headers.authorization;
     if (token) {
       TokenService.updateLocalAccessToken(token);

@@ -43,7 +43,7 @@ const ClassesPage = observer(() => {
       <div className={styles.wrapper}>
         <div className={styles.searchBar}>
           <Button onClick={addGroup}>Add</Button>
-           <SearchBar />
+          <SearchBar />
         </div>
         <div className={styles.row}>
           <div className={styles.tabs}>

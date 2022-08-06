@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { autorun, makeAutoObservable, runInAction } from 'mobx';
 import * as yup from 'yup';
 
 import coursesService from 'app/services/coursesService';
@@ -100,10 +100,11 @@ class GroupStore {
     });
   };
 
-  getGroups = async (data?: GroupParams) => {
+  getGroups = async () => {
+    this.currentGroup = undefined;
     await this.execute(async () => {
-      const res = await groupsService.getGroups(data);
-      await this.getOneGroup(res.items[0].id);
+      const res = await groupsService.getGroups(this.queryFields);
+      res.items.length && (await this.getOneGroup(res.items[0].id));
       runInAction(() => {
         this.groups = res.items;
         this.page = res.page;
@@ -130,12 +131,9 @@ class GroupStore {
     this.modalFields = { ...this.defaultValues };
   };
 
-  changeQueryFields = (value: number | string, fieldName: string) => {
-    this.queryFields = { ...this.queryFields, [fieldName]: value };
-  };
-
   clearQueryFields = () => {
     this.queryFields = { ...this.queryDefaultValues };
+    this.getGroups()
   };
 
   get filteredCourses() {

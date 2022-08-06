@@ -5,8 +5,20 @@ import { WithPagination } from 'app/types/WithPagination';
 
 const groupsService = {
   getGroups: async (params?: GroupParams): Promise<WithPagination<ResponseGroups[]>> => {
+    const actualParams = {
+      per_page: params?.perPage || undefined,
+      page: params?.page || undefined,
+      for_group_id: params?.forGroupId || undefined,
+      date_since: params?.dateSince || undefined,
+      date_until: params?.dateUntil || undefined,
+      franchise_id: params?.franchiseId || undefined,
+      level:params?.level || undefined,
+      name: params?.name || undefined,
+      teacher_id: params?.teacherId || undefined,
+      type: params?.type || undefined,
+    }
     const res = await instance.get(Paths.Groups, {
-      params: { per_page: params?.perPage, page: params?.page },
+      params: actualParams,
     });
     return res.data;
   },

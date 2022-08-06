@@ -16,7 +16,6 @@ import SearchBar from 'components/classes-page/search-bar/SearchBar';
 
 const ClassesPage = observer(() => {
   const { getGroups, groups, getOneGroup, currentGroup } = groupStore;
-  console.log({ ...groups });
   const [isLoaded, setIsLoaded] = useState(false);
 
   const load = async () => {
@@ -44,7 +43,7 @@ const ClassesPage = observer(() => {
       <div className={styles.wrapper}>
         <div className={styles.searchBar}>
           <Button onClick={addGroup}>Add</Button>
-          {/* <SearchBar /> */}
+           <SearchBar />
         </div>
         <div className={styles.row}>
           <div className={styles.tabs}>

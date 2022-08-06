@@ -9,7 +9,7 @@ import styles from './MethodistMain.module.scss';
 import { AppRoutes } from 'app/enums/AppRoutes';
 import { EditAddLabels } from 'app/enums/CommonEnums';
 import { DateTime } from 'app/enums/DateTime';
-import { GroupLevels } from 'app/enums/GroupLevels';
+import { GroupEnums } from 'app/enums/GroupEnums';
 import coursesStore from 'app/stores/coursesStore';
 import { RequestEditCourse, ResponseCourse } from 'app/types/CourseTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
@@ -29,7 +29,7 @@ export const colNames = [
   'Дата создания комплекса',
   ' ',
 ];
-const groupLevelOptions = Object.values(GroupLevels).map(el => getOption(el, el));
+const groupLevelOptions = Object.values(GroupEnums).map(el => getOption(el, el));
 
 const MethodistMain: FC = observer(() => {
   const {

@@ -39,7 +39,15 @@ export type CreateGroup = {
   courseId: string;
 };
 
-export type GroupParams = {
-  perPage?: number;
-  page?: number;
-};
+export type GroupParams = Partial<{
+  perPage: number;
+  page: number;
+  franchiseId: string;
+  dateSince: string;
+  dateUntil: string;
+  forGroupId: string;
+  type: string;
+  teacherId: string;
+  name: string;
+  level: string;
+}>;

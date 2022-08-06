@@ -7,7 +7,6 @@ const instance = axios.create({
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'https://backschool.sitetopic.ru/',
   },
 });
 
@@ -15,8 +14,7 @@ instance.interceptors.request.use(
   (config: AxiosRequestConfig<{ headers: { 'Content-Type': string } }>) => {
     const token = TokenService.getLocalAccessToken();
 
-    if (token) {
-      // @ts-ignore
+    if (token && config.headers) {
       config.headers.Authorization = token;
     }
     return config;
@@ -24,6 +22,21 @@ instance.interceptors.request.use(
   error => {
     console.log(error, 'error');
     return Promise.reject(error);
+  },
+);
+
+instance.interceptors.response.use(
+  res => {
+    console.log(res?.headers, 'headers');
+    const token = res.headers.authorization;
+    if (token) {
+      TokenService.updateLocalAccessToken(token);
+    }
+    return res;
+  },
+  rej => {
+    console.log(rej, 'rej');
+    return rej;
   },
 );
 // instance.interceptors.response.use(

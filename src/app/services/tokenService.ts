@@ -15,10 +15,10 @@ class TokenService {
   }
 
   updateLocalAccessToken(token: string) {
-    const temp = localStorage.getItem('user_secret');
-    const user: UserStorageT = temp ? JSON.parse(temp) : '';
-    user.accessToken = token;
-    localStorage.setItem('user_secret', JSON.stringify(user));
+    // const temp = localStorage.getItem('user_secret');
+    // const user: UserStorageT = temp ? JSON.parse(temp) : '';
+    // user = token;
+    localStorage.setItem('user_secret', JSON.stringify(token));
   }
 
   getUser() {

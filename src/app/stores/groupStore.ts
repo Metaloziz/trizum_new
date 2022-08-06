@@ -9,7 +9,7 @@ import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
 import { ResponseCourse } from 'app/types/CourseTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
-import { CreateGroup, ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
+import { CreateGroup, GroupParams, ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
 import { RequestUsersParams, ResponseUserT } from 'app/types/UserTypes';
 import { GroupsViewModel } from 'app/viewModels/GroupsViewModel';
 
@@ -35,7 +35,22 @@ class GroupStore {
     courseId: '',
   };
 
+  private queryDefaultValues: GroupParams = {
+    perPage: 5,
+    page: 0,
+    name: '',
+    forGroupId: '',
+    franchiseId: '',
+    teacherId: '',
+    dateSince: '',
+    dateUntil: '',
+    type: '',
+    level: '',
+  };
+
   modalFields = { ...this.defaultValues };
+
+  queryFields = { ...this.queryDefaultValues };
 
   franchise: FranchiseT[] = [];
 
@@ -85,9 +100,9 @@ class GroupStore {
     });
   };
 
-  getGroups = async () => {
+  getGroups = async (data?: GroupParams) => {
     await this.execute(async () => {
-      const res = await groupsService.getGroups({ perPage: 1000 });
+      const res = await groupsService.getGroups(data);
       await this.getOneGroup(res.items[0].id);
       runInAction(() => {
         this.groups = res.items;
@@ -111,8 +126,16 @@ class GroupStore {
     await groupsService.addGroup(this.modalFields);
   };
 
-  cleanValues = () => {
+  cleanModalValues = () => {
     this.modalFields = { ...this.defaultValues };
+  };
+
+  changeQueryFields = (value: number | string, fieldName: string) => {
+    this.queryFields = { ...this.queryFields, [fieldName]: value };
+  };
+
+  clearQueryFields = () => {
+    this.queryFields = { ...this.queryDefaultValues };
   };
 
   get filteredCourses() {

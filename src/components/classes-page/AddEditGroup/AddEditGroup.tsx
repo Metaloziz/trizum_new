@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import styles from './AddEditGroup.module.scss';
 
-import { GroupLevels } from 'app/enums/GroupLevels';
+import {GroupEnums, GroupType} from 'app/enums/GroupEnums';
 import groupStore from 'app/stores/groupStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
@@ -17,18 +17,13 @@ interface Props {
   setIsOpen: () => void;
 }
 
-export enum GroupType {
-  Class = 'Класс',
-  Olympiad = 'Олимпиада',
-}
-
 const typeOptionsNames = Object.values(GroupType);
 const typeOptions = Object.keys(GroupType).map((el, idx) =>
   getOptionMui(el.toLowerCase(), typeOptionsNames[idx]),
 );
 
-const levelOptionsNames = Object.values(GroupLevels);
-const levelOptions = Object.keys(GroupLevels).map((el, idx) =>
+const levelOptionsNames = Object.values(GroupEnums);
+const levelOptions = Object.keys(GroupEnums).map((el, idx) =>
   getOptionMui(el.toLowerCase(), levelOptionsNames[idx]),
 );
 
@@ -45,7 +40,7 @@ const AddEditGroup: FC<Props> = observer(props => {
     loadInitialModal,
     addGroup,
     filteredCourses,
-    cleanValues,
+    cleanModalValues,
   } = groupStore;
 
   useEffect(() => {
@@ -81,13 +76,13 @@ const AddEditGroup: FC<Props> = observer(props => {
 
   const handleAddGroup = async () => {
     await addGroup();
-    cleanValues();
+    cleanModalValues();
     setIsOpen()
   };
 
   const onClose = () => {
     setIsOpen();
-    cleanValues();
+    cleanModalValues();
   };
 
   return (

@@ -10,7 +10,6 @@ import {
   AccordionSummary,
   Box,
   Grid,
-  Button,
   Paper,
   Stack,
   TextField,
@@ -18,6 +17,8 @@ import {
 } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { observer } from 'mobx-react';
+
+import Button from "../button/Button";
 
 import { numberWithoutLeadingZero } from './helpers/numberWithoutLeadingZero';
 import { FranchisingFilterViewModel } from './models/FranchisingFilterViewModel';
@@ -172,14 +173,7 @@ export const Filter = observer((props: FilterProps) => {
             }}
           >
             <Button
-              variant="contained"
-              // size="small"
-              startIcon={<SearchIcon fontSize="small" />}
-              onClick={applyFilter}
-              sx={{
-                alignSelf: 'flex-end',
-                backgroundColor: '#2e8dfd',
-              }}
+              size='small'
             >
               Применить
             </Button>

@@ -212,3 +212,4 @@ const FranchisingPage = observer(() => {
 });
 
 export default FranchisingPage;
+

@@ -39,6 +39,20 @@ instance.interceptors.response.use(
   },
 );
 // instance.interceptors.response.use(
+//   res => {
+//     console.log(res?.headers, 'headers');
+//     const token = res.headers.authorization;
+//     if (token) {
+//       TokenService.updateLocalAccessToken(token);
+//     }
+//     return res;
+//   },
+//   rej => {
+//     console.log(rej, 'rej');
+//     return rej;
+//   },
+// );
+// instance.interceptors.response.use(
 //   res => res,
 //   async err => {
 //     const originalConfig = err.config;

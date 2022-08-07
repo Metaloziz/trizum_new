@@ -1,7 +1,9 @@
 import { Roles } from 'app/stores/appStore';
+import { canSwitchToT } from 'app/types/UserTypes';
 
 export type RequestSMS = { phone: string };
 export type RequestLogin = { phone: string; smsCode: number };
+export type RequestSwitchUser = { id: string };
 
 export type ResponseSMS = { code: number };
 export type ResponseLogin = {
@@ -44,6 +46,7 @@ export type ResponseLoadMe = {
     id: string;
     path: string;
   };
+  canSwitchTo: canSwitchToT[];
 };
 
 export type RequestRegister = {

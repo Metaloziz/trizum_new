@@ -12,6 +12,7 @@ import {
   ResponseSMS,
   ResponseAvatar,
   ResponseEditSelf,
+  RequestSwitchUser,
 } from 'app/types/AuthTypes';
 
 const authService = {
@@ -51,6 +52,11 @@ const authService = {
   },
   editSelf: async (params: ResponseEditSelf) => {
     const { data } = await instance.post(Paths.EditSelf, params);
+    return data;
+  },
+  switchUser: async (params: RequestSwitchUser) => {
+    const { data }: ResponseLogin = await instance.post(Paths.SwitchUser, params);
+    debugger;
     return data;
   },
 };

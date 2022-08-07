@@ -1,6 +1,7 @@
 import { Roles } from 'app/stores/appStore';
 import { TimeZoneType } from 'app/types/AuthTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
+import { Nullable } from 'app/types/Nullable';
 import { WithPagination } from 'app/types/WithPagination';
 
 export type RequestUsersParams = {
@@ -30,6 +31,11 @@ export type ResponseOneUserGroupT = {
   groupType: null | string;
 };
 
+type ResponseUserAvatarT = {
+  id: string;
+  path: string;
+};
+
 export type ResponseUserT = {
   id: string;
   firstName: string;
@@ -42,7 +48,8 @@ export type ResponseUserT = {
   city: string | null;
   groups: ResponseOneUserGroupT[];
   status: UserStatusT;
-  avatar: any | null; // todo определить тип объекта
+  avatar: Nullable<ResponseUserAvatarT>; // todo определить тип объекта
+  canSwitchTo: canSwitchToT[];
 };
 export type FullResponseUserT = WithPagination<ResponseUserT[]>;
 
@@ -91,4 +98,14 @@ export type ResponseParenting = {
   id: string;
   childId: string;
   parentId: string;
+};
+
+export type canSwitchToT = {
+  id: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  avatar: null | string;
+  isActive: boolean;
+  isPayed: boolean;
 };

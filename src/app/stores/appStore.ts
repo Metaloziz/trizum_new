@@ -1,10 +1,11 @@
 /* eslint-disable max-classes-per-file */
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { ResponseLoadMe } from '../types/AuthTypes';
+import { RequestSwitchUser, ResponseLoadMe } from '../types/AuthTypes';
 
 import authService from 'app/services/authService';
 import { TimeZoneType } from 'app/types/AuthTypes';
+import { canSwitchToT } from 'app/types/UserTypes';
 
 export enum Roles {
   /* Ученик */
@@ -68,6 +69,8 @@ class EmptyUser {
 
   avatar: { id: string; path: string };
 
+  canSwitchTo: canSwitchToT[];
+
   constructor() {
     this.id = '';
     this.firstName = '';
@@ -89,8 +92,10 @@ class EmptyUser {
       id: '',
       path: '',
     };
+    this.canSwitchTo = [];
   }
 }
+
 class AppStore {
   role: Roles = Roles.Unauthorized;
 
@@ -107,12 +112,22 @@ class AppStore {
   setUser = async () => {
     try {
       const res: ResponseLoadMe = await authService.loadme();
+      console.log(res);
       runInAction(() => {
         this.role = res.role as Roles;
         this.user = res;
       });
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  switchUser = async (params: RequestSwitchUser) => {
+    try {
+      const res = await authService.switchUser(params);
+      await this.setUser();
+    } catch (e) {
+      console.warn(e);
     }
   };
 }

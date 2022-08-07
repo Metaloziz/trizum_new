@@ -1,16 +1,24 @@
-import { FC } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
 import styles from './Account.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
+import authService from 'app/services/authService';
 import tokenService from 'app/services/tokenService';
 import appStore, { Roles } from 'app/stores/appStore';
 import avatar from 'assets/images/avatar.png';
+import { DropDownStudents } from 'components/drop-down-student/DropDownStudents';
 import Image from 'components/image/Image';
 
 const Account: FC = observer(() => {
+  const { user } = appStore;
+  const [isOpenChangeStudentModal, setIsOpenChangeStudentModal] = useState<boolean>(false);
+  const toggleChangeStudentModal = () => {
+    user.canSwitchTo.length > 0 && setIsOpenChangeStudentModal(!isOpenChangeStudentModal);
+  };
+
   // const { Signout } = Routes;
   const activeNotification = true;
   const { setRole } = appStore;
@@ -19,11 +27,26 @@ const Account: FC = observer(() => {
     setRole(Roles.Unauthorized);
     // router.push(Routes.Index);
   };
+
+  const onChangeStudent = useCallback(async (id: string) => {
+    try {
+      await appStore.switchUser({ id });
+    } catch (e) {
+      console.warn(e);
+    }
+  }, []);
   return (
     <div className={styles.container}>
-      <button className={styles.avatar}>
-        <Image src={avatar} width={53} height={53} alt="avatar" />
+      <button onClick={toggleChangeStudentModal} className={styles.avatar}>
+        <Image src={avatar} width={53} height={53} alt="user avatar" />
         <div className={styles.notification} />
+        {isOpenChangeStudentModal && (
+          <DropDownStudents
+            avatar={avatar}
+            canSwitchTo={user.canSwitchTo}
+            onChangeStudent={onChangeStudent}
+          />
+        )}
       </button>
       <span className={styles.span}>{appStore.role}</span>
       <button className={styles.logout} onClick={logout}>

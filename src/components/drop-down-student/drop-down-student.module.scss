@@ -1,0 +1,44 @@
+.container {
+  width: 275px;
+  height: auto;
+  background-color: #FFFFFF;
+  box-shadow: -1px 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
+  position: absolute;
+  top: 110%;
+  left: -430%;
+  z-index: 2;
+}
+
+.student {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 66px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  position: relative;
+  background: #FFFFFF;
+
+  & span:hover {
+    color: #626262;
+  }
+
+  & img {
+    height: 40px;
+    width: 40px;
+    margin: 0 36px 0 26px;
+  }
+
+  & ::after {
+    content: '';
+    width: 100%;
+    border-bottom: 2px solid #BABEC6B2;
+    position: absolute;
+    top: 64px;
+    left: 0;
+
+
+  }
+}

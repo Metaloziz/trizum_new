@@ -35,6 +35,7 @@
   background-color: $color-button;
   border: 2px solid transparent;
   border-radius: 50%;
+  cursor: pointer;
 
   @media (max-width: 600px) {
     width: 50px;

@@ -60,7 +60,7 @@ const Login = () => {
   const onClick = async () => {
     try {
       // const res1 = await authService.sms({ phone });
-      const res2 = await authService.login({ phone: '79102002020', smsCode: 7777 });
+      const res2 = await authService.login({ phone: '79006006060', smsCode: 7777 });
       // await tokenService.setUser(res2.data.token);
       // await appStore.setUser();
       const userData = await authService.loadme();

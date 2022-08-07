@@ -127,6 +127,8 @@ class GroupStore {
 
   addGroup = async () => {
     await groupsService.addGroup(this.modalFields);
+    this.cleanModalValues()
+    this.closeModal()
   };
 
   editGroup = async () => {
@@ -135,6 +137,8 @@ class GroupStore {
         await groupsService.editGroup(this.modalFields, this.selectedGroup.id);
         await this.getGroups();
       }
+      this.cleanModalValues()
+      this.closeModal()
     });
   };
 
@@ -173,7 +177,7 @@ class GroupStore {
   };
 
   get filteredCourses() {
-    return this.courses.filter(el => el.level.includes(this.modalFields.level));
+    return this.courses ? this.courses.filter(el => el.level.includes(this.modalFields.level)) : [];
   }
 
   get validateSchema() {

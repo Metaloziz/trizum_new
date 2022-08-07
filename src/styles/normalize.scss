@@ -16,24 +16,6 @@ body {
   Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-html, body {
-  &::-webkit-scrollbar {
-    width: 15px;
-    height: 60px;
-    max-height: 60px;
-    background-size: contain;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    width: 15px;
-    background-color: #4778EC;
-    height: 60px;
-    max-height: 60px;
-    background-size: contain;
-  }
-}
-
-
 p,
 h1,
 h2,

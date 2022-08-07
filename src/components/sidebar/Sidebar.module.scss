@@ -4,6 +4,8 @@
   width: 210px;
   box-shadow: 4px 0 20px rgba(127, 40, 217, 0.15);
   background-color: $color-purple-lighter;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
 
   @media (max-width: 1280px) {
     width: auto;

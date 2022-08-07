@@ -15,9 +15,6 @@ const Classes = observer(() => {
     case Roles.Methodist:
     case Roles.Admin:
       return <ClassesPage />;
-    case Roles.Student:
-    case Roles.TeacherEducation:
-    case Roles.Tutor:
     default:
       return <Navigate to={AppRoutes.Index} />;
   }

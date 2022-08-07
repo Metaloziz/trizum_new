@@ -6,8 +6,10 @@ import { observer } from 'mobx-react-lite';
 import styles from './AddEditGroup.module.scss';
 
 import { GroupEnums, GroupType } from 'app/enums/GroupEnums';
+import coursesService from 'app/services/coursesService';
+import franchiseService from 'app/services/franchiseService';
 import usersService from 'app/services/usersService';
-import { Roles } from 'app/stores/appStore';
+import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
@@ -72,22 +74,37 @@ const AddEditGroup: FC<Props> = observer(props => {
       setTeacherOptions(res.items.map(el => getOptionMui(el.id, el.firstName)));
     }
   };
-  console.log(modalFields.teacherId);
-  console.log(courses, 'courses');
-  console.log([...groupStore.teachers]);
+  const initLoad = async () => {
+    const resFranchise = await franchiseService.getAll();
+    const resCourses = await coursesService.getAllCourses({ perPage: 10000 });
+    setFranchiseOptions(resFranchise.map(t => getOptionMui(t.id || '', t.shortName)));
+    setCourseOptions(resCourses.items.map(el => (el.id ? getOptionMui(el.id, el.title) : <></>)));
+  };
   useEffect(() => {
-    loadInitialModal();
+    debugger
+    loadInitialModal()
+    // initLoad();
   }, []);
 
   useEffect(() => {
-    getTeachers();
+    if (modalFields.franchiseId) {
+      getTeachers();
+    }
   }, [modalFields.franchiseId]);
 
   useEffect(() => {
-    const fOptions = franchise.map(t => getOptionMui(t.id || '', t.shortName));
-    setFranchiseOptions(fOptions);
-    setCourseOptions(courses.map(el => (el.id ? getOptionMui(el.id, el.title) : <></>)));
-  }, [franchise, courses]);
+    if (appStore.role === Roles.Admin) {
+      debugger;
+      setFranchiseOptions(franchise.map(t => getOptionMui(t.id || '', t.shortName)));
+    }
+  }, [groupStore.franchise]);
+  //
+  // useEffect(() => {
+  //   if (appStore.role === Roles.Admin) {
+  //     debugger;
+  //     setCourseOptions(courses.map(el => (el.id ? getOptionMui(el.id, el.title) : <></>)));
+  //   }
+  // }, [groupStore.courses]);
 
   useEffect(() => {
     const cOptions = filteredCourses.length
@@ -95,12 +112,6 @@ const AddEditGroup: FC<Props> = observer(props => {
       : [];
     setCourseOptions(cOptions);
   }, [modalFields.level]);
-
-  const handleAddGroup = async () => {
-    await addGroup();
-    cleanModalValues();
-    closeModal();
-  };
 
   const onClose = () => {
     closeModal();
@@ -196,18 +207,6 @@ const AddEditGroup: FC<Props> = observer(props => {
             {levelOptions}
           </Select>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <InputLabel id="type">Тип</InputLabel>
-          <Select
-            labelId="type"
-            label="Тип"
-            fullWidth
-            onChange={(event, child) => (modalFields.type = event.target.value)}
-            value={modalFields.type}
-          >
-            {typeOptions}
-          </Select>
-        </Grid>
         <Grid
           item
           sm={12}
@@ -216,7 +215,9 @@ const AddEditGroup: FC<Props> = observer(props => {
             flexDirection: 'row-reverse',
           }}
         >
-          <Button onClick={() => (selectedGroup ? editGroup() : handleAddGroup())}>Add</Button>
+          <Button onClick={() => (selectedGroup ? editGroup() : addGroup())}>
+            {selectedGroup ? 'Изменить' : 'Добавить'}
+          </Button>
         </Grid>
       </Grid>
     </BasicModal>

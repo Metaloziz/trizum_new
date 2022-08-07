@@ -1,8 +1,10 @@
 .wrapper {
   padding: 30px 20px 20px 16px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
 
   .searchBar {
-    margin-bottom: 60px;
+    margin-bottom: 24px;
 
     @media (max-width: 550px) {
       margin-bottom: 20px;
@@ -19,11 +21,11 @@
     }
 
     .button {
-      width: 134px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 130px;
+      height: 40px;
+      //display: flex;
+      //align-items: center;
+      //justify-content: center;
       margin-bottom: 5px;
       background: #DEEBFF;
       border: 1px solid #2E8DFD;
@@ -32,9 +34,20 @@
       font-family: 'Montserrat', sans-serif;
       font-style: normal;
       font-weight: 600;
-      font-size: 18px;
+      font-size: 14px;
       color: #000000;
       cursor: pointer;
+
+      span {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: calc(100% - 16px);
+        line-height: 40px;
+        display: inline-block;
+        position: relative;
+        left: 16px;
+      }
       &_active {
       background: #2E8DFD;
       color: #FFFFFF;
@@ -42,10 +55,6 @@
       &:hover {
         background: #2E8DFD;
         color: #FFFFFF;
-      }
-
-      span {
-        margin-left: -9px;
       }
 
       @media (max-width: 900px) {
@@ -78,7 +87,7 @@
     }
 
     .tabs {
-      margin-top: 55px;
+      margin-top: 8px;
 
       @media (max-width: 900px) {
         margin-top: 0;
@@ -113,10 +122,10 @@
       }
 
       /* ползунок скроллбара */
-      &::-webkit-scrollbar-thumb {
-        background: #babec6;
-        border-radius: 10px;
-      }
+      //&::-webkit-scrollbar-thumb {
+      //  background: #babec6;
+      //  border-radius: 10px;
+      //}
 
       @media (max-width: 900px) {
         min-height: 100%;

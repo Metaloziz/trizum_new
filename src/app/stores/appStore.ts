@@ -42,7 +42,7 @@ export const RoleNames = {
   admin: 'Центр',
 };
 
-class EmptyUser {
+export class EmptyUser {
   id;
 
   firstName;

@@ -3,6 +3,7 @@ import { TimeZoneType } from './AuthTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
 import { Nullable } from 'app/types/Nullable';
 import { ResponseUserT } from 'app/types/UserTypes';
+import {EmptyUser} from "app/stores/appStore";
 
 export type ResponseGroups = {
   id: string;
@@ -33,7 +34,7 @@ export type ResponseOneGroup = {
     {
       id: string;
       stats: any[];
-      user: ResponseUserT;
+      user: EmptyUser;
     },
   ];
 };

@@ -10,7 +10,7 @@ import iconParrot from '../../../assets/svgs/parrot.svg';
 import styles from './CardStudentForUser.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
-import { Roles } from 'app/stores/appStore';
+import {EmptyUser, Roles} from 'app/stores/appStore';
 import { ResponseLoadMe } from 'app/types/AuthTypes';
 import { ResponseUserT } from 'app/types/UserTypes';
 import iconFlag from 'assets/svgs/icon-flag.svg';
@@ -25,12 +25,12 @@ import Panel from 'components/panel/Panel';
 import Avatar from 'public/img/avatarDefault.png';
 
 type Props = {
-  user: ResponseUserT;
+  user: EmptyUser;
   // user: ResponseLoadMe;
 };
 
 const CardStudentForStudent: FC<Props> = props => {
-  const { firstName, middleName, lastName, roleCode, avatar, city, phone } = props.user;
+  const { firstName, middleName, lastName, role, avatar, city, phone } = props.user;
   const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const olympiadId = 1;
@@ -55,7 +55,7 @@ const CardStudentForStudent: FC<Props> = props => {
                 </span>
                 Статус:
               </li>
-              <li>{roleCode || Roles.Student}</li>
+              <li>{role || Roles.Student}</li>
             </ul>
             <ul className={styles.list}>
               <li>

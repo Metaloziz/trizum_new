@@ -9,9 +9,10 @@ import CardStudentTitle from 'components/card-student/card-student-title/CardStu
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
 import Avatar from 'public/img/avatarDefault.png';
+import {EmptyUser} from "app/stores/appStore";
 
 interface Props {
-  user: ResponseUserT;
+  user: EmptyUser;
 }
 
 const CardStudentForTeacher: FC<Props> = props => {

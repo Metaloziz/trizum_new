@@ -10,7 +10,7 @@ import KeepPlaying from 'containers/keep-playing/KeepPlaying';
 import styles from 'pages/home/Home.module.scss';
 
 export const StudentMain: FC = observer(() => {
-  const { user }: any = appStore;
+  const { user } = appStore;
 
   return (
     <main className={styles.main}>

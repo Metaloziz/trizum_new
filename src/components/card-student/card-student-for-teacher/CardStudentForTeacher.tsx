@@ -1,15 +1,14 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import styles from './CardStudentForTeacher.module.scss';
 
-import { ResponseUserT } from 'app/types/UserTypes';
+import { EmptyUser } from 'app/stores/appStore';
 import iconFlag from 'assets/svgs/flag.svg';
 import Button from 'components/button/Button';
 import CardStudentTitle from 'components/card-student/card-student-title/CardStudentTitle';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
 import Avatar from 'public/img/avatarDefault.png';
-import {EmptyUser} from "app/stores/appStore";
 
 interface Props {
   user: EmptyUser;

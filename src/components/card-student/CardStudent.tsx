@@ -1,12 +1,8 @@
 import React, { FC } from 'react';
 
-import {EmptyUser, Roles} from 'app/stores/appStore';
-import { ResponseLoadMe } from 'app/types/AuthTypes';
-import { ResponseUserT } from 'app/types/UserTypes';
+import { EmptyUser, Roles } from 'app/stores/appStore';
 import CardStudentForTeacher from 'components/card-student/card-student-for-teacher/CardStudentForTeacher';
 import CardStudentForStudent from 'components/card-student/card-student-for-user/CardStudentForStudent';
-
-type UserType = 'student' | 'teacher' | 'extended';
 
 interface Props {
   user: EmptyUser;

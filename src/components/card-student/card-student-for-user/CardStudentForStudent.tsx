@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 
 import cn from 'classnames';
-import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import iconTablet from '../../../assets/svgs/icon-tablet.svg';
@@ -10,9 +9,7 @@ import iconParrot from '../../../assets/svgs/parrot.svg';
 import styles from './CardStudentForUser.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
-import {EmptyUser, Roles} from 'app/stores/appStore';
-import { ResponseLoadMe } from 'app/types/AuthTypes';
-import { ResponseUserT } from 'app/types/UserTypes';
+import { EmptyUser, Roles } from 'app/stores/appStore';
 import iconFlag from 'assets/svgs/icon-flag.svg';
 import iconMonkey from 'assets/svgs/monkey.svg';
 import iconTelegram from 'assets/svgs/telegram.svg';
@@ -26,7 +23,6 @@ import Avatar from 'public/img/avatarDefault.png';
 
 type Props = {
   user: EmptyUser;
-  // user: ResponseLoadMe;
 };
 
 const CardStudentForStudent: FC<Props> = props => {
@@ -39,6 +35,7 @@ const CardStudentForStudent: FC<Props> = props => {
   const onParticipateClick = () => {
     navigate(`${AppRoutes.Olympiads}/${olympiadId}/${userId}`);
   };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
@@ -55,7 +52,7 @@ const CardStudentForStudent: FC<Props> = props => {
                 </span>
                 Статус:
               </li>
-              <li>{role || Roles.Student}</li>
+              <li>{role === Roles.Student && 'Студент'}</li>
             </ul>
             <ul className={styles.list}>
               <li>

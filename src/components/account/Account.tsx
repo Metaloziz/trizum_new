@@ -4,8 +4,6 @@ import { observer } from 'mobx-react-lite';
 
 import styles from './Account.module.scss';
 
-import { AppRoutes } from 'app/enums/AppRoutes';
-import authService from 'app/services/authService';
 import tokenService from 'app/services/tokenService';
 import appStore, { Roles } from 'app/stores/appStore';
 import avatar from 'assets/images/avatar.png';

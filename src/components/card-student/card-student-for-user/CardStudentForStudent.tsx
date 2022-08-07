@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import iconTablet from '../../../assets/svgs/icon-tablet.svg';
@@ -10,6 +11,7 @@ import styles from './CardStudentForUser.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
 import { Roles } from 'app/stores/appStore';
+import { ResponseLoadMe } from 'app/types/AuthTypes';
 import { ResponseUserT } from 'app/types/UserTypes';
 import iconFlag from 'assets/svgs/icon-flag.svg';
 import iconMonkey from 'assets/svgs/monkey.svg';
@@ -24,6 +26,7 @@ import Avatar from 'public/img/avatarDefault.png';
 
 type Props = {
   user: ResponseUserT;
+  // user: ResponseLoadMe;
 };
 
 const CardStudentForStudent: FC<Props> = props => {

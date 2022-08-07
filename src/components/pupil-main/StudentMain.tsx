@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { observer } from 'mobx-react-lite';
+
 import appStore from 'app/stores/appStore';
 import CardStudent from 'components/card-student/CardStudent';
 import WeeklyGrowth from 'components/weekly-growth/WeeklyGrowth';
@@ -7,7 +9,7 @@ import Homeworks from 'containers/homeworks/Homeworks';
 import KeepPlaying from 'containers/keep-playing/KeepPlaying';
 import styles from 'pages/home/Home.module.scss';
 
-export const StudentMain: FC = () => {
+export const StudentMain: FC = observer(() => {
   const { user }: any = appStore;
 
   return (
@@ -122,4 +124,4 @@ export const StudentMain: FC = () => {
       />
     </main>
   );
-};
+});

@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 
 import { TariffsType } from '../types/TariffTypes';
 
-import tariffService from 'app/services/tafiffService';
+import tariffsService from 'app/services/tafiffService';
 
 class TariffsStore {
   private _defaultValue = (): TariffsType => ({
@@ -64,7 +64,7 @@ class TariffsStore {
   };
 
   getTariffs = async () => {
-    const res = await tariffService.getAllTariffs();
+    const res = await tariffsService.getAllTariffs();
     runInAction(() => {
       this.tariffs = res;
     });

@@ -88,6 +88,7 @@ class GroupStore {
       const resFranchise = await franchiseService.getAll();
       const res1 = await coursesService.getAllCourses({ perPage: 10000 });
       runInAction(() => {
+        // @ts-ignore
         this.franchise = resFranchise;
         this.courses = res1.items;
       });

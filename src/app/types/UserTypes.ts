@@ -36,6 +36,16 @@ type ResponseUserAvatarT = {
   path: string;
 };
 
+export type canSwitchToT = {
+  id: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  avatar: null | string;
+  isActive: boolean;
+  isPayed: boolean;
+};
+
 export type ResponseUserT = {
   id: string;
   firstName: string;
@@ -48,7 +58,7 @@ export type ResponseUserT = {
   city: string | null;
   groups: ResponseOneUserGroupT[];
   status: UserStatusT;
-  avatar: Nullable<ResponseUserAvatarT>; // todo определить тип объекта
+  avatar: Nullable<ResponseUserAvatarT>;
   canSwitchTo: canSwitchToT[];
 };
 export type FullResponseUserT = WithPagination<ResponseUserT[]>;
@@ -98,14 +108,4 @@ export type ResponseParenting = {
   id: string;
   childId: string;
   parentId: string;
-};
-
-export type canSwitchToT = {
-  id: string;
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  avatar: null | string;
-  isActive: boolean;
-  isPayed: boolean;
 };

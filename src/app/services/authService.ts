@@ -56,7 +56,6 @@ const authService = {
   },
   switchUser: async (params: RequestSwitchUser) => {
     const { data }: ResponseLogin = await instance.post(Paths.SwitchUser, params);
-    debugger;
     return data;
   },
 };

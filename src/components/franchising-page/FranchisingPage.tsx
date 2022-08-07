@@ -21,11 +21,14 @@ import {
 } from '@mui/material';
 import { observer } from 'mobx-react';
 
+import Button1 from "../button/Button";
+
 import { AddOrEditDialog } from './AddOrEditDialog';
 import { Filter } from './Filter';
 import { LoadingIndicator } from './ui/LoadingIndicator';
 
 import { FranchisingStore } from 'components/franchising-page/stores';
+
 
 const FranchisingPage = observer(() => {
   const store = useMemo(() => new FranchisingStore(), []);
@@ -64,18 +67,13 @@ const FranchisingPage = observer(() => {
       <Box p={2}>
         <Box mb={1}>
           <Stack spacing={1}>
-            <Button
-              variant="contained"
-              size="small"
-              startIcon={<AddIcon fontSize="small" />}
+            <Button1
+                size='small'
+                variant="addUser"
               onClick={() => store.openDialog()}
-              sx={{
-                alignSelf: 'flex-start',
-                backgroundColor: '#2e8dfd',
-              }}
             >
-              Добавить
-            </Button>
+              Добавить пользователя
+            </Button1>
             <Filter onChange={store.onChangeFilter} />
           </Stack>
         </Box>

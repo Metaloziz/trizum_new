@@ -10,7 +10,6 @@ import {
   Paper,
   Snackbar,
   Stack,
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -21,7 +20,7 @@ import {
 } from '@mui/material';
 import { observer } from 'mobx-react';
 
-import Button1 from "../button/Button";
+import Button from "../button/Button";
 
 import { AddOrEditDialog } from './AddOrEditDialog';
 import { Filter } from './Filter';
@@ -67,13 +66,13 @@ const FranchisingPage = observer(() => {
       <Box p={2}>
         <Box mb={1}>
           <Stack spacing={1}>
-            <Button1
+            <Button
                 size='small'
                 variant="addUser"
               onClick={() => store.openDialog()}
             >
               Добавить пользователя
-            </Button1>
+            </Button>
             <Filter onChange={store.onChangeFilter} />
           </Stack>
         </Box>

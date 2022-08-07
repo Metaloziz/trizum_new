@@ -4,7 +4,17 @@ import { CreateGroup, GroupParams, ResponseGroups, ResponseOneGroup } from 'app/
 import { WithPagination } from 'app/types/WithPagination';
 
 const groupsService = {
-  getGroups: async (params?: GroupParams): Promise<WithPagination<ResponseGroups[]>> => {
+  getGroups: async (asd?: GroupParams): Promise<WithPagination<ResponseGroups[]>> => {
+    const f = (data?: GroupParams) => {
+      if (data) {
+        for (const key in data) {
+          // @ts-ignore
+          if (data[key] === '') data[key] = undefined;
+        }
+      }
+      return data;
+    };
+    const params = f(asd)
     const actualParams = {
       per_page: params?.perPage || undefined,
       page: params?.page || undefined,
@@ -12,11 +22,11 @@ const groupsService = {
       date_since: params?.dateSince || undefined,
       date_until: params?.dateUntil || undefined,
       franchise_id: params?.franchiseId || undefined,
-      level:params?.level || undefined,
+      level: params?.level || undefined,
       name: params?.name || undefined,
       teacher_id: params?.teacherId || undefined,
       type: params?.type || undefined,
-    }
+    };
     const res = await instance.get(Paths.Groups, {
       params: actualParams,
     });
@@ -29,6 +39,10 @@ const groupsService = {
   addGroup: async (group: CreateGroup) => {
     const { data } = await instance.post(`${Paths.Groups}`, group);
     return data;
+  },
+  editGroup: async (data: any, id: string) => {
+    const res = await instance.post(`${Paths.Groups}/${id}`, data);
+    return res.data;
   },
 };
 export default groupsService;

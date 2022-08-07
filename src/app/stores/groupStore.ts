@@ -22,21 +22,24 @@ class GroupStore {
 
   total = 0;
 
-  currentGroup?: ResponseOneGroup;
+  visibleGroup?: ResponseOneGroup;
+
+  selectedGroup?: ResponseOneGroup | ResponseGroups;
 
   private defaultValues: CreateGroup = {
     name: '',
     franchiseId: '',
-    dateSince: '',
-    dateUntil: '',
+    dateSince: '20.02.2020',
+    dateUntil: '20.01.2023',
     type: '',
     teacherId: '',
     level: '',
     courseId: '',
+    status: 'active',
   };
 
   private queryDefaultValues: GroupParams = {
-    perPage: 5,
+    perPage: 10,
     page: 0,
     name: '',
     forGroupId: '',
@@ -47,6 +50,8 @@ class GroupStore {
     type: '',
     level: '',
   };
+
+  private defaultEditValues: Partial<CreateGroup> = {};
 
   modalFields = { ...this.defaultValues };
 
@@ -59,6 +64,8 @@ class GroupStore {
   courses: ResponseCourse[] = [];
 
   isLoad = false;
+
+  isModalOpen = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -79,32 +86,26 @@ class GroupStore {
   loadInitialModal = () => {
     this.execute(async () => {
       const resFranchise = await franchiseService.getAll();
+      const res1 = await coursesService.getAllCourses({ perPage: 10000 });
       runInAction(() => {
         this.franchise = resFranchise;
-      });
-    });
-  };
-
-  loadModal = () => {
-    this.execute(async () => {
-      const resTeachers = await usersService.getAllUsers({
-        role: Roles.Teacher,
-        franchiseId: this.modalFields.franchiseId,
-        perPage: 10000,
-      } as RequestUsersParams);
-      const resCourses = await coursesService.getAllCourses({ perPage: 10000 });
-      runInAction(() => {
-        this.teachers = resTeachers.items;
-        this.courses = resCourses.items;
+        this.courses = res1.items;
       });
     });
   };
 
   getGroups = async () => {
-    this.currentGroup = undefined;
+    this.visibleGroup = undefined;
     await this.execute(async () => {
       const res = await groupsService.getGroups(this.queryFields);
-      res.items.length && (await this.getOneGroup(res.items[0].id));
+      if (res.items.length) {
+        const asd = await this.getOneGroup(
+          this.selectedGroup ? this.selectedGroup.id : res.items[0].id,
+        );
+        if (typeof asd !== 'string') {
+          this.visibleGroup = asd;
+        }
+      }
       runInAction(() => {
         this.groups = res.items;
         this.page = res.page;
@@ -114,17 +115,27 @@ class GroupStore {
     });
   };
 
-  getOneGroup = async (id: string) => {
-    await this.execute(async () => {
-      const res = await groupsService.getOneGroup(id);
+  getOneGroup = async (id: string) =>
+    this.execute(async () => {
+      const r = await groupsService.getOneGroup(id);
       runInAction(() => {
-        this.currentGroup = res;
+        this.selectedGroup = r;
+        this.visibleGroup = r;
       });
+      return r;
     });
-  };
 
   addGroup = async () => {
     await groupsService.addGroup(this.modalFields);
+  };
+
+  editGroup = async () => {
+    await this.execute(async () => {
+      if (this.selectedGroup) {
+        await groupsService.editGroup(this.modalFields, this.selectedGroup.id);
+        await this.getGroups();
+      }
+    });
   };
 
   cleanModalValues = () => {
@@ -133,7 +144,32 @@ class GroupStore {
 
   clearQueryFields = () => {
     this.queryFields = { ...this.queryDefaultValues };
-    this.getGroups()
+    this.getGroups();
+  };
+
+  openModal = (id?: string) => {
+    if (id) {
+      const r = this.groups.filter(el => el.id === id)[0];
+      // const r = await this.getOneGroup(id);
+      this.selectedGroup = r;
+      this.modalFields = {
+        level: r.level || '',
+        franchiseId: r.franchise || '',
+        type: r.type || '',
+        courseId: r.course || '',
+        teacherId: r.teacherId,
+        name: r.name,
+        dateSince: r.startedAt.date,
+        dateUntil: r.endedAt.date,
+        status: r.status || '',
+      };
+    }
+    this.isModalOpen = true;
+  };
+
+  closeModal = () => {
+    this.selectedGroup = undefined;
+    this.isModalOpen = false;
   };
 
   get filteredCourses() {

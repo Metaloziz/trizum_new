@@ -12,13 +12,23 @@ export type ResponseGroups = {
   level: Nullable<string>;
   startedAt: TimeZoneType;
   endedAt: TimeZoneType;
+  createdAt: TimeZoneType;
   franchise: string;
+  course: string;
+  teacherId: string;
 };
 
 export type ResponseOneGroup = {
   id: string;
-  code: string;
+  name: string;
+  type: string;
+  status: string;
+  level: string;
+  startedAt: TimeZoneType;
+  endedAt: TimeZoneType;
   franchise: FranchiseT;
+  course: any;
+  teacherId: any;
   users: [
     {
       id: string;
@@ -37,6 +47,7 @@ export type CreateGroup = {
   teacherId: string;
   level: string;
   courseId: string;
+  status: string;
 };
 
 export type GroupParams = Partial<{

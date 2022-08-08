@@ -1,6 +1,3 @@
-import { makeAutoObservable, runInAction } from 'mobx';
-
-import coursesService from 'app/services/coursesService';
 import {
   RequestCreateCourse,
   RequestEditCourse,
@@ -8,6 +5,9 @@ import {
   ResponseOneFullCourse,
   ResponseWork,
 } from 'app/types/CourseTypes';
+import { makeAutoObservable, runInAction } from 'mobx';
+
+import coursesService from 'app/services/coursesService';
 
 type NewCourse = {
   title: string;

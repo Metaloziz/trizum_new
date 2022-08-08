@@ -1,6 +1,7 @@
 import Axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
-import dateTransformer from 'axios-date-reviver';
+
 import { StatusCodes } from 'http-status-codes';
+import dateTransformer from 'axios-date-reviver';
 
 export type PrerequestHook = () => Promise<void>;
 
@@ -105,7 +106,7 @@ export class HttpClient {
     return this;
   };
 
-  withUrlParamsRequest = (params: Record<string, string>) => {
+  withUrlParamsRequest = (params: Record<string, any>) => {
     this.config.url = `${this.url}?${this.toUrlEncoded(params)}`;
     return this;
   };

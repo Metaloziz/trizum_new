@@ -32,7 +32,7 @@ class CoursesStore {
   getCourses = async () => {
     const res = await coursesService.getAllCourses();
     runInAction(() => {
-      this.courses = res.reverse();
+      this.courses = res.items;
     });
   };
 

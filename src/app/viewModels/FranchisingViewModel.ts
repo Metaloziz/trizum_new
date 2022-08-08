@@ -1,7 +1,7 @@
 export interface FranchisingViewModel {
   id?: string;
   shortName: string;
-  fullName: string;
+  // fullName: string;
   inn: string;
   legalAddress: string;
   actualAddress: string;

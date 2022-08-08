@@ -1,10 +1,13 @@
 import { Roles } from 'app/stores/appStore';
 import { TimeZoneType } from 'app/types/AuthTypes';
+import { FranchiseT } from 'app/types/FranchiseTypes';
+import { WithPagination } from 'app/types/WithPagination';
 
 export type RequestUsersParams = {
   role?: Roles;
   page?: number;
   perPage?: number;
+  franchiseId?: string;
 };
 
 export type RequestCreateUser = {
@@ -18,11 +21,6 @@ export type RequestCreateUser = {
   sex: boolean | null;
   phone: string | null;
   email: string | null;
-};
-
-export type FranchiseT = {
-  id: string;
-  shortName: string;
 };
 
 export type ResponseOneUserGroupT = {
@@ -46,13 +44,7 @@ export type ResponseUserT = {
   status: UserStatusT;
   avatar: any | null; // todo определить тип объекта
 };
-
-export type FullResponseUserT = {
-  page: string;
-  perPage: number;
-  total: number;
-  items: ResponseUserT[];
-};
+export type FullResponseUserT = WithPagination<ResponseUserT[]>;
 
 export type UserStatusT = 'active' | 'blocked' | 'payed' | 'notPayed';
 

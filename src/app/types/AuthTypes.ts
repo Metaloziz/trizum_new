@@ -47,8 +47,8 @@ export type ResponseLoadMe = {
 };
 
 export type RequestRegister = {
-  phone?: string;
-  email?: string;
+  phone: string | null;
+  email: string | null;
   role: Roles;
   franchiseId: string;
   firstName: string;

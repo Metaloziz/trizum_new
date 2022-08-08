@@ -1,6 +1,7 @@
 import { Paths } from 'app/enums/Paths';
 import instance from 'app/services/config';
 import {
+  GetCoursesParams,
   RequestCreateCourse,
   RequestEditCourse,
   ResponseCourse,
@@ -9,10 +10,11 @@ import {
   ResponseOneFullCourse,
   ResponseWork,
 } from 'app/types/CourseTypes';
+import { WithPagination } from 'app/types/WithPagination';
 
 const coursesService = {
-  getAllCourses: async (): Promise<ResponseCourse[]> => {
-    const { data } = await instance.get(Paths.Courses);
+  getAllCourses: async (params?: GetCoursesParams): Promise<WithPagination<ResponseCourse[]>> => {
+    const { data } = await instance.get(Paths.Courses, { params });
     return data;
   },
   getOneCourse: async (id: string): Promise<ResponseOneFullCourse> => {

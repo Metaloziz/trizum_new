@@ -35,6 +35,7 @@ interface Props {
   id?: string;
   type?: string;
   value?: string;
+  selectValue?: Option;
 }
 
 const InformationItem: FC<Props> = props => {
@@ -53,6 +54,7 @@ const InformationItem: FC<Props> = props => {
     className,
     inputClassName,
     value,
+    selectValue,
   } = props;
 
   let part;
@@ -61,7 +63,14 @@ const InformationItem: FC<Props> = props => {
       // part = <TextFieldCalendar dataAuto={dataAuto} value={value} onChange={onChange} />;
       break;
     case 'select':
-      part = <CustomSelect options={option} placeholder={placeholder} onChange={onChangeSelect} />;
+      part = (
+        <CustomSelect
+          defaultValue={selectValue}
+          options={option}
+          placeholder={placeholder}
+          onChange={onChangeSelect}
+        />
+      );
       break;
     case 'file':
       part = <InputFile />;

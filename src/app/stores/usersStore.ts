@@ -3,6 +3,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import authService from 'app/services/authService';
 import usersService from 'app/services/usersService';
 import { RequestRegister } from 'app/types/AuthTypes';
+import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
   RequestParenting,
   RequestUsersParams,
@@ -41,6 +42,24 @@ class UsersStore {
   ): Promise<ResponseUserT | undefined | ErrorMessageType> => {
     try {
       const res = await authService.register(data);
+      const isError = checkErrorMessage(res);
+      if (isError) {
+        return isError;
+      }
+      await this.getUsers();
+      return res;
+    } catch (e) {
+      console.warn(e);
+    }
+    return undefined;
+  };
+
+  updateUser = async (
+    data: UpdateUserPayloadT,
+    userId: string,
+  ): Promise<ResponseUserT | undefined | ErrorMessageType> => {
+    try {
+      const res = await usersService.updateUser(data, userId);
       const isError = checkErrorMessage(res);
       if (isError) {
         return isError;

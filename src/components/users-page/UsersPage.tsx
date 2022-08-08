@@ -9,6 +9,9 @@ import modals from '../../app/stores/CardStudentExtended';
 import styles from './UsersPage.module.scss';
 
 import { RoleNames, Roles } from 'app/stores/appStore';
+import franchiseeStore from 'app/stores/franchiseeStore';
+import groupStore from 'app/stores/groupStore';
+import tariffsStore from 'app/stores/tariffsStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
@@ -36,9 +39,13 @@ const roleOptions = [
 const UsersPage = observer(() => {
   const { users, usersTotalCount, getUsers, createUser, getOneUser, currentUser, page, perPage } =
     usersStore;
+
+  const { getFranchisee } = franchiseeStore;
+  const { getGroups } = groupStore;
+  const { getTariffs } = tariffsStore;
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [user, setCurrentUser] = useState<ResponseOneUser>();
   const [currentPage, setCurrentPage] = useState<number>(page);
   const [selectedRole, setSelectedRole] = useState<Option>();
 
@@ -76,6 +83,9 @@ const UsersPage = observer(() => {
 
   useEffect(() => {
     load();
+    getFranchisee();
+    getGroups();
+    getTariffs();
   }, []);
 
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
@@ -151,7 +161,7 @@ const UsersPage = observer(() => {
       <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
         {/* <StudentPageFranchiseeModalSetting /> */}
         <StudentPageFranchiseeModalAddUser
-          onCloseModal={() => setIsModalOpen(false)}
+          onCloseModal={() => modals.changeSetting()}
           user={currentUser}
         />
       </BasicModal>

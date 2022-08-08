@@ -71,9 +71,9 @@ export const Filter = observer((props: FilterProps) => {
                   }
                 >
                   <MenuItem value="">Не выбрано</MenuItem>
-                  <MenuItem value={GroupLevels.Junior}>{GroupLevels.Junior}</MenuItem>
-                  <MenuItem value={GroupLevels.Middle}>{GroupLevels.Middle}</MenuItem>
-                  <MenuItem value={GroupLevels.Senior}>{GroupLevels.Senior}</MenuItem>
+                  <MenuItem value={GroupLevels.Easy}>{GroupLevels.Easy}</MenuItem>
+                  <MenuItem value={GroupLevels.Medium}>{GroupLevels.Medium}</MenuItem>
+                  <MenuItem value={GroupLevels.Hard}>{GroupLevels.Hard}</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

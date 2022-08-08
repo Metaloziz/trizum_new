@@ -179,12 +179,8 @@ export const Filter = observer((props: FilterProps) => {
             </Button>
             <Button
               size="small"
-              startIcon={<ClearIcon fontSize="small" />}
+              variant="reset"
               onClick={clearFilter}
-              sx={{
-                alignSelf: 'flex-end',
-              }}
-              color="error"
             >
               Сбросить
             </Button>

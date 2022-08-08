@@ -1,9 +1,22 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
+import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 
-export const CurrentTest: FC = () => {
+import testsStore from 'app/stores/testsStore';
+import TestPage from 'components/test-page';
+
+export const CurrentTest: FC = observer(() => {
+  const { tests, getTests, getOneTest } = testsStore;
   const { id } = useParams();
 
-  return <div>{`CurrentTest - ${id}`}</div>;
-};
+  useEffect(() => {
+    getTests();
+  }, []);
+
+  return (
+    <div>
+      <TestPage />
+    </div>
+  );
+});

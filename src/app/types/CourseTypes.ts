@@ -65,15 +65,6 @@ export type QuestionT = {
   };
 };
 
-export type TestT = {
-  test: {
-    id: string;
-    code: string;
-    title: string;
-    questions: QuestionT[];
-  };
-};
-
 export type GamePresetT = {
   gamePreset: {
     id: string;

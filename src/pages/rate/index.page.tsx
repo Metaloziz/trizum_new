@@ -9,6 +9,8 @@ import Custom404 from 'pages/404.page';
 const IndexPage: FC = observer(() => {
   switch (appStore.role) {
     case Roles.Admin:
+    case Roles.Franchisee:
+    case Roles.FranchiseeAdmin:
       return <Rate />;
     default:
       return <Custom404 />;

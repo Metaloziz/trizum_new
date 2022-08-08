@@ -19,7 +19,7 @@ type Props = {
 
 export const newstatus = [
   { value: 'active', label: 'Активный' },
-  { value: 'archive', label: 'Неактивный' },
+  { value: 'deleted', label: 'Не активен' },
   { value: 'hidden', label: 'Заблокированный' },
 ];
 

@@ -5,6 +5,7 @@ export interface CourseViewModel {
     id?: string;
     title: string;
     level: string;
-    works: HomeworkViewModel[];
+    works?: HomeworkViewModel[];
+    worksCount?: number;
     createdAt: TimeZoneType;
 };

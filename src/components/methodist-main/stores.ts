@@ -15,7 +15,6 @@ export class MethodistMainStore extends StoreBase {
     private _defaultValue = (): CourseViewModel => ({
         title: "",
         level: "",
-        works: [],
         createdAt: null!
     });
 
@@ -73,7 +72,7 @@ export class MethodistMainStore extends StoreBase {
         this.closeDialog();
 
         this.execute(async () => {
-            //await this._repository.addOrEdit(this.editingEntity);
+            await this._repository.addOrEdit(this.editingEntity);
             await this.pull();
         });
     };

@@ -3,6 +3,7 @@ import { RequestEditCourse, ResponseCourse } from "app/types/CourseTypes";
 import { useEffect, useMemo } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
+import { AddOrEditDialog } from "./AddOrEditDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Filter } from "./Filter";
@@ -76,7 +77,7 @@ const MethodistMain = observer(() => {
     }}
   >
     <LoadingIndicator isLoading={store.isLoading} />
-    {/* <AddOrEditDialog store={store} /> */}
+    <AddOrEditDialog store={store} />
     <Snackbar
       open={store.success !== null}
       autoHideDuration={6000}
@@ -159,7 +160,7 @@ const MethodistMain = observer(() => {
                     {entity.level}
                   </TableCell>
                   <TableCell>
-                    {(entity.works || []).length}
+                    {entity.worksCount}
                   </TableCell>
                   <TableCell>
                     {/*entity.createdAt?.date || ""*/}
@@ -177,6 +178,7 @@ const MethodistMain = observer(() => {
                         size="small"
                         onClick={() => store.remove(entity.id!)}
                         color="error"
+                        disabled
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>

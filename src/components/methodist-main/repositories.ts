@@ -15,4 +15,12 @@ export class MethodistMainRepository {
             .withJsonReviver()
             .execute<PaginationResponse<CourseViewModel>>();
     }
+
+    readonly addOrEdit = async (model: CourseViewModel) => {
+        return new HttpClient(model.id ? `${Paths.Courses}/${model.id}` : Paths.Courses, "POST")
+            .withTimeout(10000)
+            .withBearerAuthorization(this.token)
+            .withJsonRequest(model)
+            .execute();
+    }
 }

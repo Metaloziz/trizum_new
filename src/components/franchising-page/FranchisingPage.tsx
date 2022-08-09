@@ -66,6 +66,15 @@ const FranchisingPage = observer(() => {
       <Box p={2}>
         <Box mb={1}>
           <Stack spacing={1}>
+            <Stack
+                spacing={1}
+                direction="row"
+                justifyContent="flex-start"
+                sx={{
+                  width: '100%',
+                  px: 1,
+                }}
+            >
             <Button
                 size='small'
                 variant="addUser"
@@ -73,6 +82,7 @@ const FranchisingPage = observer(() => {
             >
               Добавить пользователя
             </Button>
+            </Stack>
             <Filter onChange={store.onChangeFilter} />
           </Stack>
         </Box>

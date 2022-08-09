@@ -9,6 +9,7 @@ import iconExel from 'assets/svgs/btn-excel.svg';
 import iconParents from 'assets/svgs/parents.svg';
 import iconPlus from 'assets/svgs/plus.svg';
 import iconPlusHover from 'assets/svgs/plusHover.svg';
+import resetX from 'assets/svgs/reset-btn.svg';
 import smallArrow from 'assets/svgs/small-arrow.svg';
 import styles from 'components/button/Button.module.scss';
 import Image from 'components/image/Image';
@@ -20,7 +21,8 @@ type ButtonVariantType =
   | 'addExel'
   | 'primary'
   | 'none'
-  | 'arrow';
+  | 'arrow'
+  | 'reset';
 
 type ButtonSize = 'large' | 'small' | 'thin';
 
@@ -80,6 +82,12 @@ const Button1: FC<Props> = props => {
       background: '#72CEF3',
     },
   };
+  const reset = {
+    background: '#DB5552',
+    '&:hover': {
+      background: '#d21914',
+    },
+  };
   const small = {
     padding: '12px 58px 11px 18px',
   };
@@ -119,6 +127,10 @@ const Button1: FC<Props> = props => {
     case 'primary':
       sx = { ...sx, ...primary };
       iconButton = <Image src={smallArrow} alt="arrow" width={16} height={10} />;
+      break;
+    case 'reset':
+      sx = { ...sx, ...reset };
+      iconButton = <Image src={resetX} alt="reset" width={18} height={18} />
       break;
     case 'none':
       sx = { ...sx, ...none };

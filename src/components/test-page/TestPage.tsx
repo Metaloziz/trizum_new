@@ -1,18 +1,22 @@
-import { ChangeEvent, FC, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './TestPage.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
+import articlesStore from 'app/stores/articlesStore';
+import testsStore from 'app/stores/testsStore';
 import resultIcon from 'assets/svgs/result-icon.svg';
 import Button from 'components/button/Button';
+import { LoadingIndicator } from 'components/franchising-page/ui/LoadingIndicator';
 import Image from 'components/image/Image';
 import Stepper from 'components/step/stepper/Stepper';
 import { VariantAnswer } from 'pages/testing/variantAnswer/VariantAnswer';
+import { addIdElements } from 'utils/addIdElements';
 import { FIRST_ARRAY_ITEM } from 'utils/consts/consts';
 import { mixElements } from 'utils/mixElements';
-import { LocalContentT } from 'utils/returnFirstQuestionData';
 
 const wrongVariantsAnswers: string[] = [
   'wrong variant 1',
@@ -22,21 +26,36 @@ const wrongVariantsAnswers: string[] = [
   'wrong variant 5',
 ];
 
-type TestPagePropsT = {
-  id: string;
-  title: string;
-  content: LocalContentT[];
-};
+const TestPage: FC = observer(() => {
+  const {
+    getTests,
+    currentTest: {
+      test: { content, title },
+    },
+    isLoading,
+    incrementResult,
+    postResult,
+    result,
+    resetResult,
+  } = testsStore;
 
-const TestPage: FC<TestPagePropsT> = ({ id, title, content }) => {
-  const navigate = useNavigate();
+  const { articleAPI } = articlesStore;
+
+  useEffect(() => {
+    getTests();
+  }, []);
 
   const defaultRadioButtonValue = 'null';
 
-  const [currentRadioValue, setCurrentRadioValue] = useState(defaultRadioButtonValue);
-  const [activeStep, setActiveStep] = useState<number>(1);
+  const navigate = useNavigate();
 
-  const [questionData, setQuestion] = useState(content[FIRST_ARRAY_ITEM]);
+  const [currentRadioValue, setCurrentRadioValue] = useState(defaultRadioButtonValue);
+
+  const [activeStep, setActiveStep] = useState<string>('1');
+
+  const questions = useMemo(() => addIdElements(content), []);
+
+  const [questionData, setQuestion] = useState(questions[FIRST_ARRAY_ITEM]);
 
   const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentRadioValue(e.currentTarget.value);
@@ -56,24 +75,38 @@ const TestPage: FC<TestPagePropsT> = ({ id, title, content }) => {
     />
   ));
 
-  const fooo = () => {
-    setCurrentRadioValue(defaultRadioButtonValue);
-    const newActiveStep = activeStep + 1;
-    setActiveStep(newActiveStep);
-
-    const newQuestion = content.find(element => element.id === newActiveStep);
-
-    if (newQuestion) {
-      setQuestion(newQuestion);
-    }
-  };
-
   const onEndTest = () => {
     // todo: добавить реальный id
     navigate(`${AppRoutes.Testing}/result`);
   };
+
+  const checkAnswer = () => {
+    if (currentRadioValue === questionData.answer) {
+      incrementResult();
+    }
+  };
+
+  const nextStep = () => {
+    checkAnswer();
+
+    setCurrentRadioValue(defaultRadioButtonValue);
+    const newActiveStep = (activeStep + 1).toString();
+    setActiveStep(newActiveStep);
+
+    const newQuestion = questions.find(element => element.id === newActiveStep);
+
+    if (newQuestion) {
+      setQuestion(newQuestion);
+    } else {
+      postResult({ articleId: articleAPI.id, result: result.toString() });
+      onEndTest();
+      resetResult();
+    }
+  };
+
   return (
     <div className={styles.wrapperTesting}>
+      <LoadingIndicator isLoading={isLoading} />
       <div>
         <h2>{title}</h2>
       </div>
@@ -82,7 +115,7 @@ const TestPage: FC<TestPagePropsT> = ({ id, title, content }) => {
           <Button onClick={onEndTest}>Закончить тест</Button>
         </div>
         <div className={styles.stepStyle}>
-          <Stepper countStep={content.length} activeStepCount={activeStep} />
+          <Stepper countStep={questions.length} activeStepCount={Number(activeStep)} />
         </div>
       </div>
       <div className={styles.question}>
@@ -96,12 +129,12 @@ const TestPage: FC<TestPagePropsT> = ({ id, title, content }) => {
             <div>{mixedAnswerTags}</div>
           </div>
           <div>
-            <Button onClick={fooo}>Ответить</Button>
+            <Button onClick={nextStep}>Ответить</Button>
           </div>
         </div>
       </div>
     </div>
   );
-};
+});
 
 export default TestPage;

@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
@@ -8,11 +8,17 @@ import { blogsPreviews } from './data/blogsPreviews';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
+import articlesStore from 'app/stores/articlesStore';
 import Button from 'components/button/Button';
 import BlogItem from 'components/molecules/BlogItem';
 
 const BlogPage: FunctionComponent = observer(() => {
   const { role } = appStore;
+  const { setCurrentArticleAPI } = articlesStore;
+
+  useEffect(() => {
+    setCurrentArticleAPI();
+  }, []);
 
   const navigate = useNavigate();
 

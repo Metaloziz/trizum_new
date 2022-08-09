@@ -18,4 +18,6 @@ export enum Paths {
   EditSelf = 'editself',
   UserGroups = 'usergroups',
   Tests = 'tests',
+  ArticleTestResults = 'articletestresults',
+  Articles = 'articles',
 }

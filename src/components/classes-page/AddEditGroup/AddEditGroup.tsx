@@ -5,11 +5,9 @@ import { observer } from 'mobx-react-lite';
 
 import styles from './AddEditGroup.module.scss';
 
-import { GroupEnums, GroupType } from 'app/enums/GroupEnums';
+import {GroupEnums, GroupType} from 'app/enums/GroupEnums';
 import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
-import { GroupLevels } from 'app/enums/GroupLevels';
-import { GroupType } from 'app/enums/GroupTypes';
 import groupStore from 'app/stores/groupStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';

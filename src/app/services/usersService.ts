@@ -12,7 +12,7 @@ import {
 
 const usersService = {
   getAllUsers: async (params?: RequestUsersParams): Promise<FullResponseUserT> => {
-    const { data } = await instance.get(Paths.Users, {
+    const res = await instance.get(Paths.Users, {
       params: {
         page: params?.page,
         role: params?.role,
@@ -20,7 +20,7 @@ const usersService = {
         franchise_id: params?.franchiseId,
       },
     });
-    return data;
+    return res.data;
   },
   getOneUser: async (id: string): Promise<ResponseOneUser> => {
     const { data } = await instance.get(`${Paths.Users}/${id}`);

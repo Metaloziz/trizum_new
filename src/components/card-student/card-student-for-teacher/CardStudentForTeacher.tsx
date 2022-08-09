@@ -1,17 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import styles from './CardStudentForTeacher.module.scss';
 
-import { ResponseUserT } from 'app/types/UserTypes';
+import { EmptyUser } from 'app/stores/appStore';
 import iconFlag from 'assets/svgs/flag.svg';
 import Button from 'components/button/Button';
 import CardStudentTitle from 'components/card-student/card-student-title/CardStudentTitle';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
-import avatar from 'public/img/avatarDefault.png';
+import Avatar from 'public/img/avatarDefault.png';
 
 interface Props {
-  user: ResponseUserT;
+  user: EmptyUser;
 }
 
 const CardStudentForTeacher: FC<Props> = props => {
@@ -22,7 +22,12 @@ const CardStudentForTeacher: FC<Props> = props => {
     <div className={styles.wrapper}>
       <div className={styles.row}>
         <CustomImageWrapper className={styles.image} variant="circle">
-          <Image src={user.avatar || avatar} width="170" height="170" alt="student" />
+          <Image
+            src={user.avatar?.path ? user.avatar.path : Avatar}
+            width="170"
+            height="170"
+            alt="student"
+          />
         </CustomImageWrapper>
         <div>
           <CardStudentTitle>{fullName}</CardStudentTitle>

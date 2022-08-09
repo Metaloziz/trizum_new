@@ -1,17 +1,14 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
-import { IconButton } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { observer } from 'mobx-react-lite';
 
 import tariffsStore from '../../app/stores/tariffsStore';
-import { TariffsType } from '../../app/types/TariffTypes';
-import { newstatus } from '../tariff-page/TariffPage';
 
 import AddOrEditDialog from './AddOrEditDialog';
 import styles from './Rate.module.scss';
 
-import editImage from 'assets/svgs/edit-tariff-img.svg';
+import { TariffsType } from 'app/types/TariffTypes';
 import RateChoice from 'components/rate-choice/RateChoice';
 import Table from 'components/table/Table';
 
@@ -33,14 +30,13 @@ const Rate = observer(() => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState<TariffsType[]>([]);
 
-  const getData = async () => {
-    setLoading(true);
-    await getTariffs();
-    setLoading(false);
-    setData(tariffs);
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      await getTariffs();
+      setLoading(false);
+      setData(tariffs);
+    };
     getData();
   }, []);
 
@@ -78,26 +74,15 @@ const Rate = observer(() => {
       <div className={styles.tableBlock}>
         <Table list={currentItem} colNames={colNames} loading={false}>
           {currentItem &&
-            currentItem
-              .filter(item => item.status !== 'deleted')
-              .map((el: TariffsType) => (
-                <tr key={el.id}>
-                  <td>{el.name}</td>
-                  <td>{el.newPrice}</td>
-                  <td>{new Date(el.startedAt.date).toLocaleDateString()}</td>
-                  <td>{new Date(el.endedAt.date).toLocaleDateString()}</td>
-                  <td>{newstatus.find((item: any) => item.value === el.status)?.label}</td>
-                  <td>
-                    <IconButton
-                      size="small"
-                      onClick={() => tariffsStore.openDialog(el)}
-                      color="primary"
-                    >
-                      <img src={editImage} alt="editImage" />
-                    </IconButton>
-                  </td>
-                </tr>
-              ))}
+            currentItem.map((el: TariffsType) => (
+              <tr key={el.id}>
+                <td>{el.name}</td>
+                <td>{el.newPrice}</td>
+                <td>{new Date(el.startedAt.date).toLocaleDateString()}</td>
+                <td>{new Date(el.endedAt.date).toLocaleDateString()}</td>
+                <td>{el.status}</td>
+              </tr>
+            ))}
         </Table>
       </div>
       <div className={styles.paginationRateBlock}>

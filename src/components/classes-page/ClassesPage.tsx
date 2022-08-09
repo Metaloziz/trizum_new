@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import { TextField } from '@mui/material';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
 import styles from './ClassesPage.module.scss';
 
-import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
-import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import CardStudent from 'components/card-student/CardStudent';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
@@ -16,8 +13,7 @@ import BlockGames from 'components/classes-page/block-games/BlockGames';
 import SearchBar from 'components/classes-page/search-bar/SearchBar';
 
 const ClassesPage = observer(() => {
-  const { getGroups, groups, getOneGroup, currentGroup } = groupStore;
-  console.log({ ...groups });
+  const { getGroups, groups, getOneGroup, visibleGroup, isModalOpen, openModal } = groupStore;
   const [isLoaded, setIsLoaded] = useState(false);
 
   const load = async () => {
@@ -28,10 +24,8 @@ const ClassesPage = observer(() => {
     await getOneGroup(id);
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-
   const addGroup = () => {
-    setIsOpen(true);
+    openModal();
   };
 
   useEffect(() => {
@@ -45,7 +39,7 @@ const ClassesPage = observer(() => {
       <div className={styles.wrapper}>
         <div className={styles.searchBar}>
           <Button onClick={addGroup}>Add</Button>
-          {/* <SearchBar /> */}
+          <SearchBar />
         </div>
         <div className={styles.row}>
           <div className={styles.tabs}>
@@ -55,7 +49,7 @@ const ClassesPage = observer(() => {
                   <div
                     className={cn(
                       styles.button,
-                      currentGroup?.id === group.id && styles.button_active,
+                      visibleGroup?.id === group.id && styles.button_active,
                     )}
                     key={group.id}
                     onClick={() => onGroupClick(group.id)}
@@ -69,17 +63,12 @@ const ClassesPage = observer(() => {
             <BlockGames />
           </div>
           <div className={styles.blockCardStudents}>
-            {currentGroup &&
-              currentGroup.users.map(user => (
-                <CardStudent key={user.user.id} type="teacher" user={user.user} />
-              ))}
+            {visibleGroup &&
+              visibleGroup.users.map(user => <CardStudent key={user.user.id} user={user.user} />)}
           </div>
         </div>
       </div>
-      {/* TODO: переделать по ролям */}
-      {appStore.role === Roles.Admin && (
-        <AddEditGroup setIsOpen={() => setIsOpen(false)} isOpen={isOpen} />
-      )}
+      <AddEditGroup />
     </>
   );
 });

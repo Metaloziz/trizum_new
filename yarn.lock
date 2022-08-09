@@ -2885,9 +2885,9 @@
     "@types/react" "*"
 
 "@types/react-native@^0.69.3":
-  version "0.69.4"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.69.4.tgz#3ab61e4738b3223dda53d13f365ef806f84ad4b4"
-  integrity sha512-K6ebyJYZiMZ0JsIfnX5/RbPxYuGt9ajH0kQk6An7upp9vrnU1T9Xg1cIWhnfYojAhqNxEo3okIcH0lR8+qzrmg==
+  version "0.69.3"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.69.3.tgz#344074ef5a8b95815128cceb4d1dc212d115faf3"
+  integrity sha512-htIxgvwUlYMFKogynsoMeZgxHq9WVEMJGl1UoVdRFctYCR/gSjapN+vKjxX+eo5qh/WSOYdzC/hOEz0cgLkTtQ==
   dependencies:
     "@types/react" "*"
 
@@ -8592,7 +8592,7 @@ mobx@^6.5.0:
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.6.1.tgz#70ee6aa82f25aeb7e7d522bd621207434e509318"
   integrity sha512-7su3UZv5JF+ohLr2opabjbUAERfXstMY+wiBtey8yNAPoB8H187RaQXuhFjNkH8aE4iHbDWnhDFZw0+5ic4nGQ==
 
-moment-timezone@*, moment-timezone@^0.5.34:
+moment-timezone@*:
   version "0.5.34"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.34.tgz#a75938f7476b88f155d3504a9343f7519d9a405c"
   integrity sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==

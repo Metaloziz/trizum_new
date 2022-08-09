@@ -3,9 +3,13 @@ import React, { FC, useState } from 'react';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
+import iconTablet from '../../../assets/svgs/icon-tablet.svg';
+import iconParrot from '../../../assets/svgs/parrot.svg';
+
 import styles from './CardStudentForUser.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
+import { EmptyUser, Roles } from 'app/stores/appStore';
 import iconFlag from 'assets/svgs/icon-flag.svg';
 import iconMonkey from 'assets/svgs/monkey.svg';
 import iconTelegram from 'assets/svgs/telegram.svg';
@@ -15,35 +19,28 @@ import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
 import Panel from 'components/panel/Panel';
-import avatar from 'public/img/avatarDefault.png';
+import Avatar from 'public/img/avatarDefault.png';
 
 type Props = {
-  user: {
-    fullName: string;
-    role: string;
-    city: string;
-    phone: string;
-    birthdate: string;
-    email: string;
-  };
+  user: EmptyUser;
 };
 
 const CardStudentForStudent: FC<Props> = props => {
-  const {
-    user: { birthdate, city, phone, role, email, fullName },
-  } = props;
+  const { firstName, middleName, lastName, role, avatar, city, phone } = props.user;
   const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const olympiadId = 1;
   const userId = 1;
+  const fullName = `${firstName} ${middleName} ${lastName}`;
   const onParticipateClick = () => {
     navigate(`${AppRoutes.Olympiads}/${olympiadId}/${userId}`);
   };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.row}>
         <CustomImageWrapper className={styles.image} variant="circle">
-          <Image src={avatar} width="170" height="170" alt="student" />
+          <Image src={avatar?.path ? avatar.path : Avatar} width="170" height="170" alt="student" />
         </CustomImageWrapper>
         <div>
           <h3 className={styles.title}>{fullName}</h3>
@@ -55,7 +52,7 @@ const CardStudentForStudent: FC<Props> = props => {
                 </span>
                 Статус:
               </li>
-              <li>{role}</li>
+              <li>{role === Roles.Student && 'Студент'}</li>
             </ul>
             <ul className={styles.list}>
               <li>
@@ -66,7 +63,7 @@ const CardStudentForStudent: FC<Props> = props => {
               </li>
               <li>{city}</li>
             </ul>
-            {/* <ul className={styles.list}>
+            <ul className={styles.list}>
               <li>
                 <span>
                   <Image src={iconParrot} width="25" height="25" alt="parrot" />
@@ -74,8 +71,8 @@ const CardStudentForStudent: FC<Props> = props => {
                 Учитель:
               </li>
               <li>Евсеев Виктор Петрович</li>
-            </ul> */}
-            {/* <ul className={styles.list}>
+            </ul>
+            <ul className={styles.list}>
               <li>
                 <span>
                   <Image src={iconTablet} width="25" height="25" alt="icon tablet" />
@@ -83,7 +80,7 @@ const CardStudentForStudent: FC<Props> = props => {
                 Следующее занятие:
               </li>
               <li>01.02.2021 в 18:00</li>
-            </ul> */}
+            </ul>
           </div>
         </div>
       </div>

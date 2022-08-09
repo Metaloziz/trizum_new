@@ -9,18 +9,23 @@ import * as yup from 'yup';
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
 import { SexEnum } from 'app/enums/CommonEnums';
-import { RoleNames, Roles } from 'app/stores/appStore';
+import { Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
 import tariffsStore from 'app/stores/tariffsStore';
-import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { ResponseOneUser } from 'app/types/UserTypes';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import CustomSelect from 'components/select/CustomSelect';
+import CustomSelect, { Option } from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
+import { action } from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
+import { isMethodistTutor } from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
+import { isStudentCreated } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentCreated';
+import { isStudentRole } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentRole';
+import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
+import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import avatar from 'public/img/avatarDefault.png';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
@@ -29,28 +34,16 @@ import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
 import { convertTariffOptions } from 'utils/convertTariffOptions';
-import { setErrorFomMessage } from 'utils/setErrorFomMessage';
+import { removeEmptyFields } from 'utils/removeEmptyFields';
 
 type Props = {
   onCloseModal: () => void;
   user?: ResponseOneUser;
 };
 
-const roleOptions = [
-  { label: RoleNames.student, value: Roles.Student },
-  { label: RoleNames.parent, value: Roles.Parent },
-  { label: RoleNames.teacherEducation, value: Roles.TeacherEducation },
-  { label: RoleNames.teacher, value: Roles.Teacher },
-  { label: RoleNames.franchiseeAdmin, value: Roles.FranchiseeAdmin },
-  { label: RoleNames.franchisee, value: Roles.Franchisee },
-  { label: RoleNames.tutor, value: Roles.Tutor },
-  { label: RoleNames.methodist, value: Roles.Methodist },
-  { label: RoleNames.admin, value: Roles.Admin },
-];
-
 export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, onCloseModal }) => {
   const { franchise } = franchiseeStore;
-  const { groups } = groupStore;
+  const { groups, loadCurrentGroups } = groupStore;
   const { tariffs } = tariffsStore;
 
   const franchiseOptions = convertFranchiseeOptions(franchise);
@@ -58,18 +51,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const groupOptions = convertGroupOptions(groups);
   const tariffsOptions = convertTariffOptions(tariffs);
 
-  // const { getGroups, groups } = groupStore;
-  const { createUser, updateUser } = usersStore;
   const [isParentShown, setIsParentShown] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [selectedRole, setSelectedRole] = useState<Roles>();
-  // const [groupOptions, setGroupOptions] = useState<Option[]>([]);
-
-  useEffect(() => {
-    if (selectedRole !== Roles.Student) {
-      setIsParentShown(false);
-    }
-  }, [selectedRole]);
+  const [currentFranchiseId, setCurrentFranchiseId] = useState<string>('');
 
   useEffect(() => {
     if (user?.roleCode) {
@@ -77,24 +62,21 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     }
   }, []);
 
-  const findRole = () => roleOptions.find(el => el.value === user?.roleCode);
-  const findFranchisee = () => franchiseOptions.find(el => el.value === user?.franchise?.id);
-  const findTariff = () => tariffsOptions.find(el => el.value === user?.tariff?.id);
   const findSex = () => (user?.sex ? sexOptions[0] : sexOptions[1]);
 
   const defaultValues = {
-    firstName: user?.firstName || '',
-    middleName: user?.middleName || '',
-    lastName: user?.lastName || '',
-    role: findRole() || roleOptions[roleOptions.length - 1],
+    firstName: user?.firstName || 'ИВАНОВ',
+    middleName: user?.middleName || 'ИВАН',
+    lastName: user?.lastName || 'ИВАНОВИЧ',
+    role: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
     sex: findSex() || sexOptions[0],
-    city: user?.city || '',
-    phone: user?.phone || '',
+    city: user?.city || 'МИНСК',
+    phone: user?.phone || '70000974671',
     birthdate: user?.birthdate?.date || '01.01.2000',
-    email: user?.email || '',
-    franchise: findFranchisee() || franchiseOptions[0],
-    tariff: findTariff() || tariffsOptions[0],
-    // group: undefined,
+    email: user?.email || 'winteriscoming7@yandex.byeee',
+    franchise: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
+    tariff: { label: 'не выбран', value: '' } || tariffsOptions[0],
+    group: { label: 'не выбрана', value: '' }, // не изменяется при редактировании
   };
 
   const schema = yup.object().shape({
@@ -142,61 +124,65 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       selectedRole === Roles.Student
         ? yup.object().required('Обязательное поле')
         : yup.object().notRequired(),
-    // group: yup.object().required('Обязательное поле'), // todo разобраться в постмане как создавать нормально группы и потом перенести в код
   });
 
   const {
     handleSubmit,
     control,
     setError,
+    resetField,
     reset,
     formState: { errors, isSubmitSuccessful },
-    watch,
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   const onSubmit = handleSubmit(async values => {
     const newUserData: RequestRegister = {
       sex: (values.sex?.label as SexEnum) === SexEnum.Male,
       franchiseId: values.franchise.value,
-      birthdate: values.birthdate || '',
+      birthdate: values.birthdate,
       city: values.city,
       role: values.role.value as Roles,
-      email: values.email || null,
-      // groupId: values.?.value || '', // todo здесь нужен отдельный запрос на создание связи с группой
+      email: values.email,
       firstName: values.firstName,
       lastName: values.lastName,
       middleName: values.middleName,
-      phone: values.phone || null,
+      phone: values.phone,
       isSecondChild: false,
       tariffId: values.tariff.value,
     };
 
-    let res;
-
-    if (user) {
-      res = await updateUser(newUserData, user.id); // вынести ?
-      if (typeof res === 'string') {
-        setErrorFomMessage(res, setError);
-        return;
-      }
-    } else {
-      res = await createUser(newUserData);
-      if (typeof res === 'string') {
-        setErrorFomMessage(res, setError);
-        return;
-      }
-    }
-
-    if ((values.role.value as Roles) !== Roles.Student) {
-      onCloseModal();
-      reset();
-      return;
-    }
-    if (typeof res === 'object' && 'id' in res) {
-      setStudentId(res.id);
-      setIsParentShown(true);
-    }
+    await action(
+      user,
+      removeEmptyFields(newUserData),
+      setError,
+      values.role.value as Roles,
+      onCloseModal,
+      reset,
+      setStudentId,
+      setIsParentShown,
+      values.role.value,
+      values.franchise.value,
+      values.tariff.value,
+      values.group.value,
+    );
   });
+
+  const getCurrentGroups = (franchiseId: Option) => {
+    resetField('group');
+    loadCurrentGroups(franchiseId.value, selectedRole);
+  };
+
+  useEffect(() => {
+    if (selectedRole !== Roles.Student) {
+      setIsParentShown(false);
+    }
+
+    if (isStudentTeacherEducation(selectedRole)) {
+      loadCurrentGroups(franchiseOptions[0].value, selectedRole);
+    }
+
+    resetField('franchise');
+  }, [selectedRole]);
 
   return (
     <>
@@ -238,102 +224,125 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                 )}
                 control={control}
               />
-              <Controller
-                name="city"
-                render={({ field }) => (
-                  <TextField {...field} label="Город" error={errors.city?.message} />
-                )}
-                control={control}
-              />
-              {!user && ( // при редактировании нельзя менять роль и франшизу
+              {isStudentCreated(isParentShown, studentId) && (
                 <>
                   <Controller
-                    name="role"
+                    name="city"
                     render={({ field }) => (
-                      <CustomSelect
-                        {...field}
-                        onChange={e => {
-                          setSelectedRole(e.value as Roles);
-                          field.onChange(e);
-                        }}
-                        title="Роль"
-                        options={roleOptions}
-                        error={errors.role?.message}
-                      />
+                      <TextField {...field} label="Город" error={errors.city?.message} />
                     )}
                     control={control}
                   />
+                  {!user && (
+                    <>
+                      <Controller
+                        name="role"
+                        render={({ field }) => (
+                          <CustomSelect
+                            {...field}
+                            onChange={e => {
+                              setSelectedRole(e.value as Roles);
+                              field.onChange(e);
+                            }}
+                            title="Роль"
+                            options={roleOptions}
+                            error={errors.role?.message}
+                          />
+                        )}
+                        control={control}
+                      />
+                      {isMethodistTutor(selectedRole) && (
+                        <Controller
+                          name="franchise"
+                          render={({ field }) => (
+                            <CustomSelect
+                              {...field}
+                              onChange={e => {
+                                field.onChange(e);
+                                getCurrentGroups(e);
+                                setCurrentFranchiseId(e.value);
+                              }}
+                              title="Франшиза"
+                              options={franchiseOptions}
+                              error={errors.franchise?.message}
+                            />
+                          )}
+                          control={control}
+                        />
+                      )}
+                    </>
+                  )}
+                  {isStudentRole(selectedRole) && (
+                    <Controller
+                      name="tariff"
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          onChange={e => {
+                            field.onChange(e);
+                          }}
+                          title="Тариф"
+                          options={tariffsOptions}
+                          error={errors.tariff?.message}
+                        />
+                      )}
+                      control={control}
+                    />
+                  )}
+                  {isStudentTeacherEducation(selectedRole) && (
+                    <Controller
+                      name="group"
+                      render={({ field }) => (
+                        <CustomSelect
+                          {...field}
+                          onChange={e => {
+                            field.onChange(e);
+                          }}
+                          title="Группа"
+                          options={groupOptions}
+                          error={errors.group?.message}
+                        />
+                      )}
+                      control={control}
+                    />
+                  )}
+                  {!isStudentRole(selectedRole) && (
+                    <>
+                      <Controller
+                        name="phone"
+                        render={({ field }) => (
+                          <TextField {...field} label="Телефон" error={errors.phone?.message} />
+                        )}
+                        control={control}
+                      />
+                      <Controller
+                        name="email"
+                        render={({ field }) => (
+                          <TextField {...field} label="Почта" error={errors.email?.message} />
+                        )}
+                        control={control}
+                      />
+                    </>
+                  )}
                   <Controller
-                    name="franchise"
+                    name="birthdate"
+                    render={({ field }) => <TextField {...field} label="Дата рождения:" />}
+                    control={control}
+                  />
+                  <Controller
+                    name="sex"
                     render={({ field }) => (
                       <CustomSelect
                         {...field}
-                        onChange={e => {
-                          field.onChange(e);
-                        }}
-                        title="Франшиза"
-                        options={franchiseOptions}
-                        error={errors.franchise?.message}
+                        title="Пол"
+                        options={sexOptions}
+                        error={errors.sex?.message}
                       />
                     )}
                     control={control}
                   />
                 </>
               )}
-              {selectedRole === Roles.Student && (
-                <Controller
-                  name="tariff"
-                  render={({ field }) => (
-                    <CustomSelect
-                      {...field}
-                      onChange={e => {
-                        field.onChange(e);
-                      }}
-                      title="Тариф"
-                      options={tariffsOptions}
-                      error={errors.tariff?.message}
-                    />
-                  )}
-                  control={control}
-                />
-              )}
-              {selectedRole !== Roles.Student && (
-                <Controller
-                  name="phone"
-                  render={({ field }) => (
-                    <TextField {...field} label="Телефон" error={errors.phone?.message} />
-                  )}
-                  control={control}
-                />
-              )}
-              <Controller
-                name="birthdate"
-                render={({ field }) => (
-                  <TextField {...field} label="Дата рождения:" /> // todo value="01.01.2000" for dev
-                )}
-                control={control}
-              />
-              {selectedRole !== Roles.Student && (
-                <Controller
-                  name="email"
-                  render={({ field }) => (
-                    <TextField {...field} label="Почта" error={errors.email?.message} />
-                  )}
-                  control={control}
-                />
-              )}
-              <Controller
-                name="sex"
-                render={({ field }) => (
-                  <CustomSelect
-                    {...field}
-                    title="Пол"
-                    options={sexOptions}
-                    error={errors.sex?.message}
-                  />
-                )}
-                control={control}
-              />
               <div className={styles.button}>
                 <Button type="submit" disabled={isSubmitSuccessful} onClick={onSubmit}>
                   Сохранить
@@ -345,13 +354,18 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       </Grid>
       {user?.parents && (
         <StudentParentsFormContainer
+          franchiseId={currentFranchiseId}
           studentId={studentId}
           onCloseModal={onCloseModal}
           parents={user.parents}
         />
       )}
       {isParentShown && studentId && (
-        <StudentParentsFormContainer studentId={studentId} onCloseModal={onCloseModal} />
+        <StudentParentsFormContainer
+          franchiseId={currentFranchiseId}
+          studentId={studentId}
+          onCloseModal={onCloseModal}
+        />
       )}
     </>
   );

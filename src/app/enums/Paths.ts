@@ -16,5 +16,9 @@ export enum Paths {
   Tariffs = '/api/v1/tariffs',
   Avatar = '/api/v1/avatar_upload',
   EditSelf = '/api/v1/editself',
+  UserGroups = 'usergroups',
+  Tests = 'tests',
+  ArticleTestResults = 'articletestresults',
+  Articles = 'articles',
   SwitchUser = '/api/v1/switchstudent',
 }

@@ -194,3 +194,42 @@
     }
   }
 }
+
+@mixin title-tag-h2 {
+  margin: 0 0 17px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 19px;
+  font-family: 'Aqum', serif;
+
+  @media (max-width: 550px) {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+@mixin description-tag-p {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 30px;
+  color: #000000;
+  margin: 0;
+
+  @media (max-width: 550px) {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+@mixin textColumns($columns, $fontSize: 16px) {
+  font-size: $fontSize;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $columns; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

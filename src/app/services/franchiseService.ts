@@ -1,7 +1,7 @@
 import { Paths } from 'app/enums/Paths';
 import instance from 'app/services/config';
 import { FranchiseT } from 'app/types/FranchiseTypes';
-import {FranchisingViewModel} from "app/viewModels/FranchisingViewModel";
+import { FranchisingViewModel } from 'app/viewModels/FranchisingViewModel';
 
 const franchiseService = {
   getAll: async (): Promise<FranchisingViewModel[]> => {

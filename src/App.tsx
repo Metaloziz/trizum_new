@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
+import { Article } from 'components/blog-page/Article/Article';
 import DefaultLayout from 'components/layout/default/DefaultLayout';
 import Rate from 'components/rate/Rate';
 import Blog from 'pages/blog/Blog';
@@ -21,7 +22,9 @@ import Pay from 'pages/pay/Pay';
 import Report from 'pages/report/Report';
 import Schedule from 'pages/schedule/Schedule';
 import Statistic from 'pages/statistic/Statistic';
-import Testing from 'pages/testing/Testing';
+import Result from 'pages/testing/result/Result';
+import Test from 'pages/testing/test/Test';
+import { Testing } from 'pages/testing/Testing';
 import UserInfo from 'pages/user-info/UserInfo';
 import Users from 'pages/users/Users';
 
@@ -30,7 +33,12 @@ const App = () => (
     <Routes>
       <Route path={AppRoutes.Index} element={<DefaultLayout />}>
         <Route path={AppRoutes.Index} element={<Home />} />
-        <Route path={AppRoutes.Blog} element={<Blog />} />
+
+        <Route path={AppRoutes.Blog}>
+          <Route path="" element={<Blog />} />
+          <Route path=":articleName" element={<Article />} />
+        </Route>
+
         <Route path={AppRoutes.Classes} element={<Classes />} />
         <Route path={AppRoutes.Courses} element={<Courses />} />
         <Route path={AppRoutes.Franchising} element={<Franchising />} />
@@ -45,7 +53,13 @@ const App = () => (
         <Route path={AppRoutes.Report} element={<Report />} />
         <Route path={AppRoutes.Schedule} element={<Schedule />} />
         <Route path={AppRoutes.Statistic} element={<Statistic />} />
-        <Route path={AppRoutes.Testing} element={<Testing />} />
+
+        <Route path={AppRoutes.Testing}>
+          <Route path="" element={<Testing />} />
+          <Route path=":testName" element={<Test />} />
+          <Route path="result" element={<Result />} />
+        </Route>
+
         <Route path={AppRoutes.UserInfo} element={<UserInfo />} />
         <Route path={AppRoutes.Users} element={<Users />} />
       </Route>

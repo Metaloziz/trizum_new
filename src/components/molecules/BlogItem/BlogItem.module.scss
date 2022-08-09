@@ -1,3 +1,5 @@
+@import "src/styles/mixins";
+
 .containerItem {
   display: flex;
   justify-content: space-between;
@@ -15,6 +17,15 @@
 
   .wrapperTeacherImg {
     margin-right: 10px;
+
+    img {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      width: 300px;
+      object-fit: contain;
+    }
+
 
     @media (max-width: 900px) {
       margin-right: 0;
@@ -36,40 +47,22 @@
   & .itemText {
     width: 70%;
 
+    p {
+      @include textColumns(5)
+    }
+
     @media (max-width: 900px) {
       width: 100%;
     }
   }
 
   & h2 {
-    margin: 0 0 17px;
-    text-transform: uppercase;
-    background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 19px;
-    font-family: 'Aqum';
-
-    @media (max-width: 550px) {
-      font-size: 16px;
-      line-height: 19px;
-    }
+    @include title-tag-h2()
 
   }
 
   & p {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 30px;
-    color: #000000;
-    margin: 0;
-
-    @media (max-width: 550px) {
-      font-size: 15px;
-      line-height: 22px;
-    }
+    @include description-tag-p()
   }
 
   & .containerButton {

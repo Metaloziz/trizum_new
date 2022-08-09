@@ -16,7 +16,7 @@ import Setting from 'components/setting/Setting';
 const UserPage = () => {
   const { user } = appStore;
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [phone, setPhone] = useState('79601001010');
+  const [phone, setPhone] = useState('79101001010');
   const [email, setEmail] = useState('');
   const [code, setCode] = useState<string>('');
   const [erorr, setErorr] = useState<boolean>(false);

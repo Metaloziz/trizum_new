@@ -1,6 +1,6 @@
 import { ErrorMessageType } from 'utils/checkErrorMessage';
 
-export const setErrorFomMessage = (responseMessage: ErrorMessageType, setError: any) => {
+export const setErrorFormMessage = (responseMessage: ErrorMessageType, setError: any) => {
   switch (responseMessage) {
     case 'number':
     case 'phone':

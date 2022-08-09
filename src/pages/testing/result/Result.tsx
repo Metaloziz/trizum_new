@@ -7,7 +7,7 @@ import teacherEducationStore from 'app/stores/TeacherEducationStore';
 import TestResultPage from 'components/test-result-page/TestResultPage';
 import Custom404 from 'pages/404.page';
 
-const Theory: FC = observer(() => {
+const Result: FC = observer(() => {
   const { test } = teacherEducationStore;
   // TODO: проверка если теста нет, то запрос за ним
   switch (appStore.role) {
@@ -21,5 +21,4 @@ const Theory: FC = observer(() => {
       return <Custom404 />;
   }
 });
-
-export default Theory;
+export default Result;

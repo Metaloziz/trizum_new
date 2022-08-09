@@ -50,10 +50,10 @@ export type ResponseLoadMe = {
 };
 
 export type RequestRegister = {
-  phone: string | null;
-  email: string | null;
+  phone?: string;
+  email?: string;
   role: Roles;
-  franchiseId: string;
+  franchiseId?: string;
   firstName: string;
   middleName: string;
   lastName: string;

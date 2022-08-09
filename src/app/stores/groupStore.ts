@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import {  makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import * as yup from 'yup';
 
 import coursesService from 'app/services/coursesService';
@@ -31,9 +31,9 @@ class GroupStore {
     franchiseId: '',
     dateSince: '20.02.2020',
     dateUntil: '20.01.2023',
-    type: '',
+    type: 'blocks',
     teacherId: '',
-    level: '',
+    level: 'easy',
     courseId: '',
     status: 'active',
   };
@@ -81,6 +81,38 @@ class GroupStore {
     } finally {
       this.isLoad = false;
     }
+  };
+
+  loadCurrentGroups = (franchiseId: string, selectedRole: Roles | undefined) => {
+    this.groups = [];
+    this.execute(async () => {
+      let copyGroups: ResponseGroups[] = [];
+      if (selectedRole === Roles.Student) {
+        await this.getGroups({ franchise_id: franchiseId, type: 'class' }, false);
+
+        copyGroups = [...this.groups];
+
+        await this.getGroups({
+          franchise_id: franchiseId,
+          type: 'olympiad',
+        });
+
+        runInAction(() => {
+          this.groups = [...this.groups, ...copyGroups];
+        });
+      }
+
+      if (selectedRole === Roles.TeacherEducation) {
+        copyGroups = [];
+        await this.getGroups({ franchise_id: franchiseId, type: 'blocks' }, false);
+      }
+    });
+  };
+
+  addUserGroup = (data: AddUserGroupPayloadType) => {
+    this.execute(async () => {
+      const response = await groupsService.addUserGroup(data);
+    });
   };
 
   loadInitialModal = () => {

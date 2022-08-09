@@ -1,5 +1,6 @@
 import { TimeZoneType } from './AuthTypes';
-
+import { GroupLevels } from 'app/enums/GroupLevels';
+import { GroupType } from 'app/enums/GroupTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
 import { Nullable } from 'app/types/Nullable';
 import { ResponseUserT } from 'app/types/UserTypes';
@@ -39,14 +40,17 @@ export type ResponseOneGroup = {
   ];
 };
 
+export type GroupT = keyof typeof GroupType;
+export type LevelGroupT = keyof typeof GroupLevels;
+
 export type CreateGroup = {
   name: string;
   franchiseId: string;
   dateSince: string;
   dateUntil: string;
-  type: string;
+  type: GroupT;
   teacherId: string;
-  level: string;
+  level: LevelGroupT;
   courseId: string;
   status: string;
 };

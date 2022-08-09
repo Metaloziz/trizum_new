@@ -3,6 +3,11 @@ import instance from 'app/services/config';
 import { CreateGroup, GroupParams, ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
 import { WithPagination } from 'app/types/WithPagination';
 
+export type AddUserGroupPayloadType = {
+  userId: string;
+  groupId: string;
+};
+
 const groupsService = {
   getGroups: async (asd?: GroupParams): Promise<WithPagination<ResponseGroups[]>> => {
     const f = (data?: GroupParams) => {
@@ -38,6 +43,11 @@ const groupsService = {
   },
   addGroup: async (group: CreateGroup) => {
     const { data } = await instance.post(`${Paths.Groups}`, group);
+    return data;
+  },
+
+  addUserGroup: async (addGroupData: AddUserGroupPayloadType) => {
+    const { data } = await instance.post(`${Paths.UserGroups}`, addGroupData);
     return data;
   },
   editGroup: async (data: any, id: string) => {

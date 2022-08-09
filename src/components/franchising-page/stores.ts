@@ -1,17 +1,15 @@
-import React from 'react';
-
-import axios from 'axios';
-import { makeAutoObservable } from 'mobx';
 import * as yup from 'yup';
 
+import { makeObservable, observable } from 'mobx';
+
 import { FranchisingFilterViewModel } from './models/FranchisingFilterViewModel';
-
-import { Nullable } from 'app/types/Nullable';
-import { FranchisingViewModel } from 'app/viewModels/FranchisingViewModel';
 import { FranchisingRepository } from 'components/franchising-page/repositories';
+import { FranchisingViewModel } from 'app/viewModels/FranchisingViewModel';
+import { Nullable } from 'app/types/Nullable';
+import { StoreBase } from 'app/stores/StoreBase';
 
-export class FranchisingStore {
-  private repository = new FranchisingRepository();
+export class FranchisingStore extends StoreBase {
+  private _repository = new FranchisingRepository();
 
   private _defaultValue = (): FranchisingViewModel => ({
     actualAddress: '',
@@ -33,12 +31,6 @@ export class FranchisingStore {
     checkingAccount: '',
   });
 
-  isLoading: boolean = false;
-
-  error: Nullable<Error> = null;
-
-  success: Nullable<React.ReactNode> = null;
-
   editingEntity: FranchisingViewModel = this._defaultValue();
 
   entities: FranchisingViewModel[] = [];
@@ -48,7 +40,14 @@ export class FranchisingStore {
   filter: Nullable<FranchisingFilterViewModel> = null;
 
   constructor() {
-    makeAutoObservable(this);
+    super();
+
+    makeObservable(this, {
+      editingEntity: observable,
+      entities: observable,
+      isDialogOpen: observable,
+      filter: observable
+    });
   }
 
   openDialog = (editingEntity?: FranchisingViewModel) => {
@@ -60,46 +59,30 @@ export class FranchisingStore {
     this.isDialogOpen = false;
   };
 
-  execute = async <T>(action: () => Promise<T>) => {
-    try {
-      this.isLoading = true;
-      await action();
-    } catch (error) {
-      // TODO: что делать в случае ошибку, выводить в Snackbar?
-      error = axios.isAxiosError(error)
-        ? new Error(error.message)
-        : typeof error === 'string'
-        ? new Error(error)
-        : error;
-    } finally {
-      this.isLoading = false;
-    }
-  };
-
   list = async () => {
     this.execute(async () => {
-      this.entities = await this.repository.list();
+      this.entities = await this._repository.list();
     });
   };
 
   getById = async (id: string) => {
     this.execute(async () => {
-      const entity = await this.repository.byId(id);
+      const entity = await this._repository.byId(id);
     });
   };
 
-  addOrEdit = async (/* data: FranchisingViewModel */) => {
+  addOrEdit = async () => {
     this.closeDialog();
 
     this.execute(async () => {
-      await this.repository.addOrEdit(this.editingEntity);
+      await this._repository.addOrEdit(this.editingEntity);
       await this.pull();
     });
   };
 
   remove = async (id: string) => {
     this.execute(async () => {
-      await this.repository.remove(id);
+      await this._repository.remove(id);
       await this.pull();
     });
   };
@@ -147,37 +130,37 @@ export class FranchisingStore {
 
     /* if (this.filter.fullName.trim()) {
       result = this.entities.filter(entity =>
-        entity.fullName.toLowerCase().includes(this.filter!.fullName.toLowerCase()),
+        (entity.fullName ?? "").toLowerCase().includes(this.filter!.fullName.toLowerCase()),
       );
     } */
 
     if (this.filter.shortName.trim()) {
       result = this.entities.filter(entity =>
-        entity.shortName.toLowerCase().includes(this.filter!.shortName.toLowerCase()),
+        (entity.shortName ?? "").toLowerCase().includes(this.filter!.shortName.toLowerCase()),
       );
     }
 
     if (this.filter.inn.trim()) {
       result = this.entities.filter(entity =>
-        entity.inn.toLowerCase().includes(this.filter!.inn.toLowerCase()),
+        (entity.inn ?? "").toLowerCase().includes(this.filter!.inn.toLowerCase()),
       );
     }
 
     if (this.filter.email.trim()) {
       result = this.entities.filter(entity =>
-        entity.email.toLowerCase().includes(this.filter!.email.toLowerCase()),
+        (entity.email ?? "").toLowerCase().includes(this.filter!.email.toLowerCase()),
       );
     }
 
     if (this.filter.city.trim()) {
       result = this.entities.filter(entity =>
-        entity.city.toLowerCase().includes(this.filter!.city.toLowerCase()),
+        (entity.city ?? "").toLowerCase().includes(this.filter!.city.toLowerCase()),
       );
     }
 
     if (this.filter.checkingAccount.trim()) {
       result = this.entities.filter(entity =>
-        entity.checkingAccount.toLowerCase().includes(this.filter!.checkingAccount.toLowerCase()),
+        (entity.checkingAccount ?? "").toLowerCase().includes(this.filter!.checkingAccount.toLowerCase()),
       );
     }
 

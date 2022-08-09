@@ -1,14 +1,8 @@
-import * as React from 'react';
-
 import CloseIcon from '@mui/icons-material/Close';
-import Button from '@mui/material/Button';
-import { default as MuiDialog } from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import { default as MuiDialogTitle } from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
+import { default as MuiDialog } from '@mui/material/Dialog';
+import { default as MuiDialogTitle } from '@mui/material/DialogTitle';
 import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 
 export const Dialog = styled(MuiDialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {

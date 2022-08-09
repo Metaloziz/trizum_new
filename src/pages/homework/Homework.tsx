@@ -1,16 +1,15 @@
 import React, { FC } from 'react';
-
-import { observer } from 'mobx-react-lite';
-import { Navigate } from 'react-router-dom';
+import appStore, { Roles } from 'app/stores/appStore';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
-import appStore, { Roles } from 'app/stores/appStore';
-import HomeworkList from 'components/homework-list/HomeworkList';
+import { HomeworkPage } from 'components/homework-page/HomeworkPage';
+import { Navigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
 const Homework: FC = observer(() => {
   switch (appStore.role) {
     case Roles.Methodist:
-      return <HomeworkList />;
+      return <HomeworkPage />;
     default:
       return <Navigate to={AppRoutes.Index} />;
   }

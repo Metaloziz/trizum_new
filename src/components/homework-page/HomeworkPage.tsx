@@ -1,70 +1,16 @@
-import { Alert, Box, Button, IconButton, Paper, Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { RequestEditCourse, ResponseCourse } from "app/types/CourseTypes";
+import { Alert, Box, Button, IconButton, Paper, Snackbar, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
 import { useEffect, useMemo } from "react";
 
 import AddIcon from "@mui/icons-material/Add";
 import { AddOrEditDialog } from "./AddOrEditDialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Filter } from "./Filter";
+import { HomeworkStore } from "./stores";
 import { LoadingIndicator } from "components/franchising-page/ui/LoadingIndicator";
-import { MethodistMainStore } from "./stores";
 import { observer } from "mobx-react-lite";
 
-const MethodistMain = observer(() => {
-  // const {
-  //   getCourses,
-  //   createCourse,
-  //   courses,
-  //   currentCourse,
-  //   getOneCourse,
-  //   editCourse,
-  //   setCurrentCourse,
-  // } = coursesStore;
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [title, setTitle] = useState("");
-  // const [level, setLevel] = useState<Option>(groupLevelOptions[0]);
-  // const navigate = useNavigate();
-
-  // const onSaveCourseClick = async () => {
-  //   if (!currentCourse) {
-  //     createCourse({ title, level: level.label, works: [] });
-  //   }
-  //   if (currentCourse) {
-  //     const { id } = currentCourse;
-  //     const newCourse: RequestEditCourse = {
-  //       level: level.value,
-  //       title,
-  //       works: currentCourse?.works
-  //         ? currentCourse.works.map(el => ({
-  //             type: el.work.type,
-  //             workId: el.work.id,
-  //             index: el.index,
-  //           }))
-  //         : [],
-  //     };
-  //     await editCourse(newCourse, id);
-  //     setCurrentCourse();
-  //   }
-  //   setTitle("");
-  //   setLevel(groupLevelOptions[0]);
-  //   setIsModalOpen(false);
-  // };
-
-  // const onSettingsClick = async (id: string) => {
-  //   const course = courses.find(el => el.id === id);
-  //   if (course) {
-  //     await getOneCourse(course.id);
-  //     setIsModalOpen(true);
-  //     // setCurrentCourseItem(course);
-  //     // setTitle(course.title);
-  //     // const lvl = groupLevelOptions.filter(el => el.label === course.level)[0];
-  //     // setLevel(lvl);
-  //     // setIsModalOpen(true);
-  //   }
-  // };
-
-  const store = useMemo(() => new MethodistMainStore(), []);
+export const HomeworkPage = observer(() => {
+  const store = useMemo(() => new HomeworkStore(), []);
 
   useEffect(() => {
     store.pull();
@@ -111,7 +57,6 @@ const MethodistMain = observer(() => {
           >
             Добавить
           </Button>
-          <Filter onChange={store.onChangeFilter} />
         </Stack>
       </Box>
       <TableContainer component={Paper}>
@@ -129,22 +74,19 @@ const MethodistMain = observer(() => {
               <TableCell>
                 Наименование
               </TableCell>
-              <TableCell>
-                Уровень
+              <TableCell width="auto">
+                Описание
               </TableCell>
               <TableCell>
-                Колличество курсов
-              </TableCell>
-              <TableCell>
-                Дата создания
+                Колличество игр
               </TableCell>
               <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
-            {store.filteredEntities.length ? (
-              store.filteredEntities.map(entity => (
-                <TableRow
+            {store.entities.length > 0
+              ? store.entities.map(entity => {
+                return <TableRow
                   key={entity.id}
                   hover
                   sx={{
@@ -154,16 +96,13 @@ const MethodistMain = observer(() => {
                   }}
                 >
                   <TableCell>
-                    {entity.title}
+                    <Typography>{entity.title || ""}</Typography>
                   </TableCell>
                   <TableCell>
-                    {entity.level}
+                    {/* <Typography>{entity.text || "—"}</Typography> */}
                   </TableCell>
                   <TableCell>
-                    {entity.worksCount}
-                  </TableCell>
-                  <TableCell>
-                    {/*entity.createdAt?.date || ""*/}
+                    {/* <Typography>{entity.gamePresets.length || "0"}</Typography> */}
                   </TableCell>
                   <TableCell>
                     <Stack direction="row" justifyContent="flex-end">
@@ -178,19 +117,17 @@ const MethodistMain = observer(() => {
                         size="small"
                         onClick={() => store.remove(entity.id!)}
                         color="error"
-                        disabled
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
                     </Stack>
                   </TableCell>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={5}>Данные отсутствуют...</TableCell>
+              })
+              : <TableRow>
+                <TableCell colSpan={4}>Данные отсутствуют...</TableCell>
               </TableRow>
-            )}
+            }
           </TableBody>
         </Table>
       </TableContainer>
@@ -204,7 +141,5 @@ const MethodistMain = observer(() => {
         labelDisplayedRows={({ from, to, count }) => `${from}–${to} из ${count !== -1 ? count : `больше чем ${to}`}`}
       />
     </Box>
-  </Box>;
+  </Box>
 });
-
-export default MethodistMain;

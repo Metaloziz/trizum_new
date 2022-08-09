@@ -1,21 +1,20 @@
 import React, { FC } from 'react';
 
-import { useParams } from 'react-router-dom';
-
 import style from './Article.module.scss';
 
-import { blogsPreviews } from 'components/blog-page/data/blogsPreviews';
+import articlesStore from 'app/stores/articlesStore';
 import Image from 'components/image/Image';
 
 export const Article: FC = () => {
-  const { articleName } = useParams();
-  const { img, text } = blogsPreviews[0];
+  const {
+    article: { img, text, title },
+  } = articlesStore;
 
   return (
     <div className={style.container}>
       <Image src={img} width="460" height="460" />
       <div>
-        <h2>{articleName}</h2>
+        <h2>{title}</h2>
         <p>{text}</p>
       </div>
     </div>

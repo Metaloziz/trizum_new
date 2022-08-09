@@ -224,3 +224,12 @@
     line-height: 22px;
   }
 }
+
+@mixin textColumns($columns, $fontSize: 16px) {
+  font-size: $fontSize;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $columns; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

@@ -34,11 +34,11 @@ const BlogPage: FunctionComponent = observer(() => {
       )}
       {blogsPreviews.map(item => (
         <BlogItem
+          id={item.id}
           key={item.id}
           title={item.title}
           text={item.text}
           imgSrc={item.img}
-          id={item.id}
         />
       ))}
     </div>

@@ -7,6 +7,7 @@ import styles from './BlogItem.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
+import articlesStore from 'app/stores/articlesStore';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 
@@ -19,6 +20,7 @@ interface Props {
 
 const BlogItem: FC<Props> = observer(({ title, imgSrc = '', text, id }) => {
   const { role } = appStore;
+  const { setCurrentArticle } = articlesStore;
 
   const navigate = useNavigate();
 
@@ -27,13 +29,14 @@ const BlogItem: FC<Props> = observer(({ title, imgSrc = '', text, id }) => {
   };
 
   const onReadTheoryClick = (): void => {
+    setCurrentArticle(Number(id));
     navigate(`${AppRoutes.Blog}/${title}`);
   };
 
   return (
     <div className={styles.containerItem}>
       <div className={styles.wrapperTeacherImg}>
-        <Image src={imgSrc} width="300px" height="300px" alt="Images" />
+        <Image src={imgSrc} alt="Images" />
       </div>
       <div className={styles.itemText}>
         <h2>{title}</h2>

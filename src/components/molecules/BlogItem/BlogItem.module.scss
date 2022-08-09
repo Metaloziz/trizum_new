@@ -18,6 +18,15 @@
   .wrapperTeacherImg {
     margin-right: 10px;
 
+    img {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      width: 300px;
+      object-fit: contain;
+    }
+
+
     @media (max-width: 900px) {
       margin-right: 0;
       display: flex;
@@ -37,6 +46,10 @@
 
   & .itemText {
     width: 70%;
+
+    p {
+      @include textColumns(5)
+    }
 
     @media (max-width: 900px) {
       width: 100%;

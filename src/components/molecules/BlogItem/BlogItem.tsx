@@ -8,6 +8,7 @@ import styles from './BlogItem.module.scss';
 import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
 import articlesStore from 'app/stores/articlesStore';
+import testsStore from 'app/stores/testsStore';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 
@@ -21,11 +22,12 @@ interface Props {
 const BlogItem: FC<Props> = observer(({ title, imgSrc = '', text, id }) => {
   const { role } = appStore;
   const { setCurrentArticle } = articlesStore;
+  const { currentTest } = testsStore;
 
   const navigate = useNavigate();
 
   const onTestClick = () => {
-    navigate(`${AppRoutes.Testing}/${id}`);
+    navigate(`${AppRoutes.Testing}/${currentTest.test.title}`); // todo решить баг с дефолтным url
   };
 
   const onReadTheoryClick = (): void => {

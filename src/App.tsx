@@ -22,7 +22,8 @@ import Pay from 'pages/pay/Pay';
 import Report from 'pages/report/Report';
 import Schedule from 'pages/schedule/Schedule';
 import Statistic from 'pages/statistic/Statistic';
-import { CurrentTest } from 'pages/testing/CurrentTest/CurrentTest';
+import Result from 'pages/testing/result/Result';
+import Test from 'pages/testing/test/Test';
 import { Testing } from 'pages/testing/Testing';
 import UserInfo from 'pages/user-info/UserInfo';
 import Users from 'pages/users/Users';
@@ -55,7 +56,8 @@ const App = () => (
 
         <Route path={AppRoutes.Testing}>
           <Route path="" element={<Testing />} />
-          <Route path=":id" element={<CurrentTest />} />
+          <Route path=":testName" element={<Test />} />
+          <Route path="result" element={<Result />} />
         </Route>
 
         <Route path={AppRoutes.UserInfo} element={<UserInfo />} />

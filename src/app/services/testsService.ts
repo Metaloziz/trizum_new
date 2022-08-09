@@ -9,9 +9,9 @@ const testsService = {
   },
 
   getOneTest: async (
-    testId: string = '1ed069df-a482-69e2-a064-211f2c883f3d', // todo hard cod
+    testId: string, // todo hard cod
   ): Promise<OneTestT> => {
-    const { data } = await instance.get(`${Paths.Tests}/${testId}`);
+    const { data } = await instance.get(`${Paths.Tests}/1ed17d1c-74e4-61b2-91d6-e155f576ccf7`);
     return data;
   },
 };

@@ -1,7 +1,8 @@
+import { StatusTypes } from 'app/enums/StatusTypes';
 import { TimeZoneType } from 'app/types/AuthTypes';
 
-type ContentT = {
-  type: string;
+export type ContentT = {
+  type: StatusTypes;
   question: string;
   answer: string;
 };
@@ -20,13 +21,15 @@ export type TestsT = {
   total: number;
 };
 
+export type OneTestBodyT = {
+  id: string;
+  title: string;
+  status: string;
+  createdAt: TimeZoneType;
+  content: ContentT[];
+};
+
 export type OneTestT = {
-  test: {
-    id: string;
-    title: string;
-    status: string;
-    createdAt: TimeZoneType;
-    content: ContentT[];
-  };
+  test: OneTestBodyT;
   usedInWorks: [];
 };

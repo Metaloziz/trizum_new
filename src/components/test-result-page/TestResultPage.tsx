@@ -1,15 +1,13 @@
 import { FC } from 'react';
 
-import resultPic from 'public/result-pic.jpg';
+import resultPic from '../../assets/images/result-pic.jpg';
 
 import styles from './TestResultPage.module.scss';
 
 import exclude from 'assets/svgs/exclude.svg';
 import Image from 'components/image/Image';
 
-type Props = Record<string, unknown>;
-
-const TestResultPage: FC<Props> = props => (
+const TestResultPage: FC = () => (
   <div className={styles.wrapper}>
     <div className={styles.containerItem}>
       <div>

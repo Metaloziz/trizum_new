@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FC, useMemo, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -8,30 +8,81 @@ import { AppRoutes } from 'app/enums/AppRoutes';
 import resultIcon from 'assets/svgs/result-icon.svg';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import Step from 'components/step/Step';
+import Stepper from 'components/step/stepper/Stepper';
+import { VariantAnswer } from 'pages/testing/variantAnswer/VariantAnswer';
+import { FIRST_ARRAY_ITEM } from 'utils/consts/consts';
+import { mixElements } from 'utils/mixElements';
+import { LocalContentT } from 'utils/returnFirstQuestionData';
 
-const TestPage = () => {
-  const [currentRadioValue, setCurrentRadioValue] = useState('inputChoice1');
+const wrongVariantsAnswers: string[] = [
+  'wrong variant 1',
+  'wrong variant 2',
+  'wrong variant 3',
+  'wrong variant 4',
+  'wrong variant 5',
+];
+
+type TestPagePropsT = {
+  id: string;
+  title: string;
+  content: LocalContentT[];
+};
+
+const TestPage: FC<TestPagePropsT> = ({ id, title, content }) => {
   const navigate = useNavigate();
+
+  const defaultRadioButtonValue = 'null';
+
+  const [currentRadioValue, setCurrentRadioValue] = useState(defaultRadioButtonValue);
+  const [activeStep, setActiveStep] = useState<number>(1);
+
+  const [questionData, setQuestion] = useState(content[FIRST_ARRAY_ITEM]);
+
   const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentRadioValue(e.currentTarget.value);
   };
-  const id = 2;
+
+  const mixedAnswer = useMemo(
+    () => mixElements(wrongVariantsAnswers, questionData.answer),
+    [activeStep],
+  );
+
+  const mixedAnswerTags = mixedAnswer.map(variant => (
+    <VariantAnswer
+      key={variant}
+      onChange={handlerRadioChange}
+      currentRadioValue={currentRadioValue}
+      value={variant}
+    />
+  ));
+
+  const fooo = () => {
+    setCurrentRadioValue(defaultRadioButtonValue);
+    const newActiveStep = activeStep + 1;
+    setActiveStep(newActiveStep);
+
+    const newQuestion = content.find(element => element.id === newActiveStep);
+
+    if (newQuestion) {
+      setQuestion(newQuestion);
+    }
+  };
+
   const onEndTest = () => {
     // todo: добавить реальный id
-    navigate(`${AppRoutes.Testing}/result/${id}`);
+    navigate(`${AppRoutes.Testing}/result`);
   };
   return (
     <div className={styles.wrapperTesting}>
       <div>
-        <h2>Второй блок</h2>
+        <h2>{title}</h2>
       </div>
       <div className={styles.choiceWrap}>
         <div className={styles.endTest}>
           <Button onClick={onEndTest}>Закончить тест</Button>
         </div>
         <div className={styles.stepStyle}>
-          <Step countStep={30} isRenderButtons />
+          <Stepper countStep={content.length} activeStepCount={activeStep} />
         </div>
       </div>
       <div className={styles.question}>
@@ -39,89 +90,13 @@ const TestPage = () => {
           <Image src={resultIcon} width="406px" height="426px" alt="Images" />
         </div>
         <div className={styles.textQuestion}>
-          <h3>Вопрос 18</h3>
-          <p>
-            А также явные признаки победы институционализации призывают нас к новым свершениям,
-            которые, в свою очередь, должны быть обнародованы. Противоположная точка зрения
-            подразумевает, что интерактивные прототипы призывают нас к новым свершениям, которые, в
-            свою очередь, должны быть призваны к ответу. Сложно сказать, почему сторонники
-            тоталитаризма в науке являются только методом политического участия и в равной степени
-            предоставлены сами себе.
-          </p>
+          <h3> Вопрос {questionData.id}</h3>
+          <p>{questionData.question}</p>
           <div className={styles.answerChoice}>
-            <div>
-              <div className={styles.inputChoice}>
-                <input
-                  type="radio"
-                  value="inputChoice1"
-                  id="inputChoice1"
-                  name="currentRadioValue"
-                  onChange={handlerRadioChange}
-                  checked={currentRadioValue === 'inputChoice1'}
-                />
-                <label htmlFor="inputChoice1">Вариант ответа 1</label>
-              </div>
-              <div className={styles.inputChoice}>
-                <input
-                  type="radio"
-                  value="inputChoice2"
-                  id="inputChoice2"
-                  name="currentRadioValue"
-                  onChange={handlerRadioChange}
-                  checked={currentRadioValue === 'inputChoice2'}
-                />
-                <label htmlFor="inputChoice2">Вариант ответа 2</label>
-              </div>
-              <div className={styles.inputChoice}>
-                <input
-                  type="radio"
-                  value="inputChoice3"
-                  id="inputChoice3"
-                  name="currentRadioValue"
-                  onChange={handlerRadioChange}
-                  checked={currentRadioValue === 'inputChoice3'}
-                />
-                <label htmlFor="inputChoice3">Вариант ответа 3</label>
-              </div>
-            </div>
-            <div>
-              <div className={styles.inputChoice}>
-                <input
-                  type="radio"
-                  value="inputChoice4"
-                  id="inputChoice4"
-                  name="currentRadioValue"
-                  onChange={handlerRadioChange}
-                  checked={currentRadioValue === 'inputChoice4'}
-                />
-                <label htmlFor="inputChoice4">Вариант ответа 4</label>
-              </div>
-              <div className={styles.inputChoice}>
-                <input
-                  type="radio"
-                  value="inputChoice5"
-                  id="inputChoice5"
-                  name="currentRadioValue"
-                  onChange={handlerRadioChange}
-                  checked={currentRadioValue === 'inputChoice5'}
-                />
-                <label htmlFor="inputChoice5">Вариант ответа 5</label>
-              </div>
-              <div className={styles.inputChoice}>
-                <input
-                  type="radio"
-                  value="inputChoice6"
-                  id="inputChoice6"
-                  name="currentRadioValue"
-                  onChange={handlerRadioChange}
-                  checked={currentRadioValue === 'inputChoice6'}
-                />
-                <label htmlFor="inputChoice6">Вариант ответа 6</label>
-              </div>
-            </div>
+            <div>{mixedAnswerTags}</div>
           </div>
           <div>
-            <Button>Ответить</Button>
+            <Button onClick={fooo}>Ответить</Button>
           </div>
         </div>
       </div>

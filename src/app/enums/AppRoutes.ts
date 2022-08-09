@@ -3,7 +3,7 @@ export const AppRoutes = {
   Statistic: '/statistic',
   Game: '/game',
   Games: '/games',
-  Blog: '/blog',
+  Blog: '/blog/list',
   Classes: '/classes',
   Courses: '/classes',
   Signin: '/account/signin',

@@ -3,23 +3,19 @@ import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import appStore, { Roles } from 'app/stores/appStore';
-import teacherEducationStore from 'app/stores/TeacherEducationStore';
-import TestResultPage from 'components/test-result-page/TestResultPage';
 import Custom404 from 'pages/404.page';
+import { CurrentTest } from 'pages/testing/CurrentTest/CurrentTest';
 
-const Theory: FC = observer(() => {
-  const { test } = teacherEducationStore;
-  // TODO: проверка если теста нет, то запрос за ним
+const Test: FC = observer(() => {
   switch (appStore.role) {
     case Roles.Teacher:
     case Roles.Admin:
     case Roles.Franchisee:
     case Roles.Methodist:
     case Roles.TeacherEducation:
-      return <TestResultPage />;
+      return <CurrentTest />;
     default:
       return <Custom404 />;
   }
 });
-
-export default Theory;
+export default Test;

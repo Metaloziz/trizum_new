@@ -1,22 +1,23 @@
 import { FC, useEffect } from 'react';
 
 import { observer } from 'mobx-react-lite';
-import { useParams } from 'react-router-dom';
 
 import testsStore from 'app/stores/testsStore';
 import TestPage from 'components/test-page';
+import { addIdElements } from 'utils/addIdElements';
 
 export const CurrentTest: FC = observer(() => {
-  const { tests, getTests, getOneTest } = testsStore;
-  const { id } = useParams();
+  const { getTests, currentTest } = testsStore;
 
   useEffect(() => {
     getTests();
   }, []);
 
+  const questions = addIdElements(currentTest.test.content);
+
   return (
     <div>
-      <TestPage />
+      <TestPage id={currentTest.test.id} title={currentTest.test.title} content={questions} />
     </div>
   );
 });

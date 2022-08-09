@@ -1,6 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
+import {FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
 import Pagination from '@mui/material/Pagination';
+import {DesktopDatePicker} from "@mui/x-date-pickers";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -81,6 +85,28 @@ const UsersPage = observer(() => {
     // }
   };
 
+  const [city, setCity] = React.useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setCity(event.target.value);
+  };
+
+  const [mainData, setMainData] = React.useState<Date | null>(
+      new Date('2015-08-18T21:11:54'),
+  );
+
+  const handleChangeMainData = (newValue: Date | null) => {
+    setMainData(newValue);
+  };
+
+  const [value, setValue] = React.useState<Date | null>(
+      new Date('2014-08-18T21:11:54'),
+  );
+
+  const handleChangeBornData = (newValue: Date | null) => {
+    setValue(newValue);
+  };
+
   useEffect(() => {
     load();
     getFranchisee();
@@ -97,30 +123,106 @@ const UsersPage = observer(() => {
     <div className={styles.wrapper}>
       <div className={styles.search}>
         <div className={styles.column}>
-          <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" />
+          {/* <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" /> */}
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DesktopDatePicker
+                label="Дата "
+                inputFormat="dd/MM/yyyy"
+                value={mainData}
+                onChange={handleChangeMainData}
+                renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
           {/* <InformationItem variant="calendar" title="Дата" dataAuto="date" /> */}
           {/* <InformationItem variant="select" title="Выполнил Д/З" /> */}
-          <InformationItem variant="select" title="Город" />
+          {/* <InformationItem variant="select" title="Город" /> */}
+          {/* <Select placeholder="Город" /> */}
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Город</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={city}
+                label="Город"
+                onChange={handleChange}
+            >
+              <MenuItem value={10}>Москва</MenuItem>
+              <MenuItem value={20}>Санкт-Петербург</MenuItem>
+              <MenuItem value={30}>Красноярск</MenuItem>
+            </Select>
+          </FormControl>
           {selectedRole && (selectedRole.value as Roles) === Roles.Student && (
             <InformationItem variant="select" title="Группа" />
           )}
         </div>
         <div className={styles.column}>
-          <InformationItem variant="select" title="Оплачен" />
-          <CustomSelect
-            onChange={onSelectRole}
-            value={selectedRole}
-            title="Роль"
-            options={roleOptions}
-          />
+          {/* <InformationItem variant="select" title="Оплачен" /> */}
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Оплачен</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={city}
+                label="Город"
+                onChange={handleChange}
+            >
+              <MenuItem value={10}>Оплачен</MenuItem>
+              <MenuItem value={20}>Неоплачен</MenuItem>
+            </Select>
+          </FormControl>
+          {/* <CustomSelect */}
+          {/*  onChange={onSelectRole} */}
+          {/*  value={selectedRole} */}
+          {/*  title="Роль" */}
+          {/*  options={roleOptions} */}
+          {/* /> */}
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Роль</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedRole ? selectedRole.value : ''}
+                label="Роль"
+                onChange={onSelectRole as any}
+            >
+                {roleOptions.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                    </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
           {/* <InformationItem variant="select" title="Роль" /> */}
           {/* <InformationItem variant="select" title="Статус" /> */}
-          <InformationItem variant="select" title="Юр.лицо" />
+          {/* <InformationItem variant="select" title="Юр.лицо" /> */}
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Юр.лицо</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={city}
+                label="Юр.лицо"
+                onChange={handleChange}
+            >
+              <MenuItem value={10}>ООО Современная школа</MenuItem>
+              <MenuItem value={20}>ООО Учись играя</MenuItem>
+            </Select>
+          </FormControl>
         </div>
         <div className={cn(styles.column, styles.flexColumn)}>
           <div>
-            <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" />
-            <InformationItem variant="input" title="ФИО" />
+            {/* <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" /> */}
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DesktopDatePicker
+                label="Дата рождения"
+                inputFormat="dd/MM/yyyy"
+                value={value}
+                onChange={handleChangeBornData}
+                renderInput={(params) => <TextField {...params} />}
+            />
+            </LocalizationProvider>
+            {/* <InformationItem variant="input" title="ФИО" /> */}
+            <TextField label="ФИО" />
           </div>
           <div className={styles.buttons}>
             <Button size="small" onClick={onSearchClick}>

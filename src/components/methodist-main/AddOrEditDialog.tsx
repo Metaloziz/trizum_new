@@ -1,14 +1,38 @@
-import { Checkbox, DialogActions, DialogContent, FormControl, Grid, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField, Typography } from "@mui/material";
-import { Dialog, DialogTitle } from "../franchising-page/ui/Dialog";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from 'react';
 
-import AddIcon from "@mui/icons-material/Add";
-import Button from "components/button/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { GroupLevels } from "app/enums/GroupLevels";
-import { HomeworkStore } from "components/homework-page/stores";
-import { MethodistMainStore } from "./stores";
-import { observer } from "mobx-react";
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {
+  Checkbox,
+  DialogActions,
+  DialogContent,
+  FormControl,
+  Grid,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { observer } from 'mobx-react';
+
+import { Dialog, DialogTitle } from '../franchising-page/ui/Dialog';
+
+import { MethodistMainStore } from './stores';
+
+import { GroupLevels } from 'app/enums/GroupLevels';
+import Button from 'components/button/Button';
+import { HomeworkStore } from 'components/homework-page/stores';
 
 interface AddOrEditDialogProps {
   store: MethodistMainStore;
@@ -23,13 +47,13 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
     if (store.isDialogOpen) {
       homeworkStore.pull();
     }
-  }, [store.isDialogOpen])
+  }, [store.isDialogOpen]);
 
   return (
     <Dialog
       PaperProps={{
         style: {
-          borderRadius: "30px",
+          borderRadius: '30px',
         },
       }}
       maxWidth="md"
@@ -38,7 +62,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
       open={store.isDialogOpen}
     >
       <DialogTitle onClose={store.closeDialog}>
-        {store.editingEntity?.id ? "Редактирование записи" : "Добавление новой записи"}
+        {store.editingEntity?.id ? 'Редактирование записи' : 'Добавление новой записи'}
       </DialogTitle>
       <DialogContent dividers>
         <Stack spacing={1}>
@@ -51,18 +75,16 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                 fullWidth
                 variant="outlined"
                 size="small"
-                error={
-                  !store.validateSchema.fields.title.isValidSync(store.editingEntity.title)
-                }
+                error={!store.validateSchema.fields.title.isValidSync(store.editingEntity.title)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <FormControl fullWidth size='small'>
+              <FormControl fullWidth size="small">
                 <InputLabel>Уровень</InputLabel>
                 <Select
                   value={store.editingEntity.level}
                   label="Уровень"
-                  onChange={({ target: { value } }) => store.editingEntity.level = value}
+                  onChange={({ target: { value } }) => (store.editingEntity.level = value)}
                 >
                   <MenuItem value="">Не выбрано</MenuItem>
                   <MenuItem value={GroupLevels.Easy}>{GroupLevels.Easy}</MenuItem>
@@ -77,36 +99,29 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
               <TableHead>
                 <TableRow
                   sx={{
-                    "& > th": {
-                      backgroundColor: "#2e8dfd",
-                      color: "#fff",
-                      verticalAlign: "top",
+                    '& > th': {
+                      backgroundColor: '#2e8dfd',
+                      color: '#fff',
+                      verticalAlign: 'top',
                     },
                   }}
                 >
-                  <TableCell role="checkbox">
-                  </TableCell>
-                  <TableCell>
-                    Наименование
-                  </TableCell>
-                  <TableCell width="auto">
-                    Описание
-                  </TableCell>
-                  <TableCell>
-                    Колличество игр
-                  </TableCell>
+                  <TableCell role="checkbox" />
+                  <TableCell>Наименование</TableCell>
+                  <TableCell width="auto">Описание</TableCell>
+                  <TableCell>Колличество игр</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/*TODO: доделать*/}
-                {homeworkStore.entities.length > 0
-                  ? homeworkStore.entities.map(work => {
-                    return <TableRow
+                {/* TODO: доделать */}
+                {homeworkStore.entities.length > 0 ? (
+                  homeworkStore.entities.map(work => (
+                    <TableRow
                       key={work.id}
                       hover
                       sx={{
-                        "& > td": {
-                          verticalAlign: "top",
+                        '& > td': {
+                          verticalAlign: 'top',
                         },
                       }}
                     >
@@ -116,26 +131,21 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                           size="small"
                           onChange={(_, checked) => {
                             store.editingEntity.works = checked
-                              ? [...store.editingEntity.works || [], work]
+                              ? [...(store.editingEntity.works || []), work]
                               : store.editingEntity.works?.filter(w => w.id !== work.id);
                           }}
                         />
                       </TableCell>
-                      <TableCell>
-                        {work.title}
-                      </TableCell>
-                      <TableCell width="auto">
-                        {/*work.text*/}
-                      </TableCell>
-                      <TableCell>
-                        {(work.gamePresets || []).length}
-                      </TableCell>
+                      <TableCell>{work.title}</TableCell>
+                      <TableCell width="auto">{/* work.text */}</TableCell>
+                      <TableCell>{(work.gamePresets || []).length}</TableCell>
                     </TableRow>
-                  })
-                  : <TableRow>
+                  ))
+                ) : (
+                  <TableRow>
                     <TableCell colSpan={4}>Данные отсутствуют...</TableCell>
                   </TableRow>
-                }
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -146,7 +156,9 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
             rowsPerPage={homeworkStore.pagination.rowsPerPage}
             page={homeworkStore.pagination.page}
             onPageChange={(_, page) => homeworkStore.changePage(page)}
-            labelDisplayedRows={({ from, to, count }) => `${from}–${to} из ${count !== -1 ? count : `больше чем ${to}`}`}
+            labelDisplayedRows={({ from, to, count }) =>
+              `${from}–${to} из ${count !== -1 ? count : `больше чем ${to}`}`
+            }
           />
         </Stack>
       </DialogContent>
@@ -156,7 +168,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
           onClick={store.addOrEdit}
           disabled={!store.validateSchema.isValidSync(store.editingEntity)}
         >
-          {store.editingEntity?.id ? "Изменить" : "Сохранить"}
+          {store.editingEntity?.id ? 'Изменить' : 'Сохранить'}
         </Button>
       </DialogActions>
     </Dialog>

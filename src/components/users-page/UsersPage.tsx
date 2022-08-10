@@ -1,10 +1,18 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
-import {FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-import {DesktopDatePicker} from "@mui/x-date-pickers";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -91,17 +99,13 @@ const UsersPage = observer(() => {
     setCity(event.target.value);
   };
 
-  const [mainData, setMainData] = React.useState<Date | null>(
-      new Date('2015-08-18T21:11:54'),
-  );
+  const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
 
   const handleChangeMainData = (newValue: Date | null) => {
     setMainData(newValue);
   };
 
-  const [value, setValue] = React.useState<Date | null>(
-      new Date('2014-08-18T21:11:54'),
-  );
+  const [value, setValue] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
 
   const handleChangeBornData = (newValue: Date | null) => {
     setValue(newValue);
@@ -116,7 +120,6 @@ const UsersPage = observer(() => {
 
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
 
-
   return !isLoaded ? (
     <>Loading...</>
   ) : (
@@ -126,11 +129,11 @@ const UsersPage = observer(() => {
           {/* <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" /> */}
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
-                label="Дата "
-                inputFormat="dd/MM/yyyy"
-                value={mainData}
-                onChange={handleChangeMainData}
-                renderInput={(params) => <TextField {...params} />}
+              label="Дата "
+              inputFormat="dd/MM/yyyy"
+              value={mainData}
+              onChange={handleChangeMainData}
+              renderInput={params => <TextField {...params} />}
             />
           </LocalizationProvider>
           {/* <InformationItem variant="calendar" title="Дата" dataAuto="date" /> */}
@@ -140,11 +143,11 @@ const UsersPage = observer(() => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Город</InputLabel>
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={city}
-                label="Город"
-                onChange={handleChange}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={city}
+              label="Город"
+              onChange={handleChange}
             >
               <MenuItem value={10}>Москва</MenuItem>
               <MenuItem value={20}>Санкт-Петербург</MenuItem>
@@ -160,11 +163,11 @@ const UsersPage = observer(() => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Оплачен</InputLabel>
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={city}
-                label="Город"
-                onChange={handleChange}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={city}
+              label="Город"
+              onChange={handleChange}
             >
               <MenuItem value={10}>Оплачен</MenuItem>
               <MenuItem value={20}>Неоплачен</MenuItem>
@@ -179,17 +182,17 @@ const UsersPage = observer(() => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Роль</InputLabel>
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectedRole ? selectedRole.value : ''}
-                label="Роль"
-                onChange={onSelectRole as any}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedRole ? selectedRole.value : ''}
+              label="Роль"
+              onChange={onSelectRole as any}
             >
-                {roleOptions.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                ))}
+              {roleOptions.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           {/* <InformationItem variant="select" title="Роль" /> */}
@@ -198,11 +201,11 @@ const UsersPage = observer(() => {
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Юр.лицо</InputLabel>
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={city}
-                label="Юр.лицо"
-                onChange={handleChange}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={city}
+              label="Юр.лицо"
+              onChange={handleChange}
             >
               <MenuItem value={10}>ООО Современная школа</MenuItem>
               <MenuItem value={20}>ООО Учись играя</MenuItem>
@@ -213,13 +216,13 @@ const UsersPage = observer(() => {
           <div>
             {/* <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" /> */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DesktopDatePicker
+              <DesktopDatePicker
                 label="Дата рождения"
                 inputFormat="dd/MM/yyyy"
                 value={value}
                 onChange={handleChangeBornData}
-                renderInput={(params) => <TextField {...params} />}
-            />
+                renderInput={params => <TextField {...params} />}
+              />
             </LocalizationProvider>
             {/* <InformationItem variant="input" title="ФИО" /> */}
             <TextField label="ФИО" />

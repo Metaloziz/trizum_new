@@ -1,131 +1,129 @@
+import { makeObservable, observable } from 'mobx';
 import * as yup from 'yup';
 
-import { makeObservable, observable } from "mobx";
+import { MethodistMainFilterViewModel } from './models/MethodistMainFilterViewModel';
+import { MethodistMainRepository } from './repositories';
 
-import { CourseViewModel } from "app/viewModels/CourseViewModel";
-import { MethodistMainFilterViewModel } from "./models/MethodistMainFilterViewModel";
-import { MethodistMainRepository } from "./repositories";
-import { Nullable } from "app/types/Nullable";
-import { StoreBase } from "app/stores/StoreBase";
+import { StoreBase } from 'app/stores/StoreBase';
+import { Nullable } from 'app/types/Nullable';
+import { CourseViewModel } from 'app/viewModels/CourseViewModel';
 
 export class MethodistMainStore extends StoreBase {
+  private _repository = new MethodistMainRepository();
 
-    private _repository = new MethodistMainRepository();
+  private _defaultValue = (): CourseViewModel => ({
+    title: '',
+    level: '',
+    createdAt: null!,
+  });
 
-    private _defaultValue = (): CourseViewModel => ({
-        title: "",
-        level: "",
-        createdAt: null!
+  pagination: {
+    page: number;
+    rowsPerPage: number;
+    total: number;
+  } = {
+    page: 0,
+    rowsPerPage: 5,
+    total: 0,
+  };
+
+  editingEntity: CourseViewModel = this._defaultValue();
+
+  entities: CourseViewModel[] = [];
+
+  isDialogOpen: boolean = false;
+
+  filter: Nullable<MethodistMainFilterViewModel> = null;
+
+  constructor() {
+    super();
+
+    makeObservable(this, {
+      editingEntity: observable,
+      entities: observable,
+      isDialogOpen: observable,
+      filter: observable,
+    });
+  }
+
+  openDialog = (editingEntity?: CourseViewModel) => {
+    this.editingEntity = editingEntity ? { ...editingEntity } : this._defaultValue();
+    this.isDialogOpen = true;
+  };
+
+  closeDialog = () => {
+    this.isDialogOpen = false;
+  };
+
+  list = async () =>
+    this.execute(async () => {
+      const paginationResponse = await this._repository.list(this.pagination.page);
+      this.entities = paginationResponse.items;
+      this.pagination = {
+        page: paginationResponse.page,
+        rowsPerPage: paginationResponse.perPage,
+        total: paginationResponse.total,
+      };
     });
 
-    pagination: {
-        page: number;
-        rowsPerPage: number;
-        total: number;
-    } = {
-            page: 0,
-            rowsPerPage: 5,
-            total: 0
-        };
+  addOrEdit = async () => {
+    this.closeDialog();
 
-    editingEntity: CourseViewModel = this._defaultValue();
+    this.execute(async () => {
+      await this._repository.addOrEdit(this.editingEntity);
+      await this.pull();
+    });
+  };
 
-    entities: CourseViewModel[] = [];
+  remove = async (id: string) => {
+    this.execute(async () => {
+      // await this._repository.remove(id);
+      await this.pull();
+    });
+  };
 
-    isDialogOpen: boolean = false;
+  pull = async () => {
+    this.execute(async () => this.list());
+  };
 
-    filter: Nullable<MethodistMainFilterViewModel> = null;
+  onChangeFilter = (filter: Nullable<MethodistMainFilterViewModel>) => {
+    this.filter = filter;
+  };
 
-    constructor() {
-        super();
+  changePage = async (page: number) => {
+    console.log(page);
+    this.pagination.page = page;
+    this.execute(async () => this.list());
+  };
 
-        makeObservable(this, {
-            editingEntity: observable,
-            entities: observable,
-            isDialogOpen: observable,
-            filter: observable
-        });
+  get validateSchema() {
+    return yup.object<Record<keyof CourseViewModel, any>>().shape({
+      title: yup.string().required('*'),
+      level: yup.string().required('*'),
+    });
+  }
+
+  get filteredEntities() {
+    if (!this.filter) {
+      return this.entities;
     }
 
-    openDialog = (editingEntity?: CourseViewModel) => {
-        this.editingEntity = editingEntity ? { ...editingEntity } : this._defaultValue();
-        this.isDialogOpen = true;
-    };
+    let result: CourseViewModel[] = [];
 
-    closeDialog = () => {
-        this.isDialogOpen = false;
-    };
-
-    list = async () => {
-        return this.execute(async () => {
-            const paginationResponse = await this._repository.list(this.pagination.page);
-            this.entities = paginationResponse.items;
-            this.pagination = {
-                page: paginationResponse.page,
-                rowsPerPage: paginationResponse.perPage,
-                total: paginationResponse.total
-            };
-        });
-    };
-
-    addOrEdit = async () => {
-        this.closeDialog();
-
-        this.execute(async () => {
-            await this._repository.addOrEdit(this.editingEntity);
-            await this.pull();
-        });
-    };
-
-    remove = async (id: string) => {
-        this.execute(async () => {
-            //await this._repository.remove(id);
-            await this.pull();
-        });
-    };
-
-    pull = async () => {
-        this.execute(async () => this.list());
-    };
-
-    onChangeFilter = (filter: Nullable<MethodistMainFilterViewModel>) => {
-        this.filter = filter;
-    };
-
-    changePage = async (page: number) => {
-        console.log(page);
-        this.pagination.page = page;
-        this.execute(async () => await this.list());
+    if (this.filter.title.trim()) {
+      result = this.entities.filter(entity =>
+        (entity.title ?? '').toLowerCase().includes(this.filter!.title.toLowerCase()),
+      );
     }
 
-    get validateSchema() {
-        return yup.object<Record<keyof CourseViewModel, any>>().shape({
-            title: yup.string().required('*'),
-            level: yup.string().required('*')
-        });
+    if (this.filter.level.trim()) {
+      result = this.entities.filter(entity =>
+        (entity.level ?? '').toLowerCase().includes(this.filter!.level.toLowerCase()),
+      );
     }
 
-    get filteredEntities() {
-        if (!this.filter) {
-            return this.entities;
-        }
+    // TODO: дописать остальные фильтры
 
-        let result: CourseViewModel[] = [];
-
-        if (this.filter.title.trim()) {
-            result = this.entities.filter(entity =>
-                (entity.title ?? "").toLowerCase().includes(this.filter!.title.toLowerCase()),
-            );
-        }
-
-        if (this.filter.level.trim()) {
-            result = this.entities.filter(entity =>
-                (entity.level ?? "").toLowerCase().includes(this.filter!.level.toLowerCase()),
-            );
-        }
-
-        //TODO: дописать остальные фильтры
-
-        return result;
-    }
+    return result;
+  }
 }

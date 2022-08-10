@@ -1,8 +1,8 @@
-import { Nullable } from "app/types/Nullable";
+import { Nullable } from 'app/types/Nullable';
 
 export interface MethodistMainFilterViewModel {
-    title: string;
-    //TODO: удивительно конечно
-    level: string;
-    createdAt: Nullable<Date>;
+  title: string;
+  // TODO: удивительно конечно
+  level: string;
+  createdAt: Nullable<Date>;
 }

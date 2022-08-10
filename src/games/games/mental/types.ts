@@ -15,9 +15,9 @@ export interface Props extends GameProps {
   onEnd?(result?: GameResult): void;
 }
 
-const PropsDefault : Props = {
-  width : 200,
-  delay : 1000,
+const PropsDefault: Props = {
+  width: 200,
+  delay: 1000,
   requiredFormulas: [],
   allowedFormulas: [],
   min: 1,
@@ -26,9 +26,7 @@ const PropsDefault : Props = {
   restriction: false,
   length: 3,
   count: 3,
-  optional: 0
+  optional: 0,
 };
 
-export {
-  PropsDefault
-};
+export { PropsDefault };

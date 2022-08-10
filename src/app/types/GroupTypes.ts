@@ -1,10 +1,11 @@
 import { TimeZoneType } from './AuthTypes';
+
 import { GroupLevels } from 'app/enums/GroupLevels';
 import { GroupType } from 'app/enums/GroupTypes';
+import { EmptyUser } from 'app/stores/appStore';
 import { FranchiseT } from 'app/types/FranchiseTypes';
 import { Nullable } from 'app/types/Nullable';
 import { ResponseUserT } from 'app/types/UserTypes';
-import {EmptyUser} from "app/stores/appStore";
 
 export type ResponseGroups = {
   id: string;

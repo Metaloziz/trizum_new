@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
-import IconButton from '@mui/material/IconButton';
 import { default as MuiDialog } from '@mui/material/Dialog';
 import { default as MuiDialogTitle } from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 
 export const Dialog = styled(MuiDialog)(({ theme }) => ({

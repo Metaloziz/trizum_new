@@ -3,7 +3,4 @@ import { factory as Factory, GameList } from './factory';
 
 export type GameResult = GameResults;
 
-export {
-  Factory,
-  GameList
-};
+export { Factory, GameList };

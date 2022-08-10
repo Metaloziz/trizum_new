@@ -130,7 +130,7 @@ const Button1: FC<Props> = props => {
       break;
     case 'reset':
       sx = { ...sx, ...reset };
-      iconButton = <Image src={resetX} alt="reset" width={18} height={18} />
+      iconButton = <Image src={resetX} alt="reset" width={18} height={18} />;
       break;
     case 'none':
       sx = { ...sx, ...none };

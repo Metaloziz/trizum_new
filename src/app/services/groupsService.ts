@@ -19,7 +19,7 @@ const groupsService = {
       }
       return data;
     };
-    const params = f(asd)
+    const params = f(asd);
     const actualParams = {
       per_page: params?.perPage || undefined,
       page: params?.page || undefined,

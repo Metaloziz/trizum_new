@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import appStore, { Roles } from 'app/stores/appStore';
+
+import { observer } from 'mobx-react-lite';
+import { Navigate } from 'react-router-dom';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
+import appStore, { Roles } from 'app/stores/appStore';
 import { HomeworkPage } from 'components/homework-page/HomeworkPage';
-import { Navigate } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 
 const Homework: FC = observer(() => {
   switch (appStore.role) {

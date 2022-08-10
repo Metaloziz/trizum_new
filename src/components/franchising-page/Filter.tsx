@@ -18,7 +18,7 @@ import {
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { observer } from 'mobx-react';
 
-import Button from "../button/Button";
+import Button from '../button/Button';
 
 import { numberWithoutLeadingZero } from './helpers/numberWithoutLeadingZero';
 import { FranchisingFilterViewModel } from './models/FranchisingFilterViewModel';
@@ -172,16 +172,8 @@ export const Filter = observer((props: FilterProps) => {
               px: 1,
             }}
           >
-            <Button
-              size='small'
-            >
-              Применить
-            </Button>
-            <Button
-              size="small"
-              variant="reset"
-              onClick={clearFilter}
-            >
+            <Button size="small">Применить</Button>
+            <Button size="small" variant="reset" onClick={clearFilter}>
               Сбросить
             </Button>
           </Stack>

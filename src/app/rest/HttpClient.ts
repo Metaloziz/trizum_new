@@ -1,7 +1,6 @@
 import Axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
-
-import { StatusCodes } from 'http-status-codes';
 import dateTransformer from 'axios-date-reviver';
+import { StatusCodes } from 'http-status-codes';
 
 export type PrerequestHook = () => Promise<void>;
 

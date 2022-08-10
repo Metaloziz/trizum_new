@@ -4,12 +4,19 @@ import * as yup from 'yup';
 
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
-import groupsService from 'app/services/groupsService';
+import groupsService, { AddUserGroupPayloadType } from 'app/services/groupsService';
 import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
 import { ResponseCourse } from 'app/types/CourseTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
-import { CreateGroup, GroupParams, ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
+import {
+  CreateGroup,
+  GroupParams,
+  GroupT,
+  LevelGroupT,
+  ResponseGroups,
+  ResponseOneGroup,
+} from 'app/types/GroupTypes';
 import { RequestUsersParams, ResponseUserT } from 'app/types/UserTypes';
 import { GroupsViewModel } from 'app/viewModels/GroupsViewModel';
 
@@ -88,14 +95,11 @@ class GroupStore {
     this.execute(async () => {
       let copyGroups: ResponseGroups[] = [];
       if (selectedRole === Roles.Student) {
-        await this.getGroups({ franchise_id: franchiseId, type: 'class' }, false);
+        await this.getGroups();
 
         copyGroups = [...this.groups];
 
-        await this.getGroups({
-          franchise_id: franchiseId,
-          type: 'olympiad',
-        });
+        await this.getGroups();
 
         runInAction(() => {
           this.groups = [...this.groups, ...copyGroups];
@@ -104,7 +108,7 @@ class GroupStore {
 
       if (selectedRole === Roles.TeacherEducation) {
         copyGroups = [];
-        await this.getGroups({ franchise_id: franchiseId, type: 'blocks' }, false);
+        await this.getGroups();
       }
     });
   };
@@ -152,6 +156,7 @@ class GroupStore {
     this.execute(async () => {
       const r = await groupsService.getOneGroup(id);
       runInAction(() => {
+        console.log({...r},'asdasd');
         this.selectedGroup = r;
         this.visibleGroup = r;
       });
@@ -186,9 +191,9 @@ class GroupStore {
       // const r = await this.getOneGroup(id);
       this.selectedGroup = r;
       this.modalFields = {
-        level: r.level || '',
+        level: (r.level as LevelGroupT) || '',
         franchiseId: r.franchise || '',
-        type: r.type || '',
+        type: (r.type as GroupT) || '',
         courseId: r.course || '',
         teacherId: r.teacherId,
         name: r.name,

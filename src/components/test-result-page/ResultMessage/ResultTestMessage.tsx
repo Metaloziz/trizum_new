@@ -7,7 +7,7 @@ type ResultMessagePropsT = {
   currentTest: OneTestT;
 };
 
-export const ResultMessage: FC<ResultMessagePropsT> = ({ result, currentTest }) => {
+export const ResultTestMessage: FC<ResultMessagePropsT> = ({ result, currentTest }) => {
   switch (result) {
     case 1:
       return <span>{`${result} правильный ответ из ${currentTest.test.content.length}`}</span>;

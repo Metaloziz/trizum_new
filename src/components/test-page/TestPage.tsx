@@ -53,7 +53,7 @@ const TestPage: FC = observer(() => {
 
   const [activeStep, setActiveStep] = useState(defaultActiveStep);
 
-  const questions = useMemo(() => addIdElements(content), []);
+  const questions = useMemo(() => addIdElements(content), [content]);
 
   const [questionData, setQuestion] = useState(questions[FIRST_ARRAY_ITEM]);
 
@@ -63,7 +63,7 @@ const TestPage: FC = observer(() => {
 
   const mixedAnswer = useMemo(
     () => mixElements(wrongVariantsAnswers, questionData.answer),
-    [activeStep],
+    [activeStep, content],
   );
 
   const mixedAnswerTags = mixedAnswer.map(variant => (
@@ -100,7 +100,6 @@ const TestPage: FC = observer(() => {
     } else {
       postResult({ articleId: articleAPI.id, result });
       onEndTest();
-      // resetResult();
     }
 
     setActiveStep(newActiveStep);

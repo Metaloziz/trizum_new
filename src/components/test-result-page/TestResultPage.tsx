@@ -1,29 +1,23 @@
 import { FC, useEffect } from 'react';
 
 import { observer } from 'mobx-react-lite';
-import { useNavigate } from 'react-router-dom';
 
 import resultPic from '../../assets/images/result-pic.jpg';
 
 import styles from './TestResultPage.module.scss';
 
-import { AppRoutes } from 'app/enums/AppRoutes';
 import testsStore from 'app/stores/testsStore';
 import exclude from 'assets/svgs/exclude.svg';
-import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import { ResultMessage } from 'components/test-result-page/ResultMessage/ResultMessage';
+import { RedirectArticlesPageButton } from 'components/test-page/RedirectArticlesPageButton/RedirectArticlesPageButton';
+import { ResultTestMessage } from 'components/test-result-page/ResultMessage/ResultTestMessage';
+
+const ResultMessage = () => <p>Рекомендуем повторить теорию и опробовать еще раз</p>;
 
 const TestResultPage: FC = observer(() => {
-  const navigate = useNavigate();
-
   const { result, currentTest, resetResult } = testsStore;
 
   useEffect(() => () => resetResult(), []);
-
-  const onEndTest = () => {
-    navigate(AppRoutes.Blog);
-  };
 
   return (
     <div className={styles.wrapper}>
@@ -44,16 +38,16 @@ const TestResultPage: FC = observer(() => {
               {/* </div> */}
               <div className={styles.resultInfo}>
                 {/* <p>Ваш результат:</p> */}
-                <ResultMessage result={result} currentTest={currentTest} />
+                <ResultTestMessage result={result} currentTest={currentTest} />
               </div>
             </div>
             <div className={styles.recommendations}>
               <div className={styles.reqPic}>
                 <Image src={exclude} width="34px" height="34px" alt="Exclude" />
               </div>
-              <p>Рекомендуем повторить теорию и опробовать еще раз</p>
+              <ResultMessage />
             </div>
-            <Button onClick={onEndTest}>К теории</Button>
+            <RedirectArticlesPageButton />
           </div>
         </div>
       </div>

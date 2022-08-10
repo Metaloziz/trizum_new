@@ -9,7 +9,7 @@ export const articlesService = {
   },
 
   getArticle: async (
-    articleId: string = '1ed17dda-a941-6180-a37b-c90ebc24c208', // todo hard code
+    articleId: string = '1ed18ab0-bdbe-6328-9a4d-57820af0955f', // todo hard code
   ): Promise<ArticleT> => {
     const { data } = await instance.get(`${Paths.Articles}/${articleId}`);
     return data;

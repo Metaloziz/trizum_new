@@ -10,7 +10,7 @@ import { findElement } from 'utils/findIndexElement';
 class ArticlesStore {
   article: MockArticleT = {
     // mock
-    id: '0',
+    id: 0,
     title: '',
     img: '',
     text: '',

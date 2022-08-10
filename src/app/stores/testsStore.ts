@@ -28,7 +28,7 @@ class TestsStore {
       },
       content: [
         {
-          question: 'default',
+          question: 'default ?',
           answer: 'default',
           type: StatusTypes.draft,
         },
@@ -63,7 +63,7 @@ class TestsStore {
         this.tests = res.items;
         this.testsTotalCount = res.total;
         this.perPage = res.perPage;
-        this.page = Number(res.page);
+        this.page = res.page;
       });
 
       const firstTest = this.tests[FIRST_ARRAY_ITEM];
@@ -79,11 +79,15 @@ class TestsStore {
   };
 
   incrementResult = () => {
-    this.result += 1;
+    runInAction(() => {
+      this.result += 1;
+    });
   };
 
   resetResult = () => {
-    this.result = 0;
+    runInAction(() => {
+      this.result = 0;
+    });
   };
 }
 

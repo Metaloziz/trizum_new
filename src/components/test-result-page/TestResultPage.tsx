@@ -6,10 +6,11 @@ import resultPic from '../../assets/images/result-pic.jpg';
 
 import styles from './TestResultPage.module.scss';
 
+import { AppRoutes } from 'app/enums/AppRoutes';
 import testsStore from 'app/stores/testsStore';
 import exclude from 'assets/svgs/exclude.svg';
 import Image from 'components/image/Image';
-import { RedirectArticlesPageButton } from 'components/test-page/RedirectArticlesPageButton/RedirectArticlesPageButton';
+import { RedirectCurrentPageButton } from 'components/test-page/RedirectArticlesPageButton/RedirectCurrentPageButton';
 import { ResultTestMessage } from 'components/test-result-page/ResultMessage/ResultTestMessage';
 
 const ResultMessage = () => <p>Рекомендуем повторить теорию и опробовать еще раз</p>;
@@ -47,7 +48,7 @@ const TestResultPage: FC = observer(() => {
               </div>
               <ResultMessage />
             </div>
-            <RedirectArticlesPageButton />
+            <RedirectCurrentPageButton title="К списку статей" rout={AppRoutes.Blog} />
           </div>
         </div>
       </div>

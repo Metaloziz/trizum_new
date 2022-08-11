@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import style from './Article.module.scss';
 
+import { AppRoutes } from 'app/enums/AppRoutes';
 import articlesStore from 'app/stores/articlesStore';
 import Image from 'components/image/Image';
-import { RedirectArticlesPageButton } from 'components/test-page/RedirectArticlesPageButton/RedirectArticlesPageButton';
+import { RedirectCurrentPageButton } from 'components/test-page/RedirectArticlesPageButton/RedirectCurrentPageButton';
 
 export const Article: FC = () => {
   const {
@@ -17,7 +18,7 @@ export const Article: FC = () => {
       <div>
         <h2>{title}</h2>
         <p>{text}</p>
-        <RedirectArticlesPageButton />
+        <RedirectCurrentPageButton title="К списку статей" rout={AppRoutes.Blog} />
       </div>
     </div>
   );

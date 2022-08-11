@@ -1,11 +1,14 @@
 import { StatusTypes } from 'app/enums/StatusTypes';
 import { TimeZoneType } from 'app/types/AuthTypes';
+import { IdType } from 'app/types/IdType';
 
 export type ContentT = {
   type: StatusTypes;
   question: string;
   answer: string;
 };
+
+export type ContentIDT = ContentT & IdType;
 
 export type PreviewTestT = {
   id: string;

@@ -3,7 +3,8 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { StatusTypes } from 'app/enums/StatusTypes';
 import { testsService } from 'app/services/testsService';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
-import { OneTestT, PreviewTestT } from 'app/types/TestsT';
+import { ContentIDT, OneTestT, PreviewTestT } from 'app/types/TestsT';
+import { addIdElements } from 'utils/addIdElements';
 import { FIRST_ARRAY_ITEM } from 'utils/consts/consts';
 import { executeError } from 'utils/executeError';
 
@@ -37,6 +38,15 @@ class TestsStore {
     usedInWorks: [],
   };
 
+  questions: ContentIDT[] = [];
+
+  currentQuestion: ContentIDT = {
+    id: 1,
+    question: 'default ?',
+    answer: 'default',
+    type: StatusTypes.draft,
+  };
+
   result: number = 0;
 
   isLoading = false;
@@ -45,17 +55,22 @@ class TestsStore {
     makeAutoObservable(this);
   }
 
-  getOneTest = async (testId: string) => {
+  setOneTest = async (testId: string) => {
     executeError(async () => {
       const result = await testsService.getOneTest(testId);
 
       runInAction(() => {
         this.currentTest = result;
+
+        const newQuestion = addIdElements(result.test.content);
+
+        this.questions = newQuestion;
+        this.currentQuestion = newQuestion[FIRST_ARRAY_ITEM];
       });
     }, this);
   };
 
-  getTests = () => {
+  setTests = () => {
     executeError(async () => {
       const res = await testsService.getTests();
 
@@ -68,7 +83,7 @@ class TestsStore {
 
       const firstTest = this.tests[FIRST_ARRAY_ITEM];
 
-      await this.getOneTest(firstTest.id);
+      await this.setOneTest(firstTest.id);
     }, this);
   };
 
@@ -89,6 +104,18 @@ class TestsStore {
       this.result = 0;
     });
   };
+
+  setCurrentQuestion = (question: ContentIDT) => {
+    this.currentQuestion = question;
+  };
+
+  get getContent() {
+    return this.currentTest.test.content;
+  }
+
+  get getTitleTest() {
+    return this.currentTest.test.title;
+  }
 }
 
 export default new TestsStore();

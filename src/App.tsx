@@ -1,6 +1,8 @@
 import React from 'react';
 
 import './App.css';
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
@@ -29,42 +31,33 @@ import UserInfo from 'pages/user-info/UserInfo';
 import Users from 'pages/users/Users';
 
 const App = () => (
-  <Router>
-    <Routes>
-      <Route path={AppRoutes.Index} element={<DefaultLayout />}>
-        <Route path={AppRoutes.Index} element={<Home />} />
-
-        <Route path={AppRoutes.Blog}>
-          <Route path="" element={<Blog />} />
-          <Route path=":articleName" element={<Article />} />
+  <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <Router>
+      <Routes>
+        <Route path={AppRoutes.Index} element={<DefaultLayout />}>
+          <Route path={AppRoutes.Index} element={<Home />} />
+          <Route path={AppRoutes.Blog} element={<Blog />} />
+          <Route path={AppRoutes.Classes} element={<Classes />} />
+          <Route path={AppRoutes.Courses} element={<Courses />} />
+          <Route path={AppRoutes.Franchising} element={<Franchising />} />
+          <Route path={AppRoutes.Games} element={<Games />} />
+          <Route path={AppRoutes.Game} element={<Game />} />
+          <Route path={AppRoutes.Homework} element={<Homework />} />
+          <Route path={`${AppRoutes.Homework}${AppRoutes.Add}`} element={<HomeworkAddEdit />} />
+          <Route path={AppRoutes.Signin} element={<Login />} />
+          <Route path={AppRoutes.Olympiads} element={<Olympiads />} />
+          <Route path={AppRoutes.Payment} element={<Pay />} />
+          <Route path={AppRoutes.Rate} element={<Rate />} />
+          <Route path={AppRoutes.Report} element={<Report />} />
+          <Route path={AppRoutes.Schedule} element={<Schedule />} />
+          <Route path={AppRoutes.Statistic} element={<Statistic />} />
+          <Route path={AppRoutes.Testing} element={<Testing />} />
+          <Route path={AppRoutes.UserInfo} element={<UserInfo />} />
+          <Route path={AppRoutes.Users} element={<Users />} />
         </Route>
-
-        <Route path={AppRoutes.Classes} element={<Classes />} />
-        <Route path={AppRoutes.Courses} element={<Courses />} />
-        <Route path={AppRoutes.Franchising} element={<Franchising />} />
-        <Route path={AppRoutes.Games} element={<Games />} />
-        <Route path={AppRoutes.Game} element={<Game />} />
-        <Route path={AppRoutes.Homework} element={<Homework />} />
-        <Route path={`${AppRoutes.Homework}${AppRoutes.Add}`} element={<HomeworkAddEdit />} />
-        <Route path={AppRoutes.Signin} element={<Login />} />
-        <Route path={AppRoutes.Olympiads} element={<Olympiads />} />
-        <Route path={AppRoutes.Payment} element={<Pay />} />
-        <Route path={AppRoutes.Rate} element={<Rate />} />
-        <Route path={AppRoutes.Report} element={<Report />} />
-        <Route path={AppRoutes.Schedule} element={<Schedule />} />
-        <Route path={AppRoutes.Statistic} element={<Statistic />} />
-
-        <Route path={AppRoutes.Testing}>
-          <Route path="" element={<Testing />} />
-          <Route path=":testName" element={<Test />} />
-          <Route path="result" element={<Result />} />
-        </Route>
-
-        <Route path={AppRoutes.UserInfo} element={<UserInfo />} />
-        <Route path={AppRoutes.Users} element={<Users />} />
-      </Route>
-    </Routes>
-  </Router>
+      </Routes>
+    </Router>
+  </LocalizationProvider>
 );
 
 export default App;

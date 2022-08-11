@@ -99,13 +99,17 @@ const UsersPage = observer(() => {
     setCity(event.target.value);
   };
 
-  const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
+  const [mainData, setMainData] = React.useState<Date | null>(
+      new Date('2015-08-18T21:11:54'),
+  );
 
   const handleChangeMainData = (newValue: Date | null) => {
     setMainData(newValue);
   };
 
-  const [value, setValue] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
+  const [value, setValue] = React.useState<Date | null>(
+      new Date('2014-08-18T21:11:54'),
+  );
 
   const handleChangeBornData = (newValue: Date | null) => {
     setValue(newValue);
@@ -127,7 +131,6 @@ const UsersPage = observer(() => {
       <div className={styles.search}>
         <div className={styles.column}>
           {/* <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" /> */}
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
               label="Дата "
               inputFormat="dd/MM/yyyy"
@@ -135,7 +138,6 @@ const UsersPage = observer(() => {
               onChange={handleChangeMainData}
               renderInput={params => <TextField {...params} />}
             />
-          </LocalizationProvider>
           {/* <InformationItem variant="calendar" title="Дата" dataAuto="date" /> */}
           {/* <InformationItem variant="select" title="Выполнил Д/З" /> */}
           {/* <InformationItem variant="select" title="Город" /> */}
@@ -213,20 +215,16 @@ const UsersPage = observer(() => {
           </FormControl>
         </div>
         <div className={cn(styles.column, styles.flexColumn)}>
-          <div>
             {/* <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" /> */}
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DesktopDatePicker
+            <DesktopDatePicker
                 label="Дата рождения"
                 inputFormat="dd/MM/yyyy"
                 value={value}
                 onChange={handleChangeBornData}
-                renderInput={params => <TextField {...params} />}
-              />
-            </LocalizationProvider>
+                renderInput={(params) => <TextField {...params} />}
+            />
             {/* <InformationItem variant="input" title="ФИО" /> */}
             <TextField label="ФИО" />
-          </div>
           <div className={styles.buttons}>
             <Button size="small" onClick={onSearchClick}>
               Найти

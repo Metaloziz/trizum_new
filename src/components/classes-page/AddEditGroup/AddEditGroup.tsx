@@ -117,6 +117,7 @@ const AddEditGroup: FC<Props> = observer(props => {
     cleanModalValues();
   };
   // console.log({ ...modalFields }, 'modalFields');
+  // @ts-ignore
   return (
     <BasicModal
       fullWidth
@@ -209,6 +210,7 @@ const AddEditGroup: FC<Props> = observer(props => {
               label="Уровень"
               placeholder="Уровень"
               fullWidth
+              // @ts-ignore
               onChange={(event, child) => (modalFields.level = event.target.value)}
               value={modalFields.level}
             >

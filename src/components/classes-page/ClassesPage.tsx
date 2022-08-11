@@ -191,7 +191,7 @@ const ClassesPage = observer(() => {
               {visibleGroup &&
                 !!visibleGroup.users.length &&
                 visibleGroup.users.map(user => (
-                  <CardStudent key={user.user.id} type="teacher" user={user.user} />
+                  <CardStudent key={user.user.id} user={user.user} />
                 ))}
             </div>
           </div>

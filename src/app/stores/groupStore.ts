@@ -40,7 +40,7 @@ class GroupStore {
     dateUntil: '20.01.2023',
     type: 'class',
     teacherId: '',
-    level: '',
+    level: 'medium',
     courseId: '',
     status: 'active',
   };

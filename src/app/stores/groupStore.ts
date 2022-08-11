@@ -38,9 +38,9 @@ class GroupStore {
     franchiseId: '',
     dateSince: '20.02.2020',
     dateUntil: '20.01.2023',
-    type: 'blocks',
+    type: 'class',
     teacherId: '',
-    level: 'easy',
+    level: '',
     courseId: '',
     status: 'active',
   };
@@ -156,8 +156,7 @@ class GroupStore {
     this.execute(async () => {
       const r = await groupsService.getOneGroup(id);
       runInAction(() => {
-        console.log({ ...r }, 'asdasd');
-        this.selectedGroup = r;
+        // this.selectedGroup = r;
         this.visibleGroup = r;
       });
       return r;
@@ -165,6 +164,8 @@ class GroupStore {
 
   addGroup = async () => {
     await groupsService.addGroup(this.modalFields);
+    this.cleanModalValues();
+    this.closeModal();
   };
 
   editGroup = async () => {
@@ -173,6 +174,8 @@ class GroupStore {
         await groupsService.editGroup(this.modalFields, this.selectedGroup.id);
         await this.getGroups();
       }
+      this.cleanModalValues();
+      this.closeModal();
     });
   };
 
@@ -211,7 +214,7 @@ class GroupStore {
   };
 
   get filteredCourses() {
-    return this.courses.filter(el => el.level.includes(this.modalFields.level));
+    return this.courses ? this.courses.filter(el => el.level.includes(this.modalFields.level)) : [];
   }
 
   get validateSchema() {

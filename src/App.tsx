@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import './App.css';
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { observer } from 'mobx-react-lite';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
+import appStore from 'app/stores/appStore';
 import { Article } from 'components/blog-page/Article/Article';
 import DefaultLayout from 'components/layout/default/DefaultLayout';
 import Rate from 'components/rate/Rate';
@@ -30,8 +32,8 @@ import { Testing } from 'pages/testing/Testing';
 import UserInfo from 'pages/user-info/UserInfo';
 import Users from 'pages/users/Users';
 
-const App = () => (
-  <LocalizationProvider dateAdapter={AdapterDateFns}>
+const App = observer(() => (
+  <LocalizationProvider dateAdapter={AdapterMoment}>
     <Router>
       <Routes>
         <Route path={AppRoutes.Index} element={<DefaultLayout />}>
@@ -58,6 +60,6 @@ const App = () => (
       </Routes>
     </Router>
   </LocalizationProvider>
-);
+));
 
 export default App;

@@ -59,6 +59,22 @@ body {
 *::after {
   box-sizing: border-box;
 }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 60px;
+  max-height: 60px;
+  background-size: contain;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  border-radius: 4px;
+  background-color: #4778EC;
+  height: 60px;
+  max-height: 60px;
+  background-size: contain;
+}
+
 
 ul[class],
 ol[class] {

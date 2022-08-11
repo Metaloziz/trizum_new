@@ -1,13 +1,13 @@
-import * as React from 'react';
+import React, { createContext } from 'react';
 
-import { ApplicationStore } from 'app/stores';
+import { Roles } from 'app/stores/appStore';
 
 export function createStores() {
-  return { applicationStore: new ApplicationStore() };
+  return { role: Roles.Unauthorized };
 }
 
 export const stores = createStores();
 
-export const ApplicationContext = React.createContext(stores);
+export const AppCtx = createContext(stores);
 
-export const useApplicationContext = () => React.useContext(ApplicationContext);
+export const useAppContext = () => React.useContext(AppCtx);

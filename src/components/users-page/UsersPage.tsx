@@ -210,7 +210,6 @@ const UsersPage = observer(() => {
           </FormControl>
         </div>
         <div className={cn(styles.column, styles.flexColumn)}>
-          <div>
             {/* <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" /> */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
@@ -223,7 +222,6 @@ const UsersPage = observer(() => {
             </LocalizationProvider>
             {/* <InformationItem variant="input" title="ФИО" /> */}
             <TextField label="ФИО" />
-          </div>
           <div className={styles.buttons}>
             <Button size="small" onClick={onSearchClick}>
               Найти

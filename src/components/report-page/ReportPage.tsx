@@ -181,7 +181,7 @@ const ReportPage = () => {
                   renderInput={(params) => <TextField {...params} />}
                 />
               </div>
-              <div style={{ width: '100%' }}></div>
+              <div style={{ width: '100%' }}>
                 <DesktopDatePicker
                   label="Дата окончания действия"
                   inputFormat="dd/MM/yyyy"

@@ -87,9 +87,9 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                   onChange={({ target: { value } }) => (store.editingEntity.level = value)}
                 >
                   <MenuItem value="">Не выбрано</MenuItem>
-                  <MenuItem value={GroupLevels.Easy}>{GroupLevels.Easy}</MenuItem>
-                  <MenuItem value={GroupLevels.Medium}>{GroupLevels.Medium}</MenuItem>
-                  <MenuItem value={GroupLevels.Hard}>{GroupLevels.Hard}</MenuItem>
+                  <MenuItem value={GroupLevels.easy}>{GroupLevels.easy}</MenuItem>
+                  <MenuItem value={GroupLevels.medium}>{GroupLevels.medium}</MenuItem>
+                  <MenuItem value={GroupLevels.hard}>{GroupLevels.hard}</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

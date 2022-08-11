@@ -156,7 +156,7 @@ class GroupStore {
     this.execute(async () => {
       const r = await groupsService.getOneGroup(id);
       runInAction(() => {
-        console.log({...r},'asdasd');
+        console.log({ ...r }, 'asdasd');
         this.selectedGroup = r;
         this.visibleGroup = r;
       });

@@ -79,13 +79,13 @@ export class HomeworkStore extends StoreBase {
   };
 
   pull = async () => {
-    this.execute(async () => await this.list());
+    this.execute(async () => this.list());
   };
 
   changePage = async (page: number) => {
     console.log(page);
     this.pagination.page = page;
-    this.execute(async () => await this.list());
+    this.execute(async () => this.list());
   };
 
   get validateSchema() {

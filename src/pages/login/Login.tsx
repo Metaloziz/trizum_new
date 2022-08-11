@@ -59,10 +59,7 @@ const Login = () => {
   };
   const onClick = async () => {
     try {
-      // const res1 = await authService.sms({ phone });
-      const res2 = await authService.login({ phone: '79102002020', smsCode: 7777 });
-      // await tokenService.setUser(res2.data.token);
-      // await appStore.setUser();
+      await authService.login({ phone, smsCode: 7777 });
       const userData = await authService.loadme();
       appStore.setRole(userData.role as Roles);
     } catch (e) {
@@ -151,8 +148,9 @@ const Login = () => {
         <Button variant="none" onClick={() => setIsAnalytic(true)}>
           Кнопка для аналитика
         </Button>
-        Кнопка для тестировщика
-        <Button variant="none" onClick={() => setIsTester(true)} />
+        <Button variant="none" onClick={() => setIsTester(true)}>
+          Кнопка для тестировщика
+        </Button>
         <Button variant="none" onClick={resetRole}>
           Сброс номера на основной
         </Button>

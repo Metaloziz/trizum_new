@@ -148,13 +148,6 @@
       width: 60%;
       justify-content: space-between;
 
-      @media (max-width: 1500px) {
-        width: 70%;
-      }
-
-      @media (max-width: 1100px) {
-        width: 60%;
-      }
 
       @media (max-width: 800px) {
         flex-direction: column;
@@ -203,14 +196,7 @@
       display: flex;
       justify-content: space-between;
       gap: 1rem;
-
-      @media (max-width: 1600px) {
-        width: 28%;
-      }
-
-      @media (max-width: 1100px) {
-        width: 35%;
-      }
+      margin-left: 10px;
 
       @media (max-width: 900px) {
         flex-direction: column;
@@ -223,11 +209,9 @@
       .btnAdd {
         button {
           background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
-          margin-left: 10px;
 
           @media (max-width: 900px) {
             width: 100%;
-            margin: 10px 0 0 0;
           }
 
           &:hover {

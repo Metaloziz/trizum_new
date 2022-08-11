@@ -204,8 +204,9 @@
       justify-content: space-between;
       gap: 1rem;
 
+
       @media (max-width: 1600px) {
-        width: 28%;
+        //width: 28%;
       }
 
       @media (max-width: 1100px) {
@@ -219,6 +220,12 @@
       @media (max-width: 550px) {
         width: 100%;
       }
+      .navButtonBlock {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+
 
       .btnAdd {
         button {

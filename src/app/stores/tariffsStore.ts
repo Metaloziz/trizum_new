@@ -37,7 +37,7 @@ class TariffsStore {
   editingEntity: TariffsType = this._defaultValue();
 
   filters = {
-    status: '',
+    status: 'active',
     lengthFrom: '',
     lengthTo: '',
     dateFrom: '',
@@ -74,8 +74,7 @@ class TariffsStore {
       console.log(e);
     }
     this.closeDialog();
-    await this.getTariffs(); // крайне печально выглядит такой подход)
-    // this.tariffs.map(f => this.editingEntity.id === f.id ? this.editingEntity: f);
+    await this.getTariffs();
   };
 
   getTariffs = async () => {

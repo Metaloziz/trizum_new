@@ -1,13 +1,13 @@
-import { DialogActions, DialogContent } from '@mui/material';
+import { DialogContent } from '@mui/material';
 import { observer } from 'mobx-react';
 
-import Button from '../button/Button';
+import tariffsStore from '../../app/stores/tariffsStore';
 import TariffPage from '../tariff-page/TariffPage';
 
 import { Dialog, DialogTitle } from './ui/Dialog';
 
-export const AddOrEditDialog = observer((props: any) => {
-  const { store } = props;
+export const AddOrEditDialog = observer(() => {
+  const { closeDialog, isDialogOpen, editingEntity } = tariffsStore;
   return (
     <Dialog
       PaperProps={{
@@ -17,14 +17,14 @@ export const AddOrEditDialog = observer((props: any) => {
       }}
       maxWidth="xl"
       fullWidth
-      onClose={store.closeDialog}
-      open={store.isDialogOpen}
+      onClose={closeDialog}
+      open={isDialogOpen}
     >
-      <DialogTitle onClose={store.closeDialog}>
-        {store.editingEntity?.id ? 'Редактирование записи' : 'Добавление новой записи'}
+      <DialogTitle onClose={closeDialog}>
+        {editingEntity?.id ? 'Редактирование записи' : 'Добавление новой записи'}
       </DialogTitle>
       <DialogContent dividers>
-        <TariffPage store={store} />
+        <TariffPage />
       </DialogContent>
     </Dialog>
   );

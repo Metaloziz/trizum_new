@@ -5,17 +5,14 @@ import moment from 'moment';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'moment-timezone';
 
+import tariffsStore from '../../app/stores/tariffsStore';
+
 import CustomDatePicker from './customDatePicker';
 import styles from './TariffPage.module.scss';
-import { StoreTariffType } from './types';
 
 import Button from 'components/button/Button';
 import InformationItem from 'components/information-item/InformationItem';
 import TextEditor from 'components/text-editor/TextEditor';
-
-type Props = {
-  store: StoreTariffType;
-};
 
 export const newstatus = [
   { value: 'active', label: 'Активный' },
@@ -23,17 +20,18 @@ export const newstatus = [
   { value: 'hidden', label: 'Заблокированный' },
 ];
 
-const TariffPage: FC<Props> = observer(({ store }) => {
+const TariffPage: FC = observer(() => {
+  const { editingEntity, addOrEdit, closeDialog } = tariffsStore;
   const [currentRadioValue, setCurrentRadioValue] = useState('twoChildren');
 
   useEffect(() => {
-    if (store.editingEntity.forSecondChild) {
+    if (editingEntity.forSecondChild) {
       setCurrentRadioValue('twoChildren');
     }
-    if (store.editingEntity.forFirstPay) {
+    if (editingEntity.forFirstPay) {
       setCurrentRadioValue('registration');
     }
-    if (store.editingEntity.forNewClient) {
+    if (editingEntity.forNewClient) {
       setCurrentRadioValue('firstPayment');
     }
   }, []);
@@ -41,24 +39,24 @@ const TariffPage: FC<Props> = observer(({ store }) => {
   const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentRadioValue(e.currentTarget.value);
     if (e.currentTarget.value === 'twoChildren') {
-      store.editingEntity.forSecondChild = true;
-      store.editingEntity.forFirstPay = false;
-      store.editingEntity.forNewClient = false;
+      editingEntity.forSecondChild = true;
+      editingEntity.forFirstPay = false;
+      editingEntity.forNewClient = false;
     }
     if (e.currentTarget.value === 'registration') {
-      store.editingEntity.forSecondChild = false;
-      store.editingEntity.forFirstPay = false;
-      store.editingEntity.forNewClient = true;
+      editingEntity.forSecondChild = false;
+      editingEntity.forFirstPay = false;
+      editingEntity.forNewClient = true;
     }
     if (e.currentTarget.value === 'firstPayment') {
-      store.editingEntity.forSecondChild = false;
-      store.editingEntity.forFirstPay = true;
-      store.editingEntity.forNewClient = false;
+      editingEntity.forSecondChild = false;
+      editingEntity.forFirstPay = true;
+      editingEntity.forNewClient = false;
     }
   };
 
   const editTariffs = () => {
-    store.addOrEdit();
+    addOrEdit();
   };
   return (
     <div className={styles.traffic}>
@@ -68,9 +66,9 @@ const TariffPage: FC<Props> = observer(({ store }) => {
             <div className={styles.inputBlock}>
               <InformationItem
                 variant="input"
-                value={store.editingEntity.name}
+                value={editingEntity.name}
                 onChange={data => {
-                  store.editingEntity.name = data;
+                  editingEntity.name = data;
                 }}
                 placeholder="имя тарифа"
               />
@@ -80,20 +78,18 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                 <InformationItem
                   title="Статус"
                   variant="select"
-                  selectValue={newstatus.find(
-                    (item: any) => item.value === store.editingEntity.status,
-                  )}
+                  selectValue={newstatus.find((item: any) => item.value === editingEntity.status)}
                   option={newstatus}
                   onChangeSelect={data => {
-                    store.editingEntity.status = data.value;
+                    editingEntity.status = data.value;
                   }}
                   placeholder="Активен"
                 />
                 <div style={{ margin: '25px 0 0 0' }}>
                   <CustomDatePicker
-                    value={store.editingEntity.startedAt?.date}
+                    value={editingEntity.startedAt?.date}
                     setValue={(data: any) => {
-                      store.editingEntity.startedAt = {
+                      editingEntity.startedAt = {
                         date: moment(data).format('YYYY-MM-DD hh:mm:ss.000000'),
                         timezone_type: data.getTimezoneOffset() / 60,
                         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -104,9 +100,9 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                 </div>
                 <div style={{ margin: '25px 0 0 0' }}>
                   <CustomDatePicker
-                    value={store.editingEntity.endedAt?.date}
+                    value={editingEntity.endedAt?.date}
                     setValue={(data: any) => {
-                      store.editingEntity.endedAt = {
+                      editingEntity.endedAt = {
                         date: moment(data).format('YYYY-MM-DD hh:mm:ss.000000'),
                         timezone_type: data.getTimezoneOffset() / 60,
                         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -120,25 +116,25 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                 <InformationItem
                   title="Старая цена"
                   variant="input"
-                  value={store.editingEntity.oldPrice}
+                  value={editingEntity.oldPrice}
                   onChange={data => {
-                    store.editingEntity.oldPrice = data;
+                    editingEntity.oldPrice = data;
                   }}
                 />
                 <InformationItem
                   title="Новая цена"
                   variant="input"
-                  value={store.editingEntity.newPrice}
+                  value={editingEntity.newPrice}
                   onChange={data => {
-                    store.editingEntity.newPrice = data;
+                    editingEntity.newPrice = data;
                   }}
                 />
                 <InformationItem
                   title="Код тарифа"
                   variant="input"
-                  value={store.editingEntity.code}
+                  value={editingEntity.code}
                   onChange={data => {
-                    store.editingEntity.code = data;
+                    editingEntity.code = data;
                   }}
                 />
               </div>
@@ -154,9 +150,9 @@ const TariffPage: FC<Props> = observer(({ store }) => {
                     date?.blocks?.forEach((item: any) => {
                       allText += item.text;
                     });
-                    store.editingEntity.description = allText;
+                    editingEntity.description = allText;
                   }}
-                  defaultText={store.editingEntity.description}
+                  defaultText={editingEntity.description}
                 />
               </div>
               <div className={styles.choiceTariff}>
@@ -210,9 +206,9 @@ const TariffPage: FC<Props> = observer(({ store }) => {
       </div>
       <div className={styles.btnTraffic}>
         <div className={styles.listTariff}>
-          <Button onClick={store.closeDialog}>Список тарифов</Button>
+          <Button onClick={closeDialog}>Список тарифов</Button>
         </div>
-        <Button onClick={editTariffs}>{store.editingEntity?.id ? 'Изменить' : 'Сохранить'}</Button>
+        <Button onClick={editTariffs}>{editingEntity?.id ? 'Изменить' : 'Сохранить'}</Button>
       </div>
     </div>
   );

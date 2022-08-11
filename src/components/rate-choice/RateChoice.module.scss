@@ -69,7 +69,8 @@
       display: flex;
       align-items: center;
       width: 21%;
-      justify-content: space-between;
+      gap: 2rem;
+      //justify-content: space-between;
 
       @media (max-width: 1100px) {
         flex-direction: column;
@@ -198,9 +199,10 @@
     }
 
     .btnBlock {
-      width: 22%;
+      //width: 22%;
       display: flex;
       justify-content: space-between;
+      gap: 1rem;
 
       @media (max-width: 1600px) {
         width: 28%;

@@ -19,7 +19,7 @@ type Props = {
 
 export const newstatus = [
   { value: 'active', label: 'Активный' },
-  { value: 'archive', label: 'Неактивный' },
+  { value: 'deleted', label: 'Не активен' },
   { value: 'hidden', label: 'Заблокированный' },
 ];
 
@@ -60,7 +60,6 @@ const TariffPage: FC<Props> = observer(({ store }) => {
   const editTariffs = () => {
     store.addOrEdit();
   };
-
   return (
     <div className={styles.traffic}>
       <div className={styles.content}>

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
@@ -13,9 +13,7 @@ import Button from 'components/button/Button';
 import { LoadingIndicator } from 'components/franchising-page/ui/LoadingIndicator';
 import Image from 'components/image/Image';
 import Stepper from 'components/step/stepper/Stepper';
-import { VariantAnswer } from 'pages/testing/variantAnswer/VariantAnswer';
-import { addIdElements } from 'utils/addIdElements';
-import { FIRST_ARRAY_ITEM } from 'utils/consts/consts';
+import { MixedAnswers } from 'components/test-page/MixedAnswers/MixedAnswers';
 import { mixElements } from 'utils/mixElements';
 
 const wrongVariantsAnswers: string[] = [
@@ -27,53 +25,36 @@ const wrongVariantsAnswers: string[] = [
 ];
 
 const defaultRadioButtonValue = 'null';
-const defaultActiveStep = 1;
 
 const TestPage: FC = observer(() => {
   const {
-    getTests,
-    currentTest: {
-      test: { content, title },
-    },
+    setTests,
     isLoading,
     incrementResult,
     postResult,
+    getTitleTest,
     result,
+    questions,
+    currentQuestion,
+    setCurrentQuestion,
   } = testsStore;
 
   const { articleAPI } = articlesStore;
 
   useEffect(() => {
-    getTests();
+    setTests();
   }, []);
 
   const navigate = useNavigate();
 
   const [currentRadioValue, setCurrentRadioValue] = useState(defaultRadioButtonValue);
 
-  const [activeStep, setActiveStep] = useState(defaultActiveStep);
-
-  const questions = useMemo(() => addIdElements(content), [content]);
-
-  const [questionData, setQuestion] = useState(questions[FIRST_ARRAY_ITEM]);
-
-  const handlerRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentRadioValue(e.currentTarget.value);
-  };
+  const [activeStep, setActiveStep] = useState(1);
 
   const mixedAnswer = useMemo(
-    () => mixElements(wrongVariantsAnswers, questionData.answer),
-    [activeStep, content],
+    () => mixElements(wrongVariantsAnswers, currentQuestion.answer),
+    [activeStep, questions, currentQuestion.answer],
   );
-
-  const mixedAnswerTags = mixedAnswer.map(variant => (
-    <VariantAnswer
-      key={variant}
-      onChange={handlerRadioChange}
-      currentRadioValue={currentRadioValue}
-      value={variant}
-    />
-  ));
 
   const onEndTest = () => {
     // todo: добавить реальный id
@@ -81,7 +62,7 @@ const TestPage: FC = observer(() => {
   };
 
   const checkAnswer = () => {
-    if (currentRadioValue === questionData.answer) {
+    if (currentRadioValue === currentQuestion.answer) {
       incrementResult();
     }
   };
@@ -96,7 +77,7 @@ const TestPage: FC = observer(() => {
     const newQuestion = questions.find(element => element.id === newActiveStep);
 
     if (newQuestion) {
-      setQuestion(newQuestion);
+      setCurrentQuestion(newQuestion);
     } else {
       postResult({ articleId: articleAPI.id, result });
       onEndTest();
@@ -109,14 +90,14 @@ const TestPage: FC = observer(() => {
     <div className={styles.wrapperTesting}>
       <LoadingIndicator isLoading={isLoading} />
       <div>
-        <h2>{title}</h2>
+        <h2>{getTitleTest}</h2>
       </div>
       <div className={styles.choiceWrap}>
         <div className={styles.endTest}>
           <Button onClick={onEndTest}>Закончить тест</Button>
         </div>
         <div className={styles.stepStyle}>
-          <Stepper countStep={questions.length} activeStepCount={Number(activeStep)} />
+          <Stepper countStep={questions.length} activeStepCount={activeStep} />
         </div>
       </div>
       <div className={styles.question}>
@@ -124,10 +105,14 @@ const TestPage: FC = observer(() => {
           <Image src={resultIcon} width="406px" height="426px" alt="Images" />
         </div>
         <div className={styles.textQuestion}>
-          <h3> Вопрос {questionData.id}</h3>
-          <p>{questionData.question}</p>
+          <h3> Вопрос {currentQuestion.id}</h3>
+          <p>{currentQuestion.question}</p>
           <div className={styles.answerChoice}>
-            <div>{mixedAnswerTags}</div>
+            <MixedAnswers
+              mixedAnswer={mixedAnswer}
+              setCurrentRadioValue={setCurrentRadioValue}
+              currentRadioValue={currentRadioValue}
+            />
           </div>
           <div>
             <Button onClick={nextStep}>Ответить</Button>

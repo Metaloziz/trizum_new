@@ -13,7 +13,7 @@ export const testsService = {
   getOneTest: async (
     testId: string, // todo hard cod
   ): Promise<OneTestT> => {
-    const { data } = await instance.get(`${Paths.Tests}/1ed17dd5-740d-6734-8143-6358cde3f341`);
+    const { data } = await instance.get(`${Paths.Tests}/1ed18aad-ed71-65dc-a93b-294197f27a74`);
     return data;
   },
 

@@ -26,6 +26,9 @@ const wrongVariantsAnswers: string[] = [
   'wrong variant 5',
 ];
 
+const defaultRadioButtonValue = 'null';
+const defaultActiveStep = 1;
+
 const TestPage: FC = observer(() => {
   const {
     getTests,
@@ -36,7 +39,6 @@ const TestPage: FC = observer(() => {
     incrementResult,
     postResult,
     result,
-    resetResult,
   } = testsStore;
 
   const { articleAPI } = articlesStore;
@@ -45,15 +47,13 @@ const TestPage: FC = observer(() => {
     getTests();
   }, []);
 
-  const defaultRadioButtonValue = 'null';
-
   const navigate = useNavigate();
 
   const [currentRadioValue, setCurrentRadioValue] = useState(defaultRadioButtonValue);
 
-  const [activeStep, setActiveStep] = useState<string>('1');
+  const [activeStep, setActiveStep] = useState(defaultActiveStep);
 
-  const questions = useMemo(() => addIdElements(content), []);
+  const questions = useMemo(() => addIdElements(content), [content]);
 
   const [questionData, setQuestion] = useState(questions[FIRST_ARRAY_ITEM]);
 
@@ -63,7 +63,7 @@ const TestPage: FC = observer(() => {
 
   const mixedAnswer = useMemo(
     () => mixElements(wrongVariantsAnswers, questionData.answer),
-    [activeStep],
+    [activeStep, content],
   );
 
   const mixedAnswerTags = mixedAnswer.map(variant => (
@@ -90,18 +90,19 @@ const TestPage: FC = observer(() => {
     checkAnswer();
 
     setCurrentRadioValue(defaultRadioButtonValue);
-    const newActiveStep = (activeStep + 1).toString();
-    setActiveStep(newActiveStep);
+
+    const newActiveStep = activeStep + 1;
 
     const newQuestion = questions.find(element => element.id === newActiveStep);
 
     if (newQuestion) {
       setQuestion(newQuestion);
     } else {
-      postResult({ articleId: articleAPI.id, result: result.toString() });
+      postResult({ articleId: articleAPI.id, result });
       onEndTest();
-      resetResult();
     }
+
+    setActiveStep(newActiveStep);
   };
 
   return (

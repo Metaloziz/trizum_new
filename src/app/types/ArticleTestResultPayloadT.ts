@@ -1,4 +1,4 @@
 export type ArticleTestResultPayloadT = {
   articleId: string;
-  result: string;
+  result: number;
 };

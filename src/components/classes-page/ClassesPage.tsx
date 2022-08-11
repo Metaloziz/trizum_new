@@ -40,10 +40,10 @@ const ClassesPage = observer(() => {
     isLoad,
     perPage,
     queryFields,
+    selectedGroup,
   } = groupStore;
 
   const [currentPage, setCurrentPage] = useState((queryFields.page || 0) + 1);
-
   useEffect(() => {
     typeof queryFields.page === 'number' && setCurrentPage(queryFields.page + 1);
   }, [queryFields.page]);
@@ -63,7 +63,11 @@ const ClassesPage = observer(() => {
     <>
       <div className={styles.wrapper}>
         <div className={styles.searchBar}>
-          <Button onClick={() => openModal()}>Add</Button>
+          {appStore.role === Roles.Admin && (
+            <Button onClick={() => openModal()}>
+              {selectedGroup ? 'Редактировать' : 'Добавить'}
+            </Button>
+          )}
           <SearchBar />
         </div>
         {appStore.role === Roles.Admin && (

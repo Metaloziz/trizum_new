@@ -31,7 +31,7 @@ class GroupStore {
     franchiseId: '',
     dateSince: '20.02.2020',
     dateUntil: '20.01.2023',
-    type: '',
+    type: 'class',
     teacherId: '',
     level: '',
     courseId: '',
@@ -47,7 +47,7 @@ class GroupStore {
     teacherId: '',
     dateSince: '',
     dateUntil: '',
-    type: '',
+    type: 'class',
     level: '',
   };
 
@@ -119,7 +119,7 @@ class GroupStore {
     this.execute(async () => {
       const r = await groupsService.getOneGroup(id);
       runInAction(() => {
-        this.selectedGroup = r;
+        // this.selectedGroup = r;
         this.visibleGroup = r;
       });
       return r;
@@ -127,8 +127,8 @@ class GroupStore {
 
   addGroup = async () => {
     await groupsService.addGroup(this.modalFields);
-    this.cleanModalValues()
-    this.closeModal()
+    this.cleanModalValues();
+    this.closeModal();
   };
 
   editGroup = async () => {
@@ -137,8 +137,8 @@ class GroupStore {
         await groupsService.editGroup(this.modalFields, this.selectedGroup.id);
         await this.getGroups();
       }
-      this.cleanModalValues()
-      this.closeModal()
+      this.cleanModalValues();
+      this.closeModal();
     });
   };
 

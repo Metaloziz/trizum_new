@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import { Grid, InputLabel, Select, TextField } from '@mui/material';
+import { FormControl, Grid, InputLabel, Select, TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
 import styles from './AddEditGroup.module.scss';
@@ -81,8 +81,8 @@ const AddEditGroup: FC<Props> = observer(props => {
     setCourseOptions(resCourses.items.map(el => (el.id ? getOptionMui(el.id, el.title) : <></>)));
   };
   useEffect(() => {
-    debugger
-    loadInitialModal()
+    // debugger
+    loadInitialModal();
     // initLoad();
   }, []);
 
@@ -93,8 +93,8 @@ const AddEditGroup: FC<Props> = observer(props => {
   }, [modalFields.franchiseId]);
 
   useEffect(() => {
-    if (appStore.role === Roles.Admin) {
-      debugger;
+    if (appStore.role === Roles.Admin && !!franchise.length) {
+      // debugger;
       setFranchiseOptions(franchise.map(t => getOptionMui(t.id || '', t.shortName)));
     }
   }, [groupStore.franchise]);
@@ -117,7 +117,7 @@ const AddEditGroup: FC<Props> = observer(props => {
     closeModal();
     cleanModalValues();
   };
-  console.log({ ...modalFields }, 'modalFields');
+  // console.log({ ...modalFields }, 'modalFields');
   return (
     <BasicModal
       fullWidth
@@ -142,70 +142,80 @@ const AddEditGroup: FC<Props> = observer(props => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputLabel id="teacher">Учитель</InputLabel>
-          <Select
-            labelId="teacher"
-            label="Учитель"
-            fullWidth
-            disabled={!modalFields.franchiseId}
-            onChange={(event, child) => (modalFields.teacherId = event.target.value)}
-            value={modalFields.teacherId}
-          >
-            {teacherOptions}
-          </Select>
+          <FormControl fullWidth>
+            <InputLabel id="teacher">Учитель</InputLabel>
+            <Select
+              labelId="teacher"
+              label="Учитель"
+              fullWidth
+              disabled={!modalFields.franchiseId}
+              onChange={(event, child) => (modalFields.teacherId = event.target.value)}
+              value={modalFields.teacherId}
+            >
+              {teacherOptions}
+            </Select>
+          </FormControl>
         </Grid>
         {selectedGroup ? (
           <Grid item xs={12} sm={6}>
-            <InputLabel id="status">Статус</InputLabel>
-            <Select
-              labelId="status"
-              label="Статус"
-              fullWidth
-              onChange={(event, child) => (modalFields.status = event.target.value)}
-              value={modalFields.status}
-            >
-              {statusOptions}
-            </Select>
+            <FormControl fullWidth>
+              <InputLabel id="status">Статус</InputLabel>
+              <Select
+                labelId="status"
+                label="Статус"
+                fullWidth
+                onChange={(event, child) => (modalFields.status = event.target.value)}
+                value={modalFields.status}
+              >
+                {statusOptions}
+              </Select>
+            </FormControl>
           </Grid>
         ) : (
           <Grid item xs={12} sm={6}>
-            <InputLabel id="franchise">Франшиза</InputLabel>
-            <Select
-              labelId="franchise"
-              label="Франшиза"
-              fullWidth
-              onChange={(event, child) => (modalFields.franchiseId = event.target.value)}
-              value={modalFields.franchiseId}
-            >
-              {franchiseOptions}
-            </Select>
+            <FormControl fullWidth>
+              <InputLabel id="franchise">Франшиза</InputLabel>
+              <Select
+                labelId="franchise"
+                label="Франшиза"
+                fullWidth
+                onChange={(event, child) => (modalFields.franchiseId = event.target.value)}
+                value={modalFields.franchiseId}
+              >
+                {franchiseOptions}
+              </Select>
+            </FormControl>
           </Grid>
         )}
         <Grid item xs={12} sm={6}>
-          <InputLabel id="course">Курс</InputLabel>
-          <Select
-            labelId="course"
-            label="Курс"
-            disabled={!modalFields.level}
-            fullWidth
-            onChange={(event, child) => (modalFields.courseId = event.target.value)}
-            value={modalFields.courseId}
-          >
-            {courseOptions}
-          </Select>
+          <FormControl fullWidth>
+            <InputLabel id="course">Курс</InputLabel>
+            <Select
+              labelId="course"
+              label="Курс"
+              disabled={!modalFields.level}
+              fullWidth
+              onChange={(event, child) => (modalFields.courseId = event.target.value)}
+              value={modalFields.courseId}
+            >
+              {courseOptions}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <InputLabel id="level">Уровень</InputLabel>
-          <Select
-            labelId="level"
-            label="Уровень"
-            placeholder="Уровень"
-            fullWidth
-            onChange={(event, child) => (modalFields.level = event.target.value)}
-            value={modalFields.level}
-          >
-            {levelOptions}
-          </Select>
+          <FormControl fullWidth>
+            <InputLabel id="level">Уровень</InputLabel>
+            <Select
+              labelId="level"
+              label="Уровень"
+              placeholder="Уровень"
+              fullWidth
+              onChange={(event, child) => (modalFields.level = event.target.value)}
+              value={modalFields.level}
+            >
+              {levelOptions}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid
           item

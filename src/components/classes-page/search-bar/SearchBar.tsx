@@ -76,7 +76,7 @@ const SearchBar = observer(() => {
       setTeacherOptions(res.items.map(el => getOptionMui(el.id, el.firstName)));
     }
   };
-
+  // console.log({ ...queryFields }, 'queryFields');
   useEffect(() => {
     getTeachers();
   }, [queryFields.franchiseId]);
@@ -146,46 +146,47 @@ const SearchBar = observer(() => {
                   </FormControl>
                 </Grid>
               )}
-              <Grid item xs={12} sm={4}>
-                <FormControl fullWidth>
-                  <InputLabel id="teacher-search">Учитель</InputLabel>
-                  <Select
-                    labelId="teacher-search"
-                    label="Учитель"
-                    value={queryFields.teacherId}
-                    disabled={!queryFields.franchiseId}
-                    onChange={({ target: { value } }) => (queryFields.teacherId = value)}
-                  >
-                    {teacherOptions}
-                  </Select>
-                  {!queryFields.franchiseId && (
-                    <FormHelperText
-                      sx={{ position: 'absolute', bottom: -24, left: 0, color: 'red' }}
+              {appStore.role === Roles.Admin && (
+                <Grid item xs={12} sm={4}>
+                  <FormControl fullWidth>
+                    <InputLabel id="teacher-search">Учитель</InputLabel>
+                    <Select
+                      labelId="teacher-search"
+                      label="Учитель"
+                      value={queryFields.teacherId}
+                      disabled={!queryFields.franchiseId}
+                      onChange={({ target: { value } }) => (queryFields.teacherId = value)}
                     >
-                      Сначала выберите франчайзинг
-                    </FormHelperText>
-                  )}
-                </FormControl>
-              </Grid>
-              {/* line 3 */}
-              <Grid item xs={12} sm={4}>
+                      {teacherOptions}
+                    </Select>
+                    {!queryFields.franchiseId && (
+                      <FormHelperText
+                        sx={{ position: 'absolute', bottom: -24, left: 0, color: 'red' }}
+                      >
+                        Сначала выберите франчайзинг
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                </Grid>
+              )}
+              <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <DatePicker
-                  onChange={value => value && (queryFields.dateSince = value)}
+                  onChange={value =>
+                    value &&
+                    (queryFields.dateSince = moment(new Date(value)).format(DateTime.DdMmYyyy))
+                  }
                   value={queryFields.dateSince}
                   toolbarPlaceholder="Дата с"
-                  renderInput={props => <TextField {...props} />}
+                  renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
                 />
                 <DatePicker
                   onChange={(value, keyboardInputValue) => {
-                    console.log(
-                      value && moment(new Date(value)).format(DateTime.DdMmYyyy),
-                      'asdasd',
-                    );
-                    value && (queryFields.dateUntil = value);
+                    value &&
+                      (queryFields.dateUntil = moment(new Date(value)).format(DateTime.DdMmYyyy));
                   }}
                   value={queryFields.dateUntil}
                   toolbarPlaceholder="Дата по"
-                  renderInput={props => <TextField {...props} />}
+                  renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
                 />
               </Grid>
             </Grid>

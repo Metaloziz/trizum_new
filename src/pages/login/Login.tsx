@@ -151,8 +151,8 @@ const Login = () => {
         <Button variant="none" onClick={() => setIsAnalytic(true)}>
           Кнопка для аналитика
         </Button>
-        Кнопка для тестировщика
-        <Button variant="none" onClick={() => setIsTester(true)} />
+
+        <Button variant="none" onClick={() => setIsTester(true)}>Кнопка для тестировщика</Button>
         <Button variant="none" onClick={resetRole}>
           Сброс номера на основной
         </Button>

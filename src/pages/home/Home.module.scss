@@ -11,8 +11,9 @@
   grid-row-gap: 25px;
   justify-content: flex-start;
   padding: 30px 20px 25px;
+  width: 500px;
 
-  @media (max-width: 1500px) {
+  @media (max-width: 1000px) {
     grid-column-gap: 20px;
   }
 
@@ -80,7 +81,7 @@
     padding: 72px 20px 83px;
     margin: 0 auto;
 
-    @media (max-width: 1500px) {
+    @media (max-width: 1000px) {
       width: 100%;
     }
 

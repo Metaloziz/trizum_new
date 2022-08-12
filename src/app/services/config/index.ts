@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import TokenService from 'app/services/tokenService';
 
 const instance = axios.create({
-  baseURL: 'https://backschool.sitetopic.ru/api/v1',
+  baseURL: 'https://backschool.sitetopic.ru/api/v1/',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

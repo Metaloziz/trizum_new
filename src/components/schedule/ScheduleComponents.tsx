@@ -5,6 +5,7 @@ import moment from 'moment';
 import { ToolbarProps } from 'react-big-calendar';
 
 import appStore, { Roles } from 'app/stores/appStore';
+import groupStore from 'app/stores/groupStore';
 import iconDelete from 'assets/svgs/delete.svg';
 import iconSettings from 'assets/svgs/icon-settings.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
@@ -13,6 +14,7 @@ import Image from 'components/image/Image';
 import InformationItem from 'components/information-item/InformationItem';
 import styles from 'components/schedule/Schedule.module.scss';
 import { EventProps } from 'components/schedule/ScheduleDnD';
+import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 
 // type ToolbarProps = {
 //   date:Date
@@ -56,6 +58,7 @@ const moksDatas: Mock1[] = [
 ];
 
 export const Toolbar: FC<ToolbarProps> = props => {
+  const { openModal } = groupStore;
   const [isVisible, setIsVisible] = useState(false);
   const { onNavigate, date, children } = props;
   const { role } = appStore;
@@ -81,9 +84,9 @@ export const Toolbar: FC<ToolbarProps> = props => {
               <Button size="small">Найти</Button>
             </>
           )}
-          {role === Roles.FranchiseeAdmin && (
+          {checkRoleForClasses(role) && (
             <>
-              <Button variant="none" size="small" onClick={() => setIsVisible(!isVisible)}>
+              <Button variant="none" size="small" onClick={() => openModal()}>
                 Добавить группу
               </Button>
               <Button variant="none" size="small">

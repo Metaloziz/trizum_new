@@ -13,7 +13,7 @@ import Image from 'components/image/Image';
 import Panel from 'components/panel/Panel';
 
 const BlockGames = observer(() => {
-  const { openModal, visibleGroup } = groupStore;
+  const { openModal, selectedGroup } = groupStore;
 
   return (
     <div className={styles.blockGames}>
@@ -40,7 +40,7 @@ const BlockGames = observer(() => {
           <li>игра 3</li>
         </ul>
       </div>
-      <Button onClick={() => openModal(visibleGroup?.id)}>Edit group</Button>
+      {/* <Button onClick={() => openModal(selectedGroup?.id)}>Edit group</Button> */}
       <p className={styles.content}>
         Высокий уровень вовлечения представителей целевой аудитории является четким доказательством
         простого факта: реализация намеченных плановых заданий создаёт необходимость включения в

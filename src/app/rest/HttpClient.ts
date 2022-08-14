@@ -23,7 +23,7 @@ export class HttpClient {
   }
 
   private readonly makeConfig = (): AxiosRequestConfig => ({
-    baseURL: 'https://backschool.sitetopic.ru',
+    baseURL: 'https://backschool.sitetopic.ru/api/v1/',
     url: this.url,
     method: this.method,
     timeout: HttpClient.defaultTimeout,
@@ -153,7 +153,6 @@ export class HttpClient {
 
   execute = async <TResponse>(): Promise<TResponse> => {
     await this.applyPrerequestHooks();
-
     const response = (await Axios.request(this.config)) as AxiosResponse<TResponse>;
     return response.data;
   };

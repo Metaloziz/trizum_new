@@ -1,6 +1,13 @@
 import { Paths } from 'app/enums/Paths';
 import instance from 'app/services/config';
-import { CreateGroup, GroupParams, ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
+import {
+  CreateGroup,
+  CreateGroupForServer,
+  GroupParams,
+  GroupParamsForServer,
+  ResponseGroups,
+  ResponseOneGroup
+} from 'app/types/GroupTypes';
 import { WithPagination } from 'app/types/WithPagination';
 
 export type AddUserGroupPayloadType = {
@@ -9,8 +16,8 @@ export type AddUserGroupPayloadType = {
 };
 
 const groupsService = {
-  getGroups: async (asd?: GroupParams): Promise<WithPagination<ResponseGroups[]>> => {
-    const f = (data?: GroupParams) => {
+  getGroups: async (asd?: GroupParamsForServer): Promise<WithPagination<ResponseGroups[]>> => {
+    const f = (data?: GroupParamsForServer) => {
       if (data) {
         for (const key in data) {
           // @ts-ignore
@@ -41,7 +48,7 @@ const groupsService = {
     const { data } = await instance.get(`${Paths.Groups}/${id}`);
     return data;
   },
-  addGroup: async (group: CreateGroup) => {
+  addGroup: async (group: CreateGroupForServer) => {
     const { data } = await instance.post(`${Paths.Groups}`, group);
     return data;
   },
@@ -51,6 +58,7 @@ const groupsService = {
     return data;
   },
   editGroup: async (data: any, id: string) => {
+    debugger
     const res = await instance.post(`${Paths.Groups}/${id}`, data);
     return res.data;
   },

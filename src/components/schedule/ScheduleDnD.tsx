@@ -10,6 +10,7 @@ import styles from './Schedule.module.scss';
 
 import appStore, { Roles } from 'app/stores/appStore';
 import BasicModal from 'components/basic-modal/BasicModal';
+import AddEditGroup from 'components/classes-page/AddEditGroup';
 import InformationItem from 'components/information-item/InformationItem';
 import {
   CustomEvent,
@@ -316,33 +317,9 @@ const ScheduleDnD: FC = observer(() => {
           ),
         }}
       />
-      {role !== Roles.Teacher && (
-        <BasicModal visibility={isVisible} changeVisibility={changeVisibility}>
-          <ScheduleModal event={currentEvent as ScheduleEvent} onApply={onApplyEventChanges} />
-        </BasicModal>
-      )}
+      <AddEditGroup />
     </div>
   );
 });
 
 export default ScheduleDnD;
-// defaultMessages = {
-//     date: 'Date',
-//     time: 'Time',
-//     event: 'Event',
-//     allDay: 'All Day',
-//     week: 'Week',
-//     work_week: 'Work Week',
-//     day: 'Day',
-//     month: 'Month',
-//     previous: 'Back',
-//     next: 'Next',
-//     yesterday: 'Yesterday',
-//     tomorrow: 'Tomorrow',
-//     today: 'Today',
-//     agenda: 'Agenda',
-//     noEventsInRange: 'There are no events in this range.',
-//     showMore: function showMore(total) {
-//       return "+" + total + " more";
-//     }
-//   };

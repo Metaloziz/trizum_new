@@ -124,7 +124,7 @@ const UsersPage = observer(() => {
           {/* <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" /> */}
             <DesktopDatePicker
                 label="Дата "
-                inputFormat="DD/MM/yyyy"
+                inputFormat="dd/mm/yyyy"
                 value={mainData}
                 onChange={handleChangeMainData}
                 renderInput={(params) => <TextField {...params} />}
@@ -209,7 +209,7 @@ const UsersPage = observer(() => {
             {/* <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" /> */}
             <DesktopDatePicker
                 label="Дата рождения"
-                inputFormat="DD/MM/yyyy"
+                inputFormat="dd/mm/yyyy"
                 value={value}
                 onChange={handleChangeBornData}
                 renderInput={(params) => <TextField {...params} />}

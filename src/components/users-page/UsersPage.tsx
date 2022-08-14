@@ -16,8 +16,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
-import modals from '../../app/stores/CardStudentExtended';
+import modals from '../../app/stores/CardStudentExtended'; 
 
+import { Filter } from './Filter';
 import styles from './UsersPage.module.scss';
 
 import { RoleNames, Roles } from 'app/stores/appStore';
@@ -128,6 +129,7 @@ const UsersPage = observer(() => {
     <>Loading...</>
   ) : (
     <div className={styles.wrapper}>
+      <Filter/>
       <div className={styles.search}>
         <div className={styles.column}>
           {/* <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" /> */}
@@ -234,6 +236,7 @@ const UsersPage = observer(() => {
             </Button>
           </div>
         </div>
+        
       </div>
       <div className={styles.cardWrapper}>
         {users.map(user => (

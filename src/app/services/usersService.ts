@@ -22,6 +22,17 @@ const usersService = {
     });
     return res.data;
   },
+  getUsersForFilters: async (params?: RequestUsersParams): Promise<FullResponseUserT> => {
+    const res = await instance.get(Paths.Users, {
+      params: {
+        page: params?.page,
+        role: params?.role,
+        per_page: params?.perPage,
+        franchise_id: params?.franchiseId,
+      },
+    });
+    return res.data;
+  },
   getOneUser: async (id: string): Promise<ResponseOneUser> => {
     const { data } = await instance.get(`${Paths.Users}/${id}`);
     return data;

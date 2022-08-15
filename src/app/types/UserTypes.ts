@@ -11,6 +11,18 @@ export type RequestUsersParams = {
   franchiseId?: string;
 };
 
+export type RequestUsersForFilter = {
+  role?: Roles;
+  page?: number;
+  perPage?: number;
+  franchiseId?: string;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
+  city?: string;
+  birthdate?: string;
+};
+
 export type RequestCreateUser = {
   role: string;
   franchiseId: string;

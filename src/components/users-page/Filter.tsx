@@ -119,7 +119,7 @@ export const Filter = (props:UserPageFilterProps) => {
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={city}
-                                    label="Город"
+                                    label="Оплачен"
                                     onChange={handleChange}
                                 >
                                     <MenuItem value={10}>Оплачен</MenuItem>

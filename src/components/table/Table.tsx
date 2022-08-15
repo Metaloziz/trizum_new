@@ -1,6 +1,9 @@
 import { FC, ReactNode } from 'react';
 
+import {LoadingIndicator} from "../franchising-page/ui/LoadingIndicator";
+
 import styles from './Table.module.scss';
+
 
 interface IList {
   id?: string | number;
@@ -29,7 +32,7 @@ interface Props {
 const Table: FC<Props> = props => {
   const { list, colNames, loading, children } = props;
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <LoadingIndicator isLoading={loading} />;
   }
   return (
     <div className={styles.tableContent}>

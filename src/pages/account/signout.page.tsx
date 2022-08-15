@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import {LoadingIndicator} from "../../components/franchising-page/ui/LoadingIndicator";
 
 // import { AuthGuard } from 'app/common/AuthGuard';
 
@@ -11,7 +12,7 @@ export default () => (
   //   router.push(Routes.Index);
   // });
 
-  <>Loading...</>
+  <LoadingIndicator isLoading={true} />
 );
 
 // SignOut.layout = BlankLayout;

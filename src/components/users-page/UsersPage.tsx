@@ -17,6 +17,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
 import modals from '../../app/stores/CardStudentExtended';
+import {LoadingIndicator} from "../franchising-page/ui/LoadingIndicator";
 
 import styles from './UsersPage.module.scss';
 
@@ -125,7 +126,7 @@ const UsersPage = observer(() => {
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
 
   return !isLoaded ? (
-    <>Loading...</>
+    <LoadingIndicator isLoading={!isLoaded} />
   ) : (
     <div className={styles.wrapper}>
       <div className={styles.search}>

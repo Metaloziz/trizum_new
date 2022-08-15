@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
+import {LoadingIndicator} from "../franchising-page/ui/LoadingIndicator";
+
 import styles from './ListGames.module.scss';
 
 import gamesStore from 'app/stores/gamesStore';
@@ -18,7 +20,7 @@ const ListGames: FC = () => {
     load();
   }, []);
   return !isLoaded ? (
-    <>Loading...</>
+    <LoadingIndicator isLoading={!isLoaded} />
   ) : (
     <div className={styles.gamesContent}>
       {games.map(item => (

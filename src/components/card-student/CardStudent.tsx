@@ -10,6 +10,7 @@ interface Props {
 
 const CardStudent: FC<Props> = props => {
   const { user } = props;
+
   return (
     <>
       {user.role === Roles.Student && <CardStudentForStudent user={user} />}

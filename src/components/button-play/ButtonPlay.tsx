@@ -62,7 +62,7 @@ const ButtonPlay: FC<ButtonPlayProps> = props => {
       onMouseOut={() => setHover(false)}
     >
       <Image src={hover ? buttonPlayHover : buttonPlay} alt="play" />
-      <span className={styles.playButton}>{title}</span>
+      {title && <span className={styles.playButton}>{title}</span>}
     </motion.button>
   );
 };

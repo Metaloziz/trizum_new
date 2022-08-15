@@ -8,7 +8,6 @@ import { KeepPlayingItemProps } from 'app/types/ComponentsProps';
 import ButtonPlay from 'components/button-play/ButtonPlay';
 
 const KeepPlayingItem: FC<KeepPlayingItemProps> = ({ title, minutesLeft, colorTheme }) => (
-  /* @ts-ignore */
   <div className={classNames(styles.container, styles[colorTheme])}>
     <span className={styles.title}>{title}</span>
     <ButtonPlay size="small" />

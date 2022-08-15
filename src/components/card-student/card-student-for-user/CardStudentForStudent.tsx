@@ -1,14 +1,12 @@
 import React, { FC, useState } from 'react';
 
 import cn from 'classnames';
-import { useNavigate } from 'react-router-dom';
 
 import iconTablet from '../../../assets/svgs/icon-tablet.svg';
 import iconParrot from '../../../assets/svgs/parrot.svg';
 
 import styles from './CardStudentForUser.module.scss';
 
-import { AppRoutes } from 'app/enums/AppRoutes';
 import { EmptyUser, Roles } from 'app/stores/appStore';
 import iconFlag from 'assets/svgs/icon-flag.svg';
 import iconMonkey from 'assets/svgs/monkey.svg';
@@ -16,25 +14,21 @@ import iconTelegram from 'assets/svgs/telegram.svg';
 import iconWhatsApp from 'assets/svgs/whats-app.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
+import { OlympiadPreviewText } from 'components/card-student/card-student-for-user/OlympiadPreviewText/OlympiadPreviewText';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
-import Panel from 'components/panel/Panel';
 import Avatar from 'public/img/avatarDefault.png';
 
 type Props = {
   user: EmptyUser;
 };
 
-const CardStudentForStudent: FC<Props> = props => {
-  const { firstName, middleName, lastName, role, avatar, city, phone } = props.user;
+const CardStudentForStudent: FC<Props> = ({ user }) => {
+  const { firstName, middleName, lastName, role, avatar, city, phone } = user;
+
   const [showModal, setShowModal] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const olympiadId = 1;
-  const userId = 1;
+
   const fullName = `${firstName} ${middleName} ${lastName}`;
-  const onParticipateClick = () => {
-    navigate(`${AppRoutes.Olympiads}/${olympiadId}/${userId}`);
-  };
 
   return (
     <div className={styles.wrapper}>
@@ -95,22 +89,7 @@ const CardStudentForStudent: FC<Props> = props => {
         </Button>
       </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>
-        <div className={styles.modalContent}>
-          <Panel className={styles.panel}>Олимпиада - неделя антипазла</Panel>
-          <div>
-            <p>
-              Высокий уровень вовлечения представителей целевой аудитории является четким
-              доказательством простого факта: реализация намеченных плановых заданий создаёт
-              необходимость включения в производственный план целого ряда внеочередных мероприятий с
-              учётом комплекса глубокомысленных рассуждений. Как принято считать, сторонники
-              тоталитаризма в науке, превозмогая сложившуюся непростую экономическую ситуацию,
-              своевременно верифицированы.
-            </p>
-          </div>
-          <div className={styles.btn}>
-            <Button onClick={onParticipateClick}>Принять участие в олимпиаде</Button>
-          </div>
-        </div>
+        <OlympiadPreviewText />
       </BasicModal>
     </div>
   );

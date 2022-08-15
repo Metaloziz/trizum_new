@@ -3,17 +3,17 @@ import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import appStore, { Roles } from 'app/stores/appStore';
-import OlympiadsListPage from 'components/olympiads-list-page/OlympiadsListPage';
+import OlympiadPage from 'components/olympiad-page/OlympiadPage';
 import Custom404 from 'pages/404.page';
 
-const IndexPage: FC = observer(() => {
+const Olympiad: FC = observer(() => {
   const { role } = appStore;
   switch (role) {
     case Roles.Student:
-      return <OlympiadsListPage />;
+      return <OlympiadPage />;
     default:
       return <Custom404 />;
   }
 });
 
-export default IndexPage;
+export default Olympiad;

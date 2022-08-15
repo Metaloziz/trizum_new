@@ -2,7 +2,6 @@ import React from 'react';
 
 import styles from './CheckingHomework.module.scss';
 
-import CardStudent from 'components/card-student/CardStudent';
 import ChoiceInfoList from 'components/checking-homework/choice-info/choice-info-list/ChoiceInfoList';
 import { games, homeworks } from 'components/pupil-main/consts/consts';
 import Homeworks from 'containers/homeworks/Homeworks';

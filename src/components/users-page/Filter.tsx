@@ -25,16 +25,38 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 
 import Button from '../button/Button';
 
-import { Roles } from 'app/stores/appStore';
+import { Roles, RoleNames } from 'app/stores/appStore';
+import usersStore from 'app/stores/usersStore';
 import InformationItem from 'components/information-item/InformationItem';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
 
 
-export const Filter = () => {
+const roleOptions = [
+    { label: 'Все', value: 'all' },
+    { label: RoleNames.student, value: Roles.Student },
+    { label: RoleNames.parent, value: Roles.Parent },
+    { label: RoleNames.teacherEducation, value: Roles.TeacherEducation },
+    { label: RoleNames.teacher, value: Roles.Teacher },
+    { label: RoleNames.franchiseeAdmin, value: Roles.FranchiseeAdmin },
+    { label: RoleNames.franchisee, value: Roles.Franchisee },
+    { label: RoleNames.tutor, value: Roles.Tutor },
+    { label: RoleNames.methodist, value: Roles.Methodist },
+    { label: RoleNames.admin, value: Roles.Admin },
+];
+
+interface UserPageFilterProps {
+    setIsModalOpen: (value:boolean) => void
+}
+
+export const Filter = (props:UserPageFilterProps) => {
+
+    const { users, usersTotalCount, getUsers, createUser, getOneUser, currentUser, page, perPage } = usersStore;
 
     const [open, setOpen] = useState(false);
     const [city, setCity] = React.useState('');
     const [selectedRole, setSelectedRole] = useState<Option>();
+    const [currentPage, setCurrentPage] = useState<number>(page);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const [mainData, setMainData] = React.useState<Date | null>(
         new Date('2015-08-18T21:11:54'),
@@ -51,10 +73,22 @@ export const Filter = () => {
     const [bornDate, setBornDaate] = React.useState<Date | null>(
         new Date('2014-08-18T21:11:54'),
     );
-  
+
     const handleChangeBornData = (newValue: Date | null) => {
         setBornDaate(newValue);
     };
+
+    const onSelectRole = (option: Option) => {
+        option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
+    };
+    const load = async () => {
+        await getUsers();
+        setIsLoaded(true);
+      };
+    
+      const onSearchClick = () => {
+        getUsers({ role: selectedRole?.value as Roles, page: currentPage });
+      };
 
 
     return (
@@ -69,13 +103,13 @@ export const Filter = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={4} >
                             <DesktopDatePicker
                                 label="Дата "
                                 inputFormat="DD/MM/YYYY"
                                 value={mainData}
                                 onChange={handleChangeMainData}
-                                renderInput={params => <TextField {...params} />}
+                                renderInput={params => <TextField {...params} fullWidth />}
                             />
                         </Grid>
                         <Grid item xs={12} sm={4}>
@@ -99,7 +133,7 @@ export const Filter = () => {
                                 inputFormat="DD/MM/YYYY"
                                 value={bornDate}
                                 onChange={handleChangeBornData}
-                                renderInput={(params) => <TextField {...params} />}
+                                renderInput={(params) => <TextField {...params} fullWidth />}
                             />
                         </Grid>
                         <Grid item xs={12} sm={4}>
@@ -121,72 +155,67 @@ export const Filter = () => {
                                 <InformationItem variant="select" title="Группа" />
                             )}
                         </Grid>
-                        {/* line 2 */}
                         <Grid item xs={12} sm={4}>
-                            <TextField
-                                label="Короткое наименование"
-                                // value={filter.shortName}
-                                // onChange={({ target: { value } }) =>
-                                //   setFilter(prev => ({ ...prev, shortName: value }))
-                                // }
-                                fullWidth
-                                variant="outlined"
-                                size="small"
-                            />
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Роль</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={selectedRole ? selectedRole.value : ''}
+                                    label="Роль"
+                                    onChange={onSelectRole as any}
+                                >
+                                    {roleOptions.map(option => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <TextField
-                                label="E-mail"
-                                // value={filter.email}
-                                // onChange={({ target: { value } }) => setFilter(prev => ({ ...prev, email: value }))}
-                                fullWidth
-                                variant="outlined"
-                                size="small"
-                            />
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Юр.лицо</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={city}
+                                    label="Юр.лицо"
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value={10}>ООО Современная школа</MenuItem>
+                                    <MenuItem value={20}>ООО Учись играя</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <TextField
-                                label="ИНН"
-                                // value={filter.inn}
-                                // onChange={({ target: { value } }) =>
-                                //   numberWithoutLeadingZero(value, () =>
-                                //     setFilter(prev => ({ ...prev, inn: value })),
-                                //   )
-                                // }
-                                fullWidth
-                                variant="outlined"
-                                size="small"
-                            />
+                            <TextField label="Фaмилия" fullWidth />
                         </Grid>
-                        {/* line 3 */}
                         <Grid item xs={12} sm={4}>
-                            <TextField
-                                label="Город"
-                                // value={filter.city}
-                                // onChange={({ target: { value } }) => setFilter(prev => ({ ...prev, city: value }))}
-                                fullWidth
-                                variant="outlined"
-                                size="small"
-                            />
+                            <TextField label="Имя" fullWidth />
                         </Grid>
+                        <Grid item xs={12} sm={4}>
+                            <TextField label="Отчество" fullWidth />
+                        </Grid>    
                     </Grid>
                 </AccordionDetails>
                 <AccordionActions>
-                    <Stack
-                        spacing={1}
-                        direction="row"
-                        justifyContent="space-between"
-                        sx={{
-                            width: '100%',
-                            px: 1,
-                        }}
-                    >
-                        <Button size="small">Применить</Button>
-                        <Button size="small" variant="reset" onClick={() => { setOpen(false) }}>
-                            Сбросить
-                        </Button>
-                    </Stack>
-                </AccordionActions>
+                        <Stack
+                            spacing={10}
+                            direction="row"
+                            justifyContent="space-between"
+                            sx={{
+                                 width: '100%',
+                                 px: 1,
+                                 }}>
+                                <Button size="small" onClick={onSearchClick}>
+                                Найти
+                            </Button>
+                            <Button variant="addUser" size="small" onClick={()=>props.setIsModalOpen(true)}>
+                                Добавить пользователя
+                            </Button>
+                        </Stack>
+                        </AccordionActions>
             </Accordion>
         </Box>
     );

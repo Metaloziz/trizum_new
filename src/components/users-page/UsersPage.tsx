@@ -58,7 +58,7 @@ const UsersPage = observer(() => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [currentPage, setCurrentPage] = useState<number>(page);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedRole, setSelectedRole] = useState<Option>();
 
   const onSelectRole = (option: Option) => {

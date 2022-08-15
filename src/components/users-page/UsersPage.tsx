@@ -17,7 +17,6 @@ import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
 import modals from '../../app/stores/CardStudentExtended';
-import {LoadingIndicator} from "../franchising-page/ui/LoadingIndicator";
 
 import styles from './UsersPage.module.scss';
 
@@ -126,7 +125,7 @@ const UsersPage = observer(() => {
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
 
   return !isLoaded ? (
-    <LoadingIndicator isLoading={!isLoaded} />
+      <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>
   ) : (
     <div className={styles.wrapper}>
       <div className={styles.search}>

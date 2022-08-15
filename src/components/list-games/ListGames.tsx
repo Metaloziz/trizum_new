@@ -1,6 +1,4 @@
-import { FC, useEffect, useState } from 'react';
-
-import {LoadingIndicator} from "../franchising-page/ui/LoadingIndicator";
+import React, { FC, useEffect, useState } from 'react';
 
 import styles from './ListGames.module.scss';
 
@@ -20,7 +18,7 @@ const ListGames: FC = () => {
     load();
   }, []);
   return !isLoaded ? (
-    <LoadingIndicator isLoading={!isLoaded} />
+      <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>
   ) : (
     <div className={styles.gamesContent}>
       {games.map(item => (

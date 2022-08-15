@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {LoadingIndicator} from "../../components/franchising-page/ui/LoadingIndicator";
 
 // import { AuthGuard } from 'app/common/AuthGuard';
@@ -12,7 +12,7 @@ export default () => (
   //   router.push(Routes.Index);
   // });
 
-  <LoadingIndicator isLoading={true} />
+    <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>
 );
 
 // SignOut.layout = BlankLayout;

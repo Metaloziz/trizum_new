@@ -6,8 +6,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-import {LoadingIndicator} from "../franchising-page/ui/LoadingIndicator";
-
 import styles from './HomeworkAddEditPage.module.scss';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
@@ -144,7 +142,7 @@ const HomeworkAddEditPage = observer(() => {
   }, []);
 
   return !isLoaded ? (
-      <LoadingIndicator isLoading={!isLoaded} />
+      <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>
   ) : (
     <div className={styles.content}>
       <div className={styles.innerContent}>

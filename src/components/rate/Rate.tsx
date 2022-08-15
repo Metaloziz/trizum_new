@@ -5,7 +5,6 @@ import Pagination from '@mui/material/Pagination';
 import { observer } from 'mobx-react-lite';
 
 import tariffsStore from '../../app/stores/tariffsStore';
-import {LoadingIndicator} from "../franchising-page/ui/LoadingIndicator";
 import { newstatus } from '../tariff-page/TariffPage';
 
 import AddOrEditDialog from './AddOrEditDialog';
@@ -47,7 +46,7 @@ const Rate = observer(() => {
   };
 
   return loading ? (
-    <LoadingIndicator isLoading={loading} />
+      <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>
   ) : (
     <div className={styles.counter}>
       <AddOrEditDialog store={tariffsStore} />

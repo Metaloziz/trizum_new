@@ -1,6 +1,4 @@
-import { FC, ReactNode } from 'react';
-
-import {LoadingIndicator} from "../franchising-page/ui/LoadingIndicator";
+import React, { FC, ReactNode } from 'react';
 
 import styles from './Table.module.scss';
 
@@ -32,7 +30,7 @@ interface Props {
 const Table: FC<Props> = props => {
   const { list, colNames, loading, children } = props;
   if (loading) {
-    return <LoadingIndicator isLoading={loading} />;
+    return <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>;
   }
   return (
     <div className={styles.tableContent}>

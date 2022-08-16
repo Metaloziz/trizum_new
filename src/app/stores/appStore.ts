@@ -107,6 +107,29 @@ class AppStore {
 
   setRole = (role: Roles): void => {
     this.role = role;
+    if (role === Roles.Unauthorized) {
+      this.user.id = '';
+      this.user.firstName = '';
+      this.user.middleName = '';
+      this.user.lastName = '';
+      this.user.email = '';
+      this.user.phone = '';
+      this.user.role = '';
+      this.user.franchise = '';
+      this.user.city = '';
+      this.user.birthdate = {
+        date: '',
+        timezone_type: 0,
+        timezone: '',
+      };
+      this.user.sex = '';
+      this.user.status = '';
+      this.user.avatar = {
+        id: '',
+        path: '',
+      };
+      this.user.canSwitchTo = [];
+    }
   };
 
   setUser = async () => {

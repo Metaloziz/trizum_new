@@ -41,9 +41,6 @@ class UsersStore {
     const res = await usersService.getUsersForFilters(params);
     runInAction(() => {
       this.users = res.items;
-      this.usersTotalCount = res.total;
-      this.perPage = res.perPage;
-      this.page = Number(res.page);
     });
   };
 

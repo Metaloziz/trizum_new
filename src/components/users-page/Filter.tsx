@@ -91,7 +91,8 @@ export const Filter = (props:UserPageFilterProps) => {
       };
     
       const onSearchClick = () => {
-          getUsersForFilter({ role: selectedRole?.value as Roles, page: currentPage, lastName: 'Админ'});
+          getUsersForFilter({ role: selectedRole?.value as Roles,
+              lastName: lastName, });
       };
 
 
@@ -192,14 +193,30 @@ export const Filter = (props:UserPageFilterProps) => {
                                 </Select>
                             </FormControl>
                         </Grid>
+
                         <Grid item xs={12} sm={4}>
-                            <TextField label="Фaмилия" fullWidth />
+                            <TextField
+                                label="Фaмилия"
+                                fullWidth
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <TextField label="Имя" fullWidth />
+                            <TextField
+                                label="Имя"
+                                fullWidth
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <TextField label="Отчество" fullWidth />
+                            <TextField
+                                label="Отчество"
+                                fullWidth
+                                value={middleName}
+                                onChange={(e) => setMiddleName(e.target.value)}
+                            />
                         </Grid>    
                     </Grid>
                 </AccordionDetails>

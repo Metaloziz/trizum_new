@@ -11,15 +11,17 @@ import { DropDownStudents } from 'components/drop-down-student/DropDownStudents'
 import Image from 'components/image/Image';
 
 const Account: FC = observer(() => {
-  const { user } = appStore;
+  const { user, setRole } = appStore;
+
   const [isOpenChangeStudentModal, setIsOpenChangeStudentModal] = useState<boolean>(false);
+
   const toggleChangeStudentModal = () => {
     user.canSwitchTo.length > 0 && setIsOpenChangeStudentModal(!isOpenChangeStudentModal);
   };
 
   // const { Signout } = Routes;
   const activeNotification = true;
-  const { setRole } = appStore;
+
   const logout = async () => {
     await tokenService.removeUser();
     setRole(Roles.Unauthorized);
@@ -33,6 +35,7 @@ const Account: FC = observer(() => {
       console.warn(e);
     }
   }, []);
+
   return (
     <div className={styles.container}>
       <button onClick={toggleChangeStudentModal} className={styles.avatar}>

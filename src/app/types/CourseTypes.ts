@@ -1,4 +1,4 @@
-import { TimeZoneType } from 'app/types/AuthTypes';
+import { TimeZoneType } from 'app/types/TimeZoneType';
 
 export type ResponseWork = {
   id: string;

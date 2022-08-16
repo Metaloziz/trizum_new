@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -24,7 +24,6 @@ import { DateTime } from 'app/enums/DateTime';
 import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
 import Button from 'components/button/Button';
-import CardStudent from 'components/card-student/CardStudent';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
 import BlockGames from 'components/classes-page/block-games/BlockGames';
 import SearchBar from 'components/classes-page/search-bar/SearchBar';
@@ -188,11 +187,9 @@ const ClassesPage = observer(() => {
               <BlockGames />
             </div>
             <div className={styles.blockCardStudents}>
-              {visibleGroup &&
-                !!visibleGroup.users.length &&
-                visibleGroup.users.map(user => (
-                  <CardStudent key={user.user.id} user={user.user} />
-                ))}
+              {/* {visibleGroup && // todo закомментировано после изменения типа user при loadMe */}
+              {/*  !!visibleGroup.users.length && */}
+              {/*  visibleGroup.users.map(user => <CardStudent key={user.user.id} user={user.user} />)} */}
             </div>
           </div>
         )}

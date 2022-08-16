@@ -4,8 +4,8 @@ import { StatusTypes } from 'app/enums/StatusTypes';
 import { testsService } from 'app/services/testsService';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
 import { ContentIDT, OneTestT, PreviewTestT } from 'app/types/TestsT';
+import { FIRST_ARRAY_ITEM } from 'constants/constants';
 import { addIdElements } from 'utils/addIdElements';
-import { FIRST_ARRAY_ITEM } from 'utils/consts/consts';
 import { executeError } from 'utils/executeError';
 
 class TestsStore {

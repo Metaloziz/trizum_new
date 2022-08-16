@@ -3,19 +3,16 @@ import React, { FC, useEffect, useState } from 'react';
 import { FormControl, Grid, InputLabel, Select, TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
-import styles from './AddEditGroup.module.scss';
-
 import { GroupEnums, GroupType } from 'app/enums/GroupEnums';
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
 import usersService from 'app/services/usersService';
 import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
-import { GroupT, LevelGroupT } from 'app/types/GroupTypes';
+import { StatusT } from 'app/types/StatusT';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
-import { getOption, getOptionMui } from 'utils/getOption';
+import { getOptionMui } from 'utils/getOption';
 
 interface Props {}
 
@@ -164,7 +161,7 @@ const AddEditGroup: FC<Props> = observer(props => {
                 labelId="status"
                 label="Статус"
                 fullWidth
-                onChange={(event, child) => (modalFields.status = event.target.value)}
+                onChange={(event, child) => (modalFields.status = event.target.value as StatusT)}
                 value={modalFields.status}
               >
                 {statusOptions}

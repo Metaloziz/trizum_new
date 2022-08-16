@@ -22,15 +22,19 @@ const func = (isTester: boolean, isAnalytic: boolean) => {
 const Login = () => {
   const [isTester, setIsTester] = useState(false);
   const [isAnalytic, setIsAnalytic] = useState(false);
+
   const resetRole = () => {
     setIsAnalytic(false);
     setIsTester(false);
   };
+
   const [phone, setPhone] = useState('79601001010');
+
   const qwe = (role: Roles) => {
     switch (role) {
       case Roles.Student:
-        setPhone(`${func(isTester, isAnalytic)}8008080`);
+        // setPhone(`${func(isTester, isAnalytic)}8008080`);
+        setPhone(`71119009103`); // todo зафиксировано для разработки главной страницы студента
         break;
       case Roles.TeacherEducation:
         setPhone(`${func(isTester, isAnalytic)}7007070`);
@@ -57,15 +61,18 @@ const Login = () => {
         setPhone('79601001010');
     }
   };
+
   const onClick = async () => {
     try {
       await authService.login({ phone, smsCode: 7777 });
-      const userData = await authService.loadme();
-      appStore.setRole(userData.role as Roles);
+      // const userData = await authService.loadme();
+      // await appStore.setRole(userData.role as Roles);
+      await appStore.setUser();
     } catch (e) {
       console.warn(e);
     }
   };
+
   const [code, setCode] = useState<string>('');
   const [showModal1, setShowModal1] = useState<boolean>(false);
   const [showModal2, setShowModal2] = useState<boolean>(false);
@@ -73,6 +80,7 @@ const Login = () => {
   const [erorr, setErorr] = useState<boolean>(false);
   const [seconds, setSeconds] = useState<number>(150);
   const [timerActive, setTimerActive] = useState<boolean>(false);
+
   useEffect(() => {
     if (seconds > 0 && timerActive) {
       setTimeout(setSeconds, 150, seconds - 1);
@@ -90,6 +98,7 @@ const Login = () => {
     const getSMSCode = await authService.sms({ phone });
     console.log('код по смс', getSMSCode);
   };
+
   const sendCode = async () => {
     try {
       const getToken = await authService.login({ phone, smsCode: Number(code) });
@@ -118,6 +127,7 @@ const Login = () => {
     setTimerActive(false);
     setErorr(false);
   };
+
   function filterWords(
     number: number,
     one: string | number,
@@ -138,9 +148,11 @@ const Login = () => {
     }
     return five;
   }
+
   if (appStore.role !== Roles.Unauthorized) {
     return <Navigate to={AppRoutes.Index} />;
   }
+
   return (
     <div className={styles.flex}>
       {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}

@@ -7,7 +7,9 @@ import iconParrot from '../../../assets/svgs/parrot.svg';
 
 import styles from './CardStudentForUser.module.scss';
 
-import { EmptyUser, Roles } from 'app/stores/appStore';
+import { Roles } from 'app/stores/appStore';
+import usersStore from 'app/stores/usersStore';
+import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
 import iconFlag from 'assets/svgs/icon-flag.svg';
 import iconMonkey from 'assets/svgs/monkey.svg';
 import iconTelegram from 'assets/svgs/telegram.svg';
@@ -20,11 +22,12 @@ import Image from 'components/image/Image';
 import Avatar from 'public/img/avatarDefault.png';
 
 type Props = {
-  user: EmptyUser;
+  user: ResponseLoadMeBaseT;
 };
 
 const CardStudentForStudent: FC<Props> = ({ user }) => {
-  const { firstName, middleName, lastName, role, avatar, city, phone } = user;
+  const { firstName, middleName, lastName, role, avatar, city, phone, groups } = user;
+  const { getFullUserName } = usersStore;
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -64,7 +67,7 @@ const CardStudentForStudent: FC<Props> = ({ user }) => {
                 </span>
                 Учитель:
               </li>
-              <li>Евсеев Виктор Петрович</li>
+              <li>{getFullUserName}</li>
             </ul>
             <ul className={styles.list}>
               <li>

@@ -93,5 +93,13 @@ class UsersStore {
     }
     return undefined;
   };
+
+  get getFullUserName() {
+    const result = `${this.currentUser?.middleName}" "${this.currentUser?.firstName}" "${this.currentUser?.lastName}`;
+
+    if (result) return 'default name';
+
+    return result;
+  }
 }
 export default new UsersStore();

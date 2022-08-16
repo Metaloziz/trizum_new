@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 
-import { EmptyUser, Roles } from 'app/stores/appStore';
+import { Roles } from 'app/stores/appStore';
+import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
 import CardStudentForTeacher from 'components/card-student/card-student-for-teacher/CardStudentForTeacher';
 import CardStudentForStudent from 'components/card-student/card-student-for-user/CardStudentForStudent';
 
 interface Props {
-  user: EmptyUser;
+  user: ResponseLoadMeBaseT;
 }
 
 const CardStudent: FC<Props> = props => {

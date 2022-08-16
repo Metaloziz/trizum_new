@@ -1,12 +1,12 @@
 import usersService from 'app/services/usersService';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
-import { ParentT, RequestParenting } from 'app/types/UserTypes';
+import { ParentDataT, RequestParenting } from 'app/types/UserTypes';
 import { setErrorFormMessage } from 'utils/setErrorFormMessage';
 
 export const action = async (
   setIsDisable: (value: boolean) => void,
-  parent: ParentT | undefined,
+  parent: ParentDataT | undefined,
   newParent: RequestRegister,
   setError: any,
   studentId: string,

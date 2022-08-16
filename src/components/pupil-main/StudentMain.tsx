@@ -12,7 +12,7 @@ import styles from 'pages/home/Home.module.scss';
 
 export const StudentMain: FC = observer(() => {
   const { user } = appStore;
-  // todo draft
+  console.log('appStore', [user]);
   return (
     <main className={styles.main}>
       <CardStudent user={user} />

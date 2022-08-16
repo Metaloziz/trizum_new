@@ -1,6 +1,6 @@
 import { StatusTypes } from 'app/enums/StatusTypes';
-import { TimeZoneType } from 'app/types/AuthTypes';
 import { IdType } from 'app/types/IdType';
+import { TimeZoneType } from 'app/types/TimeZoneType';
 
 export type ContentT = {
   type: StatusTypes;

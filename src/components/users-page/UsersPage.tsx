@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import {
   FormControl,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -11,8 +10,6 @@ import {
 } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { DesktopDatePicker } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -20,7 +17,8 @@ import modals from '../../app/stores/CardStudentExtended';
 
 import styles from './UsersPage.module.scss';
 
-import { RoleNames, Roles } from 'app/stores/appStore';
+import { RoleNames } from 'app/enums/RoleNames';
+import { Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
 import tariffsStore from 'app/stores/tariffsStore';
@@ -30,8 +28,7 @@ import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import CardStudentExtended from 'components/card-student/card-student-extended/CardStudentExtended';
 import InformationItem from 'components/information-item/InformationItem';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
-import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
+import { Option } from 'components/select/CustomSelect';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
 
@@ -99,17 +96,13 @@ const UsersPage = observer(() => {
     setCity(event.target.value);
   };
 
-  const [mainData, setMainData] = React.useState<Date | null>(
-      new Date('2015-08-18T21:11:54'),
-  );
+  const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
 
   const handleChangeMainData = (newValue: Date | null) => {
     setMainData(newValue);
   };
 
-  const [value, setValue] = React.useState<Date | null>(
-      new Date('2014-08-18T21:11:54'),
-  );
+  const [value, setValue] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
 
   const handleChangeBornData = (newValue: Date | null) => {
     setValue(newValue);
@@ -131,13 +124,13 @@ const UsersPage = observer(() => {
       <div className={styles.search}>
         <div className={styles.column}>
           {/* <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" /> */}
-            <DesktopDatePicker
-              label="Дата "
-              inputFormat="dd/MM/yyyy"
-              value={mainData}
-              onChange={handleChangeMainData}
-              renderInput={params => <TextField {...params} />}
-            />
+          <DesktopDatePicker
+            label="Дата "
+            inputFormat="dd/MM/yyyy"
+            value={mainData}
+            onChange={handleChangeMainData}
+            renderInput={params => <TextField {...params} />}
+          />
           {/* <InformationItem variant="calendar" title="Дата" dataAuto="date" /> */}
           {/* <InformationItem variant="select" title="Выполнил Д/З" /> */}
           {/* <InformationItem variant="select" title="Город" /> */}
@@ -215,16 +208,16 @@ const UsersPage = observer(() => {
           </FormControl>
         </div>
         <div className={cn(styles.column, styles.flexColumn)}>
-            {/* <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" /> */}
-            <DesktopDatePicker
-                label="Дата рождения"
-                inputFormat="dd/MM/yyyy"
-                value={value}
-                onChange={handleChangeBornData}
-                renderInput={(params) => <TextField {...params} />}
-            />
-            {/* <InformationItem variant="input" title="ФИО" /> */}
-            <TextField label="ФИО" />
+          {/* <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" /> */}
+          <DesktopDatePicker
+            label="Дата рождения"
+            inputFormat="dd/MM/yyyy"
+            value={value}
+            onChange={handleChangeBornData}
+            renderInput={params => <TextField {...params} />}
+          />
+          {/* <InformationItem variant="input" title="ФИО" /> */}
+          <TextField label="ФИО" />
           <div className={styles.buttons}>
             <Button size="small" onClick={onSearchClick}>
               Найти

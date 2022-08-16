@@ -9,14 +9,10 @@ import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
 import { ResponseCourse } from 'app/types/CourseTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
-import {
-  CreateGroup,
-  GroupParams,
-  GroupT,
-  LevelGroupT,
-  ResponseGroups,
-  ResponseOneGroup,
-} from 'app/types/GroupTypes';
+import { GroupT } from 'app/types/GroupT';
+import { CreateGroup, GroupParams, ResponseGroups, ResponseOneGroup } from 'app/types/GroupTypes';
+import { LevelT } from 'app/types/LevelT';
+import { StatusT } from 'app/types/StatusT';
 import { RequestUsersParams, ResponseUserT } from 'app/types/UserTypes';
 import { GroupsViewModel } from 'app/viewModels/GroupsViewModel';
 
@@ -194,7 +190,7 @@ class GroupStore {
       // const r = await this.getOneGroup(id);
       this.selectedGroup = r;
       this.modalFields = {
-        level: (r.level as LevelGroupT) || '',
+        level: (r.level as LevelT) || '',
         franchiseId: r.franchise || '',
         type: (r.type as GroupT) || '',
         courseId: r.course || '',
@@ -202,7 +198,7 @@ class GroupStore {
         name: r.name,
         dateSince: r.startedAt.date,
         dateUntil: r.endedAt.date,
-        status: r.status || '',
+        status: (r.status as StatusT) || 'draft',
       };
     }
     this.isModalOpen = true;

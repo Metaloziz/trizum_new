@@ -1,11 +1,14 @@
 /* eslint-disable max-classes-per-file */
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { RequestSwitchUser, ResponseLoadMe } from '../types/AuthTypes';
+import { RequestSwitchUser } from '../types/AuthTypes';
 
 import authService from 'app/services/authService';
-import { TimeZoneType } from 'app/types/AuthTypes';
+import usersStore from 'app/stores/usersStore';
+import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
+import { TimeZoneType } from 'app/types/TimeZoneType';
 import { canSwitchToT } from 'app/types/UserTypes';
+import { defaultUser } from 'constants/defaultUser';
 
 export enum Roles {
   /* Ученик */
@@ -29,18 +32,6 @@ export enum Roles {
   /* Неавторизованный */
   Unauthorized = 'unauthorized',
 }
-
-export const RoleNames = {
-  student: 'Ученик',
-  parent: 'Родитель',
-  teacherEducation: 'Учитель на обучении',
-  teacher: 'Учитель',
-  franchiseeAdmin: 'Администратор франчайзи',
-  franchisee: 'Франчайзи',
-  methodist: 'Методист',
-  tutor: 'Куратор',
-  admin: 'Центр',
-};
 
 export class EmptyUser {
   id;
@@ -99,7 +90,7 @@ export class EmptyUser {
 class AppStore {
   role: Roles = Roles.Unauthorized;
 
-  user = new EmptyUser();
+  user: ResponseLoadMeBaseT = defaultUser;
 
   constructor() {
     makeAutoObservable(this);
@@ -111,11 +102,16 @@ class AppStore {
 
   setUser = async () => {
     try {
-      const res: ResponseLoadMe = await authService.loadme();
+      const res: ResponseLoadMeBaseT = await authService.loadme();
       console.log(res);
       runInAction(() => {
         this.role = res.role as Roles;
         this.user = res;
+
+        if (res.role === Roles.Student && !!res.groups) {
+          const { teacherId } = res.groups[0].group;
+          usersStore.getOneUser(teacherId);
+        }
       });
     } catch (e) {
       console.log(e);

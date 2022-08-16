@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { SexEnum } from 'app/enums/CommonEnums';
 import { Roles } from 'app/stores/appStore';
 import { RequestRegister } from 'app/types/AuthTypes';
-import { ParentT } from 'app/types/UserTypes';
+import { ParentDataT } from 'app/types/UserTypes';
 import iconMedal from 'assets/svgs/medal.svg';
 import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
@@ -18,9 +18,9 @@ import styles from 'components/users-page/student-parents-form/StudentParentsFor
 import { action } from 'components/users-page/student-parents-form/utils/action';
 import { sexOptions } from 'components/users-page/student-parents-form/utils/sexOptions';
 import { MAIN_PARENT_ID } from 'components/users-page/student-parrents-form-container/store/store';
+import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'constants/constants';
+import { REG_NAME, REG_PHONE } from 'constants/regExp';
 import user from 'public/svgs/user.svg';
-import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
-import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
 
 type Props = {
   localParentFormID: number;
@@ -29,7 +29,7 @@ type Props = {
   isMainParent: boolean;
   setIsMainParent: (value: boolean, id: number) => void;
   setIsSubmitSuccessful: (isSuccess: boolean, id: number) => void;
-  parent?: ParentT;
+  parent?: ParentDataT;
   isSubmitAnyForm: boolean;
 };
 

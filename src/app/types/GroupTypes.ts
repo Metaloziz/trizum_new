@@ -1,18 +1,18 @@
-import { TimeZoneType } from './AuthTypes';
-
-import { GroupLevels } from 'app/enums/GroupLevels';
-import { GroupType } from 'app/enums/GroupTypes';
-import { EmptyUser } from 'app/stores/appStore';
-import { FranchiseT } from 'app/types/FranchiseTypes';
+import { FranchiseShortT, FranchiseT } from 'app/types/FranchiseTypes';
+import { GroupT } from 'app/types/GroupT';
+import { LevelT } from 'app/types/LevelT';
 import { Nullable } from 'app/types/Nullable';
-import { ResponseUserT } from 'app/types/UserTypes';
+import { ResponseOneUserTypeForLoadMe } from 'app/types/ResponseLoadMeBaseT';
+import { ScheduleT } from 'app/types/ScheduleT';
+import { StatusT } from 'app/types/StatusT';
+import { TimeZoneType } from 'app/types/TimeZoneType';
 
 export type ResponseGroups = {
   id: string;
   name: string;
   type: Nullable<string>;
   status: Nullable<string>;
-  level: Nullable<string>;
+  level: LevelT;
   startedAt: TimeZoneType;
   endedAt: TimeZoneType;
   createdAt: TimeZoneType;
@@ -21,28 +21,33 @@ export type ResponseGroups = {
   teacherId: string;
 };
 
+type LocalUserT = ResponseOneUserTypeForLoadMe & {
+  // course: any[];
+  franchise: FranchiseShortT;
+  active: boolean;
+  payed: boolean;
+};
+
+type UsersDataT = {
+  id: string;
+  stats: StatusT[];
+  user: LocalUserT;
+};
+
 export type ResponseOneGroup = {
   id: string;
   name: string;
-  type: string;
-  status: string;
-  level: string;
+  type: GroupT;
+  status: StatusT;
+  level: LevelT;
   startedAt: TimeZoneType;
   endedAt: TimeZoneType;
-  franchise: FranchiseT;
   course: any;
-  teacherId: any;
-  users: [
-    {
-      id: string;
-      stats: any[];
-      user: EmptyUser;
-    },
-  ];
+  franchise: FranchiseT;
+  users: UsersDataT[];
+  schedule: ScheduleT[];
+  teacherId: string;
 };
-
-export type GroupT = keyof typeof GroupType;
-export type LevelGroupT = keyof typeof GroupLevels;
 
 export type CreateGroup = {
   name: string;
@@ -51,9 +56,9 @@ export type CreateGroup = {
   dateUntil: string;
   type: GroupT;
   teacherId: string;
-  level: LevelGroupT;
+  level: LevelT;
   courseId: string;
-  status: string;
+  status: StatusT;
 };
 
 export type GroupParams = Partial<{

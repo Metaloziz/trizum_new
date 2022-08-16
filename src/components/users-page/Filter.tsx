@@ -50,13 +50,17 @@ interface UserPageFilterProps {
 
 export const Filter = (props:UserPageFilterProps) => {
 
-    const { users, usersTotalCount, getUsers, createUser, getOneUser, currentUser, page, perPage } = usersStore;
+    const { users, usersTotalCount, getUsers, getUsersForFilter, createUser, getOneUser, currentUser, page, perPage } = usersStore;
 
     const [open, setOpen] = useState(false);
     const [city, setCity] = React.useState('');
     const [selectedRole, setSelectedRole] = useState<Option>();
     const [currentPage, setCurrentPage] = useState<number>(page);
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [middleName, setMiddleName] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
+
 
     const [mainData, setMainData] = React.useState<Date | null>(
         new Date('2015-08-18T21:11:54'),
@@ -87,7 +91,7 @@ export const Filter = (props:UserPageFilterProps) => {
       };
     
       const onSearchClick = () => {
-        getUsers({ role: selectedRole?.value as Roles, page: currentPage });
+          getUsersForFilter({ role: selectedRole?.value as Roles, page: currentPage, lastName: 'Админ'});
       };
 
 

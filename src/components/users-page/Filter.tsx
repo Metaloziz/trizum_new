@@ -91,7 +91,7 @@ export const Filter = (props:UserPageFilterProps) => {
       };
     
       const onSearchClick = () => {
-          getUsersForFilter({ role: selectedRole?.value as Roles, page: currentPage,
+          getUsersForFilter({ role: selectedRole?.value as Roles, perPage:perPage, page: currentPage,
               lastName: lastName, firstName: firstName, middleName: middleName, });
       };
 

@@ -25,15 +25,15 @@ const usersService = {
   getUsersForFilters: async (params?: RequestUsersForFilter): Promise<FullResponseUserT> => {
     const res = await instance.get(Paths.Users, {
       params: {
-        page: params?.page,
-        role: params?.role,
-        per_page: params?.perPage,
-        franchise_id: params?.franchiseId,
-        first_name: params?.firstName,
-        middle_name: params?.middleName,
-        last_name: params?.lastName,
-        city: params?.city,
-        birthdate: params?.birthdate,
+        page: params?.page || undefined,
+        role: params?.role || undefined,
+        per_page: params?.perPage || undefined,
+        franchise_id: params?.franchiseId || undefined,
+        first_name: params?.firstName || undefined,
+        middle_name: params?.middleName || undefined,
+        last_name: params?.lastName || undefined,
+        city: params?.city || undefined,
+        birthdate: params?.birthdate || undefined,
       },
     });
     return res.data;

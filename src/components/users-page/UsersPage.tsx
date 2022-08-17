@@ -17,6 +17,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
 import modals from '../../app/stores/CardStudentExtended';
+import {Loader} from "../loader/Loader";
 
 import styles from './UsersPage.module.scss';
 
@@ -125,96 +126,96 @@ const UsersPage = observer(() => {
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
 
   return !isLoaded ? (
-      <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>
+      <Loader />
   ) : (
-    <div className={styles.wrapper}>
-      <div className={styles.search}>
-        <div className={styles.column}>
-          {/* <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" /> */}
+      <div className={styles.wrapper}>
+        <div className={styles.search}>
+          <div className={styles.column}>
+            {/* <TextFieldCalendar label="Дата" onChange={setDate} dataAuto="" /> */}
             <DesktopDatePicker
-              label="Дата "
-              inputFormat="dd/MM/yyyy"
-              value={mainData}
-              onChange={handleChangeMainData}
-              renderInput={params => <TextField {...params} />}
+                label="Дата "
+                inputFormat="dd/MM/yyyy"
+                value={mainData}
+                onChange={handleChangeMainData}
+                renderInput={params => <TextField {...params} />}
             />
-          {/* <InformationItem variant="calendar" title="Дата" dataAuto="date" /> */}
-          {/* <InformationItem variant="select" title="Выполнил Д/З" /> */}
-          {/* <InformationItem variant="select" title="Город" /> */}
-          {/* <Select placeholder="Город" /> */}
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Город</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={city}
-              label="Город"
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Москва</MenuItem>
-              <MenuItem value={20}>Санкт-Петербург</MenuItem>
-              <MenuItem value={30}>Красноярск</MenuItem>
-            </Select>
-          </FormControl>
-          {selectedRole && (selectedRole.value as Roles) === Roles.Student && (
-            <InformationItem variant="select" title="Группа" />
-          )}
-        </div>
-        <div className={styles.column}>
-          {/* <InformationItem variant="select" title="Оплачен" /> */}
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Оплачен</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={city}
-              label="Город"
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Оплачен</MenuItem>
-              <MenuItem value={20}>Неоплачен</MenuItem>
-            </Select>
-          </FormControl>
-          {/* <CustomSelect */}
-          {/*  onChange={onSelectRole} */}
-          {/*  value={selectedRole} */}
-          {/*  title="Роль" */}
-          {/*  options={roleOptions} */}
-          {/* /> */}
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Роль</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedRole ? selectedRole.value : ''}
-              label="Роль"
-              onChange={onSelectRole as any}
-            >
-              {roleOptions.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          {/* <InformationItem variant="select" title="Роль" /> */}
-          {/* <InformationItem variant="select" title="Статус" /> */}
-          {/* <InformationItem variant="select" title="Юр.лицо" /> */}
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Юр.лицо</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={city}
-              label="Юр.лицо"
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>ООО Современная школа</MenuItem>
-              <MenuItem value={20}>ООО Учись играя</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <div className={cn(styles.column, styles.flexColumn)}>
+            {/* <InformationItem variant="calendar" title="Дата" dataAuto="date" /> */}
+            {/* <InformationItem variant="select" title="Выполнил Д/З" /> */}
+            {/* <InformationItem variant="select" title="Город" /> */}
+            {/* <Select placeholder="Город" /> */}
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Город</InputLabel>
+              <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={city}
+                  label="Город"
+                  onChange={handleChange}
+              >
+                <MenuItem value={10}>Москва</MenuItem>
+                <MenuItem value={20}>Санкт-Петербург</MenuItem>
+                <MenuItem value={30}>Красноярск</MenuItem>
+              </Select>
+            </FormControl>
+            {selectedRole && (selectedRole.value as Roles) === Roles.Student && (
+                <InformationItem variant="select" title="Группа" />
+            )}
+          </div>
+          <div className={styles.column}>
+            {/* <InformationItem variant="select" title="Оплачен" /> */}
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Оплачен</InputLabel>
+              <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={city}
+                  label="Город"
+                  onChange={handleChange}
+              >
+                <MenuItem value={10}>Оплачен</MenuItem>
+                <MenuItem value={20}>Неоплачен</MenuItem>
+              </Select>
+            </FormControl>
+            {/* <CustomSelect */}
+            {/*  onChange={onSelectRole} */}
+            {/*  value={selectedRole} */}
+            {/*  title="Роль" */}
+            {/*  options={roleOptions} */}
+            {/* /> */}
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Роль</InputLabel>
+              <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={selectedRole ? selectedRole.value : ''}
+                  label="Роль"
+                  onChange={onSelectRole as any}
+              >
+                {roleOptions.map(option => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {/* <InformationItem variant="select" title="Роль" /> */}
+            {/* <InformationItem variant="select" title="Статус" /> */}
+            {/* <InformationItem variant="select" title="Юр.лицо" /> */}
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Юр.лицо</InputLabel>
+              <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={city}
+                  label="Юр.лицо"
+                  onChange={handleChange}
+              >
+                <MenuItem value={10}>ООО Современная школа</MenuItem>
+                <MenuItem value={20}>ООО Учись играя</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+          <div className={cn(styles.column, styles.flexColumn)}>
             {/* <InformationItem variant="calendar" title="Дата рождения" dataAuto="birthDate" /> */}
             <DesktopDatePicker
                 label="Дата рождения"
@@ -225,51 +226,51 @@ const UsersPage = observer(() => {
             />
             {/* <InformationItem variant="input" title="ФИО" /> */}
             <TextField label="ФИО" />
-          <div className={styles.buttons}>
-            <Button size="small" onClick={onSearchClick}>
-              Найти
-            </Button>
-            <Button variant="addUser" size="small" onClick={() => setIsModalOpen(true)}>
-              Добавить пользователя
-            </Button>
+            <div className={styles.buttons}>
+              <Button size="small" onClick={onSearchClick}>
+                Найти
+              </Button>
+              <Button variant="addUser" size="small" onClick={() => setIsModalOpen(true)}>
+                Добавить пользователя
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.cardWrapper}>
-        {users.map(user => (
-          <CardStudentExtended
-            getOneUser={getOneUser}
-            key={user.id}
-            user={user}
-            onEditUserClick={onEditUserClick}
+        <div className={styles.cardWrapper}>
+          {users.map(user => (
+              <CardStudentExtended
+                  getOneUser={getOneUser}
+                  key={user.id}
+                  user={user}
+                  onEditUserClick={onEditUserClick}
+              />
+          ))}
+        </div>
+        <div className={styles.pagination}>
+          <Pagination
+              count={Math.floor(usersTotalCount / perPage)}
+              color="primary"
+              size="large"
+              page={currentPage}
+              defaultValue={0}
+              boundaryCount={1}
+              onChange={onPageChange}
           />
-        ))}
+        </div>
+        <BasicModal visibility={modals.isParents} changeVisibility={() => modals.changeParents()}>
+          <StudentPageFranchiseeModalParents />
+        </BasicModal>
+        <BasicModal visibility={isModalOpen} changeVisibility={setIsModalOpen}>
+          <StudentPageFranchiseeModalAddUser onCloseModal={() => setIsModalOpen(false)} />
+        </BasicModal>
+        <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
+          {/* <StudentPageFranchiseeModalSetting /> */}
+          <StudentPageFranchiseeModalAddUser
+              onCloseModal={() => modals.changeSetting()}
+              user={currentUser}
+          />
+        </BasicModal>
       </div>
-      <div className={styles.pagination}>
-        <Pagination
-          count={Math.floor(usersTotalCount / perPage)}
-          color="primary"
-          size="large"
-          page={currentPage}
-          defaultValue={0}
-          boundaryCount={1}
-          onChange={onPageChange}
-        />
-      </div>
-      <BasicModal visibility={modals.isParents} changeVisibility={() => modals.changeParents()}>
-        <StudentPageFranchiseeModalParents />
-      </BasicModal>
-      <BasicModal visibility={isModalOpen} changeVisibility={setIsModalOpen}>
-        <StudentPageFranchiseeModalAddUser onCloseModal={() => setIsModalOpen(false)} />
-      </BasicModal>
-      <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
-        {/* <StudentPageFranchiseeModalSetting /> */}
-        <StudentPageFranchiseeModalAddUser
-          onCloseModal={() => modals.changeSetting()}
-          user={currentUser}
-        />
-      </BasicModal>
-    </div>
   );
 });
 

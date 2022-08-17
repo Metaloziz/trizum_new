@@ -1,5 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 
+import {Loader} from "../loader/Loader";
+
 import styles from './Table.module.scss';
 
 
@@ -30,7 +32,7 @@ interface Props {
 const Table: FC<Props> = props => {
   const { list, colNames, loading, children } = props;
   if (loading) {
-    return <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>;
+    return <Loader />;
   }
   return (
     <div className={styles.tableContent}>

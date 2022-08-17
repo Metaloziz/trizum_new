@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
+import {Loader} from "../loader/Loader";
+
 import styles from './ListGames.module.scss';
 
 import gamesStore from 'app/stores/gamesStore';
@@ -18,7 +20,7 @@ const ListGames: FC = () => {
     load();
   }, []);
   return !isLoaded ? (
-      <video autoPlay loop muted src={require("../../assets/videos/loader.MP4")}/>
+      <Loader />
   ) : (
     <div className={styles.gamesContent}>
       {games.map(item => (

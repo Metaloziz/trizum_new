@@ -41,7 +41,7 @@ const HomeworkAddEditPage = observer(() => {
   const [gameOptions, setGameOptions] = useState<Option[]>([]);
 
   useEffect(() => {
-    setGameOptions(games.map(g => getOption(g[0].name, g[0].name)));
+    setGameOptions(games.map(g => getOption(g[0], g[0])));
   }, [games]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [description, setDescription] = useState('');

@@ -10,6 +10,7 @@ import OlympiadsPage from 'components/olympiads-page';
 const Olympiads: FC = observer(() => {
   switch (appStore.role) {
     case Roles.Methodist:
+    case Roles.Student:
       return <OlympiadsPage />;
     default:
       return <Navigate to={AppRoutes.Index} />;

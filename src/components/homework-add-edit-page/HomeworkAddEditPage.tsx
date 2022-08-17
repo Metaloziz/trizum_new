@@ -129,7 +129,7 @@ const HomeworkAddEditPage = observer(() => {
     // presetsAr = [];
     // reset({});
     // setGamePresetAmount(DEFAULT_GAME_PRESET_AMOUNT);
-    // helper();
+    // getNearestLessonDateHelper();
     // setActualGames([...games]);
   };
 

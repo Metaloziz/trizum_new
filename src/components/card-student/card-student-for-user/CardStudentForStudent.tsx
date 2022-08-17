@@ -6,6 +6,7 @@ import iconTablet from '../../../assets/svgs/icon-tablet.svg';
 import iconParrot from '../../../assets/svgs/parrot.svg';
 
 import styles from './CardStudentForUser.module.scss';
+import { getNearestLessonDateHelper } from './getNearestLessonDateHelper/getNearestLessonDateHelper';
 
 import { Roles } from 'app/stores/appStore';
 import usersStore from 'app/stores/usersStore';
@@ -28,6 +29,8 @@ type Props = {
 const CardStudentForStudent: FC<Props> = ({ user }) => {
   const { firstName, middleName, lastName, role, avatar, city, phone, groups } = user;
   const { getFullUserName } = usersStore;
+
+  const nearestLessonDate = getNearestLessonDateHelper(groups);
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -76,7 +79,7 @@ const CardStudentForStudent: FC<Props> = ({ user }) => {
                 </span>
                 Следующее занятие:
               </li>
-              <li>01.02.2021 в 18:00</li>
+              <li>{nearestLessonDate}</li>
             </ul>
           </div>
         </div>

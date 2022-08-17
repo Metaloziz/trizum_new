@@ -97,9 +97,10 @@ class UsersStore {
   get getFullUserName() {
     const result = `${this.currentUser?.middleName}" "${this.currentUser?.firstName}" "${this.currentUser?.lastName}`;
 
-    if (result) return 'default name';
+    if (result) return 'Иванов Иван Иванович - default';
 
     return result;
   }
 }
+
 export default new UsersStore();

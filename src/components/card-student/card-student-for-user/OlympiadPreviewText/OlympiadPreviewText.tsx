@@ -18,7 +18,7 @@ export const OlympiadPreviewText: FC = () => {
   const userId = 1;
 
   const onParticipateClick = () => {
-    navigate(`${AppRoutes.Olympiads}/${olympiadId}/${userId}`);
+    navigate(`${AppRoutes.Olympiads}`);
   };
 
   return (

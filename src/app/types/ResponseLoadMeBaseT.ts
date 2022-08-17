@@ -13,7 +13,7 @@ type PersonalRecordT = {
   c: Nullable<number>;
 };
 
-type GroupsDataT = {
+export type GroupsDataT = {
   userGroupId: string;
   group: ResponseOneGroup;
 };

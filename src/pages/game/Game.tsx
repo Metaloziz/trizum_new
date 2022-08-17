@@ -1,6 +1,7 @@
-import React, { FC, Component } from 'react';
+import React, { Component } from 'react';
 
 import classNames from 'classnames';
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Factory } from '../../games';
 
@@ -35,7 +36,7 @@ class Game extends Component<any, any> {
   constructor(props: any) {
     super(props);
 
-    const game = Games[0].name;
+    const game = [Games[0].name];
 
     this.gameComponent = Factory(game);
 
@@ -100,34 +101,43 @@ class Game extends Component<any, any> {
 
   render() {
     const { started = false, game } = this.state;
-
     const GameComponent = this.gameComponent;
-
     return (
       <div className={styles.innerContent}>
         <div className={styles.gameList}>
           {Games.map(a => (
-            <div
-              className={classNames(styles.gameItem, {
-                [styles.gameItemActive]: a.name === game,
-              })}
-              key={`game-${a.name}`}
-              onClick={this.setGame(a.name)}
-            >
-              <span>{a.title}</span>
-            </div>
+            <NavLink key={`game-${a.name}`} to={a.name}>
+              <div
+                className={classNames(styles.gameItem, {
+                  [styles.gameItemActive]: a.name === game,
+                })}
+                onClick={this.setGame(a.name)}
+              >
+                <span>{a.title}</span>
+              </div>
+            </NavLink>
           ))}
         </div>
-        <div className={styles.wrapGame}>
-          <GameComponent onRef={this.onRefGame} width={800} onEnd={this.onEnd} />
-          {!started && (
-            <div className={styles.overlay}>
-              <div className={styles.playButton} onClick={this.onStart}>
-                <span className={styles.playButtonText}>ИГРАТЬ</span>
-              </div>
-            </div>
-          )}
-        </div>
+        <Routes>
+          {Games.map(gam => (
+            <Route
+              key={game.name}
+              path={gam.name}
+              element={
+                <div className={styles.wrapGame}>
+                  <GameComponent onRef={this.onRefGame} width={800} onEnd={this.onEnd} />
+                  {!started && (
+                    <div className={styles.overlay}>
+                      <div className={styles.playButton} onClick={this.onStart}>
+                        <span className={styles.playButtonText}>ИГРАТЬ</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              }
+            />
+          ))}
+        </Routes>
       </div>
     );
   }

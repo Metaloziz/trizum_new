@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { observer } from 'mobx-react-lite';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';

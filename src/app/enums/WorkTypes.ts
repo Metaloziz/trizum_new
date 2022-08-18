@@ -1,3 +1,3 @@
 export enum WorkTypes {
-  HW = 'hw',
+  HW = 'hw', // TODO blocks
 }

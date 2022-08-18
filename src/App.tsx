@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import './App.css';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import * as dotenv from 'dotenv';
 import { observer } from 'mobx-react-lite';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 

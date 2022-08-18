@@ -51,17 +51,13 @@ const AddEditGroup: FC<Props> = observer(props => {
   const {
     modalFields,
     validateSchema,
-    isLoad,
     franchise,
-    teachers,
-    courses,
     loadInitialModal,
     addGroup,
     filteredCourses,
     cleanModalValues,
     selectedGroup,
     isModalOpen,
-    schedule,
     closeModal,
     editGroup,
   } = groupStore;
@@ -101,13 +97,6 @@ const AddEditGroup: FC<Props> = observer(props => {
       setFranchiseOptions(franchise.map(t => getOptionMui(t.id || '', t.shortName)));
     }
   }, [groupStore.franchise]);
-  //
-  // useEffect(() => {
-  //   if (appStore.role === Roles.Admin) {
-  //     debugger;
-  //     setCourseOptions(courses.map(el => (el.id ? getOptionMui(el.id, el.title) : <></>)));
-  //   }
-  // }, [groupStore.courses]);
 
   useEffect(() => {
     const cOptions = filteredCourses.length
@@ -120,9 +109,7 @@ const AddEditGroup: FC<Props> = observer(props => {
     closeModal();
     cleanModalValues();
   };
-  const arrWorks = selectedGroup?.course?.worksCount
-    ? Array(selectedGroup.course.worksCount).fill(1)
-    : [];
+
   return (
     <BasicModal
       fullWidth

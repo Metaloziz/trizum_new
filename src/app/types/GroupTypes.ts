@@ -19,6 +19,7 @@ export type ResponseGroups = {
   franchise: string;
   course: string;
   teacherId: string;
+  schedule: Schedule[];
 };
 
 export type ResponseOneGroup = {
@@ -55,7 +56,7 @@ export type CreateGroup = {
   courseId: string;
   status: string;
 };
-
+export type Schedule = { name: string; date: string; from: string; to: string };
 export type GroupParams = Partial<{
   perPage: number;
   page: number;
@@ -67,4 +68,5 @@ export type GroupParams = Partial<{
   teacherId: string;
   name: string;
   level: string;
+  schedule: Schedule[];
 }>;

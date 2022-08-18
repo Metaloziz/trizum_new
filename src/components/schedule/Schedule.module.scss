@@ -231,6 +231,7 @@
     min-width: 120px;
     width: 120px;
     margin: 0;
+    z-index: 1000;
 
     @media (max-width: 850px) {
       flex-direction: column;
@@ -1066,3 +1067,18 @@
 }
 
 
+.dataContainer {
+  width: 180px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+}
+// .dataTitle {
+//   font-family: Montserrat;
+//   font-size: 14px;
+//   font-weight: 600;
+//   line-height: 17px;
+//   letter-spacing: 0em;
+//   text-align: center;
+//   margin-right: 8px;
+// }

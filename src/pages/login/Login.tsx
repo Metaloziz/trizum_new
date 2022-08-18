@@ -27,6 +27,7 @@ const Login = () => {
     setIsTester(false);
   };
   const [phone, setPhone] = useState('79601001010');
+  // 71100974671 номер для отображения уроков у учителя
   const qwe = (role: Roles) => {
     switch (role) {
       case Roles.Student:

@@ -8,6 +8,7 @@ import styles from './Schedule.module.scss';
 import { getCroppedImg } from './utils/cropImage';
 
 import authService from 'app/services/authService';
+import appStore from 'app/stores/appStore';
 import settingsHover from 'assets/svgs/settings-hover.svg';
 import settings from 'assets/svgs/settings.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
@@ -17,6 +18,7 @@ import Image from 'components/image/Image';
 export type PresetWithOrderT = { index: number; label: string; value: string };
 
 const Setting = () => {
+  const { setUser } = appStore;
   const [isShowHover, setShowHover] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [image, setImage] = useState<any>('');
@@ -49,6 +51,7 @@ const Setting = () => {
       if (croppedImage) {
         const res = await authService.аvatar({ image: croppedImage.split(',')[1] });
         setShowModal(false);
+        setUser();
         console.log(res);
       } else {
         throw new Error('фото не загрузилось или что-то пошло не так');

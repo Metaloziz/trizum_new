@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import { TextField } from '@mui/material';
+import { Input } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
+import { observer } from 'mobx-react-lite';
 
 import styles from './UserPage.module.scss';
 
@@ -13,15 +14,16 @@ import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 import Setting from 'components/setting/Setting';
 
-const UserPage = () => {
-  const { user } = appStore;
+const UserPage = observer(() => {
+  const { user, setUser } = appStore;
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [phone, setPhone] = useState('79101001010');
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState<string>(user.phone);
+  const [email, setEmail] = useState(user.email);
   const [code, setCode] = useState<string>('');
   const [erorr, setErorr] = useState<boolean>(false);
   const [seconds, setSeconds] = useState<number>(150);
   const [timerActive, setTimerActive] = useState<boolean>(false);
+
   useEffect(() => {
     if (seconds > 0 && timerActive) {
       setTimeout(setSeconds, 150, seconds - 1);
@@ -43,6 +45,7 @@ const UserPage = () => {
     try {
       await authService.editSelf({ phone, smsCode: Number(code), email });
       setShowModal(false);
+      setUser();
     } catch (e) {
       console.warn(e);
       setErorr(true);
@@ -121,11 +124,11 @@ const UserPage = () => {
         </div>
         <div className={styles.labelBlock}>
           <label>Почта:</label>
-          <TextField
+          <Input
+            disableUnderline
             value={email}
             onChange={e => setEmail(e.target.value)}
             fullWidth
-            variant="outlined"
             size="small"
           />
         </div>
@@ -151,19 +154,19 @@ const UserPage = () => {
                 <input type="tel" value={code} onChange={e => setCode(e.target.value)} />
               </div>
               {erorr ? (
-                <p className={styles.textErorrRed}>
+                <p className={styles.textErrorRed}>
                   Неверный код
                   <br />
                   После трёх неверных попыток - блокировка.
                 </p>
               ) : (
-                <div className={styles.blockErorr} />
+                <div className={styles.blockError} />
               )}
               <div>
                 <Button onClick={sendEdit}>Отправить</Button>
                 <div>
                   {seconds !== 150 && seconds !== 0 ? (
-                    <p className={styles.textErorr}>
+                    <p className={styles.textError}>
                       Сообщение отправлено. Повторно вы сможете запросить код через {`${sec} `}
                       {filterWords(sec, 'секунду', 'секунды', 'секунд')}.
                     </p>
@@ -180,6 +183,6 @@ const UserPage = () => {
       ) : null}
     </div>
   );
-};
+});
 
 export default UserPage;

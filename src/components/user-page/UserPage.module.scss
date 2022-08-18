@@ -50,6 +50,12 @@
   right: 50px;
   cursor: pointer;
   z-index: 1;
+  @media(max-width: 900px) {
+    width: 18px;
+    height: 18px;
+    top: 35px;
+    right: 60px;
+  }
 
   @media(max-width: 700px) {
     width: 18px;
@@ -94,7 +100,7 @@
     height: 120px;
   }
 
-  >span {
+  > span {
     width: auto !important;
     height: 105px !important;
 
@@ -136,7 +142,7 @@
   justify-content: flex-end !important;
 }
 
-.userData>div {
+.userData > div {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -146,7 +152,7 @@
     text-align: center;
   }
 
-  >div {
+  > div {
     display: block;
     width: 75%;
 
@@ -156,12 +162,12 @@
   }
 }
 
-.userData>div+div {
+.userData > div + div {
   margin-top: 25px;
 }
 
 .userData h2 {
-  font-family: 'Aqum';
+  font-family: Aqum, sans-serif;
   font-weight: 700;
   font-size: 18px;
   line-height: 17px;
@@ -273,13 +279,12 @@
     padding: 9px 30px 10px;
     border: 1px solid #BABEC6;
     border-radius: 26px;
-    font-weight: 400;
     font-size: 24px;
     line-height: 30px;
     text-transform: uppercase;
     color: #000000;
     text-align: center;
-    font-family: Montserrat;
+    font-family: Montserrat,sans-serif;
     font-weight: 600;
 
     @media (max-width: 550px) {
@@ -383,9 +388,9 @@
   }
 }
 
-.textErorr {
+.textError {
   width: 339px;
-  font-family: Montserrat !important;
+  font-family: Montserrat, sans-serif !important;
   font-size: 14px !important;
   font-weight: 500 !important;
   line-height: 19px !important;
@@ -393,9 +398,9 @@
   margin-top: 20px;
 }
 
-.textErorrRed {
+.textErrorRed {
   width: 339px;
-  font-family: Montserrat !important;
+  font-family: Montserrat,sans-serif !important;
   font-size: 14px !important;
   font-weight: 500 !important;
   line-height: 19px !important;
@@ -404,12 +409,12 @@
   color: #FF4E4A !important;
 }
 
-.blockErorr {
+.blockError {
   margin-top: 50px;
 }
 
 .anotherNumber {
-  font-family: Montserrat !important;
+  font-family: Montserrat,sans-serif !important;
   font-size: 18px !important;
   font-weight: 500 !important;
   line-height: 30px !important;

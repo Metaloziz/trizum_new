@@ -6,6 +6,9 @@
   &_unauth {
     grid-template-columns: 0 100%;
   }
+  &_teacherEducation {
+    grid-template-columns: auto;
+  }
 }
 
 .header {

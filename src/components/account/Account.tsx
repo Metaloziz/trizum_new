@@ -23,6 +23,8 @@ const Account: FC = observer(() => {
   const logout = async () => {
     await tokenService.removeUser();
     setRole(Roles.Unauthorized);
+    // logOutUser();
+    // console.log(user);
     // router.push(Routes.Index);
   };
 

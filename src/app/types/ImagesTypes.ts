@@ -1,23 +1,23 @@
-import {WithPagination} from './WithPagination'
+import { WithPagination } from './WithPagination';
 
-export type ImageTypes = 'image' | 'avatar'
+export type ImageTypes = 'image' | 'avatar';
 
 export type RequestImagesParamsT = {
-    perPage?: number,
-    page?: number,
-    type?: ImageTypes
-}
+  perPage?: number;
+  page?: number;
+  type?: ImageTypes;
+};
 
 export type ImageT = {
-    id: string,
-    path: string,
-    createdAt: {
-        date: string,
-        timezone_type: number,
-        timezone: string
-    },
-    type: ImageTypes
-    previewPath: string | null
-}
+  id: string;
+  path: string;
+  createdAt: {
+    date: string;
+    timezone_type: number;
+    timezone: string;
+  };
+  type: ImageTypes;
+  previewPath: string | null;
+};
 
-export type ResponseImagesT = WithPagination<ImageT[]>
+export type ResponseImagesT = WithPagination<ImageT[]>;

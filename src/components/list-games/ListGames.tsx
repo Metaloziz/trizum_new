@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import {Loader} from "../loader/Loader";
+import { Loader } from '../loader/Loader';
 
 import styles from './ListGames.module.scss';
 
@@ -20,7 +20,7 @@ const ListGames: FC = () => {
     load();
   }, []);
   return !isLoaded ? (
-      <Loader />
+    <Loader />
   ) : (
     <div className={styles.gamesContent}>
       {games.map(item => (

@@ -10,15 +10,13 @@ export interface Props extends GameProps {
   onEnd?(result?: GameResult): void;
 }
 
-const PropsDefault : Props = {
-  width : 200,
-  time : 10000,
-  delay : 5,
+const PropsDefault: Props = {
+  width: 200,
+  time: 10000,
+  delay: 5,
   levels: 2,
   colors: 2,
-  forms: 2
+  forms: 2,
 };
 
-export {
-  PropsDefault
-};
+export { PropsDefault };

@@ -6,7 +6,7 @@ import {
   GroupParams,
   GroupParamsForServer,
   ResponseGroups,
-  ResponseOneGroup
+  ResponseOneGroup,
 } from 'app/types/GroupTypes';
 import { WithPagination } from 'app/types/WithPagination';
 
@@ -58,7 +58,7 @@ const groupsService = {
     return data;
   },
   editGroup: async (data: any, id: string) => {
-    debugger
+    debugger;
     const res = await instance.post(`${Paths.Groups}/${id}`, data);
     return res.data;
   },

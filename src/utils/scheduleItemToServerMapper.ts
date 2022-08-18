@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import { DateTime } from 'app/enums/DateTime';
-import { LessonT, Schedule} from 'app/types/GroupTypes';
+import { LessonT, Schedule } from 'app/types/GroupTypes';
 
 export const scheduleItemToServerMapper = (elem: LessonT): Schedule => ({
   date: moment(elem.date).format(DateTime.DdMmYyyy),
@@ -18,7 +18,7 @@ export const scheduleItemToUIMapper = (elem: Schedule): LessonT => {
   const from = elem.from.split(':').map(el => Number(el));
   const to = elem.to.split(':').map(el => Number(el));
   return {
-    date: new Date(d[0], d[1] -1, d[2]),
+    date: new Date(d[0], d[1] - 1, d[2]),
     name: elem.name,
     id: (Math.random() * 1000).toString(),
     from: new Date(2022, 0, 1, from[0], from[1]),

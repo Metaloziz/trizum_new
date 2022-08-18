@@ -21,5 +21,5 @@ export enum Paths {
   ArticleTestResults = 'articletestresults',
   Articles = 'articles',
   SwitchUser = 'switchstudent',
-  Images = 'images'
+  Images = 'images',
 }

@@ -3,7 +3,8 @@ import instance from 'app/services/config';
 import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
   FullResponseUserT,
-  RequestParenting, RequestUsersForFilter,
+  RequestParenting,
+  RequestUsersForFilter,
   RequestUsersParams,
   ResponseOneUser,
   ResponseParenting,
@@ -31,7 +32,7 @@ const usersService = {
         franchise_id: params?.franchiseId || undefined,
         first_name: params?.firstName || undefined || null,
         middle_name: params?.middleName || undefined || null,
-        last_name: params?.lastName || undefined ||null,
+        last_name: params?.lastName || undefined || null,
         city: params?.city || undefined,
         birthdate: params?.birthdate || undefined,
       },

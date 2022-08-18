@@ -15,7 +15,7 @@ export const StudentMain: FC = observer(() => {
   return (
     <main className={styles.main}>
       <CardStudent user={user} />
-       <WeeklyGrowth
+      <WeeklyGrowth
         className={styles.weeklyGrowth}
         weeklyGrowth={[
           {
@@ -43,8 +43,8 @@ export const StudentMain: FC = observer(() => {
             percents: 33,
           },
         ]}
-       />
-       <Homeworks
+      />
+      <Homeworks
         className={styles.homeworks}
         homeworks={[
           {
@@ -92,8 +92,8 @@ export const StudentMain: FC = observer(() => {
             },
           },
         ]}
-       />
-       <KeepPlaying
+      />
+      <KeepPlaying
         className={styles.keepPlaying}
         games={[
           {
@@ -121,7 +121,7 @@ export const StudentMain: FC = observer(() => {
             id: +new Date().toDateString(),
           },
         ]}
-       />
+      />
     </main>
   );
 });

@@ -6,7 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-import {Loader} from "../loader/Loader";
+import { Loader } from '../loader/Loader';
 
 import styles from './HomeworkAddEditPage.module.scss';
 
@@ -144,7 +144,7 @@ const HomeworkAddEditPage = observer(() => {
   }, []);
 
   return !isLoaded ? (
-      <Loader />
+    <Loader />
   ) : (
     <div className={styles.content}>
       <div className={styles.innerContent}>

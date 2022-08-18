@@ -1,9 +1,8 @@
 import React, { FC, ReactNode } from 'react';
 
-import {Loader} from "../loader/Loader";
+import { Loader } from '../loader/Loader';
 
 import styles from './Table.module.scss';
-
 
 interface IList {
   id?: string | number;

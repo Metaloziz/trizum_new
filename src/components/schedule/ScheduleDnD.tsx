@@ -1,6 +1,5 @@
 import React, { FC, SyntheticEvent, useState, useEffect } from 'react';
 
-
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';

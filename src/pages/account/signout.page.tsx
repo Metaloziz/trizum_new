@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {Loader} from "../../components/loader/Loader";
+import { Loader } from '../../components/loader/Loader';
 
 // import { AuthGuard } from 'app/common/AuthGuard';
 
@@ -12,7 +12,7 @@ export default () => (
   //   router.push(Routes.Index);
   // });
 
-    <Loader />
+  <Loader />
 );
 
 // SignOut.layout = BlankLayout;

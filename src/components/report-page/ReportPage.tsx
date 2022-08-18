@@ -20,8 +20,6 @@ import { colNames, list, ListType } from 'components/moks-data/moks-data-table';
 import Pagination from 'components/molecules/Pagination';
 import Table from 'components/table/Table';
 
-
-
 const ReportPage = () => {
   const [data, setData] = useState<ListType[]>(list); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
@@ -44,9 +42,7 @@ const ReportPage = () => {
       setCurrentPage(prev => prev - 1);
     }
   };
-  const [value, setValue] = React.useState<Date | null>(
-    new Date('2014-08-18T21:11:54'),
-  );
+  const [value, setValue] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
 
   const handleChangeBornData = (newValue: Date | null) => {
     setValue(newValue);
@@ -58,9 +54,7 @@ const ReportPage = () => {
   const handleChangeDateOfBeginning = (newValue: Date | null) => {
     setDateOfBeginning(newValue);
   };
-  const [dateOfEnd, setDateOfEnd] = React.useState<Date | null>(
-    new Date('2020-01-10T21:11:54'),
-  );
+  const [dateOfEnd, setDateOfEnd] = React.useState<Date | null>(new Date('2020-01-10T21:11:54'));
 
   const handleChangeDateOfEnd = (newValue: Date | null) => {
     setDateOfEnd(newValue);
@@ -79,7 +73,7 @@ const ReportPage = () => {
                   id="demo-simple-select"
                   // value={Age}
                   label="Выполнил Д/З"
-                // onChange={handleChange}
+                  // onChange={handleChange}
                 >
                   <MenuItem value={10}>Выполнено</MenuItem>
                   <MenuItem value={20}>Не выполнено</MenuItem>
@@ -93,7 +87,7 @@ const ReportPage = () => {
                   id="demo-simple-select"
                   // value={Age}
                   label="Город"
-                // onChange={handleChange}
+                  // onChange={handleChange}
                 >
                   <MenuItem value={10}>Москва</MenuItem>
                   <MenuItem value={20}>Ростов</MenuItem>
@@ -107,7 +101,7 @@ const ReportPage = () => {
                   id="demo-simple-select"
                   // value={Age}
                   label="Группа"
-                // onChange={handleChange}
+                  // onChange={handleChange}
                 >
                   <MenuItem value={10}>group1</MenuItem>
                   <MenuItem value={20}>group2</MenuItem>
@@ -125,7 +119,7 @@ const ReportPage = () => {
                   id="demo-simple-select"
                   // value={Age}
                   label="ФИО франчази"
-                // onChange={handleChange}
+                  // onChange={handleChange}
                 >
                   <MenuItem value={10}>franchisees1</MenuItem>
                   <MenuItem value={20}>franchisees2</MenuItem>
@@ -139,7 +133,7 @@ const ReportPage = () => {
                   id="demo-simple-select"
                   // value={Age}
                   label="Оплачен"
-                // onChange={handleChange}
+                  // onChange={handleChange}
                 >
                   <MenuItem value={10}>paidFor1</MenuItem>
                   <MenuItem value={20}>paidFor2</MenuItem>
@@ -152,7 +146,7 @@ const ReportPage = () => {
                   inputFormat="dd/MM/yyyy"
                   value={value}
                   onChange={handleChangeBornData}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={params => <TextField {...params} />}
                 />
               </div>
               <TextField id="outlined-basic" label="Возраст" variant="outlined" />
@@ -165,7 +159,7 @@ const ReportPage = () => {
                   id="demo-simple-select"
                   // value={Age}
                   label="Юр.адрес"
-                // onChange={handleChange}
+                  // onChange={handleChange}
                 >
                   <MenuItem value={10}>legalAddress1</MenuItem>
                   <MenuItem value={20}>legalAddress2</MenuItem>
@@ -178,7 +172,7 @@ const ReportPage = () => {
                   inputFormat="dd/MM/yyyy"
                   value={dateOfBeginning}
                   onChange={handleChangeDateOfBeginning}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={params => <TextField {...params} />}
                 />
               </div>
               <div style={{ width: '100%' }}>
@@ -187,7 +181,7 @@ const ReportPage = () => {
                   inputFormat="dd/MM/yyyy"
                   value={dateOfEnd}
                   onChange={handleChangeDateOfEnd}
-                  renderInput={(params) => <TextField {...params} />}
+                  renderInput={params => <TextField {...params} />}
                 />
               </div>
               <div className={styles.btnBlock}>

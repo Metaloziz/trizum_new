@@ -14,12 +14,14 @@ import { FranchiseT } from 'app/types/FranchiseTypes';
 import {
   CreateGroupForServer,
   CreateGroupFroUI,
-  GroupParams, GroupParamsForUI,
+  GroupParams,
+  GroupParamsForUI,
   GroupT,
   LessonT,
   LevelGroupT,
   ResponseGroups,
-  ResponseOneGroup, Schedule,
+  ResponseOneGroup,
+  Schedule,
 } from 'app/types/GroupTypes';
 import { RequestUsersParams, ResponseUserT } from 'app/types/UserTypes';
 import { GroupsViewModel } from 'app/viewModels/GroupsViewModel';
@@ -140,8 +142,12 @@ class GroupStore {
   };
 
   getGroups = async () => {
-    const dateSince = this.queryFields.dateSince ? moment(this.queryFields.dateSince).format(DateTime.DdMmYyyy) : ''
-    const dateUntil = this.queryFields.dateUntil ? moment(this.queryFields.dateUntil).format(DateTime.DdMmYyyy) : ''
+    const dateSince = this.queryFields.dateSince
+      ? moment(this.queryFields.dateSince).format(DateTime.DdMmYyyy)
+      : '';
+    const dateUntil = this.queryFields.dateUntil
+      ? moment(this.queryFields.dateUntil).format(DateTime.DdMmYyyy)
+      : '';
     await this.execute(async () => {
       const res = await groupsService.getGroups({
         ...this.queryFields,

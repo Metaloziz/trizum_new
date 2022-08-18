@@ -166,6 +166,19 @@ class AppStore {
     });
   };
 
+  setUser = async () => {
+    try {
+      const res = await authService.loadme();
+      console.log(res);
+      runInAction(() => {
+        this.role = res.data.role as Roles;
+        this.user = res.data;
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   switchUser = async (params: RequestSwitchUser) => {
     await execute(async () => {
       await authService.switchUser(params);

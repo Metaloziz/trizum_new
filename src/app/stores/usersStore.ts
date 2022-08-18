@@ -5,7 +5,8 @@ import usersService from 'app/services/usersService';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
-  RequestParenting, RequestUsersForFilter,
+  RequestParenting,
+  RequestUsersForFilter,
   RequestUsersParams,
   ResponseOneUser,
   ResponseUserT,

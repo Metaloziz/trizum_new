@@ -7,26 +7,23 @@ import StartTimer from '../../components/startTimer';
 import GameWrapper from './components/wrapper';
 
 export default class extends Component<any, any> implements Game {
-
-  constructor(props : any) {
+  constructor(props: any) {
     super(props);
 
     this.state = {
-      started : false,
-      list : []
+      started: false,
+      list: [],
     };
   }
 
-  setStarted = (started : any) => {
+  setStarted = (started: any) => {
     this.setState({
-      started
+      started,
     });
-  }
+  };
 
   componentDidMount() {
-    const {
-      onRef = () => {}
-    } = this.props;
+    const { onRef = () => {} } = this.props;
 
     onRef(this);
 
@@ -35,38 +32,36 @@ export default class extends Component<any, any> implements Game {
 
   public resume = () => {
     this.setStarted(true);
-  }
+  };
 
   public start = () => {
     this.setStarted(true);
-  }
+  };
 
   public stop = () => {
     this.setStarted(false);
-  }
+  };
 
-  private reset = (cb : any) => {
+  private reset = (cb: any) => {
     this.setStarted(false);
-  }
+  };
 
-  private end = (result : GameResult) => {
-    const {
-      onEnd = () => {}
-    } = this.props;
+  private end = (result: GameResult) => {
+    const { onEnd = () => {} } = this.props;
 
     onEnd(result);
 
     this.stop();
-  }
+  };
 
   public getConfig = () => {
     const counterSelect = (min = 1, max = 2) => {
       const options = [];
 
-      for(let i = min;i<=max;i++) {
+      for (let i = min; i <= max; i++) {
         options.push({
-          title : `${i}`,
-          value : i
+          title: `${i}`,
+          value: i,
         });
       }
 
@@ -75,125 +70,117 @@ export default class extends Component<any, any> implements Game {
 
     return [
       {
-        name : 'time',
-        title : 'Время игры',
-        type : 'select',
-        option : [
+        name: 'time',
+        title: 'Время игры',
+        type: 'select',
+        option: [
           {
-            title : '30 секунд',
-            value : 30
+            title: '30 секунд',
+            value: 30,
           },
           {
-            title : '1 минута',
-            value : 60
+            title: '1 минута',
+            value: 60,
           },
           {
-            title : '3 минуты',
-            value : 180
+            title: '3 минуты',
+            value: 180,
           },
           {
-            title : '5 минут',
-            value : 300
-          },
-        ],
-        value : 30,
-        required : true
-      },
-      {
-        name : 'delay',
-        title : 'Время на запоминание',
-        type : 'select',
-        option : [
-          {
-            title : '2 секунды',
-            value : 2
-          },
-          {
-            title : '3 секунды',
-            value : 3
-          },
-          {
-            title : '5 секунд',
-            value : 5
-          },
-          {
-            title : '10 секунд',
-            value : 10
+            title: '5 минут',
+            value: 300,
           },
         ],
-        value : 3,
-        required : true
+        value: 30,
+        required: true,
       },
       {
-        name : 'levels',
-        title : 'Кол-во уровней',
-        type : 'select',
-        option : counterSelect(1, 5),
-        value : 2,
-        required : true
+        name: 'delay',
+        title: 'Время на запоминание',
+        type: 'select',
+        option: [
+          {
+            title: '2 секунды',
+            value: 2,
+          },
+          {
+            title: '3 секунды',
+            value: 3,
+          },
+          {
+            title: '5 секунд',
+            value: 5,
+          },
+          {
+            title: '10 секунд',
+            value: 10,
+          },
+        ],
+        value: 3,
+        required: true,
       },
       {
-        name : 'colors',
-        title : 'Кол-во цветов',
-        type : 'select',
-        option : counterSelect(3, 5),
-        value : 3,
-        required : true
+        name: 'levels',
+        title: 'Кол-во уровней',
+        type: 'select',
+        option: counterSelect(1, 5),
+        value: 2,
+        required: true,
       },
       {
-        name : 'forms',
-        title : 'Кол-во форм',
-        type : 'select',
-        option : counterSelect(3, 5),
-        value : 3,
-        required : true
+        name: 'colors',
+        title: 'Кол-во цветов',
+        type: 'select',
+        option: counterSelect(3, 5),
+        value: 3,
+        required: true,
+      },
+      {
+        name: 'forms',
+        title: 'Кол-во форм',
+        type: 'select',
+        option: counterSelect(3, 5),
+        value: 3,
+        required: true,
       },
     ];
-  }
+  };
 
-  public prepareConfig = (result : any) => {
-    return {
-      time : parseInt(result.time),
-      delay : parseInt(result.delay),
-      levels : parseInt(result.levels),
-      colors : parseInt(result.colors),
-      forms : parseInt(result.forms),
-    };
-  }
+  public prepareConfig = (result: any) => ({
+    time: parseInt(result.time),
+    delay: parseInt(result.delay),
+    levels: parseInt(result.levels),
+    colors: parseInt(result.colors),
+    forms: parseInt(result.forms),
+  });
 
   render() {
-    const {
-      started = false
-    } = this.state;
+    const { started = false } = this.state;
 
-    const {
-      time = 10,
-      levels,
-      width
-    } = this.props;
+    const { time = 10, levels, width } = this.props;
 
-    return <View
-      style={{
-        ...styles.wrap,
-        width
-      }}
-    >
-      {started && <StartTimer
-        time={3}
-        renderComponent={() => <GameWrapper
-          {...this.props}
-          onEnd={this.end}
-        />}
-      />}
-    </View>;
+    return (
+      <View
+        style={{
+          ...styles.wrap,
+          width,
+        }}
+      >
+        {started && (
+          <StartTimer
+            time={3}
+            renderComponent={() => <GameWrapper {...this.props} onEnd={this.end} />}
+          />
+        )}
+      </View>
+    );
   }
-
 }
 
 const styles = StyleSheet.create({
-  wrap : {
-    flex : 1,
-    marginTop : 12,
-    marginBottom : 12
-  }
+  wrap: {
+    flex: 1,
+    marginTop: 12,
+    marginBottom: 12,
+  },
 });

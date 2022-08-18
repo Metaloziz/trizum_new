@@ -8,66 +8,64 @@ import Container from './common/components/container';
 import Timer from '../../components/timer';
 
 export default class extends Component<any, any> implements Game {
+  game: any;
 
-  game : any;
-
-  constructor(props : any) {
+  constructor(props: any) {
     super(props);
 
     this.game = false;
 
     this.state = {
-      started : false,
-      score : 0
+      started: false,
+      score: 0,
     };
   }
 
   componentDidMount() {
-    const {
-      onRef = () => {}
-    } = this.props;
+    const { onRef = () => {} } = this.props;
 
     onRef(this);
   }
 
   public start = () => {
-    this.setState({
-      started : true
-    }, () => {
-      this.game?.start();
-    });
-  }
+    this.setState(
+      {
+        started: true,
+      },
+      () => {
+        this.game?.start();
+      },
+    );
+  };
 
-  private setScore = (score : any) => {
+  private setScore = (score: any) => {
     this.setState({
-      score
+      score,
     });
-  }
+  };
 
-  private end = (type : any) => (score : any) => {
-    const timer : any = this.refs?.timer;
+  private end = (type: any) => (score: any) => {
+    const timer: any = this.refs?.timer;
     const time = timer?.getValue();
 
-    const {
-      onEnd = () => {}
-    } = this.props;
+    const { onEnd = () => {} } = this.props;
 
-    const result : GameResult = {
-      result : type,
-      time : time,
-      score : score
+    const result: GameResult = {
+      result: type,
+      time,
+      score,
     };
 
     onEnd(result);
 
     this.stop();
-  }
+  };
 
   public stop = () => {
     this.setState({
-      started : false
+      started: false,
     });
-  }
+  };
 
   render() {
     const {
@@ -78,55 +76,55 @@ export default class extends Component<any, any> implements Game {
       onFeedbackError = () => {},
     } = this.props;
 
-    const {
-      started = false,
-      score = 0
-    } = this.state;
+    const { started = false, score = 0 } = this.state;
 
-    return <View style={styles.wrap}>
-      {started && <Text
-        style={styles.title}
-      >
-        Счет: <Text style={{...styles.title, ...styles.titleActive}}>{score}</Text>
-      </Text>}
-      <Container
-        ref={ref => this.game = ref}
-        startTiles={startTiles}
-        size={size}
-        width={width}
-        onEnd={this.end('end')}
-        onWin={this.end('win')}
-        onScore={this.setScore}
-        onFeedbackSuccess={onFeedbackSuccess}
-        onFeedbackError={onFeedbackError}
-      />
-      {started && <Timer
-        ref='timer'
-        renderTime={(time : any) => <Text style={styles.timer}>{time} сек</Text>}
-      />}
-    </View>;
+    return (
+      <View style={styles.wrap}>
+        {started && (
+          <Text style={styles.title}>
+            Счет: <Text style={{ ...styles.title, ...styles.titleActive }}>{score}</Text>
+          </Text>
+        )}
+        <Container
+          ref={ref => (this.game = ref)}
+          startTiles={startTiles}
+          size={size}
+          width={width}
+          onEnd={this.end('end')}
+          onWin={this.end('win')}
+          onScore={this.setScore}
+          onFeedbackSuccess={onFeedbackSuccess}
+          onFeedbackError={onFeedbackError}
+        />
+        {started && (
+          <Timer
+            ref="timer"
+            renderTime={(time: any) => <Text style={styles.timer}>{time} сек</Text>}
+          />
+        )}
+      </View>
+    );
   }
-
 }
 
 const styles = StyleSheet.create({
-  wrap : {
-    marginTop : 12,
-    marginBottom : 12
+  wrap: {
+    marginTop: 12,
+    marginBottom: 12,
   },
-  timer : {
-    textAlign : 'center',
-    marginTop : 12,
-    fontSize : 14,
-    lineHeight : 20,
+  timer: {
+    textAlign: 'center',
+    marginTop: 12,
+    fontSize: 14,
+    lineHeight: 20,
   },
-  titleActive : {
-    fontWeight : 'bold'
+  titleActive: {
+    fontWeight: 'bold',
   },
-  title : {
-    fontSize : 16,
-    lineHeight : 20,
-    textAlign : 'center',
-    marginBottom : 12
+  title: {
+    fontSize: 16,
+    lineHeight: 20,
+    textAlign: 'center',
+    marginBottom: 12,
   },
 });

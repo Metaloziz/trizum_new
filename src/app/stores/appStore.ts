@@ -1,11 +1,13 @@
 /* eslint-disable max-classes-per-file */
+import { AxiosResponse } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { RequestSwitchUser, ResponseLoadMe } from '../types/AuthTypes';
+import { RequestLogin, RequestSwitchUser, ResponseLoadMe } from '../types/AuthTypes';
 
 import authService from 'app/services/authService';
 import { TimeZoneType } from 'app/types/AuthTypes';
 import { canSwitchToT } from 'app/types/UserTypes';
+import { execute } from 'utils/execute';
 
 export enum Roles {
   /* Ученик */
@@ -101,6 +103,12 @@ class AppStore {
 
   user = new EmptyUser();
 
+  isInitialized = false;
+
+  isLoggedIn = false;
+
+  error = '';
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -132,26 +140,44 @@ class AppStore {
     }
   };
 
-  setUser = async () => {
-    try {
-      const res: ResponseLoadMe = await authService.loadme();
-      console.log(res);
-      runInAction(() => {
-        this.role = res.role as Roles;
-        this.user = res;
-      });
-    } catch (e) {
-      console.log(e);
-    }
+  login = async (data: RequestLogin) => {
+    await execute(async () => {
+      await authService.login(data);
+    });
+  };
+
+  loadme = async () => {
+    await execute(async () => {
+      const res: AxiosResponse<ResponseLoadMe> = await authService.loadme();
+      if (res.status >= 400 || res.data === undefined) {
+        runInAction(() => {
+          this.isLoggedIn = false;
+          this.isInitialized = true;
+        });
+      }
+      if (res.status === 200) {
+        runInAction(() => {
+          this.isLoggedIn = true;
+          this.role = res.data.role as Roles;
+          this.user = res.data;
+          this.isInitialized = true;
+        });
+      }
+    });
   };
 
   switchUser = async (params: RequestSwitchUser) => {
-    try {
-      const res = await authService.switchUser(params);
-      await this.setUser();
-    } catch (e) {
-      console.warn(e);
-    }
+    await execute(async () => {
+      await authService.switchUser(params);
+      await this.loadme();
+    });
+  };
+
+  setError = (error: string) => {
+    this.error = error;
+    setTimeout(() => {
+      this.error = '';
+    }, 5000);
   };
 }
 

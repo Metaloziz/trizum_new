@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
@@ -14,15 +14,16 @@ import Sidebar from 'components/sidebar/Sidebar';
 type Props = Record<string, any>;
 
 const DefaultLayout: FC<Props> = observer(({ children, ...rest }) => {
-  const { role } = appStore;
-
+  const { isLoggedIn, isInitialized, role } = appStore;
   const func = async () => {
-    await appStore.setUser();
+    await appStore.loadme();
   };
   useEffect(() => {
     func();
   }, []);
-  return (
+  return !isInitialized ? (
+    <>Initialising...</>
+  ) : (
     <div
       className={cn(
         styles.layout,
@@ -35,7 +36,6 @@ const DefaultLayout: FC<Props> = observer(({ children, ...rest }) => {
       <div className={styles.content}>
         <Outlet />
       </div>
-      {/* <RoleButtons /> */}
     </div>
   );
 });

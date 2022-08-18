@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Navigate, ToolbarProps } from 'react-big-calendar';
 
 import appStore, { Roles } from 'app/stores/appStore';
+import groupStore from 'app/stores/groupStore';
 import iconDelete from 'assets/svgs/delete.svg';
 import iconSettings from 'assets/svgs/icon-settings.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
@@ -14,6 +15,7 @@ import InformationItem from 'components/information-item/InformationItem';
 import styles from 'components/schedule/Schedule.module.scss';
 import { EventProps } from 'components/schedule/ScheduleDnD';
 import CustomDatePicker from 'components/tariff-page/customDatePicker';
+import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 
 // type ToolbarProps = {
 //   date:Date
@@ -57,6 +59,7 @@ const moksDatas: Mock1[] = [
 ];
 
 export const Toolbar: FC<ToolbarProps> = props => {
+  const { openModal } = groupStore;
   const [isVisible, setIsVisible] = useState(false);
   const { onNavigate, date, children } = props;
   const [datePickerValue, setDatePickerValue] = useState<Date | null>(new Date());
@@ -92,9 +95,9 @@ export const Toolbar: FC<ToolbarProps> = props => {
               <Button size="small">Найти</Button>
             </>
           )}
-          {role === Roles.FranchiseeAdmin && (
+          {checkRoleForClasses(role) && (
             <>
-              <Button variant="none" size="small" onClick={() => setIsVisible(!isVisible)}>
+              <Button variant="none" size="small" onClick={() => openModal()}>
                 Добавить группу
               </Button>
               <Button variant="none" size="small">
@@ -365,7 +368,7 @@ export const CustomToolBar: FC<any> = props => {
   return (
     <div className="posr">
       <div className="rbc-btn-group">
-        <button type="button" className="defaultbtn" onClick={e => handleNavigate(e, '')}>
+        <button type="button" className="defaultbtn" onClick={e => handleNavigate(e, 'TODAY')}>
           Today
         </button>
         <button type="button" className="nextp-btn" onClick={e => handleNavigate(e, 'PREV')}>

@@ -38,9 +38,9 @@ const authService = {
     return res.data;
   },
 
-  loadme: async (): Promise<ResponseLoadMe> => {
+  loadme: async (): Promise<AxiosResponse<ResponseLoadMe>> => {
     const res: AxiosResponse<ResponseLoadMe> = await instance.get(Paths.LoadMe);
-    return res.data;
+    return res;
   },
   register: async (params: RequestRegister) => {
     const { data }: AxiosResponse = await instance.post(Paths.Register, params);

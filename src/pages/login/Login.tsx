@@ -59,13 +59,8 @@ const Login = () => {
     }
   };
   const onClick = async () => {
-    try {
-      await authService.login({ phone, smsCode: 7777 });
-      const userData = await authService.loadme();
-      appStore.setRole(userData.role as Roles);
-    } catch (e) {
-      console.warn(e);
-    }
+    await appStore.login({ phone, smsCode: 7777 });
+    await appStore.loadme();
   };
   const [code, setCode] = useState<string>('');
   const [showModal1, setShowModal1] = useState<boolean>(false);
@@ -95,7 +90,7 @@ const Login = () => {
     try {
       const getToken = await authService.login({ phone, smsCode: Number(code) });
       await tokenService.setUser(getToken.data.token);
-      await appStore.setUser();
+      await appStore.loadme();
       // const userData = await authService.loadme();
       // appStore.setRole(userData.role as Roles);
     } catch (e) {

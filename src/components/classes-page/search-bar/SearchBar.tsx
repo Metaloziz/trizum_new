@@ -76,7 +76,7 @@ const SearchBar = observer(() => {
       setTeacherOptions(res.items.map(el => getOptionMui(el.id, el.firstName)));
     }
   };
-  // console.log({ ...queryFields }, 'queryFields');
+
   useEffect(() => {
     getTeachers();
   }, [queryFields.franchiseId]);
@@ -87,7 +87,7 @@ const SearchBar = observer(() => {
 
   return (
     <>
-      <Box>
+      <Box sx={{ marginTop: 2 }}>
         <Accordion
           expanded={open}
           onChange={(_, expanded) => setOpen(expanded)}
@@ -173,18 +173,18 @@ const SearchBar = observer(() => {
                 <DatePicker
                   onChange={value =>
                     value &&
-                    (queryFields.dateSince = moment(new Date(value)).format(DateTime.DdMmYyyy))
+                    (queryFields.dateSince = new Date(value))
                   }
-                  value={queryFields.dateSince}
+                  value={queryFields.dateSince ? queryFields.dateSince : new Date()}
                   toolbarPlaceholder="Дата с"
                   renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
                 />
                 <DatePicker
                   onChange={(value, keyboardInputValue) => {
                     value &&
-                      (queryFields.dateUntil = moment(new Date(value)).format(DateTime.DdMmYyyy));
+                      (queryFields.dateUntil = new Date(value));
                   }}
-                  value={queryFields.dateUntil}
+                  value={queryFields.dateUntil ? queryFields.dateUntil : new Date()}
                   toolbarPlaceholder="Дата по"
                   renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
                 />
@@ -207,69 +207,6 @@ const SearchBar = observer(() => {
           </AccordionActions>
         </Accordion>
       </Box>
-      {/* <div className={styles.wrapper}>
-         <SearchByGroup />
-        <div className={styles.fields}>
-          <TextField
-            value={queryFields.name}
-            placeholder="Название"
-            onChange={({ currentTarget: { value } }) => (queryFields.name = value)}
-          />
-          <Select
-            placeholder="Франчайзинг"
-            value={queryFields.franchiseId}
-            onChange={({ target: { value } }) => (queryFields.franchiseId = value)}
-          >
-            {franchiseOptions}
-          </Select>
-          <Select
-            placeholder="Уровень"
-            value={queryFields.level}
-            onChange={({ target: { value } }) => (queryFields.level = value)}
-          >
-            {levelOptions}
-          </Select>
-          <Select
-            placeholder="Тип"
-            value={queryFields.type}
-            onChange={({ target: { value } }) => (queryFields.type = value)}
-          >
-            {typeOptions}
-          </Select>
-          <Select placeholder="Группа">{courseOptions}</Select>
-          <Select
-            placeholder="Учитель"
-            value={queryFields.teacherId}
-            disabled={!queryFields.franchiseId}
-            onChange={({ target: { value } }) => (queryFields.teacherId = value)}
-          >
-            {teacherOptions}
-          </Select>
-          <Button onClick={getGroups}>Search</Button>
-          <Button onClick={clearQueryFields}>Reset</Button>
-           TODO
-           <Select
-          placeholder="ForGroup"
-          value={queryFields.teacherId}
-          onChange={({ target: { value } }) => changeQueryFields(value, 'teacherId')}
-        >
-          {teacherOptions}
-        </Select>
-           <DateTimePicker
-          onChange={value => value && changeQueryFields(value, 'dateSince')}
-          value={queryFields.dateSince}
-          toolbarPlaceholder="Дата с"
-          renderInput={props => <TextField />}
-        />
-        <DateTimePicker
-          onChange={value => value && changeQueryFields(value, 'dateUntil')}
-          value={queryFields.dateUntil}
-          toolbarPlaceholder="Дата по"
-          renderInput={props => <TextField value={props.value} />}
-        />
-        </div>
-         <StudentPageSlider />
-      </div> */}
     </>
   );
 });

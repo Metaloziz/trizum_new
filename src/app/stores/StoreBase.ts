@@ -23,7 +23,7 @@ export class StoreBase {
       this.isLoading = true;
       await action();
     } catch (error) {
-      debugger;
+      // debugger;
       error = axios.isAxiosError(error)
         ? new Error(error.message)
         : typeof error === 'string'

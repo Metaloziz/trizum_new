@@ -1,7 +1,9 @@
 import { AxiosError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
+import moment from 'moment';
 import * as yup from 'yup';
 
+import { DateTime } from 'app/enums/DateTime';
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
 import groupsService, { AddUserGroupPayloadType } from 'app/services/groupsService';
@@ -10,15 +12,22 @@ import { Roles } from 'app/stores/appStore';
 import { ResponseCourse } from 'app/types/CourseTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
 import {
-  CreateGroup,
-  GroupParams,
+  CreateGroupForServer,
+  CreateGroupFroUI,
+  GroupParams, GroupParamsForUI,
   GroupT,
+  LessonStringValuesT,
+  LessonT,
   LevelGroupT,
   ResponseGroups,
   ResponseOneGroup,
 } from 'app/types/GroupTypes';
 import { RequestUsersParams, ResponseUserT } from 'app/types/UserTypes';
 import { GroupsViewModel } from 'app/viewModels/GroupsViewModel';
+import {
+  scheduleItemToServerMapper,
+  scheduleItemToUIMapper,
+} from 'utils/scheduleItemToServerMapper';
 
 class GroupStore {
   groups: ResponseGroups[] = [];
@@ -29,15 +38,13 @@ class GroupStore {
 
   total = 0;
 
-  visibleGroup?: ResponseOneGroup;
+  selectedGroup?: ResponseOneGroup;
 
-  selectedGroup?: ResponseOneGroup | ResponseGroups;
-
-  private defaultValues: CreateGroup = {
+  private defaultValues: CreateGroupFroUI = {
     name: '',
     franchiseId: '',
-    dateSince: '20.02.2020',
-    dateUntil: '20.01.2023',
+    dateSince: new Date(),
+    dateUntil: new Date(),
     type: 'class',
     teacherId: '',
     level: 'medium',
@@ -45,7 +52,7 @@ class GroupStore {
     status: 'active',
   };
 
-  private queryDefaultValues: GroupParams = {
+  private queryDefaultValues: GroupParamsForUI = {
     perPage: 10,
     page: 0,
     name: '',
@@ -58,11 +65,13 @@ class GroupStore {
     level: '',
   };
 
-  private defaultEditValues: Partial<CreateGroup> = {};
+  private defaultEditValues: Partial<CreateGroupFroUI> = {};
 
   modalFields = { ...this.defaultValues };
 
   queryFields = { ...this.queryDefaultValues };
+
+  schedule: LessonT[] = [];
 
   franchise: FranchiseT[] = [];
 
@@ -132,16 +141,16 @@ class GroupStore {
   };
 
   getGroups = async () => {
-    this.visibleGroup = undefined;
+    const dateSince = this.queryFields.dateSince ? moment(this.queryFields.dateSince).format(DateTime.DdMmYyyy) : ''
+    const dateUntil = this.queryFields.dateUntil ? moment(this.queryFields.dateUntil).format(DateTime.DdMmYyyy) : ''
     await this.execute(async () => {
-      const res = await groupsService.getGroups(this.queryFields);
-      if (res.items.length) {
-        const asd = await this.getOneGroup(
-          this.selectedGroup ? this.selectedGroup.id : res.items[0].id,
-        );
-        if (typeof asd !== 'string') {
-          this.visibleGroup = asd;
-        }
+      const res = await groupsService.getGroups({
+        ...this.queryFields,
+        dateSince,
+        dateUntil,
+      });
+      if (res.items.length && this.selectedGroup?.id) {
+        await this.getOneGroup(this.selectedGroup.id);
       }
       runInAction(() => {
         this.groups = res.items;
@@ -152,18 +161,36 @@ class GroupStore {
     });
   };
 
+  setEmptyScheduleItems = (count: number) =>
+    count === 0
+      ? []
+      : Array(count)
+          .fill(1)
+          .map(el => new LessonT((Math.random() * 100).toString()));
+
   getOneGroup = async (id: string) =>
     this.execute(async () => {
       const r = await groupsService.getOneGroup(id);
       runInAction(() => {
-        // this.selectedGroup = r;
-        this.visibleGroup = r;
+        this.selectedGroup = r;
+        this.schedule =
+          r.schedule && r.schedule.length
+            ? r.schedule.map(el => scheduleItemToUIMapper(el))
+            : this.setEmptyScheduleItems(r.course.worksCount);
       });
       return r;
     });
 
   addGroup = async () => {
-    await groupsService.addGroup(this.modalFields);
+    const schedule: LessonStringValuesT[] = !this.schedule.length
+      ? []
+      : this.schedule.map(elem => scheduleItemToServerMapper(elem));
+    await groupsService.addGroup({
+      ...this.modalFields,
+      dateSince: moment(this.modalFields.dateSince).format(DateTime.DdMmYyyy),
+      dateUntil: moment(this.modalFields.dateUntil).format(DateTime.DdMmYyyy),
+      schedule,
+    });
     this.cleanModalValues();
     this.closeModal();
   };
@@ -171,7 +198,18 @@ class GroupStore {
   editGroup = async () => {
     await this.execute(async () => {
       if (this.selectedGroup) {
-        await groupsService.editGroup(this.modalFields, this.selectedGroup.id);
+        const schedule: LessonStringValuesT[] = !this.schedule.length
+          ? []
+          : this.schedule.map(elem => scheduleItemToServerMapper(elem));
+        await groupsService.editGroup(
+          {
+            ...this.modalFields,
+            dateSince: moment(this.modalFields.dateSince).format(DateTime.DdMmYyyy),
+            dateUntil: moment(this.modalFields.dateUntil).format(DateTime.DdMmYyyy),
+            schedule,
+          },
+          this.selectedGroup.id,
+        );
         await this.getGroups();
       }
       this.cleanModalValues();
@@ -188,27 +226,33 @@ class GroupStore {
     this.getGroups();
   };
 
-  openModal = (id?: string) => {
+  changeLesson = (id: string, fieldName: string, value: Date | string) => {
+    this.schedule = this.schedule.map(el => (el.id === id ? { ...el, [fieldName]: value } : el));
+  };
+
+  openModal = async (id?: string) => {
     if (id) {
-      const r = this.groups.filter(el => el.id === id)[0];
-      // const r = await this.getOneGroup(id);
-      this.selectedGroup = r;
-      this.modalFields = {
-        level: (r.level as LevelGroupT) || '',
-        franchiseId: r.franchise || '',
-        type: (r.type as GroupT) || '',
-        courseId: r.course || '',
-        teacherId: r.teacherId,
-        name: r.name,
-        dateSince: r.startedAt.date,
-        dateUntil: r.endedAt.date,
-        status: r.status || '',
-      };
+      // const r = this.groups.filter(el => el.id === id)[0];
+      const r = await this.getOneGroup(id);
+      if (typeof r === 'object') {
+        this.modalFields = {
+          level: (r.level as LevelGroupT) || '',
+          franchiseId: r.franchise.id || '',
+          type: (r.type as GroupT) || '',
+          courseId: r.course.id || '',
+          teacherId: r.teacherId,
+          name: r.name,
+          dateSince: new Date(r.startedAt.date),
+          dateUntil: new Date(r.endedAt.date),
+          status: r.status || '',
+        };
+      }
     }
     this.isModalOpen = true;
   };
 
   closeModal = () => {
+    this.schedule = [];
     this.selectedGroup = undefined;
     this.isModalOpen = false;
   };
@@ -230,4 +274,5 @@ class GroupStore {
     });
   }
 }
+
 export default new GroupStore();

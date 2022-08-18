@@ -28,13 +28,13 @@ import CardStudent from 'components/card-student/CardStudent';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
 import BlockGames from 'components/classes-page/block-games/BlockGames';
 import SearchBar from 'components/classes-page/search-bar/SearchBar';
+import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 
 const ClassesPage = observer(() => {
   const {
     getGroups,
     groups,
     getOneGroup,
-    visibleGroup,
     openModal,
     total,
     isLoad,
@@ -58,19 +58,19 @@ const ClassesPage = observer(() => {
     }, []),
     [],
   );
-
+  // console.log(checkRoleForClasses(appStore.role),'checkRoleForClasses(appStore.role)');
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.searchBar}>
-          {appStore.role === Roles.Admin && (
-            <Button onClick={() => openModal()}>
-              {selectedGroup ? 'Редактировать' : 'Добавить'}
+          {checkRoleForClasses(appStore.role) && (
+            <Button onClick={() => openModal()} disabled={!!selectedGroup}>
+              Добавить группу
             </Button>
           )}
           <SearchBar />
         </div>
-        {appStore.role === Roles.Admin && (
+        {checkRoleForClasses(appStore.role) && (
           <>
             <TableContainer component={Paper}>
               <Table size="small">
@@ -164,7 +164,7 @@ const ClassesPage = observer(() => {
             </Box>
           </>
         )}
-        {appStore.role !== Roles.Admin && (
+        {!checkRoleForClasses(appStore.role) && (
           <div className={styles.row}>
             <div className={styles.tabs}>
               <div className={styles.tabsWrapper}>
@@ -173,7 +173,7 @@ const ClassesPage = observer(() => {
                     <div
                       className={cn(
                         styles.button,
-                        visibleGroup?.id === group.id && styles.button_active,
+                        selectedGroup?.id === group.id && styles.button_active,
                       )}
                       key={group.id}
                       title={group.name}
@@ -188,9 +188,9 @@ const ClassesPage = observer(() => {
               <BlockGames />
             </div>
             <div className={styles.blockCardStudents}>
-              {visibleGroup &&
-                !!visibleGroup.users.length &&
-                visibleGroup.users.map(user => (
+              {selectedGroup &&
+                !!selectedGroup.users.length &&
+                selectedGroup.users.map(user => (
                   <CardStudent key={user.user.id} user={user.user} />
                 ))}
             </div>

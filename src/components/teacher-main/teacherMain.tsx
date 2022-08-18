@@ -33,19 +33,7 @@ const items = [
 
 const TeacherMain: FC = () => (
   <div className={styles.container}>
-    {/* <TeacherSearchBar cities={cities} groups={groups} schools={schools} /> */}
-    {/* <Schedule /> */}
     <ScheduleDnD />
-    {/* {items.map((item) => {
-        return (
-          <TeacherMainItem
-            key={item.id}
-            title={item.title}
-            text={item.text}
-            imgSrc={item.img}
-          />
-        );
-      })} */}
   </div>
 );
 export default TeacherMain;

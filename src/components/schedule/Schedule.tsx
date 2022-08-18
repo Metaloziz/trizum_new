@@ -13,7 +13,6 @@ import BasicModal from 'components/basic-modal/BasicModal';
 import InformationItem from 'components/information-item/InformationItem';
 import {
   CustomEvent,
-  CustomEventWrapper,
   ScheduleHeader,
   Toolbar,
 } from 'components/schedule/ScheduleComponents';
@@ -222,7 +221,6 @@ const Schedule: FC = () => {
         onSelectEvent={onSelectEvent}
         components={{
           event: CustomEvent,
-          eventWrapper: CustomEventWrapper,
           header: ScheduleHeader,
           toolbar: FullToolbar,
         }}

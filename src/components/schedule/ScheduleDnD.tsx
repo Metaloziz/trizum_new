@@ -13,15 +13,11 @@ import teacherMainStore from 'app/stores/teacherMainStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
 import InformationItem from 'components/information-item/InformationItem';
-import {
-  CustomEvent,
-  CustomEventWrapper,
-  ScheduleHeader,
-  Toolbar,
-} from 'components/schedule/ScheduleComponents';
+import { CustomEvent, ScheduleHeader, Toolbar } from 'components/schedule/ScheduleComponents';
 import ScheduleModal from 'components/schedule/ScheduleModal';
 import CustomSelect from 'components/select/CustomSelect';
-import { getOption } from 'utils/getOption';
+import { getOption, getOptionMui } from 'utils/getOption';
+import { FormControl, Grid, InputLabel, Select } from '@mui/material';
 
 require('moment/locale/ru');
 
@@ -42,43 +38,6 @@ export type ScheduleEvent = {
   lesson: string;
   class: string;
 };
-// export type ScheduleEvent = {
-//   name: string;
-//   date: string;
-//   from: string;
-//   to: string;
-// };
-
-// mock
-const eventsObj: object[] = [
-  {
-    id: 'asd',
-    title: 'Event 1',
-    allDay: false,
-    start: new Date(2022, 7, 16, 8, 15), // 10.00 AM
-    end: new Date(2022, 7, 16, 9, 0),
-    lesson: 'lesson',
-    class: '1A',
-  },
-  {
-    id: 'qwe',
-    title: 'Event 2',
-    allDay: false,
-    start: new Date(2022, 7, 17, 9, 15), // 10.00 AM
-    end: new Date(2022, 7, 17, 10, 0),
-    lesson: 'lesson',
-    class: '10A',
-  },
-  {
-    id: 'qwet',
-    title: 'Event 3',
-    allDay: false,
-    start: new Date(2022, 7, 18, 14, 15), // 10.00 AM
-    end: new Date(2022, 7, 18, 16, 0),
-    lesson: 'lesson',
-    class: '10A',
-  },
-];
 
 const formats = {
   eventTimeRangeFormat: () => '',
@@ -86,137 +45,82 @@ const formats = {
 const groups = ['group №1', 'group №2', 'group №3'];
 
 const groupOptions = groups.map(el => getOption(el, el));
-// const { role } = appStore;
 const ChildrenToolbar: FC = observer(() => {
   const { role } = appStore;
-
+  const selectGroupOption = [getOptionMui('1', '1')];
   return (
-    <div className={styles.toolbarFlex}>
-      {/* <InformationItem
-        title="Дата"
-        variant="calendar"
-        className={cn(styles.toolbarDateSelect, styles.choiceData)}
-      /> */}
-      {role === Roles.FranchiseeAdmin && (
-        <div className={styles.optionBlockAdmin}>
-          <div className={styles.group}>
-            <p>Группа</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder="Группа"
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-          <div className={styles.nameAdmin}>
-            <p>ФИО Учителя</p>
-            <InformationItem variant="input" placeholder="Лунёв А.Н" size="large" />
-          </div>
-        </div>
+    <Grid container>
+      <Grid item xs={12} sm={4}>
+        <FormControl fullWidth>
+          <InputLabel id="select">Группа</InputLabel>
+          <Select
+            labelId="select"
+            label="Группа"
+            value=""
+            fullWidth
+            onChange={({ target: { value } }) => console.log(value)}
+          >
+            {selectGroupOption}
+          </Select>
+        </FormControl>
+      </Grid>
+
+      {(role === Roles.FranchiseeAdmin || role === Roles.Franchisee) && (
+        <Grid item xs={12} sm={4}>
+          <FormControl fullWidth>
+            <InputLabel id="teacher">ФИО Учителя</InputLabel>
+            <Select
+              labelId="teacher"
+              label="ФИО Учителя"
+              value=""
+              fullWidth
+              onChange={({ target: { value } }) => console.log(value)}
+            >
+              {selectGroupOption}
+            </Select>
+          </FormControl>
+        </Grid>
       )}
-      {role === Roles.Franchisee && (
+
+      {role === Roles.Admin && (
         <>
-          <div className={styles.group}>
-            <p>Группа</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder="Группа"
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-          <div className={styles.city}>
-            <p>Город</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder="Город"
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
+          <Grid item xs={12} sm={4}>
+            <FormControl fullWidth>
+              <InputLabel id="city">Город</InputLabel>
+              <Select
+                labelId="city"
+                label="Город"
+                value=""
+                fullWidth
+                onChange={({ target: { value } }) => console.log(value)}
+              >
+                {selectGroupOption}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <FormControl fullWidth>
+              <InputLabel id="franchise">Франшиза</InputLabel>
+              <Select
+                labelId="franchise"
+                label="Франшиза"
+                value=""
+                fullWidth
+                onChange={({ target: { value } }) => console.log(value)}
+              >
+                {selectGroupOption}
+              </Select>
+            </FormControl>
+          </Grid>
         </>
       )}
-      {role === Roles.Methodist && (
-        <div className={styles.wrapAdmin}>
-          <div className={styles.group}>
-            <p>Группа</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder="Группа"
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-          <div className={styles.city}>
-            <p>Город</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder="Город"
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-          <div className={styles.nameAdmin}>
-            <p>ФИО франчайзи</p>
-            <InformationItem variant="input" placeholder="Лунёв А.Н" size="large" />
-          </div>
-          <div className={styles.urAddress}>
-            <p>Юр.адрес</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder=""
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-        </div>
-      )}
-      {role === Roles.Admin && (
-        <div className={styles.wrapAdmin}>
-          <div className={styles.group}>
-            <p>Группа</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder="Группа"
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-          <div className={styles.city}>
-            <p>Город</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder="Город"
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-          <div className={styles.nameAdmin}>
-            <p>ФИО франчайзи</p>
-            <InformationItem variant="input" placeholder="Лунёв А.Н" size="large" />
-          </div>
-          <div className={styles.urAddress}>
-            <p>Юр.адрес</p>
-            <CustomSelect
-              options={groupOptions}
-              placeholder=""
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-        </div>
-      )}
-      {role === Roles.Teacher && (
-        <div className={styles.optionBlockAdmin}>
-          <div className={styles.group}>
-            {/* <p>Группа</p> */}
-            <CustomSelect
-              options={groupOptions}
-              placeholder="Группа"
-              className={styles.toolbarGroupSelect}
-            />
-          </div>
-        </div>
-      )}
-    </div>
+    </Grid>
   );
 });
 
 const ScheduleDnD: FC = observer(() => {
   const { schedule, getGroups } = teacherMainStore;
-  const { role } = appStore;
-  const [events, setEvents] = useState<(ScheduleEvent | object)[]>(eventsObj);
+  const [events, setEvents] = useState<(ScheduleEvent | object)[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<ScheduleEvent | null | object>(null);
   const changeVisibility = () => {
@@ -225,17 +129,15 @@ const ScheduleDnD: FC = observer(() => {
   useEffect(() => {
     getGroups();
   }, []);
-  console.log(schedule);
+
   const moveEvent = ({
     event,
     start,
     end,
-  }: // isAllDay,
-  {
+  }: {
     event: object;
     start: stringOrDate;
     end: stringOrDate;
-    // isAllDay: boolean;
   }) => {
     const idx = events.findIndex(e => (e as ScheduleEvent).id === (event as ScheduleEvent).id);
     const updatedEvent = { ...event, start, end };
@@ -297,29 +199,6 @@ const ScheduleDnD: FC = observer(() => {
     }
   };
 
-  const onApplyEventChanges = (event: ScheduleEvent) => {
-    const newEvents: (ScheduleEvent | object)[] = events.map(e => {
-      if ('id' in e) {
-        return e.id === event.id ? event : e;
-      }
-      return e;
-    });
-    setEvents(newEvents);
-  };
-  // TODO: add lesson flow
-  const onAddLessonClick = () => {
-    const newEvent = {
-      id: 'qweasd',
-      title: 'Event 3',
-      allDay: false,
-      start: new Date(2022, 5, 3, 9, 15), // 10.00 AM
-      end: new Date(2022, 5, 3, 10, 0),
-      lesson: 'lesson',
-      class: '2A',
-    };
-    setEvents([...events, newEvent]);
-  };
-
   return (
     <div className={styles.wrapper}>
       <DnDCalendar
@@ -341,7 +220,6 @@ const ScheduleDnD: FC = observer(() => {
         onSelectEvent={onSelectEvent}
         components={{
           event: CustomEvent,
-          eventWrapper: CustomEventWrapper,
           header: ScheduleHeader,
           toolbar: props => (
             <Toolbar {...props}>

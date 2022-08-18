@@ -48,16 +48,16 @@ class GroupStore {
     const res = await groupsService.getGroups();
     runInAction(() => {
       // eslint-disable-next-line prefer-destructuring
-      const group = res.items[0];
+      const group = res.items[1];
       // eslint-disable-next-line prefer-destructuring
-      const qwe = res.items.map(el => el.schedule)[0];
+      const qwe = res.items.map(el => el.schedule)[1];
       this.schedule = qwe.map((el, idx) => {
         const dateAr: number[] = el.date.split('.').map(elem => Number(elem));
         const timeStartAr: number[] = el.from.split(':').map(elem => Number(elem));
         const timeEndAr: number[] = el.to.split(':').map(elem => Number(elem));
         return {
           id: idx,
-          grouopName: group.name,
+          groupName: group.name,
           lesson: el.name,
           start: new Date(
             2000 + dateAr[2],

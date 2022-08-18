@@ -40,7 +40,7 @@ const Login = () => {
         setPhone(`${func(isTester, isAnalytic)}7007070`);
         break;
       case Roles.Teacher:
-        setPhone(`71119009103`);
+        setPhone(`71100974671`);
         break;
       case Roles.FranchiseeAdmin:
         setPhone(`${func(isTester, isAnalytic)}5005050`);

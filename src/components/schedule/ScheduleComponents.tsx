@@ -18,11 +18,14 @@ import AddEditGroup from 'components/classes-page/AddEditGroup';
 import { ButtonGroup, FormControl, Grid } from '@mui/material';
 
 export const Toolbar: FC<ToolbarProps> = props => {
-  const { openModal, isModalOpen } = groupStore;
+  const { openModal } = groupStore;
+  const [isVisible, setIsVisible] = useState(false);
   const { onNavigate, date, children } = props;
   const [datePickerValue, setDatePickerValue] = useState<Date | null>(new Date());
   const { role } = appStore;
-
+  const changeVisibility = () => {
+    setIsVisible(!isVisible);
+  };
   const onNavigateDate = (newDate: Date | undefined) => {
     onNavigate(Navigate.DATE, newDate);
     // @ts-ignore
@@ -82,7 +85,96 @@ export const Toolbar: FC<ToolbarProps> = props => {
         </Grid>
         {/* </div> */}
       </div>
-      <AddEditGroup />
+      {/* <BasicModal visibility={isVisible} changeVisibility={changeVisibility}> */}
+      {/*  <div className={styles.modalWrap}> */}
+      {/*    <h2>Добавить группу</h2> */}
+      {/*    <div className={styles.modalInfo}> */}
+      {/*      <div className={styles.nameTeacher}> */}
+      {/*        <p>ФИО Учителя</p> */}
+      {/*        <InformationItem variant='input' /> */}
+      {/*      </div> */}
+      {/*      <div className={styles.nameGroup}> */}
+      {/*        <p>Название группы</p> */}
+      {/*        <InformationItem variant='input' /> */}
+      {/*      </div> */}
+      {/*      <div className={styles.levelGroup}> */}
+      {/*        <p>Уровень группы</p> */}
+      {/*        <InformationItem variant='select' /> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*    <div className={styles.modalBtn}> */}
+      {/*      <Button>Сохранить</Button> */}
+      {/*    </div> */}
+      {/*  </div> */}
+      {/* </BasicModal> */}
+      {/* <BasicModal visibility={isVisible} changeVisibility={changeVisibility}> */}
+      {/*  <div className={styles.modalWrapLessons}> */}
+      {/*    <h2>Редактирование урока</h2> */}
+      {/*    <div className={styles.blockDate}> */}
+      {/*      <div> */}
+      {/*        <p>Дата урока</p> */}
+      {/*        <InformationItem className={styles.calendarInfo} variant="calendar" /> */}
+      {/*      </div> */}
+      {/*      <div> */}
+      {/*        <p>Начало урока</p> */}
+      {/*        <InformationItem className={styles.infoInput} variant="input" /> */}
+      {/*      </div> */}
+      {/*      <div> */}
+      {/*        <p>Конец урока</p> */}
+      {/*        <InformationItem className={styles.infoInput} variant="input" /> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*    <div className={styles.statusInfo}> */}
+      {/*      <div> */}
+      {/*        <p>Статус</p> */}
+      {/*        <InformationItem className={styles.selectInfo} variant="select" /> */}
+      {/*      </div> */}
+      {/*      <div> */}
+      {/*        <p>ФИО Учителя</p> */}
+      {/*        <InformationItem className={styles.inputInfo} variant="input" /> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*    <div className={styles.levelInfo}> */}
+      {/*      <div> */}
+      {/*        <p>Название группы</p> */}
+      {/*        <InformationItem className={styles.nameInfo} variant="input" /> */}
+      {/*      </div> */}
+      {/*      <div> */}
+      {/*        <p>Уровень группы</p> */}
+      {/*        <InformationItem className={styles.levelSelect} variant="select" /> */}
+      {/*      </div> */}
+      {/*      <div className={styles.btnAddInfo}> */}
+      {/*        <Button>Сохранить</Button> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*  </div> */}
+      {/* </BasicModal> */}
+      <BasicModal visibility={isVisible} changeVisibility={changeVisibility}>
+        <div className={styles.modalAddLessons}>
+          <h2>Добавление уроков</h2>
+          <div className={styles.levelBlock}>
+            <div>
+              <p>Уровень</p>
+              <InformationItem className={styles.levelSelectBlock} variant="select" />
+            </div>
+            <div>
+              <p>Группа</p>
+              <InformationItem className={styles.levelSelectBlock} variant="select" />
+            </div>
+          </div>
+          {moksDatas.map(item => (
+            <div key={item.number} className={styles.numberChoice}>
+              <div>{item.number}</div>
+              {item.valueCalendar}
+              {item.valueStart}
+              {item.valueEnd}
+            </div>
+          ))}
+          <div className={styles.addLevelBtn}>
+            <Button>Сохранить</Button>
+          </div>
+        </div>
+      </BasicModal>
     </div>
   );
 };
@@ -99,7 +191,7 @@ export const CustomEvent: FC<EventProps> = observer(({ event }) => {
         {width && width > 700 ? (
           <div>
             <span>Класс: </span>
-            {event.groupName}
+            {event.grouopName}
           </div>
         ) : null}
         <div>
@@ -129,6 +221,11 @@ export const CustomEvent: FC<EventProps> = observer(({ event }) => {
   );
 });
 
+export const CustomEventWrapper: FC<any> = props => {
+  const { children } = props;
+  return <>{children}</>;
+};
+
 export const ScheduleHeader: FC<any> = ({ date }: { date: Date }) => {
   const [width, setWidth] = useState<number | undefined>(undefined);
   useEffect(() => {
@@ -136,4 +233,51 @@ export const ScheduleHeader: FC<any> = ({ date }: { date: Date }) => {
   }, []);
   const dateFormat = width && width > 700 ? 'DD.MM.YYYY' : 'DD.MM';
   return <>{moment(date).format(dateFormat)}</>;
+};
+const view = '';
+export const CustomToolBar: FC<any> = props => {
+  // TODO: props get navigate
+  const handleDayChange = (event: any, mconte: any) => {
+    mconte(event.target.value);
+  };
+  const handleNavigate = (detail: any, elem: any) => {
+    // detail.navigate(elem);
+  };
+  return (
+    <div className="posr">
+      <div className="rbc-btn-group">
+        <button type="button" className="defaultbtn" onClick={e => handleNavigate(e, 'TODAY')}>
+          Today
+        </button>
+        <button type="button" className="nextp-btn" onClick={e => handleNavigate(e, 'PREV')}>
+          Prev
+        </button>
+        <button type="button" className="nextp-btn" onClick={e => handleNavigate(e, 'NEXT')}>
+          Next
+        </button>
+      </div>
+      <div className="rbc-toolbar-label">{props.label}</div>
+
+      <div className="rbc-btn-group">
+        <select
+          className="form-control"
+          onChange={e => handleDayChange(e, view)}
+          defaultValue="week"
+        >
+          <option className="optionbar" value="day">
+            Day
+          </option>
+          <option className="optionbar" value="week">
+            Week
+          </option>
+          <option className="optionbar" value="month">
+            Month
+          </option>
+          <option className="optionbar" value="agenda">
+            Agenda
+          </option>
+        </select>
+      </div>
+    </div>
+  );
 };

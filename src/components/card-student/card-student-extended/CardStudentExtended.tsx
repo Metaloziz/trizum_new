@@ -11,6 +11,7 @@ import { EditUserIcon } from 'components/card-student/card-student-extended/edit
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
 import mockAvatar from 'public/img/avatarDefault.png';
+import { BASE_URL } from 'utils/consts/consts';
 
 type Props = {
   user: ResponseUserT;
@@ -86,7 +87,12 @@ const CardStudentExtended: FC<Props> = ({
       <div className={styles.rowWrapper}>
         <div className={styles.row}>
           <CustomImageWrapper className={styles.image} variant="circle">
-            <Image src={avatar ? avatar.path : mockAvatar} width="170" height="170" alt="avatar" />
+            <Image
+              src={avatar ? `${BASE_URL}${avatar.path}` : mockAvatar}
+              width="170"
+              height="170"
+              alt="avatar"
+            />
           </CustomImageWrapper>
           <div className={styles.title}>
             <h3>{name}</h3>

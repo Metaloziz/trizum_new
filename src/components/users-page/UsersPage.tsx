@@ -17,7 +17,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
 import modals from '../../app/stores/CardStudentExtended';
-import {Loader} from "../loader/Loader";
+import { Loader } from '../loader/Loader';
 
 import { Filter } from './Filter';
 import styles from './UsersPage.module.scss';
@@ -101,17 +101,13 @@ const UsersPage = observer(() => {
     setCity(event.target.value);
   };
 
-  const [mainData, setMainData] = React.useState<Date | null>(
-      new Date('2015-08-18T21:11:54'),
-  );
+  const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
 
   const handleChangeMainData = (newValue: Date | null) => {
     setMainData(newValue);
   };
 
-  const [value, setValue] = React.useState<Date | null>(
-      new Date('2014-08-18T21:11:54'),
-  );
+  const [value, setValue] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
 
   const handleChangeBornData = (newValue: Date | null) => {
     setValue(newValue);
@@ -127,10 +123,10 @@ const UsersPage = observer(() => {
   const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
 
   return !isLoaded ? (
-      <Loader />
+    <Loader />
   ) : (
     <div className={styles.wrapper}>
-      <Filter setIsModalOpen={setIsModalOpen}/>
+      <Filter setIsModalOpen={setIsModalOpen} />
       <div className={styles.cardWrapper}>
         {users.map(user => (
           <CardStudentExtended

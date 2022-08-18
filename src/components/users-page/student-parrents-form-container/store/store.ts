@@ -1,10 +1,10 @@
-import { ParentT } from 'app/types/UserTypes';
+import { ParentDataT } from 'app/types/UserTypes';
 
 export type ParentsFormStateType = {
   id: number;
   isSuccessSubmit: boolean;
   isMain: boolean;
-  parent?: ParentT;
+  parent?: ParentDataT;
 };
 
 export const MAX_PARENTS_COUNT = 3;
@@ -18,7 +18,7 @@ export const INITIAL_PARENT_FORM_STATE: ParentsFormStateType[] = [
   },
 ];
 
-export const setInitialState = (parents?: ParentT[]): ParentsFormStateType[] => {
+export const setInitialState = (parents?: ParentDataT[]): ParentsFormStateType[] => {
   if (parents) {
     return parents.map((parent, index) => ({
       id: index + 1,

@@ -1,5 +1,4 @@
 import { Roles } from 'app/stores/appStore';
-import { canSwitchToT } from 'app/types/UserTypes';
 
 export type RequestSMS = { phone: string };
 export type RequestLogin = { phone: string; smsCode: number };
@@ -21,32 +20,6 @@ export type ResponseMe = {
   email: string;
   phone: string;
   role: string;
-};
-
-export type TimeZoneType = {
-  date: string;
-  timezone_type: number;
-  timezone: string;
-};
-
-export type ResponseLoadMe = {
-  id: string;
-  firstName: string;
-  middleName: null | string;
-  lastName: string;
-  email: string;
-  phone: string;
-  role: string;
-  franchise: null | string;
-  city: null | string;
-  birthdate: TimeZoneType;
-  sex: null | string;
-  status: string;
-  avatar: {
-    id: string;
-    path: string;
-  };
-  canSwitchTo: canSwitchToT[];
 };
 
 export type RequestRegister = {

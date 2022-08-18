@@ -6,7 +6,6 @@ import {
   RequestLogin,
   RequestRegister,
   RequestSMS,
-  ResponseLoadMe,
   ResponseLogin,
   ResponseMe,
   ResponseSMS,
@@ -14,6 +13,7 @@ import {
   ResponseEditSelf,
   RequestSwitchUser,
 } from 'app/types/AuthTypes';
+import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
 
 const authService = {
   authenticate: async (data: any) => {
@@ -38,15 +38,15 @@ const authService = {
     return res.data;
   },
 
-  loadme: async (): Promise<AxiosResponse<ResponseLoadMe>> => {
-    const res: AxiosResponse<ResponseLoadMe> = await instance.get(Paths.LoadMe);
-    return res;
+  loadme: async (): Promise<ResponseLoadMeBaseT> => {
+    const res: AxiosResponse<ResponseLoadMeBaseT> = await instance.get(Paths.LoadMe);
+    return res.data;
   },
   register: async (params: RequestRegister) => {
     const { data }: AxiosResponse = await instance.post(Paths.Register, params);
     return data;
   },
-  аvatar: async (params: ResponseAvatar) => {
+  avatar: async (params: ResponseAvatar) => {
     const { data } = await instance.post(Paths.Avatar, params);
     return data;
   },

@@ -1,4 +1,5 @@
-import { RoleNames, Roles } from 'app/stores/appStore';
+import { RoleNames } from 'app/enums/RoleNames';
+import { Roles } from 'app/stores/appStore';
 
 export const roleOptions = [
   { label: RoleNames.student, value: Roles.Student },

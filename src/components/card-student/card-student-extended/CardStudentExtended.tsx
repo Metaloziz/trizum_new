@@ -4,7 +4,8 @@ import modals from '../../../app/stores/CardStudentExtended';
 
 import styles from './CardStudentExtended.module.scss';
 
-import { RoleNames, Roles } from 'app/stores/appStore';
+import { RoleNames } from 'app/enums/RoleNames';
+import { Roles } from 'app/stores/appStore';
 import { ResponseOneUser, ResponseUserT } from 'app/types/UserTypes';
 import Button from 'components/button/Button';
 import { EditUserIcon } from 'components/card-student/card-student-extended/edit-user-icon/EditUserIcon';

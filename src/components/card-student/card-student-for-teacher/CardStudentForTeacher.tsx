@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import styles from './CardStudentForTeacher.module.scss';
 
-import { EmptyUser } from 'app/stores/appStore';
+import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
 import iconFlag from 'assets/svgs/flag.svg';
 import Button from 'components/button/Button';
 import CardStudentTitle from 'components/card-student/card-student-title/CardStudentTitle';
@@ -11,7 +11,7 @@ import Image from 'components/image/Image';
 import Avatar from 'public/img/avatarDefault.png';
 
 interface Props {
-  user: EmptyUser;
+  user: ResponseLoadMeBaseT;
 }
 
 const CardStudentForTeacher: FC<Props> = props => {

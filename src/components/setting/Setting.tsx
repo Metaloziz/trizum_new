@@ -49,7 +49,7 @@ const Setting = () => {
     try {
       const croppedImage = await getCroppedImg(image, croppedAreaPixels);
       if (croppedImage) {
-        const res = await authService.аvatar({ image: croppedImage.split(',')[1] });
+        const res = await authService.avatar({ image: croppedImage.split(',')[1] });
         setShowModal(false);
         setUser();
         console.log(res);

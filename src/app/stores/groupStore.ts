@@ -7,14 +7,11 @@ import { DateTime } from 'app/enums/DateTime';
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
 import groupsService, { AddUserGroupPayloadType } from 'app/services/groupsService';
-import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
 import { ResponseCourse } from 'app/types/CourseTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
 import {
-  CreateGroupForServer,
   CreateGroupFroUI,
-  GroupParams,
   GroupParamsForUI,
   GroupT,
   LessonT,
@@ -23,7 +20,7 @@ import {
   ResponseOneGroup,
   Schedule,
 } from 'app/types/GroupTypes';
-import { RequestUsersParams, ResponseUserT } from 'app/types/UserTypes';
+import { ResponseUserT } from 'app/types/UserTypes';
 import { GroupsViewModel } from 'app/viewModels/GroupsViewModel';
 import {
   scheduleItemToServerMapper,

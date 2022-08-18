@@ -1,13 +1,19 @@
 @import "../../styles/variables";
+
 .container {
   display: flex;
   align-items: center;
   padding-left: 35px;
   background-color: white;
-  box-shadow: 0px 20px 70px 0px #5659921a;
+  box-shadow: 0 20px 70px 0 #5659921a;
   border-radius: 30px;
   height: 90px;
   margin-bottom: 30px;
+
+  img {
+    margin-left: 3px;
+    height: 20px;
+  }
 
   @media (max-width: 600px) {
     padding-left: 17px;

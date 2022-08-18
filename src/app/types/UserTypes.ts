@@ -1,7 +1,7 @@
 import { Roles } from 'app/stores/appStore';
-import { TimeZoneType } from 'app/types/AuthTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
 import { Nullable } from 'app/types/Nullable';
+import { TimeZoneType } from 'app/types/TimeZoneType';
 import { WithPagination } from 'app/types/WithPagination';
 
 export type RequestUsersParams = {
@@ -65,7 +65,7 @@ export type ResponseUserT = {
   lastName: string;
   phone: string | null;
   email: string | null;
-  roleCode: Roles;
+  roleCode: string;
   franchise: FranchiseT | null;
   city: string | null;
   groups: ResponseOneUserGroupT[];
@@ -78,25 +78,23 @@ export type FullResponseUserT = WithPagination<ResponseUserT[]>;
 export type UserStatusT = 'active' | 'blocked' | 'payed' | 'notPayed';
 
 export type ParentT = {
+  id: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  avatar: null;
+  role: string;
+  sex: boolean;
+  birthdate: TimeZoneType;
+  city: string;
+  phone: string;
+  email: string;
+};
+
+export type ParentDataT = {
   parentingId: string;
   isMain: boolean;
-  parent: {
-    id: string;
-    firstName: string;
-    middleName: string;
-    lastName: string;
-    avatar: null;
-    role: string;
-    sex: boolean;
-    birthdate: {
-      date: string;
-      timezone_type: number;
-      timezone: string;
-    };
-    city: string;
-    phone: string;
-    email: string;
-  };
+  parent: ParentT;
 };
 
 export type ResponseOneUser = {
@@ -104,7 +102,7 @@ export type ResponseOneUser = {
   sex: boolean | null; // male - true
   createdAt: TimeZoneType;
   groups: ResponseOneUserGroupT[];
-  parents: ParentT[];
+  parents: ParentDataT[];
   tariff: null | any;
   payedUntill: null | any;
   isSecondChild: null | boolean;

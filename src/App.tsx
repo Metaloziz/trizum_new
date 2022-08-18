@@ -19,6 +19,7 @@ import Home from 'pages/home/Home';
 import Homework from 'pages/homework/Homework';
 import HomeworkAddEdit from 'pages/homework/HomeworkAddEdit/HomeworkAddEdit';
 import Login from 'pages/login/Login';
+import Olympiad from 'pages/olympiads/Olympiad/Olympiad';
 import Olympiads from 'pages/olympiads/Olympiads';
 import Pay from 'pages/pay/Pay';
 import Report from 'pages/report/Report';
@@ -50,7 +51,12 @@ const App = observer(() => (
           <Route path={AppRoutes.Homework} element={<Homework />} />
           <Route path={`${AppRoutes.Homework}${AppRoutes.Add}`} element={<HomeworkAddEdit />} />
           <Route path={AppRoutes.Signin} element={<Login />} />
-          <Route path={AppRoutes.Olympiads} element={<Olympiads />} />
+
+          <Route path={AppRoutes.Olympiads}>
+            <Route path="" element={<Olympiads />} />
+            <Route path=":id" element={<Olympiad />} />
+          </Route>
+
           <Route path={AppRoutes.Payment} element={<Pay />} />
           <Route path={AppRoutes.Rate} element={<Rate />} />
           <Route path={AppRoutes.Report} element={<Report />} />

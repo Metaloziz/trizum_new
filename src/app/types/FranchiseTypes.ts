@@ -1,5 +1,10 @@
 import { Nullable } from 'app/types/Nullable';
 
+export type FranchiseShortT = {
+  id: string;
+  shortName: string;
+};
+
 export type FranchiseT = {
   id?: string;
   inn: Nullable<string>;

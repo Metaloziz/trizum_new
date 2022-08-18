@@ -22,10 +22,12 @@ const func = (isTester: boolean, isAnalytic: boolean) => {
 const Login = () => {
   const [isTester, setIsTester] = useState(false);
   const [isAnalytic, setIsAnalytic] = useState(false);
+
   const resetRole = () => {
     setIsAnalytic(false);
     setIsTester(false);
   };
+
   const [phone, setPhone] = useState('79601001010');
   // 71100974671 номер для отображения уроков у учителя
   const qwe = (role: Roles) => {
@@ -37,7 +39,7 @@ const Login = () => {
         setPhone(`${func(isTester, isAnalytic)}7007070`);
         break;
       case Roles.Teacher:
-        setPhone(`${func(isTester, isAnalytic)}6006060`);
+        setPhone(`71119009103`);
         break;
       case Roles.FranchiseeAdmin:
         setPhone(`${func(isTester, isAnalytic)}5005050`);
@@ -58,10 +60,12 @@ const Login = () => {
         setPhone('79601001010');
     }
   };
+
   const onClick = async () => {
     await appStore.login({ phone, smsCode: 7777 });
     await appStore.loadme();
   };
+
   const [code, setCode] = useState<string>('');
   const [showModal1, setShowModal1] = useState<boolean>(false);
   const [showModal2, setShowModal2] = useState<boolean>(false);
@@ -69,6 +73,7 @@ const Login = () => {
   const [erorr, setErorr] = useState<boolean>(false);
   const [seconds, setSeconds] = useState<number>(150);
   const [timerActive, setTimerActive] = useState<boolean>(false);
+
   useEffect(() => {
     if (seconds > 0 && timerActive) {
       setTimeout(setSeconds, 150, seconds - 1);
@@ -86,6 +91,7 @@ const Login = () => {
     const getSMSCode = await authService.sms({ phone });
     console.log('код по смс', getSMSCode);
   };
+
   const sendCode = async () => {
     try {
       const getToken = await authService.login({ phone, smsCode: Number(code) });
@@ -114,6 +120,7 @@ const Login = () => {
     setTimerActive(false);
     setErorr(false);
   };
+
   function filterWords(
     number: number,
     one: string | number,
@@ -134,9 +141,11 @@ const Login = () => {
     }
     return five;
   }
+
   if (appStore.role !== Roles.Unauthorized) {
     return <Navigate to={AppRoutes.Index} />;
   }
+
   return (
     <div className={styles.flex}>
       {showModal1 || showModal2 ? null : <RoleButtons onClick={qwe} />}

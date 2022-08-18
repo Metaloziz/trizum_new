@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import {
   FormControl,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -11,8 +10,6 @@ import {
 } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { DesktopDatePicker } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
@@ -22,7 +19,8 @@ import { Loader } from '../loader/Loader';
 import { Filter } from './Filter';
 import styles from './UsersPage.module.scss';
 
-import { RoleNames, Roles } from 'app/stores/appStore';
+import { RoleNames } from 'app/enums/RoleNames';
+import { Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
 import tariffsStore from 'app/stores/tariffsStore';
@@ -32,8 +30,7 @@ import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import CardStudentExtended from 'components/card-student/card-student-extended/CardStudentExtended';
 import InformationItem from 'components/information-item/InformationItem';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
-import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
+import { Option } from 'components/select/CustomSelect';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
 

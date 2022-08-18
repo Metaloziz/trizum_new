@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -58,7 +58,7 @@ const ClassesPage = observer(() => {
     }, []),
     [],
   );
-  // console.log(checkRoleForClasses(appStore.role),'checkRoleForClasses(appStore.role)');
+
   return (
     <>
       <div className={styles.wrapper}>

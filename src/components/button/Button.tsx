@@ -26,13 +26,13 @@ type ButtonVariantType =
 
 type ButtonSize = 'large' | 'small' | 'thin';
 
-type Props = {
+export type ButtonPropsT = {
   children?: React.ReactNode;
   size?: ButtonSize;
   variant?: ButtonVariantType;
 } & Omit<ButtonProps, 'size' | 'variant'>;
 
-const Button1: FC<Props> = props => {
+const Button1: FC<ButtonPropsT> = props => {
   const { children, disabled, size, variant, onClick, ...rest } = props;
   const [isShowHover, setShowHover] = useState<boolean>(false);
   let iconButton: ReactElement;

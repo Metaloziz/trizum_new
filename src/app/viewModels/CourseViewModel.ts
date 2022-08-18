@@ -1,6 +1,6 @@
 import { HomeworkViewModel } from './HomeworkViewModel';
 
-import { TimeZoneType } from 'app/types/AuthTypes';
+import { TimeZoneType } from 'app/types/TimeZoneType';
 
 export interface CourseViewModel {
   id?: string;

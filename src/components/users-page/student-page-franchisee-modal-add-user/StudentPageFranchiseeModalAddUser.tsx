@@ -27,9 +27,9 @@ import { isStudentRole } from 'components/users-page/student-page-franchisee-mod
 import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
 import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
+import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'constants/constants';
+import { REG_NAME, REG_PHONE } from 'constants/regExp';
 import avatar from 'public/img/avatarDefault.png';
-import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'utils/consts/consts';
-import { REG_NAME, REG_PHONE } from 'utils/consts/regExp';
 import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
@@ -58,7 +58,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
 
   useEffect(() => {
     if (user?.roleCode) {
-      setSelectedRole(user.roleCode);
+      setSelectedRole(user.roleCode as Roles);
     }
   }, []);
 

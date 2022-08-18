@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 
 import style from './StudentParentsFormContainer.module.scss';
 
-import { ParentT } from 'app/types/UserTypes';
+import { ParentDataT } from 'app/types/UserTypes';
 import { Divider } from 'components/divider/Divider';
 import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
 import styles from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser.module.scss';
@@ -18,7 +18,7 @@ type Props = {
   studentId: string;
   franchiseId: string;
   onCloseModal: () => void;
-  parents?: ParentT[];
+  parents?: ParentDataT[];
 };
 
 export const StudentParentsFormContainer: FC<Props> = ({

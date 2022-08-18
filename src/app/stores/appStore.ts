@@ -5,7 +5,9 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { RequestLogin, RequestSwitchUser, ResponseLoadMe } from '../types/AuthTypes';
 
 import authService from 'app/services/authService';
-import { TimeZoneType } from 'app/types/AuthTypes';
+import usersStore from 'app/stores/usersStore';
+import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
+import { TimeZoneType } from 'app/types/TimeZoneType';
 import { canSwitchToT } from 'app/types/UserTypes';
 import { execute } from 'utils/execute';
 
@@ -31,18 +33,6 @@ export enum Roles {
   /* Неавторизованный */
   Unauthorized = 'unauthorized',
 }
-
-export const RoleNames = {
-  student: 'Ученик',
-  parent: 'Родитель',
-  teacherEducation: 'Учитель на обучении',
-  teacher: 'Учитель',
-  franchiseeAdmin: 'Администратор франчайзи',
-  franchisee: 'Франчайзи',
-  methodist: 'Методист',
-  tutor: 'Куратор',
-  admin: 'Центр',
-};
 
 export class EmptyUser {
   id;
@@ -101,7 +91,7 @@ export class EmptyUser {
 class AppStore {
   role: Roles = Roles.Unauthorized;
 
-  user = new EmptyUser();
+  user: ResponseLoadMeBaseT = new EmptyUser();
 
   isInitialized = false;
 
@@ -113,33 +103,6 @@ class AppStore {
     makeAutoObservable(this);
   }
 
-  setRole = (role: Roles): void => {
-    this.role = role;
-    if (role === Roles.Unauthorized) {
-      this.user.id = '';
-      this.user.firstName = '';
-      this.user.middleName = '';
-      this.user.lastName = '';
-      this.user.email = '';
-      this.user.phone = '';
-      this.user.role = '';
-      this.user.franchise = '';
-      this.user.city = '';
-      this.user.birthdate = {
-        date: '',
-        timezone_type: 0,
-        timezone: '',
-      };
-      this.user.sex = '';
-      this.user.status = '';
-      this.user.avatar = {
-        id: '',
-        path: '',
-      };
-      this.user.canSwitchTo = [];
-    }
-  };
-
   login = async (data: RequestLogin) => {
     await execute(async () => {
       await authService.login(data);
@@ -148,7 +111,7 @@ class AppStore {
 
   loadme = async () => {
     await execute(async () => {
-      const res: AxiosResponse<ResponseLoadMe> = await authService.loadme();
+      const res: AxiosResponse<ResponseLoadMeBaseT> = await authService.loadme();
       if (res.status >= 400 || res.data === undefined) {
         runInAction(() => {
           this.isLoggedIn = false;
@@ -166,13 +129,25 @@ class AppStore {
     });
   };
 
+  setRole = (role: Roles): void => {
+    this.role = role;
+    if (role === Roles.Unauthorized) {
+      this.user = new EmptyUser()
+    }
+  };
+
   setUser = async () => {
     try {
-      const res = await authService.loadme();
+      const res: ResponseLoadMeBaseT = await authService.loadme();
       console.log(res);
       runInAction(() => {
-        this.role = res.data.role as Roles;
-        this.user = res.data;
+        this.role = res.role as Roles;
+        this.user = res;
+
+        if (res.role === Roles.Student && !!res.groups) {
+          const { teacherId } = res.groups[0].group;
+          usersStore.getOneUser(teacherId);
+        }
       });
     } catch (e) {
       console.log(e);

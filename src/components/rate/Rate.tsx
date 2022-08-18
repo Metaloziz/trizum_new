@@ -50,7 +50,7 @@ const Rate = observer(() => {
       <Loader />
   ) : (
     <div className={styles.counter}>
-      <AddOrEditDialog store={tariffsStore} />
+      <AddOrEditDialog />
       <RateChoice setCurrentPage={setCurrentPage} />
       <div className={styles.tableBlock}>
         <Table list={currentItem} colNames={colNames} loading={false}>

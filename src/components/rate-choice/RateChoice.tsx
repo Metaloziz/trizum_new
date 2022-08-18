@@ -14,7 +14,7 @@ import InformationItem from 'components/information-item/InformationItem';
 const newStatus = [
   { value: 'all', label: 'Все' },
   { value: 'active', label: 'Активный' },
-  { value: 'deleted', label: 'Не активен' },
+  // { value: 'archive', label: 'Не активен' },
   { value: 'hidden', label: 'Заблокированный' },
 ];
 
@@ -28,7 +28,7 @@ const RateChoice: FC<RateChoicePropsType> = observer(({ setCurrentPage }) => {
   const [lengthTo, setLengthTo] = useState('');
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTo, setDateTo] = useState(null);
-  const [status, setStatus] = useState('all');
+  const [status, setStatus] = useState('active');
   const [input, setInput] = useState('');
 
   const searchHandler = () => {
@@ -40,12 +40,12 @@ const RateChoice: FC<RateChoicePropsType> = observer(({ setCurrentPage }) => {
     setLengthFrom('');
     setDateTo(null);
     setDateFrom(null);
-    setStatus('all');
+    setStatus('active');
     setInput('');
     setFilters({
       dateFrom: '',
       dateTo: '',
-      status: 'all',
+      status: 'active',
       lengthFrom: '',
       lengthTo: '',
       input: '',
@@ -70,7 +70,7 @@ const RateChoice: FC<RateChoicePropsType> = observer(({ setCurrentPage }) => {
           <Select
             onChange={({ target: { value } }) => setStatus(value)}
             label="Статус"
-            defaultValue="all"
+            defaultValue="active"
             size="small"
             value={status}
           >
@@ -115,10 +115,12 @@ const RateChoice: FC<RateChoicePropsType> = observer(({ setCurrentPage }) => {
           </div>
         </div>
         <div className={styles.btnBlock}>
-          <Button variant="addExel" onClick={resetHandler}>
-            Сбросить
-          </Button>
-          <Button onClick={searchHandler}>Найти</Button>
+          <div className={styles.navButtonBlock}>
+            <Button variant="addExel" onClick={resetHandler}>
+              Сбросить
+            </Button>
+            <Button onClick={searchHandler}>Найти</Button>
+          </div>
 
           <div className={styles.btnAdd}>
             <Button onClick={() => tariffsStore.openDialog()}>Добавить</Button>

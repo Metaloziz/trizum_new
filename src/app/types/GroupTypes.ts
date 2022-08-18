@@ -48,7 +48,7 @@ type LocalUserT = ResponseOneUserTypeForLoadMe & {
 type UsersDataT = {
   id: string;
   stats: StatusT[];
-  user: LocalUserT;
+  user: EmptyUser;
 };
 
 export type ResponseOneGroup = {

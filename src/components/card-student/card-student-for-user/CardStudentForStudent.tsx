@@ -8,7 +8,7 @@ import iconParrot from '../../../assets/svgs/parrot.svg';
 import styles from './CardStudentForUser.module.scss';
 import { getNearestLessonDateHelper } from './getNearestLessonDateHelper/getNearestLessonDateHelper';
 
-import { Roles } from 'app/stores/appStore';
+import {EmptyUser, Roles} from 'app/stores/appStore';
 import usersStore from 'app/stores/usersStore';
 import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
 import iconFlag from 'assets/svgs/icon-flag.svg';
@@ -23,7 +23,7 @@ import Image from 'components/image/Image';
 import Avatar from 'public/img/avatarDefault.png';
 
 type Props = {
-  user: ResponseLoadMeBaseT;
+  user: EmptyUser;
 };
 
 const CardStudentForStudent: FC<Props> = ({ user }) => {

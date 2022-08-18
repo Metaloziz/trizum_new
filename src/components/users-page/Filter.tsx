@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-
-import ClearIcon from '@mui/icons-material/Clear';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import SearchIcon from '@mui/icons-material/Search';
 import {
   Accordion,
   AccordionActions,
@@ -13,22 +10,21 @@ import {
   Grid,
   InputLabel,
   MenuItem,
-  SelectChangeEvent,
-  Paper,
   Select,
+  SelectChangeEvent,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
 import { DesktopDatePicker } from '@mui/x-date-pickers';
-import MuiPhoneNumber from 'material-ui-phone-number';
 
 import Button from '../button/Button';
 
-import { Roles, RoleNames } from 'app/stores/appStore';
 import usersStore from 'app/stores/usersStore';
 import InformationItem from 'components/information-item/InformationItem';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
+import { Option } from 'components/select/CustomSelect';
+import { Roles } from 'app/stores/appStore';
+import { RoleNames } from 'app/enums/RoleNames';
 
 const roleOptions = [
   { label: 'Все', value: 'all' },

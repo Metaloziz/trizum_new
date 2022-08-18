@@ -2,14 +2,20 @@
 import { AxiosResponse } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { RequestLogin, RequestSwitchUser, ResponseLoadMe } from '../types/AuthTypes';
+import { RequestLogin, RequestSwitchUser } from '../types/AuthTypes';
 
 import authService from 'app/services/authService';
 import usersStore from 'app/stores/usersStore';
-import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
+import {
+  GroupsDataT,
+  PersonalRecordT,
+  ResponseLoadMeBaseT,
+  ResponseLoadMeParentT,
+} from 'app/types/ResponseLoadMeBaseT';
 import { TimeZoneType } from 'app/types/TimeZoneType';
-import { canSwitchToT } from 'app/types/UserTypes';
+import { canSwitchToT, ParentT } from 'app/types/UserTypes';
 import { execute } from 'utils/execute';
+import { AvatarT } from 'app/types/AvatarT';
 
 export enum Roles {
   /* Ученик */
@@ -59,9 +65,17 @@ export class EmptyUser {
 
   status;
 
-  avatar: { id: string; path: string };
+  avatar: AvatarT;
+
+  groups?: GroupsDataT[];
 
   canSwitchTo: canSwitchToT[];
+
+  active = false;
+
+  parent: ResponseLoadMeParentT = {} as ResponseLoadMeParentT;
+
+  personalRecord?: PersonalRecordT;
 
   constructor() {
     this.id = '';
@@ -81,17 +95,21 @@ export class EmptyUser {
     this.sex = '';
     this.status = '';
     this.avatar = {
+      createdAt: {} as TimeZoneType,
+      type: '',
+      previewPath: '',
       id: '',
       path: '',
     };
     this.canSwitchTo = [];
+    this.parent = {} as ResponseLoadMeParentT;
   }
 }
 
 class AppStore {
   role: Roles = Roles.Unauthorized;
 
-  user: ResponseLoadMeBaseT = new EmptyUser();
+  user = new EmptyUser();
 
   isInitialized = false;
 
@@ -111,7 +129,7 @@ class AppStore {
 
   loadme = async () => {
     await execute(async () => {
-      const res: AxiosResponse<ResponseLoadMeBaseT> = await authService.loadme();
+      const res = await authService.loadme();
       if (res.status >= 400 || res.data === undefined) {
         runInAction(() => {
           this.isLoggedIn = false;
@@ -132,20 +150,19 @@ class AppStore {
   setRole = (role: Roles): void => {
     this.role = role;
     if (role === Roles.Unauthorized) {
-      this.user = new EmptyUser()
+      this.user = new EmptyUser();
     }
   };
 
   setUser = async () => {
     try {
-      const res: ResponseLoadMeBaseT = await authService.loadme();
-      console.log(res);
+      const res = await authService.loadme();
       runInAction(() => {
-        this.role = res.role as Roles;
-        this.user = res;
+        this.role = res.data.role as Roles;
+        this.user = res.data;
 
-        if (res.role === Roles.Student && !!res.groups) {
-          const { teacherId } = res.groups[0].group;
+        if (res.data.role === Roles.Student && !!res.data.groups) {
+          const { teacherId } = res.data.groups[0].group;
           usersStore.getOneUser(teacherId);
         }
       });

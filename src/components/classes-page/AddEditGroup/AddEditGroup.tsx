@@ -69,7 +69,6 @@ const AddEditGroup: FC<Props> = observer(props => {
   const [teacherOptions, setTeacherOptions] = useState<JSX.Element[]>([]);
   const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
   const [courseOptions, setCourseOptions] = useState<JSX.Element[]>([]);
-  console.log(selectedGroup && { ...selectedGroup.course });
   const getTeachers = async () => {
     if (modalFields.franchiseId) {
       const res = await usersService.getAllUsers({
@@ -170,6 +169,7 @@ const AddEditGroup: FC<Props> = observer(props => {
                 labelId="status"
                 label="Статус"
                 fullWidth
+                // @ts-ignore
                 onChange={(event, child) => (modalFields.status = event.target.value)}
                 value={modalFields.status}
               >

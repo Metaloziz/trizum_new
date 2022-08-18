@@ -5,9 +5,9 @@ import { Nullable } from 'app/types/Nullable';
 import { TimeZoneType } from 'app/types/TimeZoneType';
 import { canSwitchToT, ParentT, ResponseOneUser } from 'app/types/UserTypes';
 
-type ResponseLoadMeParentT = Omit<ParentT, 'avatar' | 'role' | 'sex' | 'birthdate' | 'city'>;
+export type ResponseLoadMeParentT = Omit<ParentT, 'avatar' | 'role' | 'sex' | 'birthdate' | 'city'>;
 
-type PersonalRecordT = {
+export type PersonalRecordT = {
   a: Nullable<number>;
   b: Nullable<number>;
   c: Nullable<number>;

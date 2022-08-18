@@ -3,7 +3,7 @@ import instance from 'app/services/config';
 import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
   FullResponseUserT,
-  RequestParenting,
+  RequestParenting, RequestUsersForFilter,
   RequestUsersParams,
   ResponseOneUser,
   ResponseParenting,
@@ -18,6 +18,22 @@ const usersService = {
         role: params?.role,
         per_page: params?.perPage,
         franchise_id: params?.franchiseId,
+      },
+    });
+    return res.data;
+  },
+  getUsersForFilters: async (params?: RequestUsersForFilter): Promise<FullResponseUserT> => {
+    const res = await instance.get(Paths.Users, {
+      params: {
+        page: params?.page || undefined,
+        role: params?.role || undefined,
+        per_page: params?.perPage || undefined,
+        franchise_id: params?.franchiseId || undefined,
+        first_name: params?.firstName || undefined || null,
+        middle_name: params?.middleName || undefined || null,
+        last_name: params?.lastName || undefined ||null,
+        city: params?.city || undefined,
+        birthdate: params?.birthdate || undefined,
       },
     });
     return res.data;

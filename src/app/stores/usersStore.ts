@@ -5,7 +5,7 @@ import usersService from 'app/services/usersService';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
-  RequestParenting,
+  RequestParenting, RequestUsersForFilter,
   RequestUsersParams,
   ResponseOneUser,
   ResponseUserT,
@@ -29,6 +29,16 @@ class UsersStore {
 
   getUsers = async (params?: RequestUsersParams) => {
     const res = await usersService.getAllUsers(params);
+    runInAction(() => {
+      this.users = res.items;
+      this.usersTotalCount = res.total;
+      this.perPage = res.perPage;
+      this.page = Number(res.page);
+    });
+  };
+
+  getUsersForFilter = async (params?: RequestUsersForFilter) => {
+    const res = await usersService.getUsersForFilters(params);
     runInAction(() => {
       this.users = res.items;
       this.usersTotalCount = res.total;

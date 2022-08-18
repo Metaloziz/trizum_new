@@ -1,4 +1,5 @@
-import React, { FC, SyntheticEvent, useState } from 'react';
+import React, { FC, SyntheticEvent, useState, useEffect } from 'react';
+
 
 import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
@@ -9,6 +10,7 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import styles from './Schedule.module.scss';
 
 import appStore, { Roles } from 'app/stores/appStore';
+import teacherMainStore from 'app/stores/teacherMainStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import InformationItem from 'components/information-item/InformationItem';
 import {
@@ -40,14 +42,21 @@ export type ScheduleEvent = {
   lesson: string;
   class: string;
 };
+// export type ScheduleEvent = {
+//   name: string;
+//   date: string;
+//   from: string;
+//   to: string;
+// };
+
 // mock
 const eventsObj: object[] = [
   {
     id: 'asd',
     title: 'Event 1',
     allDay: false,
-    start: new Date(2022, 5, 2, 8, 15), // 10.00 AM
-    end: new Date(2022, 5, 2, 9, 0),
+    start: new Date(2022, 7, 16, 8, 15), // 10.00 AM
+    end: new Date(2022, 7, 16, 9, 0),
     lesson: 'lesson',
     class: '1A',
   },
@@ -55,17 +64,25 @@ const eventsObj: object[] = [
     id: 'qwe',
     title: 'Event 2',
     allDay: false,
-    start: new Date(2022, 4, 31, 9, 15), // 10.00 AM
-    end: new Date(2022, 4, 31, 10, 0),
+    start: new Date(2022, 7, 17, 9, 15), // 10.00 AM
+    end: new Date(2022, 7, 17, 10, 0),
     lesson: 'lesson',
-    class: '2A',
+    class: '10A',
+  },
+  {
+    id: 'qwet',
+    title: 'Event 3',
+    allDay: false,
+    start: new Date(2022, 7, 18, 14, 15), // 10.00 AM
+    end: new Date(2022, 7, 18, 16, 0),
+    lesson: 'lesson',
+    class: '10A',
   },
 ];
 
 const formats = {
   eventTimeRangeFormat: () => '',
 };
-
 const groups = ['group №1', 'group №2', 'group №3'];
 
 const groupOptions = groups.map(el => getOption(el, el));
@@ -75,11 +92,11 @@ const ChildrenToolbar: FC = observer(() => {
 
   return (
     <div className={styles.toolbarFlex}>
-      <InformationItem
+      {/* <InformationItem
         title="Дата"
         variant="calendar"
         className={cn(styles.toolbarDateSelect, styles.choiceData)}
-      />
+      /> */}
       {role === Roles.FranchiseeAdmin && (
         <div className={styles.optionBlockAdmin}>
           <div className={styles.group}>
@@ -180,11 +197,24 @@ const ChildrenToolbar: FC = observer(() => {
           </div>
         </div>
       )}
+      {role === Roles.Teacher && (
+        <div className={styles.optionBlockAdmin}>
+          <div className={styles.group}>
+            {/* <p>Группа</p> */}
+            <CustomSelect
+              options={groupOptions}
+              placeholder="Группа"
+              className={styles.toolbarGroupSelect}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 });
 
 const ScheduleDnD: FC = observer(() => {
+  const { schedule, getGroups } = teacherMainStore;
   const { role } = appStore;
   const [events, setEvents] = useState<(ScheduleEvent | object)[]>(eventsObj);
   const [isVisible, setIsVisible] = useState(false);
@@ -192,16 +222,20 @@ const ScheduleDnD: FC = observer(() => {
   const changeVisibility = () => {
     setIsVisible(!isVisible);
   };
+  useEffect(() => {
+    getGroups();
+  }, []);
+  console.log(schedule);
   const moveEvent = ({
     event,
     start,
     end,
-    isAllDay,
-  }: {
+  }: // isAllDay,
+  {
     event: object;
     start: stringOrDate;
     end: stringOrDate;
-    isAllDay: boolean;
+    // isAllDay: boolean;
   }) => {
     const idx = events.findIndex(e => (e as ScheduleEvent).id === (event as ScheduleEvent).id);
     const updatedEvent = { ...event, start, end };
@@ -290,7 +324,7 @@ const ScheduleDnD: FC = observer(() => {
     <div className={styles.wrapper}>
       <DnDCalendar
         localizer={localizer}
-        events={events}
+        events={schedule}
         step={15}
         min={new Date(2022, 0, 1, 8, 0)}
         max={new Date(2022, 0, 5, 20, 30)}

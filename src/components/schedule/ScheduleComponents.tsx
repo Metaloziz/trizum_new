@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 import moment from 'moment';
-import { ToolbarProps } from 'react-big-calendar';
+import { Navigate, ToolbarProps } from 'react-big-calendar';
 
 import appStore, { Roles } from 'app/stores/appStore';
 import iconDelete from 'assets/svgs/delete.svg';
@@ -13,6 +13,7 @@ import Image from 'components/image/Image';
 import InformationItem from 'components/information-item/InformationItem';
 import styles from 'components/schedule/Schedule.module.scss';
 import { EventProps } from 'components/schedule/ScheduleDnD';
+import CustomDatePicker from 'components/tariff-page/customDatePicker';
 
 // type ToolbarProps = {
 //   date:Date
@@ -58,10 +59,17 @@ const moksDatas: Mock1[] = [
 export const Toolbar: FC<ToolbarProps> = props => {
   const [isVisible, setIsVisible] = useState(false);
   const { onNavigate, date, children } = props;
+  const [datePickerValue, setDatePickerValue] = useState<Date | null>(new Date());
   const { role } = appStore;
   const changeVisibility = () => {
     setIsVisible(!isVisible);
   };
+  const onNavigateDate = (newDate: Date | undefined) => {
+    onNavigate(Navigate.DATE, newDate);
+    // @ts-ignore
+    setDatePickerValue(newDate);
+  };
+
   return (
     <div className={styles.toolbarWrapper}>
       <div className={styles.toolbarFlexWrapper}>
@@ -69,6 +77,9 @@ export const Toolbar: FC<ToolbarProps> = props => {
         <div className={styles.buttons}>
           {role === Roles.Teacher && (
             <>
+              <div className={styles.dataContainer}>
+                <CustomDatePicker value={datePickerValue} setValue={onNavigateDate} label="Дата" />
+              </div>
               <Button variant="none" size="small" onClick={() => onNavigate('PREV', date)}>
                 Предыдущая
               </Button>
@@ -299,7 +310,7 @@ export const CustomEvent: FC<EventProps> = observer(({ event }) => {
         {width && width > 700 ? (
           <div>
             <span>Класс: </span>
-            {event.class}
+            {event.grouopName}
           </div>
         ) : null}
         <div>
@@ -354,7 +365,7 @@ export const CustomToolBar: FC<any> = props => {
   return (
     <div className="posr">
       <div className="rbc-btn-group">
-        <button type="button" className="defaultbtn" onClick={e => handleNavigate(e, 'TODAY')}>
+        <button type="button" className="defaultbtn" onClick={e => handleNavigate(e, '')}>
           Today
         </button>
         <button type="button" className="nextp-btn" onClick={e => handleNavigate(e, 'PREV')}>

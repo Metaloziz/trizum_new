@@ -86,8 +86,6 @@ export type LevelGroupT = keyof typeof GroupLevels;
 export type CreateGroup = {
   name: string;
   franchiseId: string;
-  dateSince: string;
-  dateUntil: string;
   type: GroupT;
   teacherId: string;
   level: LevelGroupT;
@@ -110,8 +108,6 @@ export type GroupParams = Partial<{
   perPage: number;
   page: number;
   franchiseId: string;
-  dateSince: string;
-  dateUntil: string;
   forGroupId: string;
   type: string;
   teacherId: string;

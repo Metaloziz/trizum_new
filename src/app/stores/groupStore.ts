@@ -16,11 +16,10 @@ import {
   CreateGroupFroUI,
   GroupParams, GroupParamsForUI,
   GroupT,
-  LessonStringValuesT,
   LessonT,
   LevelGroupT,
   ResponseGroups,
-  ResponseOneGroup,
+  ResponseOneGroup, Schedule,
 } from 'app/types/GroupTypes';
 import { RequestUsersParams, ResponseUserT } from 'app/types/UserTypes';
 import { GroupsViewModel } from 'app/viewModels/GroupsViewModel';
@@ -182,7 +181,7 @@ class GroupStore {
     });
 
   addGroup = async () => {
-    const schedule: LessonStringValuesT[] = !this.schedule.length
+    const schedule: Schedule[] = !this.schedule.length
       ? []
       : this.schedule.map(elem => scheduleItemToServerMapper(elem));
     await groupsService.addGroup({
@@ -198,7 +197,7 @@ class GroupStore {
   editGroup = async () => {
     await this.execute(async () => {
       if (this.selectedGroup) {
-        const schedule: LessonStringValuesT[] = !this.schedule.length
+        const schedule: Schedule[] = !this.schedule.length
           ? []
           : this.schedule.map(elem => scheduleItemToServerMapper(elem));
         await groupsService.editGroup(

@@ -1,16 +1,16 @@
 import moment from 'moment';
 
 import { DateTime } from 'app/enums/DateTime';
-import { LessonStringValuesT, LessonT } from 'app/types/GroupTypes';
+import { LessonT, Schedule} from 'app/types/GroupTypes';
 
-export const scheduleItemToServerMapper = (elem: LessonT): LessonStringValuesT => ({
+export const scheduleItemToServerMapper = (elem: LessonT): Schedule => ({
   date: moment(elem.date).format(DateTime.DdMmYyyy),
   from: moment(elem.from).format(DateTime.WithTime).split(' ')[1],
   name: elem.name,
   to: moment(elem.to).format(DateTime.WithTime).split(' ')[1],
 });
 
-export const scheduleItemToUIMapper = (elem: LessonStringValuesT): LessonT => {
+export const scheduleItemToUIMapper = (elem: Schedule): LessonT => {
   const d = elem.date
     .split('.')
     .reverse()

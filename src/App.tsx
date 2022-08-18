@@ -7,7 +7,6 @@ import { observer } from 'mobx-react-lite';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
-import appStore from 'app/stores/appStore';
 import { Article } from 'components/blog-page/Article/Article';
 import DefaultLayout from 'components/layout/default/DefaultLayout';
 import Rate from 'components/rate/Rate';
@@ -16,7 +15,6 @@ import Classes from 'pages/classes/Classes';
 import Courses from 'pages/courses/Courses';
 import Franchising from 'pages/franchising/Franchising';
 import Game from 'pages/game/Game';
-import Games from 'pages/games/Games';
 import Home from 'pages/home/Home';
 import Homework from 'pages/homework/Homework';
 import HomeworkAddEdit from 'pages/homework/HomeworkAddEdit/HomeworkAddEdit';

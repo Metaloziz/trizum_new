@@ -1,6 +1,9 @@
-import { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
+
+import {Loader} from "../loader/Loader";
 
 import styles from './Table.module.scss';
+
 
 interface IList {
   id?: string | number;
@@ -29,7 +32,7 @@ interface Props {
 const Table: FC<Props> = props => {
   const { list, colNames, loading, children } = props;
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <Loader />;
   }
   return (
     <div className={styles.tableContent}>

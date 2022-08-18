@@ -1,0 +1,36 @@
+.loaderWrapper {
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    margin-right: 100px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.imageLoader {
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    z-index: 2;
+    animation: 1s linear 0s reverse none infinite running rot;
+    -webkit-animation: 1s linear 0s reverse none infinite running rot;
+    width: 100px;
+}
+@keyframes rot {
+    100% {
+        transform: rotate(360deg);
+    }
+    0% {
+        transform: rotate(0deg);
+    }
+}
+@-webkit-keyframes rot {
+    100% {
+        transform: rotate(360deg);
+    }
+    0% {
+        transform: rotate(0deg);
+    }
+}

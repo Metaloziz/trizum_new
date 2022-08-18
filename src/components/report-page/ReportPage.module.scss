@@ -30,6 +30,8 @@
 
         > div {
           flex-direction: column;
+          margin-bottom: 10px;
+          width: 100%;
 
           > div {
             width: 100%;
@@ -44,9 +46,6 @@
               }
             }
 
-            > p {
-              margin-bottom: 10px;
-            }
           }
         }
       }

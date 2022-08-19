@@ -1,6 +1,21 @@
 import React, { FC, useState } from 'react';
 
-import { MenuItem, Select } from '@mui/material';
+import {
+  Accordion,
+  AccordionActions,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  FormControl,
+  FormHelperText,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
 import tariffsStore from '../../app/stores/tariffsStore';
@@ -10,6 +25,9 @@ import styles from './RateChoice.module.scss';
 
 import Button from 'components/button/Button';
 import InformationItem from 'components/information-item/InformationItem';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import appStore, { Roles } from 'app/stores/appStore';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const newStatus = [
   { value: 'all', label: 'Все' },
@@ -30,6 +48,7 @@ const RateChoice: FC<RateChoicePropsType> = observer(({ setCurrentPage }) => {
   const [dateTo, setDateTo] = useState(null);
   const [status, setStatus] = useState('active');
   const [input, setInput] = useState('');
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   const searchHandler = () => {
     setFilters({ dateFrom, dateTo, status, lengthFrom, lengthTo, input });
@@ -54,80 +73,97 @@ const RateChoice: FC<RateChoicePropsType> = observer(({ setCurrentPage }) => {
   };
 
   return (
-    <div className={styles.rateBlock}>
-      <div className={styles.rateName}>
-        <div className={styles.rateTariff}>
-          <p>Наименование/код тарифа</p>
-          <InformationItem
-            value={input}
-            onChange={setInput}
-            className={styles.rateInput}
-            variant="input"
-          />
-        </div>
-        <div className={styles.rateStatus}>
-          <label>Статус</label>
-          <Select
-            onChange={({ target: { value } }) => setStatus(value)}
-            label="Статус"
-            defaultValue="active"
-            size="small"
-            value={status}
+    <Box sx={{ marginTop: 2, marginBottom: 3 }}>
+      <Accordion
+        expanded={isOpenFilters}
+        onChange={(_, expanded) => setIsOpenFilters(expanded)}
+        TransitionProps={{ unmountOnExit: true }}
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Фильтрация</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                fullWidth
+                value={input}
+                label="Наименование тарифа"
+                onChange={({ currentTarget: { value } }) => setInput(value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl fullWidth>
+                <InputLabel id="select-status">Статус</InputLabel>
+                <Select
+                  onChange={({ target: { value } }) => setStatus(value)}
+                  label="Статус"
+                  id="select-status"
+                  labelId="select-status"
+                  defaultValue="active"
+                  // size="small"
+                  value={status}
+                >
+                  {newStatus.map((m, id) => (
+                    <MenuItem key={`${m}${id}`} value={m.value}>
+                      {m.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              sx={{ display: 'flex', justifyContent: 'space-between', gap: 3 }}
+            >
+              <TextField
+                fullWidth
+                value={lengthFrom}
+                label="Стоимость от"
+                onChange={({ currentTarget: { value } }) => setLengthFrom(value)}
+              />
+              <TextField
+                fullWidth
+                value={lengthTo}
+                label="Стоимость до"
+                onChange={({ currentTarget: { value } }) => setLengthTo(value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <DatePicker
+                value={dateFrom}
+                onChange={setDateFrom}
+                toolbarPlaceholder="Дата начала"
+                renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
+              />
+              <DatePicker
+                value={dateTo}
+                onChange={setDateTo}
+                toolbarPlaceholder="Дата окончания"
+                renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
+              />
+            </Grid>
+          </Grid>
+        </AccordionDetails>
+        <AccordionActions>
+          <Stack
+            spacing={1}
+            direction="row"
+            justifyContent="space-between"
+            sx={{
+              width: '100%',
+              px: 1,
+            }}
           >
-            {newStatus.map((m, id) => (
-              <MenuItem key={`${m}${id}`} value={m.value}>
-                {m.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
-        <div className={styles.ratePrice}>
-          <p>Стоимость</p>
-          <div className={styles.rateBlockInput}>
-            <InformationItem
-              onChange={setLengthFrom}
-              value={lengthFrom}
-              className={styles.rateValue}
-              variant="input"
-              placeholder="От"
-            />
-            <InformationItem
-              onChange={setLengthTo}
-              className={styles.rateValue}
-              variant="input"
-              placeholder="До"
-              value={lengthTo}
-            />
-          </div>
-        </div>
-      </div>
-      <div className={styles.dataChoice}>
-        <div className={styles.dataEnd}>
-          <div>
-            <CustomDatePicker
-              value={dateFrom}
-              setValue={setDateFrom}
-              label="Дата начала действия"
-            />
-          </div>
-          <div>
-            <CustomDatePicker value={dateTo} setValue={setDateTo} label="Дата окончания действия" />
-          </div>
-        </div>
-        <div className={styles.btnBlock}>
-          <div className={styles.navButtonBlock}>
-            <Button variant="addExel" onClick={resetHandler}>
-              Сбросить
-            </Button>
-            <Button onClick={searchHandler}>Найти</Button>
-          </div>
-
-          <div className={styles.btnAdd}>
+            <Button onClick={searchHandler}>Применить</Button>
             <Button onClick={() => tariffsStore.openDialog()}>Добавить</Button>
-          </div>
-        </div>
-      </div>
-    </div>
+            <Button onClick={resetHandler}>Сбросить</Button>
+          </Stack>
+        </AccordionActions>
+      </Accordion>
+    </Box>
   );
 });
 export default RateChoice;

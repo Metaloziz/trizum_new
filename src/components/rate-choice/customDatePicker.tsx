@@ -14,16 +14,14 @@ const CustomDatePicker = ({
   value?: any;
   setValue?: any;
 }) => (
-  <LocalizationProvider dateAdapter={AdapterDateFns}>
-    <DatePicker
-      label={label}
-      value={value}
-      onChange={newValue => {
-        setValue(newValue);
-      }}
-      renderInput={params => <TextField {...params} />}
-    />
-  </LocalizationProvider>
+  <DatePicker
+    label={label}
+    value={value}
+    onChange={newValue => {
+      setValue(newValue);
+    }}
+    renderInput={params => <TextField {...params} />}
+  />
 );
 
 export default CustomDatePicker;

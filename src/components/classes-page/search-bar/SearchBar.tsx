@@ -86,124 +86,121 @@ const SearchBar = observer(() => {
   /* temp */
 
   return (
-    <>
-      <Box sx={{ marginTop: 2 }}>
-        <Accordion
-          expanded={open}
-          onChange={(_, expanded) => setOpen(expanded)}
-          TransitionProps={{ unmountOnExit: true }}
-        >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Фильтрация</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Grid container spacing={2}>
-              {/* line 1 */}
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  fullWidth
-                  value={queryFields.name}
-                  label="Название"
-                  onChange={({ currentTarget: { value } }) => (queryFields.name = value)}
-                />
-              </Grid>
-              {appStore.role === Roles.Admin && (
-                <Grid item xs={12} sm={4}>
-                  <FormControl fullWidth>
-                    <InputLabel id="franchise-search">Франчайзинг</InputLabel>
-                    <Select
-                      labelId="franchise-search"
-                      label="Франчайзинг"
-                      value={queryFields.franchiseId}
-                      onChange={({ target: { value } }) => (queryFields.franchiseId = value)}
-                    >
-                      {franchiseOptions}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              )}
+    <Box sx={{ marginTop: 2 }}>
+      <Accordion
+        expanded={open}
+        onChange={(_, expanded) => setOpen(expanded)}
+        TransitionProps={{ unmountOnExit: true }}
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>Фильтрация</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                fullWidth
+                value={queryFields.name}
+                label="Название"
+                onChange={({ currentTarget: { value } }) => (queryFields.name = value)}
+              />
+            </Grid>
+            {appStore.role === Roles.Admin && (
               <Grid item xs={12} sm={4}>
                 <FormControl fullWidth>
-                  <InputLabel id="level-search">Уровень</InputLabel>
+                  <InputLabel id="franchise-search">Франчайзинг</InputLabel>
                   <Select
-                    labelId="level-search"
-                    label="Уровень"
-                    value={queryFields.level}
-                    onChange={({ target: { value } }) => (queryFields.level = value)}
+                    labelId="franchise-search"
+                    label="Франчайзинг"
+                    value={queryFields.franchiseId}
+                    onChange={({ target: { value } }) => (queryFields.franchiseId = value)}
                   >
-                    {levelOptions}
+                    {franchiseOptions}
                   </Select>
                 </FormControl>
               </Grid>
-
-              {appStore.role === Roles.Admin && (
-                <Grid item xs={12} sm={4}>
-                  <FormControl fullWidth>
-                    <InputLabel id="course-search">Курс</InputLabel>
-                    <Select label="Курс" labelId="course-search">
-                      {courseOptions}
-                    </Select>
-                  </FormControl>
-                </Grid>
-              )}
-              {appStore.role === Roles.Admin && (
-                <Grid item xs={12} sm={4}>
-                  <FormControl fullWidth>
-                    <InputLabel id="teacher-search">Учитель</InputLabel>
-                    <Select
-                      labelId="teacher-search"
-                      label="Учитель"
-                      value={queryFields.teacherId}
-                      disabled={!queryFields.franchiseId}
-                      onChange={({ target: { value } }) => (queryFields.teacherId = value)}
-                    >
-                      {teacherOptions}
-                    </Select>
-                    {!queryFields.franchiseId && (
-                      <FormHelperText
-                        sx={{ position: 'absolute', bottom: -24, left: 0, color: 'red' }}
-                      >
-                        Сначала выберите франчайзинг
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                </Grid>
-              )}
-              <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <DatePicker
-                  onChange={value => value && (queryFields.dateSince = new Date(value))}
-                  value={queryFields.dateSince ? queryFields.dateSince : new Date()}
-                  toolbarPlaceholder="Дата с"
-                  renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
-                />
-                <DatePicker
-                  onChange={(value, keyboardInputValue) => {
-                    value && (queryFields.dateUntil = new Date(value));
-                  }}
-                  value={queryFields.dateUntil ? queryFields.dateUntil : new Date()}
-                  toolbarPlaceholder="Дата по"
-                  renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
-                />
-              </Grid>
+            )}
+            <Grid item xs={12} sm={4}>
+              <FormControl fullWidth>
+                <InputLabel id="level-search">Уровень</InputLabel>
+                <Select
+                  labelId="level-search"
+                  label="Уровень"
+                  value={queryFields.level}
+                  onChange={({ target: { value } }) => (queryFields.level = value)}
+                >
+                  {levelOptions}
+                </Select>
+              </FormControl>
             </Grid>
-          </AccordionDetails>
-          <AccordionActions>
-            <Stack
-              spacing={1}
-              direction="row"
-              justifyContent="space-between"
-              sx={{
-                width: '100%',
-                px: 1,
-              }}
-            >
-              <Button onClick={getGroups}>Применить</Button>
-              <Button onClick={clearQueryFields}>Сбросить</Button>
-            </Stack>
-          </AccordionActions>
-        </Accordion>
-      </Box>
-    </>
+
+            {appStore.role === Roles.Admin && (
+              <Grid item xs={12} sm={4}>
+                <FormControl fullWidth>
+                  <InputLabel id="course-search">Курс</InputLabel>
+                  <Select label="Курс" labelId="course-search">
+                    {courseOptions}
+                  </Select>
+                </FormControl>
+              </Grid>
+            )}
+            {appStore.role === Roles.Admin && (
+              <Grid item xs={12} sm={4}>
+                <FormControl fullWidth>
+                  <InputLabel id="teacher-search">Учитель</InputLabel>
+                  <Select
+                    labelId="teacher-search"
+                    label="Учитель"
+                    value={queryFields.teacherId}
+                    disabled={!queryFields.franchiseId}
+                    onChange={({ target: { value } }) => (queryFields.teacherId = value)}
+                  >
+                    {teacherOptions}
+                  </Select>
+                  {!queryFields.franchiseId && (
+                    <FormHelperText
+                      sx={{ position: 'absolute', bottom: -24, left: 0, color: 'red' }}
+                    >
+                      Сначала выберите франчайзинг
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+            )}
+            <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <DatePicker
+                onChange={value => value && (queryFields.dateSince = new Date(value))}
+                value={queryFields.dateSince ? queryFields.dateSince : new Date()}
+                toolbarPlaceholder="Дата с"
+                renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
+              />
+              <DatePicker
+                onChange={(value, keyboardInputValue) => {
+                  value && (queryFields.dateUntil = new Date(value));
+                }}
+                value={queryFields.dateUntil ? queryFields.dateUntil : new Date()}
+                toolbarPlaceholder="Дата по"
+                renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
+              />
+            </Grid>
+          </Grid>
+        </AccordionDetails>
+        <AccordionActions>
+          <Stack
+            spacing={1}
+            direction="row"
+            justifyContent="space-between"
+            sx={{
+              width: '100%',
+              px: 1,
+            }}
+          >
+            <Button onClick={getGroups}>Применить</Button>
+            <Button onClick={clearQueryFields}>Сбросить</Button>
+          </Stack>
+        </AccordionActions>
+      </Accordion>
+    </Box>
   );
 });
 

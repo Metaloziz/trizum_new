@@ -59,7 +59,6 @@ const UsersPage = observer(() => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(page);
   const [selectedRole, setSelectedRole] = useState<Option>();
-
   const onSelectRole = (option: Option) => {
     option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
   };

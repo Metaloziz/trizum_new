@@ -1,1 +1,9 @@
-.container{}
+@import "src/styles/mixins";
+
+
+.container {
+  h2 {
+    @include title-tag-h2();
+    margin-top: 20px;
+  }
+}

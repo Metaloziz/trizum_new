@@ -13,7 +13,7 @@ const Homeworks: FC<HomeworksProps> = ({ homeworks, className }) => {
   const { role } = appStore;
   return (
     <div className={classNames(styles.container, className)}>
-      <Panel className={styles.panel}>Домашнее задание на 7 октября 2021</Panel>
+      <Panel className={styles.panel}>Домашнее задание на 1 сентября 2022</Panel>
       {role === Roles.TeacherEducation && (
         <Panel className={styles.panel}>Наименование олимпиады</Panel>
       )}

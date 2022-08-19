@@ -25,48 +25,49 @@ export const weeklyGrowth = [
     id: +new Date().toDateString(),
     percents: randomPercent(),
   },
-];
+]; // todo ждём бек
 
 export const homeworks = [
+  // todo ждём бек
   {
     gameTitle: 'Память и ритм',
     id: +new Date().toDateString(),
     description: {
-      needToDo: '',
+      needToDo: 'выполнить следующие пункты',
       minutesLeft: 10,
       tips: [
         {
-          text: '1',
+          text: 'Прочитать статью',
           id: +new Date().toDateString(),
         },
         {
-          text: '2',
+          text: 'Спеть песню',
           id: +new Date().toDateString(),
         },
         {
-          text: '3',
+          text: 'Написать пьесу',
           id: +new Date().toDateString(),
         },
       ],
     },
   },
   {
-    gameTitle: 'Память и ритм',
+    gameTitle: 'Антипазл',
     id: +new Date().toDateString(),
     description: {
-      needToDo: '',
+      needToDo: 'выполнить следующие пункты',
       minutesLeft: 10,
       tips: [
         {
-          text: '1',
+          text: 'найти магазин с пазлами',
           id: +new Date().toDateString(),
         },
         {
-          text: '2',
+          text: 'высыпать все пазлы в одну кучу',
           id: +new Date().toDateString(),
         },
         {
-          text: '3',
+          text: 'скрыться, чтобы тебя не заметили',
           id: +new Date().toDateString(),
         },
       ],

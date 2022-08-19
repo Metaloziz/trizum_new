@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import cn from 'classnames';
+import { observer } from 'mobx-react-lite';
 
 import iconTablet from '../../../assets/svgs/icon-tablet.svg';
 import iconParrot from '../../../assets/svgs/parrot.svg';
@@ -17,17 +18,18 @@ import iconTelegram from 'assets/svgs/telegram.svg';
 import iconWhatsApp from 'assets/svgs/whats-app.svg';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
+import { getAvatarImage } from 'components/card-student/card-student-for-user/helper/getAvatarImage';
 import { OlympiadPreviewText } from 'components/card-student/card-student-for-user/OlympiadPreviewText/OlympiadPreviewText';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
-import Avatar from 'public/img/avatarDefault.png';
+import Setting from 'components/setting/Setting';
 
 type Props = {
   user: ResponseLoadMeBaseT;
 };
 
-const CardStudentForStudent: FC<Props> = ({ user }) => {
-  const { firstName, middleName, lastName, role, avatar, city, phone, groups } = user;
+const CardStudentForStudent: FC<Props> = observer(({ user }) => {
+  const { firstName, middleName, lastName, role, avatar, city, groups } = user;
   const { getFullUserName } = usersStore;
 
   const nearestLessonDate = getNearestLessonDateHelper(groups);
@@ -40,7 +42,10 @@ const CardStudentForStudent: FC<Props> = ({ user }) => {
     <div className={styles.wrapper}>
       <div className={styles.row}>
         <CustomImageWrapper className={styles.image} variant="circle">
-          <Image src={avatar?.path ? avatar.path : Avatar} width="170" height="170" alt="student" />
+          <Image src={getAvatarImage(avatar?.path)} width="170" height="170" alt="student" />
+          <div className={styles.userSetting}>
+            <Setting />
+          </div>
         </CustomImageWrapper>
         <div>
           <h3 className={styles.title}>{fullName}</h3>
@@ -99,6 +104,6 @@ const CardStudentForStudent: FC<Props> = ({ user }) => {
       </BasicModal>
     </div>
   );
-};
+});
 
 export default CardStudentForStudent;

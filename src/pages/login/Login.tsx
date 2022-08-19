@@ -33,7 +33,8 @@ const Login = () => {
   const qwe = (role: Roles) => {
     switch (role) {
       case Roles.Student:
-        setPhone('71119009103');
+        // setPhone(`${func(isTester, isAnalytic)}8008080`);
+        setPhone(`71119009103`); // todo для разработки главной страницы студента
         break;
       case Roles.TeacherEducation:
         setPhone(`${func(isTester, isAnalytic)}7007070`);

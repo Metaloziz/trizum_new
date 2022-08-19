@@ -1,1 +1,1 @@
-export const getRandomId = () => Math.random() * Date.now();
+export const getRandomId = () => Math.floor(Math.random() * Date.now());

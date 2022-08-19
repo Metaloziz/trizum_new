@@ -12,13 +12,18 @@ import {
 } from 'app/types/UserTypes';
 
 const usersService = {
-  getAllUsers: async (params?: RequestUsersParams): Promise<FullResponseUserT> => {
+  getAllUsers: async (params?: RequestUsersForFilter): Promise<FullResponseUserT> => {
     const res = await instance.get(Paths.Users, {
       params: {
         page: params?.page,
         role: params?.role,
         per_page: params?.perPage,
         franchise_id: params?.franchiseId,
+        first_name: params?.firstName || undefined || null,
+        middle_name: params?.middleName || undefined || null,
+        last_name: params?.lastName || undefined || null,
+        city: params?.city || undefined,
+        birthdate: params?.birthdate || undefined,
       },
     });
     return res.data;

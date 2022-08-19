@@ -19,6 +19,7 @@ import {
 import { colNames, list, ListType } from 'components/moks-data/moks-data-table';
 import Pagination from 'components/molecules/Pagination';
 import Table from 'components/table/Table';
+import ReportFilters from 'components/report-page/ReportFilters';
 
 const ReportPage = () => {
   const [data, setData] = useState<ListType[]>(list); // State для главных данных
@@ -64,7 +65,8 @@ const ReportPage = () => {
     <div className={styles.container}>
       <div className={styles.innerContent}>
         <div className={styles.leftBlock}>
-          <div className={styles.wrapBlock}>
+          <ReportFilters />
+          {/* <div className={styles.wrapBlock}>
             <div className={styles.infoBlock}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Выполнил Д/З</InputLabel>
@@ -149,6 +151,9 @@ const ReportPage = () => {
                   renderInput={params => <TextField {...params} />}
                 />
               </div>
+              
+              
+              
               <TextField id="outlined-basic" label="Возраст" variant="outlined" />
             </div>
             <div className={`${styles.infoBlock} ${styles.legalAddress}`}>
@@ -189,7 +194,7 @@ const ReportPage = () => {
                 <Button>Найти</Button>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className={styles.tableContent}>
             <Table list={currentItem} colNames={colNames} loading={loading} />
           </div>

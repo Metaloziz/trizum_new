@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { Input } from '@mui/material';
+import { TextField } from '@mui/material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { observer } from 'mobx-react-lite';
 
@@ -125,11 +125,11 @@ const UserPage = observer(() => {
         </div>
         <div className={styles.labelBlock}>
           <label>Почта:</label>
-          <Input
-            disableUnderline
+          <TextField
             value={email}
             onChange={e => setEmail(e.target.value)}
             fullWidth
+            variant="outlined"
             size="small"
           />
         </div>
@@ -155,19 +155,19 @@ const UserPage = observer(() => {
                 <input type="tel" value={code} onChange={e => setCode(e.target.value)} />
               </div>
               {erorr ? (
-                <p className={styles.textErrorRed}>
+                <p className={styles.textErorrRed}>
                   Неверный код
                   <br />
                   После трёх неверных попыток - блокировка.
                 </p>
               ) : (
-                <div className={styles.blockError} />
+                <div className={styles.blockErorr} />
               )}
               <div>
                 <Button onClick={sendEdit}>Отправить</Button>
                 <div>
                   {seconds !== 150 && seconds !== 0 ? (
-                    <p className={styles.textError}>
+                    <p className={styles.textErorr}>
                       Сообщение отправлено. Повторно вы сможете запросить код через {`${sec} `}
                       {filterWords(sec, 'секунду', 'секунды', 'секунд')}.
                     </p>

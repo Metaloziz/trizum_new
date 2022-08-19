@@ -1,10 +1,14 @@
 .container {
   padding: 32px 0 32px 70px;
   width: 80%;
-  .row{
+
+  .row {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
   }
+
   .user {
 
   }

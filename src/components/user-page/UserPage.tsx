@@ -37,13 +37,14 @@ const UserPage = observer(() => {
     setShowModal(true);
     setSeconds(140);
     setTimerActive(!timerActive);
-    const getSMSCode = await authService.sms({ phone });
+    const getSMSCode = await authService.sms({ phone: user.phone });
     console.log('код по смс', getSMSCode);
   };
 
   const sendEdit = async () => {
     try {
-      await authService.editSelf({ phone, smsCode: Number(code), email });
+      const repl = phone.replaceAll(/\D/g, '');
+      await authService.editSelf({ phone: repl, smsCode: Number(code), email });
       setShowModal(false);
       setUser();
     } catch (e) {

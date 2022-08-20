@@ -11,12 +11,12 @@ import { shortenName, transformDate } from '../../utils/transformData';
 
 const columnNames = [
   'ФИО ученика',
+  'Статус',
   'Франшиза',
   'Дата регистрации',
   'Оплачен',
   'Дата окончания действия',
   'Тариф',
-  'Статус',
 ];
 
 const ReportPage = observer(() => {
@@ -55,12 +55,12 @@ const ReportPage = observer(() => {
                       item.middleName,
                     )}.`}
                   </td>
+                  <td>{item?.isActive ? 'Активный' : 'Не активный'}</td>
                   <td>{item?.franchise?.shortName || 'Нет данных'}</td>
                   <td>{transformDate(item?.createdAt?.date) || 'Нет данных'}</td>
-                  <td>{item?.isPayed ? 'Да' : 'Нет'}</td>
+                  <td>{item?.isPayed ? 'Оплачен' : 'Не оплачен'}</td>
                   <td>{transformDate(item?.payedUntil?.date) || 'Нет данных'}</td>
                   <td>{item?.tariff ? item.tariff?.name : 'Отсутствует'}</td>
-                  <td>{item?.new ? 'Новый' : 'Старый'}</td>
                 </tr>
               ))}
             </Table>

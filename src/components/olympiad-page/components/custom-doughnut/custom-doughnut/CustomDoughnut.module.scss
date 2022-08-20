@@ -1,0 +1,9 @@
+.canvasBlock {
+  width: 150px;
+  height: 150px;
+  white-space: break-spaces;
+
+  @media (max-width: 800px) {
+    margin: 0 auto 15px;
+  }
+}

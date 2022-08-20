@@ -38,7 +38,7 @@ const CardStudentForStudent: FC<Props> = observer(({ user, isMainPage = true }) 
   const openChatLink = () => alert('открывается ссылка на чат'); // todo заменить на настоящие ссылки
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${isMainPage ? '' : styles.olympiadPage}`}>
       <div className={styles.row}>
         <CustomImageWrapper className={styles.image} variant="circle">
           <Image src={getAvatarImage(avatar?.path)} width="170" height="170" alt="student" />

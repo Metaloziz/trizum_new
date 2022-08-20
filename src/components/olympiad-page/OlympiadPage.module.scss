@@ -1,15 +1,21 @@
+
 .container {
-  padding: 32px 0 32px 70px;
-  width: 80%;
+  padding: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
 
-  .row {
+  .header {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  .user {
-
+    gap: 20px;
   }
 }
+
+.user {
+
+}
+

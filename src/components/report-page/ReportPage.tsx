@@ -40,7 +40,7 @@ const ReportPage = observer(() => {
     'Оплачен',
     'Дата окончания действия',
     'Тариф',
-    'Статус',
+      'Статус',
   ];
   const createDate = (date: string) => new Date(date).toLocaleDateString();
   // TODO helpers DATEFUNCTIONS
@@ -59,11 +59,12 @@ const ReportPage = observer(() => {
                     {`${item.lastName} ${shortName(item.firstName)}.${shortName(item.middleName)}.`}
                   </td>
                   <td>{item?.franchise?.shortName}</td>
-
                   <td>{createDate(item?.createdAt.date)}</td>
-                  <td>{item.tariff ? item.tariff.name : 'Отсутствует'}</td>
-                  <td>Дата оплаты</td>
                   <td>{item.isPayed ? 'Да' : 'Нет'}</td>
+                  <td>{createDate(item?.payedUntil?.date) || ''}</td>
+                  <td>{item?.tariff ? item.tariff?.name : 'Отсутствует'}</td>
+
+
                 </tr>
               ))}
             </Table>

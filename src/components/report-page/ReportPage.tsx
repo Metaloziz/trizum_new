@@ -24,18 +24,20 @@ import ReportFilters from 'components/report-page/ReportFilters';
 
 const ReportPage = () => {
   const { getReport, items } = reportStore;
-  const [data, setData] = useState<ListType[]>(list); // State для главных данных
+  // const [data, setData] = useState<ListType[]>(list); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
 
   useEffect(() => {
+    setLoading(true);
     getReport();
+    setLoading(false);
   }, []);
-
+  console.log(items);
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;
-  const currentItem = data.slice(firstItemIndex, lastItemIndex);
+  const currentItem = items.slice(firstItemIndex, lastItemIndex);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -73,137 +75,8 @@ const ReportPage = () => {
       <div className={styles.innerContent}>
         <div className={styles.leftBlock}>
           <ReportFilters />
-          {/* <div className={styles.wrapBlock}>
-            <div className={styles.infoBlock}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Выполнил Д/З</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={Age}
-                  label="Выполнил Д/З"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>Выполнено</MenuItem>
-                  <MenuItem value={20}>Не выполнено</MenuItem>
-                  <MenuItem value={30}>Выполняю</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Город</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={Age}
-                  label="Город"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>Москва</MenuItem>
-                  <MenuItem value={20}>Ростов</MenuItem>
-                  <MenuItem value={30}>Новосибирск</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Группа</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={Age}
-                  label="Группа"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>group1</MenuItem>
-                  <MenuItem value={20}>group2</MenuItem>
-                  <MenuItem value={30}>group3</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField id="outlined-basic" label="ФИО ученика" variant="outlined" />
-              <TextField id="outlined-basic" label="Статус пользователя" variant="outlined" />
-            </div>
-            <div className={`${styles.infoBlock} ${styles.franchiseesBlock}`}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">ФИО франчази</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={Age}
-                  label="ФИО франчази"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>franchisees1</MenuItem>
-                  <MenuItem value={20}>franchisees2</MenuItem>
-                  <MenuItem value={30}>franchisees3</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Оплачен</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={Age}
-                  label="Оплачен"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>paidFor1</MenuItem>
-                  <MenuItem value={20}>paidFor2</MenuItem>
-                  <MenuItem value={30}>paidFor3</MenuItem>
-                </Select>
-              </FormControl>
-              <div style={{ width: '100%' }}>
-                <DesktopDatePicker
-                  label="Дата рождения"
-                  inputFormat="dd/MM/yyyy"
-                  value={value}
-                  onChange={handleChangeBornData}
-                  renderInput={params => <TextField {...params} />}
-                />
-              </div>
-              
-              
-              
-              <TextField id="outlined-basic" label="Возраст" variant="outlined" />
-            </div>
-            <div className={`${styles.infoBlock} ${styles.legalAddress}`}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Юр.адрес</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={Age}
-                  label="Юр.адрес"
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>legalAddress1</MenuItem>
-                  <MenuItem value={20}>legalAddress2</MenuItem>
-                  <MenuItem value={30}>legalAddress3</MenuItem>
-                </Select>
-              </FormControl>
-              <div style={{ width: '100%' }}>
-                <DesktopDatePicker
-                  label="Дата начала действия"
-                  inputFormat="dd/MM/yyyy"
-                  value={dateOfBeginning}
-                  onChange={handleChangeDateOfBeginning}
-                  renderInput={params => <TextField {...params} />}
-                />
-              </div>
-              <div style={{ width: '100%' }}>
-                <DesktopDatePicker
-                  label="Дата окончания действия"
-                  inputFormat="dd/MM/yyyy"
-                  value={dateOfEnd}
-                  onChange={handleChangeDateOfEnd}
-                  renderInput={params => <TextField {...params} />}
-                />
-              </div>
-              <div className={styles.btnBlock}>
-                <Button variant="addExel">Выгрузить в Excel</Button>
-                <Button>Найти</Button>
-              </div>
-            </div>
-          </div> */}
           <div className={styles.tableContent}>
-            <Table list={currentItem} colNames={colNames} loading={loading}>
+            <Table reportlist={currentItem} colNames={colNames} loading={loading}>
               {items.map((item, index) => (
                 <tr key={item.id}>
                   <td>{index + 1}</td>

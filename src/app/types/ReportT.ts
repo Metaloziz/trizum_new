@@ -1,4 +1,5 @@
 import { FranchiseShortT } from 'app/types/FranchiseTypes';
+import { bool } from 'yup';
 
 type CreatedAt = {
   date: string;
@@ -30,4 +31,19 @@ export type ReportItemsT = {
   isSecondChild: null;
   createdAt: CreatedAt;
   groups: [];
+};
+
+export type ReportFilterT = {
+  perPage: number;
+  isPlayed: boolean;
+  isActive: boolean;
+  tariffId: string;
+  createdUntil: string;
+  createdSince: string;
+  lastName: string;
+  middleName: string;
+  firstName: string;
+  groupId: string;
+  franchiseId: string;
+  page: number;
 };

@@ -1,5 +1,5 @@
 import reportService from 'app/services/reportService';
-import { ReportItemsT } from 'app/types/ReportT';
+import { ReportFilterT, ReportItemsT } from 'app/types/ReportT';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 class ReportStore {
@@ -17,6 +17,7 @@ class ReportStore {
 
   getReport = async () => {
     try {
+      // const res = await reportService.getReport(payload);
       const res = await reportService.getReport();
       runInAction(() => {
         this.items = res.items;

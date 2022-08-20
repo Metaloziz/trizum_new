@@ -206,7 +206,9 @@ const ReportPage = () => {
             <Table list={currentItem} colNames={colNames} loading={loading}>
               {items.map((item, index) => (
                 <tr key={item.id}>
-                  <td>{index + 1}</td>
+                  <td>
+                    <b>{index + 1}</b>
+                  </td>
                   <td>
                     {`${item.lastName} ${shortName(item.firstName)} ${shortName(item.middleName)}`}
                   </td>

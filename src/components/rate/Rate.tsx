@@ -15,6 +15,7 @@ import { TariffsType } from 'app/types/TariffTypes';
 import editImage from 'assets/svgs/edit-tariff-img.svg';
 import RateChoice from 'components/rate-choice/RateChoice';
 import Table from 'components/table/Table';
+import { transformDate } from '../../utils/transformData';
 
 const colNames = [
   'Название тарифа',
@@ -59,8 +60,8 @@ const Rate = observer(() => {
               <tr key={el.id}>
                 <td>{el.name}</td>
                 <td>{el.newPrice}</td>
-                <td>{new Date(el.startedAt.date).toLocaleDateString()}</td>
-                <td>{new Date(el.endedAt.date).toLocaleDateString()}</td>
+                <td>{transformDate(el.startedAt.date)}</td>
+                <td>{transformDate(el.endedAt.date)}</td>
                 <td>{newstatus.find((item: any) => item.value === el.status)?.label}</td>
                 <td>
                   <IconButton

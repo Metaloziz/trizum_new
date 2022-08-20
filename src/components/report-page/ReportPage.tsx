@@ -2,19 +2,28 @@ import reportStore from 'app/stores/reportStore';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from './ReportPage.module.scss';
 import AdminInfoList from 'components/admin-info-list/AdminInfoList';
-
-import { colNames, list } from 'components/moks-data/moks-data-table';
 import Table from 'components/table/Table';
 import ReportFilters from 'components/report-page/ReportFilters';
 import { observer } from 'mobx-react-lite';
 import { Loader } from '../loader/Loader';
 import Pagination from '@mui/material/Pagination';
+import { shortenName, transformDate } from '../../utils/transformData';
+
+const columnNames = [
+  'ФИО ученика',
+  'Франшиза',
+  'Дата регистрации',
+  'Оплачен',
+  'Дата окончания действия',
+  'Тариф',
+  'Статус',
+];
 
 const ReportPage = observer(() => {
   const { getReport, reports: data } = reportStore;
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
-  const [count] = useState<number>(10); // State для отображения количества элементов на каждой страницеd
+  const [count] = useState<number>(10); // State для отображения количества элементов на каждой странице
 
   useEffect(() => {
     setLoading(true);
@@ -30,20 +39,6 @@ const ReportPage = observer(() => {
     setCurrentPage(newCurrentPage);
   };
 
-  const shortName = (name: string) => name[0].toUpperCase();
-  // TODO в хелперы
-
-  const columnNames = [
-    'ФИО ученика', // last + first + middle
-    'Франшиза', // franchise.shortName
-    'Дата регистрации', // createdAt
-    'Оплачен',
-    'Дата окончания действия',
-    'Тариф',
-      'Статус',
-  ];
-  const createDate = (date: string) => new Date(date).toLocaleDateString();
-  // TODO helpers DATEFUNCTIONS
   return loading ? (
     <Loader />
   ) : (
@@ -53,18 +48,19 @@ const ReportPage = observer(() => {
           <ReportFilters />
           <div className={styles.tableContent}>
             <Table reportlist={currentItem} colNames={columnNames} loading={loading}>
-              {currentItem.map((item, index) => (
+              {currentItem.map(item => (
                 <tr key={item.id}>
                   <td>
-                    {`${item.lastName} ${shortName(item.firstName)}.${shortName(item.middleName)}.`}
+                    {`${item.lastName} ${shortenName(item.firstName)}.${shortenName(
+                      item.middleName,
+                    )}.`}
                   </td>
-                  <td>{item?.franchise?.shortName}</td>
-                  <td>{createDate(item?.createdAt.date)}</td>
-                  <td>{item.isPayed ? 'Да' : 'Нет'}</td>
-                  <td>{createDate(item?.payedUntil?.date) || ''}</td>
+                  <td>{item?.franchise?.shortName || 'Нет данных'}</td>
+                  <td>{transformDate(item?.createdAt?.date) || 'Нет данных'}</td>
+                  <td>{item?.isPayed ? 'Да' : 'Нет'}</td>
+                  <td>{transformDate(item?.payedUntil?.date) || 'Нет данных'}</td>
                   <td>{item?.tariff ? item.tariff?.name : 'Отсутствует'}</td>
-
-
+                  <td>{item?.new ? 'Новый' : 'Старый'}</td>
                 </tr>
               ))}
             </Table>

@@ -17,7 +17,6 @@ class ReportStore {
 
   getReport = async () => {
     try {
-      // const res = await reportService.getReport(payload);
       const res = await reportService.getReport();
       runInAction(() => {
         this.items = res.items;
@@ -29,6 +28,10 @@ class ReportStore {
       console.warn(e);
     }
   };
+
+  get reports() {
+    return this.items;
+  }
 }
 
 export default new ReportStore();

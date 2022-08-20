@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import reportStore from 'app/stores/reportStore';
+import React, { useEffect, useState } from 'react';
 
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { DesktopDatePicker } from '@mui/x-date-pickers';
@@ -22,10 +23,15 @@ import Table from 'components/table/Table';
 import ReportFilters from 'components/report-page/ReportFilters';
 
 const ReportPage = () => {
+  const { getReport } = reportStore;
   const [data, setData] = useState<ListType[]>(list); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(5); // State для отображения количества элементов на каждой странице
+
+  useEffect(() => {
+    getReport();
+  }, []);
 
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;

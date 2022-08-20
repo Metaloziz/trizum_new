@@ -23,7 +23,7 @@ import Table from 'components/table/Table';
 import ReportFilters from 'components/report-page/ReportFilters';
 
 const ReportPage = () => {
-  const { getReport } = reportStore;
+  const { getReport, items } = reportStore;
   const [data, setData] = useState<ListType[]>(list); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
@@ -66,6 +66,7 @@ const ReportPage = () => {
   const handleChangeDateOfEnd = (newValue: Date | null) => {
     setDateOfEnd(newValue);
   };
+  const shortName = (name: string) => name[0].toUpperCase();
 
   return (
     <div className={styles.container}>
@@ -202,7 +203,25 @@ const ReportPage = () => {
             </div>
           </div> */}
           <div className={styles.tableContent}>
-            <Table list={currentItem} colNames={colNames} loading={loading} />
+            <Table list={currentItem} colNames={colNames} loading={loading}>
+              {items.map((item, index) => (
+                <tr key={item.id}>
+                  <td>{index + 1}</td>
+                  <td>
+                    {`${item.lastName} ${shortName(item.firstName)} ${shortName(item.middleName)}`}
+                  </td>
+                  <td>Учитель</td>
+                  <td>Возраст</td>
+                  <td>{item.createdAt.date}</td>
+                  <td>Начало</td>
+                  <td>Окончание</td>
+                  <td>{item.tariff ? item.tariff.name : 'Отсутствует'}</td>
+                  <td>Дата оплаты</td>
+                  <td>{item.new ? 'Новый' : 'Старый'}</td>
+                  <td>Адрес</td>
+                </tr>
+              ))}
+            </Table>
           </div>
           <div className={styles.paginationBlock}>
             <Pagination

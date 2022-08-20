@@ -1,14 +1,20 @@
 import { FranchiseShortT } from 'app/types/FranchiseTypes';
 
-type createdAt = {
+type CreatedAt = {
   date: string;
   timezone_type: number;
   timezone: string;
 };
-type payedUntilT = {
+type PayedUntilT = {
   date: string;
   timezone_type: number;
   timezone: string;
+};
+
+type TariffT = {
+  id: string;
+  name: string;
+  status: string;
 };
 export type ReportItemsT = {
   id: string;
@@ -19,9 +25,9 @@ export type ReportItemsT = {
   new: boolean;
   isActive: boolean;
   isPayed: boolean;
-  payedUntil: payedUntilT;
-  tariff: null;
+  payedUntil: PayedUntilT;
+  tariff: TariffT | null;
   isSecondChild: null;
-  createdAt: createdAt;
+  createdAt: CreatedAt;
   groups: [];
 };

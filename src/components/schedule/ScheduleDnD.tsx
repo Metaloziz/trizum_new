@@ -9,7 +9,7 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import styles from './Schedule.module.scss';
 
 import appStore, { Roles } from 'app/stores/appStore';
-import teacherMainStore from 'app/stores/teacherMainStore';
+import teacherMainStore from 'app/stores/scheduleStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
 import InformationItem from 'components/information-item/InformationItem';
@@ -18,6 +18,7 @@ import ScheduleModal from 'components/schedule/ScheduleModal';
 import CustomSelect from 'components/select/CustomSelect';
 import { getOption, getOptionMui } from 'utils/getOption';
 import { FormControl, Grid, InputLabel, Select } from '@mui/material';
+import _ from 'lodash';
 
 require('moment/locale/ru');
 
@@ -42,12 +43,23 @@ export type ScheduleEvent = {
 const formats = {
   eventTimeRangeFormat: () => '',
 };
-const groups = ['group №1', 'group №2', 'group №3'];
 
-const groupOptions = groups.map(el => getOption(el, el));
 const ChildrenToolbar: FC = observer(() => {
   const { role } = appStore;
-  const selectGroupOption = [getOptionMui('1', '1')];
+  const { groups, setFilters, filters, teachers } = teacherMainStore;
+
+  const selectGroupOption = groups.length
+    ? [{ groupId: '*', groupName: 'Все' }, ...groups].map(el =>
+        getOptionMui(el.groupId, el.groupName),
+      )
+    : [];
+
+  const teacherOptions = teachers.length
+    ? [{ teacherId: '*', teacherName: 'Все' }, ...teachers].map(el =>
+        getOptionMui(el.teacherId, el.teacherName),
+      )
+    : [];
+
   return (
     <Grid container>
       <Grid item xs={12} sm={4}>
@@ -56,9 +68,9 @@ const ChildrenToolbar: FC = observer(() => {
           <Select
             labelId="select"
             label="Группа"
-            value=""
+            value={filters.groupId || '*'}
             fullWidth
-            onChange={({ target: { value } }) => console.log(value)}
+            onChange={({ target: { value } }) => setFilters('groupId', value)}
           >
             {selectGroupOption}
           </Select>
@@ -72,11 +84,11 @@ const ChildrenToolbar: FC = observer(() => {
             <Select
               labelId="teacher"
               label="ФИО Учителя"
-              value=""
+              value={filters.teacherId || '*'}
               fullWidth
-              onChange={({ target: { value } }) => console.log(value)}
+              onChange={({ target: { value } }) => setFilters('teacherId', value)}
             >
-              {selectGroupOption}
+              {teacherOptions}
             </Select>
           </FormControl>
         </Grid>
@@ -119,15 +131,21 @@ const ChildrenToolbar: FC = observer(() => {
 });
 
 const ScheduleDnD: FC = observer(() => {
-  const { schedule, getGroups } = teacherMainStore;
+  const { role } = appStore;
+  const { getGroups, actualSchedule, getTeachers } = teacherMainStore;
   const [events, setEvents] = useState<(ScheduleEvent | object)[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<ScheduleEvent | null | object>(null);
+
   const changeVisibility = () => {
     setIsVisible(!isVisible);
   };
+
   useEffect(() => {
     getGroups();
+    if (role === Roles.Franchisee || role === Roles.FranchiseeAdmin) {
+      getTeachers();
+    }
   }, []);
 
   const moveEvent = ({
@@ -145,6 +163,7 @@ const ScheduleDnD: FC = observer(() => {
     nextEvents.splice(idx, 1, updatedEvent);
     setEvents(nextEvents);
   };
+
   const resizeEvent = ({
     event,
     start,
@@ -203,7 +222,7 @@ const ScheduleDnD: FC = observer(() => {
     <div className={styles.wrapper}>
       <DnDCalendar
         localizer={localizer}
-        events={schedule}
+        events={actualSchedule}
         step={15}
         min={new Date(2022, 0, 1, 8, 0)}
         max={new Date(2022, 0, 5, 20, 30)}

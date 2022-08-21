@@ -16,7 +16,9 @@ export type AddUserGroupPayloadType = {
 };
 
 const groupsService = {
-  getGroups: async (asd?: GroupParamsForServer): Promise<WithPagination<ResponseGroups[]>> => {
+  getGroups: async (
+    rawParams?: GroupParamsForServer,
+  ): Promise<WithPagination<ResponseGroups[]>> => {
     const f = (data?: GroupParamsForServer) => {
       if (data) {
         for (const key in data) {
@@ -26,7 +28,7 @@ const groupsService = {
       }
       return data;
     };
-    const params = f(asd);
+    const params = f(rawParams);
     const actualParams = {
       per_page: params?.perPage || undefined,
       page: params?.page || undefined,

@@ -38,7 +38,7 @@ const CardStudentExtended: FC<Props> = ({
   getOneUser,
   // onEditUserClick,
 }) => {
-  const name = `${middleName ?? ''} ${firstName ?? ''} ${lastName ?? ''}`.trim();
+  const name = `${lastName ?? ''} ${firstName ?? ''} ${middleName ?? ''}`.trim();
 
   let role;
 

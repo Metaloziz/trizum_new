@@ -38,7 +38,6 @@ export const Toolbar: FC<ToolbarProps> = props => {
               Добавить группу
             </Button>
           )}
-
           <div className={styles.dataContainer}>
             <CustomDatePicker value={datePickerValue} setValue={onNavigateDate} label="Дата" />
           </div>
@@ -89,9 +88,9 @@ export const CustomEvent: FC<EventProps> = observer(({ event }) => {
       </div>
       {role !== Roles.Teacher && (
         <div className={styles.eventIcons}>
-          <span>
+          {/* <span>
             <Image src={iconDelete} width="18" height="18" alt="Delete" />
-          </span>
+          </span> */}
           <span>
             <Image src={iconSettings} width="16" height="16" alt="Settings" />
           </span>

@@ -99,6 +99,21 @@ const Button1: FC<ButtonPropsT> = props => {
     width: '200px',
     height: '70px',
   };
+
+  switch (size) {
+    case 'small':
+      sx = { ...sx, ...small };
+      break;
+    case 'large':
+      sx = { ...sx, ...large };
+      break;
+    case 'thin':
+      sx = { ...sx, ...thin };
+      break;
+    default:
+      sx = { ...sx };
+  }
+
   switch (variant) {
     case 'parents':
       sx = { ...sx, ...parents };
@@ -139,20 +154,6 @@ const Button1: FC<ButtonPropsT> = props => {
     default:
       sx = { ...sx, ...primary };
       iconButton = <Image src={buttonImage} alt="arrow" width={26} height={13} />;
-  }
-
-  switch (size) {
-    case 'small':
-      sx = { ...sx, ...small };
-      break;
-    case 'large':
-      sx = { ...sx, ...large };
-      break;
-    case 'thin':
-      sx = { ...sx, ...thin };
-      break;
-    default:
-      sx = { ...sx };
   }
 
   return (

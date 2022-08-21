@@ -1,5 +1,4 @@
 import { FranchiseShortT } from 'app/types/FranchiseTypes';
-import { bool } from 'yup';
 
 type CreatedAt = {
   date: string;
@@ -30,7 +29,34 @@ export type ReportItemsT = {
   tariff: TariffT | null;
   isSecondChild: null;
   createdAt: CreatedAt;
-  groups: [];
+
+  city: string;
+  birthdate: BirthdateType;
+  groups: GroupsT;
+};
+
+export type groupType = {
+  id: string;
+  name: string;
+  teacher: TeacherType;
+  type: string;
+};
+
+export type GroupsT = {
+  [key: string]: groupType;
+};
+
+export type TeacherType = {
+  id: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+};
+
+export type BirthdateType = {
+  date: string;
+  timezone_type: number;
+  timezone: string;
 };
 
 export type ReportFilterT = {
@@ -46,4 +72,5 @@ export type ReportFilterT = {
   groupId: string;
   franchiseId: string;
   page: number;
+  city: string;
 };

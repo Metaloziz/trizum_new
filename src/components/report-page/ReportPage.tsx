@@ -11,9 +11,10 @@ import { shortenName, transformDate } from '../../utils/transformData';
 
 const columnNames = [
   'ФИО ученика',
+  'Город',
   'Статус',
   'Франшиза',
-  'Дата регистрации',
+  'Дата рождения',
   'Оплачен',
   'Дата окончания действия',
   'Тариф',
@@ -45,7 +46,7 @@ const ReportPage = observer(() => {
     <div className={styles.container}>
       <div className={styles.innerContent}>
         <div className={styles.leftBlock}>
-          <ReportFilters />
+          <ReportFilters setCurrentPage={setCurrentPage} />
           <div className={styles.tableContent}>
             <Table reportlist={currentItem} colNames={columnNames} loading={loading}>
               {currentItem.map(item => (
@@ -55,12 +56,13 @@ const ReportPage = observer(() => {
                       item.middleName,
                     )}.`}
                   </td>
+                  <td>{item?.city || 'Нет данных'}</td>
                   <td>{item?.isActive ? 'Активный' : 'Не активный'}</td>
                   <td>{item?.franchise?.shortName || 'Нет данных'}</td>
-                  <td>{transformDate(item?.createdAt?.date) || 'Нет данных'}</td>
+                  <td>{transformDate(item?.birthdate?.date) || 'Нет данных'}</td>
                   <td>{item?.isPayed ? 'Оплачен' : 'Не оплачен'}</td>
                   <td>{transformDate(item?.payedUntil?.date) || 'Нет данных'}</td>
-                  <td>{item?.tariff ? item.tariff?.name : 'Отсутствует'}</td>
+                  <td>{item?.tariff ? item.tariff?.name : 'Нет данных'}</td>
                 </tr>
               ))}
             </Table>

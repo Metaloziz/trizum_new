@@ -1,11 +1,11 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import tariffsService from 'app/services/tafiffService';
-import { TariffsType } from 'app/types/TariffTypes';
+import { TariffsEditOrCreateT, TariffsType } from 'app/types/TariffTypes';
 import { getDateWithoutTime } from 'components/rate-choice/utils';
 
 class TariffsStore {
-  private _defaultValue = (): TariffsType => ({
+  tariff = {
     code: '',
     description: '',
     durationMonths: 0,
@@ -21,20 +21,18 @@ class TariffsStore {
     name: '',
     newPrice: '',
     oldPrice: '',
-    prevTariff: null,
+    prevTariff: null as number | null,
     startedAt: {
       date: '',
       timezone: '',
       timezone_type: 0,
     },
     status: 'active',
-  });
+  };
 
   tariffs: TariffsType[] = [];
 
   isDialogOpen: boolean = false;
-
-  editingEntity: TariffsType = this._defaultValue();
 
   filters = {
     status: 'active',
@@ -50,25 +48,48 @@ class TariffsStore {
   }
 
   openDialog = (editingEntity?: TariffsType) => {
-    this.editingEntity = editingEntity ? { ...editingEntity } : this._defaultValue();
+    this.tariff = editingEntity ? { ...editingEntity } : this.tariff;
     this.isDialogOpen = true;
   };
 
   closeDialog = () => {
     this.isDialogOpen = false;
+    this.tariff = {
+      code: '',
+      description: '',
+      durationMonths: 0,
+      endedAt: {
+        date: '',
+        timezone: '',
+        timezone_type: 0,
+      },
+      forFirstPay: false,
+      forNewClient: false,
+      forSecondChild: true,
+      id: '',
+      name: '',
+      newPrice: '',
+      oldPrice: '',
+      prevTariff: null as number | null,
+      startedAt: {
+        date: '',
+        timezone: '',
+        timezone_type: 0,
+      },
+      status: 'active',
+    };
   };
 
   setFilters = (filter: any) => {
     this.filters = { ...filter };
   };
 
-  addOrEdit = async () => {
-    const options: TariffsType | {} = { ...this.editingEntity };
+  addOrEdit = async (options: TariffsEditOrCreateT) => {
     try {
-      if (this.editingEntity.id) {
-        await tariffsService.edit(this.editingEntity.id, options);
+      if (this.tariff.id) {
+        await tariffsService.edit(this.tariff.id, options);
       } else {
-        await tariffsService.create({ ...this.editingEntity });
+        await tariffsService.create(options);
       }
     } catch (e) {
       console.log(e);
@@ -113,7 +134,13 @@ class TariffsStore {
       );
     }
     if (this.filters.input) {
-      data = data.filter(val => val.name.toLowerCase().includes(this.filters.input.toLowerCase()));
+      if (Number(this.filters.input)) {
+        data = data.filter(val => val.code.includes(this.filters.input));
+      } else {
+        data = data.filter(val =>
+          val.name.toLowerCase().includes(this.filters.input.toLowerCase()),
+        );
+      }
     }
     if (this.filters.status) {
       if (this.filters.status === 'all') {

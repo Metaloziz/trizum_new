@@ -7,7 +7,7 @@ import TariffPage from '../tariff-page/TariffPage';
 import { Dialog, DialogTitle } from './ui/Dialog';
 
 export const AddOrEditDialog = observer(() => {
-  const { closeDialog, isDialogOpen, editingEntity } = tariffsStore;
+  const { closeDialog, isDialogOpen, tariff } = tariffsStore;
   return (
     <Dialog
       PaperProps={{
@@ -21,7 +21,7 @@ export const AddOrEditDialog = observer(() => {
       open={isDialogOpen}
     >
       <DialogTitle onClose={closeDialog}>
-        {editingEntity?.id ? 'Редактирование записи' : 'Добавление новой записи'}
+        {tariff?.id ? 'Редактирование тарифа' : 'Добавление нового тарифа'}
       </DialogTitle>
       <DialogContent dividers>
         <TariffPage />

@@ -16,8 +16,10 @@ export type AddUserGroupPayloadType = {
 };
 
 const groupsService = {
-  getGroups: async (asd?: GroupParamsForServer): Promise<WithPagination<ResponseGroups[]>> => {
-    const f = (data?: GroupParamsForServer) => {
+  getGroups: async (
+    paramsData?: GroupParamsForServer,
+  ): Promise<WithPagination<ResponseGroups[]>> => {
+    const paramsCreator = (data?: GroupParamsForServer) => {
       if (data) {
         for (const key in data) {
           // @ts-ignore
@@ -26,7 +28,8 @@ const groupsService = {
       }
       return data;
     };
-    const params = f(asd);
+
+    const params = paramsCreator(paramsData);
     const actualParams = {
       per_page: params?.perPage || undefined,
       page: params?.page || undefined,
@@ -44,10 +47,12 @@ const groupsService = {
     });
     return res.data;
   },
+
   getOneGroup: async (id: string): Promise<ResponseOneGroup> => {
     const { data } = await instance.get(`${Paths.Groups}/${id}`);
     return data;
   },
+
   addGroup: async (group: CreateGroupForServer) => {
     const { data } = await instance.post(`${Paths.Groups}`, group);
     return data;
@@ -57,8 +62,8 @@ const groupsService = {
     const { data } = await instance.post(`${Paths.UserGroups}`, addGroupData);
     return data;
   },
+
   editGroup: async (data: any, id: string) => {
-    debugger;
     const res = await instance.post(`${Paths.Groups}/${id}`, data);
     return res.data;
   },

@@ -30,9 +30,9 @@ import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import CardStudentExtended from 'components/card-student/card-student-extended/CardStudentExtended';
 import InformationItem from 'components/information-item/InformationItem';
-import { Option } from 'components/select/CustomSelect';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
+import { OptionT } from 'app/types/OptionT';
 
 const roleOptions = [
   { label: 'Все', value: 'all' },
@@ -58,8 +58,8 @@ const UsersPage = observer(() => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(page);
-  const [selectedRole, setSelectedRole] = useState<Option>();
-  const onSelectRole = (option: Option) => {
+  const [selectedRole, setSelectedRole] = useState<OptionT>();
+  const onSelectRole = (option: OptionT) => {
     option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
   };
 

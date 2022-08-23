@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 
 import coursesService from 'app/services/coursesService';
 import {
+  GetCoursesParams,
   RequestCreateCourse,
   RequestEditCourse,
   ResponseCourse,
@@ -15,7 +16,16 @@ type NewCourse = {
 };
 
 class CoursesStore {
-  courses: ResponseCourse[] = [];
+  courses: ResponseCourse[] = [
+    {
+      id: '',
+      title: '',
+      level: '',
+      works: [],
+      createdAt: { date: '', timezone: '', timezone_type: 0 },
+      worksCount: 0,
+    },
+  ];
 
   currentCourse?: ResponseOneFullCourse = undefined;
 
@@ -29,8 +39,8 @@ class CoursesStore {
     this.currentCourse = course;
   };
 
-  getCourses = async () => {
-    const res = await coursesService.getAllCourses();
+  getCourses = async (params?: GetCoursesParams) => {
+    const res = await coursesService.getAllCourses(params);
     runInAction(() => {
       this.courses = res.items;
     });

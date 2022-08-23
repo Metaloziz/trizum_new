@@ -5,7 +5,7 @@ import { getNearestLessonDate } from 'utils/getNearestLessonDate';
 import { getNearestLessonObject } from 'utils/getNearestLessonObject';
 
 export const getNearestLessonDateHelper = (groups: GroupsDataT[] | undefined): string => {
-  let lessonDate = 'default';
+  let lessonDate = 'нету ближайших занятий';
 
   if (groups?.length) {
     const result = getClassTypeGroups(groups);

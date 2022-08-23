@@ -6,6 +6,9 @@ import Pagination from 'components/molecules/Pagination';
 import NameOlympiad from 'components/name-olimpiad/NameOlympiad';
 import SettingsGames from 'components/settings-games/SettingsGames';
 import Table from 'components/table/Table';
+import franchiseeStore from 'app/stores/franchiseeStore';
+import coursesStore from 'app/stores/coursesStore';
+import { GroupTypes } from 'app/enums/GroupTypes';
 
 const colNames = [
   'Название олимпиады',
@@ -113,30 +116,33 @@ const mocks: Mock1[] = [
 ];
 
 const AddOlympiad = () => {
+  const { getFranchisee } = franchiseeStore;
+  const { getCourses } = coursesStore;
+
   const [data, setData] = useState(mocks); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(2); // State для отображения количества элементов на каждой странице
+
   useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      // пример запроса на сервер
-      // const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
-      // setData(res.data);
-      setLoading(false);
-    };
-    getData();
+    getFranchisee();
+    getCourses({ type: 'olympiad' });
   }, []);
 
   const lastItemIndex = currentPage * count;
+
   const firstItemIndex = lastItemIndex - count;
+
   const currentItem = data.slice(firstItemIndex, lastItemIndex);
+
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   const nextPage = () => {
     if (currentItem.length === count) {
       setCurrentPage(prev => prev + 1);
     }
   };
+
   const prevPage = () => {
     if (currentPage !== 1) {
       setCurrentPage(prev => prev - 1);

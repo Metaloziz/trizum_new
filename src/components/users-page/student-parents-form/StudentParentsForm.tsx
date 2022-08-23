@@ -12,7 +12,7 @@ import iconMedal from 'assets/svgs/medal.svg';
 import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
+import CustomSelect from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
 import styles from 'components/users-page/student-parents-form/StudentParentsForm.module.scss';
 import { action } from 'components/users-page/student-parents-form/utils/action';
@@ -21,6 +21,7 @@ import { MAIN_PARENT_ID } from 'components/users-page/student-parrents-form-cont
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'constants/constants';
 import { REG_NAME, REG_PHONE } from 'constants/regExp';
 import user from 'public/svgs/user.svg';
+import { OptionT } from 'app/types/OptionT';
 
 type Props = {
   localParentFormID: number;
@@ -36,7 +37,7 @@ type Props = {
 type CreateParentPayloadT = Omit<
   RequestRegister,
   'tariffId' | 'franchiseId' | 'isSecondChild' | 'role' | 'groupId' | 'sex'
-> & { sex: Option | undefined; isMain: boolean };
+> & { sex: OptionT | undefined; isMain: boolean };
 
 const StudentParentsForm: FC<Props> = ({
   setIsSubmitSuccessful,

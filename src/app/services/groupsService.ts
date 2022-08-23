@@ -67,5 +67,11 @@ const groupsService = {
     const res = await instance.post(`${Paths.Groups}/${id}`, data);
     return res.data;
   },
+
+  addOlympiadGroup: async (group: any) => {
+    // todo for dev
+    const { data } = await instance.post(`${Paths.Groups}`, group);
+    return data;
+  },
 };
 export default groupsService;

@@ -16,6 +16,7 @@ export const AppRoutes = {
   Testing: '/testing',
   UserInfo: '/user-info',
   Olympiads: '/olympiads',
+  OlympiadsCreate: '/olympiads/create',
   Users: '/users',
   Report: '/report',
   Homework: '/homework',

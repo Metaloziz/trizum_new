@@ -19,7 +19,8 @@ import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 import CustomSelect, { Option } from 'components/select/CustomSelect';
-import TextField from 'components/text-field/TextField';
+import TextFieldCustom from 'components/text-field-mui/TextFieldCustom';
+import TextField from '@mui/material/TextField';
 import { action } from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
 import { isMethodistTutor } from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
 import { isStudentCreated } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentCreated';
@@ -206,21 +207,21 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
               <Controller
                 name="middleName"
                 render={({ field }) => (
-                  <TextField {...field} label="Фамилия" error={errors.middleName?.message} />
+                 <TextFieldCustom {...field} label="Фамилия" error={errors.middleName?.message} />
                 )}
                 control={control}
               />
               <Controller
                 name="firstName"
                 render={({ field }) => (
-                  <TextField {...field} label="Имя" error={errors.firstName?.message} />
+                  <TextFieldCustom {...field} label="Имя" error={errors.firstName?.message} />
                 )}
                 control={control}
               />
               <Controller
                 name="lastName"
                 render={({ field }) => (
-                  <TextField {...field} label="Отчество" error={errors.lastName?.message} />
+                  <TextFieldCustom {...field} label="Отчество" error={errors.lastName?.message} />
                 )}
                 control={control}
               />
@@ -229,7 +230,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                   <Controller
                     name="city"
                     render={({ field }) => (
-                      <TextField {...field} label="Город" error={errors.city?.message} />
+                      <TextFieldCustom {...field} label="Город" error={errors.city?.message} />
                     )}
                     control={control}
                   />
@@ -311,14 +312,14 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                       <Controller
                         name="phone"
                         render={({ field }) => (
-                          <TextField {...field} label="Телефон" error={errors.phone?.message} />
+                          <TextFieldCustom {...field} label="Телефон" error={errors.phone?.message} />
                         )}
                         control={control}
                       />
                       <Controller
                         name="email"
                         render={({ field }) => (
-                          <TextField {...field} label="Почта" error={errors.email?.message} />
+                          <TextFieldCustom {...field} label="Почта" error={errors.email?.message} />
                         )}
                         control={control}
                       />
@@ -326,7 +327,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                   )}
                   <Controller
                     name="birthdate"
-                    render={({ field }) => <TextField {...field} label="Дата рождения:" />}
+                    render={({ field }) => <TextFieldCustom {...field} label="Дата рождения:" />}
                     control={control}
                   />
                   <Controller
@@ -344,6 +345,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                 </>
               )}
               <div className={styles.button}>
+                {user && <SetStatusButton status={user?.status} id={user.id} />}
                 <Button type="submit" disabled={isSubmitSuccessful} onClick={onSubmit}>
                   Сохранить
                 </Button>

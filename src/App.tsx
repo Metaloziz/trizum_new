@@ -14,7 +14,7 @@ import Blog from 'pages/blog/Blog';
 import Classes from 'pages/classes/Classes';
 import Courses from 'pages/courses/Courses';
 import Franchising from 'pages/franchising/Franchising';
-import Game from 'pages/game/Game';
+import GameWrapper from 'pages/game/Game';
 import Home from 'pages/home/Home';
 import Homework from 'pages/homework/Homework';
 import HomeworkAddEdit from 'pages/homework/HomeworkAddEdit/HomeworkAddEdit';
@@ -30,6 +30,7 @@ import Test from 'pages/testing/test/Test';
 import { Testing } from 'pages/testing/Testing';
 import UserInfo from 'pages/user-info/UserInfo';
 import Users from 'pages/users/Users';
+import Games from 'pages/games/Games';
 
 const App = observer(() => (
   <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -46,8 +47,8 @@ const App = observer(() => (
           <Route path={AppRoutes.Classes} element={<Classes />} />
           <Route path={AppRoutes.Courses} element={<Courses />} />
           <Route path={AppRoutes.Franchising} element={<Franchising />} />
-          <Route path={`${AppRoutes.Games}/*`} element={<Game />} />
-          {/* <Route path={AppRoutes.Game} element={<Game />} /> */}
+          <Route path={`${AppRoutes.Games}/*`} element={<GameWrapper />} />
+          {/* <Route path={AppRoutes.Games} element={<Game />} /> */}
           <Route path={AppRoutes.Homework} element={<Homework />} />
           <Route path={`${AppRoutes.Homework}${AppRoutes.Add}`} element={<HomeworkAddEdit />} />
           <Route path={AppRoutes.Signin} element={<Login />} />

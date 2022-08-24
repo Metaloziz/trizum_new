@@ -8,7 +8,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { REG_NAME } from 'constants/regExp';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH } from 'constants/constants';
-import MenuItem from '@mui/material/MenuItem';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { observer } from 'mobx-react-lite';
@@ -20,6 +19,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { OlympiadPayloadType } from 'app/types/OlympiadPayloadType';
 import groupStore from 'app/stores/groupStore';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
+import { getAllOptionsMUI } from 'utils/getOption';
 
 type UseFormType = Omit<OlympiadPayloadType, 'type'>;
 
@@ -66,14 +66,14 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
     formState: { errors },
   } = useForm<UseFormType>({ resolver: yupResolver(schema) });
 
-  const franchiseIdData = watch('franchiseId');
+  const FRANCHISE_ID = watch('franchiseId');
 
   useEffect(() => {
-    if (franchiseIdData) {
-      const result = getGroupsWithParams({ franchiseId: franchiseIdData, type: 'class' });
+    if (FRANCHISE_ID) {
+      const result = getGroupsWithParams({ franchiseId: FRANCHISE_ID, type: 'class' });
       resetField('forGroupId');
     }
-  }, [franchiseIdData]);
+  }, [FRANCHISE_ID]);
 
   const onSubmit = handleSubmit(async values => {
     const response = await groupsService.addOlympiadGroup({ ...values, type: 'olympiad' });
@@ -132,11 +132,7 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
                 helperText={errors.franchiseId?.message}
                 error={!!errors?.franchiseId}
               >
-                {franchiseOptions.map(({ label, value }) => (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                ))}
+                {getAllOptionsMUI(franchiseOptions)}
               </TextField>
             </div>
 
@@ -149,11 +145,7 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
                 helperText={errors.courseId?.message}
                 error={!!errors?.courseId}
               >
-                {courseOptions.map(({ label, value }) => (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                ))}
+                {getAllOptionsMUI(courseOptions)}
               </TextField>
             </div>
           </div>
@@ -190,11 +182,7 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
                 helperText={errors.level?.message}
                 error={!!errors?.level}
               >
-                {levelOptions.map(({ label, value }) => (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                ))}
+                {getAllOptionsMUI(levelOptions)}
               </TextField>
             </div>
             <div className={style.selectBlock}>
@@ -207,11 +195,7 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
                 error={!!errors?.forGroupId}
                 disabled={!groups.length}
               >
-                {groupsOptions.map(({ label, value }) => (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                ))}
+                {getAllOptionsMUI(groupsOptions)}
               </TextField>
             </div>
           </div>

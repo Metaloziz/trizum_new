@@ -52,7 +52,7 @@ const NameOlympiad = () => {
         <Button>Найти</Button>
       </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>
-        <OlympiadForm />
+        <OlympiadForm setShowModal={setShowModal} />
       </BasicModal>
     </div>
   );

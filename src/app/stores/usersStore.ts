@@ -12,6 +12,7 @@ import {
   ResponseUserT,
 } from 'app/types/UserTypes';
 import { checkErrorMessage, ErrorMessageType } from 'utils/checkErrorMessage';
+import { SearchUserType } from 'app/types/SearchUserType';
 
 class UsersStore {
   users: ResponseUserT[] = [];
@@ -23,12 +24,22 @@ class UsersStore {
   perPage = 5;
 
   currentUser?: ResponseOneUser;
+ 
+  firstName?:SearchUserType ;
+
+  middleName :SearchUserType ;
+
+  lastName :SearchUserType ;
+
+  city:SearchUserType ;
+
+  birthdate:SearchUserType ;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  getUsers = async (params?: RequestUsersParams) => {
+  getUsers = async (params?: RequestUsersForFilter) => {
     const res = await usersService.getAllUsers(params);
     runInAction(() => {
       this.users = res.items;
@@ -40,11 +51,17 @@ class UsersStore {
 
   getUsersForFilter = async (params?: RequestUsersForFilter) => {
     const res = await usersService.getUsersForFilters(params);
+    console.log(res)
     runInAction(() => {
       this.users = res.items;
       this.usersTotalCount = res.total;
       this.perPage = res.perPage;
       this.page = Number(res.page);
+      this.firstName= params?.firstName;
+      this.middleName= params?.middleName;
+      this.lastName= params?.lastName;
+      this.city= params?.city;
+      this.birthdate= params?.birthdate;
     });
   };
 
@@ -104,6 +121,14 @@ class UsersStore {
     }
     return undefined;
   };
+
+  cleanSearchUsersParams = () => {
+    this.firstName='';
+      this.middleName='';
+      this.lastName='';
+      this.city='';
+      this.birthdate='';
+  }
 
   get getFullUserName() {
     const result = `${this.currentUser?.middleName}" "${this.currentUser?.firstName}" "${this.currentUser?.lastName}`;

@@ -84,10 +84,6 @@ export const Filter = (props: UserPageFilterProps) => {
   const onSelectRole = (option: Option) => {
     option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
   };
-  const load = async () => {
-    await getUsers();
-    setIsLoaded(true);
-  };
 
   const onSearchClick = () => {
     getUsersForFilter({

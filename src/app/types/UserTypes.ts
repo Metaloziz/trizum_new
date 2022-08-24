@@ -9,6 +9,7 @@ export type RequestUsersParams = {
   page?: number;
   perPage?: number;
   franchiseId?: string;
+  
 };
 
 export type RequestUsersForFilter = {
@@ -16,11 +17,11 @@ export type RequestUsersForFilter = {
   page?: number;
   perPage?: number;
   franchiseId?: string;
-  firstName?: string;
-  middleName?: string;
-  lastName?: string;
-  city?: string;
-  birthdate?: string;
+  firstName?: string | null;
+  middleName?: string | null;
+  lastName?: string | null;
+  city?: string | null;
+  birthdate?: string | null;
 };
 
 export type RequestCreateUser = {

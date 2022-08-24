@@ -27,6 +27,23 @@ export type ResponseGroups = {
   teacherId: string;
   schedule: Schedule[];
 };
+export type WorkT = {
+  id: string;
+  title: string;
+  text: null | string;
+  type: string;
+  createdAt: {
+    date: string;
+    timezone_type: number;
+    timezone: string;
+  };
+};
+
+export type WorksT = {
+  id: string;
+  index: null | number;
+  work: WorkT;
+};
 
 export type ResponseOneGroupCourse = {
   id: string;
@@ -36,6 +53,7 @@ export type ResponseOneGroupCourse = {
   level: string;
   worksCount: number;
   createdAt: TimeZoneType;
+  works: WorksT[];
 };
 
 type LocalUserT = ResponseOneUserTypeForLoadMe & {

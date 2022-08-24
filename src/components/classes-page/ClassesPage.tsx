@@ -42,7 +42,6 @@ const ClassesPage = observer(() => {
     queryFields,
     selectedGroup,
   } = groupStore;
-
   const [currentPage, setCurrentPage] = useState((queryFields.page || 0) + 1);
   useEffect(() => {
     typeof queryFields.page === 'number' && setCurrentPage(queryFields.page + 1);
@@ -187,13 +186,15 @@ const ClassesPage = observer(() => {
             <div className={styles.blockGames}>
               <BlockGames />
             </div>
-            <div className={styles.blockCardStudents}>
-              {selectedGroup &&
-                !!selectedGroup.users.length &&
-                selectedGroup.users.map(user => (
-                  <CardStudent key={user.user.id} user={user.user} />
-                ))}
-            </div>
+            {!!selectedGroup?.users.length && (
+              <div className={styles.blockCardStudents}>
+                {selectedGroup &&
+                  !!selectedGroup.users.length &&
+                  selectedGroup.users.map(user => (
+                    <CardStudent key={user.user.id} user={user.user} />
+                  ))}
+              </div>
+            )}
           </div>
         )}
       </div>

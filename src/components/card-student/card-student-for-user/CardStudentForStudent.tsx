@@ -8,7 +8,7 @@ import iconParrot from '../../../assets/svgs/parrot.svg';
 import styles from './CardStudentForUser.module.scss';
 import { getNearestLessonDateHelper } from './getNearestLessonDateHelper/getNearestLessonDateHelper';
 
-import {EmptyUser, Roles} from 'app/stores/appStore';
+import { EmptyUser, Roles } from 'app/stores/appStore';
 import usersStore from 'app/stores/usersStore';
 import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
 import iconFlag from 'assets/svgs/icon-flag.svg';

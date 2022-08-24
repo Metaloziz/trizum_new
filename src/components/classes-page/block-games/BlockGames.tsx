@@ -14,9 +14,9 @@ import Panel from 'components/panel/Panel';
 
 const BlockGames = observer(() => {
   const { openModal, selectedGroup, groups, getOneGroup } = groupStore;
-  useEffect(() => {
-    getOneGroup(groups[0].id);
-  }, []);
+  // useEffect(() => {
+  //   getOneGroup(groups[0].id);
+  // }, []);
 
   const works = selectedGroup?.course.works;
   let result: string;

@@ -5,11 +5,13 @@ import { ScheduleForUI } from 'app/types/GroupTypes';
 import { scheduleMapper } from 'app/types/mappers/ScheduleMapper';
 import usersService from 'app/services/usersService';
 import { Roles } from 'app/stores/appStore';
+import franchiseService from 'app/services/franchiseService';
 
 class GroupStore {
   defaultFilters = {
     groupId: '',
     teacherId: '',
+    franchise: '',
   };
 
   schedule: ScheduleForUI[] = [];
@@ -19,6 +21,8 @@ class GroupStore {
   filters = { ...this.defaultFilters };
 
   teachers: { teacherId: string; teacherName: string }[] = [];
+
+  franchisees: { franchise: string; franchiseName: string }[] = [];
 
   isLoad = false;
 
@@ -45,7 +49,9 @@ class GroupStore {
       console.log(res.items.length, 'res.items.length');
       const qwe = res.items.length
         ? res.items
-            .map((gr, index) => scheduleMapper(gr.schedule, gr.name, gr.id, gr.teacherId))
+            .map((gr, index) =>
+              scheduleMapper(gr.schedule, gr.name, gr.id, gr.teacherId, gr.franchise),
+            )
             .reduce((acc, elem) => [...acc, ...elem], [] as ScheduleForUI[])
         : [];
       console.log(qwe, 'qwe');
@@ -63,13 +69,28 @@ class GroupStore {
     });
   };
 
+  getFranchise = async () => {
+    const res = await franchiseService.getAll();
+    runInAction(() => {
+      // @ts-ignore
+      this.franchisees = res.map(el => ({
+        franchise: el.id,
+        franchiseName: el.shortName,
+      }));
+    });
+  };
+
   setFilters = (filterValue: string, newValue: string) => {
     this.filters = { ...this.filters, [filterValue]: newValue === '*' ? '' : newValue };
   };
 
   get actualSchedule() {
-    const withTeacher = this.schedule.filter(el => el.teacherId.includes(this.filters.teacherId));
-    return withTeacher.filter(el => el.groupId.includes(this.filters.groupId));
+    const withFilter = this.schedule.filter(
+      el =>
+        el.teacherId.includes(this.filters.teacherId) &&
+        el.franchise.includes(this.filters.franchise),
+    );
+    return withFilter.filter(el => el.groupId.includes(this.filters.groupId));
   }
 }
 export default new GroupStore();

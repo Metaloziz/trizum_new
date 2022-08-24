@@ -15,6 +15,7 @@ import { EventProps } from 'components/schedule/ScheduleDnD';
 import CustomDatePicker from 'components/tariff-page/customDatePicker';
 import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
+import { ButtonGroup, FormControl, Grid } from '@mui/material';
 
 export const Toolbar: FC<ToolbarProps> = props => {
   const { openModal, isModalOpen } = groupStore;
@@ -32,26 +33,54 @@ export const Toolbar: FC<ToolbarProps> = props => {
     <div className={styles.toolbarWrapper}>
       <div className={styles.toolbarFlexWrapper}>
         {children}
-        <div className={styles.buttons}>
-          {checkRoleForClasses(role) && (
-            <Button variant="none" size="small" onClick={() => openModal()}>
-              Добавить группу
-            </Button>
-          )}
-          <div className={styles.dataContainer}>
-            <CustomDatePicker value={datePickerValue} setValue={onNavigateDate} label="Дата" />
-          </div>
-          <Button variant="none" size="small" onClick={() => onNavigate('PREV', date)}>
-            Предыдущая
-          </Button>
-          <Button variant="none" size="small" onClick={() => onNavigate('TODAY', date)}>
-            Текущая
-          </Button>
-          <Button variant="none" size="small" onClick={() => onNavigate('NEXT', date)}>
-            Следующая
-          </Button>
-          <Button size="small">Найти</Button>
-        </div>
+        {/* <div className={styles.buttons}> */}
+
+        <Grid
+          container
+          columnSpacing={{ xs: 1, sm: 3, md: 1, lg: 1 }}
+          spacing={{ xs: 2 }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item xs={12} sm={12} md>
+            <FormControl fullWidth>
+              <CustomDatePicker value={datePickerValue} setValue={onNavigateDate} label="Дата" />
+            </FormControl>
+          </Grid>
+          <Grid item xs={4} sm={4} md>
+            <FormControl fullWidth>
+              <Button variant="none" size="middleLight" onClick={() => onNavigate('PREV', date)}>
+                Предыдущая
+                <br />
+                неделя
+              </Button>
+            </FormControl>
+          </Grid>
+          <Grid item xs={4} sm={4} md>
+            <FormControl fullWidth>
+              <Button variant="none" size="middleLight" onClick={() => onNavigate('TODAY', date)}>
+                Текущая
+                <br />
+                неделя
+              </Button>
+            </FormControl>
+          </Grid>
+          <Grid item xs={4} sm={4} md>
+            <FormControl fullWidth>
+              <Button variant="none" size="middleLight" onClick={() => onNavigate('NEXT', date)}>
+                Следующая
+                <br />
+                неделя
+              </Button>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <Button size="middle">Найти</Button>
+            </FormControl>
+          </Grid>
+        </Grid>
+        {/* </div> */}
       </div>
       <AddEditGroup />
     </div>

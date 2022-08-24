@@ -5,6 +5,7 @@ export const scheduleMapper = (
   groupName: string,
   groupId: string,
   teacherId: string,
+  franchise: string,
 ): ScheduleForUI[] =>
   schedule.length
     ? schedule.map((el, idx) => {
@@ -22,6 +23,7 @@ export const scheduleMapper = (
           lesson: el.name,
           start,
           end,
+          franchise,
         };
       })
     : [];

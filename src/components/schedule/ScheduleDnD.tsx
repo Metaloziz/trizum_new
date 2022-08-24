@@ -19,6 +19,9 @@ import CustomSelect from 'components/select/CustomSelect';
 import { getOption, getOptionMui } from 'utils/getOption';
 import { FormControl, Grid, InputLabel, Select } from '@mui/material';
 import _ from 'lodash';
+import groupStore from 'app/stores/groupStore';
+import Button from 'components/button/Button';
+import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 
 require('moment/locale/ru');
 
@@ -46,7 +49,8 @@ const formats = {
 
 const ChildrenToolbar: FC = observer(() => {
   const { role } = appStore;
-  const { groups, setFilters, filters, teachers } = teacherMainStore;
+  const { groups, setFilters, filters, teachers, franchisees } = teacherMainStore;
+  const { openModal, isModalOpen } = groupStore;
 
   const selectGroupOption = groups.length
     ? [{ groupId: '*', groupName: 'Все' }, ...groups].map(el =>
@@ -60,43 +64,78 @@ const ChildrenToolbar: FC = observer(() => {
       )
     : [];
 
+  const franchiseOption = franchisees.length
+    ? [{ franchise: '*', franchiseName: 'Все' }, ...franchisees].map(el =>
+        getOptionMui(el.franchise, el.franchiseName),
+      )
+    : [];
+
   return (
     <Grid container>
-      <Grid item xs={12} sm={4}>
-        <FormControl fullWidth>
-          <InputLabel id="select">Группа</InputLabel>
-          <Select
-            labelId="select"
-            label="Группа"
-            value={filters.groupId || '*'}
-            fullWidth
-            onChange={({ target: { value } }) => setFilters('groupId', value)}
-          >
-            {selectGroupOption}
-          </Select>
-        </FormControl>
-      </Grid>
+      {checkRoleForClasses(role) ? (
+        <Grid
+          container
+          columnSpacing={{ xs: 10, sm: 4, md: 1, lg: 1 }}
+          spacing={{ xs: 2 }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <InputLabel id="teacher">ФИО Учителя</InputLabel>
+              <Select
+                labelId="teacher"
+                label="ФИО Учителя"
+                value={filters.teacherId || '*'}
+                fullWidth
+                onChange={({ target: { value } }) => setFilters('teacherId', value)}
+              >
+                {teacherOptions}
+              </Select>
+            </FormControl>
+          </Grid>
 
-      {(role === Roles.FranchiseeAdmin || role === Roles.Franchisee) && (
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel id="teacher">ФИО Учителя</InputLabel>
-            <Select
-              labelId="teacher"
-              label="ФИО Учителя"
-              value={filters.teacherId || '*'}
-              fullWidth
-              onChange={({ target: { value } }) => setFilters('teacherId', value)}
-            >
-              {teacherOptions}
-            </Select>
-          </FormControl>
-        </Grid>
-      )}
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <InputLabel id="franchise">Франшиза</InputLabel>
+              <Select
+                labelId="franchise"
+                label="Франшиза"
+                value={filters.franchise || '*'}
+                fullWidth
+                onChange={({ target: { value } }) => setFilters('franchise', value)}
+              >
+                {franchiseOption}
+              </Select>
+            </FormControl>
+          </Grid>
 
-      {role === Roles.Admin && (
-        <>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <InputLabel id="select">Группа</InputLabel>
+              <Select
+                labelId="select"
+                label="Группа"
+                value={filters.groupId || '*'}
+                fullWidth
+                onChange={({ target: { value } }) => setFilters('groupId', value)}
+              >
+                {selectGroupOption}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <Button variant="none" size="middle" onClick={() => openModal()}>
+                Добавить группу
+              </Button>
+            </FormControl>
+          </Grid>
+
+          {/* {role === Roles.Admin && (
+          <>
+            <Grid item xs={12} sm={4}>
             <FormControl fullWidth>
               <InputLabel id="city">Город</InputLabel>
               <Select
@@ -110,15 +149,20 @@ const ChildrenToolbar: FC = observer(() => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          </>
+          )} */}
+        </Grid>
+      ) : (
+        <>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth>
-              <InputLabel id="franchise">Франшиза</InputLabel>
+              <InputLabel id="select">Группа</InputLabel>
               <Select
-                labelId="franchise"
-                label="Франшиза"
-                value=""
+                labelId="select"
+                label="Группа"
+                value={filters.groupId || '*'}
                 fullWidth
-                onChange={({ target: { value } }) => console.log(value)}
+                onChange={({ target: { value } }) => setFilters('groupId', value)}
               >
                 {selectGroupOption}
               </Select>
@@ -132,7 +176,7 @@ const ChildrenToolbar: FC = observer(() => {
 
 const ScheduleDnD: FC = observer(() => {
   const { role } = appStore;
-  const { getGroups, actualSchedule, getTeachers } = teacherMainStore;
+  const { getGroups, actualSchedule, getTeachers, getFranchise } = teacherMainStore;
   const [events, setEvents] = useState<(ScheduleEvent | object)[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<ScheduleEvent | null | object>(null);
@@ -143,8 +187,9 @@ const ScheduleDnD: FC = observer(() => {
 
   useEffect(() => {
     getGroups();
-    if (role === Roles.Franchisee || role === Roles.FranchiseeAdmin) {
+    if (role === Roles.Franchisee || role === Roles.FranchiseeAdmin || role === Roles.Admin) {
       getTeachers();
+      getFranchise();
     }
   }, []);
 

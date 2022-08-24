@@ -115,6 +115,7 @@ export type CreateGroupFroUI = {
 
 export type Schedule = { name: string; date: string; from: string; to: string };
 export type ScheduleForUI = {
+  franchise: string;
   teacherId: string;
   groupName: string;
   groupId: string;

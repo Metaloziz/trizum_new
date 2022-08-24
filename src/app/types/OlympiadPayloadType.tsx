@@ -7,5 +7,6 @@ export type OlympiadPayloadType = {
   franchiseId: string;
   courseId: string;
   type: 'olympiad';
+  forGroupId: string;
   level: keyof typeof GroupLevels;
 };

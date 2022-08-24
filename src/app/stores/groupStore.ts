@@ -6,12 +6,13 @@ import * as yup from 'yup';
 import { DateTime } from 'app/enums/DateTime';
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
-import groupsService, { AddUserGroupPayloadType } from 'app/services/groupsService';
+import groupsService from 'app/services/groupsService';
 import { Roles } from 'app/stores/appStore';
 import { ResponseCourse } from 'app/types/CourseTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
 import {
   CreateGroupFroUI,
+  GroupParamsForServer,
   GroupParamsForUI,
   GroupT,
   LessonT,
@@ -120,12 +121,6 @@ class GroupStore {
     });
   };
 
-  addUserGroup = (data: AddUserGroupPayloadType) => {
-    this.execute(async () => {
-      const response = await groupsService.addUserGroup(data);
-    });
-  };
-
   loadInitialModal = () => {
     this.execute(async () => {
       const resFranchise = await franchiseService.getAll();
@@ -160,6 +155,17 @@ class GroupStore {
         this.perPage = res.perPage;
         this.total = res.total;
       });
+    });
+  };
+
+  getGroupsWithParams = async (paramsData?: GroupParamsForServer) => {
+    const res = await groupsService.getGroups(paramsData);
+
+    runInAction(() => {
+      this.groups = res.items;
+      this.page = res.page;
+      this.perPage = res.perPage;
+      this.total = res.total;
     });
   };
 

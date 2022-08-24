@@ -11,12 +11,12 @@ import CustomSelect from 'components/select/CustomSelect';
 import TextFieldCalendar from 'components/text-field-calendar/TextFieldCalendar';
 import TextField from 'components/text-field/TextField';
 
-type VariantType = 'select' | 'input' | 'calendar' | 'file' | 'phone' | 'inn';
+type VariantType = 'select' | 'input' | 'calendar' | 'file' | 'phone' | 'inn' | 'numberInput';
 
 type SizeType = 'large' | 'normal';
 
 interface Option {
-  value: string;
+  value: any;
   label: string;
 }
 
@@ -36,6 +36,8 @@ interface Props {
   type?: string;
   value?: string;
   selectValue?: Option;
+  minLength?: number;
+  maxLength?: number;
 }
 
 const InformationItem: FC<Props> = props => {
@@ -55,6 +57,8 @@ const InformationItem: FC<Props> = props => {
     inputClassName,
     value,
     selectValue,
+    maxLength,
+    minLength,
   } = props;
 
   let part;
@@ -84,6 +88,17 @@ const InformationItem: FC<Props> = props => {
           mask="_"
           id={id}
           onChange={onChangeEvent}
+          placeholder={placeholder}
+        />
+      );
+      break;
+    case 'numberInput':
+      part = (
+        <TextField
+          value={value || ''}
+          className={styles.numberFormat}
+          id={id}
+          onChange={e => onChange && onChange(e.target.value)}
           placeholder={placeholder}
         />
       );

@@ -24,7 +24,7 @@
   }
 
   .innerContent {
-    width: 80%;
+    width: 100%;
     background-color: #ffffff;
     box-sizing: border-box;
     padding: 31px 45px 23px 45px;
@@ -314,4 +314,25 @@
   @media (max-width: 1200px) {
     justify-content: center;
   }
+}
+
+.monthDurations {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  & label {
+    width: 100%;
+  }
+}
+
+.tariffAfter {
+  display: flex;
+align-items: center;
+  width: 350px;
+  & label {
+    width: 200px;
+    margin-right: 20px;
+  }
+
 }

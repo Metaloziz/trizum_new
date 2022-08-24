@@ -1,3 +1,4 @@
+import Rate from 'pages/rate/Rate';
 import React from 'react';
 
 import './App.css';
@@ -9,7 +10,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AppRoutes } from 'app/enums/AppRoutes';
 import { Article } from 'components/blog-page/Article/Article';
 import DefaultLayout from 'components/layout/default/DefaultLayout';
-import Rate from 'components/rate/Rate';
 import Blog from 'pages/blog/Blog';
 import Classes from 'pages/classes/Classes';
 import Courses from 'pages/courses/Courses';

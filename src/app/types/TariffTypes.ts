@@ -22,3 +22,18 @@ export type TariffsType = {
   };
   status: string;
 };
+
+export type TariffsEditOrCreateT = {
+  name: string;
+  status: string;
+  startedAt: string | null;
+  endedAt: string | null;
+  oldPrice?: string | null;
+  newPrice: string;
+  code: string;
+  description: string;
+  forSecondChild: boolean;
+  forNewClient: boolean;
+  forFirstPay: boolean;
+  durationMonths: number;
+};

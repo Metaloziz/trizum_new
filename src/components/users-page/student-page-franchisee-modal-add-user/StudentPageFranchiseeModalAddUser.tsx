@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grid } from '@mui/material';
@@ -36,6 +36,7 @@ import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
 import { convertTariffOptions } from 'utils/convertTariffOptions';
 import { removeEmptyFields } from 'utils/removeEmptyFields';
+import TextFieldPhoneCustom from "../../text-field-phone-mui/TextFieldPhoneCustom";
 
 type Props = {
   onCloseModal: () => void;
@@ -312,7 +313,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                       <Controller
                         name="phone"
                         render={({ field }) => (
-                          <TextFieldCustom {...field} label="Телефон" error={errors.phone?.message} />
+                          <TextFieldPhoneCustom {...field} label="Телефон" error={errors.phone?.message} />
                         )}
                         control={control}
                       />

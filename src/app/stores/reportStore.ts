@@ -2,9 +2,16 @@ import reportService from 'app/services/reportService';
 import { ReportItemsT } from 'app/types/ReportT';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { getDateWithoutTime } from '../../components/rate-choice/utils';
+import moment from 'moment/moment';
+import { DateTime } from '../enums/DateTime';
+import groupsService from '../services/groupsService';
+import { AxiosError } from 'axios';
+import { ResponseGroups } from '../types/GroupTypes';
 
 class ReportStore {
   items: ReportItemsT[] = [];
+
+  groups: ResponseGroups[] = [];
 
   page = 0;
 
@@ -12,7 +19,9 @@ class ReportStore {
 
   total = 0;
 
-  filters = {
+  isLoad = false;
+
+  private defaultValues = {
     cityName: '',
     pupilName: '',
     isActiveStatus: '',
@@ -20,13 +29,45 @@ class ReportStore {
     dateFrom: '',
     dateTo: '',
     tariff: '',
+    franchiseId: '',
   };
+
+  private queryDefaultValues = {
+    perPage: 10,
+    page: 0,
+    cityName: '',
+    first_name: '',
+    middle_name: '',
+    is_active: '',
+    is_payed: '',
+    date_since: '',
+    date_until: '',
+    tariff_id: '',
+    franchise_id: '',
+    group_id: '',
+  };
+
+  modalFields = { ...this.defaultValues };
+
+  queryFields = { ...this.queryDefaultValues };
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  getReport = async () => {
+  execute = async <T>(action: () => Promise<T>) => {
+    try {
+      this.isLoad = true;
+      return await action();
+    } catch (e) {
+      // TODO: handle error
+      return (e as AxiosError).message;
+    } finally {
+      this.isLoad = false;
+    }
+  };
+
+  getReports = async () => {
     try {
       const res = await reportService.getReport();
       runInAction(() => {
@@ -40,46 +81,67 @@ class ReportStore {
     }
   };
 
+  getGroups = async () => {
+    const dateSince = this.defaultValues.dateFrom
+      ? moment(this.defaultValues.dateFrom).format(DateTime.DdMmYyyy)
+      : '';
+    const dateUntil = this.defaultValues.dateTo
+      ? moment(this.defaultValues.dateTo).format(DateTime.DdMmYyyy)
+      : '';
+    await this.execute(async () => {
+      const res = await groupsService.getGroups({
+        ...this.queryDefaultValues,
+        dateSince,
+        dateUntil,
+      });
+      runInAction(() => {
+        this.groups = res.items;
+      });
+    });
+  };
+
   setFilters = (filter: any) => {
-    this.filters = { ...filter };
+    this.defaultValues = { ...filter };
   };
 
   get reports() {
     let data: ReportItemsT[] = [...this.items];
-    if (this.filters.cityName) {
-      data = data.filter(f => f.city?.toLowerCase() === this.filters.cityName.toLowerCase());
+    if (this.queryFields.cityName) {
+      data = data.filter(f => f.city?.toLowerCase() === this.queryFields.cityName.toLowerCase());
     }
-    if (this.filters.tariff) {
-      data = data.filter(f => f.tariff?.name.toLowerCase() === this.filters.tariff.toLowerCase());
-    }
-    if (this.filters.pupilName) {
+    if (this.defaultValues.tariff) {
       data = data.filter(
-        f =>
-          f.firstName.toLowerCase() === this.filters.pupilName.toLowerCase() ||
-          f.middleName.toLowerCase() === this.filters.pupilName.toLowerCase() ||
-          f.lastName.toLowerCase() === this.filters.pupilName.toLowerCase(),
+        f => f.tariff?.name.toLowerCase() === this.defaultValues.tariff.toLowerCase(),
       );
     }
-    if (this.filters.isActiveStatus) {
-      const status = this.filters.isActiveStatus === 'true';
+    if (this.defaultValues.pupilName) {
+      data = data.filter(
+        f =>
+          f.firstName.toLowerCase() === this.defaultValues.pupilName.toLowerCase() ||
+          f.middleName.toLowerCase() === this.defaultValues.pupilName.toLowerCase() ||
+          f.lastName.toLowerCase() === this.defaultValues.pupilName.toLowerCase(),
+      );
+    }
+    if (this.defaultValues.isActiveStatus) {
+      const status = this.defaultValues.isActiveStatus === 'true';
       data = data.filter(f => f.isActive === status);
     }
-    if (this.filters.isPaidStatus) {
-      const status = this.filters.isPaidStatus === 'true';
+    if (this.defaultValues.isPaidStatus) {
+      const status = this.defaultValues.isPaidStatus === 'true';
       data = data.filter(f => f.isPayed === status);
     }
-    if (this.filters.dateTo) {
+    if (this.defaultValues.dateTo) {
       data = data.filter(
         val =>
           getDateWithoutTime(new Date(val.birthdate.date)) <=
-          getDateWithoutTime(new Date(this.filters.dateTo)),
+          getDateWithoutTime(new Date(this.defaultValues.dateTo)),
       );
     }
-    if (this.filters.dateFrom) {
+    if (this.defaultValues.dateFrom) {
       data = data.filter(
         val =>
           getDateWithoutTime(new Date(val.birthdate.date)) >=
-          getDateWithoutTime(new Date(this.filters.dateFrom)),
+          getDateWithoutTime(new Date(this.defaultValues.dateFrom)),
       );
     }
     return data;

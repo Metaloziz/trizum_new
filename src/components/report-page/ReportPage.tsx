@@ -1,4 +1,3 @@
-import reportStore from 'app/stores/reportStore';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from './ReportPage.module.scss';
 import AdminInfoList from 'components/admin-info-list/AdminInfoList';
@@ -7,7 +6,9 @@ import ReportFilters from 'components/report-page/ReportFilters';
 import { observer } from 'mobx-react-lite';
 import { Loader } from '../loader/Loader';
 import Pagination from '@mui/material/Pagination';
-import { shortenName, transformDate } from '../../utils/transformData';
+import { shortenName, transformDate } from 'utils/transformData';
+import { ReportItemsT } from '../../app/types/ReportT';
+import reportStore from '../../app/stores/reportStore';
 
 const columnNames = [
   'ФИО ученика',
@@ -21,20 +22,22 @@ const columnNames = [
 ];
 
 const ReportPage = observer(() => {
-  const { getReport, reports: data } = reportStore;
+  const { getReports, reports: data, total } = reportStore;
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
   const [count] = useState<number>(10); // State для отображения количества элементов на каждой странице
 
   useEffect(() => {
     setLoading(true);
-    getReport();
+    getReports();
     setLoading(false);
   }, []);
 
+  // TODO useEffect на смену страниц, и отправку нового запроса.
+
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;
-  const currentItem = data.slice(firstItemIndex, lastItemIndex);
+  const currentItem: ReportItemsT[] = data.slice(firstItemIndex, lastItemIndex);
 
   const paginate = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setCurrentPage(newCurrentPage);
@@ -69,7 +72,7 @@ const ReportPage = observer(() => {
           </div>
           <div className={styles.paginationBlock}>
             <Pagination
-              count={Math.ceil(data.length / 10)}
+              count={Math.ceil(total / count)}
               onChange={paginate}
               page={currentPage}
               defaultValue={0}

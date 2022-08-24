@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionActions,
@@ -6,6 +6,7 @@ import {
   AccordionSummary,
   Box,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -18,33 +19,66 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Button from 'components/button/Button';
 import { observer } from 'mobx-react-lite';
-import reportStore from '../../app/stores/reportStore';
 import { Nullable } from '../../app/types/Nullable';
+import reportStore from '../../app/stores/reportStore';
+import franchiseService from '../../app/services/franchiseService';
+import { getOptionMui } from '../../utils/getOption';
+import appStore, { Roles } from '../../app/stores/appStore';
 
 type ReportFiltersType = {
   setCurrentPage: (page: number) => void;
 };
 
 const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage }) => {
-  const [isOpenFilters, setIsOpenFilters] = useState(false);
-  // const [bday, setValue] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
+  const { reports } = reportStore;
+  // TODO или вот франшизы ? {reports.map(m => m.franchise).map(el => (el.id ? getOptionMui(el.id, el.shortName) : <></>))}
+  const { setFilters, getGroups, groups, queryFields } = reportStore;
 
-  const { setFilters } = reportStore;
-  const [cityName, setCityName] = useState<string>('');
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
+
+  // const [cityName, setCityName] = useState<string>('');
   const [pupilName, setPupilName] = useState<string>('');
+  const [pupilSurname, setPupilSurname] = useState<string>('');
   const [tariff, setTariff] = useState<string>('');
+  const [franchiseId, setFranchiseId] = useState<string>('');
   const [isActiveStatus, setIsActiveStatus] = useState<Nullable<string>>(null);
   const [isPaidStatus, setIsPaidStatus] = useState<Nullable<string>>(null);
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTo, setDateTo] = useState(null);
-  // const [input, setInput] = useState('');
+
+  const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
+
+  const getFranchises = async () => {
+    const res = await franchiseService.getAll();
+    const options = res.map(el => (el.id ? getOptionMui(el.id, el.shortName) : <></>));
+    setFranchiseOptions(options);
+  };
+  console.log(groups.map(m => ({id : m.id, name: m.name})));
+
+  useEffect(() => {
+    if (appStore.role === Roles.Admin) {
+      getFranchises();
+    }
+  }, []);
+
+  useEffect(() => {
+    getGroups();
+  }, [franchiseId]);
 
   const searchHandler = () => {
-    setFilters({ cityName, pupilName, isActiveStatus, isPaidStatus, dateFrom, dateTo, tariff });
+    setFilters({
+      pupilName,
+      isActiveStatus,
+      isPaidStatus,
+      dateFrom,
+      dateTo,
+      tariff,
+      pupilSurname,
+      franchiseId,
+    });
     setCurrentPage(1);
   };
   const resetHandler = () => {
-    setCityName('');
     setPupilName('');
     setIsActiveStatus(null);
     setIsPaidStatus(null);
@@ -81,9 +115,23 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 label="Город"
                 fullWidth
                 variant="outlined"
-                onChange={({ currentTarget: { value } }) => setCityName(value)}
-                value={cityName}
+                onChange={({ currentTarget: { value } }) => (queryFields.cityName = value)}
+                value={queryFields.cityName}
               />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl fullWidth>
+                <InputLabel id="franchise">Франчайзинг</InputLabel>
+                <Select
+                  labelId="franchise"
+                  id="franchise"
+                  value={franchiseId}
+                  onChange={({ target: { value } }) => setFranchiseId(value)}
+                  label="Франчайзинг"
+                >
+                  {franchiseOptions}
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormControl fullWidth>
@@ -94,18 +142,35 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                   value=""
                   onChange={value => console.log(value)}
                   label="Группа"
+                  disabled={!franchiseId}
                 >
                   <MenuItem value={10}>group1</MenuItem>
                   <MenuItem value={20}>group2</MenuItem>
                   <MenuItem value={30}>group3</MenuItem>
                 </Select>
+                {!franchiseId && (
+                  <FormHelperText sx={{ position: 'absolute', bottom: -18, left: 0, color: 'red' }}>
+                    Сначала выберите франчайзинг
+                  </FormHelperText>
+                )}
               </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <TextField
+                id="outlined-basic"
+                label="Фамилия ученика"
+                fullWidth
+                variant="outlined"
+                value={pupilSurname}
+                onChange={({ currentTarget: { value } }) => (queryFields.first_name = value)}
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
               {/* TODO: это поле под вопросом - спросить у Александра нужно ли оно, если да - разбить на Имя Фамилию и отчество отдельно */}
               <TextField
                 id="outlined-basic"
-                label="ФИО ученика"
+                label="Имя ученика"
                 fullWidth
                 variant="outlined"
                 value={pupilName}
@@ -128,22 +193,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <FormControl fullWidth>
-                <InputLabel id="franchise">Франчайзинг</InputLabel>
-                <Select
-                  labelId="franchise"
-                  id="franchise"
-                  value=""
-                  onChange={value => console.log(value)}
-                  label="Франчайзинг"
-                >
-                  <MenuItem value={10}>franchisees1</MenuItem>
-                  <MenuItem value={20}>franchisees2</MenuItem>
-                  <MenuItem value={30}>franchisees3</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
+
             <Grid item xs={12} sm={4}>
               <FormControl fullWidth>
                 <InputLabel id="payment">Оплачен</InputLabel>
@@ -183,21 +233,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 onChange={({ currentTarget: { value } }) => setTariff(value)}
               />
             </Grid>
-
-            <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              {/* <DatePicker */}
-              {/*  value="" */}
-              {/*  onChange={() => console.log('')} */}
-              {/*  toolbarPlaceholder="Дата начала" */}
-              {/*  renderInput={props => <TextField sx={{ width: '48%' }} {...props} />} */}
-              {/* /> */}
-              {/* <DatePicker */}
-              {/*  value="" */}
-              {/*  onChange={() => console.log('')} */}
-              {/*  toolbarPlaceholder="Дата окончания" */}
-              {/*  renderInput={props => <TextField sx={{ width: '48%' }} {...props} />} */}
-              {/* /> */}
-            </Grid>
+            <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }} />
           </Grid>
         </AccordionDetails>
         <AccordionActions>

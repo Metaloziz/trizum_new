@@ -1,5 +1,5 @@
 import Button from 'components/button/Button';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 
 import style from './OlympiadForm.module.scss';
@@ -18,6 +18,8 @@ import { convertLevelOptions } from 'utils/convertLevelOptions';
 import groupsService from 'app/services/groupsService';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { OlympiadPayloadType } from 'app/types/OlympiadPayloadType';
+import groupStore from 'app/stores/groupStore';
+import { convertGroupOptions } from 'utils/convertGroupOptions';
 
 type UseFormType = Omit<OlympiadPayloadType, 'type'>;
 
@@ -28,10 +30,12 @@ type Props = {
 export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
   const { franchise } = franchiseeStore;
   const { courses } = coursesStore;
+  const { groups, getGroupsWithParams } = groupStore;
 
   const franchiseOptions = convertFranchiseeOptions(franchise);
   const courseOptions = convertCourseOptions(courses);
   const levelOptions = convertLevelOptions();
+  const groupsOptions = convertGroupOptions(groups);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [dateSince, setDateSince] = useState<string | null>(null);
@@ -48,6 +52,7 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
     dateUntil: yup.string().required('Обязательное поле'),
     franchiseId: yup.string().required('Обязательное поле'),
     courseId: yup.string().required('Обязательное поле'),
+    forGroupId: yup.string().required('Обязательное поле'),
     level: yup.string().required('Обязательное поле'),
   });
 
@@ -55,9 +60,20 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
     handleSubmit,
     clearErrors,
     setValue,
+    watch,
+    resetField,
     register,
     formState: { errors },
   } = useForm<UseFormType>({ resolver: yupResolver(schema) });
+
+  const franchiseIdData = watch('franchiseId');
+
+  useEffect(() => {
+    if (franchiseIdData) {
+      const result = getGroupsWithParams({ franchiseId: franchiseIdData, type: 'class' });
+      resetField('forGroupId');
+    }
+  }, [franchiseIdData]);
 
   const onSubmit = handleSubmit(async values => {
     const response = await groupsService.addOlympiadGroup({ ...values, type: 'olympiad' });
@@ -175,6 +191,23 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
                 error={!!errors?.level}
               >
                 {levelOptions.map(({ label, value }) => (
+                  <MenuItem key={value} value={value}>
+                    {label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div className={style.selectBlock}>
+              <TextField
+                {...register('forGroupId')}
+                select
+                label="Для класса"
+                defaultValue=""
+                helperText={errors.forGroupId?.message}
+                error={!!errors?.forGroupId}
+                disabled={!groups.length}
+              >
+                {groupsOptions.map(({ label, value }) => (
                   <MenuItem key={value} value={value}>
                     {label}
                   </MenuItem>

@@ -1,55 +1,41 @@
-import {FC, useEffect, useState} from 'react';
+import { FC, useEffect, useState } from 'react';
 
-import {yupResolver} from '@hookform/resolvers/yup';
-import {Grid} from '@mui/material';
-import {observer} from 'mobx-react-lite';
-import {Controller, useForm} from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Grid } from '@mui/material';
+import { observer } from 'mobx-react-lite';
+import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
-import {SexEnum} from 'app/enums/CommonEnums';
-import {Roles} from 'app/stores/appStore';
+import { SexEnum } from 'app/enums/CommonEnums';
+import { Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
 import tariffsStore from 'app/stores/tariffsStore';
-import {RequestRegister} from 'app/types/AuthTypes';
-import {ResponseOneUser} from 'app/types/UserTypes';
+import { RequestRegister } from 'app/types/AuthTypes';
+import { ResponseOneUser } from 'app/types/UserTypes';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 import CustomSelect from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
-import {
-  action
-} from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
-import {
-  isMethodistTutor
-} from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
-import {
-  isStudentCreated
-} from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentCreated';
-import {
-  isStudentRole
-} from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentRole';
-import {
-  isStudentTeacherEducation
-} from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
-import {
-  roleOptions
-} from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
-import {
-  StudentParentsFormContainer
-} from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
-import {MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH} from 'constants/constants';
-import {REG_NAME, REG_PHONE} from 'constants/regExp';
+import { action } from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
+import { isMethodistTutor } from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
+import { isStudentCreated } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentCreated';
+import { isStudentRole } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentRole';
+import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
+import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
+import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
+import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'constants/constants';
+import { REG_NAME, REG_PHONE } from 'constants/regExp';
 import avatar from 'public/img/avatarDefault.png';
-import {convertFranchiseeOptions} from 'utils/convertFranchiseeOptions';
-import {convertGroupOptions} from 'utils/convertGroupOptions';
-import {convertSexOptions} from 'utils/convertSexOptions';
-import {convertTariffOptions} from 'utils/convertTariffOptions';
-import {removeEmptyFields} from 'utils/removeEmptyFields';
-import {OptionT} from 'app/types/OptionT';
+import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
+import { convertGroupOptions } from 'utils/convertGroupOptions';
+import { convertSexOptions } from 'utils/convertSexOptions';
+import { convertTariffOptions } from 'utils/convertTariffOptions';
+import { removeEmptyFields } from 'utils/removeEmptyFields';
+import { OptionT } from 'app/types/OptionT';
 
 type Props = {
   onCloseModal: () => void;

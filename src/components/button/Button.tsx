@@ -24,7 +24,7 @@ type ButtonVariantType =
   | 'arrow'
   | 'reset';
 
-type ButtonSize = 'large' | 'small' | 'thin';
+type ButtonSize = 'large' | 'small' | 'thin' | 'middle' | 'middleLight';
 
 export type ButtonPropsT = {
   children?: React.ReactNode;
@@ -99,6 +99,39 @@ const Button1: FC<ButtonPropsT> = props => {
     width: '200px',
     height: '70px',
   };
+
+  const middleLight = {
+    fontSize: '11px',
+    minHeight: '35px',
+    background: '#B4DEFF',
+    '&:hover': {
+      background: '#72CEF3',
+    },
+  };
+  const middle = {
+    minHeight: '55px',
+  };
+
+  switch (size) {
+    case 'small':
+      sx = { ...sx, ...small };
+      break;
+    case 'large':
+      sx = { ...sx, ...large };
+      break;
+    case 'thin':
+      sx = { ...sx, ...thin };
+      break;
+    case 'middle':
+      sx = { ...sx, ...middle };
+      break;
+    case 'middleLight':
+      sx = { ...sx, ...middleLight };
+      break;
+    default:
+      sx = { ...sx };
+  }
+
   switch (variant) {
     case 'parents':
       sx = { ...sx, ...parents };
@@ -139,20 +172,6 @@ const Button1: FC<ButtonPropsT> = props => {
     default:
       sx = { ...sx, ...primary };
       iconButton = <Image src={buttonImage} alt="arrow" width={26} height={13} />;
-  }
-
-  switch (size) {
-    case 'small':
-      sx = { ...sx, ...small };
-      break;
-    case 'large':
-      sx = { ...sx, ...large };
-      break;
-    case 'thin':
-      sx = { ...sx, ...thin };
-      break;
-    default:
-      sx = { ...sx };
   }
 
   return (

@@ -9,7 +9,7 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import styles from './Schedule.module.scss';
 
 import appStore, { Roles } from 'app/stores/appStore';
-import teacherMainStore from 'app/stores/teacherMainStore';
+import teacherMainStore from 'app/stores/scheduleStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
 import InformationItem from 'components/information-item/InformationItem';
@@ -18,6 +18,10 @@ import ScheduleModal from 'components/schedule/ScheduleModal';
 import CustomSelect from 'components/select/CustomSelect';
 import { getOption, getOptionMui } from 'utils/getOption';
 import { FormControl, Grid, InputLabel, Select } from '@mui/material';
+import _ from 'lodash';
+import groupStore from 'app/stores/groupStore';
+import Button from 'components/button/Button';
+import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 
 require('moment/locale/ru');
 
@@ -42,49 +46,96 @@ export type ScheduleEvent = {
 const formats = {
   eventTimeRangeFormat: () => '',
 };
-const groups = ['group №1', 'group №2', 'group №3'];
 
-const groupOptions = groups.map(el => getOption(el, el));
 const ChildrenToolbar: FC = observer(() => {
   const { role } = appStore;
-  const selectGroupOption = [getOptionMui('1', '1')];
+  const { groups, setFilters, filters, teachers, franchisees } = teacherMainStore;
+  const { openModal, isModalOpen } = groupStore;
+
+  const selectGroupOption = groups.length
+    ? [{ groupId: '*', groupName: 'Все' }, ...groups].map(el =>
+        getOptionMui(el.groupId, el.groupName),
+      )
+    : [];
+
+  const teacherOptions = teachers.length
+    ? [{ teacherId: '*', teacherName: 'Все' }, ...teachers].map(el =>
+        getOptionMui(el.teacherId, el.teacherName),
+      )
+    : [];
+
+  const franchiseOption = franchisees.length
+    ? [{ franchise: '*', franchiseName: 'Все' }, ...franchisees].map(el =>
+        getOptionMui(el.franchise, el.franchiseName),
+      )
+    : [];
+
   return (
     <Grid container>
-      <Grid item xs={12} sm={4}>
-        <FormControl fullWidth>
-          <InputLabel id="select">Группа</InputLabel>
-          <Select
-            labelId="select"
-            label="Группа"
-            value=""
-            fullWidth
-            onChange={({ target: { value } }) => console.log(value)}
-          >
-            {selectGroupOption}
-          </Select>
-        </FormControl>
-      </Grid>
+      {checkRoleForClasses(role) ? (
+        <Grid
+          container
+          columnSpacing={{ xs: 10, sm: 4, md: 1, lg: 1 }}
+          spacing={{ xs: 2 }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <InputLabel id="teacher">ФИО Учителя</InputLabel>
+              <Select
+                labelId="teacher"
+                label="ФИО Учителя"
+                value={filters.teacherId || '*'}
+                fullWidth
+                onChange={({ target: { value } }) => setFilters('teacherId', value)}
+              >
+                {teacherOptions}
+              </Select>
+            </FormControl>
+          </Grid>
 
-      {(role === Roles.FranchiseeAdmin || role === Roles.Franchisee) && (
-        <Grid item xs={12} sm={4}>
-          <FormControl fullWidth>
-            <InputLabel id="teacher">ФИО Учителя</InputLabel>
-            <Select
-              labelId="teacher"
-              label="ФИО Учителя"
-              value=""
-              fullWidth
-              onChange={({ target: { value } }) => console.log(value)}
-            >
-              {selectGroupOption}
-            </Select>
-          </FormControl>
-        </Grid>
-      )}
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <InputLabel id="franchise">Франшиза</InputLabel>
+              <Select
+                labelId="franchise"
+                label="Франшиза"
+                value={filters.franchise || '*'}
+                fullWidth
+                onChange={({ target: { value } }) => setFilters('franchise', value)}
+              >
+                {franchiseOption}
+              </Select>
+            </FormControl>
+          </Grid>
 
-      {role === Roles.Admin && (
-        <>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <InputLabel id="select">Группа</InputLabel>
+              <Select
+                labelId="select"
+                label="Группа"
+                value={filters.groupId || '*'}
+                fullWidth
+                onChange={({ target: { value } }) => setFilters('groupId', value)}
+              >
+                {selectGroupOption}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md>
+            <FormControl fullWidth>
+              <Button variant="none" size="middle" onClick={() => openModal()}>
+                Добавить группу
+              </Button>
+            </FormControl>
+          </Grid>
+
+          {/* {role === Roles.Admin && (
+          <>
+            <Grid item xs={12} sm={4}>
             <FormControl fullWidth>
               <InputLabel id="city">Город</InputLabel>
               <Select
@@ -98,15 +149,20 @@ const ChildrenToolbar: FC = observer(() => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          </>
+          )} */}
+        </Grid>
+      ) : (
+        <>
+          <Grid item xs={12} md={6}>
             <FormControl fullWidth>
-              <InputLabel id="franchise">Франшиза</InputLabel>
+              <InputLabel id="select">Группа</InputLabel>
               <Select
-                labelId="franchise"
-                label="Франшиза"
-                value=""
+                labelId="select"
+                label="Группа"
+                value={filters.groupId || '*'}
                 fullWidth
-                onChange={({ target: { value } }) => console.log(value)}
+                onChange={({ target: { value } }) => setFilters('groupId', value)}
               >
                 {selectGroupOption}
               </Select>
@@ -119,15 +175,22 @@ const ChildrenToolbar: FC = observer(() => {
 });
 
 const ScheduleDnD: FC = observer(() => {
-  const { schedule, getGroups } = teacherMainStore;
+  const { role } = appStore;
+  const { getGroups, actualSchedule, getTeachers, getFranchise } = teacherMainStore;
   const [events, setEvents] = useState<(ScheduleEvent | object)[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<ScheduleEvent | null | object>(null);
+
   const changeVisibility = () => {
     setIsVisible(!isVisible);
   };
+
   useEffect(() => {
     getGroups();
+    if (role === Roles.Franchisee || role === Roles.FranchiseeAdmin || role === Roles.Admin) {
+      getTeachers();
+      getFranchise();
+    }
   }, []);
 
   const moveEvent = ({
@@ -145,6 +208,7 @@ const ScheduleDnD: FC = observer(() => {
     nextEvents.splice(idx, 1, updatedEvent);
     setEvents(nextEvents);
   };
+
   const resizeEvent = ({
     event,
     start,
@@ -203,7 +267,7 @@ const ScheduleDnD: FC = observer(() => {
     <div className={styles.wrapper}>
       <DnDCalendar
         localizer={localizer}
-        events={schedule}
+        events={actualSchedule}
         step={15}
         min={new Date(2022, 0, 1, 8, 0)}
         max={new Date(2022, 0, 5, 20, 30)}

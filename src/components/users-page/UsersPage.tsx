@@ -33,6 +33,7 @@ import InformationItem from 'components/information-item/InformationItem';
 import { Option } from 'components/select/CustomSelect';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
+import { last } from 'lodash';
 
 const roleOptions = [
   { label: 'Все', value: 'all' },
@@ -48,8 +49,9 @@ const roleOptions = [
 ];
 
 const UsersPage = observer(() => {
-  const { users, usersTotalCount, getUsers, createUser, getOneUser, currentUser, page, perPage } =
-    usersStore;
+  const { users, usersTotalCount, getUsers, createUser, getOneUser,cleanSearchUsersParams, currentUser, page, perPage, firstName, 
+    middleName, lastName, city, birthdate } = usersStore;
+    console.log(firstName,middleName,lastName, "hello")
 
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
@@ -64,6 +66,7 @@ const UsersPage = observer(() => {
   };
 
   const load = async () => {
+    cleanSearchUsersParams()
     await getUsers();
     setIsLoaded(true);
   };
@@ -74,7 +77,7 @@ const UsersPage = observer(() => {
 
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setCurrentPage(newCurrentPage);
-    getUsers({ page: newCurrentPage - 1, role: selectedRole?.value as Roles });
+    getUsers({ page: newCurrentPage - 1, role: selectedRole?.value as Roles, firstName,middleName,lastName,city,birthdate});
   };
 
   const onAddUser = (data: RequestRegister) => {
@@ -91,11 +94,7 @@ const UsersPage = observer(() => {
     // }
   };
 
-  const [city, setCity] = React.useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setCity(event.target.value);
-  };
+  
 
   const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
 

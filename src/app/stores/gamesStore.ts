@@ -19,6 +19,7 @@ class GamesStore {
       const res = await gamesService.getGames();
       runInAction(() => {
         this.games = res;
+        console.log(this.games);
       });
     } catch (e) {
       console.log(e);

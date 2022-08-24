@@ -125,6 +125,7 @@
 
   .toolbarFlexWrapper {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     gap: 16px;
     justify-content: space-between;
@@ -136,6 +137,7 @@
     .buttons {
       display: flex;
       gap: 16px;
+      align-items: center;
 
       > button {
         height: 40px;
@@ -1066,19 +1068,3 @@
   }
 }
 
-
-.dataContainer {
-  width: 180px;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-}
-// .dataTitle {
-//   font-family: Montserrat;
-//   font-size: 14px;
-//   font-weight: 600;
-//   line-height: 17px;
-//   letter-spacing: 0em;
-//   text-align: center;
-//   margin-right: 8px;
-// }

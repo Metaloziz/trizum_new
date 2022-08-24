@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 
 import {yupResolver} from '@hookform/resolvers/yup';
-import {Grid} from '@mui/material';
+import {FormControl, Grid, TextField} from '@mui/material';
 import {observer} from 'mobx-react-lite';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -18,7 +18,7 @@ import {ResponseOneUser} from 'app/types/UserTypes';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import CustomSelect, {Option} from 'components/select-mui/CustomSelect';
+import CustomSelect, {Option} from 'components/select/CustomSelect';
 import TextFieldCustom from 'components/text-field-mui/TextFieldCustom';
 import {action} from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
 import {isMethodistTutor} from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
@@ -40,6 +40,7 @@ import {convertSexOptions} from 'utils/convertSexOptions';
 import {convertTariffOptions} from 'utils/convertTariffOptions';
 import {removeEmptyFields} from 'utils/removeEmptyFields';
 import TextFieldPhoneCustom from "../../text-field-phone-mui/TextFieldPhoneCustom";
+import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 
 type Props = {
     onCloseModal: () => void;
@@ -210,16 +211,14 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                         <form onSubmit={onSubmit}>
                             <Controller
                                 name="middleName"
-                                render={({...field}) => {
-                                    return <TextFieldCustom
+                                render={({field}) => (
+                                    <TextFieldCustom
                                         label="Фамилия"
                                         error={errors.middleName?.message}
-                                        {...
-                                            field
-                                        }
+                                        {...field}
                                     />
 
-                                }}
+                                )}
                                 control={control}
                             />
                             <Controller
@@ -340,7 +339,25 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                     )}
                                     <Controller
                                         name="birthdate"
-                                        render={({field}) => <TextFieldCustom {...field} label="Дата рождения:"/>}
+                                        render={({field}) =>(
+                                            <FormControl  fullWidth>
+                                                <DatePicker
+                                                    onChange={
+                                                        (date: Date | null) => {
+                                                            field.onChange(date);
+                                                        }
+                                                    }
+
+                                                    value={field.value}
+                                                    renderInput={e =>
+                                                        <TextField {...e} sx={{ width: '100%' }}
+                                                                   error={!!errors.birthdate?.message}
+                                                                   helperText={errors.birthdate?.message}
+                                                                   size="small"
+                                                        />}
+                                                />
+                                            </FormControl>
+                                        )}
                                         control={control}
                                     />
                                     <Controller

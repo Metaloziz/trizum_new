@@ -23,10 +23,26 @@ const CustomSelect: FC<Props> = forwardRef((props, ref) => {
     const {options, placeholder, className, onChange, title, value, error, defaultValue} = props;
     const id = useId();
     const instanceId = useId();
-    const handleChange = (v: SingleValue<Option> | null, actionMeta: ActionMeta<Option>) => {
-        v && onChange && onChange(v);
-    };
+    const handleChange = ()=>{};
 
+
+
+ /* <div className={cn(styles.selectWrap, className)}>
+        {title && <p className={styles.label}>{title}</p>}
+        <Select
+            id={id}
+            instanceId={instanceId}
+            placeholder={placeholder}
+            options={options}
+            onChange={handleChange}
+            // value={options.filter(option => option.value === 'hidden')}
+            value={value}
+            components={{ IndicatorSeparator: () => null }}
+            defaultValue={defaultValue}
+            // selectedValue={{ value: 'hidden', label: 'Заблокированный' }}
+        />
+        {error && <p className={styles.error}>{error}</p>}
+    </div> */
 
     return (
         <div>
@@ -36,12 +52,9 @@ const CustomSelect: FC<Props> = forwardRef((props, ref) => {
                     ref={ref}
                     labelId="demo-simple-select-label"
                     id={id}
-                    value={value}
                     label="Роль"
-                    placeholder={placeholder}
-                    defaultValue={defaultValue}
-                    onChange={() => {
-                    }}
+                    value={value? value.value : ''}
+                    onChange={ handleChange }
                 >
                     {options.map(option => (
                         <MenuItem key={option.value} value={option.value}>

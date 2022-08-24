@@ -19,9 +19,6 @@ const TextFieldPhoneCustom: FC<Props> = ({type, onChange, value, error, label, .
       <input {...rest} onChange={onChange} value={value} type={type || 'text'} />
       {error && <p className={styles.error}>{error}</p>}
     </div> */
-    const helpOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        onChange && onChange(event)
-    }
 
     return (
 
@@ -35,7 +32,6 @@ const TextFieldPhoneCustom: FC<Props> = ({type, onChange, value, error, label, .
             countryCodeEditable={false}
             error={!!error}
             label={label}
-            defaultValue={value}
             helperText={error}
             onChange={onChange}
         />

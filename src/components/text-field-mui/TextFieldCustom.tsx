@@ -1,27 +1,25 @@
-import { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react';
+import {DetailedHTMLProps, FC, forwardRef, InputHTMLAttributes} from 'react';
 
-import {TextField} from "@mui/material";
+import {StandardTextFieldProps, TextField} from "@mui/material";
+import {TextFieldProps} from "@mui/material/TextField/TextField";
 
-type Props = {
-  value: string;
-  label?: string;
-  error?: string;
-} & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+interface Props extends Omit<StandardTextFieldProps, 'error'>  {
+    error?: string
+};
 
-const TextFieldCustom: FC<Props> = ({ type, onChange, value, error, label, ...rest }) => (
-  /* <div className={styles.textField}>
-    {label && <p>{label}</p>}
-    <input {...rest} onChange={onChange} value={value} type={type || 'text'} />
-    {error && <p className={styles.error}>{error}</p>}
-  </div> */
+const TextFieldCustom: FC<Props> = forwardRef(({type, error, label, ...rest}, ref) => (
+    /* <div className={styles.textField}>
+      {label && <p>{label}</p>}
+      <input {...rest} onChange={onChange} value={value} type={type || 'text'} />
+      {error && <p className={styles.error}>{error}</p>}
+    </div> */
     <TextField
+        ref={ref}
         error={!!error}
         id="outlined-error-helper-text"
-        label={label}
-        defaultValue={value}
         helperText={error}
         size="small"
-        onChange={onChange}
+        {...rest}
     />
-);
+));
 export default TextFieldCustom;

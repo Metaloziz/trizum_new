@@ -13,29 +13,39 @@ import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { observer } from 'mobx-react-lite';
 import coursesStore from 'app/stores/coursesStore';
 import { convertCourseOptions } from 'utils/convertCourseOptions';
-import { convertLevelOptions } from 'utils/convertLevelOptions';
+import { convertEnumOptions } from 'utils/convertEnumOptions';
 import groupsService from 'app/services/groupsService';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { OlympiadPayloadType } from 'app/types/OlympiadPayloadType';
 import groupStore from 'app/stores/groupStore';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { getAllOptionsMUI } from 'utils/getOption';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { GroupStatusTypes } from 'app/types/GroupStatusTypes';
+import { ResponseGroups } from 'app/types/GroupTypes';
+import { GroupLevels } from 'app/enums/GroupLevels';
+import { GroupStatus } from 'app/enums/GroupStatus';
+import { convertServerDateToUTCString } from 'utils/convertServerDateToUTCString';
 
-type UseFormType = Omit<OlympiadPayloadType, 'type'>;
+type UseFormAddType = Omit<OlympiadPayloadType, 'type'> & { status?: GroupStatusTypes };
 
 type Props = {
   setShowModal: (value: boolean) => void;
+  group?: ResponseGroups;
+  mode?: 'edite' | 'add';
 };
 
-export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
+export const OlympiadForm: FC<Props> = observer(({ setShowModal, mode = 'add', group }) => {
+  const IS_ADD_MODE = mode === 'add';
+
   const { franchise } = franchiseeStore;
   const { courses } = coursesStore;
-  const { groups, getGroupsWithParams } = groupStore;
+  const { groups, getGroups } = groupStore;
 
   const franchiseOptions = convertFranchiseeOptions(franchise);
   const courseOptions = convertCourseOptions(courses);
-  const levelOptions = convertLevelOptions();
+  const levelOptions = convertEnumOptions(GroupLevels);
   const groupsOptions = convertGroupOptions(groups);
+  const statusOptions = convertEnumOptions(GroupStatus);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [dateSince, setDateSince] = useState<string | null>(null);
@@ -50,10 +60,15 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
       .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
     dateSince: yup.string().required('Обязательное поле'),
     dateUntil: yup.string().required('Обязательное поле'),
-    franchiseId: yup.string().required('Обязательное поле'),
-    courseId: yup.string().required('Обязательное поле'),
-    forGroupId: yup.string().required('Обязательное поле'),
+    franchiseId: IS_ADD_MODE
+      ? yup.string().required('Обязательное поле')
+      : yup.string().notRequired(),
+    courseId: IS_ADD_MODE ? yup.string().required('Обязательное поле') : yup.string().notRequired(),
+    forGroupId: IS_ADD_MODE
+      ? yup.string().required('Обязательное поле')
+      : yup.string().notRequired(),
     level: yup.string().required('Обязательное поле'),
+    status: IS_ADD_MODE ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
   });
 
   const {
@@ -64,26 +79,59 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
     resetField,
     register,
     formState: { errors },
-  } = useForm<UseFormType>({ resolver: yupResolver(schema) });
+  } = useForm<UseFormAddType>({ resolver: yupResolver(schema) });
 
   const FRANCHISE_ID = watch('franchiseId');
 
+  const onSubmit = handleSubmit(async values => {
+    if (IS_ADD_MODE) {
+      const response = await groupsService.addOlympiadGroup({ ...values, type: 'olympiad' });
+
+      if (response?.error) {
+        setErrorMessage(response.error);
+      } else {
+        setShowModal(false);
+      }
+      return;
+    }
+
+    if (group) {
+      const response = await groupsService.editGroup(values, group.id);
+
+      if (response?.error) {
+        setErrorMessage(response.error);
+      } else {
+        setShowModal(false);
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (group) {
+      const startDate = convertServerDateToUTCString(group.startedAt.date);
+
+      setDateSince(startDate);
+      setValue('dateSince', startDate, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      const endDate = convertServerDateToUTCString(group.endedAt.date);
+
+      setDateUntil(endDate);
+      setValue('dateUntil', endDate, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    }
+  }, [group]);
+
   useEffect(() => {
     if (FRANCHISE_ID) {
-      const result = getGroupsWithParams({ franchiseId: FRANCHISE_ID, type: 'class' });
+      const result = getGroups({ franchiseId: FRANCHISE_ID, type: 'class' });
       resetField('forGroupId');
     }
   }, [FRANCHISE_ID]);
-
-  const onSubmit = handleSubmit(async values => {
-    const response = await groupsService.addOlympiadGroup({ ...values, type: 'olympiad' });
-
-    if (response?.error) {
-      setErrorMessage(response.error);
-    } else {
-      setShowModal(false);
-    }
-  });
 
   return (
     <form>
@@ -94,6 +142,7 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
           <TextField
             {...register('name')}
             helperText={errors.name?.message}
+            defaultValue={group?.name || ''}
             error={!!errors?.name}
             label="Название олимпиады"
             style={{ width: '400px' }}
@@ -103,7 +152,7 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
         <div className={style.modalSelect}>
           <div>
             <div className={style.selectBlock}>
-              <DatePicker
+              <DateTimePicker
                 value={dateSince}
                 onChange={newValue => {
                   setDateSince(newValue);
@@ -123,36 +172,57 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
                 )}
               />
             </div>
-            <div className={style.selectBlock}>
-              <TextField
-                {...register('franchiseId')}
-                label="Франшиза"
-                select
-                defaultValue=""
-                helperText={errors.franchiseId?.message}
-                error={!!errors?.franchiseId}
-              >
-                {getAllOptionsMUI(franchiseOptions)}
-              </TextField>
-            </div>
+            {IS_ADD_MODE && (
+              <>
+                <div className={style.selectBlock}>
+                  <TextField
+                    {...register('franchiseId')}
+                    label="Франшиза"
+                    select
+                    defaultValue=""
+                    helperText={errors.franchiseId?.message}
+                    error={!!errors?.franchiseId}
+                  >
+                    {getAllOptionsMUI(franchiseOptions)}
+                  </TextField>
+                </div>
 
-            <div className={style.selectBlock}>
-              <TextField
-                {...register('courseId')}
-                select
-                label="Курс"
-                defaultValue=""
-                helperText={errors.courseId?.message}
-                error={!!errors?.courseId}
-              >
-                {getAllOptionsMUI(courseOptions)}
-              </TextField>
-            </div>
+                <div className={style.selectBlock}>
+                  <TextField
+                    {...register('courseId')}
+                    select
+                    label="Курс"
+                    defaultValue=""
+                    helperText={errors.courseId?.message}
+                    error={!!errors?.courseId}
+                  >
+                    {getAllOptionsMUI(courseOptions)}
+                  </TextField>
+                </div>
+              </>
+            )}
+
+            {!IS_ADD_MODE && (
+              <>
+                <div className={style.selectBlock}>
+                  <TextField
+                    {...register('status')}
+                    label="Статус"
+                    select
+                    defaultValue={group?.status || ''}
+                    helperText={errors.status?.message}
+                    error={!!errors?.status}
+                  >
+                    {getAllOptionsMUI(statusOptions)}
+                  </TextField>
+                </div>
+              </>
+            )}
           </div>
 
           <div>
             <div className={style.selectBlock}>
-              <DatePicker
+              <DateTimePicker
                 value={dateUntil}
                 onChange={newValue => {
                   setDateUntil(newValue);
@@ -178,26 +248,28 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal }) => {
                 {...register('level')}
                 select
                 label="Уровень"
-                defaultValue=""
+                defaultValue={group?.level || ''}
                 helperText={errors.level?.message}
                 error={!!errors?.level}
               >
                 {getAllOptionsMUI(levelOptions)}
               </TextField>
             </div>
-            <div className={style.selectBlock}>
-              <TextField
-                {...register('forGroupId')}
-                select
-                label="Для класса"
-                defaultValue=""
-                helperText={errors.forGroupId?.message}
-                error={!!errors?.forGroupId}
-                disabled={!groups.length}
-              >
-                {getAllOptionsMUI(groupsOptions)}
-              </TextField>
-            </div>
+            {IS_ADD_MODE && (
+              <div className={style.selectBlock}>
+                <TextField
+                  {...register('forGroupId')}
+                  select
+                  label="Для класса"
+                  defaultValue=""
+                  helperText={errors.forGroupId?.message}
+                  error={!!errors?.forGroupId}
+                  disabled={!groups.length}
+                >
+                  {getAllOptionsMUI(groupsOptions)}
+                </TextField>
+              </div>
+            )}
           </div>
         </div>
 

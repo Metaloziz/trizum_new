@@ -27,6 +27,7 @@ import {
   scheduleItemToServerMapper,
   scheduleItemToUIMapper,
 } from 'utils/scheduleItemToServerMapper';
+import { findElement } from 'utils/findIndexElement';
 
 class GroupStore {
   groups: ResponseGroups[] = [];
@@ -133,7 +134,7 @@ class GroupStore {
     });
   };
 
-  getGroups = async () => {
+  getGroups = async (paramsData?: GroupParamsForServer) => {
     const dateSince = this.queryFields.dateSince
       ? moment(this.queryFields.dateSince).format(DateTime.DdMmYyyy)
       : '';
@@ -141,11 +142,13 @@ class GroupStore {
       ? moment(this.queryFields.dateUntil).format(DateTime.DdMmYyyy)
       : '';
     await this.execute(async () => {
-      const res = await groupsService.getGroups({
-        ...this.queryFields,
-        dateSince,
-        dateUntil,
-      });
+      const res = await groupsService.getGroups(
+        paramsData || {
+          ...this.queryFields,
+          dateSince,
+          dateUntil,
+        },
+      );
       if (res.items.length && this.selectedGroup?.id) {
         await this.getOneGroup(this.selectedGroup.id);
       }
@@ -155,17 +158,6 @@ class GroupStore {
         this.perPage = res.perPage;
         this.total = res.total;
       });
-    });
-  };
-
-  getGroupsWithParams = async (paramsData?: GroupParamsForServer) => {
-    const res = await groupsService.getGroups(paramsData);
-
-    runInAction(() => {
-      this.groups = res.items;
-      this.page = res.page;
-      this.perPage = res.perPage;
-      this.total = res.total;
     });
   };
 
@@ -224,6 +216,8 @@ class GroupStore {
       this.closeModal();
     });
   };
+
+  getCurrentGroupFromLocalStorage = (groupId: string) => findElement(this.groups, groupId);
 
   cleanModalValues = () => {
     this.modalFields = { ...this.defaultValues };

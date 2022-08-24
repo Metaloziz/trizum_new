@@ -18,7 +18,7 @@ import {ResponseOneUser} from 'app/types/UserTypes';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import CustomSelect, {Option} from 'components/select/CustomSelect';
+import CustomSelect, {Option} from 'components/select-mui/CustomSelect';
 import TextFieldCustom from 'components/text-field-mui/TextFieldCustom';
 import {action} from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
 import {isMethodistTutor} from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
@@ -339,8 +339,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                     )}
                                     <Controller
                                         name="birthdate"
-                                        render={({field}) =>(
-                                            <FormControl  fullWidth>
+                                        render={({field}) => (
+                                            <FormControl fullWidth>
                                                 <DatePicker
                                                     onChange={
                                                         (date: Date | null) => {
@@ -350,7 +350,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
 
                                                     value={field.value}
                                                     renderInput={e =>
-                                                        <TextField {...e} sx={{ width: '100%' }}
+                                                        <TextField {...e} sx={{width: '100%'}}
                                                                    error={!!errors.birthdate?.message}
                                                                    helperText={errors.birthdate?.message}
                                                                    size="small"

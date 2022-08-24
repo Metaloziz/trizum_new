@@ -23,8 +23,15 @@ const CustomSelect: FC<Props> = forwardRef((props, ref) => {
     const {options, placeholder, className, onChange, title, value, error, defaultValue} = props;
     const id = useId();
     const instanceId = useId();
-    const handleChange = ()=>{};
+    const handleChange = (v: SingleValue<Option> | null, actionMeta: ActionMeta<Option>) => {
+        v && onChange && onChange(v);
+    }
 
+    const handleChange2 = (event: React.ChangeEvent<{ value: unknown }>) => {
+        onChange && onChange(event.target.value as Option);
+    }
+
+    const handleChange3 = ()=>{}
 
 
  /* <div className={cn(styles.selectWrap, className)}>
@@ -52,16 +59,20 @@ const CustomSelect: FC<Props> = forwardRef((props, ref) => {
                     ref={ref}
                     labelId="demo-simple-select-label"
                     id={id}
-                    label="Роль"
+                    label={title}
                     value={value? value.value : ''}
-                    onChange={ handleChange }
+                    onChange={handleChange3}
                 >
                     {options.map(option => (
                         <MenuItem key={option.value} value={option.value}>
                             {option.label}
                         </MenuItem>
                     ))}
-                    <FormHelperText>{error}</FormHelperText>
+                   {/* <FormHelperText>
+                        {
+                        error && <p className={styles.error}>{error}</p>
+                    }
+                    </FormHelperText> */}
                 </Select>
             </FormControl>
         </div>

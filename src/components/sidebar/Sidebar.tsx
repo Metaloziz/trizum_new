@@ -125,6 +125,7 @@ const adminLinks = [
   Links.Rate,
   Links.UserInfo,
   Links.Schedule,
+  Links.Olympiads,
 ];
 const Sidebar: FC = observer(() => {
   const { role } = appStore;

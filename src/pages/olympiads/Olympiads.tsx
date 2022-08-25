@@ -5,13 +5,20 @@ import { Navigate } from 'react-router-dom';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
-import OlympiadsPage from 'components/olympiads-page';
+import AddOlympiad from 'components/add-olympiad/AddOlympiad';
 
 const Olympiads: FC = observer(() => {
   switch (appStore.role) {
     case Roles.Methodist:
     case Roles.Student:
-      return <OlympiadsPage />;
+    case Roles.Admin:
+    case Roles.Franchisee:
+    case Roles.FranchiseeAdmin:
+    case Roles.TeacherEducation:
+    case Roles.Parent:
+    case Roles.Teacher:
+    case Roles.Tutor:
+      return <AddOlympiad />;
     default:
       return <Navigate to={AppRoutes.Index} />;
   }

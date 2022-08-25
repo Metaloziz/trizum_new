@@ -84,7 +84,6 @@ const AddEditGroup: FC<Props> = observer(props => {
   }, [modalFields.franchiseId]);
   useEffect(() => {
     if (appStore.role === Roles.Admin && !!franchise.length) {
-      // debugger;
       setFranchiseOptions(franchise.map(t => getOptionMui(t.id || '', t.shortName)));
     }
   }, [groupStore.franchise]);

@@ -1,19 +1,13 @@
 /* eslint-disable max-classes-per-file */
-import { AxiosResponse } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { RequestLogin, RequestSwitchUser } from '../types/AuthTypes';
 
 import authService from 'app/services/authService';
 import usersStore from 'app/stores/usersStore';
-import {
-  GroupsDataT,
-  PersonalRecordT,
-  ResponseLoadMeBaseT,
-  ResponseLoadMeParentT,
-} from 'app/types/ResponseLoadMeBaseT';
+import { GroupsDataT, PersonalRecordT, ResponseLoadMeParentT } from 'app/types/ResponseLoadMeBaseT';
 import { TimeZoneType } from 'app/types/TimeZoneType';
-import { canSwitchToT, ParentT } from 'app/types/UserTypes';
+import { canSwitchToT } from 'app/types/UserTypes';
 import { execute } from 'utils/execute';
 import { AvatarT } from 'app/types/AvatarT';
 

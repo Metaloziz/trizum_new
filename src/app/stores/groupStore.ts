@@ -34,11 +34,11 @@ class GroupStore {
 
   page = 0;
 
-  perPage = 0;
+  perPage = 1;
 
-  total = 0;
+  total = 1;
 
-  selectedGroup?: ResponseOneGroup;
+  selectedGroup = new ResponseOneGroup();
 
   private defaultValues: CreateGroupFroUI = {
     name: '',
@@ -73,7 +73,7 @@ class GroupStore {
 
   schedule: LessonT[] = [];
 
-  franchise: FranchiseT[] = [];
+  franchise: FranchiseT[] = [new FranchiseT()];
 
   teachers: ResponseUserT[] = [];
 
@@ -266,7 +266,7 @@ class GroupStore {
 
   closeModal = () => {
     this.schedule = [];
-    this.selectedGroup = undefined;
+    this.selectedGroup = new ResponseOneGroup();
     this.isModalOpen = false;
   };
 

@@ -1,5 +1,7 @@
-export type TimeZoneType = {
-  date: string;
-  timezone_type: number;
-  timezone: string;
-};
+export class TimeZoneType {
+  date = '';
+
+  timezone_type = 0;
+
+  timezone = '';
+}

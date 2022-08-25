@@ -24,16 +24,16 @@ class UsersStore {
   perPage = 5;
 
   currentUser?: ResponseOneUser;
- 
-  firstName?:SearchUserType ;
 
-  middleName :SearchUserType ;
+  firstName?: SearchUserType;
 
-  lastName :SearchUserType ;
+  middleName: SearchUserType;
 
-  city:SearchUserType ;
+  lastName: SearchUserType;
 
-  birthdate:SearchUserType ;
+  city: SearchUserType;
+
+  birthdate: SearchUserType;
 
   constructor() {
     makeAutoObservable(this);
@@ -51,17 +51,17 @@ class UsersStore {
 
   getUsersForFilter = async (params?: RequestUsersForFilter) => {
     const res = await usersService.getUsersForFilters(params);
-    console.log(res)
+    console.log(res);
     runInAction(() => {
       this.users = res.items;
       this.usersTotalCount = res.total;
       this.perPage = res.perPage;
       this.page = Number(res.page);
-      this.firstName= params?.firstName;
-      this.middleName= params?.middleName;
-      this.lastName= params?.lastName;
-      this.city= params?.city;
-      this.birthdate= params?.birthdate;
+      this.firstName = params?.firstName;
+      this.middleName = params?.middleName;
+      this.lastName = params?.lastName;
+      this.city = params?.city;
+      this.birthdate = params?.birthdate;
     });
   };
 
@@ -123,12 +123,12 @@ class UsersStore {
   };
 
   cleanSearchUsersParams = () => {
-    this.firstName='';
-      this.middleName='';
-      this.lastName='';
-      this.city='';
-      this.birthdate='';
-  }
+    this.firstName = '';
+    this.middleName = '';
+    this.lastName = '';
+    this.city = '';
+    this.birthdate = '';
+  };
 
   get getFullUserName() {
     const result = `${this.currentUser?.middleName}" "${this.currentUser?.firstName}" "${this.currentUser?.lastName}`;

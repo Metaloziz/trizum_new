@@ -26,9 +26,16 @@
       max-width: 100vw;
     }
 
-    td {
-      @include bold-text(14)
+    tr {
+      @include bold-text(14);
+
+      &:hover {
+        cursor: pointer;
+        background-color: rgb(171, 203, 255);
+      }
     }
+
+
   }
 
   .paginationOlympiad {

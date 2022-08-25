@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import moment from 'moment';
 
 import { TimeZoneType } from 'app/types/TimeZoneType';
@@ -28,15 +29,21 @@ export type ResponseGroups = {
   schedule: Schedule[];
 };
 
-export type ResponseOneGroupCourse = {
-  id: string;
-  type: string;
-  status: string;
-  title: string;
-  level: string;
-  worksCount: number;
-  createdAt: TimeZoneType;
-};
+export class ResponseOneGroupCourse {
+  id = '';
+
+  type = '';
+
+  status = '';
+
+  title = '';
+
+  level = '';
+
+  worksCount = 0;
+
+  createdAt = new TimeZoneType();
+}
 
 type LocalUserT = ResponseOneUserTypeForLoadMe & {
   // course: any[];
@@ -45,26 +52,52 @@ type LocalUserT = ResponseOneUserTypeForLoadMe & {
   payed: boolean;
 };
 
-type UsersDataT = {
+export type UsersDataT = {
   id: string;
   stats: StatusT[];
   user: EmptyUser;
 };
 
-export type ResponseOneGroup = {
-  id: string;
-  name: string;
-  type: GroupT;
-  status: StatusT;
-  level: LevelT;
-  startedAt: TimeZoneType;
-  endedAt: TimeZoneType;
-  franchise: FranchiseT;
-  course: ResponseOneGroupCourse;
-  users: UsersDataT[];
-  schedule: ScheduleT[];
-  teacherId: string;
-};
+// export type ResponseOneGroup = {
+//   id: string;
+//   name: string;
+//   type: GroupT;
+//   status: StatusT;
+//   level: LevelT;
+//   startedAt: TimeZoneType;
+//   endedAt: TimeZoneType;
+//   franchise: FranchiseT;
+//   course: ResponseOneGroupCourse;
+//   users: UsersDataT[];
+//   schedule: ScheduleT[];
+//   teacherId: string;
+// };
+
+export class ResponseOneGroup {
+  id: string = '';
+
+  name: string = '';
+
+  type: GroupT = 'blocks';
+
+  status: StatusT = 'draft';
+
+  level: LevelT = 'easy';
+
+  startedAt = new TimeZoneType();
+
+  endedAt = new TimeZoneType();
+
+  franchise = new FranchiseT();
+
+  course = new ResponseOneGroupCourse();
+
+  users: UsersDataT[] = [{ id: '', user: new EmptyUser(), stats: ['draft'] }];
+
+  schedule: ScheduleT[] = [];
+
+  teacherId: string = '';
+}
 
 export class LessonT {
   id: string;

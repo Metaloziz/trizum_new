@@ -18,6 +18,9 @@ import BasicModal from 'components/basic-modal/BasicModal';
 import { observer } from 'mobx-react-lite';
 import { changeDateView } from 'utils/changeDateView';
 import Pagination from '@mui/material/Pagination';
+import appStore, { Roles } from 'app/stores/appStore';
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes } from 'app/enums/AppRoutes';
 
 const colNames = [
   'Название олимпиады',
@@ -30,10 +33,26 @@ const colNames = [
   '',
 ];
 
+const isEditRole = (roleDate: Roles) => {
+  switch (roleDate) {
+    case 'admin':
+    case 'methodist':
+      return true;
+    default:
+      return false;
+  }
+};
+
 const AddOlympiad = observer(() => {
+  const navigate = useNavigate();
+
+  const { role } = appStore;
   const { getFranchisee } = franchiseeStore;
   const { getCourses } = coursesStore;
-  const { groups, getGroups, getCurrentGroupFromLocalStorage, perPage, total, page } = groupStore;
+  const { groups, getGroups, getCurrentGroupFromLocalStorage, perPage, total, page, getOneGroup } =
+    groupStore;
+
+  const IS_EDIT_ROLE = isEditRole(role as Roles);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentGroup, setCurrentGroup] = useState<ResponseGroups>();
@@ -47,8 +66,8 @@ const AddOlympiad = observer(() => {
   }, []);
 
   useEffect(() => {
-    getGroups({ type: 'olympiad', perPage, page: currentPage - 1 });
-  }, [currentPage]);
+    getGroups({ type: 'olympiad', perPage: 10, page: currentPage - 1 });
+  }, [currentPage, page]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -61,14 +80,22 @@ const AddOlympiad = observer(() => {
     setCurrentGroup(result);
   };
 
+  const redirect = (groupId: string) => {
+    getOneGroup(groupId);
+    navigate(AppRoutes.OlympiadsListPage);
+  };
+
+  const count = Math.ceil(total / perPage);
+  console.log(count);
+
   return (
     <div className={styles.containerAdd}>
-      <NameOlympiad />
+      <NameOlympiad isEditRole={IS_EDIT_ROLE} />
       <div className={styles.tableWrap}>
         <h2>Список Олимпиады</h2>
         <Table colNames={colNames} loading={false}>
           {groups.map(({ id, name, startedAt, endedAt, level }) => (
-            <tr key={id}>
+            <tr key={id} onClick={() => redirect(id)}>
               <td>{name}</td>
               <td>{changeDateView(startedAt.date)}</td>
               <td>{changeDateView(endedAt.date)}</td>
@@ -77,9 +104,11 @@ const AddOlympiad = observer(() => {
               <td>-</td>
               <td>-</td>
               <td>
-                <Button onClick={() => setEditModal(id)}>
-                  <Image src={image} />
-                </Button>
+                {IS_EDIT_ROLE && (
+                  <Button onClick={() => setEditModal(id)}>
+                    <Image src={image} />
+                  </Button>
+                )}
               </td>
             </tr>
           ))}
@@ -87,7 +116,7 @@ const AddOlympiad = observer(() => {
       </div>
       <div className={styles.paginationOlympiad}>
         <Pagination
-          count={Math.floor(total / perPage)}
+          count={count}
           color="primary"
           size="large"
           page={currentPage}

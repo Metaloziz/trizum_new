@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import { Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import styles from './Login.module.scss';

@@ -4,24 +4,24 @@ import cn from 'classnames';
 import Select, { ActionMeta, SingleValue } from 'react-select';
 
 import styles from './CustomSelect.module.scss';
+import { OptionT } from 'app/types/OptionT';
 
-export type Option = { label: string; value: string };
 interface Props {
-  options: Option[];
+  options: OptionT[];
   placeholder?: string;
-  onChange?: (option: Option) => void;
+  onChange?: (option: OptionT) => void;
   className?: string;
   title?: string;
   error?: string;
-  value?: Option;
-  defaultValue?: Option;
+  value?: OptionT;
+  defaultValue?: OptionT;
 }
 
 const CustomSelect: FC<Props> = props => {
   const { options, placeholder, className, onChange, title, value, error, defaultValue } = props;
   const id = useId();
   const instanceId = useId();
-  const handleChange = (v: SingleValue<Option> | null, actionMeta: ActionMeta<Option>) => {
+  const handleChange = (v: SingleValue<OptionT> | null, actionMeta: ActionMeta<OptionT>) => {
     v && onChange && onChange(v);
   };
   return (

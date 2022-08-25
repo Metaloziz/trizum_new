@@ -1,4 +1,5 @@
 import { TimeZoneType } from 'app/types/TimeZoneType';
+import { GroupTypes } from 'app/enums/GroupTypes';
 
 export type ResponseWork = {
   id: string;
@@ -26,6 +27,7 @@ export type ResponseOneCourse = {
 export type GetCoursesParams = {
   perPage?: number;
   page?: number;
+  type?: keyof typeof GroupTypes;
 };
 
 export type RequestCreateCourse = {

@@ -1,32 +1,23 @@
 import React, { FC, useEffect, useState } from 'react';
-
-import { BorderBottom } from '@mui/icons-material';
 import { FormControl, Grid, InputLabel, Select, TextField } from '@mui/material';
-import { DateTimePicker, TimePicker } from '@mui/x-date-pickers';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { observer } from 'mobx-react-lite';
-import moment from 'moment';
-
-import styles from './AddEditGroup.module.scss';
-
-import { DateTime } from 'app/enums/DateTime';
-import { GroupEnums, GroupType } from 'app/enums/GroupEnums';
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
 import usersService from 'app/services/usersService';
 import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
-import { GroupT, LevelGroupT } from 'app/types/GroupTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import Lessons from 'components/classes-page/AddEditGroup/Lessons';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
-import { getOption, getOptionMui } from 'utils/getOption';
+import { getOptionMui } from 'utils/getOption';
+import { GroupTypes } from 'app/enums/GroupTypes';
+import { GroupLevels } from 'app/enums/GroupLevels';
 
 interface Props {}
 
-const typeOptionsNames = Object.values(GroupType);
-const typeOptions = Object.keys(GroupType).map((el, idx) =>
+const typeOptionsNames = Object.values(GroupTypes);
+const typeOptions = Object.keys(GroupTypes).map((el, idx) =>
   getOptionMui(el.toLowerCase(), typeOptionsNames[idx]),
 );
 
@@ -42,8 +33,8 @@ for (const key in groupStatuses) {
   statusOptions.push(getOptionMui(key, groupStatuses[key]));
 }
 
-const levelOptionsNames = Object.values(GroupEnums);
-const levelOptions = Object.keys(GroupEnums).map((el, idx) =>
+const levelOptionsNames = Object.values(GroupLevels);
+const levelOptions = Object.keys(GroupLevels).map((el, idx) =>
   getOptionMui(el.toLowerCase(), levelOptionsNames[idx]),
 );
 

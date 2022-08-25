@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
-import ClearIcon from '@mui/icons-material/Clear';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import SearchIcon from '@mui/icons-material/Search';
 import {
   Accordion,
   AccordionActions,
@@ -20,29 +17,23 @@ import {
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { observer } from 'mobx-react-lite';
-import moment from 'moment';
-
-import styles from './SearchBar.module.scss';
-
-import { DateTime } from 'app/enums/DateTime';
-import { GroupEnums, GroupType } from 'app/enums/GroupEnums';
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
 import usersService from 'app/services/usersService';
 import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
 import Button from 'components/button/Button';
-import StudentPageSlider from 'components/classes-page/search-bar/student-page-slider/StudentPageSlider';
-import { numberWithoutLeadingZero } from 'components/franchising-page/helpers/numberWithoutLeadingZero';
 import { getOptionMui } from 'utils/getOption';
+import { GroupTypes } from 'app/enums/GroupTypes';
+import { GroupLevels } from 'app/enums/GroupLevels';
 
-const typeOptionsNames = Object.values(GroupType);
-const typeOptions = Object.keys(GroupType).map((el, idx) =>
+const typeOptionsNames = Object.values(GroupTypes);
+const typeOptions = Object.keys(GroupTypes).map((el, idx) =>
   getOptionMui(el.toLowerCase(), typeOptionsNames[idx]),
 );
 
-const levelOptionsNames = Object.values(GroupEnums);
-const levelOptions = Object.keys(GroupEnums).map((el, idx) =>
+const levelOptionsNames = Object.values(GroupLevels);
+const levelOptions = Object.keys(GroupLevels).map((el, idx) =>
   getOptionMui(el.toLowerCase(), levelOptionsNames[idx]),
 );
 

@@ -13,6 +13,7 @@ import TeacherMain from 'components/teacher-main/teacherMain';
 import TutorMain from 'components/tutor-main';
 import styles from 'pages/home/Home.module.scss';
 import Login from 'pages/login/Login';
+import AddOlympiad from 'components/add-olympiad/AddOlympiad';
 
 const Home = observer((props: any) => {
   const { role } = appStore;

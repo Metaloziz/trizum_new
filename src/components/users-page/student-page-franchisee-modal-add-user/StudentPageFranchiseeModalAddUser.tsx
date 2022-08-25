@@ -18,7 +18,7 @@ import { ResponseOneUser } from 'app/types/UserTypes';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
+import CustomSelect from 'components/select/CustomSelect';
 import TextField from 'components/text-field/TextField';
 import { action } from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
 import { isMethodistTutor } from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
@@ -35,6 +35,7 @@ import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
 import { convertTariffOptions } from 'utils/convertTariffOptions';
 import { removeEmptyFields } from 'utils/removeEmptyFields';
+import { OptionT } from 'app/types/OptionT';
 
 type Props = {
   onCloseModal: () => void;
@@ -167,7 +168,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     );
   });
 
-  const getCurrentGroups = (franchiseId: Option) => {
+  const getCurrentGroups = (franchiseId: OptionT) => {
     resetField('group');
     loadCurrentGroups(franchiseId.value, selectedRole);
   };

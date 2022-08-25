@@ -22,6 +22,7 @@ export interface KeepPlayingItemProps {
   minutesLeft: number;
   colorTheme: string;
   id: number;
+  onClick?: () => void;
 }
 
 export interface HomeworkProps {

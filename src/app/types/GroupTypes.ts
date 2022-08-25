@@ -4,7 +4,7 @@ import { TimeZoneType } from 'app/types/TimeZoneType';
 
 import { DateTime } from 'app/enums/DateTime';
 import { GroupLevels } from 'app/enums/GroupLevels';
-import { GroupType } from 'app/enums/GroupTypes';
+import { GroupTypes } from 'app/enums/GroupTypes';
 import { EmptyUser } from 'app/stores/appStore';
 import { FranchiseShortT, FranchiseT } from 'app/types/FranchiseTypes';
 import { LevelT } from 'app/types/LevelT';
@@ -108,7 +108,7 @@ export class LessonT {
   }
 }
 
-export type GroupT = keyof typeof GroupType;
+export type GroupT = keyof typeof GroupTypes;
 export type LevelGroupT = keyof typeof GroupLevels;
 
 export type CreateGroup = {

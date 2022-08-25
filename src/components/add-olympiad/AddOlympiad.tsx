@@ -2,10 +2,21 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './AddOlympiad.module.scss';
 
+import image from '../../assets/svgs/icon-setting-blue.svg';
+
 import Pagination from 'components/molecules/Pagination';
 import NameOlympiad from 'components/name-olimpiad/NameOlympiad';
-import SettingsGames from 'components/settings-games/SettingsGames';
 import Table from 'components/table/Table';
+import franchiseeStore from 'app/stores/franchiseeStore';
+import coursesStore from 'app/stores/coursesStore';
+import groupStore from 'app/stores/groupStore';
+import { ResponseGroups } from 'app/types/GroupTypes';
+import { GroupLevels } from 'app/enums/GroupLevels';
+import Button from '@mui/material/Button';
+import Image from 'components/image/Image';
+import { OlympiadForm } from 'components/olympiad-page/components/OlympiadForm/OlympiadForm';
+import BasicModal from 'components/basic-modal/BasicModal';
+import { observer } from 'mobx-react-lite';
 
 const colNames = [
   'Название олимпиады',
@@ -18,129 +29,50 @@ const colNames = [
   '',
 ];
 
-type Mock1 = {
-  name: string;
-  dateStart: string;
-  dateEnd: string;
-  group: string;
-  typeGroup: string;
-  city: string;
-  address: string;
-  settings: () => JSX.Element;
-};
+const AddOlympiad = observer(() => {
+  const { getFranchisee } = franchiseeStore;
+  const { getCourses } = coursesStore;
+  const { groups, getGroups, getCurrentGroupFromLocalStorage } = groupStore;
 
-const mocks: Mock1[] = [
-  {
-    name: 'Память и ритм',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Мухи в кубе',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Светлячки',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Память',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Ритм',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Память и ритм и светлячки',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Роль',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Что то еще',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-];
-
-const AddOlympiad = () => {
-  const [data, setData] = useState(mocks); // State для главных данных
+  const [data, setData] = useState<ResponseGroups[]>(groups); // State для главных данных
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
   const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
-  const [count] = useState<number>(2); // State для отображения количества элементов на каждой странице
+  const [count] = useState<number>(9); // State для отображения количества элементов на каждой странице
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [currentGroup, setCurrentGroup] = useState<ResponseGroups>();
+
   useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      // пример запроса на сервер
-      // const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
-      // setData(res.data);
-      setLoading(false);
-    };
-    getData();
+    getFranchisee();
+    getCourses({ type: 'olympiad' });
+    getGroups({ type: 'olympiad' });
   }, []);
 
   const lastItemIndex = currentPage * count;
+
   const firstItemIndex = lastItemIndex - count;
+
   const currentItem = data.slice(firstItemIndex, lastItemIndex);
+
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   const nextPage = () => {
     if (currentItem.length === count) {
       setCurrentPage(prev => prev + 1);
     }
   };
+
   const prevPage = () => {
     if (currentPage !== 1) {
       setCurrentPage(prev => prev - 1);
     }
+  };
+
+  const setEditModal = (groupId: string) => {
+    setShowModal(true);
+    const result = getCurrentGroupFromLocalStorage(groupId);
+
+    setCurrentGroup(result);
   };
 
   return (
@@ -150,14 +82,19 @@ const AddOlympiad = () => {
         <h2>Список Олимпиады</h2>
         <Table colNames={colNames} loading={false}>
           {currentItem.map(item => (
-            <tr key={item.name}>
+            <tr key={item.id}>
               <td>{item.name}</td>
-              <td>{item.dateStart}</td>
-              <td>{item.dateEnd}</td>
-              <td>{item.group}</td>
-              <td>{item.typeGroup}</td>
-              <td>{item.city}</td>
-              <td>{item.address}</td>
+              <td>{item.startedAt.date}</td>
+              <td>{item.endedAt.date}</td>
+              <td>{GroupLevels[item.level]}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+                <Button onClick={() => setEditModal(item.id)}>
+                  <Image src={image} />
+                </Button>
+              </td>
             </tr>
           ))}
         </Table>
@@ -166,12 +103,15 @@ const AddOlympiad = () => {
         <Pagination
           totalCount={count}
           currentPage={currentPage}
-          pageSize={mocks.length}
+          pageSize={data.length}
           onPageChange={paginate}
         />
       </div>
+      <BasicModal visibility={showModal} changeVisibility={setShowModal}>
+        <OlympiadForm setShowModal={setShowModal} mode="edite" group={currentGroup} />
+      </BasicModal>
     </div>
   );
-};
+});
 
 export default AddOlympiad;

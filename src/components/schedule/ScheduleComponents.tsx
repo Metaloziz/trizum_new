@@ -15,6 +15,7 @@ import { EventProps } from 'components/schedule/ScheduleDnD';
 import CustomDatePicker from 'components/tariff-page/customDatePicker';
 import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
+import AddEditGroup from 'components/classes-page/AddEditGroup';
 import { ButtonGroup, FormControl, Grid } from '@mui/material';
 
 export const Toolbar: FC<ToolbarProps> = props => {

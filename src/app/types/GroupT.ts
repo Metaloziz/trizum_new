@@ -1,3 +1,3 @@
-import { GroupType } from 'app/enums/GroupTypes';
+import { GroupTypes } from 'app/enums/GroupTypes';
 
-export type GroupT = keyof typeof GroupType;
+export type GroupT = keyof typeof GroupTypes;

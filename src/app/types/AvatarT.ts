@@ -1,9 +1,9 @@
 import { TimeZoneType } from 'app/types/TimeZoneType';
 
 export type AvatarT = {
+  createdAt: TimeZoneType;
   id: string;
   path: string | null;
-  createdAt: TimeZoneType;
-  type: string;
   previewPath: string | null;
+  type: string;
 };

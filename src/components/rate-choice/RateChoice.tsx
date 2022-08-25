@@ -22,6 +22,10 @@ import tariffsStore from '../../app/stores/tariffsStore';
 import Button from 'components/button/Button';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import InformationItem from 'components/information-item/InformationItem';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import appStore, { Roles } from 'app/stores/appStore';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export const newStatus = [
   { value: 'all', label: 'Все' },

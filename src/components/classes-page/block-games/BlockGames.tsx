@@ -32,7 +32,7 @@ const BlockGames = observer(() => {
         <Panel>Домашнее задание на 7 октября 2021</Panel>
       </div>
       <div className={styles.games}>
-        {works?.map((item, id) => (
+        {works?.map((item: any, id: any) => (
           <ul key={item.id}>
             <li>
               <Image src={setImg(id)} width="32" height="32" alt="fossil" />

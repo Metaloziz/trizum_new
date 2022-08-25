@@ -220,7 +220,7 @@ class GroupStore {
   getCurrentGroupFromLocalStorage = (groupId: string) => findElement(this.groups, groupId);
 
   nullableSelectedGroup = () => {
-    this.selectedGroup = undefined;
+    this.selectedGroup = new ResponseOneGroup();
   };
 
   cleanModalValues = () => {

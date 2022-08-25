@@ -59,6 +59,8 @@ export class ResponseOneGroupCourse {
   worksCount = 0;
 
   createdAt = new TimeZoneType();
+
+  works:any [] = []
 }
 
 type LocalUserT = ResponseOneUserTypeForLoadMe & {

@@ -28,6 +28,7 @@
     "no-alert": "error",
     "no-debugger": "warn",
     "no-unused-vars": "off",
+    "max-classes-per-file": "off",
     "no-undef": "off",
     "no-nested-ternary": "off",
     "no-ex-assign": "off",

@@ -115,11 +115,11 @@ const UsersPage = observer(() => {
     // }
   };
 
-  const [city, setCity] = React.useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setCity(event.target.value);
-  };
+  // const [city, setCity] = React.useState('');
+  //
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setCity(event.target.value);
+  // };
 
   const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
 

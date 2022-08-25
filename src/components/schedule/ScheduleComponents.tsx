@@ -16,6 +16,8 @@ import CustomDatePicker from 'components/tariff-page/customDatePicker';
 import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
 import { ButtonGroup, FormControl, Grid } from '@mui/material';
+import BasicModal from 'components/basic-modal/BasicModal';
+import InformationItem from 'components/information-item/InformationItem';
 
 export const Toolbar: FC<ToolbarProps> = props => {
   const { openModal } = groupStore;
@@ -162,14 +164,14 @@ export const Toolbar: FC<ToolbarProps> = props => {
               <InformationItem className={styles.levelSelectBlock} variant="select" />
             </div>
           </div>
-          {moksDatas.map(item => (
-            <div key={item.number} className={styles.numberChoice}>
-              <div>{item.number}</div>
-              {item.valueCalendar}
-              {item.valueStart}
-              {item.valueEnd}
-            </div>
-          ))}
+          {/* {moksDatas.map(item => ( */}
+          {/*  <div key={item.number} className={styles.numberChoice}> */}
+          {/*    <div>{item.number}</div> */}
+          {/*    {item.valueCalendar} */}
+          {/*    {item.valueStart} */}
+          {/*    {item.valueEnd} */}
+          {/*  </div> */}
+          {/* ))} */}
           <div className={styles.addLevelBtn}>
             <Button>Сохранить</Button>
           </div>

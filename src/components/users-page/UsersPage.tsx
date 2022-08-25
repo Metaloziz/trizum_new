@@ -30,10 +30,10 @@ import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
 import CardStudentExtended from 'components/card-student/card-student-extended/CardStudentExtended';
 import InformationItem from 'components/information-item/InformationItem';
-import { Option } from 'components/select/CustomSelect';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
 import { last } from 'lodash';
+import { OptionT } from 'app/types/OptionT';
 
 const roleOptions = [
   { label: 'Все', value: 'all' },
@@ -49,9 +49,22 @@ const roleOptions = [
 ];
 
 const UsersPage = observer(() => {
-  const { users, usersTotalCount, getUsers, createUser, getOneUser,cleanSearchUsersParams, currentUser, page, perPage, firstName, 
-    middleName, lastName, city, birthdate } = usersStore;
-    console.log(firstName,middleName,lastName, "hello")
+  const {
+    users,
+    usersTotalCount,
+    getUsers,
+    createUser,
+    getOneUser,
+    cleanSearchUsersParams,
+    currentUser,
+    page,
+    perPage,
+    firstName,
+    middleName,
+    lastName,
+    city,
+    birthdate,
+  } = usersStore;
 
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
@@ -60,13 +73,13 @@ const UsersPage = observer(() => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(page);
-  const [selectedRole, setSelectedRole] = useState<Option>();
-  const onSelectRole = (option: Option) => {
+  const [selectedRole, setSelectedRole] = useState<OptionT>();
+  const onSelectRole = (option: OptionT) => {
     option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
   };
 
   const load = async () => {
-    cleanSearchUsersParams()
+    cleanSearchUsersParams();
     await getUsers();
     setIsLoaded(true);
   };
@@ -77,7 +90,15 @@ const UsersPage = observer(() => {
 
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setCurrentPage(newCurrentPage);
-    getUsers({ page: newCurrentPage - 1, role: selectedRole?.value as Roles, firstName,middleName,lastName,city,birthdate});
+    getUsers({
+      page: newCurrentPage - 1,
+      role: selectedRole?.value as Roles,
+      firstName,
+      middleName,
+      lastName,
+      city,
+      birthdate,
+    });
   };
 
   const onAddUser = (data: RequestRegister) => {
@@ -93,8 +114,6 @@ const UsersPage = observer(() => {
     //   setIsModalOpen(true);
     // }
   };
-
-  
 
   const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
 

@@ -4,7 +4,6 @@ import styles from './AddOlympiad.module.scss';
 
 import image from '../../assets/svgs/icon-setting-blue.svg';
 
-import Pagination from 'components/molecules/Pagination';
 import NameOlympiad from 'components/name-olimpiad/NameOlympiad';
 import Table from 'components/table/Table';
 import franchiseeStore from 'app/stores/franchiseeStore';
@@ -17,6 +16,8 @@ import Image from 'components/image/Image';
 import { OlympiadForm } from 'components/olympiad-page/components/OlympiadForm/OlympiadForm';
 import BasicModal from 'components/basic-modal/BasicModal';
 import { observer } from 'mobx-react-lite';
+import { changeDateView } from 'utils/changeDateView';
+import Pagination from '@mui/material/Pagination';
 
 const colNames = [
   'Название олимпиады',
@@ -32,40 +33,25 @@ const colNames = [
 const AddOlympiad = observer(() => {
   const { getFranchisee } = franchiseeStore;
   const { getCourses } = coursesStore;
-  const { groups, getGroups, getCurrentGroupFromLocalStorage } = groupStore;
-
-  const [data, setData] = useState<ResponseGroups[]>(groups); // State для главных данных
-  const [loading, setLoading] = useState<boolean>(false); // State для загрузки
-  const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
-  const [count] = useState<number>(9); // State для отображения количества элементов на каждой странице
+  const { groups, getGroups, getCurrentGroupFromLocalStorage, perPage, total, page } = groupStore;
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentGroup, setCurrentGroup] = useState<ResponseGroups>();
 
+  const [currentPage, setCurrentPage] = useState<number>(page + 1);
+
   useEffect(() => {
     getFranchisee();
     getCourses({ type: 'olympiad' });
-    getGroups({ type: 'olympiad' });
+    getGroups({ type: 'olympiad', perPage, page });
   }, []);
 
-  const lastItemIndex = currentPage * count;
+  useEffect(() => {
+    getGroups({ type: 'olympiad', perPage, page: currentPage - 1 });
+  }, [currentPage]);
 
-  const firstItemIndex = lastItemIndex - count;
-
-  const currentItem = data.slice(firstItemIndex, lastItemIndex);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  const nextPage = () => {
-    if (currentItem.length === count) {
-      setCurrentPage(prev => prev + 1);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(prev => prev - 1);
-    }
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
   };
 
   const setEditModal = (groupId: string) => {
@@ -81,17 +67,17 @@ const AddOlympiad = observer(() => {
       <div className={styles.tableWrap}>
         <h2>Список Олимпиады</h2>
         <Table colNames={colNames} loading={false}>
-          {currentItem.map(item => (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.startedAt.date}</td>
-              <td>{item.endedAt.date}</td>
-              <td>{GroupLevels[item.level]}</td>
+          {groups.map(({ id, name, startedAt, endedAt, level }) => (
+            <tr key={id}>
+              <td>{name}</td>
+              <td>{changeDateView(startedAt.date)}</td>
+              <td>{changeDateView(endedAt.date)}</td>
+              <td>{GroupLevels[level]}</td>
               <td>-</td>
               <td>-</td>
               <td>-</td>
               <td>
-                <Button onClick={() => setEditModal(item.id)}>
+                <Button onClick={() => setEditModal(id)}>
                   <Image src={image} />
                 </Button>
               </td>
@@ -101,10 +87,12 @@ const AddOlympiad = observer(() => {
       </div>
       <div className={styles.paginationOlympiad}>
         <Pagination
-          totalCount={count}
-          currentPage={currentPage}
-          pageSize={data.length}
-          onPageChange={paginate}
+          count={Math.floor(total / perPage)}
+          color="primary"
+          size="large"
+          page={currentPage}
+          boundaryCount={1}
+          onChange={handleChange}
         />
       </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>

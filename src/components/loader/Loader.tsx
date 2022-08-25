@@ -9,7 +9,7 @@ interface LoadingIndicatorProps {
 }
 
 export const Loader = () => (
-  <div className={s.loaderWrapper}>
+  <div className={s.loaderWrapper} id="idid">
     <img className={s.imageLoader} src={loader} alt="loading.." />
   </div>
 );

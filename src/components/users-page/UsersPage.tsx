@@ -48,9 +48,23 @@ const roleOptions = [
 ];
 
 const UsersPage = observer(() => {
-  const { users, usersTotalCount, getUsers, createUser, getOneUser,cleanSearchUsersParams, currentUser, page, perPage, firstName,
-    middleName, lastName, city, birthdate } = usersStore;
-    console.log(firstName,middleName,lastName, "hello")
+  const {
+    users,
+    usersTotalCount,
+    getUsers,
+    createUser,
+    getOneUser,
+    cleanSearchUsersParams,
+    currentUser,
+    page,
+    perPage,
+    firstName,
+    middleName,
+    lastName,
+    city,
+    birthdate,
+  } = usersStore;
+  console.log(firstName, middleName, lastName, 'hello');
 
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
@@ -65,7 +79,7 @@ const UsersPage = observer(() => {
   };
 
   const load = async () => {
-    cleanSearchUsersParams()
+    cleanSearchUsersParams();
     await getUsers();
     setIsLoaded(true);
   };
@@ -76,7 +90,15 @@ const UsersPage = observer(() => {
 
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setCurrentPage(newCurrentPage);
-    getUsers({ page: newCurrentPage - 1, role: selectedRole?.value as Roles, firstName,middleName,lastName,city,birthdate});
+    getUsers({
+      page: newCurrentPage - 1,
+      role: selectedRole?.value as Roles,
+      firstName,
+      middleName,
+      lastName,
+      city,
+      birthdate,
+    });
   };
 
   const onAddUser = (data: RequestRegister) => {
@@ -92,8 +114,6 @@ const UsersPage = observer(() => {
     //   setIsModalOpen(true);
     // }
   };
-
-
 
   const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
 

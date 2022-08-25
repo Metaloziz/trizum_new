@@ -5,24 +5,18 @@ import moment from 'moment';
 import { Navigate, ToolbarProps } from 'react-big-calendar';
 
 import appStore, { Roles } from 'app/stores/appStore';
-import groupStore from 'app/stores/groupStore';
-import iconDelete from 'assets/svgs/delete.svg';
 import iconSettings from 'assets/svgs/icon-settings.svg';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 import styles from 'components/schedule/Schedule.module.scss';
 import { EventProps } from 'components/schedule/ScheduleDnD';
 import CustomDatePicker from 'components/tariff-page/customDatePicker';
-import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 import AddEditGroup from 'components/classes-page/AddEditGroup';
-import AddEditGroup from 'components/classes-page/AddEditGroup';
-import { ButtonGroup, FormControl, Grid } from '@mui/material';
+import { FormControl, Grid } from '@mui/material';
 
 export const Toolbar: FC<ToolbarProps> = props => {
-  const { openModal, isModalOpen } = groupStore;
   const { onNavigate, date, children } = props;
   const [datePickerValue, setDatePickerValue] = useState<Date | null>(new Date());
-  const { role } = appStore;
 
   const onNavigateDate = (newDate: Date | undefined) => {
     onNavigate(Navigate.DATE, newDate);
@@ -34,8 +28,6 @@ export const Toolbar: FC<ToolbarProps> = props => {
     <div className={styles.toolbarWrapper}>
       <div className={styles.toolbarFlexWrapper}>
         {children}
-        {/* <div className={styles.buttons}> */}
-
         <Grid
           container
           columnSpacing={{ xs: 1, sm: 3, md: 1, lg: 1 }}
@@ -81,7 +73,6 @@ export const Toolbar: FC<ToolbarProps> = props => {
             </FormControl>
           </Grid>
         </Grid>
-        {/* </div> */}
       </div>
       <AddEditGroup />
     </div>
@@ -118,9 +109,6 @@ export const CustomEvent: FC<EventProps> = observer(({ event }) => {
       </div>
       {role !== Roles.Teacher && (
         <div className={styles.eventIcons}>
-          {/* <span>
-            <Image src={iconDelete} width="18" height="18" alt="Delete" />
-          </span> */}
           <span>
             <Image src={iconSettings} width="16" height="16" alt="Settings" />
           </span>

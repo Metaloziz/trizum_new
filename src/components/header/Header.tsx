@@ -42,13 +42,20 @@ const Header: FC<Props> = ({ className }) => {
         onClickAway={handleClickAway}
       >
         <div>
+          <DropDownMenu active={open} onClose={handleClick} />
+        </div>
+
+        {/* 
+        не будет срабатывать анимация
+        но будет закрываться без каких либо проблем 
+
+        <div>
           {open ? (
             <>
               <DropDownMenu active={open} onClose={handleClickAway} />
-              {/* <DropDownMenu /> */}
             </>
           ) : null}
-        </div>
+        </div> */}
       </ClickAwayListener>
       <Account />
     </header>

@@ -14,11 +14,13 @@ const TextFieldCustom: FC<Props> = forwardRef(({type, error, label, ...rest}, re
       {error && <p className={styles.error}>{error}</p>}
     </div> */
     <TextField
+        sx={{width: '100%'}}
         ref={ref}
+        label={label}
         error={!!error}
         id="outlined-error-helper-text"
         helperText={error}
-        size="small"
+        /* size="small" */
         {...rest}
     />
 ));

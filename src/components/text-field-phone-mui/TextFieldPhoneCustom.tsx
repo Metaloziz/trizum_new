@@ -13,26 +13,19 @@ type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputE
 }
 
 
-const TextFieldPhoneCustom: FC<Props> = ({type, onChange, value, error, label, ...rest}) => {
-    /* <div className={styles.textField}>
-      {label && <p>{label}</p>}
-      <input {...rest} onChange={onChange} value={value} type={type || 'text'} />
-      {error && <p className={styles.error}>{error}</p>}
-    </div> */
-    return (
+const TextFieldPhoneCustom: FC<Props> = ({type, onChange, value, error, label, ...rest}) =>(
         <MuiPhoneNumber
             value={value}
             defaultCountry="ru"
             onlyCountries={['ru']}
             variant="outlined"
             fullWidth
-            size="small"
+            /* size="small" */
             countryCodeEditable={false}
             error={!!error}
             label={label}
             helperText={error}
             onChange={onChange}
         />
-    )
-};
+);
 export default TextFieldPhoneCustom;

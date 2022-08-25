@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 
 import {yupResolver} from '@hookform/resolvers/yup';
-import {FormControl, Grid, TextField} from '@mui/material';
+import {Box, FormControl, Grid, TextField, Typography} from '@mui/material';
 import {observer} from 'mobx-react-lite';
 import {Controller, useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -192,23 +192,14 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
 
     return (
         <>
-            <h2>Добавление/изменение пользователя</h2>
-            <Grid container spacing={{xs: 2, sm: 8, md: 8}} columns={{xs: 2, sm: 12, md: 12}}>
-                <Grid item xs={12} sm={5} md={5}>
-                    <div className={styles.avatar}>
-                        <Image
-                            className={styles.imageWrapper}
-                            src={avatar}
-                            width="290"
-                            height="290"
-                            alt="student"
-                        />
-                        {user && <SetStatusButton status={user?.status} id={user.id}/>}
-                    </div>
+            <form onSubmit={onSubmit}>
+            <Box>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Typography className={styles.tableTitle} variant="h5">{user ? 'Редактирование пользователя' : 'Регистрация пользователя'}</Typography>
                 </Grid>
-                <Grid item xs={12} sm={7} md={7}>
-                    <div className={styles.table}>
-                        <form onSubmit={onSubmit}>
+                    {/* <div className={styles.table}> */}
+                            <Grid item xs={12} sm={6}>
                             <Controller
                                 name="middleName"
                                 render={({field}) => (
@@ -221,6 +212,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                 )}
                                 control={control}
                             />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                             <Controller
                                 name="firstName"
                                 render={({field}) => (
@@ -228,6 +221,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                 )}
                                 control={control}
                             />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                             <Controller
                                 name="lastName"
                                 render={({field}) => (
@@ -235,8 +230,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                 )}
                                 control={control}
                             />
+                            </Grid>
                             {isStudentCreated(isParentShown, studentId) && (
                                 <>
+                                    <Grid item xs={12} sm={6}>
                                     <Controller
                                         name="city"
                                         render={({field}) => (
@@ -244,8 +241,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                         )}
                                         control={control}
                                     />
+                                    </Grid>
                                     {!user && (
                                         <>
+                                            <Grid item xs={12} sm={6}>
                                             <Controller
                                                 name="role"
                                                 render={({field}) => (
@@ -262,7 +261,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                                 )}
                                                 control={control}
                                             />
+                                            </Grid>
                                             {isMethodistTutor(selectedRole) && (
+                                                <Grid item xs={12} sm={6}>
                                                 <Controller
                                                     name="franchise"
                                                     render={({field}) => (
@@ -280,10 +281,12 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                                     )}
                                                     control={control}
                                                 />
+                                                </Grid>
                                             )}
                                         </>
                                     )}
                                     {isStudentRole(selectedRole) && (
+                                        <Grid item xs={12} sm={6}>
                                         <Controller
                                             name="tariff"
                                             render={({field}) => (
@@ -299,8 +302,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                             )}
                                             control={control}
                                         />
+                                        </Grid>
                                     )}
                                     {isStudentTeacherEducation(selectedRole) && (
+                                        <Grid item xs={12} sm={6}>
                                         <Controller
                                             name="group"
                                             render={({field}) => (
@@ -316,9 +321,11 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                             )}
                                             control={control}
                                         />
+                                        </Grid>
                                     )}
                                     {!isStudentRole(selectedRole) && (
                                         <>
+                                            <Grid item xs={12} sm={6}>
                                             <Controller
                                                 name="phone"
                                                 render={({field}) => (
@@ -327,6 +334,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                                 )}
                                                 control={control}
                                             />
+                                            </Grid>
+                                            <Grid item xs={12} sm={6}>
                                             <Controller
                                                 name="email"
                                                 render={({field}) => (
@@ -335,8 +344,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                                 )}
                                                 control={control}
                                             />
+                                            </Grid>
                                         </>
                                     )}
+                                    <Grid item xs={12} sm={6}>
                                     <Controller
                                         name="birthdate"
                                         render={({field}) => (
@@ -353,13 +364,15 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                                         <TextField {...e} sx={{width: '100%'}}
                                                                    error={!!errors.birthdate?.message}
                                                                    helperText={errors.birthdate?.message}
-                                                                   size="small"
+                                                                   /* size="small" */
                                                         />}
                                                 />
                                             </FormControl>
                                         )}
                                         control={control}
                                     />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
                                     <Controller
                                         name="sex"
                                         render={({field}) => (
@@ -372,18 +385,24 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                         )}
                                         control={control}
                                     />
+                                    </Grid>
                                 </>
                             )}
-                            <div className={styles.button}>
+                            {/* <div className={styles.button}> */}
+                            <Grid item xs={12} sm={6}>
                                 {user && <SetStatusButton status={user?.status} id={user.id}/>}
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                                 <Button type="submit" disabled={isSubmitSuccessful}>
                                     Сохранить
                                 </Button>
-                            </div>
-                        </form>
-                    </div>
-                </Grid>
+                            </Grid>
+                            {/* </div> */}
+
+                   {/* </div> */}
             </Grid>
+            </Box>
+        </form>
             {user?.parents && (
                 <StudentParentsFormContainer
                     franchiseId={currentFranchiseId}

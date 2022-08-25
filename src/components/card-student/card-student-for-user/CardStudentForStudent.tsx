@@ -10,7 +10,6 @@ import { getNearestLessonDateHelper } from './getNearestLessonDateHelper/getNear
 
 import { EmptyUser, Roles } from 'app/stores/appStore';
 import usersStore from 'app/stores/usersStore';
-import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
 import iconFlag from 'assets/svgs/icon-flag.svg';
 import iconMonkey from 'assets/svgs/monkey.svg';
 import iconTelegram from 'assets/svgs/telegram.svg';

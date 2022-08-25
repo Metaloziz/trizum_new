@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { Button } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
 import styles from './BlockGames.module.scss';
@@ -13,10 +12,7 @@ import Image from 'components/image/Image';
 import Panel from 'components/panel/Panel';
 
 const BlockGames = observer(() => {
-  const { openModal, selectedGroup, groups, getOneGroup } = groupStore;
-  // useEffect(() => {
-  //   getOneGroup(groups[0].id);
-  // }, []);
+  const { selectedGroup } = groupStore;
 
   const works = selectedGroup?.course.works;
   let result: string;

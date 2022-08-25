@@ -41,8 +41,11 @@ const ClassesPage = observer(() => {
     perPage,
     queryFields,
     selectedGroup,
+    nullableSelectedGroup,
   } = groupStore;
+
   const [currentPage, setCurrentPage] = useState((queryFields.page || 0) + 1);
+
   useEffect(() => {
     typeof queryFields.page === 'number' && setCurrentPage(queryFields.page + 1);
   }, [queryFields.page]);
@@ -57,6 +60,12 @@ const ClassesPage = observer(() => {
     }, []),
     [],
   );
+  useEffect(() => {
+    if (groups.length && selectedGroup?.id !== groups[0].id) getOneGroup(groups[0].id);
+    return () => {
+      nullableSelectedGroup();
+    };
+  }, []);
 
   return (
     <>

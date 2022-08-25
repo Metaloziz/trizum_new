@@ -1,9 +1,6 @@
-import app from 'App';
-import { StudentMain } from 'components/pupil-main/StudentMain';
 import React, { FC } from 'react';
 
-import appStore, { EmptyUser, Roles } from 'app/stores/appStore';
-import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
+import { EmptyUser, Roles } from 'app/stores/appStore';
 import CardStudentForTeacher from 'components/card-student/card-student-for-teacher/CardStudentForTeacher';
 import CardStudentForStudent from 'components/card-student/card-student-for-user/CardStudentForStudent';
 

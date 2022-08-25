@@ -219,6 +219,10 @@ class GroupStore {
     });
   };
 
+  nullableSelectedGroup = () => {
+    this.selectedGroup = undefined;
+  };
+
   cleanModalValues = () => {
     this.modalFields = { ...this.defaultValues };
   };
@@ -229,7 +233,14 @@ class GroupStore {
   };
 
   changeLesson = (id: string, fieldName: string, value: Date | string) => {
-    this.schedule = this.schedule.map(el => (el.id === id ? { ...el, [fieldName]: value } : el));
+    this.schedule = this.schedule.map(el =>
+      el.id === id
+        ? {
+            ...el,
+            [fieldName]: value,
+          }
+        : el,
+    );
   };
 
   openModal = async (id?: string) => {

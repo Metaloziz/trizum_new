@@ -3,7 +3,6 @@ import { getRuBirthdayDate } from 'utils/getRuBirthdayDate';
 
 import styles from './CardStudentForTeacher.module.scss';
 
-import { ResponseLoadMeBaseT } from 'app/types/ResponseLoadMeBaseT';
 import iconFlag from 'assets/svgs/flag.svg';
 import Button from 'components/button/Button';
 import CardStudentTitle from 'components/card-student/card-student-title/CardStudentTitle';
@@ -38,7 +37,7 @@ const CardStudentForTeacher: FC<Props> = props => {
           <div>
             <div className={styles.list}>
               <span>Статус:</span>
-              <span>{user.role || '-'}</span>
+              <span>{user.role || 'Студент'}</span>
             </div>
             <div className={styles.list}>
               <span>Город:</span>

@@ -32,7 +32,6 @@ import CardStudentExtended from 'components/card-student/card-student-extended/C
 import InformationItem from 'components/information-item/InformationItem';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
-import { last } from 'lodash';
 import { OptionT } from 'app/types/OptionT';
 
 const roleOptions = [
@@ -49,22 +48,8 @@ const roleOptions = [
 ];
 
 const UsersPage = observer(() => {
-  const {
-    users,
-    usersTotalCount,
-    getUsers,
-    createUser,
-    getOneUser,
-    cleanSearchUsersParams,
-    currentUser,
-    page,
-    perPage,
-    firstName,
-    middleName,
-    lastName,
-    city,
-    birthdate,
-  } = usersStore;
+  const { users, usersTotalCount, getUsers, createUser, getOneUser, currentUser, page, perPage } =
+    usersStore;
 
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
@@ -79,7 +64,6 @@ const UsersPage = observer(() => {
   };
 
   const load = async () => {
-    cleanSearchUsersParams();
     await getUsers();
     setIsLoaded(true);
   };
@@ -90,15 +74,7 @@ const UsersPage = observer(() => {
 
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setCurrentPage(newCurrentPage);
-    getUsers({
-      page: newCurrentPage - 1,
-      role: selectedRole?.value as Roles,
-      firstName,
-      middleName,
-      lastName,
-      city,
-      birthdate,
-    });
+    getUsers({ page: newCurrentPage - 1, role: selectedRole?.value as Roles });
   };
 
   const onAddUser = (data: RequestRegister) => {
@@ -113,6 +89,12 @@ const UsersPage = observer(() => {
     //   setCurrentUser(res);
     //   setIsModalOpen(true);
     // }
+  };
+
+  const [city, setCity] = React.useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setCity(event.target.value);
   };
 
   const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));

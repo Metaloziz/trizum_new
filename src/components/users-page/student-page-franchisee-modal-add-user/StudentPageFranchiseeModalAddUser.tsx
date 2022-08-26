@@ -68,21 +68,21 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
         }
     }, []);
 
-    const findSex = () => (user?.sex ? sexOptions[0] : sexOptions[1]);
+    const findSex = () => (user?.sex ? sexOptions[0].value : sexOptions[1].value);
 
     const defaultValues = {
         firstName: user?.firstName || 'ИВАНОВ',
         middleName: user?.middleName || 'ИВАН',
         lastName: user?.lastName || 'ИВАНОВИЧ',
-        role: {label: 'не выбрана', value: ''}, // не изменяется при редактировании
-        sex: findSex() || sexOptions[0],
+        role:  '', // не изменяется при редактировании
+        sex: findSex() || sexOptions[0].value,
         city: user?.city || 'МИНСК',
         phone: user?.phone || '70000974671',
         birthdate: user?.birthdate?.date || '01.01.2000',
         email: user?.email || 'winteriscoming7@yandex.byeee',
-        franchise: {label: 'не выбрана', value: ''}, // не изменяется при редактировании
-        tariff: {label: 'не выбран', value: ''} || tariffsOptions[0],
-        group: {label: 'не выбрана', value: ''}, // не изменяется при редактировании
+        franchise: '', // не изменяется при редактировании
+        tariff: '' || tariffsOptions[0].value,
+        group:  '', // не изменяется при редактировании
     };
 
     const schema = yup.object().shape({
@@ -104,8 +104,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
             .matches(REG_NAME, 'допустима только кириллица')
             .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
             .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-        role: user ? yup.object().notRequired() : yup.object().required('Обязательное поле'),
-        sex: yup.object().required('Обязательное поле'),
+        role: user ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
+        sex: yup.string().required('Обязательное поле'),
         city: yup
             .string()
             .required('Обязательное поле')
@@ -125,11 +125,11 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
             selectedRole === Roles.Student
                 ? yup.string().notRequired()
                 : yup.string().required('Обязательное поле').email(),
-        franchise: user ? yup.object().notRequired() : yup.object().required('Обязательное поле'),
+        franchise: user ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
         tariff:
             selectedRole === Roles.Student
-                ? yup.object().required('Обязательное поле')
-                : yup.object().notRequired(),
+                ? yup.string().required('Обязательное поле')
+                : yup.string().notRequired(),
     });
 
     const {
@@ -143,39 +143,39 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
 
     const onSubmit = handleSubmit(async values => {
         const newUserData: RequestRegister = {
-            sex: (values.sex?.label as SexEnum) === SexEnum.Male,
-            franchiseId: values.franchise.value,
+            sex: (values.sex as SexEnum) === SexEnum.Male,
+            franchiseId: values.franchise,
             birthdate: values.birthdate,
             city: values.city,
-            role: values.role.value as Roles,
+            role: values.role as Roles,
             email: values.email,
             firstName: values.firstName,
             lastName: values.lastName,
             middleName: values.middleName,
             phone: values.phone.replace(/[()\s+-]/g, ""),
             isSecondChild: false,
-            tariffId: values.tariff.value,
+            tariffId: values.tariff,
         };
 
         await action(
             user,
             removeEmptyFields(newUserData),
             setError,
-            values.role.value as Roles,
+            values.role as Roles,
             onCloseModal,
             reset,
             setStudentId,
             setIsParentShown,
-            values.role.value,
-            values.franchise.value,
-            values.tariff.value,
-            values.group.value,
+            values.role,
+            values.franchise,
+            values.tariff,
+            values.group,
         );
     });
 
-    const getCurrentGroups = (franchiseId: Option) => {
+    const getCurrentGroups = (value: string) => {
         resetField('group');
-        loadCurrentGroups(franchiseId.value, selectedRole);
+        loadCurrentGroups(value, selectedRole);
     };
 
     useEffect(() => {
@@ -249,9 +249,11 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                                 name="role"
                                                 render={({field}) => (
                                                     <CustomSelect
+
                                                         {...field}
                                                         onChange={e => {
-                                                            setSelectedRole(e.value as Roles);
+                                                            console.log(field)
+                                                            setSelectedRole(e.target.value as Roles);
                                                             field.onChange(e);
                                                         }}
                                                         title="Роль"
@@ -271,8 +273,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                                             {...field}
                                                             onChange={e => {
                                                                 field.onChange(e);
-                                                                getCurrentGroups(e);
-                                                                setCurrentFranchiseId(e.value);
+                                                                getCurrentGroups(e.target.value);
+                                                                setCurrentFranchiseId(e.target.value);
                                                             }}
                                                             title="Франшиза"
                                                             options={franchiseOptions}
@@ -373,10 +375,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
                                     />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                    <Controller
+                                         <Controller
                                         name="sex"
                                         render={({field}) => (
-                                            <CustomSelect
+                                          <CustomSelect
                                                 {...field}
                                                 title="Пол"
                                                 options={sexOptions}

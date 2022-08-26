@@ -56,6 +56,7 @@ const CustomSelect: FC<Props> = forwardRef((props, ref) => {
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">{title}</InputLabel>
                 <Select
+                    error={!!error}
                     ref={ref}
                     labelId="demo-simple-select-label"
                     id={id}
@@ -68,12 +69,8 @@ const CustomSelect: FC<Props> = forwardRef((props, ref) => {
                             {option.label}
                         </MenuItem>
                     ))}
-                   {/* <FormHelperText>
-                        {
-                        error && <p className={styles.error}>{error}</p>
-                    }
-                    </FormHelperText> */}
                 </Select>
+                <FormHelperText style={error ? {color: 'red'} : {}}> {error}</FormHelperText>
             </FormControl>
         </div>
     )

@@ -26,26 +26,32 @@ const OlympiadsListPage = observer(() => {
     setCurrentPage(value);
   };
 
+  const isShowResult = newData[0] !== undefined;
+
   return (
     <div className={styles.container}>
       <h2>Результаты олимпиады</h2>
       <div className={styles.tableBlock}>
-        <Table loading={false} colNames={colNames}>
-          {newData.map(
-            ({ id, user: { firstName, middleName, lastName, birthdate }, stats }, index) => (
-              <tr key={id}>
-                <td>{index + 1}</td>
-                <td>{middleName + ' ' + firstName + ' ' + lastName}</td>
-                <td>{getFullYearsFromDate(birthdate.date)}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>
-                  <Button>перейти</Button>
-                </td>
-              </tr>
-            ),
-          )}
-        </Table>
+        {isShowResult ? (
+          <Table loading={false} colNames={colNames}>
+            {newData.map(
+              ({ id, user: { firstName, middleName, lastName, birthdate }, stats }, index) => (
+                <tr key={id}>
+                  <td>{index + 1}</td>
+                  <td>{middleName + ' ' + firstName + ' ' + lastName}</td>
+                  <td>{getFullYearsFromDate(birthdate.date)}</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>
+                    <Button>перейти</Button>
+                  </td>
+                </tr>
+              ),
+            )}
+          </Table>
+        ) : (
+          <h3 className={styles.title}>нету данных</h3>
+        )}
       </div>
       <div className={styles.pagination}>
         <Pagination

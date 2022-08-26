@@ -252,7 +252,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({user, onC
 
                                                         {...field}
                                                         onChange={e => {
-                                                            console.log(field)
                                                             setSelectedRole(e.target.value as Roles);
                                                             field.onChange(e);
                                                         }}

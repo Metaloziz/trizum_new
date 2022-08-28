@@ -1,9 +1,7 @@
 import { Paths } from 'app/enums/Paths';
 import instance from 'app/services/config';
-import { ReportItemsT } from 'app/types/ReportT';
+import { ReportItemsT, ReportParamsForUI } from 'app/types/ReportT';
 import { WithPagination } from 'app/types/WithPagination';
-import { ReportParamsForUI } from '../stores/reportStore';
-import { GroupParamsForServer } from '../types/GroupTypes';
 
 const reportService = {
   getReport: async (): Promise<WithPagination<ReportItemsT[]>> => {

@@ -74,3 +74,22 @@ export type ReportFilterT = {
   page: number;
   city: string;
 };
+
+export type ReportParams = Partial<{
+  perPage: number;
+  page: number;
+  cityName: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  is_active: string;
+  is_payed: string;
+  tariff_id: string;
+  franchise_id: string;
+  group_id: string;
+}>;
+export type ReportParamsForUI = Partial<{
+  date_since: Date | string;
+  date_until: Date | string;
+}> &
+  ReportParams;

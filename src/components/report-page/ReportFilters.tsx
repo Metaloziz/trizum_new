@@ -19,24 +19,17 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Button from 'components/button/Button';
 import { observer } from 'mobx-react-lite';
-import { Nullable } from '../../app/types/Nullable';
 import reportStore from '../../app/stores/reportStore';
 import franchiseService from '../../app/services/franchiseService';
 import { getOptionMui } from '../../utils/getOption';
-import appStore, { Roles } from '../../app/stores/appStore';
 
-type ReportFiltersType = {
-  setCurrentPage: (page: number) => void;
-};
+import groupStore from '../../app/stores/groupStore';
+import groupsService from '../../app/services/groupsService';
 
-const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage }) => {
-  const { reports, clearQueryFields } = reportStore;
-  // TODO или вот франшизы ? {reports.map(m => m.franchise).map(el => (el.id ? getOptionMui(el.id, el.shortName) : <></>))}
-  const { getGroups, groups, queryFields } = reportStore;
-  console.log(groups?.map(m => ({ id: m.id, name: m.name })));
+const ReportFilters: React.FC = observer(() => {
+  const { getReports, clearQueryFields, queryFields } = reportStore;
+
   const [isOpenFilters, setIsOpenFilters] = useState(false);
-
-
   const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
   const [groupOptions, setGroupOptions] = useState<JSX.Element[]>([]);
 
@@ -46,22 +39,32 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
     setFranchiseOptions(options);
   };
 
-  useEffect(() => {
-    if (appStore.role === Roles.Admin) {
-      getFranchises();
+  const getGroups = async () => {
+    if (queryFields.franchise_id) {
+      const res = await groupsService.getGroups({
+        perPage: 10000,
+        franchiseId: queryFields.franchise_id,
+      });
+      groupStore.groups = res?.items;
+      setGroupOptions(res?.items?.map(el => getOptionMui(el.id, el.name)));
+    } else {
+      setGroupOptions([]);
     }
+  };
+  const searchHandler = () => {
+    getReports();
+  };
+  const resetHandler = () => {
+    clearQueryFields();
+  };
+
+  useEffect(() => {
+    getFranchises();
   }, []);
 
   useEffect(() => {
     getGroups();
   }, [queryFields.franchise_id]);
-
-  const searchHandler = () => {
-    setCurrentPage(1);
-  };
-  const resetHandler = () => {
-    clearQueryFields()
-  };
 
   return (
     <Box sx={{ marginTop: 2, marginBottom: 3 }}>
@@ -77,12 +80,11 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
           <Grid container spacing={2}>
             <Grid item xs={12} sm={4}>
               <TextField
-                id="outlined-basic"
                 label="Город"
                 fullWidth
                 variant="outlined"
                 onChange={({ currentTarget: { value } }) => (queryFields.cityName = value)}
-                value={queryFields.cityName}
+                value={queryFields.cityName || ''}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -90,8 +92,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 <InputLabel id="franchise">Франчайзинг</InputLabel>
                 <Select
                   labelId="franchise"
-                  id="franchise"
-                  value={queryFields.franchise_id}
+                  value={queryFields.franchise_id || ''}
                   onChange={({ target: { value } }) => (queryFields.franchise_id = value)}
                   label="Франчайзинг"
                 >
@@ -104,8 +105,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 <InputLabel id="group">Группа</InputLabel>
                 <Select
                   labelId="group"
-                  id="group"
-                  value={queryFields.group_id}
+                  value={queryFields.group_id || ''}
                   onChange={({ target: { value } }) => (queryFields.group_id = value)}
                   label="Группа"
                   disabled={!queryFields.franchise_id}
@@ -122,22 +122,19 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
 
             <Grid item xs={12} sm={4}>
               <TextField
-                id="outlined-basic"
                 label="Фамилия ученика"
                 fullWidth
                 variant="outlined"
-                value={queryFields.last_name}
+                value={queryFields.last_name || ''}
                 onChange={({ currentTarget: { value } }) => (queryFields.last_name = value)}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              {/* TODO: это поле под вопросом - спросить у Александра нужно ли оно, если да - разбить на Имя Фамилию и отчество отдельно */}
               <TextField
-                id="outlined-basic"
                 label="Имя ученика"
                 fullWidth
                 variant="outlined"
-                value={queryFields.first_name}
+                value={queryFields.first_name || ''}
                 onChange={({ currentTarget: { value } }) => (queryFields.first_name = value)}
               />
             </Grid>
@@ -147,13 +144,13 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 <InputLabel id="status">Статус</InputLabel>
                 <Select
                   labelId="status"
-                  id="status"
-                  value={queryFields.is_active}
+                  value={queryFields.is_active || ''}
                   onChange={({ target: { value } }) => (queryFields.is_active = value)}
                   label="Статус"
                 >
                   <MenuItem value="true">Активный</MenuItem>
                   <MenuItem value="false">Не активный</MenuItem>
+                  <MenuItem value="" />
                 </Select>
               </FormControl>
             </Grid>
@@ -163,8 +160,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 <InputLabel id="payment">Оплачен</InputLabel>
                 <Select
                   labelId="payment"
-                  id="payment"
-                  value={queryFields.is_payed}
+                  value={queryFields.is_payed || ''}
                   onChange={({ target: { value } }) => (queryFields.is_payed = value)}
                   label="Оплачен"
                 >
@@ -175,7 +171,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
             </Grid>
             <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <DatePicker
-                onChange={(value, keyboardInputValue) => {
+                onChange={value => {
                   value && (queryFields.date_since = new Date(value));
                 }}
                 value={queryFields.date_since ? queryFields.date_since : new Date()}
@@ -183,7 +179,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
               />
               <DatePicker
-                onChange={(value, keyboardInputValue) => {
+                onChange={value => {
                   value && (queryFields.date_until = new Date(value));
                 }}
                 value={queryFields.date_until ? queryFields.date_until : new Date()}
@@ -193,11 +189,10 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                id="outlined-basic"
                 label="Тариф"
                 fullWidth
                 variant="outlined"
-                value={queryFields.tariff_id}
+                value={queryFields.tariff_id || ''}
                 onChange={({ currentTarget: { value } }) => (queryFields.tariff_id = value)}
               />
             </Grid>

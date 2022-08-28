@@ -30,21 +30,12 @@ type ReportFiltersType = {
 };
 
 const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage }) => {
-  const { reports } = reportStore;
+  const { reports, clearQueryFields } = reportStore;
   // TODO или вот франшизы ? {reports.map(m => m.franchise).map(el => (el.id ? getOptionMui(el.id, el.shortName) : <></>))}
-  const { setFilters, getGroups, groups, queryFields } = reportStore;
+  const { getGroups, groups, queryFields } = reportStore;
   console.log(groups?.map(m => ({ id: m.id, name: m.name })));
   const [isOpenFilters, setIsOpenFilters] = useState(false);
 
-  // const [cityName, setCityName] = useState<string>('');
-  const [pupilName, setPupilName] = useState<string>('');
-  const [pupilSurname, setPupilSurname] = useState<string>('');
-  const [tariff, setTariff] = useState<string>('');
-  const [franchiseId, setFranchiseId] = useState<string>('');
-  const [isActiveStatus, setIsActiveStatus] = useState<Nullable<string>>(null);
-  const [isPaidStatus, setIsPaidStatus] = useState<Nullable<string>>(null);
-  const [dateFrom, setDateFrom] = useState(null);
-  const [dateTo, setDateTo] = useState(null);
 
   const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
   const [groupOptions, setGroupOptions] = useState<JSX.Element[]>([]);
@@ -66,35 +57,10 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
   }, [queryFields.franchise_id]);
 
   const searchHandler = () => {
-    setFilters({
-      pupilName,
-      isActiveStatus,
-      isPaidStatus,
-      dateFrom,
-      dateTo,
-      tariff,
-      pupilSurname,
-      franchiseId,
-    });
     setCurrentPage(1);
   };
   const resetHandler = () => {
-    setPupilName('');
-    setIsActiveStatus(null);
-    setIsPaidStatus(null);
-    setDateFrom(null);
-    setDateTo(null);
-    setTariff('');
-    setFilters({
-      setCityName: '',
-      setPupilName: '',
-      isActiveStatus: '',
-      isPaidStatus: '',
-      dateFrom: '',
-      dateTo: '',
-      tariff: '',
-    });
-    setCurrentPage(1);
+    clearQueryFields()
   };
 
   return (
@@ -142,7 +108,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                   value={queryFields.group_id}
                   onChange={({ target: { value } }) => (queryFields.group_id = value)}
                   label="Группа"
-                  disabled={!franchiseId}
+                  disabled={!queryFields.franchise_id}
                 >
                   {groupOptions}
                 </Select>

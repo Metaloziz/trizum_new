@@ -94,7 +94,7 @@ class ReportStore {
 
   getReports = async () => {
     try {
-      const res = await reportService.getReport();
+      const res = await reportService.getReports(this.queryFields);
       runInAction(() => {
         this.items = res.items;
         this.page = res.page;
@@ -125,51 +125,55 @@ class ReportStore {
     });
   };
 
-  setFilters = (filter: any) => {
-    this.defaultValues = { ...filter };
+  // setFilters = (filter: any) => {
+  //   this.defaultValues = { ...filter };
+  // };
+  clearQueryFields = () => {
+    this.queryFields = { ...this.queryDefaultValues };
+    this.getReports();
   };
 
   get reports() {
-    let data: ReportItemsT[] = [...this.items];
-    if (this.queryFields?.cityName) {
-      data = data.filter(f => f.city?.toLowerCase() === this.queryFields.cityName?.toLowerCase());
-    }
-    if (this.defaultValues.tariff) {
-      data = data.filter(
-        f => f.tariff?.name.toLowerCase() === this.defaultValues.tariff.toLowerCase(),
-      );
-    }
-    if (this.defaultValues.pupilName) {
-      data = data.filter(
-        f =>
-          f.firstName.toLowerCase() === this.defaultValues.pupilName.toLowerCase() ||
-          f.middleName.toLowerCase() === this.defaultValues.pupilName.toLowerCase() ||
-          f.lastName.toLowerCase() === this.defaultValues.pupilName.toLowerCase(),
-      );
-    }
-    if (this.defaultValues.isActiveStatus) {
-      const status = this.defaultValues.isActiveStatus === 'true';
-      data = data.filter(f => f.isActive === status);
-    }
-    if (this.defaultValues.isPaidStatus) {
-      const status = this.defaultValues.isPaidStatus === 'true';
-      data = data.filter(f => f.isPayed === status);
-    }
-    if (this.defaultValues.dateTo) {
-      data = data.filter(
-        val =>
-          getDateWithoutTime(new Date(val.birthdate.date)) <=
-          getDateWithoutTime(new Date(this.defaultValues.dateTo)),
-      );
-    }
-    if (this.defaultValues.dateFrom) {
-      data = data.filter(
-        val =>
-          getDateWithoutTime(new Date(val.birthdate.date)) >=
-          getDateWithoutTime(new Date(this.defaultValues.dateFrom)),
-      );
-    }
-    return data;
+    // const data: ReportItemsT[] = [...this.items];
+    //   if (this.queryFields?.cityName) {
+    //     data = data.filter(f => f.city?.toLowerCase() === this.queryFields.cityName?.toLowerCase());
+    //   }
+    //   if (this.defaultValues.tariff) {
+    //     data = data.filter(
+    //       f => f.tariff?.name.toLowerCase() === this.defaultValues.tariff.toLowerCase(),
+    //     );
+    //   }
+    //   if (this.defaultValues.pupilName) {
+    //     data = data.filter(
+    //       f =>
+    //         f.firstName.toLowerCase() === this.defaultValues.pupilName.toLowerCase() ||
+    //         f.middleName.toLowerCase() === this.defaultValues.pupilName.toLowerCase() ||
+    //         f.lastName.toLowerCase() === this.defaultValues.pupilName.toLowerCase(),
+    //     );
+    //   }
+    //   if (this.defaultValues.isActiveStatus) {
+    //     const status = this.defaultValues.isActiveStatus === 'true';
+    //     data = data.filter(f => f.isActive === status);
+    //   }
+    //   if (this.defaultValues.isPaidStatus) {
+    //     const status = this.defaultValues.isPaidStatus === 'true';
+    //     data = data.filter(f => f.isPayed === status);
+    //   }
+    //   if (this.defaultValues.dateTo) {
+    //     data = data.filter(
+    //       val =>
+    //         getDateWithoutTime(new Date(val.birthdate.date)) <=
+    //         getDateWithoutTime(new Date(this.defaultValues.dateTo)),
+    //     );
+    //   }
+    //   if (this.defaultValues.dateFrom) {
+    //     data = data.filter(
+    //       val =>
+    //         getDateWithoutTime(new Date(val.birthdate.date)) >=
+    //         getDateWithoutTime(new Date(this.defaultValues.dateFrom)),
+    //     );
+    //   }
+    return this.items
   }
 }
 

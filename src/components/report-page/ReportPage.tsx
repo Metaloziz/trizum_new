@@ -37,7 +37,7 @@ const ReportPage = observer(() => {
 
   const lastItemIndex = currentPage * count;
   const firstItemIndex = lastItemIndex - count;
-  const currentItem: ReportItemsT[] = data.slice(firstItemIndex, lastItemIndex);
+  const currentItem: ReportItemsT[] = data?.slice(firstItemIndex, lastItemIndex);
 
   const paginate = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setCurrentPage(newCurrentPage);
@@ -52,7 +52,7 @@ const ReportPage = observer(() => {
           <ReportFilters setCurrentPage={setCurrentPage} />
           <div className={styles.tableContent}>
             <Table reportlist={currentItem} colNames={columnNames} loading={loading}>
-              {currentItem.map(item => (
+              {currentItem?.map(item => (
                 <tr key={item.id}>
                   <td>
                     {`${item?.lastName} ${shortenName(item?.firstName)}.${shortenName(

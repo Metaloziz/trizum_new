@@ -6,12 +6,13 @@ import * as yup from 'yup';
 import { DateTime } from 'app/enums/DateTime';
 import coursesService from 'app/services/coursesService';
 import franchiseService from 'app/services/franchiseService';
-import groupsService, { AddUserGroupPayloadType } from 'app/services/groupsService';
+import groupsService from 'app/services/groupsService';
 import { Roles } from 'app/stores/appStore';
 import { ResponseCourse } from 'app/types/CourseTypes';
 import { FranchiseT } from 'app/types/FranchiseTypes';
 import {
   CreateGroupFroUI,
+  GroupParamsForServer,
   GroupParamsForUI,
   GroupT,
   LessonT,
@@ -26,17 +27,18 @@ import {
   scheduleItemToServerMapper,
   scheduleItemToUIMapper,
 } from 'utils/scheduleItemToServerMapper';
+import { findElement } from 'utils/findIndexElement';
 
 class GroupStore {
   groups: ResponseGroups[] = [];
 
   page = 0;
 
-  perPage = 0;
+  perPage = 1;
 
-  total = 0;
+  total = 1;
 
-  selectedGroup?: ResponseOneGroup;
+  selectedGroup = new ResponseOneGroup();
 
   private defaultValues: CreateGroupFroUI = {
     name: '',
@@ -71,7 +73,7 @@ class GroupStore {
 
   schedule: LessonT[] = [];
 
-  franchise: FranchiseT[] = [];
+  franchise: FranchiseT[] = [new FranchiseT()];
 
   teachers: ResponseUserT[] = [];
 
@@ -120,12 +122,6 @@ class GroupStore {
     });
   };
 
-  addUserGroup = (data: AddUserGroupPayloadType) => {
-    this.execute(async () => {
-      const response = await groupsService.addUserGroup(data);
-    });
-  };
-
   loadInitialModal = () => {
     this.execute(async () => {
       const resFranchise = await franchiseService.getAll();
@@ -138,7 +134,7 @@ class GroupStore {
     });
   };
 
-  getGroups = async () => {
+  getGroups = async (paramsData?: GroupParamsForServer) => {
     const dateSince = this.queryFields.dateSince
       ? moment(this.queryFields.dateSince).format(DateTime.DdMmYyyy)
       : '';
@@ -146,11 +142,13 @@ class GroupStore {
       ? moment(this.queryFields.dateUntil).format(DateTime.DdMmYyyy)
       : '';
     await this.execute(async () => {
-      const res = await groupsService.getGroups({
-        ...this.queryFields,
-        dateSince,
-        dateUntil,
-      });
+      const res = await groupsService.getGroups(
+        paramsData || {
+          ...this.queryFields,
+          dateSince,
+          dateUntil,
+        },
+      );
       if (res.items.length && this.selectedGroup?.id) {
         await this.getOneGroup(this.selectedGroup.id);
       }
@@ -219,6 +217,12 @@ class GroupStore {
     });
   };
 
+  getCurrentGroupFromLocalStorage = (groupId: string) => findElement(this.groups, groupId);
+
+  nullableSelectedGroup = () => {
+    this.selectedGroup = new ResponseOneGroup();
+  };
+
   cleanModalValues = () => {
     this.modalFields = { ...this.defaultValues };
   };
@@ -229,7 +233,14 @@ class GroupStore {
   };
 
   changeLesson = (id: string, fieldName: string, value: Date | string) => {
-    this.schedule = this.schedule.map(el => (el.id === id ? { ...el, [fieldName]: value } : el));
+    this.schedule = this.schedule.map(el =>
+      el.id === id
+        ? {
+            ...el,
+            [fieldName]: value,
+          }
+        : el,
+    );
   };
 
   openModal = async (id?: string) => {
@@ -255,7 +266,7 @@ class GroupStore {
 
   closeModal = () => {
     this.schedule = [];
-    this.selectedGroup = undefined;
+    this.selectedGroup = new ResponseOneGroup();
     this.isModalOpen = false;
   };
 

@@ -1,6 +1,5 @@
 import { SexEnum } from 'app/enums/CommonEnums';
-import { FranchisingViewModel } from 'app/viewModels/FranchisingViewModel';
-import { Option } from 'components/select/CustomSelect';
+import { OptionT } from 'app/types/OptionT';
 
-export const convertSexOptions = (): Option[] =>
+export const convertSexOptions = (): OptionT[] =>
   Object.values(SexEnum).map(el => ({ label: el, value: el }));

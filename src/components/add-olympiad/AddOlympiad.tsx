@@ -2,10 +2,25 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './AddOlympiad.module.scss';
 
-import Pagination from 'components/molecules/Pagination';
+import image from '../../assets/svgs/icon-setting-blue.svg';
+
 import NameOlympiad from 'components/name-olimpiad/NameOlympiad';
-import SettingsGames from 'components/settings-games/SettingsGames';
 import Table from 'components/table/Table';
+import franchiseeStore from 'app/stores/franchiseeStore';
+import coursesStore from 'app/stores/coursesStore';
+import groupStore from 'app/stores/groupStore';
+import { ResponseGroups } from 'app/types/GroupTypes';
+import { GroupLevels } from 'app/enums/GroupLevels';
+import Button from '@mui/material/Button';
+import Image from 'components/image/Image';
+import { OlympiadForm } from 'components/olympiad-page/components/OlympiadForm/OlympiadForm';
+import BasicModal from 'components/basic-modal/BasicModal';
+import { observer } from 'mobx-react-lite';
+import { changeDateView } from 'utils/changeDateView';
+import Pagination from '@mui/material/Pagination';
+import appStore, { Roles } from 'app/stores/appStore';
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes } from 'app/enums/AppRoutes';
 
 const colNames = [
   'Название олимпиады',
@@ -18,160 +33,102 @@ const colNames = [
   '',
 ];
 
-type Mock1 = {
-  name: string;
-  dateStart: string;
-  dateEnd: string;
-  group: string;
-  typeGroup: string;
-  city: string;
-  address: string;
-  settings: () => JSX.Element;
+const isEditRole = (roleDate: Roles) => {
+  switch (roleDate) {
+    case 'admin':
+    case 'methodist':
+      return true;
+    default:
+      return false;
+  }
 };
 
-const mocks: Mock1[] = [
-  {
-    name: 'Память и ритм',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Мухи в кубе',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Светлячки',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Память',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Ритм',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Память и ритм и светлячки',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Роль',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-  {
-    name: 'Что то еще',
-    dateStart: '11/04/2021 08:00',
-    dateEnd: '11/04/2021 10:00',
-    group: 'Средняя',
-    typeGroup: '100',
-    city: 'Москва',
-    address: 'Ул. Кирова, д. 6',
-    settings: () => <SettingsGames />,
-  },
-];
+const AddOlympiad = observer(() => {
+  const navigate = useNavigate();
 
-const AddOlympiad = () => {
-  const [data, setData] = useState(mocks); // State для главных данных
-  const [loading, setLoading] = useState<boolean>(false); // State для загрузки
-  const [currentPage, setCurrentPage] = useState<number>(1); // State для отображения текущей страницы
-  const [count] = useState<number>(2); // State для отображения количества элементов на каждой странице
+  const { role } = appStore;
+  const { getFranchisee } = franchiseeStore;
+  const { getCourses } = coursesStore;
+  const { groups, getGroups, getCurrentGroupFromLocalStorage, perPage, total, page, getOneGroup } =
+    groupStore;
+
+  const IS_EDIT_ROLE = isEditRole(role as Roles);
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [currentGroup, setCurrentGroup] = useState<ResponseGroups>();
+
+  const [currentPage, setCurrentPage] = useState<number>(page + 1);
+
   useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      // пример запроса на сервер
-      // const res = await axios.get('https://jsonplaceholder.typicode.com/todos');
-      // setData(res.data);
-      setLoading(false);
-    };
-    getData();
+    getFranchisee();
+    getCourses({ type: 'olympiad' });
+    getGroups({ type: 'olympiad', perPage, page });
   }, []);
 
-  const lastItemIndex = currentPage * count;
-  const firstItemIndex = lastItemIndex - count;
-  const currentItem = data.slice(firstItemIndex, lastItemIndex);
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const nextPage = () => {
-    if (currentItem.length === count) {
-      setCurrentPage(prev => prev + 1);
-    }
+  useEffect(() => {
+    getGroups({ type: 'olympiad', perPage: 10, page: currentPage - 1 });
+  }, [currentPage, page]);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
   };
-  const prevPage = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(prev => prev - 1);
-    }
+
+  const setEditModal = (groupId: string) => {
+    setShowModal(true);
+    const result = getCurrentGroupFromLocalStorage(groupId);
+
+    setCurrentGroup(result);
   };
+
+  const redirect = (groupId: string) => {
+    getOneGroup(groupId);
+    navigate(AppRoutes.OlympiadsListPage);
+  };
+
+  const count = Math.ceil(total / perPage);
+  console.log(count);
 
   return (
     <div className={styles.containerAdd}>
-      <NameOlympiad />
+      <NameOlympiad isEditRole={IS_EDIT_ROLE} />
       <div className={styles.tableWrap}>
         <h2>Список Олимпиады</h2>
         <Table colNames={colNames} loading={false}>
-          {currentItem.map(item => (
-            <tr key={item.name}>
-              <td>{item.name}</td>
-              <td>{item.dateStart}</td>
-              <td>{item.dateEnd}</td>
-              <td>{item.group}</td>
-              <td>{item.typeGroup}</td>
-              <td>{item.city}</td>
-              <td>{item.address}</td>
+          {groups.map(({ id, name, startedAt, endedAt, level }) => (
+            <tr key={id} onClick={() => redirect(id)}>
+              <td>{name}</td>
+              <td>{changeDateView(startedAt.date)}</td>
+              <td>{changeDateView(endedAt.date)}</td>
+              <td>{GroupLevels[level]}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+                {IS_EDIT_ROLE && (
+                  <Button onClick={() => setEditModal(id)}>
+                    <Image src={image} />
+                  </Button>
+                )}
+              </td>
             </tr>
           ))}
         </Table>
       </div>
       <div className={styles.paginationOlympiad}>
         <Pagination
-          totalCount={count}
-          currentPage={currentPage}
-          pageSize={mocks.length}
-          onPageChange={paginate}
+          count={count}
+          color="primary"
+          size="large"
+          page={currentPage}
+          boundaryCount={1}
+          onChange={handleChange}
         />
       </div>
+      <BasicModal visibility={showModal} changeVisibility={setShowModal}>
+        <OlympiadForm setShowModal={setShowModal} mode="edite" group={currentGroup} />
+      </BasicModal>
     </div>
   );
-};
+});
 
 export default AddOlympiad;

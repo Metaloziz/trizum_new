@@ -1,93 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './OlympiadsListPage.module.scss';
 
-import Pagination from 'components/molecules/Pagination';
 import Table from 'components/table/Table';
+import { Pagination } from '@mui/material';
+import groupStore from 'app/stores/groupStore';
+import Button from '@mui/material/Button';
+import { getFullYearsFromDate } from 'utils/getFullYearsFromDate';
+import { observer } from 'mobx-react-lite';
 
 export const colNames = ['№', 'ФИО', 'Возраст', 'Дата', 'Количество баллов', 'Результаты'];
 
-const mock1 = [
-  {
-    id: 1,
-    fullName: 'Самойленко И.Н.',
-    age: '8',
-    date: '11.04.2022',
-    numberPoints: '100',
-    results: () => <button onClick={() => console.log('Перейти')}>Перейти</button>,
-  },
-  {
-    id: 2,
-    fullName: 'Камышев В.А.',
-    age: '13',
-    date: '2022.01.22',
-    numberPoints: '100',
-    results: () => <button onClick={() => console.log('Перейти')}>Перейти</button>,
-  },
-  {
-    id: 3,
-    fullName: 'Самойленко И.Н.',
-    age: '8',
-    date: '11.04.2022',
-    numberPoints: '100',
-    results: () => <button onClick={() => console.log('Перейти')}>Перейти</button>,
-  },
-  {
-    id: 4,
-    fullName: 'Камышев В.А.',
-    age: '13',
-    date: '2022.01.22',
-    numberPoints: '100',
-    results: () => <button onClick={() => console.log('Перейти')}>Перейти</button>,
-  },
-  {
-    id: 5,
-    fullName: 'Самойленко И.Н.',
-    age: '8',
-    date: '11.04.2022',
-    numberPoints: '100',
-    results: () => <button onClick={() => console.log('Перейти')}>Перейти</button>,
-  },
-  {
-    id: 6,
-    fullName: 'Камышев В.А.',
-    age: '13',
-    date: '2022.01.22',
-    numberPoints: '100',
-    results: () => <button onClick={() => console.log('Перейти')}>Перейти</button>,
-  },
-  {
-    id: 7,
-    fullName: 'Самойленко И.Н.',
-    age: '8',
-    date: '11.04.2022',
-    numberPoints: '100',
-    results: () => <button onClick={() => console.log('Перейти')}>Перейти</button>,
-  },
-  {
-    id: 8,
-    fullName: 'Камышев В.А.',
-    age: '13',
-    date: '2022.01.22',
-    numberPoints: '100',
-    results: () => <button onClick={() => console.log('Перейти')}>Перейти</button>,
-  },
-];
+const OlympiadsListPage = observer(() => {
+  const { selectedGroup } = groupStore;
 
-const OlympiadsListPage = () => {
-  const fake = () => {};
-  const fake1 = (num: number) => {};
+  let newData = [selectedGroup.users[0]]; // todo доделать локальную пагинацию
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    newData = new Array(10).fill(selectedGroup.users[0]);
+  }, [selectedGroup]);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
+
   return (
     <div className={styles.container}>
       <h2>Результаты олимпиады</h2>
       <div className={styles.tableBlock}>
-        <Table loading={false} colNames={colNames} />
+        <Table loading={false} colNames={colNames}>
+          {newData.map(
+            ({ id, user: { firstName, middleName, lastName, birthdate }, stats }, index) => (
+              <tr key={id}>
+                <td>{index + 1}</td>
+                <td>{middleName + ' ' + firstName + ' ' + lastName}</td>
+                <td>{getFullYearsFromDate(birthdate.date)}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                  <Button>перейти</Button>
+                </td>
+              </tr>
+            ),
+          )}
+        </Table>
       </div>
       <div className={styles.pagination}>
-        <Pagination totalCount={10} currentPage={1} pageSize={mock1.length} onPageChange={fake1} />
+        <Pagination
+          count={Math.floor(10 / 3)}
+          color="primary"
+          size="large"
+          page={currentPage}
+          boundaryCount={1}
+          onChange={handleChange}
+        />
       </div>
     </div>
   );
-};
+});
 
 export default OlympiadsListPage;

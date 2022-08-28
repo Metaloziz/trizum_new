@@ -28,9 +28,9 @@ import {
   SubTitle,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Doughnut } from 'react-chartjs-2';
 
 import styles from './DoughnutNew.module.scss';
+import { Doughnut } from 'react-chartjs-2';
 
 Chart.register(ChartDataLabels);
 Chart.register(
@@ -95,14 +95,14 @@ const config = {
           {
             text: getTotal,
             font: {
-              size: '67',
+              size: 67,
             },
             color: 'black',
           },
           {
             text: 'Due ≤ 60 Days',
             font: {
-              size: '25',
+              size: 25,
             },
             color: 'grey',
           },

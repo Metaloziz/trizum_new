@@ -1,4 +1,4 @@
-export enum GroupType {
+export enum GroupTypes {
   class = 'Класс',
   olympiad = 'Олимпиада',
   blocks = 'Методичка',

@@ -22,9 +22,9 @@ import Button from '../button/Button';
 
 import usersStore from 'app/stores/usersStore';
 import InformationItem from 'components/information-item/InformationItem';
-import { Option } from 'components/select/CustomSelect';
 import { Roles } from 'app/stores/appStore';
 import { RoleNames } from 'app/enums/RoleNames';
+import { OptionT } from 'app/types/OptionT';
 
 const roleOptions = [
   { label: 'Все', value: 'all' },
@@ -58,7 +58,7 @@ export const Filter = (props: UserPageFilterProps) => {
 
   const [open, setOpen] = useState(false);
   const [city, setCity] = React.useState('');
-  const [selectedRole, setSelectedRole] = useState<Option>();
+  const [selectedRole, setSelectedRole] = useState<OptionT>();
   const [currentPage, setCurrentPage] = useState<number>(page);
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -81,7 +81,7 @@ export const Filter = (props: UserPageFilterProps) => {
     setBornDaate(newValue);
   };
 
-  const onSelectRole = (option: Option) => {
+  const onSelectRole = (option: OptionT) => {
     option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
   };
 

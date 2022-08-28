@@ -31,6 +31,7 @@ import { Testing } from 'pages/testing/Testing';
 import UserInfo from 'pages/user-info/UserInfo';
 import Users from 'pages/users/Users';
 import Games from 'pages/games/Games';
+import OlympiadsListPage from 'components/olympiads-list-page/OlympiadsListPage';
 
 const App = observer(() => (
   <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -56,6 +57,7 @@ const App = observer(() => (
           <Route path={AppRoutes.Olympiads}>
             <Route path="" element={<Olympiads />} />
             <Route path=":id" element={<Olympiad />} />
+            <Route path={AppRoutes.OlympiadsListPage} element={<OlympiadsListPage />} />
           </Route>
 
           <Route path={AppRoutes.Payment} element={<Pay />} />

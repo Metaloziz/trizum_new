@@ -19,5 +19,10 @@ export const getNearestLessonObject = (
   const nearestLessons = sortedSchedule
     .filter(el => el.date === currentDate.date)
     .find(el => el.from >= currentDate.from); // находим массив уроков, запланированных на текущий день и валидных по времени
-  return nearestLessons || sortedSchedule.filter(el => el.date > currentDate.date)[0];
+  return (
+    nearestLessons ||
+    sortedSchedule.filter(
+      el => el.date.split('.').reverse().join('') > currentDate.date.split('.').reverse().join(''),
+    )[0]
+  );
 };

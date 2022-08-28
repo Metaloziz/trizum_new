@@ -3,28 +3,29 @@ import React, { FC, useEffect, useState } from 'react';
 import { PresetT } from 'app/types/WorkTypes';
 import { PresetWithOrderT } from 'components/homework-add-edit-page/HomeworkAddEditPage';
 import styles from 'components/homework-add-edit-page/HomeworkAddEditPage.module.scss';
-import CustomSelect, { Option } from 'components/select/CustomSelect';
+import CustomSelect from 'components/select/CustomSelect';
+import { OptionT } from 'app/types/OptionT';
 
 type Props = {
   index: number;
-  games: Option[];
+  games: OptionT[];
   patterns: PresetT[];
   onSelectPattern: (patternId: PresetWithOrderT) => void;
 };
 
 const SampleBlock: FC<Props> = props => {
   const { patterns, games, onSelectPattern, index } = props;
-  const [templates, setTemplates] = useState<Option[]>();
+  const [templates, setTemplates] = useState<OptionT[]>();
   const [currentGame, setCurrentGame] = useState(games[0]);
-  const [currentPattern, setCurrentPattern] = useState<Option>();
-  const onSelectGame = (value: Option) => {
+  const [currentPattern, setCurrentPattern] = useState<OptionT>();
+  const onSelectGame = (value: OptionT) => {
     setCurrentGame(value);
     const result = patterns
       .filter(el => el.gameId === value.value)
       .map(el => ({ value: el.id, label: el.name }));
     setTemplates(result);
   };
-  const handleSelectPattern = (value: Option) => {
+  const handleSelectPattern = (value: OptionT) => {
     onSelectPattern({ ...value, index });
     setCurrentPattern(value);
   };

@@ -18,10 +18,10 @@ import worksStore from 'app/stores/WorksStore';
 import { RequestCreateWork } from 'app/types/WorkTypes';
 import Button from 'components/button/Button';
 import SampleBlock from 'components/homework-add-edit-page/SampleBlock/SampleBlock';
-import { Option } from 'components/select/CustomSelect';
 import Step from 'components/step/Step';
 import TextField from 'components/text-field/TextField';
 import { getOption } from 'utils/getOption';
+import {OptionT} from "app/types/OptionT";
 
 type DefaultValues = {
   title: string;
@@ -40,7 +40,7 @@ const HomeworkAddEditPage = observer(() => {
   const { currentHomework, createHomework, editHomework, setCurrentWork } = worksStore;
   const { getPresets, presets, games, getGames } = gamesStore;
 
-  const [gameOptions, setGameOptions] = useState<Option[]>([]);
+  const [gameOptions, setGameOptions] = useState<OptionT[]>([]);
 
   useEffect(() => {
     setGameOptions(games.map(g => getOption(g[0], g[0])));

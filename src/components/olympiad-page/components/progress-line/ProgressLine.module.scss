@@ -1,0 +1,60 @@
+@import "src/styles/global";
+
+.containerStyles {
+  height: 8px;
+  width: auto;
+  background-color: #e0e0de;
+  border-radius: 4px;
+  margin: 15px;
+
+  .fillerStyles {
+    height: 100%;
+    border-radius: inherit;
+    text-align: center;
+    transition: width 1s ease-in-out
+  }
+}
+
+.blue {
+  & .percent {
+    color: $color-blue;
+  }
+}
+
+.gradientBlueDarker {
+  & .percent {
+    color: $color-blue;
+  }
+}
+
+.aquamarine {
+  & .percent {
+    color: $color-aquamarine;
+  }
+}
+
+.gradientViolet {
+  & .percent {
+    color: $color-purple
+  }
+}
+
+.labelStyles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    padding: 5px;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 27px;
+  }
+
+  p {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #646464;
+  }
+}

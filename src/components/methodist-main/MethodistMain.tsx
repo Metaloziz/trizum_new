@@ -40,7 +40,7 @@ const MethodistMain = observer(() => {
   // } = coursesStore;
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [title, setTitle] = useState("");
-  // const [level, setLevel] = useState<Option>(groupLevelOptions[0]);
+  // const [level, setLevel] = useState<OptionT>(groupLevelOptions[0]);
   // const navigate = useNavigate();
 
   // const onSaveCourseClick = async () => {

@@ -4,7 +4,7 @@ import { TimeZoneType } from 'app/types/TimeZoneType';
 
 import { DateTime } from 'app/enums/DateTime';
 import { GroupLevels } from 'app/enums/GroupLevels';
-import { GroupType } from 'app/enums/GroupTypes';
+import { GroupTypes } from 'app/enums/GroupTypes';
 import { EmptyUser } from 'app/stores/appStore';
 import { FranchiseShortT, FranchiseT } from 'app/types/FranchiseTypes';
 import { LevelT } from 'app/types/LevelT';
@@ -27,16 +27,41 @@ export type ResponseGroups = {
   teacherId: string;
   schedule: Schedule[];
 };
-
-export type ResponseOneGroupCourse = {
+export type WorkT = {
   id: string;
-  type: string;
-  status: string;
   title: string;
-  level: string;
-  worksCount: number;
-  createdAt: TimeZoneType;
+  text: null | string;
+  type: string;
+  createdAt: {
+    date: string;
+    timezone_type: number;
+    timezone: string;
+  };
 };
+
+export type WorksT = {
+  id: string;
+  index: null | number;
+  work: WorkT;
+};
+
+export class ResponseOneGroupCourse {
+  id = '';
+
+  type = '';
+
+  status = '';
+
+  title = '';
+
+  level = '';
+
+  worksCount = 0;
+
+  createdAt = new TimeZoneType();
+
+  works:any [] = []
+}
 
 type LocalUserT = ResponseOneUserTypeForLoadMe & {
   // course: any[];
@@ -45,27 +70,37 @@ type LocalUserT = ResponseOneUserTypeForLoadMe & {
   payed: boolean;
 };
 
-type UsersDataT = {
+export type UsersDataT = {
   id: string;
   stats: StatusT[];
   user: EmptyUser;
 };
 
-export type ResponseOneGroup = {
-  id: string;
-  name: string;
-  type: GroupT;
-  status: StatusT;
-  level: LevelT;
-  startedAt: TimeZoneType;
-  endedAt: TimeZoneType;
-  franchise: FranchiseT;
-  course: ResponseOneGroupCourse;
-  users: UsersDataT[];
-  schedule: ScheduleT[];
-  teacherId: string;
-};
+export class ResponseOneGroup {
+  id: string = '';
 
+  name: string = '';
+
+  type: GroupT = 'blocks';
+
+  status: StatusT = 'draft';
+
+  level: LevelT = 'easy';
+
+  startedAt = new TimeZoneType();
+
+  endedAt = new TimeZoneType();
+
+  franchise = new FranchiseT();
+
+  course = new ResponseOneGroupCourse();
+
+  users: UsersDataT[] = [{ id: '', user: new EmptyUser(), stats: ['draft'] }];
+
+  schedule: ScheduleT[] = [];
+
+  teacherId: string = '';
+}
 export class LessonT {
   id: string;
 
@@ -90,7 +125,7 @@ export class LessonT {
   }
 }
 
-export type GroupT = keyof typeof GroupType;
+export type GroupT = keyof typeof GroupTypes;
 export type LevelGroupT = keyof typeof GroupLevels;
 
 export type CreateGroup = {

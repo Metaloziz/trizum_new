@@ -11,7 +11,7 @@ import { Factory } from '../../games';
 import styles from './Game.module.scss';
 import Schulte from '../../assets/images/game/shulte.png';
 import Play from '../../assets/images/game/play.svg';
-import Two048 from '../../assets/images/game/2048.jpg';
+import Two048 from '../../assets/images/game/2048.png';
 import VerticalShift from '../../assets/images/game/vertical-shift.jpg';
 
 type Props = Record<string, unknown>;

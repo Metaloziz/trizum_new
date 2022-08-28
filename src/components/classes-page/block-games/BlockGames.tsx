@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { Button } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
 import styles from './BlockGames.module.scss';
@@ -13,32 +12,34 @@ import Image from 'components/image/Image';
 import Panel from 'components/panel/Panel';
 
 const BlockGames = observer(() => {
-  const { openModal, selectedGroup } = groupStore;
+  const { selectedGroup } = groupStore;
 
+  const works = selectedGroup?.course.works;
+  let result: string;
+  const setImg = (id: number) => {
+    if (id === 0 || id > 2) {
+      result = fossilGame;
+    } else if (id === 1) {
+      result = starGame;
+    } else if (id === 2) {
+      result = cardsGame;
+    }
+    return result;
+  };
   return (
     <div className={styles.blockGames}>
       <div className={styles.componentPanelWrapper}>
         <Panel>Домашнее задание на 7 октября 2021</Panel>
       </div>
       <div className={styles.games}>
-        <ul>
-          <li>
-            <Image src={fossilGame} width="32" height="32" alt="fossil" />
-          </li>
-          <li>игра 1</li>
-        </ul>
-        <ul>
-          <li>
-            <Image src={starGame} width="32" height="32" alt="star" />
-          </li>
-          <li>игра 2</li>
-        </ul>
-        <ul>
-          <li>
-            <Image src={cardsGame} width="32" height="32" alt="cards" />
-          </li>
-          <li>игра 3</li>
-        </ul>
+        {works?.map((item: any, id: any) => (
+          <ul key={item.id}>
+            <li>
+              <Image src={setImg(id)} width="32" height="32" alt="fossil" />
+            </li>
+            <li>{item.work.title}</li>
+          </ul>
+        ))}
       </div>
       {/* <Button onClick={() => openModal(selectedGroup?.id)}>Edit group</Button> */}
       <p className={styles.content}>

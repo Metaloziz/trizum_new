@@ -71,6 +71,11 @@
       top: -45px;
       margin-left: -30px;
     }
+
+    .userSetting {
+      position: absolute;
+      margin: 10px 0 0 140px
+    }
   }
 
   .mt15 {
@@ -91,6 +96,7 @@
   h2 {
     display: contents;
   }
+
 }
 
 .list {
@@ -240,4 +246,10 @@
       }
     }
   }
+}
+
+
+.olympiadPage {
+  width: 400px;
+  height: 200px;
 }

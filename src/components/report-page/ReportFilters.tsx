@@ -33,7 +33,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
   const { reports } = reportStore;
   // TODO или вот франшизы ? {reports.map(m => m.franchise).map(el => (el.id ? getOptionMui(el.id, el.shortName) : <></>))}
   const { setFilters, getGroups, groups, queryFields } = reportStore;
-  console.log(groups.map(m => ({ id: m.id, name: m.name })));
+  console.log(groups?.map(m => ({ id: m.id, name: m.name })));
   const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   // const [cityName, setCityName] = useState<string>('');
@@ -47,6 +47,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
   const [dateTo, setDateTo] = useState(null);
 
   const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
+  const [groupOptions, setGroupOptions] = useState<JSX.Element[]>([]);
 
   const getFranchises = async () => {
     const res = await franchiseService.getAll();
@@ -138,16 +139,14 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 <Select
                   labelId="group"
                   id="group"
-                  value=""
-                  onChange={value => console.log(value)}
+                  value={queryFields.group_id}
+                  onChange={({ target: { value } }) => (queryFields.group_id = value)}
                   label="Группа"
                   disabled={!franchiseId}
                 >
-                  <MenuItem value={10}>group1</MenuItem>
-                  <MenuItem value={20}>group2</MenuItem>
-                  <MenuItem value={30}>group3</MenuItem>
+                  {groupOptions}
                 </Select>
-                {!franchiseId && (
+                {!queryFields.franchise_id && (
                   <FormHelperText sx={{ position: 'absolute', bottom: -18, left: 0, color: 'red' }}>
                     Сначала выберите франчайзинг
                   </FormHelperText>
@@ -161,8 +160,8 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 label="Фамилия ученика"
                 fullWidth
                 variant="outlined"
-                value={pupilSurname}
-                onChange={({ currentTarget: { value } }) => (queryFields.first_name = value)}
+                value={queryFields.last_name}
+                onChange={({ currentTarget: { value } }) => (queryFields.last_name = value)}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -172,8 +171,8 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 label="Имя ученика"
                 fullWidth
                 variant="outlined"
-                value={pupilName}
-                onChange={({ currentTarget: { value } }) => setPupilName(value)}
+                value={queryFields.first_name}
+                onChange={({ currentTarget: { value } }) => (queryFields.first_name = value)}
               />
             </Grid>
             <Grid item xs={12} sm={4}>
@@ -183,8 +182,8 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 <Select
                   labelId="status"
                   id="status"
-                  value={isActiveStatus}
-                  onChange={({ target: { value } }) => setIsActiveStatus(value)}
+                  value={queryFields.is_active}
+                  onChange={({ target: { value } }) => (queryFields.is_active = value)}
                   label="Статус"
                 >
                   <MenuItem value="true">Активный</MenuItem>
@@ -199,8 +198,8 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 <Select
                   labelId="payment"
                   id="payment"
-                  value={isPaidStatus}
-                  onChange={({ target: { value } }) => setIsPaidStatus(value)}
+                  value={queryFields.is_payed}
+                  onChange={({ target: { value } }) => (queryFields.is_payed = value)}
                   label="Оплачен"
                 >
                   <MenuItem value="true">Оплачен</MenuItem>
@@ -210,14 +209,18 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
             </Grid>
             <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <DatePicker
-                value={dateFrom}
-                onChange={setDateFrom}
+                onChange={(value, keyboardInputValue) => {
+                  value && (queryFields.date_since = new Date(value));
+                }}
+                value={queryFields.date_since ? queryFields.date_since : new Date()}
                 toolbarPlaceholder="Дата рождения с"
                 renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
               />
               <DatePicker
-                value={dateTo}
-                onChange={setDateTo}
+                onChange={(value, keyboardInputValue) => {
+                  value && (queryFields.date_until = new Date(value));
+                }}
+                value={queryFields.date_until ? queryFields.date_until : new Date()}
                 toolbarPlaceholder="Дата рождения по"
                 renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
               />
@@ -228,8 +231,8 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 label="Тариф"
                 fullWidth
                 variant="outlined"
-                value={tariff}
-                onChange={({ currentTarget: { value } }) => setTariff(value)}
+                value={queryFields.tariff_id}
+                onChange={({ currentTarget: { value } }) => (queryFields.tariff_id = value)}
               />
             </Grid>
             <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }} />

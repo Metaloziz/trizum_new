@@ -1,3 +1,13 @@
-export const transformDate = (date: string) => new Date(date).toLocaleDateString();
+export const transformDate = (date: string) => {
+  if (date) {
+    return new Date(date).toLocaleDateString();
+  }
+  return '';
+};
 
-export const shortenName = (name: string) => name[0].toUpperCase();
+export const shortenName = (name: string) => {
+  if (name) {
+    return name[0].toUpperCase();
+  }
+  return '';
+};

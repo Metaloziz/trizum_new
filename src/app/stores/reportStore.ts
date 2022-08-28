@@ -8,6 +8,30 @@ import groupsService from '../services/groupsService';
 import { AxiosError } from 'axios';
 import { ResponseGroups } from '../types/GroupTypes';
 
+export type ReportParams = Partial<{
+  perPage: number;
+  page: number;
+  cityName: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  is_active: string;
+  is_payed: string;
+  tariff_id: string;
+  franchise_id: string;
+  group_id: string;
+}>;
+export type ReportParamsForUI = Partial<{
+  date_since: Date | string;
+  date_until: Date | string;
+}> &
+  ReportParams;
+export type ReportParamsForServer = Partial<{
+  dateSince: string;
+  dateUntil: string;
+}> &
+  ReportParams;
+
 class ReportStore {
   items: ReportItemsT[] = [];
 
@@ -32,12 +56,13 @@ class ReportStore {
     franchiseId: '',
   };
 
-  private queryDefaultValues = {
+  private queryDefaultValues: ReportParamsForUI = {
     perPage: 10,
     page: 0,
     cityName: '',
     first_name: '',
     middle_name: '',
+    last_name: '',
     is_active: '',
     is_payed: '',
     date_since: '',
@@ -106,8 +131,8 @@ class ReportStore {
 
   get reports() {
     let data: ReportItemsT[] = [...this.items];
-    if (this.queryFields.cityName) {
-      data = data.filter(f => f.city?.toLowerCase() === this.queryFields.cityName.toLowerCase());
+    if (this.queryFields?.cityName) {
+      data = data.filter(f => f.city?.toLowerCase() === this.queryFields.cityName?.toLowerCase());
     }
     if (this.defaultValues.tariff) {
       data = data.filter(

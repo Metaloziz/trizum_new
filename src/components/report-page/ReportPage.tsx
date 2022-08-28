@@ -55,8 +55,8 @@ const ReportPage = observer(() => {
               {currentItem.map(item => (
                 <tr key={item.id}>
                   <td>
-                    {`${item.lastName} ${shortenName(item.firstName)}.${shortenName(
-                      item.middleName,
+                    {`${item?.lastName} ${shortenName(item?.firstName)}.${shortenName(
+                      item?.middleName,
                     )}.`}
                   </td>
                   <td>{item?.city || 'Нет данных'}</td>

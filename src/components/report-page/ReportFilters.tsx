@@ -33,7 +33,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
   const { reports } = reportStore;
   // TODO или вот франшизы ? {reports.map(m => m.franchise).map(el => (el.id ? getOptionMui(el.id, el.shortName) : <></>))}
   const { setFilters, getGroups, groups, queryFields } = reportStore;
-
+  console.log(groups.map(m => ({ id: m.id, name: m.name })));
   const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   // const [cityName, setCityName] = useState<string>('');
@@ -53,7 +53,6 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
     const options = res.map(el => (el.id ? getOptionMui(el.id, el.shortName) : <></>));
     setFranchiseOptions(options);
   };
-  console.log(groups.map(m => ({id : m.id, name: m.name})));
 
   useEffect(() => {
     if (appStore.role === Roles.Admin) {
@@ -63,7 +62,7 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
 
   useEffect(() => {
     getGroups();
-  }, [franchiseId]);
+  }, [queryFields.franchise_id]);
 
   const searchHandler = () => {
     setFilters({
@@ -125,8 +124,8 @@ const ReportFilters: React.FC<ReportFiltersType> = observer(({ setCurrentPage })
                 <Select
                   labelId="franchise"
                   id="franchise"
-                  value={franchiseId}
-                  onChange={({ target: { value } }) => setFranchiseId(value)}
+                  value={queryFields.franchise_id}
+                  onChange={({ target: { value } }) => (queryFields.franchise_id = value)}
                   label="Франчайзинг"
                 >
                   {franchiseOptions}

@@ -19,12 +19,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Button from 'components/button/Button';
 import { observer } from 'mobx-react-lite';
-import reportStore from '../../app/stores/reportStore';
 import franchiseService from '../../app/services/franchiseService';
 import { getOptionMui } from '../../utils/getOption';
 
-import groupStore from '../../app/stores/groupStore';
 import groupsService from '../../app/services/groupsService';
+import reportStore from '../../app/stores/reportStore';
+import tariffsService from '../../app/services/tafiffService';
 
 const ReportFilters: React.FC = observer(() => {
   const { getReports, clearQueryFields, queryFields } = reportStore;
@@ -32,6 +32,7 @@ const ReportFilters: React.FC = observer(() => {
   const [isOpenFilters, setIsOpenFilters] = useState(false);
   const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
   const [groupOptions, setGroupOptions] = useState<JSX.Element[]>([]);
+  const [tariffsOptions, setTariffsOptions] = useState<JSX.Element[]>([]);
 
   const getFranchises = async () => {
     const res = await franchiseService.getAll();
@@ -39,13 +40,20 @@ const ReportFilters: React.FC = observer(() => {
     setFranchiseOptions(options);
   };
 
+  const getTariffs = async () => {
+    const res = await tariffsService.getAllTariffs();
+    const options = res.map(el => (el.id ? getOptionMui(el.id, el.name) : <></>));
+    setTariffsOptions(options);
+  };
+
   const getGroups = async () => {
     if (queryFields.franchise_id) {
       const res = await groupsService.getGroups({
         perPage: 10000,
         franchiseId: queryFields.franchise_id,
+        type: 'class',
       });
-      groupStore.groups = res?.items;
+      reportStore.groups = res?.items;
       setGroupOptions(res?.items?.map(el => getOptionMui(el.id, el.name)));
     } else {
       setGroupOptions([]);
@@ -60,6 +68,7 @@ const ReportFilters: React.FC = observer(() => {
 
   useEffect(() => {
     getFranchises();
+    getTariffs();
   }, []);
 
   useEffect(() => {
@@ -171,6 +180,7 @@ const ReportFilters: React.FC = observer(() => {
             </Grid>
             <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <DatePicker
+                label="Оплачен с"
                 onChange={value => {
                   value && (queryFields.date_since = new Date(value));
                 }}
@@ -179,6 +189,7 @@ const ReportFilters: React.FC = observer(() => {
                 renderInput={props => <TextField sx={{ width: '48%' }} {...props} />}
               />
               <DatePicker
+                label="Оплачен до"
                 onChange={value => {
                   value && (queryFields.date_until = new Date(value));
                 }}
@@ -188,13 +199,17 @@ const ReportFilters: React.FC = observer(() => {
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <TextField
-                label="Тариф"
-                fullWidth
-                variant="outlined"
-                value={queryFields.tariff_id || ''}
-                onChange={({ currentTarget: { value } }) => (queryFields.tariff_id = value)}
-              />
+              <FormControl fullWidth>
+                <InputLabel id="tariff">Тарифы</InputLabel>
+                <Select
+                  labelId="tariff"
+                  value={queryFields.tariff_id || ''}
+                  onChange={({ target: { value } }) => (queryFields.tariff_id = value)}
+                  label="Тариф"
+                >
+                  {tariffsOptions}
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12} sm={4} sx={{ display: 'flex', justifyContent: 'space-between' }} />
           </Grid>

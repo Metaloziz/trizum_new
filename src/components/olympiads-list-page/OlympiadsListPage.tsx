@@ -14,27 +14,23 @@ export const colNames = ['№', 'ФИО', 'Возраст', 'Дата', 'Кол�
 const OlympiadsListPage = observer(() => {
   const { selectedGroup } = groupStore;
 
-  let newData = [selectedGroup.users[0]]; // todo доделать локальную пагинацию
+  const { users } = selectedGroup; // todo доделать локальную пагинацию
 
   const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    newData = new Array(10).fill(selectedGroup.users[0]);
-  }, [selectedGroup]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
 
-  const isShowResult = newData[0] !== undefined;
+  const isShowResult = users[0] !== undefined;
 
   return (
     <div className={styles.container}>
-      <h2>Результаты олимпиады</h2>
+      <h2>Результат олимпиады</h2>
       <div className={styles.tableBlock}>
         {isShowResult ? (
           <Table loading={false} colNames={colNames}>
-            {newData.map(
+            {users.map(
               ({ id, user: { firstName, middleName, lastName, birthdate }, stats }, index) => (
                 <tr key={id}>
                   <td>{index + 1}</td>
@@ -54,14 +50,14 @@ const OlympiadsListPage = observer(() => {
         )}
       </div>
       <div className={styles.pagination}>
-        <Pagination
-          count={Math.floor(10 / 3)}
-          color="primary"
-          size="large"
-          page={currentPage}
-          boundaryCount={1}
-          onChange={handleChange}
-        />
+        {/* <Pagination */}
+        {/*  count={Math.floor(10 / 3)} */}
+        {/*  color="primary" */}
+        {/*  size="large" */}
+        {/*  page={currentPage} */}
+        {/*  boundaryCount={1} */}
+        {/*  onChange={handleChange} */}
+        {/* /> */}
       </div>
     </div>
   );

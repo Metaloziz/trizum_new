@@ -27,6 +27,7 @@ export type ResponseGroups = {
   teacherId: string;
   schedule: Schedule[];
 };
+
 export type WorkT = {
   id: string;
   title: string;
@@ -60,7 +61,7 @@ export class ResponseOneGroupCourse {
 
   createdAt = new TimeZoneType();
 
-  works:any [] = []
+  works: any[] = [];
 }
 
 type LocalUserT = ResponseOneUserTypeForLoadMe & {
@@ -149,6 +150,7 @@ export type CreateGroupFroUI = {
 } & CreateGroup;
 
 export type Schedule = { name: string; date: string; from: string; to: string };
+
 export type ScheduleForUI = {
   franchise: string;
   teacherId: string;
@@ -159,6 +161,7 @@ export type ScheduleForUI = {
   end: Date;
   id: number;
 };
+
 export type GroupParams = Partial<{
   perPage: number;
   page: number;
@@ -170,11 +173,13 @@ export type GroupParams = Partial<{
   level: string;
   schedule: Schedule[];
 }>;
+
 export type GroupParamsForUI = Partial<{
   dateSince: Date | string;
   dateUntil: Date | string;
 }> &
   GroupParams;
+
 export type GroupParamsForServer = Partial<{
   dateSince: string;
   dateUntil: string;

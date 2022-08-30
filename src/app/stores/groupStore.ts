@@ -61,7 +61,7 @@ class GroupStore {
     teacherId: '',
     dateSince: '',
     dateUntil: '',
-    type: '',
+    type: 'class',
     level: '',
   };
 

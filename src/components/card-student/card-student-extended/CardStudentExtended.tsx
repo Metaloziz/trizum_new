@@ -83,6 +83,11 @@ const CardStudentExtended: FC<Props> = ({
     }
   };
 
+  const setCurrentUserData = () => {
+    modals.changeParents();
+    getOneUser(id);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.rowWrapper}>
@@ -134,7 +139,7 @@ const CardStudentExtended: FC<Props> = ({
         </div>
         <div className={styles.buttonWrapper}>
           {roleCode === Roles.Student && (
-            <Button variant="parents" size="small" onClick={() => modals.changeParents()}>
+            <Button variant="parents" size="small" onClick={setCurrentUserData}>
               Родители
             </Button>
           )}

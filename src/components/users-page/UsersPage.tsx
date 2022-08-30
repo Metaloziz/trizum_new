@@ -84,7 +84,7 @@ const UsersPage = observer(() => {
       middleName,
       lastName,
       city,
-      birthdate,
+      birthdate_until: birthdate,
     });
   };
 
@@ -155,8 +155,8 @@ const UsersPage = observer(() => {
           onChange={onPageChange}
         />
       </div>
-      <BasicModal visibility={modals.isParents} changeVisibility={() => modals.changeParents()}>
-        <StudentPageFranchiseeModalParents />
+      <BasicModal visibility={modals.isParents} changeVisibility={modals.changeParents}>
+        <StudentPageFranchiseeModalParents user={currentUser} onCloseModal={modals.changeParents} />
       </BasicModal>
       <BasicModal visibility={isModalOpen} changeVisibility={setIsModalOpen}>
         <StudentPageFranchiseeModalAddUser onCloseModal={() => setIsModalOpen(false)} />

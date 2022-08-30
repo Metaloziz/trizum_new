@@ -12,7 +12,7 @@ import iconMedal from 'assets/svgs/medal.svg';
 import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
-import CustomSelect from 'components/select/CustomSelect';
+import CustomSelect from 'components/select-mui/CustomSelect';
 // import TextField from 'components/text-field/TextField';
 import styles from 'components/users-page/student-parents-form/StudentParentsForm.module.scss';
 import { action } from 'components/users-page/student-parents-form/utils/action';
@@ -41,7 +41,7 @@ type Props = {
 type CreateParentPayloadT = Omit<
   RequestRegister,
   'tariffId' | 'franchiseId' | 'isSecondChild' | 'role' | 'groupId' | 'sex'
-> & { sex: OptionT | undefined; isMain: boolean };
+> & { sex: OptionT | undefined | any; isMain: boolean };
 
 const StudentParentsForm: FC<Props> = ({
   setIsSubmitSuccessful,
@@ -89,7 +89,7 @@ const StudentParentsForm: FC<Props> = ({
       .required('Обязательное поле'),
     email: yup.string().required('Обязательное поле').email(),
     birthdate: yup.string().required('Обязательное поле'), // todo проверить после добавления dataPicker
-    sex: yup.object().required('Обязательное поле'),
+    sex: yup.string().required('Обязательное поле'),
     isMain: yup.boolean().required('Обязательное поле'),
   });
 
@@ -101,7 +101,7 @@ const StudentParentsForm: FC<Props> = ({
     phone: parent?.parent.phone || '',
     email: parent?.parent.email || '',
     birthdate: '01.01.2000',
-    sex: sexOptions[0],
+    sex: sexOptions[0].value,
     isMain: parent?.isMain || false,
   };
 
@@ -114,8 +114,8 @@ const StudentParentsForm: FC<Props> = ({
 
   const onSubmit: SubmitHandler<CreateParentPayloadT> = async values => {
     const newParent: RequestRegister = {
-      sex: (values.sex?.label as SexEnum) === SexEnum.Male,
-      phone: values.phone,
+      sex: (values.sex as SexEnum) === SexEnum.Male,
+      phone: values.phone?.replace(/[()\s+-]/g, ''),
       middleName: values.middleName,
       city: values.city,
       lastName: values.lastName,

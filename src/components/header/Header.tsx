@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import styles from './Header.module.scss';
 
 import Account from 'components/account/Account';
-import Burger from 'components/burger/Burger';
+import BurgerButton from 'components/burger/Burger';
 import DropDownMenu from 'components/drop-down-menu/DropDownMenu';
 import Logo from 'components/logo/Logo';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -17,11 +17,15 @@ const Header: FC<Props> = ({ className }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClick = () => {
-    setOpen(prev => !prev);
+    if (window.innerWidth <= 1280) {
+      setOpen(prev => !prev);
+    }
   };
 
   const handleClickAway = () => {
-    setOpen(false);
+    if (window.innerWidth <= 1280) {
+      setOpen(false);
+    }
   };
   return (
     <header
@@ -32,7 +36,7 @@ const Header: FC<Props> = ({ className }) => {
     >
       <div className={styles.accountBlock}>
         <div className={styles.burgerBlock} onClick={handleClick}>
-          <Burger />
+          <BurgerButton />
         </div>
         <Logo />
       </div>

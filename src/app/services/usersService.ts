@@ -23,7 +23,7 @@ const usersService = {
         middle_name: params?.middleName || undefined || null,
         last_name: params?.lastName || undefined || null,
         city: params?.city || undefined,
-        birthdate: params?.birthdate || undefined,
+        birthdate: params?.birthdate_until || undefined,
       },
     });
     return res.data;
@@ -39,7 +39,7 @@ const usersService = {
         middle_name: params?.middleName || undefined || null,
         last_name: params?.lastName || undefined || null,
         city: params?.city || undefined,
-        birthdate: params?.birthdate || undefined,
+        birthdate: params?.birthdate_until || undefined,
       },
     });
     return res.data;

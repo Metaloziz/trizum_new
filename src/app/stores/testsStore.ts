@@ -3,13 +3,20 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { StatusTypes } from 'app/enums/StatusTypes';
 import { testsService } from 'app/services/testsService';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
-import { ContentIDT, OneTestT, PreviewTestT } from 'app/types/TestsT';
+import { ContentIDT, OneTestT, PreviewTestT, TestsParamsForServer } from 'app/types/TestsT';
 import { FIRST_ARRAY_ITEM } from 'constants/constants';
 import { addIdElements } from 'utils/addIdElements';
 import { executeError } from 'utils/executeError';
 
 class TestsStore {
-  tests: PreviewTestT[] = [];
+  tests: PreviewTestT[] = [
+    {
+      id: '1',
+      title: 'draft',
+      status: 'draft',
+      createdAt: { date: '', timezone_type: 0, timezone: '' },
+    },
+  ];
 
   testsTotalCount = 1;
 
@@ -70,9 +77,9 @@ class TestsStore {
     }, this);
   };
 
-  setTests = () => {
+  setTests = (params?: TestsParamsForServer) => {
     executeError(async () => {
-      const res = await testsService.getTests();
+      const res = await testsService.getTests(params);
 
       runInAction(() => {
         this.tests = res.items;

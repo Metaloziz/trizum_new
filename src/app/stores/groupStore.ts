@@ -61,7 +61,7 @@ class GroupStore {
     teacherId: '',
     dateSince: '',
     dateUntil: '',
-    type: '',
+    type: 'class',
     level: '',
   };
 
@@ -99,26 +99,10 @@ class GroupStore {
     }
   };
 
-  loadCurrentGroups = (franchiseId: string, selectedRole: Roles | undefined) => {
-    this.groups = [];
+  loadCurrentGroups = (selectedRole: Roles | undefined, paramsData?: GroupParamsForServer) => {
+    // todo зачем здесь нужна роль ?
     this.execute(async () => {
-      let copyGroups: ResponseGroups[] = [];
-      if (selectedRole === Roles.Student) {
-        await this.getGroups();
-
-        copyGroups = [...this.groups];
-
-        await this.getGroups();
-
-        runInAction(() => {
-          this.groups = [...this.groups, ...copyGroups];
-        });
-      }
-
-      if (selectedRole === Roles.TeacherEducation) {
-        copyGroups = [];
-        await this.getGroups();
-      }
+      await this.getGroups({ ...paramsData });
     });
   };
 

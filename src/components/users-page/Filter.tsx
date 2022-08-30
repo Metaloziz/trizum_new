@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
@@ -25,6 +25,8 @@ import InformationItem from 'components/information-item/InformationItem';
 import { Roles } from 'app/stores/appStore';
 import { RoleNames } from 'app/enums/RoleNames';
 import { OptionT } from 'app/types/OptionT';
+import { observer } from 'mobx-react-lite';
+import { RequestUsersForFilter } from 'app/types/UserTypes';
 
 const roleOptions = [
   { label: 'Все', value: 'all' },
@@ -43,7 +45,7 @@ interface UserPageFilterProps {
   setIsModalOpen: (value: boolean) => void;
 }
 
-export const Filter = (props: UserPageFilterProps) => {
+export const Filter: FC<UserPageFilterProps> = observer(props => {
   const {
     users,
     usersTotalCount,
@@ -65,20 +67,20 @@ export const Filter = (props: UserPageFilterProps) => {
   const [middleName, setMiddleName] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
+  const [bornDataSince, setBornDataSince] = React.useState<Date | null>(new Date('2000-01-01'));
 
   const handleChangeMainData = (newValue: Date | null) => {
-    setMainData(newValue);
+    setBornDataSince(newValue);
   };
 
   const handleChange = (event: SelectChangeEvent) => {
     setCity(event.target.value);
   };
 
-  const [bornDate, setBornDaate] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
+  const [bornDateUntil, setBornDateUntil] = React.useState<Date | null>(new Date('2000-01-02'));
 
   const handleChangeBornData = (newValue: Date | null) => {
-    setBornDaate(newValue);
+    setBornDateUntil(newValue);
   };
 
   const onSelectRole = (option: OptionT) => {
@@ -86,14 +88,12 @@ export const Filter = (props: UserPageFilterProps) => {
   };
 
   const onSearchClick = () => {
-    getUsersForFilter({
-      role: selectedRole?.value as Roles,
-      perPage,
-      page: currentPage,
-      lastName,
-      firstName,
-      middleName,
-    });
+    const params: RequestUsersForFilter = {
+      birthdate_since: bornDataSince?.toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }),
+    };
+
+    console.log(params);
+    getUsersForFilter(params);
   };
 
   return (
@@ -108,12 +108,19 @@ export const Filter = (props: UserPageFilterProps) => {
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4} sx={{ display: 'flex', gap: '15px' }}>
               <DesktopDatePicker
-                label="Дата "
+                label="Дата рождения с"
                 inputFormat="DD/MM/YYYY"
-                value={mainData}
+                value={bornDataSince}
                 onChange={handleChangeMainData}
+                renderInput={params => <TextField {...params} fullWidth />}
+              />
+              <DesktopDatePicker
+                label="Дата рождения по"
+                inputFormat="DD/MM/YYYY"
+                value={bornDateUntil}
+                onChange={handleChangeBornData}
                 renderInput={params => <TextField {...params} fullWidth />}
               />
             </Grid>
@@ -132,15 +139,7 @@ export const Filter = (props: UserPageFilterProps) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <DesktopDatePicker
-                label="Дата рождения"
-                inputFormat="DD/MM/YYYY"
-                value={bornDate}
-                onChange={handleChangeBornData}
-                renderInput={params => <TextField {...params} fullWidth />}
-              />
-            </Grid>
+
             <Grid item xs={12} sm={4}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Город</InputLabel>
@@ -241,4 +240,4 @@ export const Filter = (props: UserPageFilterProps) => {
       </Accordion>
     </Box>
   );
-};
+});

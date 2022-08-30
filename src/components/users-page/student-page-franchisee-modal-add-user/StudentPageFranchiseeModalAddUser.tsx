@@ -167,9 +167,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     );
   });
 
-  const getCurrentGroups = (value: string) => {
+  const getCurrentGroups = (franchiseId: string) => {
     resetField('group');
-    loadCurrentGroups(value, selectedRole);
+    loadCurrentGroups(selectedRole, { franchiseId, type: 'class' });
   };
 
   useEffect(() => {
@@ -178,7 +178,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     }
 
     if (isStudentTeacherEducation(selectedRole)) {
-      loadCurrentGroups(franchiseOptions[0].value, selectedRole);
+      loadCurrentGroups(selectedRole, { franchiseId: franchiseOptions[0].value, type: 'class' });
     }
 
     resetField('franchise');

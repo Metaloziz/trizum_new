@@ -24,7 +24,7 @@ import user from 'public/svgs/user.svg';
 import { OptionT } from 'app/types/OptionT';
 import TextFieldCustom from "../../text-field-mui/TextFieldCustom";
 import TextFieldPhoneCustom from "../../text-field-phone-mui/TextFieldPhoneCustom";
-import {Checkbox, FormControl, FormControlLabel, FormGroup, InputLabel, TextField} from "@mui/material";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, InputLabel, TextField} from "@mui/material";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 type Props = {
@@ -237,11 +237,17 @@ const StudentParentsForm: FC<Props> = ({
                         <FormControlLabel control={
                           <Checkbox
                               color="primary"
-                              checked={field.value}
-                              onChange={(e) => field.onChange(e.target.checked)}
+                              checked={isMainParent}
+                              disabled={isSubmitAnyForm}
+                              onChange={e => {
+                                field.onChange(e);
+                                handlerRadioChange();
+                              }}
+
                           />
                         }
                                           label="Основной"/>
+                        <FormHelperText error={!errors.isMain?.message}>{errors.isMain?.message}</FormHelperText>
                       </FormGroup>
                       <div className={styles.medal}>
                         <Image src={iconMedal} width="20" height="20" alt="medal" />

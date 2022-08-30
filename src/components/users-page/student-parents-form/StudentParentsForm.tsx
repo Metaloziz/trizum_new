@@ -13,7 +13,7 @@ import Button from 'components/button/Button';
 import CustomImageWrapper from 'components/custom-image-wrapper/CustomImageWrapper';
 import Image from 'components/image/Image';
 import CustomSelect from 'components/select/CustomSelect';
-import TextField from 'components/text-field/TextField';
+// import TextField from 'components/text-field/TextField';
 import styles from 'components/users-page/student-parents-form/StudentParentsForm.module.scss';
 import { action } from 'components/users-page/student-parents-form/utils/action';
 import { sexOptions } from 'components/users-page/student-parents-form/utils/sexOptions';
@@ -24,6 +24,8 @@ import user from 'public/svgs/user.svg';
 import { OptionT } from 'app/types/OptionT';
 import TextFieldCustom from "../../text-field-mui/TextFieldCustom";
 import TextFieldPhoneCustom from "../../text-field-phone-mui/TextFieldPhoneCustom";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, InputLabel, TextField} from "@mui/material";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 type Props = {
   localParentFormID: number;
@@ -179,7 +181,26 @@ const StudentParentsForm: FC<Props> = ({
             <Controller
               name="birthdate"
               render={({ field }) => (
-                <TextField {...field} label="Дата рождения:" error={errors.birthdate?.message} />
+                  <FormControl fullWidth>
+                    {/* <InputLabel htmlFor="birthdate">Дата рождения</InputLabel> */}
+                    <DatePicker
+                        onChange={(date: Date | null) => {
+                            if (date) {
+                                field.onChange(date.toISOString());
+                            }
+                            }
+                        }
+                        value={field.value}
+                        renderInput={(props) =>(
+                            <TextField
+                                {...props}
+                                label="Дата рождения"
+                                error={!!errors.birthdate?.message}
+                                helperText={errors.birthdate?.message}
+                            />
+                        )}
+                    />
+                  </FormControl>
               )}
               control={control}
             />
@@ -212,22 +233,16 @@ const StudentParentsForm: FC<Props> = ({
                 <div className={styles.label}>
                   {localParentFormID === MAIN_PARENT_ID && (
                     <>
-                      <label>
-                        <TextField
-                          {...field}
-                          type="checkbox"
-                          onChange={e => {
-                            field.onChange(e);
-                            handlerRadioChange();
-                          }}
-                          checked={isMainParent}
-                          disabled={isSubmitAnyForm}
-                          title="Основной"
-                          value="checkbox"
-                          error={errors.isMain?.message}
-                        />
-                        Основной
-                      </label>
+                      <FormGroup>
+                        <FormControlLabel control={
+                          <Checkbox
+                              color="primary"
+                              checked={field.value}
+                              onChange={(e) => field.onChange(e.target.checked)}
+                          />
+                        }
+                                          label="Основной"/>
+                      </FormGroup>
                       <div className={styles.medal}>
                         <Image src={iconMedal} width="20" height="20" alt="medal" />
                       </div>

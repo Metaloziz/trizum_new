@@ -54,12 +54,10 @@ const ClassesPage = observer(() => {
     await getOneGroup(id);
   };
 
-  useEffect(
-    useCallback(() => {
-      getGroups();
-    }, []),
-    [],
-  );
+  useEffect(() => {
+    getGroups();
+  }, []);
+
   useEffect(() => {
     if (groups.length && selectedGroup?.id !== groups[0].id) getOneGroup(groups[0].id);
     return () => {
@@ -72,9 +70,7 @@ const ClassesPage = observer(() => {
       <div className={styles.wrapper}>
         <div className={styles.searchBar}>
           {checkRoleForClasses(appStore.role) && (
-            <Button onClick={() => openModal()} disabled={!!selectedGroup}>
-              Добавить группу
-            </Button>
+            <Button onClick={() => openModal()}>Добавить группу</Button>
           )}
           <SearchBar />
         </div>
@@ -150,7 +146,7 @@ const ClassesPage = observer(() => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <p>Total: {total}</p>
+            {/* <p>Total: {total}</p> */}
             <Box
               sx={{
                 display: 'flex',

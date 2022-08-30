@@ -86,7 +86,6 @@ const AddOlympiad = observer(() => {
   };
 
   const count = Math.ceil(total / perPage);
-  console.log(count);
 
   return (
     <div className={styles.containerAdd}>
@@ -105,7 +104,13 @@ const AddOlympiad = observer(() => {
               <td>-</td>
               <td>
                 {IS_EDIT_ROLE && (
-                  <Button onClick={() => setEditModal(id)}>
+                  <Button
+                    className={styles.settingOlympiad}
+                    onClick={event => {
+                      event.stopPropagation();
+                      setEditModal(id);
+                    }}
+                  >
                     <Image src={image} />
                   </Button>
                 )}

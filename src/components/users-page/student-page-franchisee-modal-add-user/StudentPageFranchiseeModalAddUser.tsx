@@ -26,7 +26,6 @@ import { isStudentCreated } from 'components/users-page/student-page-franchisee-
 import { isStudentRole } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentRole';
 import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
-// import TextField from 'components/text-field/TextField';
 import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'constants/constants';
 import { REG_NAME, REG_PHONE } from 'constants/regExp';
@@ -168,9 +167,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     );
   });
 
-  const getCurrentGroups = (value: string) => {
+  const getCurrentGroups = (franchiseId: string) => {
     resetField('group');
-    loadCurrentGroups(value, selectedRole);
+    loadCurrentGroups(selectedRole, { franchiseId, type: 'class' });
   };
 
   useEffect(() => {
@@ -179,7 +178,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     }
 
     if (isStudentTeacherEducation(selectedRole)) {
-      loadCurrentGroups(franchiseOptions[0].value, selectedRole);
+      loadCurrentGroups(selectedRole, { franchiseId: franchiseOptions[0].value, type: 'class' });
     }
 
     resetField('franchise');

@@ -31,13 +31,13 @@ const Login = () => {
   const qwe = (role: Roles) => {
     switch (role) {
       case Roles.Student:
-        setPhone('71119009103');
+        setPhone(`${func(isTester, isAnalytic)}8008080`);
         break;
       case Roles.TeacherEducation:
         setPhone(`${func(isTester, isAnalytic)}7007070`);
         break;
       case Roles.Teacher:
-        setPhone(`71100974671`);
+        setPhone(`${func(isTester, isAnalytic)}6006060`);
         break;
       case Roles.FranchiseeAdmin:
         setPhone(`${func(isTester, isAnalytic)}5005050`);

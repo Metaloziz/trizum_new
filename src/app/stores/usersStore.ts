@@ -51,6 +51,7 @@ class UsersStore {
 
   getUsersForFilter = async (params?: RequestUsersForFilter) => {
     const res = await usersService.getUsersForFilters(params);
+    console.log(params);
     console.log(res);
     runInAction(() => {
       this.users = res.items;
@@ -61,7 +62,7 @@ class UsersStore {
       this.middleName = params?.middleName;
       this.lastName = params?.lastName;
       this.city = params?.city;
-      this.birthdate = params?.birthdate;
+      this.birthdate = params?.birthdate_until;
     });
   };
 

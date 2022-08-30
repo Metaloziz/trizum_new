@@ -1,10 +1,8 @@
-.container {
-  width: 60%;
-  padding: 32px 0 0 70px;
+@import "src/styles/mixins";
 
-  @media (max-width: 1600px) {
-    width: 70%;
-  }
+.container {
+  width: 90%;
+  padding: 32px 0 0 70px;
 
   @media (max-width: 1400px) {
     width: 80%;
@@ -16,6 +14,11 @@
     padding: 30px 20px;
     .tableBlock {
       max-width: 100vw;
+
+      h3 {
+        width: 100%;
+      }
+
     }
   }
 

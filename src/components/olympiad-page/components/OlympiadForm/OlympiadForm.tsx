@@ -37,6 +37,8 @@ type Props = {
 export const OlympiadForm: FC<Props> = observer(({ setShowModal, mode = 'add', group }) => {
   const IS_ADD_MODE = mode === 'add';
 
+  const title = <h2>{IS_ADD_MODE ? 'Добавление' : 'Редактирование'} олимпиады</h2>;
+
   const { franchise } = franchiseeStore;
   const { courses } = coursesStore;
   const { groups, getGroups } = groupStore;
@@ -136,8 +138,7 @@ export const OlympiadForm: FC<Props> = observer(({ setShowModal, mode = 'add', g
   return (
     <form>
       <div className={style.modalOlympiad}>
-        <h2>Добавление олимпиады</h2>
-
+        {title}
         <div className={style.modalName}>
           <TextField
             {...register('name')}

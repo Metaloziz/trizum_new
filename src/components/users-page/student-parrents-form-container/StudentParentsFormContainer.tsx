@@ -74,7 +74,6 @@ export const StudentParentsFormContainer: FC<Props> = ({
 
   return (
     <div>
-      <Divider />
       <h2 className={styles.parentTitle}>Родители ученика*</h2>
       <div className={style.wrapper}>
         <div className={style.forms}>

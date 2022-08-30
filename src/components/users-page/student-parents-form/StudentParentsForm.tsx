@@ -148,7 +148,7 @@ const StudentParentsForm: FC<Props> = ({
           <Controller
             name="middleName"
             render={({ field }) => (
-              <TextField {...field} label="Фамилия" error={errors.middleName?.message} />
+              <TextField {...field} label="Отчество" error={errors.middleName?.message} />
             )}
             control={control}
           />
@@ -162,7 +162,7 @@ const StudentParentsForm: FC<Props> = ({
           <Controller
             name="lastName"
             render={({ field }) => (
-              <TextField {...field} label="Отчество" error={errors.lastName?.message} />
+              <TextField {...field} label="Фамилия" error={errors.lastName?.message} />
             )}
             control={control}
           />

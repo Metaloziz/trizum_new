@@ -30,8 +30,9 @@ import Test from 'pages/testing/test/Test';
 import { Testing } from 'pages/testing/Testing';
 import UserInfo from 'pages/user-info/UserInfo';
 import Users from 'pages/users/Users';
-import Games from 'pages/games/Games';
 import OlympiadsListPage from 'components/olympiads-list-page/OlympiadsListPage';
+import { SecondaryRoutes } from 'app/enums/SecondaryRoutes';
+import { TestsList } from 'pages/testing/TestsList/TestsList';
 
 const App = observer(() => (
   <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -43,6 +44,7 @@ const App = observer(() => (
           <Route path={AppRoutes.Blog}>
             <Route path="" element={<Blog />} />
             <Route path=":articleName" element={<Article />} />
+            <Route path={SecondaryRoutes.AddTest} element={<div>qweqweqwe</div>} />
           </Route>
 
           <Route path={AppRoutes.Classes} element={<Classes />} />
@@ -70,8 +72,8 @@ const App = observer(() => (
             <Route path="" element={<Testing />} />
             <Route path=":testName" element={<Test />} />
             <Route path="result" element={<Result />} />
+            <Route path={SecondaryRoutes.AddTest} element={<TestsList />} />
           </Route>
-
           <Route path={AppRoutes.UserInfo} element={<UserInfo />} />
           <Route path={AppRoutes.Users} element={<Users />} />
         </Route>

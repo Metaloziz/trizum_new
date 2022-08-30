@@ -1,16 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-import { DesktopDatePicker } from '@mui/x-date-pickers';
-import cn from 'classnames';
 import { observer } from 'mobx-react-lite';
 
 import modals from '../../app/stores/CardStudentExtended';
@@ -27,9 +16,7 @@ import tariffsStore from 'app/stores/tariffsStore';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
 import BasicModal from 'components/basic-modal/BasicModal';
-import Button from 'components/button/Button';
 import CardStudentExtended from 'components/card-student/card-student-extended/CardStudentExtended';
-import InformationItem from 'components/information-item/InformationItem';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
 import { OptionT } from 'app/types/OptionT';
@@ -64,7 +51,6 @@ const UsersPage = observer(() => {
     city,
     birthdate,
   } = usersStore;
-  console.log(firstName, middleName, lastName, 'hello');
 
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
@@ -74,6 +60,7 @@ const UsersPage = observer(() => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(page);
   const [selectedRole, setSelectedRole] = useState<OptionT>();
+
   const onSelectRole = (option: OptionT) => {
     option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
   };
@@ -97,7 +84,7 @@ const UsersPage = observer(() => {
       middleName,
       lastName,
       city,
-      birthdate,
+      birthdate_until: birthdate,
     });
   };
 
@@ -168,8 +155,8 @@ const UsersPage = observer(() => {
           onChange={onPageChange}
         />
       </div>
-      <BasicModal visibility={modals.isParents} changeVisibility={() => modals.changeParents()}>
-        <StudentPageFranchiseeModalParents />
+      <BasicModal visibility={modals.isParents} changeVisibility={modals.changeParents}>
+        <StudentPageFranchiseeModalParents user={currentUser} onCloseModal={modals.changeParents} />
       </BasicModal>
       <BasicModal visibility={isModalOpen} changeVisibility={setIsModalOpen}>
         <StudentPageFranchiseeModalAddUser onCloseModal={() => setIsModalOpen(false)} />

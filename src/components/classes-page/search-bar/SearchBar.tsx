@@ -104,7 +104,10 @@ const SearchBar = observer(() => {
                     labelId="franchise-search"
                     label="Франчайзинг"
                     value={queryFields.franchiseId}
-                    onChange={({ target: { value } }) => (queryFields.franchiseId = value)}
+                    onChange={({ target: { value } }) => {
+                      queryFields.franchiseId = value;
+                      queryFields.teacherId = '';
+                    }}
                   >
                     {franchiseOptions}
                   </Select>
@@ -186,8 +189,8 @@ const SearchBar = observer(() => {
               px: 1,
             }}
           >
-            <Button onClick={getGroups}>Применить</Button>
             <Button onClick={clearQueryFields}>Сбросить</Button>
+            <Button onClick={() => getGroups()}>Применить</Button>
           </Stack>
         </AccordionActions>
       </Accordion>

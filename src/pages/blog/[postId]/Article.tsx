@@ -16,9 +16,9 @@ const Article: FC<Props> = observer(() => {
     case Roles.Methodist:
     case Roles.TeacherEducation:
     case Roles.Tutor:
+    case Roles.FranchiseeAdmin:
     case Roles.Student:
       return <PostPage />;
-    case Roles.FranchiseeAdmin:
     default:
       return <Custom404 />;
   }

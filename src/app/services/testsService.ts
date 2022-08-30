@@ -2,18 +2,28 @@ import { Paths } from 'app/enums/Paths';
 import instance from 'app/services/config';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
 import { ArticleTestResultResponseT } from 'app/types/ArticleTestResultResponseT';
-import { OneTestT, TestsT } from 'app/types/TestsT';
+import { OneTestT, TestsParamsForServer, TestsT } from 'app/types/TestsT';
+
+type TestPayloadType = {
+  title: string;
+  content: []; // todo не доделано
+};
 
 export const testsService = {
-  getTests: async (): Promise<TestsT> => {
-    const { data } = await instance.get(Paths.Tests);
+  getTests: async (params?: TestsParamsForServer): Promise<TestsT> => {
+    const { data } = await instance.get(Paths.Tests, { params });
     return data;
   },
 
   getOneTest: async (
     testId: string, // todo hard cod
   ): Promise<OneTestT> => {
-    const { data } = await instance.get(`${Paths.Tests}/1ed18aad-ed71-65dc-a93b-294197f27a74`);
+    const { data } = await instance.get(`${Paths.Tests}/${testId}`);
+    return data;
+  },
+
+  postTest: async () => {
+    const { data } = await instance.post(Paths.Tests);
     return data;
   },
 

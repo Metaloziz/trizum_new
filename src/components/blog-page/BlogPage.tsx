@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
@@ -11,10 +11,14 @@ import appStore, { Roles } from 'app/stores/appStore';
 import articlesStore from 'app/stores/articlesStore';
 import Button from 'components/button/Button';
 import BlogItem from 'components/molecules/BlogItem';
+import BasicModal from 'components/basic-modal/BasicModal';
+import { SecondaryRoutes } from 'app/enums/SecondaryRoutes';
 
 const BlogPage: FunctionComponent = observer(() => {
   const { role } = appStore;
   const { setCurrentArticleAPI } = articlesStore;
+
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCurrentArticleAPI();
@@ -23,16 +27,27 @@ const BlogPage: FunctionComponent = observer(() => {
   const navigate = useNavigate();
 
   const onClickAddPost = () => {
+    setShowModal(true);
     navigate(`${AppRoutes.Blog}/add-post`);
   };
 
   const onClickAddTest = () => {
-    navigate(`${AppRoutes.Blog}/add-test`);
+    navigate(`${AppRoutes.Testing}/${SecondaryRoutes.AddTest}`);
+  };
+
+  const isAdmin = () => {
+    switch (role) {
+      case Roles.Admin:
+      case Roles.Methodist:
+        return true;
+      default:
+        return false;
+    }
   };
 
   return (
     <div className={styles.container}>
-      {role === Roles.Methodist && (
+      {isAdmin() && (
         <>
           <Button onClick={onClickAddPost}>Добавить статью</Button>
           <Button onClick={onClickAddTest}>Добавить тест</Button>
@@ -47,6 +62,9 @@ const BlogPage: FunctionComponent = observer(() => {
           imgSrc={item.img}
         />
       ))}
+      <BasicModal visibility={showModal} changeVisibility={setShowModal}>
+        <div>добавить тест</div>
+      </BasicModal>
     </div>
   );
 });

@@ -60,6 +60,7 @@ const ReportFilters: React.FC = observer(() => {
     }
   };
   const searchHandler = () => {
+    queryFields.page = 0;
     getReports();
   };
   const resetHandler = () => {
@@ -69,6 +70,9 @@ const ReportFilters: React.FC = observer(() => {
   useEffect(() => {
     getFranchises();
     getTariffs();
+    return () => {
+      clearQueryFields();
+    };
   }, []);
 
   useEffect(() => {

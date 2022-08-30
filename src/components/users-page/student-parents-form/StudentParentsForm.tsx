@@ -184,13 +184,14 @@ const StudentParentsForm: FC<Props> = ({
                   <FormControl fullWidth>
                     {/* <InputLabel htmlFor="birthdate">Дата рождения</InputLabel> */}
                     <DatePicker
+                        {...field}
                         onChange={(date: Date | null) => {
                             if (date) {
-                                field.onChange(date.toISOString());
+                                field.onChange(date.toISOString().split('T')[0]);
                             }
                             }
                         }
-                        value={field.value}
+                        value={field.value ? new Date(field.value) : null}
                         renderInput={(props) =>(
                             <TextField
                                 {...props}

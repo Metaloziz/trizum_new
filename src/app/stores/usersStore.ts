@@ -13,13 +13,14 @@ import {
 } from 'app/types/UserTypes';
 import { checkErrorMessage, ErrorMessageType } from 'utils/checkErrorMessage';
 import { SearchUserType } from 'app/types/SearchUserType';
+import { GroupParamsForUI } from 'app/types/GroupTypes';
 
 class UsersStore {
   users: ResponseUserT[] = [];
 
   usersTotalCount = 1;
 
-  page = 1;
+  page = 0;
 
   perPage = 5;
 
@@ -35,6 +36,23 @@ class UsersStore {
 
   birthdate: SearchUserType;
 
+  private searchUsersParams: RequestUsersForFilter = {
+    perPage: 10,
+    page: 0,
+    city: null,
+    franchiseId: null,
+    lastName: null,
+    middleName: null,
+    firstName: null,
+    is_payed: null,
+    role: null,
+    birthdate_since: null,
+    birthdate_until: null,
+    phone: null,
+    email: null,
+    tariff_id: null,
+  };
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -49,20 +67,13 @@ class UsersStore {
     });
   };
 
-  getUsersForFilter = async (params?: RequestUsersForFilter) => {
-    const res = await usersService.getUsersForFilters(params);
-    console.log(params);
-    console.log(res);
+  getFilteredUsers = async () => {
+    const res = await usersService.getUsersForFilters(this.searchUsersParams);
     runInAction(() => {
       this.users = res.items;
       this.usersTotalCount = res.total;
       this.perPage = res.perPage;
       this.page = Number(res.page);
-      this.firstName = params?.firstName;
-      this.middleName = params?.middleName;
-      this.lastName = params?.lastName;
-      this.city = params?.city;
-      this.birthdate = params?.birthdate_until;
     });
   };
 
@@ -121,6 +132,11 @@ class UsersStore {
       console.warn(e);
     }
     return undefined;
+  };
+
+  setSearchUsersParams = (params: RequestUsersForFilter) => {
+    this.searchUsersParams = { ...this.searchUsersParams, ...params };
+    console.log(this.searchUsersParams);
   };
 
   cleanSearchUsersParams = () => {

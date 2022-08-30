@@ -3,13 +3,8 @@ import Pagination from '@mui/material/Pagination';
 import { observer } from 'mobx-react-lite';
 
 import modals from '../../app/stores/CardStudentExtended';
-import { Loader } from '../loader/Loader';
 
-import { Filter } from './Filter';
 import styles from './UsersPage.module.scss';
-
-import { RoleNames } from 'app/enums/RoleNames';
-import { Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
 import tariffsStore from 'app/stores/tariffsStore';
@@ -19,73 +14,32 @@ import BasicModal from 'components/basic-modal/BasicModal';
 import CardStudentExtended from 'components/card-student/card-student-extended/CardStudentExtended';
 import StudentPageFranchiseeModalAddUser from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser';
 import StudentPageFranchiseeModalParents from 'components/users-page/student-page-franchisee-modal-parents/StudentPageFranchiseeModalParents';
-import { OptionT } from 'app/types/OptionT';
-
-const roleOptions = [
-  { label: 'Все', value: 'all' },
-  { label: RoleNames.student, value: Roles.Student },
-  { label: RoleNames.parent, value: Roles.Parent },
-  { label: RoleNames.teacherEducation, value: Roles.TeacherEducation },
-  { label: RoleNames.teacher, value: Roles.Teacher },
-  { label: RoleNames.franchiseeAdmin, value: Roles.FranchiseeAdmin },
-  { label: RoleNames.franchisee, value: Roles.Franchisee },
-  { label: RoleNames.tutor, value: Roles.Tutor },
-  { label: RoleNames.methodist, value: Roles.Methodist },
-  { label: RoleNames.admin, value: Roles.Admin },
-];
+import { Filter } from 'components/users-page/filter/Filter';
 
 const UsersPage = observer(() => {
   const {
     users,
     usersTotalCount,
-    getUsers,
     createUser,
     getOneUser,
-    cleanSearchUsersParams,
     currentUser,
     page,
     perPage,
-    firstName,
-    middleName,
-    lastName,
-    city,
-    birthdate,
+    getFilteredUsers,
+    setSearchUsersParams,
   } = usersStore;
 
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
   const { getTariffs } = tariffsStore;
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [currentPage, setCurrentPage] = useState<number>(page);
-  const [selectedRole, setSelectedRole] = useState<OptionT>();
-
-  const onSelectRole = (option: OptionT) => {
-    option.value === 'all' ? setSelectedRole(undefined) : setSelectedRole(option);
-  };
-
-  const load = async () => {
-    cleanSearchUsersParams();
-    await getUsers();
-    setIsLoaded(true);
-  };
-
-  const onSearchClick = () => {
-    getUsers({ role: selectedRole?.value as Roles, page: currentPage });
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(page + 1);
 
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
+    setSearchUsersParams({ page: newCurrentPage - 1 });
     setCurrentPage(newCurrentPage);
-    getUsers({
-      page: newCurrentPage - 1,
-      role: selectedRole?.value as Roles,
-      firstName,
-      middleName,
-      lastName,
-      city,
-      birthdate_until: birthdate,
-    });
+    getFilteredUsers();
   };
 
   const onAddUser = (data: RequestRegister) => {
@@ -95,43 +49,16 @@ const UsersPage = observer(() => {
 
   const onEditUserClick = (id: string) => {
     console.log(id);
-    // const res = await getOneUser(id);
-    // if (res) {
-    //   setCurrentUser(res);
-    //   setIsModalOpen(true);
-    // }
-  };
-
-  // const [city, setCity] = React.useState('');
-  //
-  // const handleChange = (event: SelectChangeEvent) => {
-  //   setCity(event.target.value);
-  // };
-
-  const [mainData, setMainData] = React.useState<Date | null>(new Date('2015-08-18T21:11:54'));
-
-  const handleChangeMainData = (newValue: Date | null) => {
-    setMainData(newValue);
-  };
-
-  const [value, setValue] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
-
-  const handleChangeBornData = (newValue: Date | null) => {
-    setValue(newValue);
   };
 
   useEffect(() => {
-    load();
     getFranchisee();
     getGroups();
     getTariffs();
+    getFilteredUsers();
   }, []);
 
-  const setDate = (e: ChangeEvent<HTMLInputElement>) => {};
-
-  return !isLoaded ? (
-    <Loader />
-  ) : (
+  return (
     <div className={styles.wrapper}>
       <Filter setIsModalOpen={setIsModalOpen} />
       <div className={styles.cardWrapper}>
@@ -146,11 +73,10 @@ const UsersPage = observer(() => {
       </div>
       <div className={styles.pagination}>
         <Pagination
-          count={Math.floor(usersTotalCount / perPage)}
+          count={Math.ceil(usersTotalCount / perPage)}
           color="primary"
           size="large"
           page={currentPage}
-          defaultValue={0}
           boundaryCount={1}
           onChange={onPageChange}
         />
@@ -162,7 +88,6 @@ const UsersPage = observer(() => {
         <StudentPageFranchiseeModalAddUser onCloseModal={() => setIsModalOpen(false)} />
       </BasicModal>
       <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
-        {/* <StudentPageFranchiseeModalSetting /> */}
         <StudentPageFranchiseeModalAddUser
           onCloseModal={() => modals.changeSetting()}
           user={currentUser}

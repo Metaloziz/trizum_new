@@ -22,6 +22,8 @@ import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'constants/cons
 import { REG_NAME, REG_PHONE } from 'constants/regExp';
 import user from 'public/svgs/user.svg';
 import { OptionT } from 'app/types/OptionT';
+import TextFieldCustom from "../../text-field-mui/TextFieldCustom";
+import TextFieldPhoneCustom from "../../text-field-phone-mui/TextFieldPhoneCustom";
 
 type Props = {
   localParentFormID: number;
@@ -82,9 +84,7 @@ const StudentParentsForm: FC<Props> = ({
       .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
     phone: yup
       .string()
-      .required('Обязательное поле')
-      .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-      .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`),
+      .required('Обязательное поле'),
     email: yup.string().required('Обязательное поле').email(),
     birthdate: yup.string().required('Обязательное поле'), // todo проверить после добавления dataPicker
     sex: yup.object().required('Обязательное поле'),
@@ -138,45 +138,40 @@ const StudentParentsForm: FC<Props> = ({
 
   return (
     <div className={styles.row}>
-      <CustomImageWrapper variant="circle">
-        <div className={styles.imageWrapper}>
-          <Image src={user} width="130" height="140" alt="user" />
-        </div>
-      </CustomImageWrapper>
       <div className={styles.table}>
         <form>
           <Controller
+              name="lastName"
+              render={({ field }) => (
+                  <TextFieldCustom {...field} label="Фамилия" error={errors.lastName?.message} />
+              )}
+              control={control}
+          />
+          <Controller
+              name="firstName"
+              render={({ field }) => (
+                  <TextFieldCustom {...field} label="Имя" error={errors.firstName?.message} />
+              )}
+              control={control}
+          />
+          <Controller
             name="middleName"
             render={({ field }) => (
-              <TextField {...field} label="Отчество" error={errors.middleName?.message} />
-            )}
-            control={control}
-          />
-          <Controller
-            name="firstName"
-            render={({ field }) => (
-              <TextField {...field} label="Имя" error={errors.firstName?.message} />
-            )}
-            control={control}
-          />
-          <Controller
-            name="lastName"
-            render={({ field }) => (
-              <TextField {...field} label="Фамилия" error={errors.lastName?.message} />
+              <TextFieldCustom {...field} label="Отчество" error={errors.middleName?.message} />
             )}
             control={control}
           />
           <Controller
             name="city"
             render={({ field }) => (
-              <TextField {...field} label="Город" error={errors.city?.message} />
+              <TextFieldCustom {...field} label="Город" error={errors.city?.message} />
             )}
             control={control}
           />
           <Controller
             name="phone"
             render={({ field }) => (
-              <TextField {...field} label="Телефон" error={errors.phone?.message} />
+              <TextFieldPhoneCustom {...field} label="Телефон" error={errors.phone?.message} />
             )}
             control={control}
           />
@@ -192,7 +187,7 @@ const StudentParentsForm: FC<Props> = ({
           <Controller
             name="email"
             render={({ field }) => (
-              <TextField {...field} label="Почта" error={errors.email?.message} />
+              <TextFieldCustom {...field} label="Почта" error={errors.email?.message} />
             )}
             control={control}
           />

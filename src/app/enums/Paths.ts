@@ -22,4 +22,5 @@ export enum Paths {
   Articles = 'articles',
   SwitchUser = 'switchstudent',
   Images = 'images',
+  Report = 'report',
 }

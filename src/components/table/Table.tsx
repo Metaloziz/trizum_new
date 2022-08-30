@@ -3,6 +3,7 @@ import React, { FC, ReactNode } from 'react';
 import { Loader } from '../loader/Loader';
 
 import styles from './Table.module.scss';
+import { ReportItemsT } from '../../app/types/ReportT';
 
 interface IList {
   id?: string | number;
@@ -20,6 +21,7 @@ interface IList {
 
 interface Props {
   list?: IList[];
+  reportlist?: ReportItemsT[];
   // list?: ListType;
   colNames?: string[];
   children?: ReactNode;

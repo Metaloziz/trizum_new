@@ -33,4 +33,5 @@ class GamesStore {
     });
   };
 }
+
 export default new GamesStore();

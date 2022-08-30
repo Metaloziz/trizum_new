@@ -1,10 +1,13 @@
 import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
+import { GameDesc } from 'components/game-page/GameCommon/GameDesc';
+import { GameModal } from 'components/game-page/GameCommon/GameModal/GameModal';
+import { PlayButton } from 'components/game-page/GameCommon/PlayButton';
 import Image from 'components/image/Image';
 import { observer } from 'mobx-react-lite';
 import React, { Component } from 'react';
 
-import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 
 import { Factory } from '../../games';
 
@@ -52,9 +55,16 @@ class Game extends Component<any, any> {
 
     this.state = {
       started: false,
+      isOpenModal: false,
       game,
     };
   }
+
+  toggleModal = (value: boolean) => {
+    this.setState({
+      isOpenModal: value,
+    });
+  };
 
   onEnd = (result: any) => {
     this.setState(
@@ -110,10 +120,18 @@ class Game extends Component<any, any> {
   };
 
   render() {
-    const { started = false, game } = this.state;
+    const { started = false, game, isOpenModal } = this.state;
     const GameComponent = this.gameComponent;
+    const { role } = appStore;
+    console.log(isOpenModal);
     return (
       <div className={styles.innerContent}>
+        {role === Roles.Methodist && (
+          <button onClick={() => this.toggleModal(true)}>Open Modal</button>
+        )}
+        {role === Roles.Methodist && isOpenModal && (
+          <GameModal open={isOpenModal} onClose={this.toggleModal} />
+        )}
         <div className={styles.gameList}>
           {Games.map(gam => (
             <NavLink key={`game-${gam.name}`} to={gam.name}>
@@ -147,6 +165,7 @@ class Game extends Component<any, any> {
             </NavLink>
           ))}
         </div>
+
         <Routes>
           {Games.map(gam => (
             <Route
@@ -157,70 +176,16 @@ class Game extends Component<any, any> {
                   <div className={styles.wrapGame}>
                     <div className={styles.overlay}>
                       <GameComponent onRef={this.onRefGame} width={800} onEnd={this.onEnd} />
-                      {!started && (
-                        <div className={styles.playButtonBackground}>
-                          <div className={styles.playButton} onClick={this.onStart}>
-                            <svg
-                              width="73"
-                              height="75"
-                              viewBox="0 0 73 75"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M69.1339 45.1447C74.1346 41.2753 74.1346 33.7256 69.1339 29.8562C54.0212 18.1626 37.1458 8.94567 19.1393 2.55042L15.8497 1.38209C9.55633 -0.853088 2.90883 3.40491 2.05684 9.90133C-0.323633 28.0524 -0.323633 46.9485 2.05684 65.0996C2.90882 71.596 9.55632 75.854 15.8497 73.6188L19.1392 72.4505C37.1458 66.0553 54.0212 56.8383 69.1339 45.1447Z"
-                                fill="url(#paint0_linear_13605_11225)"
-                              />
-                              <defs>
-                                <linearGradient
-                                  id="paint0_linear_13605_11225"
-                                  x1="0.271484"
-                                  y1="37.5006"
-                                  x2="72.8844"
-                                  y2="37.5006"
-                                  gradientUnits="userSpaceOnUse"
-                                >
-                                  <stop stopColor="#7F28D9" />
-                                  <stop offset="1" stopColor="#7427CC" />
-                                </linearGradient>
-                              </defs>
-                            </svg>
-                            <span className={styles.playButtonText}>ИГРАТЬ</span>
-                          </div>
-                        </div>
-                      )}
+                      {!started && <PlayButton onStart={this.onStart} />}
                     </div>
                   </div>
-                  <div className={styles.wrapGameBlock_footer}>
-                    <span className={styles.wrapGameBlock_footer_title}>{gam.title}</span>
-                    {started ? (
-                      <span className={styles.wrapGameBlock_footer_desc}>
-                        Сейчас ты увидишь таблицу. <br />
-                        На ней будут расположены числа от 1 до 25. <br />
-                        Абсолютно случайным образом! Кликни мышкой на все числа по порядку от 1 до
-                        25
-                        <br />
-                        <br />
-                        Постарайся делать быстро и без ошибок. <br />
-                        Если ошибешься - цифра подсветится красным. <br />
-                        Сверху от таблицы есть подсказка – какое число нужно найти следующим.
-                      </span>
-                    ) : (
-                      <span className={styles.wrapGameBlock_footer_desc}>
-                        Высокий уровень вовлечения представителей целевой аудитории является четким
-                        доказательством простого факта: реализация намеченных плановых заданий
-                        создаёт необходимость включения в производственный план целого ряда
-                        внеочередных мероприятий с учётом комплекса глубокомысленных рассуждений.
-                        Как принято считать, сторонники тоталитаризма в науке, превозмогая
-                        сложившуюся непростую экономическую ситуацию, своевременно верифицированы.
-                      </span>
-                    )}
-                  </div>
+                  <GameDesc started={started} gameTitle={gam.title} />
                 </div>
               }
             />
           ))}
         </Routes>
+        <h1>{isOpenModal}</h1>
       </div>
     );
   }

@@ -1,0 +1,78 @@
+.gameModalWrapper {
+  width: 90%;
+  height: 800px;
+  margin: 20px auto;
+  background: #FFFFFF;
+
+  &_settings {
+    display: flex;
+    margin-bottom: 40px;
+
+    & section {
+      width: 50%;
+    }
+  }
+}
+
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  margin-bottom: 18px;
+}
+
+.inputBlock {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+
+  & input {
+    background: linear-gradient(0deg, #E6EEF8, #E6EEF8), #CFD8DC;
+    box-shadow: inset -4px -4px 12px rgba(253, 255, 255, 0.8), inset 4px 4px 12px rgba(187, 195, 206, 0.6);
+    font-family: 'Aqum', sans-serif;
+    font-size: 14px;
+    padding: 13px 25px 14px;
+    width: 130px;
+    margin-left: 10px;
+
+    &::placeholder {
+      color: #0F123F;
+    }
+  }
+}
+
+.choiceInput {
+  width: 100%;
+  padding: 25px 60px 25px 25px;
+  box-sizing: border-box;
+
+  @media (max-width: 1800px) {
+    padding-right: 25px;
+  }
+
+  @media (max-width: 1500px) {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 440px) {
+    padding: 25px 15px;
+  }
+}
+
+.descriptionBlock {
+  &_header {
+    background: -webkit-linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    background: linear-gradient(90deg, #7F28D9 0%, #7427CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Aqum', sans-serif;
+    margin-bottom: 16px;
+    display: block;
+  }
+}

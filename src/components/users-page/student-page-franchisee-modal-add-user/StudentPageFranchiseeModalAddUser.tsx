@@ -113,7 +113,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
         ? yup.string().notRequired()
         : yup.string().required('Обязательное поле'),
     /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-        .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+            .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
     birthdate: yup.string().required('Обязательное поле'), // todo проверить после добавления dataPicker
     email:
       selectedRole === Roles.Student
@@ -178,7 +178,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     }
 
     if (isStudentTeacherEducation(selectedRole)) {
-      loadCurrentGroups(selectedRole, { franchiseId: franchiseOptions[0].value, type: 'class' });
+      loadCurrentGroups(selectedRole, {
+        franchiseId: franchiseOptions[0].value,
+        type: 'class',
+      });
     }
 
     resetField('franchise');

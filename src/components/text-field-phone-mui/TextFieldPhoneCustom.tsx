@@ -1,27 +1,25 @@
-import { DetailedHTMLProps, FC, InputHTMLAttributes } from 'react';
-import MuiPhoneNumber from 'material-ui-phone-number';
+import {DetailedHTMLProps, FC, forwardRef, InputHTMLAttributes} from 'react';
+import MuiPhoneNumber, {MuiPhoneNumberProps} from 'material-ui-phone-number';
 import * as React from 'react';
+import {StandardTextFieldProps} from "@mui/material";
 
-type Props = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
-  value: string;
-  label?: string;
+interface Props extends Omit<MuiPhoneNumberProps, 'error'> {
   error?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string) => void;
-};
+}
 
-const TextFieldPhoneCustom: FC<Props> = ({ type, onChange, value, error, label, ...rest }) => (
+const TextFieldPhoneCustom:  React.FC<Props> = forwardRef(({ type, error, label, ...rest }, ref) => (
   <MuiPhoneNumber
-    value={value}
+    sx={{ width: '100%' }}
     defaultCountry="ru"
     onlyCountries={['ru']}
     variant="outlined"
-    fullWidth
     /* size="small" */
     countryCodeEditable={false}
     error={!!error}
     label={label}
     helperText={error}
-    onChange={onChange}
+    ref={ref}
+    {...rest}
   />
-);
+));
 export default TextFieldPhoneCustom;

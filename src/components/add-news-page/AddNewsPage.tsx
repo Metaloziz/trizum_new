@@ -1,67 +1,107 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './AddNewsPage.module.scss';
-
-import BasicModal from 'components/basic-modal/BasicModal';
 import Button from 'components/button/Button';
-import InformationItem from 'components/information-item/InformationItem';
-import TextEditor from 'components/text-editor/TextEditor';
+import RichTextEditor from 'components/rich-text/RichTextEditor';
+import { CustomMultiSelect, StyledOption } from 'components/multiSelect/CustomMultiSelect';
+import { convertEnumOptions } from 'utils/convertEnumOptions';
+import { RoleNames } from 'app/enums/RoleNames';
+import { TextField } from '@mui/material';
+import testsStore from 'app/stores/testsStore';
+import { getAllOptionsMUI } from 'utils/getOption';
+import { convertTestOptions } from 'utils/convertTestOptions';
+import articlesStore from 'app/stores/articlesStore';
+import { ArticlePayloadT } from 'app/services/articlesService';
+import { Roles } from 'app/stores/appStore';
+import slateStore from 'app/stores/slateStore';
+import { observer } from 'mobx-react-lite';
 
-const roleNew = [
-  { value: 'Доступно ролям', label: 'Доступно ролям' },
-  { value: 'Роль 2', label: 'Роль 2' },
-  { value: 'Роль 3', label: 'Роль 3' },
-];
+const AddNewsPage = observer(() => {
+  const { tests, setTests } = testsStore;
+  const { postArticle, isSuccess } = articlesStore;
+  const { content } = slateStore;
 
-const AddNewsPage = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  console.log(isSuccess); // todo without any validation
+
+  const [title, setTitle] = useState<string>('');
+  const [roles, setRoles] = useState<any>(['']);
+  const [testId, setTestId] = useState('');
+
+  const rolesOptions = convertEnumOptions(RoleNames);
+  const testOptions = convertTestOptions(tests);
+
+  useEffect(() => {
+    setTests();
+  }, []);
+
+  const setNewArticle = () => {
+    const newArticle: ArticlePayloadT = {
+      title,
+      content,
+      testId,
+      status: 'active',
+      forFranchisee: roles.includes(Roles.Franchisee),
+      forFranchiseeAdmin: roles.includes(Roles.FranchiseeAdmin),
+      forMethodist: roles.includes(Roles.Methodist),
+      forStudents: roles.includes(Roles.Student),
+      forTeachers: roles.includes(Roles.Teacher),
+      forTeachersEducation: roles.includes(Roles.TeacherEducation),
+      forTutor: roles.includes(Roles.Tutor),
+    };
+
+    postArticle(newArticle);
+  };
+
   return (
     <div className={styles.content}>
       <div className={styles.innerContent}>
         <h1>Добавление статьи</h1>
-        <p>Наименование теста</p>
         <div className={styles.nameBlock}>
-          <InformationItem className={styles.newsInput} variant="input" placeholder="Название" />
-          <div className={styles.selectBlock}>
-            <p>Роль:</p>
-            <InformationItem className={styles.newsSelect} variant="select" option={roleNew} />
+          <div className={styles.input}>
+            <TextField
+              value={title}
+              label="Заголовок"
+              defaultValue=""
+              fullWidth
+              onChange={e => setTitle(e.target.value)}
+            />
           </div>
-          <div className={styles.addNews}>
-            <Button onClick={() => setShowModal(!showModal)}>Добавление статьи</Button>
+          <div className={styles.test}>
+            <TextField
+              label="Тест"
+              select
+              fullWidth
+              defaultValue=""
+              onChange={e => setTestId(e.target.value)}
+            >
+              {getAllOptionsMUI(testOptions)}
+            </TextField>
+          </div>
+
+          <div className={styles.selectBlock}>
+            <p>Доступно ролям:</p>
+
+            <CustomMultiSelect defaultValue={[0]} value={roles} onChange={e => setRoles(e)}>
+              {rolesOptions.map(({ value, label }) => (
+                <StyledOption key={value} value={value}>
+                  {label}
+                </StyledOption>
+              ))}
+            </CustomMultiSelect>
           </div>
         </div>
         <div>
-          <p>Описание урока</p>
+          <p>Текст статьи</p>
           <div className={styles.newsEditor}>
-            <TextEditor />
+            <RichTextEditor />
           </div>
         </div>
         <div className={styles.newsBtn}>
-          <Button>Сохранить</Button>
+          <Button onClick={setNewArticle}>Сохранить</Button>
         </div>
       </div>
-      <BasicModal visibility={showModal} changeVisibility={setShowModal}>
-        <div className={styles.modalInner}>
-          <div>
-            <h2>Добавление статьи</h2>
-            <div className={styles.inputBlock}>
-              <p>Наименование статьи</p>
-              <InformationItem className={styles.inputAdd} variant="input" placeholder="Название" />
-            </div>
-            <div>
-              <p>Описание урока</p>
-              <div className={styles.textBlock}>
-                <TextEditor />
-              </div>
-            </div>
-          </div>
-          <div className={styles.btn}>
-            <Button>Сохранить</Button>
-          </div>
-        </div>
-      </BasicModal>
     </div>
   );
-};
+});
 
 export default AddNewsPage;

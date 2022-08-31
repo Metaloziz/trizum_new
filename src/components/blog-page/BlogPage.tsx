@@ -28,7 +28,7 @@ const BlogPage: FunctionComponent = observer(() => {
 
   const onClickAddPost = () => {
     setShowModal(true);
-    navigate(`${AppRoutes.Blog}/add-post`);
+    navigate(`${AppRoutes.Blog}/${SecondaryRoutes.AddArticle}`);
   };
 
   const onClickAddTest = () => {

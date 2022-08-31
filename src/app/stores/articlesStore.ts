@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { StatusTypes } from 'app/enums/StatusTypes';
-import { articlesService } from 'app/services/articlesService';
+import { ArticlePayloadT, articlesService } from 'app/services/articlesService';
 import { ArticleT } from 'app/types/ArticleT';
 import { blogsPreviews, MockArticleT } from 'components/blog-page/data/blogsPreviews';
 import { executeError } from 'utils/executeError';
@@ -31,6 +31,8 @@ class ArticlesStore {
     forTutor: true,
   };
 
+  isSuccess = false;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -45,6 +47,16 @@ class ArticlesStore {
 
       runInAction(() => {
         this.articleAPI = result;
+      });
+    }, this);
+  };
+
+  postArticle = (newArticle: ArticlePayloadT) => {
+    executeError(async () => {
+      const result = await articlesService.postArticle(newArticle);
+
+      runInAction(() => {
+        this.isSuccess = !result?.error;
       });
     }, this);
   };

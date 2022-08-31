@@ -17,8 +17,7 @@ import { RequestRegister } from 'app/types/AuthTypes';
 import { ResponseOneUser } from 'app/types/UserTypes';
 import SetStatusButton from 'components/button-open-close/SetStatusButton';
 import Button from 'components/button/Button';
-import Image from 'components/image/Image';
-import CustomSelect, { Option } from 'components/select-mui/CustomSelect';
+import CustomSelect from 'components/select-mui/CustomSelect';
 import TextFieldCustom from 'components/text-field-mui/TextFieldCustom';
 import { action } from 'components/users-page/student-page-franchisee-modal-add-user/utils/action';
 import { isMethodistTutor } from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
@@ -27,9 +26,8 @@ import { isStudentRole } from 'components/users-page/student-page-franchisee-mod
 import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
-import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH, PHONE_LENGTH } from 'constants/constants';
-import { REG_NAME, REG_PHONE } from 'constants/regExp';
-import avatar from 'public/img/avatarDefault.png';
+import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH } from 'constants/constants';
+import { REG_NAME } from 'constants/regExp';
 import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
@@ -67,17 +65,17 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const findSex = () => (user?.sex ? sexOptions[0].value : sexOptions[1].value);
 
   const defaultValues = {
-    firstName: user?.firstName || 'Иван',
-    middleName: user?.middleName || 'Иванович',
-    lastName: user?.lastName || 'ИВАНОВИЧ',
+    firstName: user?.firstName || '',
+    middleName: user?.middleName || '',
+    lastName: user?.lastName || '',
     role: '', // не изменяется при редактировании
     sex: findSex() || sexOptions[0].value,
-    city: user?.city || 'МИНСК',
-    phone: user?.phone || '70000974671',
-    birthdate: user?.birthdate?.date || '01.01.2000',
-    email: user?.email || 'winteriscoming7@yandex.byeee',
+    city: user?.city || '',
+    phone: user?.phone || '',
+    birthdate: user?.birthdate?.date || '',
+    email: user?.email || '',
     franchise: '', // не изменяется при редактировании
-    tariff: '' || tariffsOptions[0].value,
+    tariff: user?.tariff || '', // не изменяется при редактировании
     group: '', // не изменяется при редактировании
   };
 
@@ -119,7 +117,11 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       selectedRole === Roles.Student
         ? yup.string().notRequired()
         : yup.string().required('Обязательное поле').email(),
-    franchise: user ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
+    franchise: user
+      ? yup.string().notRequired()
+      : isMethodistTutor(selectedRole)
+      ? yup.string().required('Обязательное поле')
+      : yup.string().notRequired(),
     tariff:
       selectedRole === Roles.Student
         ? yup.string().required('Обязательное поле')
@@ -150,8 +152,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       isSecondChild: false,
       tariffId: values.tariff,
     };
-
-    console.log(newUserData);
 
     await action(
       user,
@@ -196,7 +196,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                 {user ? 'Редактирование пользователя' : 'Регистрация пользователя'}
               </Typography>
             </Grid>
-            {/* <div className={styles.table}> */}
             <Grid item xs={12} sm={6}>
               <Controller
                 name="middleName"
@@ -290,7 +289,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                           }}
                           title="Тариф"
                           options={tariffsOptions}
-                          error={errors.tariff?.message}
+                          error={errors?.tariff?.message?.toString()}
                         />
                       )}
                       control={control}
@@ -356,9 +355,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                             <TextField
                               {...e}
                               sx={{ width: '100%' }}
+                              label="Дата рождения"
                               error={!!errors.birthdate?.message}
                               helperText={errors.birthdate?.message}
-                              /* size="small" */
                             />
                           )}
                         />

@@ -67,8 +67,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const findSex = () => (user?.sex ? sexOptions[0].value : sexOptions[1].value);
 
   const defaultValues = {
-    firstName: user?.firstName || 'ИВАНОВ',
-    middleName: user?.middleName || 'ИВАН',
+    firstName: user?.firstName || 'Иван',
+    middleName: user?.middleName || 'Иванович',
     lastName: user?.lastName || 'ИВАНОВИЧ',
     role: '', // не изменяется при редактировании
     sex: findSex() || sexOptions[0].value,
@@ -150,6 +150,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       isSecondChild: false,
       tariffId: values.tariff,
     };
+
+    console.log(newUserData);
 
     await action(
       user,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import styles from './AddOlympiad.module.scss';
 
@@ -6,8 +6,6 @@ import image from '../../assets/svgs/icon-setting-blue.svg';
 
 import NameOlympiad from 'components/name-olimpiad/NameOlympiad';
 import Table from 'components/table/Table';
-import franchiseeStore from 'app/stores/franchiseeStore';
-import coursesStore from 'app/stores/coursesStore';
 import groupStore from 'app/stores/groupStore';
 import { ResponseGroups } from 'app/types/GroupTypes';
 import { GroupLevels } from 'app/enums/GroupLevels';
@@ -45,38 +43,40 @@ const isEditRole = (roleDate: Roles) => {
 
 const AddOlympiad = observer(() => {
   const navigate = useNavigate();
-
   const { role } = appStore;
-  const { getFranchisee } = franchiseeStore;
-  const { getCourses } = coursesStore;
-  const { groups, getGroups, getCurrentGroupFromLocalStorage, perPage, total, page, getOneGroup } =
-    groupStore;
-
+  const {
+    groups,
+    getOlympiadGroups,
+    getCurrentGroupFromLocalStorage,
+    perPage,
+    total,
+    getOneGroup,
+    queryFieldsOlympiads,
+    cleanOlympiadQueryFieldsWithoutRequest,
+  } = groupStore;
   const IS_EDIT_ROLE = isEditRole(role as Roles);
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentGroup, setCurrentGroup] = useState<ResponseGroups>();
 
-  const [currentPage, setCurrentPage] = useState<number>(page + 1);
-
   useEffect(() => {
-    getFranchisee();
-    getCourses({ type: 'olympiad' });
-    getGroups({ type: 'olympiad', perPage, page });
-  }, []);
+    getOlympiadGroups();
+    return () => {
+      cleanOlympiadQueryFieldsWithoutRequest();
+    };
+  }, [queryFieldsOlympiads.page]);
 
-  useEffect(() => {
-    getGroups({ type: 'olympiad', perPage: 10, page: currentPage - 1 });
-  }, [currentPage, page]);
+  const lastItemIndex = (queryFieldsOlympiads?.page ? queryFieldsOlympiads.page : 1) * perPage;
+  const firstItemIndex = lastItemIndex - perPage;
+  const currentItem: ResponseGroups[] = groups?.slice(firstItemIndex, lastItemIndex);
 
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value);
+  const paginate = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
+    queryFieldsOlympiads.page = newCurrentPage - 1;
   };
 
   const setEditModal = (groupId: string) => {
     setShowModal(true);
     const result = getCurrentGroupFromLocalStorage(groupId);
-
     setCurrentGroup(result);
   };
 
@@ -91,9 +91,9 @@ const AddOlympiad = observer(() => {
     <div className={styles.containerAdd}>
       <NameOlympiad isEditRole={IS_EDIT_ROLE} />
       <div className={styles.tableWrap}>
-        <h2>Список Олимпиады</h2>
+        <h2>Список Олимпиад</h2>
         <Table colNames={colNames} loading={false}>
-          {groups.map(({ id, name, startedAt, endedAt, level }) => (
+          {currentItem.map(({ id, name, startedAt, endedAt, level }) => (
             <tr key={id} onClick={() => redirect(id)}>
               <td>{name}</td>
               <td>{changeDateView(startedAt.date)}</td>
@@ -124,9 +124,9 @@ const AddOlympiad = observer(() => {
           count={count}
           color="primary"
           size="large"
-          page={currentPage}
+          page={queryFieldsOlympiads.page ? queryFieldsOlympiads.page + 1 : 1}
           boundaryCount={1}
-          onChange={handleChange}
+          onChange={paginate}
         />
       </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>

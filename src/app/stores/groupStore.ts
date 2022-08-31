@@ -65,11 +65,26 @@ class GroupStore {
     level: '',
   };
 
+  private queryDefaultValuesOlympiads: GroupParamsForUI = {
+    perPage: 10,
+    page: 0,
+    name: '',
+    forGroupId: '',
+    franchiseId: '',
+    teacherId: '',
+    dateSince: '',
+    dateUntil: '',
+    type: 'olympiad',
+    level: '',
+  };
+
   private defaultEditValues: Partial<CreateGroupFroUI> = {};
 
   modalFields = { ...this.defaultValues };
 
   queryFields = { ...this.queryDefaultValues };
+
+  queryFieldsOlympiads = { ...this.queryDefaultValuesOlympiads };
 
   schedule: LessonT[] = [];
 
@@ -114,6 +129,33 @@ class GroupStore {
         // @ts-ignore
         this.franchise = resFranchise;
         this.courses = res1.items;
+      });
+    });
+  };
+
+  getOlympiadGroups = async (paramsData?: GroupParamsForServer) => {
+    const dateSince = this.queryFieldsOlympiads.dateSince
+      ? moment(this.queryFieldsOlympiads.dateSince).format(DateTime.DdMmYyyy)
+      : '';
+    const dateUntil = this.queryFieldsOlympiads.dateUntil
+      ? moment(this.queryFieldsOlympiads.dateUntil).format(DateTime.DdMmYyyy)
+      : '';
+    await this.execute(async () => {
+      const res = await groupsService.getGroups(
+        paramsData || {
+          ...this.queryFieldsOlympiads,
+          dateSince,
+          dateUntil,
+        },
+      );
+      if (res.items.length && this.selectedGroup?.id) {
+        await this.getOneGroup(this.selectedGroup.id);
+      }
+      runInAction(() => {
+        this.groups = res.items;
+        this.page = res.page;
+        this.perPage = res.perPage;
+        this.total = res.total;
       });
     });
   };
@@ -214,6 +256,15 @@ class GroupStore {
   clearQueryFields = () => {
     this.queryFields = { ...this.queryDefaultValues };
     this.getGroups();
+  };
+
+  clearOlympiadQueryFields = () => {
+    this.cleanOlympiadQueryFieldsWithoutRequest();
+    this.getOlympiadGroups();
+  };
+
+  cleanOlympiadQueryFieldsWithoutRequest = () => {
+    this.queryFieldsOlympiads = { ...this.queryDefaultValuesOlympiads };
   };
 
   changeLesson = (id: string, fieldName: string, value: Date | string) => {

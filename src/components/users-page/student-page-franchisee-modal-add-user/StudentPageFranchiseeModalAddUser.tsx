@@ -187,12 +187,12 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   return (
     <>
       <form onSubmit={onSubmit}>
-        <Box>
+        <Box className={styles.wrapper}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography className={styles.tableTitle} variant="h5">
+              <h2 className={styles.tableTitle}>
                 {user ? 'Редактирование пользователя' : 'Регистрация пользователя'}
-              </Typography>
+              </h2>
             </Grid>
             {/* <div className={styles.table}> */}
             <Grid item xs={12} sm={6}>

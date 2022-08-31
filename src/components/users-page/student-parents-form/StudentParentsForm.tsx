@@ -24,7 +24,16 @@ import user from 'public/svgs/user.svg';
 import { OptionT } from 'app/types/OptionT';
 import TextFieldCustom from "../../text-field-mui/TextFieldCustom";
 import TextFieldPhoneCustom from "../../text-field-phone-mui/TextFieldPhoneCustom";
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, InputLabel, TextField} from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText, Grid,
+  InputLabel,
+  TextField
+} from "@mui/material";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 type Props = {
@@ -139,132 +148,149 @@ const StudentParentsForm: FC<Props> = ({
   };
 
   return (
-    <div className={styles.row}>
-      <div className={styles.table}>
-        <form>
-          <Controller
-              name="lastName"
-              render={({ field }) => (
-                  <TextFieldCustom {...field} label="Фамилия" error={errors.lastName?.message} />
-              )}
-              control={control}
-          />
-          <Controller
-              name="firstName"
-              render={({ field }) => (
-                  <TextFieldCustom {...field} label="Имя" error={errors.firstName?.message} />
-              )}
-              control={control}
-          />
-          <Controller
-            name="middleName"
-            render={({ field }) => (
-              <TextFieldCustom {...field} label="Отчество" error={errors.middleName?.message} />
-            )}
-            control={control}
-          />
-          <Controller
-            name="city"
-            render={({ field }) => (
-              <TextFieldCustom {...field} label="Город" error={errors.city?.message} />
-            )}
-            control={control}
-          />
-          <Controller
-            name="phone"
-            render={({ field }) => (
-              <TextFieldPhoneCustom {...field} label="Телефон" error={errors.phone?.message} />
-            )}
-            control={control}
-          />
-          <div className={styles.infoItem}>
-            <Controller
-              name="birthdate"
-              render={({ field }) => (
-                  <FormControl fullWidth>
-                    {/* <InputLabel htmlFor="birthdate">Дата рождения</InputLabel> */}
-                    <DatePicker
-                        {...field}
-                        onChange={(date: Date | null) => {
-                            if (date) {
-                                field.onChange(date.toISOString().split('T')[0]);
-                            }
-                            }
-                        }
-                        value={field.value ? new Date(field.value) : null}
-                        renderInput={(props) =>(
-                            <TextField
-                                {...props}
-                                label="Дата рождения"
-                                error={!!errors.birthdate?.message}
-                                helperText={errors.birthdate?.message}
-                            />
-                        )}
-                    />
-                  </FormControl>
-              )}
-              control={control}
-            />
-          </div>
-          <Controller
-            name="email"
-            render={({ field }) => (
-              <TextFieldCustom {...field} label="Почта" error={errors.email?.message} />
-            )}
-            control={control}
-          />
-          <Controller
-            name="sex"
-            render={({ field }) => (
-              <CustomSelect
-                {...field}
-                title="Пол"
-                options={sexOptions}
-                error={errors.sex?.message}
-              />
-            )}
-            control={control}
-          />
-
-          <Controller
-            name="isMain"
-            control={control}
-            render={({ field }) => (
-              <div className={styles.selectWrapper}>
-                <div className={styles.label}>
-                  {localParentFormID === MAIN_PARENT_ID && (
-                    <>
-                      <FormGroup>
-                        <FormControlLabel control={
-                          <Checkbox
-                              color="primary"
-                              checked={isMainParent}
-                              disabled={isSubmitAnyForm}
-                              onChange={e => {
-                                field.onChange(e);
-                                handlerRadioChange();
-                              }}
-
-                          />
-                        }
-                                          label="Основной"/>
-                        <FormHelperText error={!errors.isMain?.message}>{errors.isMain?.message}</FormHelperText>
-                      </FormGroup>
-                      <div className={styles.medal}>
-                        <Image src={iconMedal} width="20" height="20" alt="medal" />
-                      </div>
-                    </>
+      <form>
+        <Box className={styles.wrapper}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                  name="lastName"
+                  render={({field}) => (
+                      <TextFieldCustom {...field} label="Фамилия" error={errors.lastName?.message}/>
                   )}
-                </div>
-              </div>
-            )}
-          />
-          <Button type="submit" disabled={isDisableSubmit} onClick={handleSubmit(onSubmit)}>
-            Сохранить
-          </Button>
-        </form>
-      </div>
-    </div>
+                  control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                  name="firstName"
+                  render={({field}) => (
+                      <TextFieldCustom {...field} label="Имя" error={errors.firstName?.message}/>
+                  )}
+                  control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                  name="middleName"
+                  render={({field}) => (
+                      <TextFieldCustom {...field} label="Отчество" error={errors.middleName?.message}/>
+                  )}
+                  control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                  name="city"
+                  render={({field}) => (
+                      <TextFieldCustom {...field} label="Город" error={errors.city?.message}/>
+                  )}
+                  control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                  name="phone"
+                  render={({field}) => (
+                      <TextFieldPhoneCustom {...field} label="Телефон" error={errors.phone?.message}/>
+                  )}
+                  control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                  name="birthdate"
+                  render={({field}) => (
+                      <FormControl fullWidth>
+                        {/* <InputLabel htmlFor="birthdate">Дата рождения</InputLabel> */}
+                        <DatePicker
+                            {...field}
+                            onChange={(date: Date | null) => {
+                              if (date) {
+                                field.onChange(date.toISOString().split('T')[0]);
+                              }
+                            }
+                            }
+                            value={field.value ? new Date(field.value) : null}
+                            renderInput={(props) => (
+                                <TextField
+                                    {...props}
+                                    label="Дата рождения"
+                                    error={!!errors.birthdate?.message}
+                                    helperText={errors.birthdate?.message}
+                                />
+                            )}
+                        />
+                      </FormControl>
+                  )}
+                  control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                  name="email"
+                  render={({field}) => (
+                      <TextFieldCustom {...field} label="Почта" error={errors.email?.message}/>
+                  )}
+                  control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                  name="sex"
+                  render={({field}) => (
+                      <CustomSelect
+                          {...field}
+                          title="Пол"
+                          options={sexOptions}
+                          error={errors.sex?.message}
+                      />
+                  )}
+                  control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+
+              <Controller
+                  name="isMain"
+                  control={control}
+                  render={({field}) => (
+                      <div className={styles.selectWrapper}>
+                        <div className={styles.label}>
+                          {localParentFormID === MAIN_PARENT_ID && (
+                              <>
+                                <FormGroup>
+                                  <FormControlLabel control={
+                                    <Checkbox
+                                        color="primary"
+                                        checked={isMainParent}
+                                        disabled={isSubmitAnyForm}
+                                        onChange={e => {
+                                          field.onChange(e);
+                                          handlerRadioChange();
+                                        }}
+
+                                    />
+                                  }
+                                                    label="Основной"/>
+                                  <FormHelperText
+                                      error={!errors.isMain?.message}>{errors.isMain?.message}</FormHelperText>
+                                </FormGroup>
+                                <Image src={iconMedal} width="20" height="20" alt="medal"/>
+                              </>
+                          )}
+                        </div>
+                      </div>
+                  )}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button type="submit" disabled={isDisableSubmit} onClick={handleSubmit(onSubmit)}>
+                Сохранить
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </form>
   );
 };
 

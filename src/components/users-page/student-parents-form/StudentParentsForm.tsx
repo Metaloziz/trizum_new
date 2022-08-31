@@ -206,7 +206,7 @@ const StudentParentsForm: FC<Props> = ({
                             {...field}
                             onChange={(date: Date | null) => {
                               if (date) {
-                                field.onChange(date.toISOString().split('T')[0]);
+                                field.onChange(date);
                               }
                             }
                             }

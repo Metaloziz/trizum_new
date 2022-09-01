@@ -3,7 +3,13 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { StatusTypes } from 'app/enums/StatusTypes';
 import { testsService } from 'app/services/testsService';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
-import { ContentIDT, OneTestT, PreviewTestT, TestsParamsForServer } from 'app/types/TestsT';
+import {
+  ContentIDT,
+  OneTestBodyT,
+  OneTestT,
+  PreviewTestT,
+  TestsParamsForServer,
+} from 'app/types/TestsT';
 import { FIRST_ARRAY_ITEM } from 'constants/constants';
 import { addIdElements } from 'utils/addIdElements';
 import { executeError } from 'utils/executeError';
@@ -25,23 +31,7 @@ class TestsStore {
   perPage = 5;
 
   currentTest: OneTestT = {
-    test: {
-      id: '1',
-      status: 'default',
-      title: 'default',
-      createdAt: {
-        date: 'default',
-        timezone_type: 1,
-        timezone: 'default',
-      },
-      content: [
-        {
-          question: 'default ?',
-          answer: 'default',
-          type: StatusTypes.draft,
-        },
-      ],
-    },
+    test: new OneTestBodyT(),
     usedInWorks: [],
   };
 

@@ -1,11 +1,12 @@
 import { StatusTypes } from 'app/enums/StatusTypes';
 import { Descendant } from 'slate';
+import { OneTestBodyT } from 'app/types/TestsT';
 
 export type ArticleT = {
   id: string;
   title: string;
   content: Descendant[];
-  test: string;
+  test: OneTestBodyT;
   status: StatusTypes;
   forStudents: boolean;
   forTeachersEducation: boolean;

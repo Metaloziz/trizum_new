@@ -10,6 +10,7 @@ import appStore, { Roles } from 'app/stores/appStore';
 import articlesStore from 'app/stores/articlesStore';
 import testsStore from 'app/stores/testsStore';
 import Button from 'components/button/Button';
+import { Button as DeleteButton } from '@mui/material';
 import Image from 'components/image/Image';
 
 interface Props {
@@ -21,7 +22,7 @@ interface Props {
 
 const BlogItem: FC<Props> = observer(({ title, imgSrc = '', description, id }) => {
   const { role } = appStore;
-  const { getCurrentArticle } = articlesStore;
+  const { getCurrentArticle, deleteArticle } = articlesStore;
   const { currentTest } = testsStore;
 
   const navigate = useNavigate();
@@ -35,6 +36,10 @@ const BlogItem: FC<Props> = observer(({ title, imgSrc = '', description, id }) =
     navigate(`${AppRoutes.Blog}/${title}`);
   };
 
+  const deleteArticleHandle = () => {
+    deleteArticle(id);
+  };
+
   return (
     <div className={styles.containerItem}>
       <div className={styles.wrapperTeacherImg}>
@@ -42,10 +47,18 @@ const BlogItem: FC<Props> = observer(({ title, imgSrc = '', description, id }) =
       </div>
       <div className={styles.itemText}>
         <h2>{title}</h2>
+
         <p>{description}</p>
         <div className={styles.containerButton}>
           <Button onClick={onReadTheoryClick}>Прочитать теорию</Button>
           {role !== Roles.Student && <Button onClick={onTestClick}>Пройти тест</Button>}
+        </div>
+        <div className={styles.delete}>
+          {role === Roles.Admin && (
+            <DeleteButton onClick={deleteArticleHandle} variant="outlined" color="error">
+              Удалить статью
+            </DeleteButton>
+          )}
         </div>
       </div>
     </div>

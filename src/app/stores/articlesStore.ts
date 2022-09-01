@@ -8,6 +8,7 @@ import { ArticleDescriptionType } from 'components/add-news-page/AddNewsPage';
 import { findDescription } from 'utils/findDescription';
 import { ArticlePayloadT } from 'app/types/ArticlePayloadT';
 import { GetArticlesParams } from 'app/types/GetArticlesParams';
+import { OneTestBodyT } from 'app/types/TestsT';
 
 type ArticleStoreType = ArticleT & { description: ArticleDescriptionType };
 
@@ -19,7 +20,7 @@ class ArticlesStore {
       title: 'default',
       description: { type: '', text: '' },
       content: [{ text: '' }],
-      test: '1',
+      test: new OneTestBodyT(),
       status: StatusTypes.draft,
       forFranchisee: true,
       forFranchiseeAdmin: true,
@@ -44,7 +45,7 @@ class ArticlesStore {
     title: 'default',
     content: [{ text: '' }],
     description: { type: '', text: '' }, // not from API
-    test: '1',
+    test: new OneTestBodyT(),
     status: StatusTypes.draft,
     forFranchisee: true,
     forFranchiseeAdmin: true,
@@ -108,6 +109,33 @@ class ArticlesStore {
       runInAction(() => {
         this.isSuccessPost = !!result?.id;
       });
+    }, this);
+  };
+
+  editArticle = (articleId: string, newArticle: Partial<ArticlePayloadT>) => {
+    executeError(async () => {
+      const result = await articlesService.editArticle(articleId, newArticle);
+
+      runInAction(() => {
+        const description = findDescription(result.content);
+        this.article = { ...result, description };
+      });
+    }, this);
+  };
+
+  deleteArticle = (articleId: string) => {
+    executeError(async () => {
+      const result1 = await articlesService.editArticle(articleId, { status: 'removal' });
+
+      if (result1?.id) {
+        const result = await articlesService.deleteArticle(articleId);
+
+        if (result.result) {
+          runInAction(() => {
+            this.articles = this.articles.filter(article => article.id !== articleId);
+          });
+        }
+      }
     }, this);
   };
 }

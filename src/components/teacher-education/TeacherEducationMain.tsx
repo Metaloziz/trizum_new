@@ -32,8 +32,9 @@ const TeacherEducationMain = () => {
       {tests.map(item => (
         <BlogItem
           key={item.id}
+          id={item.id}
           title={item.title}
-          text={item.text}
+          description={item.text}
           imgSrc={item.img}
           // onTestClick={() => onTestClick(item.id)}
           // onTheoryClick={() => onTheoryClick(item.id)}

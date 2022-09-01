@@ -13,15 +13,15 @@ import Button from 'components/button/Button';
 import Image from 'components/image/Image';
 
 interface Props {
+  id: string;
   title: string;
   imgSrc?: string;
-  text: string;
-  id?: string | number;
+  description: string;
 }
 
-const BlogItem: FC<Props> = observer(({ title, imgSrc = '', text, id }) => {
+const BlogItem: FC<Props> = observer(({ title, imgSrc = '', description, id }) => {
   const { role } = appStore;
-  const { setCurrentArticle } = articlesStore;
+  const { getCurrentArticle } = articlesStore;
   const { currentTest } = testsStore;
 
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const BlogItem: FC<Props> = observer(({ title, imgSrc = '', text, id }) => {
   };
 
   const onReadTheoryClick = (): void => {
-    setCurrentArticle(Number(id));
+    getCurrentArticle(id);
     navigate(`${AppRoutes.Blog}/${title}`);
   };
 
@@ -42,7 +42,7 @@ const BlogItem: FC<Props> = observer(({ title, imgSrc = '', text, id }) => {
       </div>
       <div className={styles.itemText}>
         <h2>{title}</h2>
-        <p>{text}</p>
+        <p>{description}</p>
         <div className={styles.containerButton}>
           <Button onClick={onReadTheoryClick}>Прочитать теорию</Button>
           {role !== Roles.Student && <Button onClick={onTestClick}>Пройти тест</Button>}

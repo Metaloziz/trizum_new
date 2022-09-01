@@ -1,25 +1,47 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import { StatusTypes } from 'app/enums/StatusTypes';
-import { ArticlePayloadT, articlesService } from 'app/services/articlesService';
+import { articlesService } from 'app/services/articlesService';
 import { ArticleT } from 'app/types/ArticleT';
-import { blogsPreviews, MockArticleT } from 'components/blog-page/data/blogsPreviews';
 import { executeError } from 'utils/executeError';
-import { findElement } from 'utils/findIndexElement';
+import { ArticleDescriptionType } from 'components/add-news-page/AddNewsPage';
+import { findDescription } from 'utils/findDescription';
+import { ArticlePayloadT } from 'app/types/ArticlePayloadT';
+import { GetArticlesParams } from 'app/types/GetArticlesParams';
+
+type ArticleStoreType = ArticleT & { description: ArticleDescriptionType };
 
 class ArticlesStore {
-  article: MockArticleT = {
-    // mock
-    id: 0,
-    title: '',
-    img: '',
-    text: '',
-  };
+  articles: ArticleStoreType[] = [
+    // todo спросить на счёт продуктивности, так как при запросе массива возвращаются все статьи целиком
+    {
+      id: '1',
+      title: 'default',
+      description: { type: '', text: '' },
+      content: [{ text: '' }],
+      test: '1',
+      status: StatusTypes.draft,
+      forFranchisee: true,
+      forFranchiseeAdmin: true,
+      forMethodist: true,
+      forStudents: true,
+      forTeachers: true,
+      forTeachersEducation: true,
+      forTutor: true,
+    },
+  ];
 
-  articleAPI: ArticleT = {
+  page = 0;
+
+  perPage = 10;
+
+  total = 1;
+
+  article: ArticleStoreType = {
     id: '1',
     title: 'default',
     content: [{ text: '' }],
+    description: { type: '', text: '' }, // not from API
     test: '1',
     status: StatusTypes.draft,
     forFranchisee: true,
@@ -31,22 +53,47 @@ class ArticlesStore {
     forTutor: true,
   };
 
+  private searchArticlesParams: GetArticlesParams = {
+    page: 0,
+    perPage: 10,
+  };
+
   isSuccess = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setCurrentArticle = (articleId: number) => {
-    this.article = findElement(blogsPreviews, articleId); // mock
-  };
-
-  setCurrentArticleAPI = () => {
+  getArticles = () => {
     executeError(async () => {
-      const result = await articlesService.getArticle();
+      const result = await articlesService.getArticles(this.searchArticlesParams);
 
       runInAction(() => {
-        this.articleAPI = result;
+        this.articles = result.items.map(article => ({
+          ...article,
+          description: findDescription(article.content),
+        }));
+        this.page = result.page;
+        this.perPage = result.perPage;
+        this.total = result.total;
+      });
+    }, this);
+  };
+
+  setSearchArticlesParams = (params: GetArticlesParams) => {
+    runInAction(() => {
+      this.searchArticlesParams = { ...this.searchArticlesParams, ...params };
+    });
+  };
+
+  getCurrentArticle = (articleId: string) => {
+    executeError(async () => {
+      const result = await articlesService.getArticle(articleId);
+
+      runInAction(() => {
+        const description = findDescription(result.content);
+
+        this.article = { ...result, description };
       });
     }, this);
   };

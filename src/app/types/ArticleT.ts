@@ -1,13 +1,10 @@
 import { StatusTypes } from 'app/enums/StatusTypes';
+import { Descendant } from 'slate';
 
 export type ArticleT = {
   id: string;
   title: string;
-  content: [
-    {
-      text: string;
-    },
-  ];
+  content: Descendant[];
   test: string;
   status: StatusTypes;
   forStudents: boolean;

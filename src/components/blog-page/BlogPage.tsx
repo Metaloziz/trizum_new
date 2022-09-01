@@ -1,33 +1,37 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './BlogPage.module.scss';
-import { blogsPreviews } from './data/blogsPreviews';
 
 import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
 import articlesStore from 'app/stores/articlesStore';
 import Button from 'components/button/Button';
 import BlogItem from 'components/molecules/BlogItem';
-import BasicModal from 'components/basic-modal/BasicModal';
 import { SecondaryRoutes } from 'app/enums/SecondaryRoutes';
+import Pagination from '@mui/material/Pagination';
 
 const BlogPage: FunctionComponent = observer(() => {
   const { role } = appStore;
-  const { setCurrentArticleAPI } = articlesStore;
+  const { articles, getArticles, page, perPage, total, setSearchArticlesParams } = articlesStore;
 
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(page + 1);
+
+  const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
+    setSearchArticlesParams({ page: newCurrentPage - 1 });
+    setCurrentPage(newCurrentPage);
+    getArticles();
+  };
 
   useEffect(() => {
-    setCurrentArticleAPI();
+    getArticles();
   }, []);
 
   const navigate = useNavigate();
 
   const onClickAddPost = () => {
-    setShowModal(true);
     navigate(`${AppRoutes.Blog}/${SecondaryRoutes.AddArticle}`);
   };
 
@@ -53,18 +57,25 @@ const BlogPage: FunctionComponent = observer(() => {
           <Button onClick={onClickAddTest}>Добавить тест</Button>
         </>
       )}
-      {blogsPreviews.map(item => (
+      {articles.map(item => (
         <BlogItem
           id={item.id}
           key={item.id}
           title={item.title}
-          text={item.text}
-          imgSrc={item.img}
+          description={item.description.text}
+          imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpm0AXv9uGZD7IQKGrI10kmGPXytkQxo_t_gWCJvbt6QFL9VcWHCBnLT3sF2OXrv6xme4&usqp=CAU"
         />
       ))}
-      <BasicModal visibility={showModal} changeVisibility={setShowModal}>
-        <div>добавить тест</div>
-      </BasicModal>
+      <div className={styles.pagination}>
+        <Pagination
+          count={Math.ceil(total / perPage)}
+          color="primary"
+          size="large"
+          page={currentPage}
+          boundaryCount={1}
+          onChange={onPageChange}
+        />
+      </div>
     </div>
   );
 });

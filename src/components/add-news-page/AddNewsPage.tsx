@@ -11,21 +11,32 @@ import testsStore from 'app/stores/testsStore';
 import { getAllOptionsMUI } from 'utils/getOption';
 import { convertTestOptions } from 'utils/convertTestOptions';
 import articlesStore from 'app/stores/articlesStore';
-import { ArticlePayloadT } from 'app/services/articlesService';
 import { Roles } from 'app/stores/appStore';
 import slateStore from 'app/stores/slateStore';
 import { observer } from 'mobx-react-lite';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { ArticlePayloadT } from 'app/types/ArticlePayloadT';
+
+type ArticleFormT = {
+  title: string;
+  description: string;
+  testId: string;
+  roles: number[];
+};
+
+export type ArticleDescriptionType = {
+  type: string;
+  text: string;
+};
 
 const AddNewsPage = observer(() => {
   const { tests, setTests } = testsStore;
-  const { postArticle, isSuccess } = articlesStore;
+  const { postArticle } = articlesStore;
   const { content } = slateStore;
 
-  console.log(isSuccess); // todo without any validation
-
-  const [title, setTitle] = useState<string>('');
   const [roles, setRoles] = useState<any>(['']);
-  const [testId, setTestId] = useState('');
 
   const rolesOptions = convertEnumOptions(RoleNames);
   const testOptions = convertTestOptions(tests);
@@ -34,11 +45,27 @@ const AddNewsPage = observer(() => {
     setTests();
   }, []);
 
-  const setNewArticle = () => {
+  const schema = yup.object().shape({
+    title: yup.string().required('обязательно поле'),
+    description: yup.string().required('обязательно поле'),
+    testId: yup.string().required('обязательно поле'),
+  });
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<ArticleFormT>({ resolver: yupResolver(schema) });
+
+  const onSubmit = handleSubmit(data => {
+    const description: ArticleDescriptionType = { type: 'description', text: data.description };
+
+    content.push(description); // добавление описания вне редактора
+
     const newArticle: ArticlePayloadT = {
-      title,
+      title: data.title,
       content,
-      testId,
+      testId: data.testId,
       status: 'active',
       forFranchisee: roles.includes(Roles.Franchisee),
       forFranchiseeAdmin: roles.includes(Roles.FranchiseeAdmin),
@@ -48,57 +75,75 @@ const AddNewsPage = observer(() => {
       forTeachersEducation: roles.includes(Roles.TeacherEducation),
       forTutor: roles.includes(Roles.Tutor),
     };
-
     postArticle(newArticle);
-  };
+  });
 
   return (
     <div className={styles.content}>
       <div className={styles.innerContent}>
-        <h1>Добавление статьи</h1>
-        <div className={styles.nameBlock}>
-          <div className={styles.input}>
-            <TextField
-              value={title}
-              label="Заголовок"
-              defaultValue=""
-              fullWidth
-              onChange={e => setTitle(e.target.value)}
-            />
-          </div>
-          <div className={styles.test}>
-            <TextField
-              label="Тест"
-              select
-              fullWidth
-              defaultValue=""
-              onChange={e => setTestId(e.target.value)}
-            >
-              {getAllOptionsMUI(testOptions)}
-            </TextField>
-          </div>
+        <form>
+          <h1>Добавление статьи</h1>
+          <div className={styles.nameBlock}>
+            <div className={styles.input}>
+              <TextField
+                {...register('title')}
+                label="Заголовок"
+                helperText={errors.title?.message}
+                error={!!errors.title}
+                defaultValue=""
+                fullWidth
+              />
+            </div>
+            <div className={styles.input}>
+              <TextField
+                {...register('description')}
+                label="Описание статьи"
+                helperText={errors.description?.message}
+                error={!!errors.description}
+                defaultValue=""
+                multiline
+                rows={3}
+                fullWidth
+              />
+            </div>
+            <div className={styles.test}>
+              <TextField
+                {...register('testId')}
+                label="Тест"
+                helperText={errors.testId?.message}
+                error={!!errors.testId}
+                defaultValue=""
+                fullWidth
+                select
+              >
+                {getAllOptionsMUI(testOptions)}
+              </TextField>
+            </div>
 
-          <div className={styles.selectBlock}>
-            <p>Доступно ролям:</p>
+            <div className={styles.selectBlock}>
+              <p>Доступно ролям:</p>
 
-            <CustomMultiSelect defaultValue={[0]} value={roles} onChange={e => setRoles(e)}>
-              {rolesOptions.map(({ value, label }) => (
-                <StyledOption key={value} value={value}>
-                  {label}
-                </StyledOption>
-              ))}
-            </CustomMultiSelect>
+              <CustomMultiSelect value={roles} onChange={e => setRoles(e)}>
+                {rolesOptions.map(({ value, label }) => (
+                  <StyledOption key={value} value={value}>
+                    {label}
+                  </StyledOption>
+                ))}
+              </CustomMultiSelect>
+            </div>
           </div>
-        </div>
-        <div>
-          <p>Текст статьи</p>
-          <div className={styles.newsEditor}>
-            <RichTextEditor />
+          <div>
+            <p>Текст статьи</p>
+            <div className={styles.newsEditor}>
+              <RichTextEditor />
+            </div>
           </div>
-        </div>
-        <div className={styles.newsBtn}>
-          <Button onClick={setNewArticle}>Сохранить</Button>
-        </div>
+          <div className={styles.newsBtn}>
+            <Button onClick={onSubmit} disabled={isSubmitSuccessful}>
+              Сохранить
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );

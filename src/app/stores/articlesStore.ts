@@ -37,6 +37,8 @@ class ArticlesStore {
 
   total = 1;
 
+  isSuccessPost: boolean | null = null;
+
   article: ArticleStoreType = {
     id: '1',
     title: 'default',
@@ -57,8 +59,6 @@ class ArticlesStore {
     page: 0,
     perPage: 10,
   };
-
-  isSuccess = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -102,8 +102,11 @@ class ArticlesStore {
     executeError(async () => {
       const result = await articlesService.postArticle(newArticle);
 
+      if (result?.id) {
+        this.getCurrentArticle(result.id);
+      }
       runInAction(() => {
-        this.isSuccess = !result?.error;
+        this.isSuccessPost = !!result?.id;
       });
     }, this);
   };

@@ -19,7 +19,7 @@ export const articlesService = {
   },
 
   postArticle: async (newArticle: ArticlePayloadT) => {
-    const { data } = await instance.post(Paths.Articles, newArticle);
+    const { data } = await instance.post<ArticleT>(Paths.Articles, newArticle);
     return data;
   },
 };

@@ -18,6 +18,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ArticlePayloadT } from 'app/types/ArticlePayloadT';
+import { useNavigate } from 'react-router-dom';
+import { AppRoutes } from 'app/enums/AppRoutes';
+import { ResultMessage } from 'components/add-news-page/ResultMessage/ResultMessage';
 
 type ArticleFormT = {
   title: string;
@@ -33,7 +36,7 @@ export type ArticleDescriptionType = {
 
 const AddNewsPage = observer(() => {
   const { tests, setTests } = testsStore;
-  const { postArticle } = articlesStore;
+  const { postArticle, isSuccessPost, article } = articlesStore;
   const { content } = slateStore;
 
   const [roles, setRoles] = useState<any>(['']);
@@ -56,6 +59,12 @@ const AddNewsPage = observer(() => {
     register,
     formState: { errors, isSubmitSuccessful },
   } = useForm<ArticleFormT>({ resolver: yupResolver(schema) });
+
+  const navigate = useNavigate();
+
+  const onReadTheoryClick = (): void => {
+    navigate(`${AppRoutes.Blog}/${article.title}`);
+  };
 
   const onSubmit = handleSubmit(data => {
     const description: ArticleDescriptionType = { type: 'description', text: data.description };
@@ -138,6 +147,10 @@ const AddNewsPage = observer(() => {
               <RichTextEditor />
             </div>
           </div>
+
+          <ResultMessage successPost={isSuccessPost} onClick={onReadTheoryClick} />
+
+          <div className={styles.error}>{isSuccessPost}</div>
           <div className={styles.newsBtn}>
             <Button onClick={onSubmit} disabled={isSubmitSuccessful}>
               Сохранить

@@ -3,15 +3,16 @@ import instance from 'app/services/config';
 import { ArticleT } from 'app/types/ArticleT';
 import { WithPagination } from 'app/types/WithPagination';
 import { ArticlePayloadT } from 'app/types/ArticlePayloadT';
-import { GetArticlesParams } from 'app/types/GetArticlesParams';
+import { SearchParams } from 'app/types/SearchParams';
+import { ArticlesStoreType } from 'app/stores/articlesStore';
 
 type Result = {
   result: 'done';
 };
 
 export const articlesService = {
-  getArticles: async (params?: GetArticlesParams) => {
-    const { data } = await instance.get<WithPagination<ArticleT[]>>(Paths.Articles, {
+  getArticles: async (params?: SearchParams) => {
+    const { data } = await instance.get<WithPagination<ArticlesStoreType[]>>(Paths.Articles, {
       params,
     });
     return data;

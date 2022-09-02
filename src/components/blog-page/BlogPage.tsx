@@ -65,6 +65,7 @@ const BlogPage: FunctionComponent = observer(() => {
           title={item.title}
           description={item.description.text}
           imgSrc={image}
+          testId={item.test}
         />
       ))}
       <div className={styles.pagination}>

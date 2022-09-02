@@ -35,7 +35,7 @@ export type ArticleDescriptionType = {
 };
 
 const AddNewsPage = observer(() => {
-  const { tests, setTests } = testsStore;
+  const { tests, setTests, setSearchParams } = testsStore;
   const { postArticle, isSuccessPost, article } = articlesStore;
   const { content } = slateStore;
 
@@ -45,6 +45,7 @@ const AddNewsPage = observer(() => {
   const testOptions = convertTestOptions(tests);
 
   useEffect(() => {
+    setSearchParams({ per_page: 1000 });
     setTests();
   }, []);
 

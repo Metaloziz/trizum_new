@@ -1,7 +1,6 @@
 import { IdType } from 'app/types/IdType';
 import { TimeZoneType } from 'app/types/TimeZoneType';
 import { StatusT } from 'app/types/StatusT';
-import { StatusTypes } from 'app/enums/StatusTypes';
 
 export class TestContentT {
   question = '';
@@ -47,9 +46,3 @@ export type OneTestT = {
   test: OneTestBodyT;
   usedInWorks: [];
 };
-
-export type TestsParamsForServer = Partial<{
-  page: number;
-  per_page: number;
-  status: StatusT;
-}>;

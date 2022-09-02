@@ -14,6 +14,7 @@ export const AppRoutes = {
   ResetPassword: '/account/reset-password',
   Schedule: '/schedule',
   Testing: '/testing',
+  CurrentTest: '/testing/currentTest',
   UserInfo: '/user-info',
   Olympiads: '/olympiads',
   OlympiadsCreate: '/olympiads/create',

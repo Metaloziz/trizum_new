@@ -1,17 +1,17 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { testsService } from 'app/services/testsService';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
-import {
-  ContentIDT,
-  OneTestBodyT,
-  OneTestT,
-  PreviewTestT,
-  TestPayloadT,
-  TestsParamsForServer,
-} from 'app/types/TestsT';
+import { ContentIDT, OneTestBodyT, OneTestT, PreviewTestT, TestPayloadT } from 'app/types/TestsT';
 import { FIRST_ARRAY_ITEM } from 'constants/constants';
 import { addIdElements } from 'utils/addIdElements';
 import { executeError } from 'utils/executeError';
+import { StatusT } from 'app/types/StatusT';
+
+export type TestSearchParams = Partial<{
+  status: StatusT;
+  page: number;
+  per_page: number;
+}>;
 
 class TestsStore {
   tests: PreviewTestT[] = [
@@ -29,6 +29,8 @@ class TestsStore {
 
   perPage = 5;
 
+  result: number = 0;
+
   currentTest: OneTestT = {
     test: new OneTestBodyT(),
     usedInWorks: [],
@@ -43,9 +45,12 @@ class TestsStore {
     correctAnswer: 'default',
   };
 
-  result: number = 0;
-
   isLoading = false;
+
+  private searchParams: TestSearchParams = {
+    per_page: 0,
+    status: 'active',
+  };
 
   constructor() {
     makeAutoObservable(this);
@@ -66,21 +71,29 @@ class TestsStore {
     }, this);
   };
 
-  setTests = (params?: TestsParamsForServer) => {
+  setTests = () => {
     executeError(async () => {
-      const res = await testsService.getTests(params);
+      const res = await testsService.getTests(this.searchParams);
 
       runInAction(() => {
         this.tests = res.items;
         this.total = res.total;
         this.perPage = res.perPage;
         this.page = res.page;
+
+        this.setSearchParams({ page: res.page, per_page: res.perPage });
       });
 
       const firstTest = this.tests[FIRST_ARRAY_ITEM];
 
       await this.setOneTest(firstTest.id);
     }, this);
+  };
+
+  setSearchParams = (params: TestSearchParams) => {
+    runInAction(() => {
+      this.searchParams = { ...this.searchParams, ...params };
+    });
   };
 
   postTest = (test: TestPayloadT) => {
@@ -110,10 +123,6 @@ class TestsStore {
   setCurrentQuestion = (question: ContentIDT) => {
     this.currentQuestion = question;
   };
-
-  get getContent() {
-    return this.currentTest.test.content;
-  }
 
   get getTitleTest() {
     return this.currentTest.test.title;

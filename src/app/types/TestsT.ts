@@ -3,11 +3,13 @@ import { IdType } from 'app/types/IdType';
 import { TimeZoneType } from 'app/types/TimeZoneType';
 import { StatusT } from 'app/types/StatusT';
 
-export type ContentT = {
-  type: StatusTypes;
-  question: string;
-  answer: string;
-};
+export class ContentT {
+  type = StatusTypes.active;
+
+  question = '';
+
+  answer = '';
+}
 
 export type ContentIDT = ContentT & IdType;
 
@@ -25,13 +27,19 @@ export type TestsT = {
   total: number;
 };
 
-export type OneTestBodyT = {
-  id: string;
-  title: string;
-  status: string;
-  createdAt: TimeZoneType;
-  content: ContentT[];
-};
+export class OneTestBodyT {
+  id = '';
+
+  title = '';
+
+  status = '';
+
+  createdAt = new TimeZoneType();
+
+  content = [new ContentT()];
+
+  maxResult = 100;
+}
 
 export type OneTestT = {
   test: OneTestBodyT;

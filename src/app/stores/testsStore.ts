@@ -1,6 +1,4 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-
-import { StatusTypes } from 'app/enums/StatusTypes';
 import { testsService } from 'app/services/testsService';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
 import {
@@ -8,6 +6,7 @@ import {
   OneTestBodyT,
   OneTestT,
   PreviewTestT,
+  TestPayloadT,
   TestsParamsForServer,
 } from 'app/types/TestsT';
 import { FIRST_ARRAY_ITEM } from 'constants/constants';
@@ -24,7 +23,7 @@ class TestsStore {
     },
   ];
 
-  testsTotalCount = 1;
+  total = 1;
 
   page = 1;
 
@@ -39,9 +38,9 @@ class TestsStore {
 
   currentQuestion: ContentIDT = {
     id: 1,
-    question: 'default ?',
-    answer: 'default',
-    type: StatusTypes.draft,
+    question: 'default',
+    answers: ['default'],
+    correctAnswer: 'default',
   };
 
   result: number = 0;
@@ -73,7 +72,7 @@ class TestsStore {
 
       runInAction(() => {
         this.tests = res.items;
-        this.testsTotalCount = res.total;
+        this.total = res.total;
         this.perPage = res.perPage;
         this.page = res.page;
       });
@@ -81,6 +80,12 @@ class TestsStore {
       const firstTest = this.tests[FIRST_ARRAY_ITEM];
 
       await this.setOneTest(firstTest.id);
+    }, this);
+  };
+
+  postTest = (test: TestPayloadT) => {
+    executeError(async () => {
+      const res = await testsService.postTest(test);
     }, this);
   };
 

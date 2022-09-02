@@ -52,8 +52,8 @@ const TestPage: FC = observer(() => {
   const [activeStep, setActiveStep] = useState(1);
 
   const mixedAnswer = useMemo(
-    () => mixElements(wrongVariantsAnswers, currentQuestion.answer),
-    [activeStep, questions, currentQuestion.answer],
+    () => mixElements(wrongVariantsAnswers, currentQuestion.correctAnswer),
+    [activeStep, questions, currentQuestion.answers],
   );
 
   const onEndTest = () => {
@@ -62,7 +62,7 @@ const TestPage: FC = observer(() => {
   };
 
   const checkAnswer = () => {
-    if (currentRadioValue === currentQuestion.answer) {
+    if (currentRadioValue === currentQuestion.correctAnswer) {
       incrementResult();
     }
   };

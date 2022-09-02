@@ -2,7 +2,7 @@ import { Paths } from 'app/enums/Paths';
 import instance from 'app/services/config';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
 import { ArticleTestResultResponseT } from 'app/types/ArticleTestResultResponseT';
-import { OneTestT, TestsParamsForServer, TestsT } from 'app/types/TestsT';
+import { OneTestT, TestPayloadT, TestsParamsForServer, TestsT } from 'app/types/TestsT';
 
 type TestPayloadType = {
   title: string;
@@ -22,8 +22,8 @@ export const testsService = {
     return data;
   },
 
-  postTest: async () => {
-    const { data } = await instance.post(Paths.Tests);
+  postTest: async (test: TestPayloadT) => {
+    const { data } = await instance.post(Paths.Tests, test);
     return data;
   },
 

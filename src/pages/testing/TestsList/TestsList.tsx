@@ -12,25 +12,19 @@ import { TestEditForm } from 'pages/testing/TestsList/TestEditForm/TestEditForm'
 const colNames = ['№', 'Наименование', 'Редактировать'];
 
 export const TestsList = observer(() => {
-  const { setTests, tests, total, perPage, page, setSearchParams, editTest } = testsStore;
+  const { setTests, tests, total, perPage, page } = testsStore;
 
   const [currentPage, setCurrentPage] = useState(page + 1);
   const [showModal, setShowModal] = useState(false);
 
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setCurrentPage(newCurrentPage);
-    setSearchParams({ page: newCurrentPage - 1 });
-    setTests();
+    setTests({ page: newCurrentPage - 1 });
   };
 
   useEffect(() => {
-    setSearchParams({ page: 0 });
-    setTests();
+    setTests({ page: 0 });
   }, []);
-
-  const markTestRemoval = (testId: string) => {
-    editTest(testId, { status: 'removal' });
-  };
 
   return (
     <div className={style.container}>
@@ -43,9 +37,7 @@ export const TestsList = observer(() => {
             <td>{title}</td>
             <td>
               <EditButton>Редактировать</EditButton>
-              <EditButton color="error" onClick={() => markTestRemoval(id)}>
-                Удалить
-              </EditButton>
+              <EditButton color="error">Удалить</EditButton>
             </td>
           </tr>
         ))}

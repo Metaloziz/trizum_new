@@ -12,18 +12,20 @@ import { TestEditForm } from 'pages/testing/TestsList/TestEditForm/TestEditForm'
 const colNames = ['№', 'Наименование', 'Редактировать'];
 
 export const TestsList = observer(() => {
-  const { setTests, tests, total, perPage, page } = testsStore;
+  const { setTests, tests, total, perPage, page, setSearchParams } = testsStore;
 
   const [currentPage, setCurrentPage] = useState(page + 1);
   const [showModal, setShowModal] = useState(false);
 
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setCurrentPage(newCurrentPage);
-    setTests({ page: newCurrentPage - 1 });
+    setSearchParams({ page: newCurrentPage - 1 });
+    setTests();
   };
 
   useEffect(() => {
-    setTests({ page: 0 });
+    setSearchParams({ page: 0 });
+    setTests();
   }, []);
 
   return (

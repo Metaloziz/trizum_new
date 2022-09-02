@@ -22,9 +22,8 @@ const columnNames = [
 ];
 
 const ReportPage = observer(() => {
-  const { getReports, reports: data, total, queryFields } = reportStore;
+  const { getReports, reports: data, total, queryFields, perPage } = reportStore;
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
-  const [count] = useState<number>(10); // State для отображения количества элементов на каждой странице
 
   useEffect(() => {
     setLoading(true);
@@ -32,8 +31,8 @@ const ReportPage = observer(() => {
     setLoading(false);
   }, [queryFields.page]);
 
-  const lastItemIndex = (queryFields?.page ? queryFields.page : 1) * count;
-  const firstItemIndex = lastItemIndex - count;
+  const lastItemIndex = (queryFields?.page ? queryFields.page : 1) * perPage;
+  const firstItemIndex = lastItemIndex - perPage;
   const currentItem: ReportItemsT[] = data?.slice(firstItemIndex, lastItemIndex);
 
   const paginate = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
@@ -69,7 +68,7 @@ const ReportPage = observer(() => {
           </div>
           <div className={styles.paginationBlock}>
             <Pagination
-              count={Math.ceil(total / count)}
+              count={Math.ceil(total / perPage)}
               onChange={paginate}
               page={queryFields.page ? queryFields.page + 1 : 1}
               defaultValue={0}

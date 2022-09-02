@@ -27,7 +27,8 @@ import reportStore from '../../app/stores/reportStore';
 import tariffsService from '../../app/services/tafiffService';
 
 const ReportFilters: React.FC = observer(() => {
-  const { getReports, clearQueryFields, queryFields } = reportStore;
+  const { getReports, clearQueryFieldsWithRequest, queryFields, cleanQueryFieldsWithoutRequest } =
+    reportStore;
 
   const [isOpenFilters, setIsOpenFilters] = useState(false);
   const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
@@ -63,15 +64,12 @@ const ReportFilters: React.FC = observer(() => {
     queryFields.page = 0;
     getReports();
   };
-  const resetHandler = () => {
-    clearQueryFields();
-  };
 
   useEffect(() => {
     getFranchises();
     getTariffs();
     return () => {
-      clearQueryFields();
+      cleanQueryFieldsWithoutRequest();
     };
   }, []);
 
@@ -229,7 +227,7 @@ const ReportFilters: React.FC = observer(() => {
             }}
           >
             <Button variant="addExel">Выгрузить в Excel</Button>
-            <Button onClick={resetHandler}>Сбросить</Button>
+            <Button onClick={clearQueryFieldsWithRequest}>Сбросить</Button>
             <Button onClick={searchHandler}>Найти</Button>
           </Stack>
         </AccordionActions>

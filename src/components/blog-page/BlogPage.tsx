@@ -12,6 +12,7 @@ import Button from 'components/button/Button';
 import BlogItem from 'components/molecules/BlogItem';
 import { SecondaryRoutes } from 'app/enums/SecondaryRoutes';
 import Pagination from '@mui/material/Pagination';
+import image from '../../assets/images/teacher.svg';
 
 const BlogPage: FunctionComponent = observer(() => {
   const { role } = appStore;
@@ -63,7 +64,7 @@ const BlogPage: FunctionComponent = observer(() => {
           key={item.id}
           title={item.title}
           description={item.description.text}
-          imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpm0AXv9uGZD7IQKGrI10kmGPXytkQxo_t_gWCJvbt6QFL9VcWHCBnLT3sF2OXrv6xme4&usqp=CAU"
+          imgSrc={image}
         />
       ))}
       <div className={styles.pagination}>

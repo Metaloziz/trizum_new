@@ -7,24 +7,23 @@ import articlesStore from 'app/stores/articlesStore';
 import Image from 'components/image/Image';
 import { RedirectCurrentPageButton } from 'components/test-page/RedirectArticlesPageButton/RedirectCurrentPageButton';
 import { observer } from 'mobx-react-lite';
+import { getParagraphs } from 'components/blog-page/Article/util/getParagraph';
+import image from '../../../assets/images/teacher.svg';
 
 export const Article: FC = observer(() => {
   const {
-    article: { title },
+    article: { title, content },
   } = articlesStore;
 
   return (
     <div className={style.container}>
-      <Image
-        className={style.icon}
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpm0AXv9uGZD7IQKGrI10kmGPXytkQxo_t_gWCJvbt6QFL9VcWHCBnLT3sF2OXrv6xme4&usqp=CAU"
-        width="460"
-        height="460"
-      />
+      <Image className={style.icon} src={image} width="460" height="460" />
       <div>
         <h2>{title}</h2>
-        <p>text</p>
+
+        <div className={style.paragraphs}>{getParagraphs(content)}</div>
         <RedirectCurrentPageButton title="К списку статей" rout={AppRoutes.Blog} />
+        <RedirectCurrentPageButton title="Пройти тест" rout={AppRoutes.Blog} />
       </div>
     </div>
   );

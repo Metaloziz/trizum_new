@@ -25,4 +25,10 @@
     margin-top: 30px;
     width: 300px;
   }
+
+  .paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }

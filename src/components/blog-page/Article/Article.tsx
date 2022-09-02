@@ -23,7 +23,7 @@ export const Article: FC = observer(() => {
 
         <div className={style.paragraphs}>{getParagraphs(content)}</div>
         <RedirectCurrentPageButton title="К списку статей" rout={AppRoutes.Blog} />
-        <RedirectCurrentPageButton title="Пройти тест" rout={AppRoutes.Blog} />
+        {/* <RedirectCurrentPageButton title="Пройти тест" rout={AppRoutes.Blog} /> */}
       </div>
     </div>
   );

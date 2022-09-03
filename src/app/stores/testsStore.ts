@@ -102,6 +102,17 @@ class TestsStore {
     }, this);
   };
 
+  editTest = (testId: string, newTestData: Partial<TestPayloadT>) => {
+    // todo работает как удаление пока
+    executeError(async () => {
+      const res = await testsService.editTest(testId, newTestData);
+
+      runInAction(() => {
+        this.tests = this.tests.filter(el => el.id !== testId);
+      });
+    }, this);
+  };
+
   postResult = (result: ArticleTestResultPayloadT) => {
     executeError(async () => {
       const res = await testsService.postArticleTestResult(result);

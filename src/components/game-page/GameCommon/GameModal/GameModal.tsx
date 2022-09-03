@@ -1,109 +1,90 @@
+import gamesStore from 'app/stores/gamesStore';
+import Button from 'components/button/Button';
 import InformationItem from 'components/information-item/InformationItem';
 import { InputRadio } from 'components/inputRadio/InputRadio';
 import { Dialog } from 'components/rate/ui/Dialog';
 import TextEditor from 'components/text-editor/TextEditor';
-import React, { FC, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { FC, useEffect, useState } from 'react';
 import styles from './gameModal.module.scss';
 
 type PropsT = {
   open: boolean;
   onClose: (value: boolean) => void;
 };
-export const GameModal: FC<PropsT> = props => {
+export const GameModal: FC<PropsT> = observer(props => {
   const { open, onClose } = props;
-  const [template, setTemplate] = useState<string>('');
-  const [level, setLevel] = useState<string[]>(['0', '1']);
+  const { createPresets, gamePreset, editPreset, game, getPreset } = gamesStore;
+  const settings = gamePreset.gamePreset.settings[0];
+  const [template, setTemplate] = useState<string>(gamePreset.gamePreset.name || '');
+  const [timeComplete, setTimeComplete] = useState<string>(String(settings?.timeComplete) || '0');
+  const [elementsTotal, setElementsTotal] = useState<string>(
+    String(settings?.elementsTotal) || '0',
+  );
 
+  const [description, setDescription] = useState<string>(
+    'И нет сомнений, что некоторые особенности внутренней политики, превозмогая сложившуюся непростую экономическую ситуацию, ограничены исключительно образом мышления. Вот вам яркий пример современных тенденций - существующая теория позволяет оценить значение системы массового участия!',
+  );
+  const [currentRadio, setCurrentRadio] = useState<string>('eachLevel');
+
+  const onCreatePreset = () => {
+    createPresets({
+      gameCode: game.code,
+      name: template,
+      settings: [
+        {
+          timeComplete: Number(timeComplete),
+          elementsTotal: Number(elementsTotal),
+        },
+      ],
+    });
+  };
+
+  const onEditPreset = () => {
+    editPreset({
+      name: template,
+      settings: [
+        {
+          timeComplete: Number(timeComplete),
+          elementsTotal: Number(elementsTotal),
+        },
+      ],
+    });
+  };
+
+  const savePreset = () => {
+    if (gamePreset.gamePreset.id) {
+      onEditPreset();
+    } else {
+      onCreatePreset();
+    }
+    onClose(false);
+  };
   return (
     <Dialog maxWidth="xl" fullWidth onClose={() => onClose(false)} open={open}>
       <div className={styles.gameModalWrapper}>
         <div className={styles.gameModalWrapper_settings}>
           <section>
-            <div>
-              <span className={styles.title}>
-                Наименование шаблона
-                <div className={styles.inputBlock}>
-                  <InformationItem
-                    variant="input"
-                    value={template}
-                    onChange={setTemplate}
-                    placeholder="Шаблон 1"
-                  />
-                </div>
-              </span>
-            </div>
-            <div>
-              <span className={styles.title}>Настройка уровней</span>
-            </div>
+            <span className={styles.title}>
+              Наименование шаблона
+              <div className={styles.inputBlock}>
+                <InformationItem
+                  variant="input"
+                  value={template}
+                  className={styles.presetNameInput}
+                  onChange={setTemplate}
+                  placeholder="Шаблон 1"
+                />
+              </div>
+            </span>
+            <span className={styles.title}>Настройка уровней</span>
             <div className={styles.inputBlock}>
               <div>
                 <InformationItem
-                  title="Уровней от"
+                  title="Необходимое количество баллов"
                   variant="numberInput"
-                  value={level[0]}
-                  onChange={e => setLevel([e, level[1]])}
-                />
-              </div>
-              <div>
-                <InformationItem
-                  title="до"
-                  variant="numberInput"
-                  value={level[1]}
-                  onChange={e => setLevel([level[0], e])}
-                />
-              </div>
-            </div>
-            <div className={styles.inputBlock}>
-              <div>
-                <InformationItem
-                  title="Шариков от"
-                  variant="numberInput"
-                  value="1234"
-                  // onChange={}
-                />
-              </div>
-              <div>
-                <InformationItem
-                  title="до"
-                  variant="numberInput"
-                  value="1234"
-                  // onChange={}
-                />
-              </div>
-            </div>
-            <div className={styles.inputBlock}>
-              <div>
-                <InformationItem
-                  title="Миганий от"
-                  variant="numberInput"
-                  value="1234"
-                  // onChange={}
-                />
-              </div>
-              <div>
-                <InformationItem
-                  title="до"
-                  variant="numberInput"
-                  value="1234"
-                  // onChange={}
-                />
-              </div>
-            </div>
-            <div className={styles.inputBlock}>
-              <div>
-                <InformationItem
-                  title="Скорость от"
-                  variant="numberInput"
-                  value="1234"
-                  // onChange={}
-                />
-              </div>
-              <div>
-                <InformationItem
-                  title="до"
-                  variant="numberInput"
-                  value="1234"
-                  // onChange={}
+                  value={elementsTotal}
+                  onChange={setElementsTotal}
                 />
               </div>
             </div>
@@ -112,16 +93,8 @@ export const GameModal: FC<PropsT> = props => {
                 <InformationItem
                   title="Время выполнения"
                   variant="numberInput"
-                  value="1234"
-                  // onChange={}
-                />
-              </div>
-              <div>
-                <InformationItem
-                  title=" "
-                  variant="numberInput"
-                  value="1234"
-                  // onChange={}
+                  value={timeComplete}
+                  onChange={setTimeComplete}
                 />
               </div>
             </div>
@@ -135,16 +108,16 @@ export const GameModal: FC<PropsT> = props => {
                 id="eachLevel"
                 name="currentRadioValue"
                 label="За каждый пройденный уровень"
-                // onChange={handlerRadioChange}
-                // checked={currentRadioValue === 'twoChildren'}
+                onChange={() => setCurrentRadio('eachLevel')}
+                checked={currentRadio === 'eachLevel'}
               />
 
               <InputRadio
                 value="success"
                 id="success"
                 name="currentRadioValue"
-                // onChange={handlerRadioChange}
-                // checked={currentRadioValue === 'firstPayment'}
+                onChange={() => setCurrentRadio('success')}
+                checked={currentRadio === 'success'}
                 label="Баллы за прыжок (начисляется если был прыжок и уровень пройден после прыжка)"
               />
 
@@ -152,10 +125,24 @@ export const GameModal: FC<PropsT> = props => {
                 value="error"
                 id="error"
                 name="currentRadioValue"
-                // onChange={handlerRadioChange}
-                // checked={currentRadioValue === 'registration'}
+                onChange={() => setCurrentRadio('error')}
+                checked={currentRadio === 'error'}
                 label="Если ошибка, после прыжка, игру возвращаем на предыдущий уровень (штрафа нет)"
               />
+            </div>
+            <div className={styles.conditionBlock}>
+              <div>
+                Если выполняет <InformationItem variant="numberInput" /> уровня подряд за
+                <InformationItem variant="numberInput" />
+              </div>
+              <div>
+                и <InformationItem variant="numberInput" />% ошибок, то система ПРЕДЛАГАЕТ поднять
+                на
+              </div>
+              <div>
+                <InformationItem variant="numberInput" />
+                уровней один раз.
+              </div>
             </div>
           </section>
         </div>
@@ -168,12 +155,20 @@ export const GameModal: FC<PropsT> = props => {
               date?.blocks?.forEach((item: any) => {
                 allText += item.text;
               });
-              // setDescriptions(allText);
+              setDescription(allText);
             }}
-            // defaultText={description}
+            defaultText={description}
           />
         </div>
       </div>
+      <div className={styles.btn}>
+        <Button
+          disabled={gamePreset.gamePreset.status === 'active' || template.length < 1}
+          onClick={savePreset}
+        >
+          Сохранить
+        </Button>
+      </div>
     </Dialog>
   );
-};
+});

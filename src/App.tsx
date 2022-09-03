@@ -14,7 +14,7 @@ import Blog from 'pages/blog/Blog';
 import Classes from 'pages/classes/Classes';
 import Courses from 'pages/courses/Courses';
 import Franchising from 'pages/franchising/Franchising';
-import GameWrapper from 'pages/game/Game';
+import { GameWrapper } from 'pages/game/Game';
 import Home from 'pages/home/Home';
 import Homework from 'pages/homework/Homework';
 import HomeworkAddEdit from 'pages/homework/HomeworkAddEdit/HomeworkAddEdit';

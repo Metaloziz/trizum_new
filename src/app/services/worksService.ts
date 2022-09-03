@@ -3,7 +3,7 @@ import instance from 'app/services/config';
 import { PresetT, RequestCreateWork } from 'app/types/WorkTypes';
 
 const worksService = {
-  getPresets: async (): Promise<PresetT[]> => {
+  getPresets: async (): Promise<[]> => {
     const { data } = await instance.get(Paths.Presets);
     return data;
   },

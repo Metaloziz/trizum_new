@@ -100,6 +100,7 @@ const InformationItem: FC<Props> = props => {
           id={id}
           onChange={e => onChange && onChange(e.target.value)}
           placeholder={placeholder}
+          type="number"
         />
       );
       break;

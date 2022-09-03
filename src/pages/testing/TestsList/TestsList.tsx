@@ -12,7 +12,7 @@ import { TestEditForm } from 'pages/testing/TestsList/TestEditForm/TestEditForm'
 const colNames = ['№', 'Наименование', 'Редактировать'];
 
 export const TestsList = observer(() => {
-  const { setTests, tests, total, perPage, page, setSearchParams } = testsStore;
+  const { setTests, tests, total, perPage, page, setSearchParams, editTest } = testsStore;
 
   const [currentPage, setCurrentPage] = useState(page + 1);
   const [showModal, setShowModal] = useState(false);
@@ -28,6 +28,10 @@ export const TestsList = observer(() => {
     setTests();
   }, []);
 
+  const markTestRemoval = (testId: string) => {
+    editTest(testId, { status: 'removal' });
+  };
+
   return (
     <div className={style.container}>
       <h2>Список тестов</h2>
@@ -39,7 +43,9 @@ export const TestsList = observer(() => {
             <td>{title}</td>
             <td>
               <EditButton>Редактировать</EditButton>
-              <EditButton color="error">Удалить</EditButton>
+              <EditButton color="error" onClick={() => markTestRemoval(id)}>
+                Удалить
+              </EditButton>
             </td>
           </tr>
         ))}

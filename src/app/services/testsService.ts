@@ -28,6 +28,11 @@ export const testsService = {
     return data;
   },
 
+  editTest: async (testId: string, newTestData: Partial<TestPayloadT>) => {
+    const { data } = await instance.post(`${Paths.Tests}/${testId}`, newTestData);
+    return data;
+  },
+
   // deleteTest: async (testId: string) => { // todo доделать удаление
   //   const { data } = await instance.delete<Result>(`${Paths.Articles}/${articleId}`);
   //

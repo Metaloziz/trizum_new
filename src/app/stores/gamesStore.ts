@@ -106,10 +106,28 @@ class GamesStore {
   getPreset = async (presetName: string) => {
     try {
       const preset = this.newPresets.items.filter(el => el.name === presetName);
-      const res = await gamesService.getPreset(preset[0].id);
-      runInAction(() => {
-        this.gamePreset = res;
-      });
+      if (preset.length) {
+        const res = await gamesService.getPreset(preset[0].id);
+        runInAction(() => {
+          this.gamePreset = res;
+        });
+      } else {
+        this.gamePreset = {
+          gamePreset: {
+            id: '',
+            name: '',
+            game: {
+              code: '',
+              name: '',
+              type: '',
+            },
+            status: '',
+            level: '',
+            settings: [],
+          },
+          usedInWorks: [],
+        };
+      }
     } catch (e) {
       console.warn(e);
     }

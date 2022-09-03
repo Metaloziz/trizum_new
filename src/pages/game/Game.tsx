@@ -140,7 +140,12 @@ class Game extends Component<any, any> {
     const GameComponent = this.gameComponent;
     const { actualPreset } = gamesStore;
     const { role } = appStore;
-    const presetArr: Option[] = [];
+    const presetArr: Option[] = [
+      {
+        value: 'Создать шаблон',
+        label: 'Создать шаблон',
+      },
+    ];
     actualPreset.map(el =>
       presetArr.push({
         value: el.name,

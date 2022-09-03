@@ -50,7 +50,12 @@ const App = observer(() => (
           <Route path={AppRoutes.Classes} element={<Classes />} />
           <Route path={AppRoutes.Courses} element={<Courses />} />
           <Route path={AppRoutes.Franchising} element={<Franchising />} />
-          <Route path={`${AppRoutes.Games}/*`} element={<GameWrapper />} />
+          <Route path={`${AppRoutes.Games}`}>
+            <Route path="" element={<GameWrapper />} />
+            <Route path={`${AppRoutes.Games}/*`} element={<GameWrapper />} />
+            {/* <Route path=":name" element={<GameWrapper />} /> */}
+          </Route>
+
           {/* <Route path={AppRoutes.Games} element={<Game />} /> */}
           <Route path={AppRoutes.Homework} element={<Homework />} />
           <Route path={`${AppRoutes.Homework}${AppRoutes.Add}`} element={<HomeworkAddEdit />} />

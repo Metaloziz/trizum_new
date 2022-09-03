@@ -127,7 +127,6 @@ class Game extends Component<any, any> {
     this.gameComponent = Factory(game);
     this.setState({
       started: false,
-      // game,
     });
     gamesStore.getGame(gameCode);
   };
@@ -139,16 +138,14 @@ class Game extends Component<any, any> {
   render() {
     const { started = false, isOpenModal } = this.state;
     const GameComponent = this.gameComponent;
-    const { newPresets, game } = gamesStore;
+    const { actualPreset } = gamesStore;
     const { role } = appStore;
     const presetArr: Option[] = [];
-    newPresets.items.map(
-      el =>
-        el.game.code === game.code &&
-        presetArr.push({
-          value: el.name,
-          label: el.name,
-        }),
+    actualPreset.map(el =>
+      presetArr.push({
+        value: el.name,
+        label: el.name,
+      }),
     );
     return (
       <div className={styles.innerContent}>
@@ -196,16 +193,25 @@ class Game extends Component<any, any> {
                     <section>
                       {(role === Roles.Methodist || role === Roles.Admin) && (
                         <div className={styles.wrapGameBlock_header}>
-                          <InformationItem
-                            variant="select"
-                            size="normal"
-                            placeholder="Шаблон"
-                            option={presetArr}
-                            onChangeSelect={data => this.setPreset(data)}
-                          />
-                          <InformationItem variant="select" size="normal" placeholder="Год" />
-                          <InformationItem variant="select" size="normal" placeholder="Месяц" />
-                          <InformationItem variant="select" size="normal" placeholder="Группа" />
+                          <div className={styles.wrapGameBlock_header_select}>
+                            <InformationItem
+                              variant="select"
+                              size="normal"
+                              placeholder="Шаблон"
+                              option={presetArr}
+                              onChangeSelect={data => this.setPreset(data)}
+                            />
+                          </div>
+                          <div className={styles.wrapGameBlock_header_select}>
+                            <InformationItem variant="select" size="normal" placeholder="Год" />
+                          </div>
+                          <div className={styles.wrapGameBlock_header_select}>
+                            <InformationItem variant="select" size="normal" placeholder="Месяц" />
+                          </div>
+                          <div className={styles.wrapGameBlock_header_select}>
+                            <InformationItem variant="select" size="normal" placeholder="Группа" />
+                          </div>
+
                           <Button onClick={() => this.toggleModal(true)}>Выбрать настройки</Button>
                         </div>
                       )}
@@ -223,7 +229,6 @@ class Game extends Component<any, any> {
             />
           ))}
         </Routes>
-        <h1>{isOpenModal}</h1>
       </div>
     );
   }

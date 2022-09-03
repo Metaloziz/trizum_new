@@ -12,20 +12,30 @@ type PropsT = {
   open: boolean;
   onClose: (value: boolean) => void;
 };
+const defaultInputTextReader =
+  'И нет сомнений, что некоторые особенности внутренней политики, превозмогая сложившуюся непростую экономическую ситуацию, ограничены исключительно образом мышления. Вот вам яркий пример современных тенденций - существующая теория позволяет оценить значение системы массового участия!';
+
 export const GameModal: FC<PropsT> = observer(props => {
   const { open, onClose } = props;
   const { createPresets, gamePreset, editPreset, game, getPreset } = gamesStore;
-  const settings = gamePreset.gamePreset.settings[0];
-  const [template, setTemplate] = useState<string>(gamePreset.gamePreset.name || '');
-  const [timeComplete, setTimeComplete] = useState<string>(String(settings?.timeComplete) || '0');
-  const [elementsTotal, setElementsTotal] = useState<string>(
-    String(settings?.elementsTotal) || '0',
-  );
 
-  const [description, setDescription] = useState<string>(
-    'И нет сомнений, что некоторые особенности внутренней политики, превозмогая сложившуюся непростую экономическую ситуацию, ограничены исключительно образом мышления. Вот вам яркий пример современных тенденций - существующая теория позволяет оценить значение системы массового участия!',
+  const settings = gamePreset?.gamePreset?.settings[0];
+  const gamePresetName = gamePreset?.gamePreset?.name;
+  const [template, setTemplate] = useState<string>(gamePresetName || '');
+  const [timeComplete, setTimeComplete] = useState<string>(
+    settings?.timeComplete?.toString() || '0',
   );
+  const [elementsTotal, setElementsTotal] = useState<string>(
+    settings?.elementsTotal?.toString() || '0',
+  );
+  const [description, setDescription] = useState<string>(defaultInputTextReader);
   const [currentRadio, setCurrentRadio] = useState<string>('eachLevel');
+
+  useEffect(() => {
+    setTemplate(gamePresetName);
+    setTimeComplete(settings?.timeComplete?.toString());
+    setElementsTotal(settings?.elementsTotal?.toString());
+  }, [gamePreset]);
 
   const onCreatePreset = () => {
     createPresets({

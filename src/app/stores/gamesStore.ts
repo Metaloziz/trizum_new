@@ -6,6 +6,7 @@ import worksService from 'app/services/worksService';
 import {
   EditOrCreatePresetParamsT,
   GamePresetsResponseT,
+  GamePresetT,
   GameT,
   OneGamePresent,
   ResponseGame,
@@ -43,6 +44,8 @@ class GamesStore {
     name: '',
   };
 
+  actualPreset: Omit<GamePresetT, 'settings'>[] = [];
+
   games: ResponseGame[] = [];
 
   constructor() {
@@ -54,6 +57,7 @@ class GamesStore {
       const res = await gamesService.getGame(game);
       runInAction(() => {
         this.game = res;
+        this.filterPresets(res.code);
       });
     } catch (e) {
       console.log(e);
@@ -72,10 +76,14 @@ class GamesStore {
   };
 
   getPresets = async () => {
-    const res = await worksService.getPresets();
-    runInAction(() => {
-      this.presets = res;
-    });
+    try {
+      const res = await worksService.getPresets();
+      runInAction(() => {
+        this.presets = res;
+      });
+    } catch (e) {
+      console.warn(e);
+    }
   };
 
   getsPresets = async () => {
@@ -83,6 +91,16 @@ class GamesStore {
     runInAction(() => {
       this.newPresets = res;
     });
+  };
+
+  filterPresets = (code: string) => {
+    try {
+      runInAction(() => {
+        this.actualPreset = this.newPresets.items.filter(pr => pr.game.code === code);
+      });
+    } catch (e) {
+      console.warn(e);
+    }
   };
 
   getPreset = async (presetName: string) => {
@@ -93,18 +111,18 @@ class GamesStore {
         this.gamePreset = res;
       });
     } catch (e) {
-      console.log(e);
+      console.warn(e);
     }
   };
 
   createPresets = async (params: EditOrCreatePresetParamsT) => {
-    const res = await gamesService.createPresentGame(params);
-    this.getsPresets();
+    await gamesService.createPresentGame(params);
+    await this.getsPresets();
   };
 
   editPreset = async (params: EditOrCreatePresetParamsT) => {
-    const res = await gamesService.editPresetGame(this.gamePreset.gamePreset.id, params);
-    this.getsPresets();
+    await gamesService.editPresetGame(this.gamePreset.gamePreset.id, params);
+    await this.getsPresets();
   };
 }
 

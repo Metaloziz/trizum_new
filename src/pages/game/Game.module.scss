@@ -12,10 +12,16 @@
 
   &_header {
     display: flex;
-    margin: 20px -100px;
+    justify-content: space-around;
+    margin: 20px -60px;
     align-items: center;
+
+    &_select {
+      width: 180px;
+    }
+
     & button {
-      width: 400px;
+      width: 260px;
     }
   }
 

@@ -16,7 +16,7 @@
 
     h1 {
       margin-bottom: 30px;
-      font-family: 'Aqum';
+      font-family: 'Aqum', sans-serif;
       font-weight: 700;
       font-size: 24px;
       line-height: 23px;
@@ -31,19 +31,17 @@
       }
     }
 
-    p {
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 17px;
-      color: #000000;
-      margin-right: 10px;
-    }
-
     .nameBlock {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       margin: 18px 0 25px;
+      gap: 20px;
+
+      .input {
+        width: 60%;
+      }
 
       @media (max-width: 1100px) {
         .addNews {
@@ -89,8 +87,13 @@
 
       .selectBlock {
         display: flex;
-        align-items: center;
-        margin: 0 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+
+        p {
+          margin-left: 13px;
+        }
 
         @media (max-width: 800px) {
           width: 100%;
@@ -100,6 +103,10 @@
             margin-right: 10px;
           }
         }
+      }
+
+      .test {
+        width: 60%;
       }
     }
 
@@ -171,7 +178,7 @@
 
     h2 {
       margin-bottom: 20px;
-      font-family: 'Aqum';
+      font-family: 'Aqum', sans-serif;
       font-weight: 700;
       font-size: 24px;
       line-height: 23px;
@@ -233,5 +240,17 @@
       margin-top: 30px;
     }
 
+  }
+
+  .error {
+    margin-top: 20px;
+    font-weight: 900;
+    color: #b91e1e;
+  }
+
+  .success {
+    margin-top: 20px;
+    font-weight: 900;
+    color: #305e11;
   }
 }

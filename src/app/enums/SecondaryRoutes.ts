@@ -1,5 +1,5 @@
 export enum SecondaryRoutes {
   Create = 'create',
-  AddPost = 'add-post',
+  AddArticle = 'add-article',
   AddTest = 'add-test',
 }

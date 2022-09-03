@@ -39,7 +39,7 @@ const TestPage: FC = observer(() => {
     setCurrentQuestion,
   } = testsStore;
 
-  const { articleAPI } = articlesStore;
+  const { article } = articlesStore;
 
   useEffect(() => {
     setTests();
@@ -79,7 +79,7 @@ const TestPage: FC = observer(() => {
     if (newQuestion) {
       setCurrentQuestion(newQuestion);
     } else {
-      postResult({ articleId: articleAPI.id, result });
+      postResult({ articleId: article.id, result });
       onEndTest();
     }
 

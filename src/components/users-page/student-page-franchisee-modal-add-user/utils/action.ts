@@ -8,6 +8,7 @@ import { ResponseOneUser } from 'app/types/UserTypes';
 import { isMethodistTutor } from 'components/users-page/student-page-franchisee-modal-add-user/utils/IsMethodistTutor';
 import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
 import { setErrorFormMessage } from 'utils/setErrorFormMessage';
+import { removeKeysWithSameValues } from 'utils/removeKeysWithSameValues';
 
 export const action = async (
   user: ResponseOneUser | undefined,
@@ -26,48 +27,52 @@ export const action = async (
   const { createUser, updateUser } = usersStore;
   const { addUserGroup } = groupsService;
 
-  if (!roleCode) {
-    setError('role', {
-      type: 'manual',
-      message: 'выберите роль',
-    });
-    return;
-  }
+  const IS_ADD_MOD = !user;
 
-  if (isMethodistTutor(role)) {
-    if (!franchise) {
-      setError('franchise', {
+  if (IS_ADD_MOD) {
+    if (!roleCode) {
+      setError('role', {
         type: 'manual',
-        message: 'выберите франшизу',
+        message: 'выберите роль',
       });
       return;
     }
-  }
 
-  if (role === Roles.Student) {
-    if (!tariff) {
-      setError('tariff', {
-        type: 'manual',
-        message: 'выберите тариф',
-      });
-      return;
+    if (isMethodistTutor(role)) {
+      if (!franchise) {
+        setError('franchise', {
+          type: 'manual',
+          message: 'выберите франшизу',
+        });
+        return;
+      }
     }
-  }
 
-  if (isStudentTeacherEducation(role)) {
-    if (!groupId) {
-      setError('group', {
-        type: 'manual',
-        message: 'выберите группу',
-      });
-      return;
+    if (role === Roles.Student) {
+      if (!tariff) {
+        setError('tariff', {
+          type: 'manual',
+          message: 'выберите тариф',
+        });
+        return;
+      }
+    }
+    if (isStudentTeacherEducation(role)) {
+      if (!groupId) {
+        setError('group', {
+          type: 'manual',
+          message: 'выберите группу',
+        });
+        return;
+      }
     }
   }
 
   let response;
 
   if (user) {
-    response = await updateUser(newUserData, user.id);
+    const memoData = removeKeysWithSameValues(newUserData, user);
+    response = await updateUser(memoData, user.id);
     if (typeof response === 'string') {
       setErrorFormMessage(response, setError);
       return;

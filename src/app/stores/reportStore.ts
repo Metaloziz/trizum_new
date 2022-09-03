@@ -65,9 +65,13 @@ class ReportStore {
     }
   };
 
-  clearQueryFields = () => {
+  clearQueryFieldsWithRequest = () => {
     this._queryFields = { ...this.queryDefaultValues };
     this.getReports();
+  };
+
+  cleanQueryFieldsWithoutRequest = () => {
+    this._queryFields = { ...this.queryDefaultValues };
   };
 
   get reports() {

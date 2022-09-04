@@ -369,12 +369,16 @@ const DropDownMenu: FC<Props> = observer(({ active, onClose }) => {
         setLinks([]);
     }
   }, [role]);
-  return !links.length ? (
+  return active && !links.length ? (
     <div />
   ) : (
-    <div className={cn(styles.dropDownMenu, active && styles.showDropDown)} ref={ref}>
+    <div className={cn(
+      styles.dropDownMenu, 
+    active && styles.showDropDown
+    )} ref={ref}>
       {isComponentVisible && (
         <Navigation
+          onClick={onClose}
           links={links}
           linkClassName={styles.link}
           linkWrapperClassName={styles.linkWrapper}

@@ -30,37 +30,22 @@ const Header: FC<Props> = ({ className }) => {
   return (
     <header
       className={classNames(styles.header, className, {
-        // @ts-ignore
         [styles.open]: isOpen,
       })}
     >
       <div className={styles.accountBlock}>
-        <div className={styles.burgerBlock} onClick={handleClick}>
-          <BurgerButton />
-        </div>
+        <ClickAwayListener
+          onClickAway={handleClickAway}
+        >
+          <div className={styles.burgerBlock} >
+            <BurgerButton onClick={handleClick} />
+            <DropDownMenu active={open}
+              onClose={handleClick}
+            />
+          </div>
+        </ClickAwayListener>
         <Logo />
       </div>
-      <ClickAwayListener
-        mouseEvent="onMouseDown"
-        touchEvent="onTouchStart"
-        onClickAway={handleClickAway}
-      >
-        <div>
-          <DropDownMenu active={open} onClose={handleClick} />
-        </div>
-
-        {/* 
-        не будет срабатывать анимация
-        но будет закрываться без каких либо проблем 
-
-        <div>
-          {open ? (
-            <>
-              <DropDownMenu active={open} onClose={handleClickAway} />
-            </>
-          ) : null}
-        </div> */}
-      </ClickAwayListener>
       <Account />
     </header>
   );

@@ -6,6 +6,7 @@ import { Dialog } from 'components/rate/ui/Dialog';
 import TextEditor from 'components/text-editor/TextEditor';
 import { observer } from 'mobx-react-lite';
 import React, { FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styles from './gameModal.module.scss';
 
 type PropsT = {
@@ -16,6 +17,8 @@ const defaultInputTextReader =
   'И нет сомнений, что некоторые особенности внутренней политики, превозмогая сложившуюся непростую экономическую ситуацию, ограничены исключительно образом мышления. Вот вам яркий пример современных тенденций - существующая теория позволяет оценить значение системы массового участия!';
 
 export const GameModal: FC<PropsT> = observer(props => {
+  const { id } = useParams();
+  console.log(id);
   const { open, onClose } = props;
   const { createPresets, gamePreset, editPreset, game, getPreset } = gamesStore;
 

@@ -1,3 +1,4 @@
+import { GameModal } from 'components/game-page/GameCommon/GameModal/GameModal';
 import Rate from 'pages/rate/Rate';
 import React from 'react';
 
@@ -55,7 +56,7 @@ const App = observer(() => (
           <Route path={`${AppRoutes.Games}`}>
             <Route path="" element={<GameWrapper />} />
             <Route path={`${AppRoutes.Games}/*`} element={<GameWrapper />} />
-            {/* <Route path=":name" element={<GameWrapper />} /> */}
+            <Route path=":/game/:id" element={<GameModal open onClose={() => true} />} />
           </Route>
 
           {/* <Route path={AppRoutes.Games} element={<Game />} /> */}

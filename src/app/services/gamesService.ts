@@ -4,7 +4,9 @@ import {
   EditOrCreatePresetParamsT,
   GamePresetsResponseT,
   GamePresetT,
+  GamesT,
   GameT,
+  OneGamePresent,
 } from 'app/types/GameTypes';
 
 const gamesService = {
@@ -12,7 +14,7 @@ const gamesService = {
     const { data } = await instance.get(`${Paths.Presets}?per_page=30`);
     return data;
   },
-  getPreset: async (id: string) => {
+  getPreset: async (id: string): Promise<OneGamePresent> => {
     const { data } = await instance.get(`${Paths.Presets}/${id}`);
     return data;
   },
@@ -20,7 +22,7 @@ const gamesService = {
     const { data } = await instance.get(`${Paths.Games}/${game}`);
     return data;
   },
-  getGames: async () => {
+  getGames: async (): Promise<GamesT> => {
     const { data } = await instance.get(Paths.Games);
     return data;
   },

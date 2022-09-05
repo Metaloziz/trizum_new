@@ -2,14 +2,13 @@ import { PresetT } from 'app/types/WorkTypes';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import gamesService from 'app/services/gamesService';
-import worksService from 'app/services/worksService';
 import {
   EditOrCreatePresetParamsT,
   GamePresetsResponseT,
   GamePresetT,
+  GamesT,
   GameT,
   OneGamePresent,
-  ResponseGame,
 } from 'app/types/GameTypes';
 
 class GamesStore {
@@ -46,7 +45,7 @@ class GamesStore {
 
   actualPreset: Omit<GamePresetT, 'settings'>[] = [];
 
-  games: ResponseGame[] = [];
+  games: GamesT = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -76,17 +75,6 @@ class GamesStore {
   };
 
   getPresets = async () => {
-    try {
-      const res = await worksService.getPresets();
-      runInAction(() => {
-        this.presets = res;
-      });
-    } catch (e) {
-      console.warn(e);
-    }
-  };
-
-  getsPresets = async () => {
     const res = await gamesService.getPresets();
     runInAction(() => {
       this.newPresets = res;
@@ -135,12 +123,12 @@ class GamesStore {
 
   createPresets = async (params: EditOrCreatePresetParamsT) => {
     await gamesService.createPresentGame(params);
-    await this.getsPresets();
+    await this.getPresets();
   };
 
   editPreset = async (params: EditOrCreatePresetParamsT) => {
     await gamesService.editPresetGame(this.gamePreset.gamePreset.id, params);
-    await this.getsPresets();
+    await this.getPresets();
   };
 }
 

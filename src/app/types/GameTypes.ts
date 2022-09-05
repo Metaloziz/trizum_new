@@ -1,4 +1,3 @@
-export type ResponseGame = [string];
 export type GameT = {
   code: string;
   name: string;

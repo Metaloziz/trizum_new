@@ -25,26 +25,22 @@ import styles from './Game.module.scss';
 const Games = [
   {
     title: 'Сдвиг по вертикали',
-    name: 'shift-vertical',
-    code: 'verticalShift',
+    name: 'verticalShift',
     prevImg: VerticalShift,
   },
   {
     title: 'Ментальный счет',
     name: 'mental',
-    code: 'mental',
     prevImg: Schulte,
   },
   {
     title: 'Таблица Шульте',
-    name: 'schulte',
-    code: 'shulte',
+    name: 'shulte',
     prevImg: Schulte,
   },
   {
     title: '2048',
-    name: 'Game2048',
-    code: '2048',
+    name: '2048',
     prevImg: Two048,
   },
 ];
@@ -68,7 +64,7 @@ class Game extends Component<any, any> {
   }
 
   componentDidMount() {
-    gamesStore.getsPresets();
+    gamesStore.getPresets();
     gamesStore.getGames();
   }
 
@@ -123,12 +119,12 @@ class Game extends Component<any, any> {
     this.game = ref;
   };
 
-  setGame = (game: string, gameCode: string) => () => {
+  setGame = (game: string) => () => {
     this.gameComponent = Factory(game);
     this.setState({
       started: false,
     });
-    gamesStore.getGame(gameCode);
+    gamesStore.getGame(game);
   };
 
   setPreset = (data: OptionT) => {
@@ -177,7 +173,7 @@ class Game extends Component<any, any> {
                   fill="#2E8DFD"
                 />
               </svg>
-              <NavLink onClick={this.setGame(gam.name, gam.code)} to={gam.name}>
+              <NavLink onClick={this.setGame(gam.name)} to={gam.name}>
                 <img className={styles.gameItem_play} src={Play} alt="" />
               </NavLink>
               {gam.prevImg && (

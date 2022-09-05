@@ -21,7 +21,7 @@ import SampleBlock from 'components/homework-add-edit-page/SampleBlock/SampleBlo
 import Step from 'components/step/Step';
 import TextField from 'components/text-field/TextField';
 import { getOption } from 'utils/getOption';
-import {OptionT} from "app/types/OptionT";
+import { OptionT } from 'app/types/OptionT';
 
 type DefaultValues = {
   title: string;
@@ -38,12 +38,12 @@ const DEFAULT_GAME_PRESET_AMOUNT = 3;
 const HomeworkAddEditPage = observer(() => {
   const { setCurrentCourse, currentCourse } = coursesStore;
   const { currentHomework, createHomework, editHomework, setCurrentWork } = worksStore;
-  const { getPresets, presets, games, getGames } = gamesStore;
+  const { presets, games, getGames, getPresets, newPresets } = gamesStore;
 
   const [gameOptions, setGameOptions] = useState<OptionT[]>([]);
 
   useEffect(() => {
-    setGameOptions(games.map(g => getOption(g[0], g[0])));
+    setGameOptions(games.map(g => getOption(g.name, g.name)));
   }, [games]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [description, setDescription] = useState('');

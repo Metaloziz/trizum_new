@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -21,7 +21,7 @@ import moment from 'moment';
 import styles from './ClassesPage.module.scss';
 
 import { DateTime } from 'app/enums/DateTime';
-import appStore, { Roles } from 'app/stores/appStore';
+import appStore from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
 import Button from 'components/button/Button';
 import CardStudent from 'components/card-student/CardStudent';
@@ -37,7 +37,6 @@ const ClassesPage = observer(() => {
     getOneGroup,
     openModal,
     total,
-    isLoad,
     perPage,
     queryFields,
     selectedGroup,
@@ -56,10 +55,6 @@ const ClassesPage = observer(() => {
 
   useEffect(() => {
     getGroups();
-  }, []);
-
-  useEffect(() => {
-    if (groups.length && selectedGroup?.id !== groups[0].id) getOneGroup(groups[0].id);
     return () => {
       nullableSelectedGroup();
     };

@@ -13,6 +13,7 @@ import Lessons from 'components/classes-page/AddEditGroup/Lessons';
 import { getOptionMui } from 'utils/getOption';
 import { GroupTypes } from 'app/enums/GroupTypes';
 import { GroupLevels } from 'app/enums/GroupLevels';
+import { StatusTypes } from '../../../app/enums/StatusTypes';
 
 interface Props {}
 
@@ -99,6 +100,7 @@ const AddEditGroup: FC<Props> = observer(props => {
     closeModal();
     cleanModalValues();
   };
+  console.log(selectedGroup.id);
 
   return (
     <BasicModal
@@ -146,8 +148,9 @@ const AddEditGroup: FC<Props> = observer(props => {
                 labelId="status"
                 label="Статус"
                 fullWidth
-                // @ts-ignore
-                onChange={(event, child) => (modalFields.status = event.target.value)}
+                onChange={(event, child) =>
+                  (modalFields.status = event.target.value as StatusTypes)
+                }
                 value={modalFields.status}
               >
                 {statusOptions}

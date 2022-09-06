@@ -7,13 +7,11 @@ import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
   RequestParenting,
   RequestUsersForFilter,
-  RequestUsersParams,
   ResponseOneUser,
   ResponseUserT,
 } from 'app/types/UserTypes';
 import { checkErrorMessage, ErrorMessageType } from 'utils/checkErrorMessage';
 import { SearchUserType } from 'app/types/SearchUserType';
-import { GroupParamsForUI } from 'app/types/GroupTypes';
 
 class UsersStore {
   users: ResponseUserT[] = [];

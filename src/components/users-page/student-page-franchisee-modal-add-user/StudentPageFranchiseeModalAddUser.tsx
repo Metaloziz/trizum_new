@@ -61,7 +61,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       setSelectedRole(user.roleCode as Roles);
     }
   }, []);
-
   const findSex = () => (user?.sex ? sexOptions[0].value : sexOptions[1].value);
 
   const defaultValues = {
@@ -366,7 +365,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                     control={control}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={13} sm={6}>
                   <Controller
                     name="sex"
                     render={({ field }) => (
@@ -383,14 +382,17 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
               </>
             )}
             {/* <div className={styles.button}> */}
-            <Grid item xs={12} sm={6}>
-              {user && <SetStatusButton status={user?.status} id={user.id} />}
+            <Grid xs={12} sm={12} margin="10px 14px" display="flex">
+              <Grid item xs={12} sm={6.2}>
+                <Button type="submit" disabled={isSubmitSuccessful}>
+                  Сохранить
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={5.8}>
+                {user && <SetStatusButton status={user?.status} id={user.id} />}
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button type="submit" disabled={isSubmitSuccessful}>
-                Сохранить
-              </Button>
-            </Grid>
+
             {/* </div> */}
 
             {/* </div> */}

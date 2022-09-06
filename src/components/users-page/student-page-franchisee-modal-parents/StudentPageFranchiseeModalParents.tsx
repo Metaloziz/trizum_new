@@ -3,9 +3,8 @@ import React, { FC } from 'react';
 import styles from './StudentPageFranchiseeModalParents.module.scss';
 
 import Button from 'components/button/Button';
-import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
-import { ParentDataT, ResponseOneUser } from 'app/types/UserTypes';
+import { ResponseOneUser } from 'app/types/UserTypes';
 
 type StudentPageFranchiseeModalParentsPropsT = { onCloseModal: () => void; user?: ResponseOneUser };
 
@@ -21,9 +20,9 @@ const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPro
       parents={user?.parents}
     />
 
-    <div className={styles.button}>
-      <Button>Сохранить</Button>
-    </div>
+    {/* <div className={styles.button}> */}
+    {/*  <Button>Сохранить</Button> */}
+    {/* </div> */}
   </div>
 );
 

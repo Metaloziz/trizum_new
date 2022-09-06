@@ -105,7 +105,7 @@ const AddEditGroup: FC<Props> = observer(props => {
   return (
     <BasicModal
       fullWidth
-      title={selectedGroup ? 'Редактировать группу' : 'Добавить группу'}
+      title={selectedGroup.id ? 'Редактировать группу' : 'Добавить группу'}
       visibility={isModalOpen}
       changeVisibility={onClose}
     >
@@ -236,7 +236,7 @@ const AddEditGroup: FC<Props> = observer(props => {
           }}
         >
           <Button onClick={() => (selectedGroup ? editGroup() : addGroup())}>
-            {selectedGroup ? 'Изменить' : 'Добавить'}
+            {selectedGroup.id ? 'Изменить' : 'Добавить'}
           </Button>
         </Grid>
       </Grid>

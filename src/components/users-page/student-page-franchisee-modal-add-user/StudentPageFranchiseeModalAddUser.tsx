@@ -198,7 +198,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
             </Grid>
             <Grid item xs={12} sm={6}>
               <Controller
-                name="middleName"
+                name="lastName"
                 render={({ field }) => (
                   <TextFieldCustom label="Фамилия" error={errors.middleName?.message} {...field} />
                 )}
@@ -216,7 +216,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
             </Grid>
             <Grid item xs={12} sm={6}>
               <Controller
-                name="lastName"
+                name="middleName"
                 render={({ field }) => (
                   <TextFieldCustom label="Отчество" error={errors.lastName?.message} {...field} />
                 )}

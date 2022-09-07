@@ -396,7 +396,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
           </Grid>
         </Box>
       </form>
-      {user?.parents && (
+      {user?.parents && user?.roleCode === Roles.Student && (
         <StudentParentsFormContainer
           franchiseId={currentFranchiseId}
           studentId={studentId}

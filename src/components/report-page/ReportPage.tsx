@@ -7,7 +7,6 @@ import { observer } from 'mobx-react-lite';
 import { Loader } from '../loader/Loader';
 import Pagination from '@mui/material/Pagination';
 import { shortenName, transformDate } from 'utils/transformData';
-import { ReportItemsT } from '../../app/types/ReportT';
 import reportStore from '../../app/stores/reportStore';
 
 const columnNames = [
@@ -22,7 +21,7 @@ const columnNames = [
 ];
 
 const ReportPage = observer(() => {
-  const { getReports, reports: data, total, queryFields, perPage } = reportStore;
+  const { getReports, reports: currentItem, total, queryFields, perPage } = reportStore;
   const [loading, setLoading] = useState<boolean>(false); // State для загрузки
 
   useEffect(() => {
@@ -30,10 +29,6 @@ const ReportPage = observer(() => {
     getReports();
     setLoading(false);
   }, [queryFields.page]);
-
-  const lastItemIndex = (queryFields?.page ? queryFields.page : 1) * perPage;
-  const firstItemIndex = lastItemIndex - perPage;
-  const currentItem: ReportItemsT[] = data?.slice(firstItemIndex, lastItemIndex);
 
   const paginate = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     queryFields.page = newCurrentPage - 1;

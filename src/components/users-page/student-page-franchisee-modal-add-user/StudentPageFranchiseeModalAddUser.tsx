@@ -384,7 +384,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
             )}
             {/* <div className={styles.button}> */}
             <Grid item xs={12} sm={6}>
-              {user && <SetStatusButton status={user?.status} id={user.id} />}
+              {user && <SetStatusButton status={user?.active} id={user.id} />}
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button type="submit" disabled={isSubmitSuccessful}>

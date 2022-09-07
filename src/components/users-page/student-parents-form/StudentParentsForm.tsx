@@ -111,8 +111,6 @@ const StudentParentsForm: FC<Props> = observer(
       sex: sexOptions[0]?.value,
       isMain: parent?.main || false,
     };
-    console.log(parent);
-
     const {
       handleSubmit,
       control,

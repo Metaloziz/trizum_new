@@ -134,7 +134,6 @@ class UsersStore {
 
   setSearchUsersParams = (params: RequestUsersForFilter) => {
     this.searchUsersParams = { ...this.searchUsersParams, ...params };
-    console.log(this.searchUsersParams);
   };
 
   cleanSearchUsersParams = () => {

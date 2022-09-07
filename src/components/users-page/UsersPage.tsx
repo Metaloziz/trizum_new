@@ -28,8 +28,6 @@ const UsersPage = observer(() => {
     getFilteredUsers,
     setSearchUsersParams,
   } = usersStore;
-  console.log(users);
-  console.log(currentUser);
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
   const { getTariffs } = tariffsStore;

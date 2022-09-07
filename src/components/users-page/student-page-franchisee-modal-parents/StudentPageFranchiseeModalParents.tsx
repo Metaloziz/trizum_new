@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 
 import styles from './StudentPageFranchiseeModalParents.module.scss';
@@ -8,22 +9,21 @@ import { ResponseOneUser } from 'app/types/UserTypes';
 
 type StudentPageFranchiseeModalParentsPropsT = { onCloseModal: () => void; user?: ResponseOneUser };
 
-const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPropsT> = ({
-  user,
-  onCloseModal,
-}) => (
-  <div className={styles.wrapper}>
-    <StudentParentsFormContainer
-      franchiseId={user?.franchise?.id ? user.franchise.id : ''}
-      studentId={user?.id ? user.id : ''}
-      onCloseModal={onCloseModal}
-      parents={user?.parents}
-    />
+const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPropsT> = observer(
+  ({ user, onCloseModal }) => (
+    <div className={styles.wrapper}>
+      <StudentParentsFormContainer
+        franchiseId={user?.franchise?.id ? user.franchise.id : ''}
+        studentId={user?.id ? user.id : ''}
+        onCloseModal={onCloseModal}
+        parents={user?.parents}
+      />
 
-    {/* <div className={styles.button}> */}
-    {/*  <Button>Сохранить</Button> */}
-    {/* </div> */}
-  </div>
+      {/* <div className={styles.button}> */}
+      {/*  <Button>Сохранить</Button> */}
+      {/* </div> */}
+    </div>
+  ),
 );
 
 export default StudentPageFranchiseeModalParents;

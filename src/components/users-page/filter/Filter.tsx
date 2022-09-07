@@ -339,12 +339,12 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
             {role === Roles.Admin && (
               <Grid item xs={12} sm={4}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Активный пользователь ?</InputLabel>
+                  <InputLabel id="demo-simple-select-label">Активный пользователь?</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={isActive}
-                    label="Активный пользователь ?"
+                    label="Активный пользователь?"
                     onChange={handleChangeIsActive}
                   >
                     <MenuItem value={ACTIVE_USER.label}>{ACTIVE_USER.label}</MenuItem>

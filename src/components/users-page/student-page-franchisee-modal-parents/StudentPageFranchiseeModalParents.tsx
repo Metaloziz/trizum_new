@@ -2,8 +2,6 @@ import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 
 import styles from './StudentPageFranchiseeModalParents.module.scss';
-
-import Button from 'components/button/Button';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import { ResponseOneUser } from 'app/types/UserTypes';
 
@@ -18,10 +16,6 @@ const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPro
         onCloseModal={onCloseModal}
         parents={user?.parents}
       />
-
-      {/* <div className={styles.button}> */}
-      {/*  <Button>Сохранить</Button> */}
-      {/* </div> */}
     </div>
   ),
 );

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, FormControl, Grid, TextField, Typography } from '@mui/material';
+import { Box, FormControl, Grid, TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -50,7 +50,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
   const sexOptions = convertSexOptions();
   const groupOptions = convertGroupOptions(groups);
   const tariffsOptions = convertTariffOptions(tariffs);
-
   const [isParentShown, setIsParentShown] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [selectedRole, setSelectedRole] = useState<Roles>();
@@ -152,7 +151,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
       tariffId: values.tariff,
     };
 
-    await action(
+    action(
       user,
       removeEmptyFields(newUserData),
       setError,
@@ -288,6 +287,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                           }}
                           title="Тариф"
                           options={tariffsOptions}
+                          value=""
                           error={errors?.tariff?.message?.toString()}
                         />
                       )}
@@ -306,6 +306,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                             field.onChange(e);
                           }}
                           title="Группа"
+                          value=""
                           options={groupOptions}
                           error={errors.group?.message}
                         />
@@ -381,7 +382,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                 </Grid>
               </>
             )}
-            {/* <div className={styles.button}> */}
             <Grid xs={12} sm={12} margin="10px 14px" display="flex">
               <Grid item xs={12} sm={6.2}>
                 <Button type="submit" disabled={isSubmitSuccessful}>
@@ -392,10 +392,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
                 {user && <SetStatusButton status={user?.status} id={user.id} />}
               </Grid>
             </Grid>
-
-            {/* </div> */}
-
-            {/* </div> */}
           </Grid>
         </Box>
       </form>

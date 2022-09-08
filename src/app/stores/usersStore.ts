@@ -35,23 +35,6 @@ class UsersStore {
 
   birthdate: SearchUserType;
 
-  searchUsersParams: RequestUsersForFilter = {
-    perPage: 10,
-    page: 0,
-    city: null,
-    franchiseId: null,
-    lastName: '',
-    middleName: '',
-    firstName: '',
-    is_payed: null,
-    role: null,
-    birthdate_since: null,
-    birthdate_until: null,
-    phone: null,
-    email: null,
-    tariff_id: null,
-  };
-
   private searchDefaultUsersParams: RequestUsersForFilter = {
     perPage: 10,
     page: 0,
@@ -68,6 +51,8 @@ class UsersStore {
     email: '',
     tariff_id: '',
   };
+
+  searchUsersParams: RequestUsersForFilter = { ...this.searchDefaultUsersParams };
 
   constructor() {
     makeAutoObservable(this);

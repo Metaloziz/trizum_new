@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, FormControl, Grid, TextField } from '@mui/material';
+import { Box, FormControl, FormHelperText, Grid, TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -114,7 +114,11 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
     email:
       selectedRole === Roles.Student
         ? yup.string().notRequired()
-        : yup.string().required('Обязательное поле').email(),
+        : yup
+            .string()
+            .email('Обязательное поле')
+            .matches(/^([A-Za-z]|[0-9])+$/g, 'Введите верный email')
+            .required('Обязательное поле'),
     franchise: user
       ? yup.string().notRequired()
       : isMethodistTutor(selectedRole)

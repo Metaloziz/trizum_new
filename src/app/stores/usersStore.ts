@@ -1,3 +1,4 @@
+import { ReportParamsForUI } from 'app/types/ReportT';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import authService from 'app/services/authService';
@@ -34,14 +35,14 @@ class UsersStore {
 
   birthdate: SearchUserType;
 
-  private searchUsersParams: RequestUsersForFilter = {
+  searchUsersParams: RequestUsersForFilter = {
     perPage: 10,
     page: 0,
     city: null,
     franchiseId: null,
-    lastName: null,
-    middleName: null,
-    firstName: null,
+    lastName: '',
+    middleName: '',
+    firstName: '',
     is_payed: null,
     role: null,
     birthdate_since: null,
@@ -49,6 +50,23 @@ class UsersStore {
     phone: null,
     email: null,
     tariff_id: null,
+  };
+
+  private searchDefaultUsersParams: RequestUsersForFilter = {
+    perPage: 10,
+    page: 0,
+    city: '',
+    franchiseId: '',
+    lastName: '',
+    middleName: '',
+    firstName: '',
+    is_payed: false,
+    role: '',
+    birthdate_since: '',
+    birthdate_until: '',
+    phone: null,
+    email: '',
+    tariff_id: '',
   };
 
   constructor() {
@@ -137,11 +155,8 @@ class UsersStore {
   };
 
   cleanSearchUsersParams = () => {
-    this.firstName = '';
-    this.middleName = '';
-    this.lastName = '';
-    this.city = '';
-    this.birthdate = '';
+    this.searchUsersParams = this.searchDefaultUsersParams;
+    this.getUsers();
   };
 
   get getFullUserName() {

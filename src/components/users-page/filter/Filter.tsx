@@ -51,7 +51,8 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
   const { tariffs } = tariffsStore;
   const { franchise } = franchiseeStore;
   const { groups, getGroups } = groupStore;
-  const { getFilteredUsers, page, perPage, setSearchUsersParams } = usersStore;
+  const { getFilteredUsers, page, perPage, setSearchUsersParams, cleanSearchUsersParams } =
+    usersStore;
 
   const franchiseOptions = convertFranchiseeOptions(franchise);
   const groupsOptions = convertGroupOptions(groups);
@@ -76,7 +77,7 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
 
   const [phone, setPhone] = useState<number | null>(null);
   const [email, setEmail] = useState('');
-  const [city, setCity] = React.useState('');
+  const [city, setCity] = useState('');
 
   const [isActive, setIsActive] = useState('');
 
@@ -174,7 +175,23 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
   }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setEmail(value);
   };
-
+  const onClearFilter = () => {
+    setSelectedRole('all');
+    setLastName('');
+    setFirstName('');
+    setMiddleName('');
+    setFranchiseId('');
+    setGroupId('');
+    setTariffId('');
+    setIsPaid(null);
+    setPhone(null);
+    setEmail('');
+    setCity('');
+    setIsActive('');
+    setBornDataSince(null);
+    setBornDateUntil(null);
+    cleanSearchUsersParams();
+  };
   return (
     <Box>
       <Accordion
@@ -312,7 +329,7 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
-                label="Номер"
+                label="Номер телефона"
                 fullWidth
                 value={phone || ''}
                 type="number"
@@ -367,6 +384,9 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
           >
             <Button size="small" onClick={onSearchClick}>
               Найти
+            </Button>
+            <Button size="small" onClick={onClearFilter}>
+              Сбросить
             </Button>
             <Button variant="addUser" size="small" onClick={() => props.setIsModalOpen(true)}>
               Добавить пользователя

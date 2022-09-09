@@ -30,7 +30,6 @@ import {
   FormGroup,
   FormHelperText,
   Grid,
-  InputLabel,
   TextField,
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -72,27 +71,27 @@ const StudentParentsForm: FC<Props> = observer(
       firstName: yup
         .string()
         .required('Обязательное поле')
-        .matches(REG_NAME, 'допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+        .matches(REG_NAME, 'Допустима только кириллица')
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
         .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       middleName: yup
         .string()
         .required('Обязательное поле')
-        .matches(REG_NAME, 'допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        .matches(REG_NAME, 'Допустима только кириллица')
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       lastName: yup
         .string()
         .required('Обязательное поле')
-        .matches(REG_NAME, 'допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        .matches(REG_NAME, 'Допустима только кириллица')
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       city: yup
         .string()
         .required('Обязательное поле')
-        .matches(REG_NAME, 'допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        .matches(REG_NAME, 'Допустима только кириллица')
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       phone: yup.string().required('Обязательное поле'),
       email: yup
         .string()
@@ -127,10 +126,11 @@ const StudentParentsForm: FC<Props> = observer(
       setError,
       formState: { errors },
     } = useForm<typeof defaultValues>({
-      // mode: 'onChange',
+      mode: 'onChange',
       defaultValues,
       resolver: yupResolver(schema),
     });
+    console.log(errors);
 
     const onSubmit: SubmitHandler<CreateParentPayloadT> = async values => {
       const newParent: RequestRegister = {

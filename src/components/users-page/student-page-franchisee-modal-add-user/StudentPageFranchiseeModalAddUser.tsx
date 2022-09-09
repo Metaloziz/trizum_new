@@ -72,7 +72,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       sex: findSex() || sexOptions[0].value,
       city: user?.city || '',
       phone: user?.phone || '',
-      birthdate: user?.birthdate?.date || '',
+      birthdate: user?.birthdate?.date || '01.01.2000',
       email: user?.email || '',
       franchise: '', // не изменяется при редактировании
       tariff: user?.tariff || '', // не изменяется при редактировании
@@ -83,29 +83,29 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       firstName: yup
         .string()
         .required('Обязательное поле')
-        .matches(REG_NAME, 'допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        .matches(REG_NAME, 'Допустима только кириллица')
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       middleName: yup
         .string()
         .required('Обязательное поле')
-        .matches(REG_NAME, 'допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+        .matches(REG_NAME, 'Допустима только кириллица')
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
         .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       lastName: yup
         .string()
         .required('Обязательное поле')
-        .matches(REG_NAME, 'допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        .matches(REG_NAME, 'Допустима только кириллица')
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       role: user ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
       sex: yup.string().required('Обязательное поле'),
       city: yup
         .string()
         .required('Обязательное поле')
-        .matches(REG_NAME, 'допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        .matches(REG_NAME, 'Допустима только кириллица')
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       phone:
         selectedRole === Roles.Student
           ? yup.string().notRequired()
@@ -145,7 +145,11 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       resetField,
       reset,
       formState: { errors, isSubmitSuccessful },
-    } = useForm<typeof defaultValues>({ resolver: yupResolver(schema), defaultValues });
+    } = useForm<typeof defaultValues>({
+      mode: 'onChange',
+      resolver: yupResolver(schema),
+      defaultValues,
+    });
 
     const onSubmit = handleSubmit(async values => {
       const newUserData: RequestRegister = {

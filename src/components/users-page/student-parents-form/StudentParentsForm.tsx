@@ -96,8 +96,11 @@ const StudentParentsForm: FC<Props> = observer(
       phone: yup.string().required('Обязательное поле'),
       email: yup
         .string()
-        .email()
-        .matches(/^([A-Za-z]|[0-9])+$/g, 'Введите правильный email')
+        .email('Обязательное поле')
+        .matches(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          'Введите верный email',
+        )
         .required('Обязательное поле'),
       birthdate: yup
         .date()

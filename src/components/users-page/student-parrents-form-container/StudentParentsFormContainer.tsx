@@ -19,10 +19,11 @@ type Props = {
   franchiseId: string;
   onCloseModal: () => void;
   parents?: ParentT[];
+  visibility?: boolean;
 };
 
 export const StudentParentsFormContainer: FC<Props> = observer(
-  ({ onCloseModal, studentId, parents, franchiseId }) => {
+  ({ onCloseModal, studentId, parents, franchiseId, visibility }) => {
     const [parentState, setParentState] = useState(() => setInitialState(parents));
     const addForm = () => {
       const form: ParentsFormStateType = {
@@ -85,12 +86,12 @@ export const StudentParentsFormContainer: FC<Props> = observer(
               />
             ))}
           </div>
-          {/* {parentState.length < MAX_PARENTS_COUNT && ( */}
-          {/*  <ButtonAddParent */}
-          {/*    onClick={addForm} */}
-          {/*    disabled={parentState.length === MAX_PARENTS_COUNT} */}
-          {/*  /> */}
-          {/* )} */}
+          {parentState.length < MAX_PARENTS_COUNT && visibility && (
+            <ButtonAddParent
+              onClick={addForm}
+              disabled={parentState.length === MAX_PARENTS_COUNT}
+            />
+          )}
         </div>
       </div>
     );

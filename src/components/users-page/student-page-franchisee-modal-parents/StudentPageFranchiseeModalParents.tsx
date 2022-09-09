@@ -6,7 +6,10 @@ import styles from './StudentPageFranchiseeModalParents.module.scss';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import { ResponseOneUser } from 'app/types/UserTypes';
 
-type StudentPageFranchiseeModalParentsPropsT = { onCloseModal: () => void; user?: ResponseOneUser };
+type StudentPageFranchiseeModalParentsPropsT = {
+  onCloseModal: () => void;
+  user?: ResponseOneUser;
+};
 
 const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPropsT> = observer(
   ({ user, onCloseModal }) => (

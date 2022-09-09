@@ -99,7 +99,10 @@ const StudentParentsForm: FC<Props> = observer(
         .email()
         .matches(/^([A-Za-z]|[0-9])+$/g, 'Введите правильный email')
         .required('Обязательное поле'),
-      birthdate: yup.string().required('Обязательное поле'), // todo проверить после добавления dataPicker
+      birthdate: yup
+        .date()
+        .required('Обязательное поле')
+        .min('01-01-1920', 'Возраст выбран не верно'), // todo проверить после добавления dataPicker
       sex: yup.string().required('Обязательное поле'),
       isMain: yup.boolean().required('Обязательное поле'),
     });

@@ -94,7 +94,11 @@ const StudentParentsForm: FC<Props> = observer(
         .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
         .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       phone: yup.string().required('Обязательное поле'),
-      email: yup.string().required('Обязательное поле').email(),
+      email: yup
+        .string()
+        .email()
+        .matches(/^([A-Za-z]|[0-9])+$/g, 'Введите правильный email')
+        .required('Обязательное поле'),
       birthdate: yup.string().required('Обязательное поле'), // todo проверить после добавления dataPicker
       sex: yup.string().required('Обязательное поле'),
       isMain: yup.boolean().required('Обязательное поле'),

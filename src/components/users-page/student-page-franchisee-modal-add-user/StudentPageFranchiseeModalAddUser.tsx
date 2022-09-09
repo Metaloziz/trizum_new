@@ -399,20 +399,24 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(({ user, on
           </Grid>
         </Box>
       </form>
-      {user?.parents && (
-        <StudentParentsFormContainer
-          franchiseId={currentFranchiseId}
-          studentId={studentId}
-          onCloseModal={onCloseModal}
-          parents={user.parents}
-        />
-      )}
-      {isParentShown && studentId && (
-        <StudentParentsFormContainer
-          franchiseId={currentFranchiseId}
-          studentId={studentId}
-          onCloseModal={onCloseModal}
-        />
+      {user?.roleCode === Roles.Student && (
+        <div>
+          {user?.parents && (
+            <StudentParentsFormContainer
+              franchiseId={currentFranchiseId}
+              studentId={studentId}
+              onCloseModal={onCloseModal}
+              parents={user.parents}
+            />
+          )}
+          {isParentShown && studentId && (
+            <StudentParentsFormContainer
+              franchiseId={currentFranchiseId}
+              studentId={studentId}
+              onCloseModal={onCloseModal}
+            />
+          )}
+        </div>
       )}
     </>
   );

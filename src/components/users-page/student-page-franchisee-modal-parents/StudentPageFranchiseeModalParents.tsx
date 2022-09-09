@@ -1,3 +1,4 @@
+import { Roles } from 'app/stores/appStore';
 import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 
@@ -10,12 +11,14 @@ type StudentPageFranchiseeModalParentsPropsT = { onCloseModal: () => void; user?
 const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPropsT> = observer(
   ({ user, onCloseModal }) => (
     <div className={styles.wrapper}>
-      <StudentParentsFormContainer
-        franchiseId={user?.franchise?.id ? user.franchise.id : ''}
-        studentId={user?.id ? user.id : ''}
-        onCloseModal={onCloseModal}
-        parents={user?.parents}
-      />
+      {user?.roleCode === Roles.Student && (
+        <StudentParentsFormContainer
+          franchiseId={user?.franchise?.id ? user.franchise.id : ''}
+          studentId={user?.id ? user.id : ''}
+          onCloseModal={onCloseModal}
+          parents={user?.parents}
+        />
+      )}
     </div>
   ),
 );

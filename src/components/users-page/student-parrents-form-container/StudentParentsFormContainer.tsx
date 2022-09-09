@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import style from './StudentParentsFormContainer.module.scss';
 
@@ -66,7 +66,6 @@ export const StudentParentsFormContainer: FC<Props> = observer(
     //     onCloseModal();
     //   }
     // });
-
     return (
       <div>
         <h2 className={styles.parentTitle}>Родители ученика*</h2>
@@ -86,7 +85,12 @@ export const StudentParentsFormContainer: FC<Props> = observer(
               />
             ))}
           </div>
-          {/* <ButtonAddParent onClick={addForm} disabled={parentState.length === MAX_PARENTS_COUNT} /> */}
+          {/* {parentState.length < MAX_PARENTS_COUNT && ( */}
+          {/*  <ButtonAddParent */}
+          {/*    onClick={addForm} */}
+          {/*    disabled={parentState.length === MAX_PARENTS_COUNT} */}
+          {/*  /> */}
+          {/* )} */}
         </div>
       </div>
     );

@@ -1,3 +1,4 @@
+import { tariff } from 'components/moks-data/moks-data-tariff';
 import React, { FC, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -47,7 +48,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
     const { franchise } = franchiseeStore;
     const { groups, loadCurrentGroups } = groupStore;
     const { tariffs } = tariffsStore;
-
     const franchiseOptions = convertFranchiseeOptions(franchise);
     const sexOptions = convertSexOptions();
     const groupOptions = convertGroupOptions(groups);
@@ -75,8 +75,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       birthdate: user?.birthdate?.date || '01.01.2000',
       email: user?.email || '',
       franchise: '', // не изменяется при редактировании
-      tariff: user?.tariff || '', // не изменяется при редактировании
-      group: '', // не изменяется при редактировании
+      tariff: user?.tariff.id || '', // не изменяется при редактировании
+      group: user?.groups[0].groupId || '', // не изменяется при редактировании
     };
 
     const schema = yup.object().shape({
@@ -111,11 +111,11 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().notRequired()
           : yup.string().required('Обязательное поле'),
       /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-        .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+                                            .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
       birthdate: yup
         .date()
         .required('Обязательное поле')
-        .min('01-01-1920', 'Возраст выбран не верно'), // todo проверить после добавления dataPicker
+        .min('01-01-1920', 'Возраст выбран не верно'),
       email:
         selectedRole === Roles.Student
           ? yup.string().notRequired()
@@ -138,7 +138,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().required('Обязательное поле')
           : yup.string().notRequired(),
     });
-
     const {
       handleSubmit,
       control,
@@ -195,7 +194,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       }
 
       if (isStudentTeacherEducation(selectedRole)) {
-        loadCurrentGroups(selectedRole, { franchiseId: franchiseOptions[0].value, type: 'class' });
+        loadCurrentGroups(selectedRole, {
+          franchiseId: franchiseOptions[0].value,
+          type: 'class',
+        });
       }
 
       resetField('franchise');
@@ -328,7 +330,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                             }}
                             title="Тариф"
                             options={tariffsOptions}
-                            value=""
                             error={errors?.tariff?.message?.toString()}
                           />
                         )}
@@ -347,7 +348,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                               field.onChange(e);
                             }}
                             title="Группа"
-                            value=""
+                            // value=""
                             options={groupOptions}
                             error={errors.group?.message}
                           />

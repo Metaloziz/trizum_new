@@ -104,7 +104,7 @@ const StudentParentsForm: FC<Props> = observer(
       birthdate: yup
         .date()
         .required('Обязательное поле')
-        .min('01-01-1920', 'Возраст выбран не верно'), // todo проверить после добавления dataPicker
+        .min('01-01-1920', 'Возраст выбран не верно'),
       sex: yup.string().required('Обязательное поле'),
       isMain: yup.boolean().required('Обязательное поле'),
     });

@@ -123,8 +123,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
               .string()
               .email('Обязательное поле')
               .matches(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                'Введите верный email',
+                /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+
+                'Введите валидный email',
               )
               .required('Обязательное поле'),
       franchise: user
@@ -215,6 +216,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                   name="middleName"
                   render={({ field }) => (
                     <TextFieldCustom
+                      type="text"
+                      autoComplete="on"
                       label="Фамилия"
                       error={errors.middleName?.message}
                       {...field}
@@ -227,7 +230,13 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                 <Controller
                   name="firstName"
                   render={({ field }) => (
-                    <TextFieldCustom label="Имя" error={errors.firstName?.message} {...field} />
+                    <TextFieldCustom
+                      type="text"
+                      autoComplete="on"
+                      label="Имя"
+                      error={errors.firstName?.message}
+                      {...field}
+                    />
                   )}
                   control={control}
                 />
@@ -236,7 +245,13 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                 <Controller
                   name="lastName"
                   render={({ field }) => (
-                    <TextFieldCustom label="Отчество" error={errors.lastName?.message} {...field} />
+                    <TextFieldCustom
+                      type="text"
+                      autoComplete="on"
+                      label="Отчество"
+                      error={errors.lastName?.message}
+                      {...field}
+                    />
                   )}
                   control={control}
                 />
@@ -247,7 +262,13 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                     <Controller
                       name="city"
                       render={({ field }) => (
-                        <TextFieldCustom {...field} label="Город" error={errors.city?.message} />
+                        <TextFieldCustom
+                          type="text"
+                          autoComplete="on"
+                          {...field}
+                          label="Город"
+                          error={errors.city?.message}
+                        />
                       )}
                       control={control}
                     />
@@ -355,6 +376,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                           name="email"
                           render={({ field }) => (
                             <TextFieldCustom
+                              type="text"
+                              autoComplete="on"
                               {...field}
                               label="Почта"
                               error={errors.email?.message}

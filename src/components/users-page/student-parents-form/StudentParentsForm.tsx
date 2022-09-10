@@ -97,8 +97,8 @@ const StudentParentsForm: FC<Props> = observer(
         .string()
         .email('Обязательное поле')
         .matches(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-          'Введите верный email',
+          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+          'Введите валидный email',
         )
         .required('Обязательное поле'),
       birthdate: yup
@@ -130,7 +130,6 @@ const StudentParentsForm: FC<Props> = observer(
       defaultValues,
       resolver: yupResolver(schema),
     });
-    console.log(errors);
 
     const onSubmit: SubmitHandler<CreateParentPayloadT> = async values => {
       const newParent: RequestRegister = {
@@ -166,7 +165,13 @@ const StudentParentsForm: FC<Props> = observer(
               <Controller
                 name="lastName"
                 render={({ field }) => (
-                  <TextFieldCustom label="Фамилия" error={errors.lastName?.message} {...field} />
+                  <TextFieldCustom
+                    type="text"
+                    autoComplete="on"
+                    label="Фамилия"
+                    error={errors.lastName?.message}
+                    {...field}
+                  />
                 )}
                 control={control}
               />
@@ -175,7 +180,13 @@ const StudentParentsForm: FC<Props> = observer(
               <Controller
                 name="firstName"
                 render={({ field }) => (
-                  <TextFieldCustom label="Имя" error={errors.firstName?.message} {...field} />
+                  <TextFieldCustom
+                    type="text"
+                    autoComplete="on"
+                    label="Имя"
+                    error={errors.firstName?.message}
+                    {...field}
+                  />
                 )}
                 control={control}
               />
@@ -184,7 +195,13 @@ const StudentParentsForm: FC<Props> = observer(
               <Controller
                 name="middleName"
                 render={({ field }) => (
-                  <TextFieldCustom {...field} label="Отчество" error={errors.middleName?.message} />
+                  <TextFieldCustom
+                    type="text"
+                    autoComplete="on"
+                    {...field}
+                    label="Отчество"
+                    error={errors.middleName?.message}
+                  />
                 )}
                 control={control}
               />
@@ -193,7 +210,13 @@ const StudentParentsForm: FC<Props> = observer(
               <Controller
                 name="city"
                 render={({ field }) => (
-                  <TextFieldCustom {...field} label="Город" error={errors.city?.message} />
+                  <TextFieldCustom
+                    type="text"
+                    autoComplete="on"
+                    {...field}
+                    label="Город"
+                    error={errors.city?.message}
+                  />
                 )}
                 control={control}
               />
@@ -239,7 +262,13 @@ const StudentParentsForm: FC<Props> = observer(
               <Controller
                 name="email"
                 render={({ field }) => (
-                  <TextFieldCustom {...field} label="Почта" error={errors.email?.message} />
+                  <TextFieldCustom
+                    type="text"
+                    autoComplete="on"
+                    {...field}
+                    label="Почта"
+                    error={errors.email?.message}
+                  />
                 )}
                 control={control}
               />

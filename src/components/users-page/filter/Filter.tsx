@@ -238,6 +238,8 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
 
             <Grid item xs={12} sm={4}>
               <TextField
+                type="text"
+                autoComplete="on"
                 label="Город"
                 fullWidth
                 value={city}
@@ -246,6 +248,8 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
+                type="text"
+                autoComplete="on"
                 label="Фaмилия"
                 fullWidth
                 value={lastName}
@@ -254,6 +258,8 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
+                type="text"
+                autoComplete="on"
                 label="Имя"
                 fullWidth
                 value={firstName}
@@ -262,6 +268,8 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
+                type="text"
+                autoComplete="on"
                 label="Отчество"
                 fullWidth
                 value={middleName}
@@ -329,6 +337,7 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
+                autoComplete="on"
                 label="Номер телефона"
                 fullWidth
                 value={phone || ''}
@@ -337,7 +346,13 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <TextField label="email" fullWidth value={email} onChange={handleChangeEmail} />
+              <TextField
+                type="text"
+                label="Email"
+                fullWidth
+                value={email}
+                onChange={handleChangeEmail}
+              />
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormControl fullWidth>

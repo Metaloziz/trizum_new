@@ -45,7 +45,7 @@ const AddOlympiad = observer(() => {
   const navigate = useNavigate();
   const { role } = appStore;
   const {
-    groups,
+    groups: currentItem,
     getOlympiadGroups,
     getCurrentGroupFromLocalStorage,
     perPage,
@@ -65,10 +65,6 @@ const AddOlympiad = observer(() => {
       cleanOlympiadQueryFieldsWithoutRequest();
     };
   }, [queryFieldsOlympiads.page]);
-
-  const lastItemIndex = (queryFieldsOlympiads?.page ? queryFieldsOlympiads.page : 1) * perPage;
-  const firstItemIndex = lastItemIndex - perPage;
-  const currentItem: ResponseGroups[] = groups?.slice(firstItemIndex, lastItemIndex);
 
   const paginate = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     queryFieldsOlympiads.page = newCurrentPage - 1;

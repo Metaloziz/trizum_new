@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { getFullUserName } from 'utils/getFullUserName';
 
 import modals from '../../../app/stores/CardStudentExtended';
 
@@ -38,8 +39,7 @@ const CardStudentExtended: FC<Props> = ({
   getOneUser,
   // onEditUserClick,
 }) => {
-  const name = `${lastName ?? ' '} ${firstName ?? ' '} ${middleName ?? ' '}`.trim();
-
+  const name = getFullUserName(lastName, firstName, middleName);
   let role;
 
   switch (roleCode) {

@@ -95,6 +95,7 @@ export type ParentT = {
   city: string;
   phone: string;
   email: string;
+  main: boolean;
 };
 
 export type ParentDataT = {
@@ -108,7 +109,7 @@ export type ResponseOneUser = {
   sex: boolean | null; // male - true
   createdAt: TimeZoneType;
   groups: ResponseOneUserGroupT[];
-  parents: ParentDataT[];
+  parents: ParentT[];
   tariff: null | any;
   payedUntill: null | any;
   isSecondChild: null | boolean;

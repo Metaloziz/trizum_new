@@ -1,3 +1,4 @@
+import { ReportParamsForUI } from 'app/types/ReportT';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import authService from 'app/services/authService';
@@ -7,13 +8,11 @@ import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
   RequestParenting,
   RequestUsersForFilter,
-  RequestUsersParams,
   ResponseOneUser,
   ResponseUserT,
 } from 'app/types/UserTypes';
 import { checkErrorMessage, ErrorMessageType } from 'utils/checkErrorMessage';
 import { SearchUserType } from 'app/types/SearchUserType';
-import { GroupParamsForUI } from 'app/types/GroupTypes';
 
 class UsersStore {
   users: ResponseUserT[] = [];
@@ -36,22 +35,24 @@ class UsersStore {
 
   birthdate: SearchUserType;
 
-  private searchUsersParams: RequestUsersForFilter = {
+  private searchDefaultUsersParams: RequestUsersForFilter = {
     perPage: 10,
     page: 0,
-    city: null,
-    franchiseId: null,
-    lastName: null,
-    middleName: null,
-    firstName: null,
-    is_payed: null,
-    role: null,
-    birthdate_since: null,
-    birthdate_until: null,
+    city: '',
+    franchiseId: '',
+    lastName: '',
+    middleName: '',
+    firstName: '',
+    is_payed: false,
+    role: '',
+    birthdate_since: '',
+    birthdate_until: '',
     phone: null,
-    email: null,
-    tariff_id: null,
+    email: '',
+    tariff_id: '',
   };
+
+  searchUsersParams: RequestUsersForFilter = { ...this.searchDefaultUsersParams };
 
   constructor() {
     makeAutoObservable(this);
@@ -136,15 +137,11 @@ class UsersStore {
 
   setSearchUsersParams = (params: RequestUsersForFilter) => {
     this.searchUsersParams = { ...this.searchUsersParams, ...params };
-    console.log(this.searchUsersParams);
   };
 
   cleanSearchUsersParams = () => {
-    this.firstName = '';
-    this.middleName = '';
-    this.lastName = '';
-    this.city = '';
-    this.birthdate = '';
+    this.searchUsersParams = this.searchDefaultUsersParams;
+    this.getUsers();
   };
 
   get getFullUserName() {

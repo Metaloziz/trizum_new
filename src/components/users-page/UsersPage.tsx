@@ -28,14 +28,13 @@ const UsersPage = observer(() => {
     getFilteredUsers,
     setSearchUsersParams,
   } = usersStore;
-
   const { getFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
   const { getTariffs } = tariffsStore;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(page + 1);
-
+  console.log(currentUser);
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setSearchUsersParams({ page: newCurrentPage - 1 });
     setCurrentPage(newCurrentPage);
@@ -90,6 +89,7 @@ const UsersPage = observer(() => {
       <BasicModal visibility={modals.isSetting} changeVisibility={() => modals.changeSetting()}>
         <StudentPageFranchiseeModalAddUser
           onCloseModal={() => modals.changeSetting()}
+          visibility={modals.isSetting}
           user={currentUser}
         />
       </BasicModal>

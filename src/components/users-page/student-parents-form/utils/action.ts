@@ -1,12 +1,12 @@
 import usersService from 'app/services/usersService';
 import usersStore from 'app/stores/usersStore';
 import { RequestRegister } from 'app/types/AuthTypes';
-import { ParentDataT, RequestParenting } from 'app/types/UserTypes';
+import { ParentT, RequestParenting } from 'app/types/UserTypes';
 import { setErrorFormMessage } from 'utils/setErrorFormMessage';
 
 export const action = async (
   setIsDisable: (value: boolean) => void,
-  parent: ParentDataT | undefined,
+  parent: undefined | ParentT,
   newParent: RequestRegister,
   setError: any,
   studentId: string,
@@ -23,7 +23,7 @@ export const action = async (
     let response;
 
     if (parent) {
-      response = await updateUser(newParent, parent.parent.id);
+      response = await updateUser(newParent, parent.id);
       if (typeof response === 'string') {
         setErrorFormMessage(response, setError);
         setIsDisable(false);

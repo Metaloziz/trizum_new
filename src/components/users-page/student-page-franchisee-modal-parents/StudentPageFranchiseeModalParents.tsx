@@ -1,30 +1,29 @@
+import { Roles } from 'app/stores/appStore';
+import { observer } from 'mobx-react-lite';
 import React, { FC } from 'react';
 
 import styles from './StudentPageFranchiseeModalParents.module.scss';
-
-import Button from 'components/button/Button';
-import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
 import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
-import { ParentDataT, ResponseOneUser } from 'app/types/UserTypes';
+import { ResponseOneUser } from 'app/types/UserTypes';
 
-type StudentPageFranchiseeModalParentsPropsT = { onCloseModal: () => void; user?: ResponseOneUser };
+type StudentPageFranchiseeModalParentsPropsT = {
+  onCloseModal: () => void;
+  user?: ResponseOneUser;
+};
 
-const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPropsT> = ({
-  user,
-  onCloseModal,
-}) => (
-  <div className={styles.wrapper}>
-    <StudentParentsFormContainer
-      franchiseId={user?.franchise?.id ? user.franchise.id : ''}
-      studentId={user?.id ? user.id : ''}
-      onCloseModal={onCloseModal}
-      parents={user?.parents}
-    />
-
-    <div className={styles.button}>
-      <Button>Сохранить</Button>
+const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPropsT> = observer(
+  ({ user, onCloseModal }) => (
+    <div className={styles.wrapper}>
+      {user?.roleCode === Roles.Student && (
+        <StudentParentsFormContainer
+          franchiseId={user?.franchise?.id ? user.franchise.id : ''}
+          studentId={user?.id ? user.id : ''}
+          onCloseModal={onCloseModal}
+          parents={user?.parents}
+        />
+      )}
     </div>
-  </div>
+  ),
 );
 
 export default StudentPageFranchiseeModalParents;

@@ -13,6 +13,7 @@ export enum Paths {
   Groups = 'groups',
   Register = 'register',
   Games = 'games',
+  Game = 'game',
   Tariffs = 'tariffs',
   Avatar = 'avatar_upload',
   EditSelf = 'editself',

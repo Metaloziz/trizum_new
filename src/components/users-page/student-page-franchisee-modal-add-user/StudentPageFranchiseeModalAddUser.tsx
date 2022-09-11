@@ -1,8 +1,7 @@
-import { tariff } from 'components/moks-data/moks-data-tariff';
 import React, { FC, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, FormControl, FormHelperText, Grid, TextField } from '@mui/material';
+import { Box, FormControl, Grid, TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -63,7 +62,6 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       }
     }, []);
     const findSex = () => (user?.sex ? sexOptions[0].value : sexOptions[1].value);
-
     const defaultValues = {
       firstName: user?.firstName || '',
       middleName: user?.middleName || '',
@@ -111,7 +109,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().notRequired()
           : yup.string().required('Обязательное поле'),
       /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-                                            .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+                                                  .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
       birthdate: yup
         .date()
         .required('Обязательное поле')

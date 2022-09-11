@@ -34,7 +34,7 @@ const UsersPage = observer(() => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(page + 1);
-
+  console.log(currentUser);
   const onPageChange = (event: ChangeEvent<unknown>, newCurrentPage: number) => {
     setSearchUsersParams({ page: newCurrentPage - 1 });
     setCurrentPage(newCurrentPage);

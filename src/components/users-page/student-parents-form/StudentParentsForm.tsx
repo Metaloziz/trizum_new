@@ -1,8 +1,11 @@
+import franchiseeStore from 'app/stores/franchiseeStore';
+import usersStore from 'app/stores/usersStore';
 import { observer } from 'mobx-react-lite';
 import React, { FC, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import * as yup from 'yup';
 
 import { SexEnum } from 'app/enums/CommonEnums';
@@ -61,12 +64,13 @@ const StudentParentsForm: FC<Props> = observer(
     parent,
     isSubmitAnyForm,
   }) => {
-    const [isDisableSubmit, setIsDisableSubmit] = useState(false);
+    const { currentUser } = usersStore;
 
+    const [isDisableSubmit, setIsDisableSubmit] = useState(false);
     const handlerRadioChange = () => {
       setIsMainParent(!isMainParent, localParentFormID);
     };
-
+    const userFranchiseId: string | undefined = currentUser?.franchise?.id as string | undefined;
     const schema = yup.object().shape({
       firstName: yup
         .string()
@@ -119,6 +123,7 @@ const StudentParentsForm: FC<Props> = observer(
       birthdate: '01.01.2000',
       sex: sexOptions[0]?.value,
       isMain: parent?.main || false,
+      franchiseId: userFranchiseId,
     };
     const {
       handleSubmit,
@@ -139,7 +144,7 @@ const StudentParentsForm: FC<Props> = observer(
         city: values.city,
         lastName: values.lastName,
         firstName: values.firstName,
-        franchiseId,
+        franchiseId: userFranchiseId,
         email: values.email,
         birthdate: values.birthdate,
         role: Roles.Parent,

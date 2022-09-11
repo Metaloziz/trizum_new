@@ -1,9 +1,37 @@
 import { Paths } from 'app/enums/Paths';
 import instance from 'app/services/config';
+import {
+  EditOrCreatePresetParamsT,
+  GamePresetsResponseT,
+  GamePresetT,
+  GamesT,
+  GameT,
+  OneGamePresent,
+} from 'app/types/GameTypes';
 
 const gamesService = {
-  getGames: async () => {
+  getPresets: async (): Promise<GamePresetsResponseT> => {
+    const { data } = await instance.get(`${Paths.Presets}?per_page=30`);
+    return data;
+  },
+  getPreset: async (id: string): Promise<OneGamePresent> => {
+    const { data } = await instance.get(`${Paths.Presets}/${id}`);
+    return data;
+  },
+  getGame: async (game: string): Promise<GameT> => {
+    const { data } = await instance.get(`${Paths.Games}/${game}`);
+    return data;
+  },
+  getGames: async (): Promise<GamesT> => {
     const { data } = await instance.get(Paths.Games);
+    return data;
+  },
+  createPresentGame: async (params: EditOrCreatePresetParamsT): Promise<GamePresetT> => {
+    const { data } = await instance.post(Paths.Presets, params);
+    return data;
+  },
+  editPresetGame: async (id: string, params: EditOrCreatePresetParamsT): Promise<GamePresetT> => {
+    const { data } = await instance.post(`${Paths.Presets}/${id}`, params);
     return data;
   },
 };

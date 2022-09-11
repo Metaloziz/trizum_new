@@ -24,7 +24,12 @@ const ListGames: FC = () => {
   ) : (
     <div className={styles.gamesContent}>
       {games.map(item => (
-        <ItemGame key={item[0]} onClick={() => onClick(item[0])} title="someTitle" imgSrc={image} />
+        <ItemGame
+          key={item.name}
+          onClick={() => onClick(item.name)}
+          title="someTitle"
+          imgSrc={image}
+        />
       ))}
     </div>
   );

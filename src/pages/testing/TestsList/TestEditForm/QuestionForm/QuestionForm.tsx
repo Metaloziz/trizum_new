@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from 'components/button/Button';
 import * as yup from 'yup';
-import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH } from 'constants/constants';
+import { MAX_TEST_QUESTION_LENGTH, MIN_NAMES_LENGTH } from 'constants/constants';
 import style from './QuestionForm.module.scss';
 
 export class QuestionFormData {
@@ -31,7 +31,7 @@ export const QuestionForm: FC<Props> = ({ getQuestionFormData }) => {
   const inputRules = yup
     .string()
     .required('Обязательное поле')
-    .max(MAX_NAMES_LENGTH, `максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+    .max(MAX_TEST_QUESTION_LENGTH, `максимальная длинна ${MAX_TEST_QUESTION_LENGTH} символов`)
     .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`);
 
   const schema = yup.object().shape({

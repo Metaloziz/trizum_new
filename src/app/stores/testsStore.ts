@@ -25,7 +25,7 @@ class TestsStore {
 
   total = 1;
 
-  page = 1;
+  page = 0;
 
   perPage = 5;
 
@@ -48,8 +48,9 @@ class TestsStore {
   isLoading = false;
 
   private searchParams: TestSearchParams = {
-    per_page: 0,
+    per_page: 5,
     status: 'active',
+    page: 0,
   };
 
   constructor() {

@@ -11,6 +11,7 @@ import { QuestionForm, QuestionFormData } from './QuestionForm/QuestionForm';
 import { OneTestBodyT, TestPayloadT } from 'app/types/TestsT';
 import { observer } from 'mobx-react-lite';
 import testsStore from 'app/stores/testsStore';
+import { mixElements } from 'utils/mixElements';
 
 export type TestInputType = Pick<OneTestBodyT, 'title' | 'maxResult'>;
 
@@ -48,7 +49,7 @@ export const TestEditForm = observer(() => {
       content: questions.map(({ question, correctAnswer, ...wrongAnswers }) => ({
         correctAnswer,
         question,
-        answers: [correctAnswer, ...Object.keys(wrongAnswers)],
+        answers: mixElements([...Object.values(wrongAnswers)], correctAnswer),
       })),
     };
 

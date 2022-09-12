@@ -77,6 +77,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       tariff: user?.tariff?.id || '', // не изменяется при редактировании
       group: user?.groups[0]?.groupId || '', // не изменяется при редактировании
     };
+    const maxBirthdayYearStudent = new Date().getFullYear() - 3;
+    const maxBirthdayYearAll = new Date().getFullYear() - 18;
+    const minBirthdayYear = new Date().getFullYear() - 102;
 
     const schema = yup.object().shape({
       firstName: yup
@@ -110,11 +113,19 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().notRequired()
           : yup.string().required('Обязательное поле'),
       /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-                                                                    .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+                                                                                                                                      .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
       birthdate: yup
         .date()
         .required('Обязательное поле')
-        .min('01-01-1920', 'Возраст выбран не верно'),
+        .min(`01-01-${minBirthdayYear}`, 'Не верно выбран возраст')
+        .max(
+          `01-01-${selectedRole === Roles.Student ? maxBirthdayYearStudent : maxBirthdayYearAll}`,
+          `${
+            selectedRole === Roles.Student
+              ? 'Ученик не может быть младше 3 лет'
+              : 'Возраст выбран не верно'
+          }`,
+        ),
       email:
         selectedRole === Roles.Student
           ? yup.string().notRequired()
@@ -164,9 +175,10 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
         phone: values.phone.replace(/[()\s+-]/g, ''),
         isSecondChild: false,
         tariffId: values.tariff,
+        groupId: values.group,
       };
 
-      action(
+      await action(
         user,
         removeEmptyFields(newUserData),
         setError,

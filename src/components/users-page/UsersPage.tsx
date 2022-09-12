@@ -40,7 +40,6 @@ const UsersPage = observer(() => {
     setCurrentPage(newCurrentPage);
     getFilteredUsers();
   };
-
   const onAddUser = (data: RequestRegister) => {
     setIsModalOpen(false);
     createUser(data);
@@ -56,7 +55,7 @@ const UsersPage = observer(() => {
     getTariffs();
     getFilteredUsers();
   }, []);
-
+  console.log(currentUser);
   return (
     <div className={styles.wrapper}>
       <Filter setIsModalOpen={setIsModalOpen} />

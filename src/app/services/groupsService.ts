@@ -48,6 +48,7 @@ const groupsService = {
   },
 
   getOneGroup: async (id: string): Promise<ResponseOneGroup> => {
+    debugger;
     const { data } = await instance.get(`${Paths.Groups}/${id}`);
     return data;
   },

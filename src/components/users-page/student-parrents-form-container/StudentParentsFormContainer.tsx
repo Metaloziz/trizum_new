@@ -34,7 +34,6 @@ export const StudentParentsFormContainer: FC<Props> = observer(
       const newState = [...parentState, form];
       setParentState(newState);
     };
-    console.log(franchiseId);
 
     const setSuccessForm = (isSuccess: boolean, idForm: number) => {
       const newState = parentState.map(form =>

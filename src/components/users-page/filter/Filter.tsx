@@ -144,7 +144,7 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
   };
 
   const handleChangeGroupType = ({ target: { value } }: SelectChangeEvent) => {
-    setGroupId('');
+    // setGroupId('');
     setGroupType(value);
   };
 

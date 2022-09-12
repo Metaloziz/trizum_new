@@ -431,12 +431,12 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
               )}
               <Grid xs={12} sm={12} margin="10px 14px" display="flex">
                 <Grid item xs={12} sm={6.2}>
+                  {user && <SetStatusButton status={user?.status} id={user.id} />}
+                </Grid>
+                <Grid item xs={12} sm={5}>
                   <Button type="submit" disabled={isSubmitSuccessful}>
                     Сохранить
                   </Button>
-                </Grid>
-                <Grid item xs={12} sm={5.8}>
-                  {user && <SetStatusButton status={user?.status} id={user.id} />}
                 </Grid>
               </Grid>
             </Grid>

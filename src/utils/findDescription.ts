@@ -1,4 +1,4 @@
-import { ArticleDescriptionType } from 'components/add-news-page/AddNewsPage';
+import { ArticleDescriptionType } from 'app/types/ArticleDescriptionType';
 
 export const findDescription = (array: any): ArticleDescriptionType => {
   const result: ArticleDescriptionType | undefined = array.find(

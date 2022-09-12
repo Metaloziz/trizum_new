@@ -4,12 +4,12 @@ import { StatusTypes } from 'app/enums/StatusTypes';
 import { articlesService } from 'app/services/articlesService';
 import { ArticleT } from 'app/types/ArticleT';
 import { executeError } from 'utils/executeError';
-import { ArticleDescriptionType } from 'components/add-news-page/AddNewsPage';
 import { findDescription } from 'utils/findDescription';
 import { ArticlePayloadT } from 'app/types/ArticlePayloadT';
 import { SearchParams } from 'app/types/SearchParams';
 import { OneTestBodyT } from 'app/types/TestsT';
 import { TimeZoneType } from 'app/types/TimeZoneType';
+import { ArticleDescriptionType } from 'app/types/ArticleDescriptionType';
 
 type ArticleStoreType = ArticleT & { description: ArticleDescriptionType };
 export type ArticlesStoreType = Omit<ArticleStoreType, 'test'> & { test: string };
@@ -140,6 +140,12 @@ class ArticlesStore {
         }
       }
     }, this);
+  };
+
+  setDefaultIsSuccessPost = () => {
+    runInAction(() => {
+      this.isSuccessPost = null;
+    });
   };
 }
 export default new ArticlesStore();

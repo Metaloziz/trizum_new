@@ -9,10 +9,9 @@ import { AppRoutes } from 'app/enums/AppRoutes';
 import appStore, { Roles } from 'app/stores/appStore';
 import articlesStore from 'app/stores/articlesStore';
 import Button from 'components/button/Button';
-import BlogItem from 'components/molecules/BlogItem';
 import { SecondaryRoutes } from 'app/enums/SecondaryRoutes';
 import Pagination from '@mui/material/Pagination';
-import image from '../../assets/images/teacher.svg';
+import { ArticlePreview } from 'components/blog-page/ArticlePreview/ArticlePreview';
 
 const BlogPage: FunctionComponent = observer(() => {
   const { role } = appStore;
@@ -58,16 +57,7 @@ const BlogPage: FunctionComponent = observer(() => {
           <Button onClick={onClickAddTest}>Добавить тест</Button>
         </>
       )}
-      {articles.map(item => (
-        <BlogItem
-          id={item.id}
-          key={item.id}
-          title={item.title}
-          description={item.description.text}
-          imgSrc={image}
-          testId={item.test}
-        />
-      ))}
+      <ArticlePreview articles={articles} />
       <div className={styles.pagination}>
         <Pagination
           count={Math.ceil(total / perPage)}

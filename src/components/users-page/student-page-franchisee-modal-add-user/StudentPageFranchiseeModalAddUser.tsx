@@ -44,6 +44,7 @@ type Props = {
 
 export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
   ({ user, onCloseModal, visibility }) => {
+    const studentIdx = user?.id;
     const { franchise } = franchiseeStore;
     const { groups, loadCurrentGroups } = groupStore;
     const { tariffs } = tariffsStore;
@@ -73,8 +74,8 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       birthdate: user?.birthdate?.date || '01.01.2000',
       email: user?.email || '',
       franchise: '', // не изменяется при редактировании
-      tariff: user?.tariff.id || '', // не изменяется при редактировании
-      group: user?.groups[0].groupId || '', // не изменяется при редактировании
+      tariff: user?.tariff?.id || '', // не изменяется при редактировании
+      group: user?.groups[0]?.groupId || '', // не изменяется при редактировании
     };
 
     const schema = yup.object().shape({
@@ -109,7 +110,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().notRequired()
           : yup.string().required('Обязательное поле'),
       /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-                                                  .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+                                                                    .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
       birthdate: yup
         .date()
         .required('Обязательное поле')
@@ -446,7 +447,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
             {user?.parents && (
               <StudentParentsFormContainer
                 franchiseId={currentFranchiseId}
-                studentId={studentId}
+                studentId={user.id ? user.id : ''}
                 onCloseModal={onCloseModal}
                 parents={user.parents}
                 visibility={visibility}

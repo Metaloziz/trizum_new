@@ -65,7 +65,7 @@ const StudentParentsForm: FC<Props> = observer(
     isSubmitAnyForm,
   }) => {
     const { currentUser } = usersStore;
-
+    console.log(studentId);
     const [isDisableSubmit, setIsDisableSubmit] = useState(false);
     const handlerRadioChange = () => {
       setIsMainParent(!isMainParent, localParentFormID);

@@ -58,16 +58,17 @@ const AddEditGroup: FC<Props> = observer(props => {
   const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
   const [courseOptions, setCourseOptions] = useState<JSX.Element[]>([]);
   const getTeachers = async () => {
-    if (modalFields.franchiseId) {
-      const res = await usersService.getAllUsers({
-        perPage: 10000,
-        franchiseId: modalFields.franchiseId,
-        role: Roles.Teacher,
-      });
-      groupStore.teachers = res.items;
-      setTeacherOptions(res.items.map(el => getOptionMui(el.id, el.firstName)));
-    }
+    // if (modalFields.franchiseId) {
+    const res = await usersService.getAllUsers({
+      perPage: 10000,
+      franchiseId: modalFields.franchiseId || undefined,
+      role: Roles.Teacher,
+    });
+    groupStore.teachers = res.items;
+    setTeacherOptions(res.items.map(el => getOptionMui(el.id, el.firstName)));
+    // }
   };
+  console.log(teacherOptions,'te');
   const initLoad = async () => {
     const resFranchise = await franchiseService.getAll();
     const resCourses = await coursesService.getAllCourses({ perPage: 10000 });
@@ -78,16 +79,25 @@ const AddEditGroup: FC<Props> = observer(props => {
     loadInitialModal();
   }, []);
 
-  useEffect(() => {
-    if (modalFields.franchiseId) {
-      getTeachers();
-    }
-  }, [modalFields.franchiseId]);
+  // useEffect(() => {
+  //   if (modalFields.franchiseId) {
+  //     getTeachers();
+  //   }
+  // }, [modalFields.franchiseId]);
   useEffect(() => {
     if (appStore.role === Roles.Admin && !!franchise.length) {
       setFranchiseOptions(franchise.map(t => getOptionMui(t.id || '', t.shortName)));
     }
   }, [groupStore.franchise]);
+  useEffect(() => {
+    if (appStore.user.role !== Roles.Admin && appStore.user.franchise.id) {
+      modalFields.franchiseId = appStore.user.franchise.id;
+      getTeachers();
+    }
+    if (appStore.user.role === Roles.Admin) {
+      getTeachers();
+    }
+  }, []);
 
   useEffect(() => {
     const cOptions = filteredCourses.length
@@ -100,7 +110,6 @@ const AddEditGroup: FC<Props> = observer(props => {
     closeModal();
     cleanModalValues();
   };
-  console.log(selectedGroup.id);
 
   return (
     <BasicModal
@@ -132,7 +141,7 @@ const AddEditGroup: FC<Props> = observer(props => {
               labelId="teacher"
               label="Учитель"
               fullWidth
-              disabled={!modalFields.franchiseId}
+              // disabled={!modalFields.franchiseId}
               onChange={(event, child) => (modalFields.teacherId = event.target.value)}
               value={modalFields.teacherId}
             >

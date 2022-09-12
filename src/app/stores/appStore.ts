@@ -10,6 +10,7 @@ import { TimeZoneType } from 'app/types/TimeZoneType';
 import { canSwitchToT } from 'app/types/UserTypes';
 import { execute } from 'utils/execute';
 import { AvatarT } from 'app/types/AvatarT';
+import { FranchiseT } from 'app/types/FranchiseTypes';
 
 export enum Roles {
   /* Ученик */
@@ -49,7 +50,7 @@ export class EmptyUser {
 
   role;
 
-  franchise: null | string;
+  franchise: FranchiseT = {} as FranchiseT;
 
   city: null | string;
 
@@ -79,7 +80,6 @@ export class EmptyUser {
     this.email = '';
     this.phone = '';
     this.role = '';
-    this.franchise = '';
     this.city = '';
     this.birthdate = {
       date: '',

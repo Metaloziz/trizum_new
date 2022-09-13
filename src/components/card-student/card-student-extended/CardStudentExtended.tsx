@@ -37,7 +37,8 @@ const CardStudentExtended: FC<Props> = ({
   },
   getOneUser,
 }) => {
-  const name = getFullUserName(lastName, firstName, middleName);
+  const FULL_NAME = getFullUserName(middleName, firstName, lastName);
+
   let role;
 
   switch (roleCode) {
@@ -99,7 +100,7 @@ const CardStudentExtended: FC<Props> = ({
             />
           </CustomImageWrapper>
           <div className={styles.title}>
-            <h3>{name}</h3>
+            <h3>{FULL_NAME}</h3>
             <div className={styles.mt20}>
               <p className={styles.list}>
                 Статус: <span>{role}</span>

@@ -1,11 +1,9 @@
-import franchiseeStore from 'app/stores/franchiseeStore';
 import usersStore from 'app/stores/usersStore';
 import { observer } from 'mobx-react-lite';
 import React, { FC, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import * as yup from 'yup';
 
 import { SexEnum } from 'app/enums/CommonEnums';
@@ -66,10 +64,13 @@ const StudentParentsForm: FC<Props> = observer(
   }) => {
     const { currentUser } = usersStore;
     const [isDisableSubmit, setIsDisableSubmit] = useState(false);
+
     const handlerRadioChange = () => {
       setIsMainParent(!isMainParent, localParentFormID);
     };
+
     const userFranchiseId: string | undefined = currentUser?.franchise?.id as string | undefined;
+
     const schema = yup.object().shape({
       firstName: yup
         .string()
@@ -119,11 +120,12 @@ const StudentParentsForm: FC<Props> = observer(
       city: parent?.city || '',
       phone: parent?.phone || '',
       email: parent?.email || '',
-      birthdate: '01.01.2000',
+      birthdate: parent?.birthdate?.date || '',
       sex: sexOptions[0]?.value,
       isMain: parent?.main || false,
       franchiseId: userFranchiseId,
     };
+
     const {
       handleSubmit,
       control,
@@ -239,7 +241,6 @@ const StudentParentsForm: FC<Props> = observer(
                 name="birthdate"
                 render={({ field }) => (
                   <FormControl fullWidth>
-                    {/* <InputLabel htmlFor="birthdate">Дата рождения</InputLabel> */}
                     <DatePicker
                       {...field}
                       onChange={(date: Date | null) => {

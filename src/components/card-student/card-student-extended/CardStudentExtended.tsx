@@ -17,7 +17,6 @@ import { BASE_URL } from 'utils/consts';
 
 type Props = {
   user: ResponseUserT;
-  onEditUserClick: (id: string) => void;
   getOneUser: (id: string) => Promise<ResponseOneUser | undefined>;
 };
 
@@ -32,13 +31,11 @@ const CardStudentExtended: FC<Props> = ({
     city,
     avatar,
     groups,
-    status,
     roleCode,
     franchise,
     active,
   },
   getOneUser,
-  // onEditUserClick,
 }) => {
   const name = getFullUserName(lastName, firstName, middleName);
   let role;

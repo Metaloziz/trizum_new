@@ -5,6 +5,17 @@
   background: linear-gradient(90deg, #B4DEFF 0%, #BEF5FF 100%);
   border-radius: 30px;
   margin-bottom: 15px;
+
+  position: relative;
+
+  .block {
+    position: absolute;
+    opacity: 0;
+    width: 97%;
+    height: 95%;
+    z-index: 1000;
+    top: 20px;
+  }
 }
 
 .row {

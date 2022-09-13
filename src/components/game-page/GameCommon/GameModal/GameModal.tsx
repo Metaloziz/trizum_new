@@ -17,8 +17,6 @@ const defaultInputTextReader =
   'И нет сомнений, что некоторые особенности внутренней политики, превозмогая сложившуюся непростую экономическую ситуацию, ограничены исключительно образом мышления. Вот вам яркий пример современных тенденций - существующая теория позволяет оценить значение системы массового участия!';
 
 export const GameModal: FC<PropsT> = observer(props => {
-  const { id } = useParams();
-  console.log(id);
   const { open, onClose } = props;
   const { createPresets, gamePreset, editPreset, game, getPreset } = gamesStore;
 

@@ -136,6 +136,15 @@ class Game extends Component<any, any> {
     const GameComponent = this.gameComponent;
     const { actualPreset } = gamesStore;
     const { role } = appStore;
+    const widthScreen = window.screen.width;
+    let gameViewSize = 700;
+    if (widthScreen <= 1000 && widthScreen > 760) {
+      gameViewSize = widthScreen - 300;
+    } else if (widthScreen < 760) {
+      gameViewSize = widthScreen - 200;
+    } else if (widthScreen < 420) {
+      gameViewSize = 200;
+    }
     const presetArr: Option[] = [
       {
         value: 'Создать шаблон',
@@ -190,41 +199,43 @@ class Game extends Component<any, any> {
               path={gam.name}
               element={
                 <div className={styles.wrapGameBlock}>
-                  <div className={styles.wrapGameBlock_game}>
-                    <section>
-                      {(role === Roles.Methodist || role === Roles.Admin) && (
-                        <div className={styles.wrapGameBlock_header}>
-                          <div className={styles.wrapGameBlock_header_select}>
-                            <InformationItem
-                              variant="select"
-                              size="normal"
-                              placeholder="Шаблон"
-                              option={presetArr}
-                              onChangeSelect={data => this.setPreset(data)}
-                            />
-                          </div>
-                          <div className={styles.wrapGameBlock_header_select}>
-                            <InformationItem variant="select" size="normal" placeholder="Год" />
-                          </div>
-                          <div className={styles.wrapGameBlock_header_select}>
-                            <InformationItem variant="select" size="normal" placeholder="Месяц" />
-                          </div>
-                          <div className={styles.wrapGameBlock_header_select}>
-                            <InformationItem variant="select" size="normal" placeholder="Группа" />
-                          </div>
+                  <section>
+                    {(role === Roles.Methodist || role === Roles.Admin) && (
+                      <div className={styles.wrapGameBlock_header}>
+                        <div className={styles.wrapGameBlock_header_select}>
+                          <InformationItem
+                            variant="select"
+                            size="normal"
+                            placeholder="Шаблон"
+                            option={presetArr}
+                            onChangeSelect={data => this.setPreset(data)}
+                          />
+                        </div>
+                        <div className={styles.wrapGameBlock_header_select}>
+                          <InformationItem variant="select" size="normal" placeholder="Год" />
+                        </div>
+                        <div className={styles.wrapGameBlock_header_select}>
+                          <InformationItem variant="select" size="normal" placeholder="Месяц" />
+                        </div>
+                        <div className={styles.wrapGameBlock_header_select}>
+                          <InformationItem variant="select" size="normal" placeholder="Группа" />
+                        </div>
 
-                          <Button onClick={() => this.toggleModal(true)}>Выбрать настройки</Button>
-                        </div>
-                      )}
-                      <div className={styles.wrapGame}>
-                        <div className={styles.overlay}>
-                          <GameComponent onRef={this.onRefGame} width={600} onEnd={this.onEnd} />
-                          {!started && <PlayButton onStart={this.onStart} />}
-                        </div>
+                        <Button onClick={() => this.toggleModal(true)}>Выбрать настройки</Button>
                       </div>
-                    </section>
-                    <GameDesc started={started} gameTitle={gam.title} />
-                  </div>
+                    )}
+                    <div className={styles.wrapGame}>
+                      <div className={styles.wrapGame_overlay}>
+                        <GameComponent
+                          onRef={this.onRefGame}
+                          width={gameViewSize}
+                          onEnd={this.onEnd}
+                        />
+                        {!started && <PlayButton onStart={this.onStart} />}
+                      </div>
+                    </div>
+                  </section>
+                  <GameDesc started={started} gameTitle={gam.title} />
                 </div>
               }
             />

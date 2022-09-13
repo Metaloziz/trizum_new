@@ -102,6 +102,8 @@
 
 .wrapGameBlock {
   margin: 20px 0 50px 0;
+  display: flex;
+  justify-content: space-evenly;
 
   &_header {
     display: flex;
@@ -121,7 +123,8 @@
 
   }
 
-  @media(max-width: 1400px) {
+  @media(max-width: 1440px) {
+    flex-direction: column;
     &_header {
       margin: 10px 0;
     }
@@ -133,19 +136,10 @@
   }
 
 
-  &_game {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 20px;
-    @media (max-width: 1600px) {
-      flex-direction: column;
-    }
-  }
-
   &_footer {
     display: flex;
     flex-direction: column;
-    width: auto;
+    width: 50%;
     margin-top: 100px;
     margin-left: 20px;
 
@@ -173,25 +167,45 @@
   border-radius: 70px;
   overflow: hidden;
   margin-bottom: 50px;
-  //margin-right: 20px;
   background: #FCFBFE;
 
+  &_overlay {
+    position: absolute;
+    top: 5%;
+    left: 4%;
+    width: 90%;
+    height: 90%;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #F0F0F0;
+    border-radius: 60px;
+  }
 
+  @media(max-width: 878px) {
+    height: 750px;
+  }
+  @media(max-width: 588px) {
+    height: 500px;
+  }
+  @media(max-width: 428px) {
+    height: 360px;
+  }
 }
 
-.overlay {
+.wrapGame::after {
+  content: '';
+  width: 10px;
+  height: 10px;
   position: absolute;
-  top: 0px;
-  left: 0px;
-  margin: 32px 38px;
-  width: 90%;
-  height: 90%;
-  background: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #F0F0F0;
-  border-radius: 60px;
+  top: 50%;
+  right: 2%;
+  background: #E4E4E4;
+  border: 1px solid #dcdcdc;
+  box-shadow: 0 0 5px rgb(218, 218, 218, 0.9);
+  border-radius: 50%;
+
 }
 
 .playButton {

@@ -23,6 +23,7 @@ export class HttpClient {
   }
 
   private readonly makeConfig = (): AxiosRequestConfig => ({
+    // baseURL: 'https://lk.trizum.ru/api/v1/',
     baseURL: 'https://backschool.sitetopic.ru/api/v1/',
     url: this.url,
     method: this.method,

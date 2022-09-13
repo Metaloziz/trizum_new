@@ -8,3 +8,4 @@ export const FIRST_ARRAY_ITEM = 0;
 
 // base url
 export const BASE_URL = 'https://backschool.sitetopic.ru';
+// export const BASE_URL = 'https://lk.trizum.ru';

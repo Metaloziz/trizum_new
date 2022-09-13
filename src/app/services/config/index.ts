@@ -4,7 +4,7 @@ import TokenService from 'app/services/tokenService';
 
 const instance = axios.create({
   baseURL: 'https://backschool.sitetopic.ru/api/v1/',
-  // baseURL: 'https://lk.trizum.ru',
+  // baseURL: 'https://lk.trizum.ru/api/v1/',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

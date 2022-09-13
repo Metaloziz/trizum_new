@@ -25,7 +25,8 @@ export const RichTextGallery: FC<RichGalleryProps> = observer(props => {
     if (open) getImages();
   }, [open]);
   const handleSelect = (event: any) => {
-    setSelectedImagePath(event.target.src.replace('http://localhost:8000', '')); // TODO change on prod / remote
+    // setSelectedImagePath(event.target.src.replace('http://localhost:8000', '')); // TODO change on prod / remote
+    setSelectedImagePath(event.target.src.replace('https://lk.trizum.ru', '')); // TODO change on prod / remote
   };
   return (
     <>
@@ -81,7 +82,8 @@ export const RichTextGallery: FC<RichGalleryProps> = observer(props => {
             {images.map(image => (
               <ImageListItem key={image.id} onClick={handleSelect}>
                 <img
-                  src={`http://localhost:8000${image.path}`} // TODO change on prod / remote
+                  // src={`http://localhost:8000${image.path}`} // TODO change on prod / remote
+                  src={`https://lk.trizum.ru${image.path}`} // TODO change on prod / remote
                   alt={image.id}
                   loading="lazy"
                 />

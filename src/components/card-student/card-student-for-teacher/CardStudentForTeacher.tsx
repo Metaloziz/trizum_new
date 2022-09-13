@@ -25,6 +25,7 @@ const CardStudentForTeacher: FC<Props> = props => {
         <CustomImageWrapper className={styles.image} variant="circle">
           <Image
             src={
+              // user.avatar?.path ? `https://lk.trizum.ru${user?.avatar?.path}` : Avatar
               user.avatar?.path ? `https://backschool.sitetopic.ru${user?.avatar?.path}` : Avatar
             }
             width="170"

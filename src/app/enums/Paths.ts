@@ -1,7 +1,7 @@
 export enum Paths {
   Auth = 'auth',
   Login = 'login',
-  SMS = 'sms',
+  SMS = 'code',
   Me = 'me',
   LoadMe = 'loadme',
   Franchises = 'franchises',

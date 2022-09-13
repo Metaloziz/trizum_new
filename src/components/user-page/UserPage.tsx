@@ -94,6 +94,7 @@ const UserPage = observer(() => {
             {user?.avatar !== null ? (
               <Image
                 className={styles.avatarImage}
+                // src={`https://lk.trizum.ru${user?.avatar?.path}`}
                 src={`https://backschool.sitetopic.ru${user?.avatar?.path}`}
                 width="320"
                 height="320"

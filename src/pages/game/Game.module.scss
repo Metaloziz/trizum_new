@@ -13,16 +13,15 @@
   position: relative;
   margin: 10px 0px;
   display: flex;
-  //flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 
-  @media(max-width: 956px) {
-    //flex-direction: column;
-    justify-content: center;
-  }
   @media(max-width: 576px) {
     flex-direction: column;
     justify-content: center;
+    & div {
+      margin: 0 auto 10px auto;
+    }
   }
 }
 
@@ -36,15 +35,11 @@
   background: #fff;
   justify-content: center;
   margin-right: 15px;
+  margin-bottom: 15px;
   font-size: 14px;
   border-radius: 30px;
   cursor: pointer;
   color: #333;
-  //margin: 0 auto;
-
-  @media (max-width: 1080px) {
-
-  }
 
   &_header {
     display: flex;
@@ -64,22 +59,19 @@
       color: #0439AD;
       text-transform: uppercase;
     }
-
   }
 
   &_settings {
     cursor: pointer;
     position: absolute;
-    right: 20px;
-    top: 16px;
+    right: 7%;
+    top: 6%;
 
     &:hover {
       & path {
         fill: #0439AD;
       }
     }
-
-
   }
 
   &_play {
@@ -95,6 +87,7 @@
     margin: 40px 0 10px 0;
     border-radius: 30px;
   }
+
   @media(max-width: 1080px) {
     width: 220px;
     height: 200px;
@@ -104,22 +97,21 @@
         font-size: 12px;
       }
     }
-
   }
 }
 
-
 .wrapGameBlock {
-  margin: 20px 0 50px 48px;
+  margin: 20px 0 50px 0;
 
   &_header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin: 20px;
     align-items: center;
 
     &_select {
-      width: 180px;
+      width: 150px;
+      margin-bottom: 5px;
     }
 
     & button {
@@ -129,9 +121,14 @@
 
   }
 
-  @media(max-width: 1600px) {
+  @media(max-width: 1400px) {
     &_header {
-      margin: 20px;
+      margin: 10px 0;
+    }
+  }
+  @media(max-width: 800px) {
+    &_header {
+      flex-wrap: wrap;
     }
   }
 
@@ -142,14 +139,13 @@
     margin-top: 20px;
     @media (max-width: 1600px) {
       flex-direction: column;
-
     }
   }
 
   &_footer {
     display: flex;
     flex-direction: column;
-    width: 700px;
+    width: auto;
     margin-top: 100px;
     margin-left: 20px;
 
@@ -177,12 +173,10 @@
   border-radius: 70px;
   overflow: hidden;
   margin-bottom: 50px;
-  margin-right: 20px;
+  //margin-right: 20px;
   background: #FCFBFE;
 
-  @media (max-width: 860px) {
-    width: 840px;
-  }
+
 }
 
 .overlay {

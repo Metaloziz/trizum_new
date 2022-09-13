@@ -1,6 +1,5 @@
 import { FC } from 'react';
 
-// import CoursesPage from 'components/page-courses/CoursesPage';
 import { observer } from 'mobx-react-lite';
 import { Navigate } from 'react-router-dom';
 

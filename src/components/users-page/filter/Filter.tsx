@@ -49,12 +49,14 @@ interface UserPageFilterProps {
 export const Filter: FC<UserPageFilterProps> = observer(props => {
   const { role } = appStore;
   const { tariffs } = tariffsStore;
-  const { franchise } = franchiseeStore;
+  const { franchise, oneFranchise } = franchiseeStore;
   const { groups, getGroups } = groupStore;
   const { getFilteredUsers, page, perPage, setSearchUsersParams, cleanSearchUsersParams } =
     usersStore;
-
-  const franchiseOptions = convertFranchiseeOptions(franchise);
+  const franchiseOptions =
+    role === Roles.Franchisee || role === Roles.FranchiseeAdmin
+      ? convertFranchiseeOptions([oneFranchise])
+      : convertFranchiseeOptions(franchise);
   const groupsOptions = convertGroupOptions(groups);
   const groupsTypesOptions = convertEnumOptions(GroupTypes);
   const roleOptions = convertEnumOptions(RoleNames);

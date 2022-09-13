@@ -62,7 +62,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
       open={store.isDialogOpen}
     >
       <DialogTitle onClose={store.closeDialog}>
-        {store.editingEntity?.id ? 'Редактирование записи' : 'Добавление новой записи'}
+        {store.editingEntity?.id ? 'Редактирование курса' : 'Добавление нового курса'}
       </DialogTitle>
       <DialogContent dividers>
         <Stack spacing={1}>
@@ -109,7 +109,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                   <TableCell role="checkbox" />
                   <TableCell>Наименование</TableCell>
                   <TableCell width="auto">Описание</TableCell>
-                  <TableCell>Колличество игр</TableCell>
+                  <TableCell>Количество игр</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

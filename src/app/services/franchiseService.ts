@@ -8,7 +8,7 @@ const franchiseService = {
     const { data } = await instance.get(Paths.Franchises);
     return data;
   },
-  getOne: async (id: string): Promise<FranchiseT> => {
+  getOne: async (id: string): Promise<FranchisingViewModel> => {
     const { data } = await instance.get(`${Paths.Franchises}/${id}`);
     return data;
   },

@@ -82,7 +82,6 @@ const AddOlympiad = observer(() => {
   };
 
   const count = Math.ceil(total / perPage);
-
   return (
     <div className={styles.containerAdd}>
       <NameOlympiad isEditRole={IS_EDIT_ROLE} />

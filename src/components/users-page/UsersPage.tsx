@@ -1,3 +1,4 @@
+import appStore, { EmptyUser, Roles } from 'app/stores/appStore';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { observer } from 'mobx-react-lite';
@@ -28,9 +29,10 @@ const UsersPage = observer(() => {
     getFilteredUsers,
     setSearchUsersParams,
   } = usersStore;
-  const { getFranchisee } = franchiseeStore;
+  const { getFranchisee, getOneFranchisee } = franchiseeStore;
   const { getGroups } = groupStore;
   const { getTariffs } = tariffsStore;
+  const { user, role } = appStore;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(page + 1);
@@ -50,21 +52,22 @@ const UsersPage = observer(() => {
   };
 
   useEffect(() => {
-    getFranchisee();
+    role === Roles.Franchisee || role === Roles.FranchiseeAdmin
+      ? user.franchise.id && getOneFranchisee(user.franchise.id)
+      : getFranchisee();
     getGroups();
     getTariffs();
     getFilteredUsers();
   }, []);
-  console.log(currentUser);
   return (
     <div className={styles.wrapper}>
       <Filter setIsModalOpen={setIsModalOpen} />
       <div className={styles.cardWrapper}>
-        {users.map(user => (
+        {users.map(u => (
           <CardStudentExtended
             getOneUser={getOneUser}
-            key={user.id}
-            user={user}
+            key={u.id}
+            user={u}
             onEditUserClick={onEditUserClick}
           />
         ))}

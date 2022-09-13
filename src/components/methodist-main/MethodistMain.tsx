@@ -20,6 +20,8 @@ import {
   TableRow,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
+import { changeDateView } from 'utils/changeDateView';
+import { transformDate } from 'utils/transformData';
 
 import { AddOrEditDialog } from './AddOrEditDialog';
 import { Filter } from './Filter';
@@ -127,7 +129,7 @@ const MethodistMain = observer(() => {
                 backgroundColor: '#2e8dfd',
               }}
             >
-              Добавить
+              Добавить курс
             </Button>
             <Filter onChange={store.onChangeFilter} />
           </Stack>
@@ -146,7 +148,7 @@ const MethodistMain = observer(() => {
               >
                 <TableCell>Наименование</TableCell>
                 <TableCell>Уровень</TableCell>
-                <TableCell>Колличество курсов</TableCell>
+                <TableCell>Количество курсов</TableCell>
                 <TableCell>Дата создания</TableCell>
                 <TableCell />
               </TableRow>
@@ -166,7 +168,7 @@ const MethodistMain = observer(() => {
                     <TableCell>{entity.title}</TableCell>
                     <TableCell>{entity.level}</TableCell>
                     <TableCell>{entity.worksCount}</TableCell>
-                    <TableCell>{/* entity.createdAt?.date || "" */}</TableCell>
+                    <TableCell>{transformDate(entity?.createdAt?.date) || ''} </TableCell>
                     <TableCell>
                       <Stack direction="row" justifyContent="flex-end">
                         <IconButton

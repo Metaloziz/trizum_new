@@ -27,6 +27,27 @@ class FranchiseeStore {
     },
   ];
 
+  oneFranchise: FranchisingViewModel = {
+    id: '',
+    shortName: '',
+    // fullName: '',
+    inn: '',
+    legalAddress: '',
+    actualAddress: '',
+    schoolName: '',
+    ogrn: '',
+    kpp: '',
+    checkingAccount: '',
+    phone: 0,
+    email: '',
+    city: '',
+    bankBill: '',
+    bankName: '',
+    bankBik: '',
+    bankInn: '',
+    bankKpp: '',
+  };
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -43,5 +64,19 @@ class FranchiseeStore {
     }
     return [] as FranchisingViewModel[];
   };
+
+  getOneFranchisee = async (id: string) => {
+    try {
+      const res = await franchiseService.getOne(id);
+      runInAction(() => {
+        this.oneFranchise = res;
+      });
+      return res;
+    } catch (e) {
+      console.warn(e);
+    }
+    return [] as FranchisingViewModel[];
+  };
 }
+
 export default new FranchiseeStore();

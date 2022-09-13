@@ -136,7 +136,8 @@ class Game extends Component<any, any> {
     const GameComponent = this.gameComponent;
     const { actualPreset } = gamesStore;
     const { role } = appStore;
-    const widthScreen = window.screen.width;
+    const widthScreen = window.innerWidth;
+    console.log(window.innerWidth);
     let gameViewSize = 700;
     if (widthScreen <= 1000 && widthScreen > 760) {
       gameViewSize = widthScreen - 300;

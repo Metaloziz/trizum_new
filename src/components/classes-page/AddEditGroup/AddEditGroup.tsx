@@ -68,7 +68,7 @@ const AddEditGroup: FC<Props> = observer(props => {
     setTeacherOptions(res.items.map(el => getOptionMui(el.id, el.firstName)));
     // }
   };
-  console.log(teacherOptions,'te');
+  console.log(teacherOptions, 'te');
   const initLoad = async () => {
     const resFranchise = await franchiseService.getAll();
     const resCourses = await coursesService.getAllCourses({ perPage: 10000 });
@@ -90,7 +90,7 @@ const AddEditGroup: FC<Props> = observer(props => {
     }
   }, [groupStore.franchise]);
   useEffect(() => {
-    if (appStore.user.role !== Roles.Admin && appStore.user.franchise.id) {
+    if (appStore.user.role !== Roles.Admin && appStore.user?.franchise?.id) {
       modalFields.franchiseId = appStore.user.franchise.id;
       getTeachers();
     }

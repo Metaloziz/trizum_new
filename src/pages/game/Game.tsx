@@ -218,7 +218,7 @@ class Game extends Component<any, any> {
                       )}
                       <div className={styles.wrapGame}>
                         <div className={styles.overlay}>
-                          <GameComponent onRef={this.onRefGame} width={800} onEnd={this.onEnd} />
+                          <GameComponent onRef={this.onRefGame} width={600} onEnd={this.onEnd} />
                           {!started && <PlayButton onStart={this.onStart} />}
                         </div>
                       </div>

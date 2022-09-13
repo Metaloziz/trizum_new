@@ -1,5 +1,5 @@
 .innerContent {
-  padding: 35px 30px 0 20px;
+  padding: 35px 20px 0 20px;
   box-sizing: border-box;
 
   @media(max-width: 550px) {
@@ -7,13 +7,115 @@
   }
 }
 
+.gameList {
+  width: 100%;
+  height: auto;
+  position: relative;
+  margin: 10px 0px;
+  display: flex;
+  //flex-direction: row;
+  justify-content: center;
+
+  @media(max-width: 956px) {
+    //flex-direction: column;
+    justify-content: center;
+  }
+  @media(max-width: 576px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.gameItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 240px;
+  width: 270px;
+  padding: 0 10px;
+  background: #fff;
+  justify-content: center;
+  margin-right: 15px;
+  font-size: 14px;
+  border-radius: 30px;
+  cursor: pointer;
+  color: #333;
+  //margin: 0 auto;
+
+  @media (max-width: 1080px) {
+
+  }
+
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin: 0 10px 10px 10px;
+    position: absolute;
+    top: 15px;
+
+    &_title {
+      font-size: 14px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #0439AD;
+      text-transform: uppercase;
+    }
+
+  }
+
+  &_settings {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 16px;
+
+    &:hover {
+      & path {
+        fill: #0439AD;
+      }
+    }
+
+
+  }
+
+  &_play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -60px;
+    margin-top: -55px;
+  }
+
+  &_prevImg {
+    height: 172px;
+    margin: 40px 0 10px 0;
+    border-radius: 30px;
+  }
+  @media(max-width: 1080px) {
+    width: 220px;
+    height: 200px;
+    margin-right: 10px;
+    &_header {
+      &_title {
+        font-size: 12px;
+      }
+    }
+
+  }
+}
+
+
 .wrapGameBlock {
-  margin: 20px 0 50px 158px;
+  margin: 20px 0 50px 48px;
 
   &_header {
     display: flex;
     justify-content: space-around;
-    margin: 20px -60px;
+    margin: 20px;
     align-items: center;
 
     &_select {
@@ -21,16 +123,24 @@
     }
 
     & button {
-      width: 260px;
+      height: 60px;
+      width: 250px;
+    }
+
+  }
+
+  @media(max-width: 1600px) {
+    &_header {
+      margin: 20px;
     }
   }
 
 
   &_game {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 20px;
-    @media (max-width: 1200px) {
+    @media (max-width: 1600px) {
       flex-direction: column;
 
     }
@@ -41,6 +151,7 @@
     flex-direction: column;
     width: 700px;
     margin-top: 100px;
+    margin-left: 20px;
 
     &_title {
       font-size: 24px;
@@ -61,107 +172,17 @@
 .wrapGame {
   display: flex;
   position: relative;
-  //width: 880px;
   justify-content: center;
-  height: 920px;
-  //min-height: 800px;
-  //max-width: 1200px;
-  width: 1200px;
+  height: 820px;
   border-radius: 70px;
   overflow: hidden;
   margin-bottom: 50px;
   margin-right: 20px;
   background: #FCFBFE;
+
   @media (max-width: 860px) {
     width: 840px;
   }
-}
-
-.gameList {
-  position: relative;
-  margin: 10px 0px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-//.gameItem {
-//  display: flex;
-//  flex-direction: column;
-//  height : 40px;
-//  padding : 0px 10px;
-//  background: #fff;
-//  justify-content: center;
-//  margin-right: 15px;
-//  font-size: 14px;
-//  border-radius: 10px;
-//  cursor: pointer;
-//  color : #333;
-//}
-.gameItem {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 240px;
-  width: 270px;
-  padding: 0 10px;
-  background: #fff;
-  justify-content: center;
-  margin-right: 15px;
-  font-size: 14px;
-  border-radius: 30px;
-  cursor: pointer;
-  color: #333;
-
-  &_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    margin: 0 10px 10px 10px;
-    position: absolute;
-    top: 15px;
-
-    &_title {
-      font-size: 14px;
-      font-weight: 700;
-      background: linear-gradient(90deg, #0439AD 0%, #38028F 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: #0439AD;
-      text-transform: uppercase;
-    }
-  }
-
-  &_settings {
-    cursor: pointer;
-    position: absolute;
-    right: 20px;
-    top: 16px;
-
-    &:hover {
-      & path {
-        fill: #0439AD;
-      }
-    }
-  }
-
-  &_play {
-    position: absolute;
-    top: 28%;
-    left: 27%;
-  }
-
-  &_prevImg {
-    height: 172px;
-    margin: 40px 0 10px 0;
-    border-radius: 30px;
-  }
-}
-
-.gameItemActive {
-  background: blue;
-  color: #fff;
 }
 
 .overlay {
@@ -169,8 +190,8 @@
   top: 0px;
   left: 0px;
   margin: 32px 38px;
-  width: 93.5%;
-  height: 92%;
+  width: 90%;
+  height: 90%;
   background: #FFFFFF;
   display: flex;
   align-items: center;
@@ -187,8 +208,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-left: -100px;
-  margin-top: -100px;
+  margin-left: -109px;
+  margin-top: -109px;
   width: 218px;
   height: 218px;
   font-size: 24px;

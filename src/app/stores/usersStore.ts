@@ -50,6 +50,7 @@ class UsersStore {
     phone: null,
     email: '',
     tariff_id: '',
+    active: true,
   };
 
   searchUsersParams: RequestUsersForFilter = { ...this.searchDefaultUsersParams };
@@ -100,6 +101,7 @@ class UsersStore {
     userId: string,
   ): Promise<ResponseUserT | undefined | ErrorMessageType> => {
     try {
+      debugger;
       const res = await usersService.updateUser(data, userId);
       const isError = checkErrorMessage(res);
       if (isError) {

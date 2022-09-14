@@ -58,18 +58,13 @@ export const StudentParentsFormContainer: FC<Props> = observer(
         ),
       );
     };
-
-    // useEffect(() => {
-    //   if (
-    //     parentState.length === MAX_PARENTS_COUNT &&
-    //     parentState[MAX_PARENTS_COUNT - 1].isSuccessSubmit
-    //   ) {
-    //     onCloseModal();
-    //   }
-    // });
     return (
       <div>
-        <h2 className={styles.parentTitle}>Родители ученика*</h2>
+        {parentState.length ? (
+          <h2 className={styles.parentTitle}>Родители ученика*</h2>
+        ) : (
+          <h2 className={styles.parentTitle}>Родитель не добавлен</h2>
+        )}
         <div className={style.wrapper}>
           <div className={style.forms}>
             {parentState.map(({ id, isMain, parent }) => (

@@ -35,6 +35,7 @@ const CardStudentExtended: FC<Props> = ({
     status,
     roleCode,
     franchise,
+    active,
   },
   getOneUser,
   // onEditUserClick,
@@ -83,9 +84,9 @@ const CardStudentExtended: FC<Props> = ({
     }
   };
 
-  const setCurrentUserData = () => {
+  const setCurrentUserData = async () => {
+    await getOneUser(id);
     modals.changeParents();
-    getOneUser(id);
   };
 
   return (

@@ -34,7 +34,6 @@ for (const key in groupStatuses) {
   // @ts-ignore
   statusOptions.push(getOptionMui(key, groupStatuses[key]));
 }
-console.log(statusOptions);
 
 const levelOptionsNames = Object.values(GroupLevels);
 const levelOptions = Object.keys(GroupLevels).map((el, idx) =>

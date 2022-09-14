@@ -27,6 +27,7 @@ export type RequestUsersForFilter = {
   email?: string | null;
   tariff_id?: string | null;
   is_active?: boolean | null;
+  active?: boolean;
 };
 
 export type RequestCreateUser = {

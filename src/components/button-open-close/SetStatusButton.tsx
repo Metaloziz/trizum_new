@@ -11,17 +11,17 @@ import iconOpen from 'assets/svgs/open-lock.svg';
 import Image from 'components/image/Image';
 import usersStore from 'app/stores/usersStore';
 
-type Props = Pick<ResponseUserT, 'status' | 'id'>;
+type Props = Pick<ResponseUserT, 'status' | 'id' | 'active'>;
 
-const SetStatusButton: FC<Props> = ({ status, id }) => {
-  const [isActive, setIsActive] = useState<boolean>(status);
+const SetStatusButton: FC<Props> = ({ status, id, active }) => {
+  const [isActive, setIsActive] = useState<boolean>(active);
   const [isDisable, setIsDisable] = useState<boolean>(false);
 
   const setNewStatus = async () => {
     setIsDisable(true);
-
     try {
       setIsActive(!isActive);
+      debugger;
       const res = await usersStore.updateUser({ isActive: !isActive }, id);
       setIsDisable(false);
     } catch (e) {

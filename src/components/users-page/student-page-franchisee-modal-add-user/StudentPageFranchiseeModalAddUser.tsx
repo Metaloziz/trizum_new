@@ -113,7 +113,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().notRequired()
           : yup.string().required('Обязательное поле'),
       /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-                                                                                                                                      .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+                                                                                                                                            .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
       birthdate: yup
         .date()
         .required('Обязательное поле')
@@ -443,7 +443,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
               )}
               <Grid xs={12} sm={12} margin="10px 14px" display="flex">
                 <Grid item xs={12} sm={6.2}>
-                  {user && <SetStatusButton status={user?.status} id={user.id} />}
+                  {user && (
+                    <SetStatusButton status={user?.status} active={user?.active} id={user.id} />
+                  )}
                 </Grid>
                 <Grid item xs={12} sm={5}>
                   <Button type="submit" disabled={isSubmitSuccessful}>

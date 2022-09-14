@@ -30,6 +30,12 @@ import BlockGames from 'components/classes-page/block-games/BlockGames';
 import SearchBar from 'components/classes-page/search-bar/SearchBar';
 import { checkRoleForClasses } from 'utils/checkRoleForClasses';
 
+const levelRu = {
+  easy: 'Младшая группа',
+  medium: 'Средняя группа',
+  hard: 'Старшая группа',
+};
+
 const ClassesPage = observer(() => {
   const {
     getGroups,
@@ -105,7 +111,7 @@ const ClassesPage = observer(() => {
                           <Typography variant="caption">{entity.name || ''}</Typography>
                         </TableCell>
                         <TableCell align="center">
-                          <Typography variant="caption">{entity.level || '—'}</Typography>
+                          <Typography variant="caption">{levelRu[entity.level] || '—'}</Typography>
                         </TableCell>
                         <TableCell align="center">
                           <>

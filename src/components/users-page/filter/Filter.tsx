@@ -356,20 +356,6 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
                 onChange={handleChangeEmail}
               />
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Тариф</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={tariffId}
-                  label="Тариф"
-                  onChange={handleChangeTariffId}
-                >
-                  {getAllOptionsMUI(tariffsOptions)}
-                </Select>
-              </FormControl>
-            </Grid>
             {role === Roles.Admin && (
               <Grid item xs={12} sm={4}>
                 <FormControl fullWidth>
@@ -386,6 +372,22 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
                   </Select>
                 </FormControl>
               </Grid>
+            )}
+            {selectedRole === 'student' && (
+                <Grid item xs={12} sm={4}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Тариф</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={tariffId}
+                        label="Тариф"
+                        onChange={handleChangeTariffId}
+                    >
+                      {getAllOptionsMUI(tariffsOptions)}
+                    </Select>
+                  </FormControl>
+                </Grid>
             )}
           </Grid>
         </AccordionDetails>

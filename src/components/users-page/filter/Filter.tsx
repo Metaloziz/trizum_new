@@ -110,7 +110,7 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
       lastName,
       city,
       franchiseId,
-      page,
+      page:0,
       perPage,
       phone,
       email,

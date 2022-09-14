@@ -57,7 +57,10 @@ const UsersPage = observer(() => {
     getTariffs();
     getFilteredUsers();
   }, []);
-
+  useEffect(()=>{
+    setCurrentPage(page+1)
+  },[page])
+// console.log("currentPage inside UsersPage",currentPage, page)
   return (
     <div className={styles.wrapper}>
       <Filter setIsModalOpen={setIsModalOpen} />

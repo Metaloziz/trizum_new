@@ -1,7 +1,13 @@
+import { FC } from 'react'
+
 import styles from './Burger.module.scss';
 
-const Burger = () => (
-  <div className={styles.burger} data-auto="burger">
+interface BurgerProps {
+  onClick?: () => void
+}
+
+const Burger: FC<BurgerProps> = ({onClick}) => (
+  <div onClick={onClick} className={styles.burger} data-auto="burger">
     <div />
     <div />
     <div />

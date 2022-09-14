@@ -78,10 +78,14 @@ export type ResponseUserT = {
   status: UserStatusT;
   avatar: Nullable<ResponseUserAvatarT>;
   canSwitchTo: canSwitchToT[];
+  active:boolean;
+  payed:boolean;
+  isPayed:boolean;
+  isActive:boolean;
 };
 export type FullResponseUserT = WithPagination<ResponseUserT[]>;
 
-export type UserStatusT = 'active' | 'blocked' | 'payed' | 'notPayed';
+export type UserStatusT =boolean;
 
 export type ParentT = {
   id: string;

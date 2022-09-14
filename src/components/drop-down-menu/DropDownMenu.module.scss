@@ -3,8 +3,9 @@
 .dropDownMenu {
   position: absolute;
   // height: calc(100vh - 100px);
-  top: 100px;
-  left: 0;
+  top: 60px;
+  left: -26px;
+  width: 250px;
   z-index: 400;
   transition: all 0.5s ease;
   background-color: #e5d8fa;

@@ -219,6 +219,7 @@ class GroupStore {
     });
     this.cleanModalValues();
     this.closeModal();
+    await this.getGroups();
   };
 
   editGroup = async () => {

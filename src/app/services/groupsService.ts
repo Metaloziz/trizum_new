@@ -62,9 +62,9 @@ const groupsService = {
     return data;
   },
 
-  editGroup: async (data: any, id: string) => {
-    const res = await instance.post(`${Paths.Groups}/${id}`, data);
-    return res.data;
+  editGroup: async (params: any, id: string) => {
+    const { data } = await instance.post(`${Paths.Groups}/${id}`, params);
+    return data;
   },
 
   addOlympiadGroup: async (group: OlympiadPayloadType) => {

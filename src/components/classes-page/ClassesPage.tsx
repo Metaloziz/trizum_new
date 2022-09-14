@@ -58,7 +58,7 @@ const ClassesPage = observer(() => {
     return () => {
       nullableSelectedGroup();
     };
-  }, [groups]);
+  }, []);
 
   return (
     <>

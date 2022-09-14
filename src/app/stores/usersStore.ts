@@ -101,7 +101,6 @@ class UsersStore {
     userId: string,
   ): Promise<ResponseUserT | undefined | ErrorMessageType> => {
     try {
-      debugger;
       const res = await usersService.updateUser(data, userId);
       const isError = checkErrorMessage(res);
       if (isError) {

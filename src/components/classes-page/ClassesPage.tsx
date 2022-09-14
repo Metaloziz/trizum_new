@@ -58,7 +58,7 @@ const ClassesPage = observer(() => {
     return () => {
       nullableSelectedGroup();
     };
-  }, []);
+  }, [groups]);
 
   return (
     <>
@@ -84,9 +84,9 @@ const ClassesPage = observer(() => {
                     }}
                   >
                     <TableCell>Название</TableCell>
-                    <TableCell>Уровень</TableCell>
-                    <TableCell>Время действия</TableCell>
-                    <TableCell>Действия</TableCell>
+                    <TableCell align="center">Уровень</TableCell>
+                    <TableCell align="center">Время действия</TableCell>
+                    <TableCell align="right">Действия</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -104,10 +104,10 @@ const ClassesPage = observer(() => {
                         <TableCell>
                           <Typography variant="caption">{entity.name || ''}</Typography>
                         </TableCell>
-                        <TableCell>
+                        <TableCell align="center">
                           <Typography variant="caption">{entity.level || '—'}</Typography>
                         </TableCell>
-                        <TableCell>
+                        <TableCell align="center">
                           <>
                             <Typography variant="caption">
                               {entity.startedAt.date
@@ -122,7 +122,7 @@ const ClassesPage = observer(() => {
                             </Typography>
                           </>
                         </TableCell>
-                        <TableCell>
+                        <TableCell align="right">
                           <IconButton
                             size="small"
                             onClick={() => openModal(entity.id)}

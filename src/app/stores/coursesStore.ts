@@ -24,6 +24,7 @@ class CoursesStore {
       works: [],
       createdAt: { date: '', timezone: '', timezone_type: 0 },
       worksCount: 0,
+      type: '',
     },
   ];
 

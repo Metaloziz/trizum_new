@@ -17,6 +17,7 @@ export type ResponseCourse = {
   works?: ResponseWork[];
   worksCount: number;
   createdAt: TimeZoneType;
+  type: string;
 };
 
 export type ResponseOneCourse = {

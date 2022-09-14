@@ -59,6 +59,12 @@
       color: #0439AD;
       text-transform: uppercase;
     }
+
+    @media(max-width: 600px){
+      &_title{
+        margin-left: 6px;
+      }
+    }
   }
 
   &_settings {
@@ -236,6 +242,29 @@
   & svg {
     margin-bottom: 18px;
   }
+
+  @media (max-width: 600px) {
+    width: 158px;
+    height: 158px;
+    margin-left: -79px;
+    margin-top: -79px;
+    & svg {
+      width: 51px;
+      height: 52px;
+      margin-bottom: 14px;
+    }
+  }
+  @media (max-width: 400px) {
+    width: 128px;
+    height: 128px;
+    margin-left: -69px;
+    margin-top: -69px;
+    & svg {
+      width: 41px;
+      height: 42px;
+      margin-bottom: 12px;
+    }
+  }
 }
 
 .playButtonText {
@@ -245,6 +274,10 @@
   -webkit-text-fill-color: transparent;
   color: #333;
   font-size: 18px;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
 }
 
 .playButtonBackground {

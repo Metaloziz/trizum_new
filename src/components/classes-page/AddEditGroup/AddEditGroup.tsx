@@ -1,3 +1,4 @@
+import coursesStore from 'app/stores/coursesStore';
 import React, { FC, useEffect, useState } from 'react';
 import { FormControl, Grid, InputLabel, Select, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -65,10 +66,12 @@ const AddEditGroup: FC<Props> = observer(props => {
       role: Roles.Teacher,
     });
     groupStore.teachers = res.items;
-    setTeacherOptions(res.items.map(el => getOptionMui(el.id, el.firstName)));
+    setTeacherOptions(
+      res.items.map(el => getOptionMui(el.id, `${el.lastName} ${el.firstName} ${el.middleName}`)),
+    );
     // }
   };
-  console.log(teacherOptions, 'te');
+
   const initLoad = async () => {
     const resFranchise = await franchiseService.getAll();
     const resCourses = await coursesService.getAllCourses({ perPage: 10000 });
@@ -85,7 +88,7 @@ const AddEditGroup: FC<Props> = observer(props => {
   //   }
   // }, [modalFields.franchiseId]);
   useEffect(() => {
-    if (appStore.role === Roles.Admin && !!franchise.length) {
+    if (appStore.role === Roles.Admin && !!franchise?.length) {
       setFranchiseOptions(franchise.map(t => getOptionMui(t.id || '', t.shortName)));
     }
   }, [groupStore.franchise]);
@@ -149,61 +152,55 @@ const AddEditGroup: FC<Props> = observer(props => {
             </Select>
           </FormControl>
         </Grid>
-        {selectedGroup ? (
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel id="status">Статус</InputLabel>
-              <Select
-                labelId="status"
-                label="Статус"
-                fullWidth
-                onChange={(event, child) =>
-                  (modalFields.status = event.target.value as StatusTypes)
-                }
-                value={modalFields.status}
-              >
-                {statusOptions}
-              </Select>
-            </FormControl>
-          </Grid>
-        ) : (
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel id="franchise">Франшиза</InputLabel>
-              <Select
-                labelId="franchise"
-                label="Франшиза"
-                fullWidth
-                onChange={(event, child) => (modalFields.franchiseId = event.target.value)}
-                value={modalFields.franchiseId}
-              >
-                {franchiseOptions}
-              </Select>
-            </FormControl>
-          </Grid>
-        )}
-        {!selectedGroup && (
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel id="course">Курс</InputLabel>
-              <Select
-                labelId="course"
-                label="Курс"
-                disabled={!modalFields.level}
-                fullWidth
-                onChange={({ target: { value } }) => {
-                  const course = groupStore.courses.find(el => el.id === value);
-                  course &&
-                    (groupStore.schedule = groupStore.setEmptyScheduleItems(course.worksCount));
-                  modalFields.courseId = value;
-                }}
-                value={modalFields.courseId}
-              >
-                {courseOptions}
-              </Select>
-            </FormControl>
-          </Grid>
-        )}
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel id="status">Статус</InputLabel>
+            <Select
+              labelId="status"
+              label="Статус"
+              fullWidth
+              onChange={(event, child) => (modalFields.status = event.target.value as StatusTypes)}
+              value={modalFields.status}
+            >
+              {statusOptions}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel id="franchise">Франшиза</InputLabel>
+            <Select
+              labelId="franchise"
+              label="Франшиза"
+              fullWidth
+              onChange={(event, child) => (modalFields.franchiseId = event.target.value)}
+              value={modalFields.franchiseId}
+            >
+              {franchiseOptions}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <InputLabel id="course">Курс</InputLabel>
+            <Select
+              labelId="course"
+              label="Курс"
+              disabled={!modalFields.level}
+              fullWidth
+              onChange={({ target: { value } }) => {
+                const course = groupStore.courses.find(el => el.id === value);
+                course &&
+                  (groupStore.schedule = groupStore.setEmptyScheduleItems(course.worksCount));
+                modalFields.courseId = value;
+              }}
+              value={modalFields.courseId}
+            >
+              {courseOptions}
+            </Select>
+          </FormControl>
+        </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel id="level">Уровень</InputLabel>
@@ -244,7 +241,7 @@ const AddEditGroup: FC<Props> = observer(props => {
             flexDirection: 'row-reverse',
           }}
         >
-          <Button onClick={() => (selectedGroup ? editGroup() : addGroup())}>
+          <Button onClick={() => (selectedGroup.id ? editGroup() : addGroup())}>
             {selectedGroup.id ? 'Изменить' : 'Добавить'}
           </Button>
         </Grid>

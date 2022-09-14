@@ -53,7 +53,7 @@ const groupsService = {
   },
 
   addGroup: async (group: CreateGroupForServer) => {
-    const { data } = await instance.post(`${Paths.Groups}`, group);
+    const { data } = await instance.post(Paths.Groups, group);
     return data;
   },
 

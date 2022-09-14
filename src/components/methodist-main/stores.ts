@@ -1,3 +1,5 @@
+import instance from 'app/services/config';
+import coursesService from 'app/services/coursesService';
 import { makeObservable, observable } from 'mobx';
 import * as yup from 'yup';
 
@@ -13,7 +15,9 @@ export class MethodistMainStore extends StoreBase {
 
   private _defaultValue = (): CourseViewModel => ({
     title: '',
-    level: '',
+    level: 'easy',
+    type: '',
+    status: '',
     createdAt: null!,
   });
 
@@ -76,14 +80,17 @@ export class MethodistMainStore extends StoreBase {
   };
 
   remove = async (id: string) => {
-    this.execute(async () => {
-      // await this._repository.remove(id);
+    try {
+      const res = await coursesService.deleteCourse(id);
+      console.log(res);
       await this.pull();
-    });
+    } catch (e) {
+      console.warn(e);
+    }
   };
 
   pull = async () => {
-    this.execute(async () => this.list());
+    await this.execute(async () => this.list());
   };
 
   onChangeFilter = (filter: Nullable<MethodistMainFilterViewModel>) => {

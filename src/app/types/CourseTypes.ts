@@ -1,5 +1,6 @@
 import { TimeZoneType } from 'app/types/TimeZoneType';
 import { GroupTypes } from 'app/enums/GroupTypes';
+import { HomeworkViewModel } from 'app/viewModels/HomeworkViewModel';
 
 export type ResponseWork = {
   id: string;
@@ -32,6 +33,7 @@ export type GetCoursesParams = {
 
 export type RequestCreateCourse = {
   title: string;
+  type: string;
   level: string;
   works: ResponseWork[];
 };

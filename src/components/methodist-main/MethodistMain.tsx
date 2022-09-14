@@ -20,15 +20,19 @@ import {
   TableRow,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import { changeDateView } from 'utils/changeDateView';
 import { transformDate } from 'utils/transformData';
 
 import { AddOrEditDialog } from './AddOrEditDialog';
 import { Filter } from './Filter';
 import { MethodistMainStore } from './stores';
 
-import { RequestEditCourse, ResponseCourse } from 'app/types/CourseTypes';
 import { LoadingIndicator } from 'components/franchising-page/ui/LoadingIndicator';
+
+export enum LevelHomeWork {
+  easy = 'Младшая группа',
+  medium = 'Средняя группа',
+  hard = 'Старшая группа',
+}
 
 const MethodistMain = observer(() => {
   // const {
@@ -147,9 +151,9 @@ const MethodistMain = observer(() => {
                 }}
               >
                 <TableCell>Наименование</TableCell>
-                <TableCell>Уровень</TableCell>
-                <TableCell>Количество курсов</TableCell>
-                <TableCell>Дата создания</TableCell>
+                <TableCell align="center">Уровень</TableCell>
+                <TableCell align="center">Количество курсов</TableCell>
+                <TableCell align="center">Дата создания</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -166,9 +170,12 @@ const MethodistMain = observer(() => {
                     }}
                   >
                     <TableCell>{entity.title}</TableCell>
-                    <TableCell>{entity.level}</TableCell>
-                    <TableCell>{entity.worksCount}</TableCell>
-                    <TableCell>{transformDate(entity?.createdAt?.date) || ''} </TableCell>
+                    {/* <TableCell>{LevelHomeWork[entity.level]}</TableCell> */}
+                    <TableCell align="center">{entity.level}</TableCell>
+                    <TableCell align="center">{entity.worksCount}</TableCell>
+                    <TableCell align="center">
+                      {transformDate(entity?.createdAt?.date || '')}
+                    </TableCell>
                     <TableCell>
                       <Stack direction="row" justifyContent="flex-end">
                         <IconButton
@@ -182,7 +189,7 @@ const MethodistMain = observer(() => {
                           size="small"
                           onClick={() => store.remove(entity.id!)}
                           color="error"
-                          disabled
+                          disabled={entity.status === 'active'}
                         >
                           <DeleteIcon fontSize="small" />
                         </IconButton>

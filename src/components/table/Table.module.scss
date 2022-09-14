@@ -40,6 +40,7 @@
 
   & > tr, th {
     vertical-align: top;
+
   }
 
   & th {
@@ -50,11 +51,18 @@
     color: #ffffff;
     padding: 16px 10px 11px;
     box-sizing: border-box;
-    text-align: left;
 
     @media (max-width: 1400px) {
       padding: 15px 5px;
     }
+  }
+  & th:first-child {
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  & th:not(:first-child) {
+    text-align: center;
   }
 
   & td {
@@ -64,12 +72,20 @@
     color: #0f123f;
     padding: 20px 10px;
     box-sizing: border-box;
+    //text-align: center;
     //word-break: break-word;
     //overflow-wrap: break-word;
+
 
     @media (max-width: 1400px) {
       padding: 15px 5px;
     }
+  }
+  & td:first-child{
+    padding-left: 20px;
+  }
+  & td:not(:first-child) {
+    text-align: center;
   }
 
 }

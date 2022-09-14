@@ -113,7 +113,7 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
       lastName,
       city,
       franchiseId,
-      page:0,
+      page: 0,
       perPage,
       phone,
       email,
@@ -374,20 +374,20 @@ export const Filter: FC<UserPageFilterProps> = observer(props => {
               </Grid>
             )}
             {selectedRole === 'student' && (
-                <Grid item xs={12} sm={4}>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Тариф</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={tariffId}
-                        label="Тариф"
-                        onChange={handleChangeTariffId}
-                    >
-                      {getAllOptionsMUI(tariffsOptions)}
-                    </Select>
-                  </FormControl>
-                </Grid>
+              <Grid item xs={12} sm={4}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Тариф</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={tariffId}
+                    label="Тариф"
+                    onChange={handleChangeTariffId}
+                  >
+                    {getAllOptionsMUI(tariffsOptions)}
+                  </Select>
+                </FormControl>
+              </Grid>
             )}
           </Grid>
         </AccordionDetails>

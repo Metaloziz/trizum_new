@@ -34,14 +34,10 @@ const Header: FC<Props> = ({ className }) => {
       })}
     >
       <div className={styles.accountBlock}>
-        <ClickAwayListener
-          onClickAway={handleClickAway}
-        >
-          <div className={styles.burgerBlock} >
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <div className={styles.burgerBlock}>
             <BurgerButton onClick={handleClick} />
-            <DropDownMenu active={open}
-              onClose={handleClick}
-            />
+            <DropDownMenu active={open} onClose={handleClick} />
           </div>
         </ClickAwayListener>
         <Logo />

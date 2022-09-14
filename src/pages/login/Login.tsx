@@ -266,7 +266,9 @@ const Login = () => {
               <div className={styles.blockErorr} />
             )}
             <div>
-              <Button className={styles.buttonCode} onClick={sendCode}>Подтвердить изменения</Button>
+              <Button className={styles.buttonCode} onClick={sendCode}>
+                Подтвердить изменения
+              </Button>
               <div className={styles.textCode}>
                 {seconds === 150 || seconds === 0 ? (
                   <p onClick={repeatSMSCode} className={styles.underlined}>

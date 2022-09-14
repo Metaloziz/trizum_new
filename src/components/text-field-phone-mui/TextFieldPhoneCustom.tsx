@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {forwardRef} from 'react';
-import MuiPhoneNumber, {MuiPhoneNumberProps} from 'material-ui-phone-number';
+import { forwardRef } from 'react';
+import MuiPhoneNumber, { MuiPhoneNumberProps } from 'material-ui-phone-number';
 
 interface Props extends Omit<MuiPhoneNumberProps, 'error'> {
   error?: string;
 }
 
-const TextFieldPhoneCustom:  React.FC<Props> = forwardRef(({ type, error, label, ...rest }, ref) => (
+const TextFieldPhoneCustom: React.FC<Props> = forwardRef(({ type, error, label, ...rest }, ref) => (
   <MuiPhoneNumber
     sx={{ width: '100%' }}
     defaultCountry="ru"

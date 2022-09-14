@@ -16,13 +16,13 @@ type Props = Pick<ResponseUserT, 'status' | 'id'>;
 const SetStatusButton: FC<Props> = ({ status, id }) => {
   const [isActive, setIsActive] = useState<boolean>(status);
   const [isDisable, setIsDisable] = useState<boolean>(false);
-  
+
   const setNewStatus = async () => {
     setIsDisable(true);
 
     try {
       setIsActive(!isActive);
-      const res = await usersStore.updateUser({isActive:!isActive}, id)
+      const res = await usersStore.updateUser({ isActive: !isActive }, id);
       setIsDisable(false);
     } catch (e) {
       setIsDisable(false);

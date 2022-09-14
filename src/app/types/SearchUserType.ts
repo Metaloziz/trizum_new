@@ -1,1 +1,1 @@
-export type SearchUserType = string | undefined | null ;
+export type SearchUserType = string | undefined | null;

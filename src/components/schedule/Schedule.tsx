@@ -11,11 +11,7 @@ import styles from './Schedule.module.scss';
 import appStore, { Roles } from 'app/stores/appStore';
 import BasicModal from 'components/basic-modal/BasicModal';
 import InformationItem from 'components/information-item/InformationItem';
-import {
-  CustomEvent,
-  ScheduleHeader,
-  Toolbar,
-} from 'components/schedule/ScheduleComponents';
+import { CustomEvent, ScheduleHeader, Toolbar } from 'components/schedule/ScheduleComponents';
 import ScheduleModal from 'components/schedule/ScheduleModal';
 import CustomSelect from 'components/select/CustomSelect';
 import { getOption } from 'utils/getOption';

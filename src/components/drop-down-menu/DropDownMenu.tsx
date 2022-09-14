@@ -372,10 +372,7 @@ const DropDownMenu: FC<Props> = observer(({ active, onClose }) => {
   return active && !links.length ? (
     <div />
   ) : (
-    <div className={cn(
-      styles.dropDownMenu, 
-    active && styles.showDropDown
-    )} ref={ref}>
+    <div className={cn(styles.dropDownMenu, active && styles.showDropDown)} ref={ref}>
       {isComponentVisible && (
         <Navigation
           onClick={onClose}
@@ -390,4 +387,3 @@ const DropDownMenu: FC<Props> = observer(({ active, onClose }) => {
 });
 
 export default DropDownMenu;
-

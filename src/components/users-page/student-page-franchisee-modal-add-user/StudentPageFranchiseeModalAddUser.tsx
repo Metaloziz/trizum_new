@@ -226,13 +226,13 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="middleName"
+                  name="lastName"
                   render={({ field }) => (
                     <TextFieldCustom
                       type="text"
                       autoComplete="on"
                       label="Фамилия"
-                      error={errors.middleName?.message}
+                      error={errors.lastName?.message}
                       {...field}
                     />
                   )}
@@ -256,13 +256,13 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="lastName"
+                  name="middleName"
                   render={({ field }) => (
                     <TextFieldCustom
                       type="text"
                       autoComplete="on"
                       label="Отчество"
-                      error={errors.lastName?.message}
+                      error={errors.middleName?.message}
                       {...field}
                     />
                   )}

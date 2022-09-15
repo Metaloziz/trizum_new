@@ -7,11 +7,16 @@ import { HomeworkViewModel } from 'app/viewModels/HomeworkViewModel';
 export class HomeworkRepository {
   private readonly token = tokenService.getLocalAccessToken();
 
-  readonly list = async (page: number = 0) =>
+  readonly list = async (page: number = 0, status?: string, perPage?: number, type?: string) =>
     new HttpClient(Paths.Works, 'GET')
       .withTimeout(10000)
       .withBearerAuthorization(this.token)
-      .withUrlParamsRequest({ page })
+      .withUrlParamsRequest({
+        page,
+        per_page: perPage || undefined,
+        status: status || undefined,
+        type: type || undefined,
+      })
       .withJsonReviver()
       .execute<PaginationResponse<HomeworkViewModel>>();
 

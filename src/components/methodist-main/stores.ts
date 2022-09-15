@@ -1,4 +1,3 @@
-import instance from 'app/services/config';
 import coursesService from 'app/services/coursesService';
 import { makeObservable, observable } from 'mobx';
 import * as yup from 'yup';
@@ -15,10 +14,10 @@ export class MethodistMainStore extends StoreBase {
 
   private _defaultValue = (): CourseViewModel => ({
     title: '',
-    level: 'easy',
+    level: '',
     type: '',
+    description: '',
     status: '',
-    createdAt: null!,
   });
 
   pagination: {
@@ -74,7 +73,28 @@ export class MethodistMainStore extends StoreBase {
     this.closeDialog();
 
     this.execute(async () => {
-      await this._repository.addOrEdit(this.editingEntity);
+      const asd = this.editingEntity.works?.length
+        ? this.editingEntity.works.map((el, index) => ({
+            index,
+            workId: el.id || '',
+          }))
+        : [];
+      let status;
+      if (this.editingEntity?.id) {
+        status = this.editingEntity.status;
+      }
+      if (!this.editingEntity?.id) {
+        if (this.editingEntity.status === 'draft') {
+          status = undefined;
+        } else {
+          status = this.editingEntity.status;
+        }
+      }
+      await this._repository.addOrEdit({
+        ...this.editingEntity,
+        status,
+        works: this.editingEntity.works?.length ? asd : undefined,
+      });
       await this.pull();
     });
   };
@@ -107,6 +127,8 @@ export class MethodistMainStore extends StoreBase {
     return yup.object<Record<keyof CourseViewModel, any>>().shape({
       title: yup.string().required('*'),
       level: yup.string().required('*'),
+      status: yup.string().required('*'),
+      type: yup.string().required('*'),
     });
   }
 

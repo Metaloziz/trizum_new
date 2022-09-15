@@ -2,7 +2,7 @@ import { Paths } from 'app/enums/Paths';
 import { HttpClient } from 'app/rest/HttpClient';
 import tokenService from 'app/services/tokenService';
 import { PaginationResponse } from 'app/types/PaginationResponse';
-import { CourseViewModel } from 'app/viewModels/CourseViewModel';
+import {CourseViewModel, CourseViewModelAddEdit} from 'app/viewModels/CourseViewModel';
 
 export class MethodistMainRepository {
   private readonly token = tokenService.getLocalAccessToken();
@@ -15,7 +15,7 @@ export class MethodistMainRepository {
       .withJsonReviver()
       .execute<PaginationResponse<CourseViewModel>>();
 
-  readonly addOrEdit = async (model: CourseViewModel) =>
+  readonly addOrEdit = async (model: CourseViewModelAddEdit) =>
     new HttpClient(model.id ? `${Paths.Courses}/${model.id}` : Paths.Courses, 'POST')
       .withTimeout(10000)
       .withBearerAuthorization(this.token)

@@ -5,6 +5,7 @@ import { HomeworkRepository } from './repositories';
 
 import { StoreBase } from 'app/stores/StoreBase';
 import { HomeworkViewModel } from 'app/viewModels/HomeworkViewModel';
+import { MethodistMainStore } from 'components/methodist-main/stores';
 
 export class HomeworkStore extends StoreBase {
   private _repository = new HomeworkRepository();
@@ -26,6 +27,7 @@ export class HomeworkStore extends StoreBase {
   private _defaultValue = (): HomeworkViewModel => ({
     text: '',
     title: '',
+    status: '',
     type: 'hw',
     gamePresets: [],
   });
@@ -50,9 +52,14 @@ export class HomeworkStore extends StoreBase {
     this.isDialogOpen = false;
   };
 
-  list = async () =>
+  list = async (status?: string, perPage?: number, type?: string) =>
     this.execute(async () => {
-      const paginationResponse = await this._repository.list(this.pagination.page);
+      const paginationResponse = await this._repository.list(
+        this.pagination.page,
+        status,
+        perPage,
+        type,
+      );
 
       this.entities = paginationResponse.items;
       this.pagination = {
@@ -78,8 +85,8 @@ export class HomeworkStore extends StoreBase {
     });
   };
 
-  pull = async () => {
-    this.execute(async () => this.list());
+  pull = async (status?: string, perPage?: number, type?: string) => {
+    this.execute(async () => this.list(status, perPage, type));
   };
 
   changePage = async (page: number) => {

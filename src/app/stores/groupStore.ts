@@ -207,12 +207,13 @@ class GroupStore {
       return r;
     });
 
-  addGroup = async () => {
+  addGroup = async (franchiseId?: string) => {
     const schedule: Schedule[] = !this.schedule.length
       ? []
       : this.schedule.map(elem => scheduleItemToServerMapper(elem));
     await groupsService.addGroup({
       ...this.modalFields,
+      franchiseId: franchiseId || this.modalFields.franchiseId,
       dateSince: moment(this.modalFields.dateSince).format(DateTime.DdMmYyyy),
       dateUntil: moment(this.modalFields.dateUntil).format(DateTime.DdMmYyyy),
       schedule,

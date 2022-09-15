@@ -38,15 +38,15 @@ export const action = async (
       return;
     }
 
-    if (isMethodistTutor(role)) {
-      if (!franchise) {
-        setError('franchise', {
-          type: 'manual',
-          message: 'выберите франшизу',
-        });
-        return;
-      }
-    }
+    // if (isMethodistTutor(role)) {
+    //   if (!franchise) {
+    //     setError('franchise', {
+    //       type: 'manual',
+    //       message: 'выберите франшизу',
+    //     });
+    //     return;
+    //   }
+    // }
 
     if (role === Roles.Student) {
       if (!tariff) {

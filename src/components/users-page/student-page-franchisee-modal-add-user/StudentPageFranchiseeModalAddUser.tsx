@@ -1,15 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
-
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, FormControl, Grid, TextField } from '@mui/material';
-import { observer } from 'mobx-react-lite';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-
-import styles from './StudentPageFranchiseeModalAddUser.module.scss';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { SexEnum } from 'app/enums/CommonEnums';
-import { Roles } from 'app/stores/appStore';
+import appStore, { Roles } from 'app/stores/appStore';
 import franchiseeStore from 'app/stores/franchiseeStore';
 import groupStore from 'app/stores/groupStore';
 import tariffsStore from 'app/stores/tariffsStore';
@@ -24,30 +18,37 @@ import { isMethodistTutor } from 'components/users-page/student-page-franchisee-
 import { isStudentCreated } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentCreated';
 import { isStudentRole } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentRole';
 import { isStudentTeacherEducation } from 'components/users-page/student-page-franchisee-modal-add-user/utils/isStudentTeacherEducation';
-import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import { roleOptions } from 'components/users-page/student-page-franchisee-modal-add-user/utils/roleOptions';
+import { StudentParentsFormContainer } from 'components/users-page/student-parrents-form-container/StudentParentsFormContainer';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH } from 'constants/constants';
 import { REG_NAME } from 'constants/regExp';
+import { observer } from 'mobx-react-lite';
+import React, { FC, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import { convertGroupOptions } from 'utils/convertGroupOptions';
 import { convertSexOptions } from 'utils/convertSexOptions';
 import { convertTariffOptions } from 'utils/convertTariffOptions';
+import { filterRoleOptions } from 'utils/filterRoleOptions';
 import { removeEmptyFields } from 'utils/removeEmptyFields';
+import * as yup from 'yup';
 import TextFieldPhoneCustom from '../../text-field-phone-mui/TextFieldPhoneCustom';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+import styles from './StudentPageFranchiseeModalAddUser.module.scss';
 
 type Props = {
   onCloseModal: () => void;
-  user?: ResponseOneUser;
+  currentUser?: ResponseOneUser;
   visibility?: boolean;
 };
 
 export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
-  ({ user, onCloseModal, visibility }) => {
-    const studentIdx = user?.id;
+  ({ currentUser, onCloseModal, visibility }) => {
+    const studentIdx = currentUser?.id;
     const { franchise } = franchiseeStore;
     const { groups, loadCurrentGroups } = groupStore;
     const { tariffs } = tariffsStore;
+    const { role, user } = appStore;
     const franchiseOptions = convertFranchiseeOptions(franchise);
     const sexOptions = convertSexOptions();
     const groupOptions = convertGroupOptions(groups);
@@ -58,28 +59,30 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
     const [currentFranchiseId, setCurrentFranchiseId] = useState<string>('');
 
     useEffect(() => {
-      if (user?.roleCode) {
-        setSelectedRole(user.roleCode as Roles);
+      if (currentUser?.roleCode) {
+        setSelectedRole(currentUser.roleCode as Roles);
       }
     }, []);
-    const findSex = () => (user?.sex ? sexOptions[0].value : sexOptions[1].value);
+    const findSex = () => (currentUser?.sex ? sexOptions[0].value : sexOptions[1].value);
     const defaultValues = {
-      firstName: user?.firstName || '',
-      middleName: user?.middleName || '',
-      lastName: user?.lastName || '',
+      firstName: currentUser?.firstName || '',
+      middleName: currentUser?.middleName || '',
+      lastName: currentUser?.lastName || '',
       role: '', // не изменяется при редактировании
       sex: findSex() || sexOptions[0].value,
-      city: user?.city || '',
-      phone: user?.phone || '',
-      birthdate: user?.birthdate?.date || '01.01.2000',
-      email: user?.email || '',
+      city: currentUser?.city || '',
+      phone: currentUser?.phone || '',
+      birthdate: currentUser?.birthdate?.date || '01.01.2000',
+      email: currentUser?.email || '',
       franchise: '', // не изменяется при редактировании
-      tariff: user?.tariff?.id || '', // не изменяется при редактировании
-      group: user?.groups[0]?.groupId || '', // не изменяется при редактировании
+      tariff: currentUser?.tariff?.id || '', // не изменяется при редактировании
+      group: currentUser?.groups[0]?.groupId || '', // не изменяется при редактировании
     };
     const maxBirthdayYearStudent = new Date().getFullYear() - 3;
     const maxBirthdayYearAll = new Date().getFullYear() - 18;
     const minBirthdayYear = new Date().getFullYear() - 102;
+
+    const isFranchiseRole = role === Roles.Franchisee || role === Roles.FranchiseeAdmin;
 
     const schema = yup.object().shape({
       firstName: yup
@@ -90,17 +93,17 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
         .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       middleName: yup
         .string()
-        .required('Обязательное поле')
+        .notRequired()
         .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`),
+      // .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
       lastName: yup
         .string()
         .required('Обязательное поле')
         .matches(REG_NAME, 'Допустима только кириллица')
         .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
         .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      role: user ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
+      role: currentUser ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
       sex: yup.string().required('Обязательное поле'),
       city: yup
         .string()
@@ -113,7 +116,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().notRequired()
           : yup.string().required('Обязательное поле'),
       /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-                                                                                                                                                        .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+                                                                                                                                                                                                                          .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
       birthdate: yup
         .date()
         .required('Обязательное поле')
@@ -138,9 +141,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                 'Введите валидный email',
               )
               .required('Обязательное поле'),
-      franchise: user
+      franchise: currentUser
         ? yup.string().notRequired()
-        : isMethodistTutor(selectedRole)
+        : isMethodistTutor(selectedRole) && !isFranchiseRole
         ? yup.string().required('Обязательное поле')
         : yup.string().notRequired(),
       tariff:
@@ -148,6 +151,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().required('Обязательное поле')
           : yup.string().notRequired(),
     });
+
     const {
       handleSubmit,
       control,
@@ -179,7 +183,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       };
 
       await action(
-        user,
+        currentUser,
         removeEmptyFields(newUserData),
         setError,
         values.role as Roles,
@@ -221,7 +225,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <h2 className={styles.tableTitle}>
-                  {user ? 'Редактирование пользователя' : 'Регистрация пользователя'}
+                  {currentUser ? 'Редактирование пользователя' : 'Регистрация пользователя'}
                 </h2>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -286,7 +290,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                       control={control}
                     />
                   </Grid>
-                  {!user && (
+                  {!currentUser && (
                     <>
                       <Grid item xs={12} sm={6}>
                         <Controller
@@ -299,14 +303,14 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                                 field.onChange(e);
                               }}
                               title="Роль"
-                              options={roleOptions}
+                              options={filterRoleOptions(roleOptions, role)}
                               error={errors.role?.message}
                             />
                           )}
                           control={control}
                         />
                       </Grid>
-                      {isMethodistTutor(selectedRole) && (
+                      {isMethodistTutor(selectedRole) && !isFranchiseRole && (
                         <Grid item xs={12} sm={6}>
                           <Controller
                             name="franchise"
@@ -443,7 +447,9 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
               )}
               <Grid xs={12} sm={12} margin="10px 14px" display="flex">
                 <Grid item xs={12} sm={6.2}>
-                  {user && <SetStatusButton active={user?.active} id={user.id} />}
+                  {currentUser && (
+                    <SetStatusButton active={currentUser?.active} id={currentUser.id} />
+                  )}
                 </Grid>
                 <Grid item xs={12} sm={5}>
                   <Button type="submit" disabled={isSubmitSuccessful}>
@@ -454,14 +460,14 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
             </Grid>
           </Box>
         </form>
-        {user?.roleCode === Roles.Student && (
+        {currentUser?.roleCode === Roles.Student && (
           <div>
-            {user?.parents && (
+            {currentUser?.parents && (
               <StudentParentsFormContainer
                 franchiseId={currentFranchiseId}
-                studentId={user.id ? user.id : ''}
+                studentId={currentUser.id ? currentUser.id : ''}
                 onCloseModal={onCloseModal}
-                parents={user.parents}
+                parents={currentUser.parents}
                 visibility={visibility}
               />
             )}

@@ -6,7 +6,7 @@ export type FranchiseShortT = {
 };
 
 export class FranchiseT {
-  id: string | null = '';
+  id: string = '';
 
   inn: Nullable<string> = '';
 

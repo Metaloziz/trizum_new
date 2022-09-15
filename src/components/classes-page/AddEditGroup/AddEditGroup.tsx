@@ -1,10 +1,9 @@
 import coursesStore from 'app/stores/coursesStore';
+import franchiseeStore from 'app/stores/franchiseeStore';
 import React, { FC, useEffect, useState } from 'react';
 import { FormControl, Grid, InputLabel, Select, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { observer } from 'mobx-react-lite';
-import coursesService from 'app/services/coursesService';
-import franchiseService from 'app/services/franchiseService';
 import usersService from 'app/services/usersService';
 import appStore, { Roles } from 'app/stores/appStore';
 import groupStore from 'app/stores/groupStore';
@@ -55,11 +54,11 @@ const AddEditGroup: FC<Props> = observer(props => {
     editGroup,
   } = groupStore;
 
+  const { role, user } = appStore;
   const [teacherOptions, setTeacherOptions] = useState<JSX.Element[]>([]);
   const [franchiseOptions, setFranchiseOptions] = useState<JSX.Element[]>([]);
   const [courseOptions, setCourseOptions] = useState<JSX.Element[]>([]);
   const getTeachers = async () => {
-    // if (modalFields.franchiseId) {
     const res = await usersService.getAllUsers({
       perPage: 10000,
       franchiseId: modalFields.franchiseId || undefined,
@@ -69,24 +68,12 @@ const AddEditGroup: FC<Props> = observer(props => {
     setTeacherOptions(
       res.items.map(el => getOptionMui(el.id, `${el.lastName} ${el.firstName} ${el.middleName}`)),
     );
-    // }
   };
 
-  const initLoad = async () => {
-    const resFranchise = await franchiseService.getAll();
-    const resCourses = await coursesService.getAllCourses({ perPage: 10000 });
-    setFranchiseOptions(resFranchise.map(t => getOptionMui(t.id || '', t.shortName)));
-    setCourseOptions(resCourses.items.map(el => (el.id ? getOptionMui(el.id, el.title) : <></>)));
-  };
   useEffect(() => {
     loadInitialModal();
   }, []);
 
-  // useEffect(() => {
-  //   if (modalFields.franchiseId) {
-  //     getTeachers();
-  //   }
-  // }, [modalFields.franchiseId]);
   useEffect(() => {
     if (appStore.role === Roles.Admin && !!franchise?.length) {
       setFranchiseOptions(franchise.map(t => getOptionMui(t.id || '', t.shortName)));
@@ -113,7 +100,7 @@ const AddEditGroup: FC<Props> = observer(props => {
     closeModal();
     cleanModalValues();
   };
-
+  const isFranchiseRole = role === Roles.Franchisee || role === Roles.FranchiseeAdmin;
   return (
     <BasicModal
       fullWidth
@@ -144,7 +131,6 @@ const AddEditGroup: FC<Props> = observer(props => {
               labelId="teacher"
               label="Учитель"
               fullWidth
-              // disabled={!modalFields.franchiseId}
               onChange={(event, child) => (modalFields.teacherId = event.target.value)}
               value={modalFields.teacherId}
             >
@@ -167,20 +153,23 @@ const AddEditGroup: FC<Props> = observer(props => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth>
-            <InputLabel id="franchise">Франшиза</InputLabel>
-            <Select
-              labelId="franchise"
-              label="Франшиза"
-              fullWidth
-              onChange={(event, child) => (modalFields.franchiseId = event.target.value)}
-              value={modalFields.franchiseId}
-            >
-              {franchiseOptions}
-            </Select>
-          </FormControl>
-        </Grid>
+        {!isFranchiseRole && (
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="franchise">Франшиза</InputLabel>
+              <Select
+                labelId="franchise"
+                label="Франшиза"
+                fullWidth
+                onChange={(event, child) => (modalFields.franchiseId = event.target.value)}
+                value={modalFields.franchiseId}
+              >
+                {franchiseOptions}
+              </Select>
+            </FormControl>
+          </Grid>
+        )}
+
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth>
             <InputLabel id="course">Курс</InputLabel>
@@ -241,7 +230,15 @@ const AddEditGroup: FC<Props> = observer(props => {
             flexDirection: 'row-reverse',
           }}
         >
-          <Button onClick={() => (selectedGroup.id ? editGroup() : addGroup())}>
+          <Button
+            onClick={() =>
+              selectedGroup.id
+                ? editGroup()
+                : isFranchiseRole
+                ? addGroup(user.franchise.id)
+                : addGroup()
+            }
+          >
             {selectedGroup.id ? 'Изменить' : 'Добавить'}
           </Button>
         </Grid>

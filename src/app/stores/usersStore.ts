@@ -43,7 +43,7 @@ class UsersStore {
     lastName: '',
     middleName: '',
     firstName: '',
-    is_payed: false,
+    is_payed: undefined,
     role: '',
     birthdate_since: '',
     birthdate_until: '',

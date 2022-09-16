@@ -28,6 +28,7 @@ import { Filter } from './Filter';
 import { MethodistMainStore } from './stores';
 
 import { LoadingIndicator } from 'components/franchising-page/ui/LoadingIndicator';
+import { translateStatus } from './helpers';
 
 export enum LevelHomeWork {
   easy = 'Младшая группа',
@@ -172,7 +173,7 @@ const MethodistMain = observer(() => {
                   >
                     <TableCell>{entity.title}</TableCell>
                     {/* <TableCell>{LevelHomeWork[entity.level]}</TableCell> */}
-                    <TableCell align="center">{entity.level}</TableCell>
+                    <TableCell align="center">{translateStatus(entity.level)}</TableCell>
                     <TableCell align="center">{entity.worksCount}</TableCell>
                     <TableCell align="center">
                       {transformDate(entity?.createdAt?.date || '')}

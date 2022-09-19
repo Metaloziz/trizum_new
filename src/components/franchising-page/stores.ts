@@ -1,4 +1,4 @@
-import { makeObservable, observable } from 'mobx';
+import { makeObservable, observable, toJS } from 'mobx';
 import * as yup from 'yup';
 
 import { FranchisingFilterViewModel } from './models/FranchisingFilterViewModel';
@@ -72,11 +72,13 @@ export class FranchisingStore extends StoreBase {
   };
 
   addOrEdit = async () => {
+    
     this.closeDialog();
 
     this.execute(async () => {
       await this._repository.addOrEdit(this.editingEntity);
       await this.pull();
+      console.log(toJS(this.editingEntity))
     });
   };
 
@@ -101,7 +103,7 @@ export class FranchisingStore extends StoreBase {
 
   get validateSchema() {
     return yup.object<Record<keyof FranchisingViewModel, any>>().shape({
-      fullName: yup.string().required('*'),
+      // fullName: yup.string().required('*'),
       shortName: yup.string().required('*'),
       inn: yup.string().min(10).max(12).required('*'),
       phone: yup.number().required('*'),

@@ -142,7 +142,7 @@ class UsersStore {
 
   cleanSearchUsersParams = () => {
     this.searchUsersParams = this.searchDefaultUsersParams;
-    this.getUsers();
+    this.getFilteredUsers();
   };
 
   get getFullUserName() {

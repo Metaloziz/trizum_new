@@ -59,7 +59,12 @@ const UsersPage = observer(() => {
     getTariffs();
     getFilteredUsers();
   }, []);
-  return (
+
+    useEffect(()=>{
+        setCurrentPage(page+1)
+    },[page])
+
+    return (
     <div className={styles.wrapper}>
       <Filter setIsModalOpen={setIsModalOpen} />
       <div className={styles.cardWrapper}>

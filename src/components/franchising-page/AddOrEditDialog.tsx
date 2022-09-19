@@ -2,7 +2,7 @@ import { DialogActions, DialogContent, Grid, TextField, Typography } from '@mui/
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { observer } from 'mobx-react';
 
-import { numberWithoutLeadingZero } from './helpers/numberWithoutLeadingZero';
+import { numberWithoutLeadingZero, numberWithPossibleLeadingZero } from './helpers/numberWithoutLeadingZero';
 import { Dialog, DialogTitle } from './ui/Dialog';
 
 import Button from 'components/button/Button';
@@ -223,7 +223,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
               label="БИК банка"
               value={store.editingEntity.bankBik}
               onChange={({ currentTarget: { value } }) =>
-                numberWithoutLeadingZero(value, () => (store.editingEntity.bankBik = value))
+              numberWithPossibleLeadingZero(value, () => (store.editingEntity.bankBik = value))
               }
               fullWidth
               variant="outlined"

@@ -12,6 +12,7 @@ import Button from 'components/button/Button';
 import { SecondaryRoutes } from 'app/enums/SecondaryRoutes';
 import Pagination from '@mui/material/Pagination';
 import { ArticlePreview } from 'components/blog-page/ArticlePreview/ArticlePreview';
+import { style } from '@mui/system';
 
 const BlogPage: FunctionComponent = observer(() => {
   const { role } = appStore;
@@ -52,10 +53,15 @@ const BlogPage: FunctionComponent = observer(() => {
   return (
     <div className={styles.container}>
       {isAdmin() && (
-        <>
-          <Button onClick={onClickAddPost}>Добавить статью</Button>
-          <Button onClick={onClickAddTest}>Добавить тест</Button>
-        </>
+        <div className={styles.buttonsBox}>
+          <div className={styles.buttonArticle}>
+            <Button onClick={onClickAddPost}>Добавить статью</Button>
+          </div>
+          <div>
+            <Button onClick={onClickAddTest}>Добавить тест</Button>
+          </div>
+
+        </div>
       )}
       <ArticlePreview articles={articles} />
       <div className={styles.pagination}>

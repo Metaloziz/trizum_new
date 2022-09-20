@@ -13,3 +13,5 @@ export const BASE_URL = 'https://backschool.sitetopic.ru';
 
 // for test
 export const MAX_TEST_RESULT = 100; // todo Дима попросил временно зафиксировать
+export const MAX_VARIANTS_ANSWERS_TEST = 6;
+export const MIN_QUESTIONS_TEST = 2;

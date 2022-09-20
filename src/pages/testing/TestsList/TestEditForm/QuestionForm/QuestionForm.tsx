@@ -1,26 +1,25 @@
 import { useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from 'components/button/Button';
 import * as yup from 'yup';
-import { MAX_TEST_QUESTION_LENGTH, MIN_NAMES_LENGTH } from 'constants/constants';
+import {
+  MAX_TEST_QUESTION_LENGTH,
+  MAX_VARIANTS_ANSWERS_TEST,
+  MIN_NAMES_LENGTH,
+} from 'constants/constants';
 import style from './QuestionForm.module.scss';
+import { Button as EditButton } from '@mui/material';
 
 export class QuestionFormData {
-  question = 'Вопрос';
+  question: string = 'Вопрос';
 
-  correctAnswer = 'Правильный ответ';
+  correctAnswer: string = 'Правильный ответ';
 
-  answer1 = 'Не правильный ответ';
+  wrongAnswer1: string = 'Не правильный ответ';
 
-  answer2 = 'Не правильный ответ';
-
-  answer3 = 'Не правильный ответ';
-
-  answer4 = 'Не правильный ответ';
-
-  answer5 = 'Не правильный ответ';
+  [key: string]: string;
 }
 
 type Props = {
@@ -28,6 +27,9 @@ type Props = {
 };
 
 export const QuestionForm: FC<Props> = ({ getQuestionFormData }) => {
+  const [answersCount, setAnswersCount] = useState(2);
+  const [answers, setAnswers] = useState(new QuestionFormData());
+
   const inputRules = yup
     .string()
     .required('Обязательное поле')
@@ -37,11 +39,11 @@ export const QuestionForm: FC<Props> = ({ getQuestionFormData }) => {
   const schema = yup.object().shape({
     question: inputRules,
     correctAnswer: inputRules,
-    answer1: inputRules,
-    answer2: inputRules,
-    answer3: inputRules,
-    answer4: inputRules,
-    answer5: inputRules,
+    wrongAnswer1: inputRules,
+    wrongAnswer2: inputRules.notRequired(),
+    wrongAnswer3: inputRules.notRequired(),
+    wrongAnswer4: inputRules.notRequired(),
+    wrongAnswer5: inputRules.notRequired(),
   });
 
   const {
@@ -53,28 +55,32 @@ export const QuestionForm: FC<Props> = ({ getQuestionFormData }) => {
 
   const onSubmit = handleSubmit(values => {
     getQuestionFormData(values);
+    setAnswers(new QuestionFormData());
     reset();
   });
 
-  const newObjectForm = new QuestionFormData();
+  const addAnswer = () => {
+    if (answersCount < MAX_VARIANTS_ANSWERS_TEST) {
+      answers[`answer${answersCount}`] = 'Не правильный ответ';
+      setAnswers(answers);
+      setAnswersCount(answersCount + 1);
+    }
+  };
 
   return (
     <div className={style.container}>
       <h2>Добавить вопрос</h2>
       <form>
-        {Object.keys(newObjectForm).map(el => {
-          const key = el as keyof QuestionFormData;
-
-          return (
-            <TextField
-              {...register(key)}
-              key={key}
-              helperText={errors[key]?.message}
-              error={!!errors[key]}
-              label={newObjectForm[key]}
-            />
-          );
-        })}
+        {Object.keys(answers).map(el => (
+          <TextField
+            {...register(el)}
+            key={el}
+            helperText={errors[el]?.message}
+            error={!!errors[el]}
+            label={answers[el]}
+          />
+        ))}
+        <EditButton onClick={addAnswer}> Добавить вариант ответа</EditButton>
         <Button onClick={onSubmit}>Добавить</Button>
       </form>
     </div>

@@ -62,7 +62,7 @@ export const TestsList = observer(() => {
         />
       </div>
       <BasicModal visibility={showModal} changeVisibility={setShowModal}>
-        <TestEditForm />
+        <TestEditForm changeVisibility={setShowModal} />
       </BasicModal>
     </div>
   );

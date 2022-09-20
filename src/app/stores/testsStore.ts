@@ -47,6 +47,8 @@ class TestsStore {
 
   isLoading = false;
 
+  isSuccessPost: boolean | null = null;
+
   private searchParams: TestSearchParams = {
     per_page: 5,
     status: 'active',
@@ -100,6 +102,10 @@ class TestsStore {
   postTest = (test: TestPayloadT) => {
     executeError(async () => {
       const res = await testsService.postTest(test);
+
+      runInAction(() => {
+        this.setIsSuccessPost(!!res.id); // если ID нету значит ошибка
+      });
     }, this);
   };
 
@@ -134,6 +140,10 @@ class TestsStore {
 
   setCurrentQuestion = (question: ContentIDT) => {
     this.currentQuestion = question;
+  };
+
+  setIsSuccessPost = (value: boolean | null) => {
+    this.isSuccessPost = value;
   };
 
   get getTitleTest() {

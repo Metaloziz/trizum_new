@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { MAX_NAMES_LENGTH, MAX_TEST_RESULT, MIN_NAMES_LENGTH } from 'constants/constants';
+import {
+  MAX_NAMES_LENGTH,
+  MAX_TEST_RESULT,
+  MIN_NAMES_LENGTH,
+  MIN_QUESTIONS_TEST,
+} from 'constants/constants';
 import TextField from '@mui/material/TextField';
 import style from './TestEditForm.module.scss';
 import Button from 'components/button/Button';
@@ -13,10 +18,21 @@ import { observer } from 'mobx-react-lite';
 import testsStore from 'app/stores/testsStore';
 import { mixElements } from 'utils/mixElements';
 
-export type TestInputType = Pick<OneTestBodyT, 'title' | 'maxResult'>;
+type TestInputType = Pick<OneTestBodyT, 'title' | 'maxResult'>;
 
-export const TestEditForm = observer(() => {
-  const { postTest } = testsStore;
+type Props = {
+  changeVisibility: (value: boolean) => void;
+};
+
+export const TestEditForm: FC<Props> = observer(({ changeVisibility }) => {
+  const { postTest, isSuccessPost, setIsSuccessPost } = testsStore;
+
+  useEffect(() => {
+    if (isSuccessPost) {
+      changeVisibility(false);
+      setIsSuccessPost(null);
+    }
+  }, [isSuccessPost]);
 
   const [isShowTestModal, setIsShowTestModal] = useState(false);
   const [questions, setQuestions] = useState<QuestionFormData[]>([]);
@@ -53,8 +69,8 @@ export const TestEditForm = observer(() => {
       })),
     };
 
-    if (newTestPayload.content.length === 0) {
-      setError('maxResult', { message: 'добавьте хотя бы один вопрос' });
+    if (newTestPayload.content.length < MIN_QUESTIONS_TEST) {
+      setError('maxResult', { message: 'необходимо минимум два вопроса' });
       return;
     }
 

@@ -205,9 +205,9 @@ class Game extends Component<any, any> {
               element={
                 <div className={styles.wrapGameBlock}>
                   <section>
-                    {(role === Roles.Methodist || role === Roles.Admin) && (
-                      <div className={styles.wrapGameBlock_header}>
-                        <div className={styles.wrapGameBlock_header_select}>
+                    <div className={styles.wrapGameBlock_header}>
+                      <div className={styles.wrapGameBlock_header_select}>
+                        {(role === Roles.Methodist || role === Roles.Admin) && (
                           <InformationItem
                             variant="select"
                             size="normal"
@@ -215,20 +215,21 @@ class Game extends Component<any, any> {
                             option={presetArr}
                             onChangeSelect={data => this.setPreset(data)}
                           />
-                        </div>
-                        <div className={styles.wrapGameBlock_header_select}>
-                          <InformationItem variant="select" size="normal" placeholder="Год" />
-                        </div>
-                        <div className={styles.wrapGameBlock_header_select}>
-                          <InformationItem variant="select" size="normal" placeholder="Месяц" />
-                        </div>
-                        <div className={styles.wrapGameBlock_header_select}>
-                          <InformationItem variant="select" size="normal" placeholder="Группа" />
-                        </div>
-
-                        <Button onClick={() => this.toggleModal(true)}>Выбрать настройки</Button>
+                        )}
                       </div>
-                    )}
+                      <div className={styles.wrapGameBlock_header_select}>
+                        <InformationItem variant="select" size="normal" placeholder="Год" />
+                      </div>
+                      <div className={styles.wrapGameBlock_header_select}>
+                        <InformationItem variant="select" size="normal" placeholder="Месяц" />
+                      </div>
+                      <div className={styles.wrapGameBlock_header_select}>
+                        <InformationItem variant="select" size="normal" placeholder="Группа" />
+                      </div>
+
+                      <Button onClick={() => this.toggleModal(true)}>Выбрать настройки</Button>
+                    </div>
+
                     <div className={styles.wrapGame}>
                       <div className={styles.wrapGame_overlay}>
                         <GameComponent

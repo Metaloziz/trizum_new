@@ -7,6 +7,8 @@ import {
   GamesT,
   GameT,
   OneGamePresent,
+  PlayResultsResponseT,
+  PlaySendResultT,
 } from 'app/types/GameTypes';
 
 const gamesService = {
@@ -32,6 +34,14 @@ const gamesService = {
   },
   editPresetGame: async (id: string, params: EditOrCreatePresetParamsT): Promise<GamePresetT> => {
     const { data } = await instance.post(`${Paths.Presets}/${id}`, params);
+    return data;
+  },
+  sendPlayResults: async (params: PlaySendResultT) => {
+    const { data } = await instance.post(Paths.PlayResults, params);
+    return data;
+  },
+  getPlayResults: async (): Promise<PlayResultsResponseT> => {
+    const { data } = await instance.get(Paths.PlayResults);
     return data;
   },
 };

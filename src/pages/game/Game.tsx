@@ -79,7 +79,8 @@ class Game extends Component<any, any> {
       {
         started: false,
       },
-      () => {
+      async () => {
+        await gamesStore.sendResults(result);
         const message = [`Ваше время: ${result.time} секунд`];
 
         if (result?.timeDiff) {
@@ -137,7 +138,7 @@ class Game extends Component<any, any> {
     const { actualPreset } = gamesStore;
     const { role } = appStore;
     const widthScreen = window.innerWidth;
-    console.log(window.innerWidth);
+
     let gameViewSize = 700;
     if (widthScreen <= 1000 && widthScreen > 760) {
       gameViewSize = widthScreen - 300;
@@ -146,18 +147,21 @@ class Game extends Component<any, any> {
     } else if (widthScreen < 420) {
       gameViewSize = 200;
     }
+
     const presetArr: Option[] = [
       {
         value: 'Создать шаблон',
         label: 'Создать шаблон',
       },
     ];
+
     actualPreset.map(el =>
       presetArr.push({
         value: el.name,
         label: el.name,
       }),
     );
+
     return (
       <div className={styles.innerContent}>
         {(role === Roles.Methodist || role === Roles.Admin) && (

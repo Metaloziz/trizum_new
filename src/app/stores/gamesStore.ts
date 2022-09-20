@@ -9,6 +9,8 @@ import {
   GamesT,
   GameT,
   OneGamePresent,
+  PlayResultsResponseT,
+  PlaySendResultT,
 } from 'app/types/GameTypes';
 
 class GamesStore {
@@ -47,6 +49,8 @@ class GamesStore {
 
   games: GamesT = [];
 
+  playResults: PlayResultsResponseT = {} as PlayResultsResponseT;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -75,10 +79,14 @@ class GamesStore {
   };
 
   getPresets = async () => {
-    const res = await gamesService.getPresets();
-    runInAction(() => {
-      this.newPresets = res;
-    });
+    try {
+      const res = await gamesService.getPresets();
+      runInAction(() => {
+        this.newPresets = res;
+      });
+    } catch (e) {
+      console.warn(e);
+    }
   };
 
   filterPresets = (code: string) => {
@@ -129,6 +137,21 @@ class GamesStore {
   editPreset = async (params: EditOrCreatePresetParamsT) => {
     await gamesService.editPresetGame(this.gamePreset.gamePreset.id, params);
     await this.getPresets();
+  };
+
+  sendResults = async (params: PlaySendResultT) => {
+    await gamesService.sendPlayResults(params);
+  };
+
+  getPlayResults = async () => {
+    try {
+      const res = await gamesService.getPlayResults();
+      runInAction(() => {
+        this.playResults = res;
+      });
+    } catch (e) {
+      console.warn(e);
+    }
   };
 }
 

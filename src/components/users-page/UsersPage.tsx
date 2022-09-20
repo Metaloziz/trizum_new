@@ -73,7 +73,6 @@ const UsersPage = observer(() => {
             getOneUser={getOneUser}
             key={u.id}
             user={u}
-            onEditUserClick={onEditUserClick}
           />
         ))}
       </div>

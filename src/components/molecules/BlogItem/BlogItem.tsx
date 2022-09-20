@@ -54,7 +54,7 @@ const BlogItem: FC<Props> = observer(({ title, imgSrc = '', description, id, tes
         <p>{description}</p>
         <div className={styles.containerButton}>
           <Button onClick={onReadTheoryClick}>Прочитать теорию</Button>
-          {role !== Roles.Student && <Button onClick={onTestClick}>Пройти тест</Button>}
+          {role !== Roles.Student && testId && <Button onClick={onTestClick}>Пройти тест</Button>}
         </div>
         <div className={styles.delete}>
           {role === Roles.Admin && (

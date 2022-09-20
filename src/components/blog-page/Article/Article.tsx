@@ -14,17 +14,15 @@ import testsStore from 'app/stores/testsStore';
 
 export const Article: FC = observer(() => {
   const {
-    article: {
-      title,
-      content,
-      test: { id },
-    },
+    article: { title, content, test },
   } = articlesStore;
 
   const { setOneTest } = testsStore;
 
   useEffect(() => {
-    setOneTest(id);
+    if (test) {
+      setOneTest(test.id);
+    }
   }, []);
 
   const picture = findPictureUrl(content);
@@ -43,10 +41,12 @@ export const Article: FC = observer(() => {
 
         <div className={style.paragraphs}>{getParagraphs(content)}</div>
         <RedirectCurrentPageButton title="К списку статей" rout={AppRoutes.Blog} />
-        <RedirectCurrentPageButton
-          title="Пройти тест"
-          rout={`${AppRoutes.Testing}/${SecondaryRoutes.CurrentElement}`}
-        />
+        {test && (
+          <RedirectCurrentPageButton
+            title="Пройти тест"
+            rout={`${AppRoutes.Testing}/${SecondaryRoutes.CurrentElement}`}
+          />
+        )}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { StatusT } from 'app/types/StatusT';
 export type ArticlePayloadT = {
   title: string;
   content: Descendant[];
-  testId: string;
+  testId?: string;
   status?: StatusT;
   forStudents?: boolean;
   forTeachersEducation?: boolean;

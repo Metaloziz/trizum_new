@@ -49,7 +49,7 @@ const AddNewsPage = observer(() => {
   const schema = yup.object().shape({
     title: yup.string().required('обязательно поле'),
     description: yup.string().required('обязательно поле'),
-    testId: yup.string().required('обязательно поле'),
+    testId: yup.string().notRequired(),
   });
 
   const {
@@ -72,7 +72,6 @@ const AddNewsPage = observer(() => {
     const newArticle: ArticlePayloadT = {
       title: data.title,
       content,
-      testId: data.testId,
       status: 'active',
       forFranchisee: roles.includes(Roles.Franchisee),
       forFranchiseeAdmin: roles.includes(Roles.FranchiseeAdmin),
@@ -82,6 +81,11 @@ const AddNewsPage = observer(() => {
       forTeachersEducation: roles.includes(Roles.TeacherEducation),
       forTutor: roles.includes(Roles.Tutor),
     };
+
+    // добавление теста необязательно
+    if (data.testId) {
+      newArticle.testId = data.testId;
+    }
 
     postArticle(newArticle);
   });

@@ -20,6 +20,7 @@ const StudentPageFranchiseeModalParents: FC<StudentPageFranchiseeModalParentsPro
           studentId={user?.id ? user.id : ''}
           onCloseModal={onCloseModal}
           parents={user?.parents}
+          isViewMode
         />
       )}
     </div>

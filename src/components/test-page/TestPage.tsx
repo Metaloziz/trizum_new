@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
@@ -14,21 +14,11 @@ import { LoadingIndicator } from 'components/franchising-page/ui/LoadingIndicato
 import Image from 'components/image/Image';
 import Stepper from 'components/step/stepper/Stepper';
 import { MixedAnswers } from 'components/test-page/MixedAnswers/MixedAnswers';
-import { mixElements } from 'utils/mixElements';
-
-const wrongVariantsAnswers: string[] = [
-  'wrong variant 1',
-  'wrong variant 2',
-  'wrong variant 3',
-  'wrong variant 4',
-  'wrong variant 5',
-];
 
 const defaultRadioButtonValue = 'null';
 
 const TestPage: FC = observer(() => {
   const {
-    setTests,
     isLoading,
     incrementResult,
     postResult,
@@ -41,28 +31,18 @@ const TestPage: FC = observer(() => {
 
   const { article } = articlesStore;
 
-  useEffect(() => {
-    setTests();
-  }, []);
-
   const navigate = useNavigate();
 
   const [currentRadioValue, setCurrentRadioValue] = useState(defaultRadioButtonValue);
 
   const [activeStep, setActiveStep] = useState(1);
 
-  const mixedAnswer = useMemo(
-    () => mixElements(wrongVariantsAnswers, currentQuestion.answer),
-    [activeStep, questions, currentQuestion.answer],
-  );
-
   const onEndTest = () => {
-    // todo: добавить реальный id
     navigate(`${AppRoutes.Testing}/result`);
   };
 
   const checkAnswer = () => {
-    if (currentRadioValue === currentQuestion.answer) {
+    if (currentRadioValue === currentQuestion.correctAnswer) {
       incrementResult();
     }
   };
@@ -109,7 +89,7 @@ const TestPage: FC = observer(() => {
           <p>{currentQuestion.question}</p>
           <div className={styles.answerChoice}>
             <MixedAnswers
-              mixedAnswer={mixedAnswer}
+              mixedAnswer={currentQuestion.answers}
               setCurrentRadioValue={setCurrentRadioValue}
               currentRadioValue={currentRadioValue}
             />

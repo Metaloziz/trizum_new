@@ -1,4 +1,3 @@
-import { ReportParamsForUI } from 'app/types/ReportT';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import authService from 'app/services/authService';
@@ -143,6 +142,12 @@ class UsersStore {
   cleanSearchUsersParams = () => {
     this.searchUsersParams = this.searchDefaultUsersParams;
     this.getFilteredUsers();
+  };
+
+  resetCurrentUser = () => {
+    runInAction(() => {
+      this.currentUser = undefined;
+    });
   };
 
   get getFullUserName() {

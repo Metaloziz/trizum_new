@@ -17,7 +17,6 @@ import { BASE_URL } from 'utils/consts';
 
 type Props = {
   user: ResponseUserT;
-  onEditUserClick: (id: string) => void;
   getOneUser: (id: string) => Promise<ResponseOneUser | undefined>;
 };
 
@@ -32,15 +31,14 @@ const CardStudentExtended: FC<Props> = ({
     city,
     avatar,
     groups,
-    status,
     roleCode,
     franchise,
     active,
   },
   getOneUser,
-  // onEditUserClick,
 }) => {
-  const name = getFullUserName(lastName, firstName, middleName);
+  const FULL_NAME = getFullUserName(middleName, firstName, lastName);
+
   let role;
 
   switch (roleCode) {
@@ -102,7 +100,7 @@ const CardStudentExtended: FC<Props> = ({
             />
           </CustomImageWrapper>
           <div className={styles.title}>
-            <h3>{name}</h3>
+            <h3>{FULL_NAME}</h3>
             <div className={styles.mt20}>
               <p className={styles.list}>
                 Статус: <span>{role}</span>

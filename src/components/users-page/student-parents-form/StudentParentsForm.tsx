@@ -1,11 +1,9 @@
-import franchiseeStore from 'app/stores/franchiseeStore';
 import usersStore from 'app/stores/usersStore';
 import { observer } from 'mobx-react-lite';
 import React, { FC, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { convertFranchiseeOptions } from 'utils/convertFranchiseeOptions';
 import * as yup from 'yup';
 
 import { SexEnum } from 'app/enums/CommonEnums';
@@ -21,7 +19,7 @@ import { action } from 'components/users-page/student-parents-form/utils/action'
 import { sexOptions } from 'components/users-page/student-parents-form/utils/sexOptions';
 import { MAIN_PARENT_ID } from 'components/users-page/student-parrents-form-container/store/store';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH } from 'constants/constants';
-import { REG_NAME } from 'constants/regExp';
+import { REG_EMAIL, REG_NAME } from 'constants/regExp';
 import { OptionT } from 'app/types/OptionT';
 import TextFieldCustom from '../../text-field-mui/TextFieldCustom';
 import TextFieldPhoneCustom from '../../text-field-phone-mui/TextFieldPhoneCustom';
@@ -46,6 +44,7 @@ type Props = {
   setIsSubmitSuccessful: (isSuccess: boolean, id: number) => void;
   parent?: ParentT;
   isSubmitAnyForm: boolean;
+  isViewMode?: boolean;
 };
 
 type CreateParentPayloadT = Omit<
@@ -63,13 +62,17 @@ const StudentParentsForm: FC<Props> = observer(
     setIsMainParent,
     parent,
     isSubmitAnyForm,
+    isViewMode,
   }) => {
     const { currentUser } = usersStore;
     const [isDisableSubmit, setIsDisableSubmit] = useState(false);
+
     const handlerRadioChange = () => {
       setIsMainParent(!isMainParent, localParentFormID);
     };
+
     const userFranchiseId: string | undefined = currentUser?.franchise?.id as string | undefined;
+
     const schema = yup.object().shape({
       firstName: yup
         .string()
@@ -99,10 +102,7 @@ const StudentParentsForm: FC<Props> = observer(
       email: yup
         .string()
         .email('Обязательное поле')
-        .matches(
-          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-          'Введите валидный email',
-        )
+        .matches(REG_EMAIL, 'Введите валидный email')
         .required('Обязательное поле'),
       birthdate: yup
         .date()
@@ -119,11 +119,12 @@ const StudentParentsForm: FC<Props> = observer(
       city: parent?.city || '',
       phone: parent?.phone || '',
       email: parent?.email || '',
-      birthdate: '01.01.2000',
+      birthdate: parent?.birthdate?.date || '',
       sex: sexOptions[0]?.value,
       isMain: parent?.main || false,
       franchiseId: userFranchiseId,
     };
+
     const {
       handleSubmit,
       control,
@@ -164,6 +165,7 @@ const StudentParentsForm: FC<Props> = observer(
     return (
       <form>
         <Box className={styles.wrapper}>
+          {isViewMode && <div className={styles.block} />}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Controller
@@ -239,7 +241,6 @@ const StudentParentsForm: FC<Props> = observer(
                 name="birthdate"
                 render={({ field }) => (
                   <FormControl fullWidth>
-                    {/* <InputLabel htmlFor="birthdate">Дата рождения</InputLabel> */}
                     <DatePicker
                       {...field}
                       onChange={(date: Date | null) => {
@@ -327,11 +328,13 @@ const StudentParentsForm: FC<Props> = observer(
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button type="submit" disabled={isDisableSubmit} onClick={handleSubmit(onSubmit)}>
-                Сохранить
-              </Button>
-            </Grid>
+            {isViewMode || (
+              <Grid item xs={12} sm={6}>
+                <Button type="submit" disabled={isDisableSubmit} onClick={handleSubmit(onSubmit)}>
+                  Сохранить
+                </Button>
+              </Grid>
+            )}
           </Grid>
         </Box>
       </form>

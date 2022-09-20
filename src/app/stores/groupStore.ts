@@ -28,6 +28,7 @@ import {
   scheduleItemToUIMapper,
 } from 'utils/scheduleItemToServerMapper';
 import { findElement } from 'utils/findIndexElement';
+import { GroupTypes } from 'app/enums/GroupTypes';
 
 class GroupStore {
   groups: ResponseGroups[] = [];

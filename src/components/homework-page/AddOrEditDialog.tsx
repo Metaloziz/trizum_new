@@ -3,9 +3,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
   DialogActions,
   DialogContent,
+  FormControl,
   Grid,
   IconButton,
+  InputLabel,
   Paper,
+  Select,
   Stack,
   Table,
   TableBody,
@@ -23,13 +26,21 @@ import { Dialog, DialogTitle } from '../franchising-page/ui/Dialog';
 import { HomeworkStore } from './stores';
 
 import Button from 'components/button/Button';
+import { ShortStatusEnum, StatusEnum } from 'app/enums/StatusTypes';
+import { getOptionMui } from 'utils/getOption';
 
 interface AddOrEditDialogProps {
   store: HomeworkStore;
 }
 
+const statusTypesKeys = Object.keys(StatusEnum);
+
 export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
   const { store } = props;
+
+  const statusTypesOptions = Object.values(
+    store.editingEntity?.id ? StatusEnum : ShortStatusEnum,
+  ).map((el, index) => getOptionMui(statusTypesKeys[index], el));
 
   return (
     <Dialog
@@ -70,6 +81,21 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                 size="small"
                 error={!store.validateSchema.fields.text.isValidSync(store.editingEntity.text)}
               />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth size="small">
+                <InputLabel>Статус</InputLabel>
+                <Select
+                  value={store.editingEntity.status}
+                  label="Статус"
+                  onChange={({ target: { value } }) => (store.editingEntity.status = value)}
+                  error={
+                    !store.validateSchema.fields.status.isValidSync(store.editingEntity.status)
+                  }
+                >
+                  {statusTypesOptions}
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
           <TableContainer component={Paper}>

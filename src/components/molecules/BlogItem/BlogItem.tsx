@@ -12,23 +12,26 @@ import testsStore from 'app/stores/testsStore';
 import Button from 'components/button/Button';
 import { Button as DeleteButton } from '@mui/material';
 import Image from 'components/image/Image';
+import { SecondaryRoutes } from 'app/enums/SecondaryRoutes';
 
 interface Props {
   id: string;
   title: string;
+  testId: string;
   imgSrc?: string;
   description: string;
 }
 
-const BlogItem: FC<Props> = observer(({ title, imgSrc = '', description, id }) => {
+const BlogItem: FC<Props> = observer(({ title, imgSrc = '', description, id, testId }) => {
   const { role } = appStore;
   const { getCurrentArticle, deleteArticle } = articlesStore;
-  const { currentTest } = testsStore;
+  const { setOneTest } = testsStore;
 
   const navigate = useNavigate();
 
   const onTestClick = () => {
-    navigate(`${AppRoutes.Testing}/${currentTest.test.title}`); // todo решить баг с дефолтным url
+    setOneTest(testId);
+    navigate(`${AppRoutes.Testing}/${SecondaryRoutes.CurrentElement}`);
   };
 
   const onReadTheoryClick = (): void => {
@@ -51,7 +54,7 @@ const BlogItem: FC<Props> = observer(({ title, imgSrc = '', description, id }) =
         <p>{description}</p>
         <div className={styles.containerButton}>
           <Button onClick={onReadTheoryClick}>Прочитать теорию</Button>
-          {role !== Roles.Student && <Button onClick={onTestClick}>Пройти тест</Button>}
+          {role !== Roles.Student && testId && <Button onClick={onTestClick}>Пройти тест</Button>}
         </div>
         <div className={styles.delete}>
           {role === Roles.Admin && (

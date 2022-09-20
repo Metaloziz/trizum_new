@@ -20,10 +20,11 @@ type Props = {
   onCloseModal: () => void;
   parents?: ParentT[];
   visibility?: boolean;
+  isViewMode?: boolean;
 };
 
 export const StudentParentsFormContainer: FC<Props> = observer(
-  ({ onCloseModal, studentId, parents, franchiseId, visibility }) => {
+  ({ onCloseModal, studentId, parents, franchiseId, visibility, isViewMode }) => {
     const [parentState, setParentState] = useState(() => setInitialState(parents));
     const addForm = () => {
       const form: ParentsFormStateType = {
@@ -78,6 +79,7 @@ export const StudentParentsFormContainer: FC<Props> = observer(
                 setIsSubmitSuccessful={setSuccessForm}
                 parent={parent}
                 isSubmitAnyForm={isSubmitAnyForm(parentState)}
+                isViewMode={isViewMode}
               />
             ))}
           </div>

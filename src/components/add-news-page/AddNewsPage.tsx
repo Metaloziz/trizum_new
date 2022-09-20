@@ -21,6 +21,7 @@ import { ArticlePayloadT } from 'app/types/ArticlePayloadT';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from 'app/enums/AppRoutes';
 import { ResultMessage } from 'components/add-news-page/ResultMessage/ResultMessage';
+import { ArticleDescriptionType } from 'app/types/ArticleDescriptionType';
 
 type ArticleFormT = {
   title: string;
@@ -29,14 +30,9 @@ type ArticleFormT = {
   roles: number[];
 };
 
-export type ArticleDescriptionType = {
-  type: string;
-  text: string;
-};
-
 const AddNewsPage = observer(() => {
-  const { tests, setTests } = testsStore;
-  const { postArticle, isSuccessPost, article } = articlesStore;
+  const { tests, setTests, setSearchParams } = testsStore;
+  const { postArticle, isSuccessPost, article, setDefaultIsSuccessPost } = articlesStore;
   const { content } = slateStore;
 
   const [roles, setRoles] = useState<any>(['']);
@@ -45,13 +41,15 @@ const AddNewsPage = observer(() => {
   const testOptions = convertTestOptions(tests);
 
   useEffect(() => {
+    setSearchParams({ per_page: 1000 });
+    setDefaultIsSuccessPost();
     setTests();
   }, []);
 
   const schema = yup.object().shape({
     title: yup.string().required('обязательно поле'),
     description: yup.string().required('обязательно поле'),
-    testId: yup.string().required('обязательно поле'),
+    testId: yup.string().notRequired(),
   });
 
   const {
@@ -74,7 +72,6 @@ const AddNewsPage = observer(() => {
     const newArticle: ArticlePayloadT = {
       title: data.title,
       content,
-      testId: data.testId,
       status: 'active',
       forFranchisee: roles.includes(Roles.Franchisee),
       forFranchiseeAdmin: roles.includes(Roles.FranchiseeAdmin),
@@ -84,6 +81,12 @@ const AddNewsPage = observer(() => {
       forTeachersEducation: roles.includes(Roles.TeacherEducation),
       forTutor: roles.includes(Roles.Tutor),
     };
+
+    // добавление теста необязательно
+    if (data.testId) {
+      newArticle.testId = data.testId;
+    }
+
     postArticle(newArticle);
   });
 
@@ -143,6 +146,7 @@ const AddNewsPage = observer(() => {
           </div>
           <div>
             <p>Текст статьи</p>
+            <p>* необходима хотя бы одна картинка в тексте. Она будет использоваться как превью.</p>
             <div className={styles.newsEditor}>
               <RichTextEditor />
             </div>

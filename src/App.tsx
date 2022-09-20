@@ -47,7 +47,7 @@ const App = observer(() => (
             <Route path="" element={<Blog />} />
             <Route path={SecondaryRoutes.AddArticle} element={<AddNewsPage />} />
             <Route path=":articleName" element={<Article />} />
-            <Route path={SecondaryRoutes.AddTest} element={<div>add test</div>} />
+            {/* <Route path={SecondaryRoutes.AddTest} element={<div>add test</div>} /> */}
           </Route>
 
           <Route path={AppRoutes.Classes} element={<Classes />} />
@@ -78,7 +78,7 @@ const App = observer(() => (
 
           <Route path={AppRoutes.Testing}>
             <Route path="" element={<Testing />} />
-            <Route path=":testName" element={<Test />} />
+            <Route path={SecondaryRoutes.CurrentElement} element={<Test />} />
             <Route path="result" element={<Result />} />
             <Route path={SecondaryRoutes.AddTest} element={<TestsList />} />
           </Route>

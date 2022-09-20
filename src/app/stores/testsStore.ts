@@ -1,18 +1,17 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-
-import { StatusTypes } from 'app/enums/StatusTypes';
 import { testsService } from 'app/services/testsService';
 import { ArticleTestResultPayloadT } from 'app/types/ArticleTestResultPayloadT';
-import {
-  ContentIDT,
-  OneTestBodyT,
-  OneTestT,
-  PreviewTestT,
-  TestsParamsForServer,
-} from 'app/types/TestsT';
+import { ContentIDT, OneTestBodyT, OneTestT, PreviewTestT, TestPayloadT } from 'app/types/TestsT';
 import { FIRST_ARRAY_ITEM } from 'constants/constants';
 import { addIdElements } from 'utils/addIdElements';
 import { executeError } from 'utils/executeError';
+import { StatusT } from 'app/types/StatusT';
+
+export type TestSearchParams = Partial<{
+  status: StatusT;
+  page: number;
+  per_page: number;
+}>;
 
 class TestsStore {
   tests: PreviewTestT[] = [
@@ -24,11 +23,13 @@ class TestsStore {
     },
   ];
 
-  testsTotalCount = 1;
+  total = 1;
 
-  page = 1;
+  page = 0;
 
   perPage = 5;
+
+  result: number = 0;
 
   currentTest: OneTestT = {
     test: new OneTestBodyT(),
@@ -39,14 +40,20 @@ class TestsStore {
 
   currentQuestion: ContentIDT = {
     id: 1,
-    question: 'default ?',
-    answer: 'default',
-    type: StatusTypes.draft,
+    question: 'default',
+    answers: ['default'],
+    correctAnswer: 'default',
   };
 
-  result: number = 0;
-
   isLoading = false;
+
+  isSuccessPost: boolean | null = null;
+
+  private searchParams: TestSearchParams = {
+    per_page: 5,
+    status: 'active',
+    page: 0,
+  };
 
   constructor() {
     makeAutoObservable(this);
@@ -67,20 +74,49 @@ class TestsStore {
     }, this);
   };
 
-  setTests = (params?: TestsParamsForServer) => {
+  setTests = () => {
     executeError(async () => {
-      const res = await testsService.getTests(params);
+      const res = await testsService.getTests(this.searchParams);
 
       runInAction(() => {
         this.tests = res.items;
-        this.testsTotalCount = res.total;
+        this.total = res.total;
         this.perPage = res.perPage;
         this.page = res.page;
+
+        this.setSearchParams({ page: res.page, per_page: res.perPage });
       });
 
       const firstTest = this.tests[FIRST_ARRAY_ITEM];
 
       await this.setOneTest(firstTest.id);
+    }, this);
+  };
+
+  setSearchParams = (params: TestSearchParams) => {
+    runInAction(() => {
+      this.searchParams = { ...this.searchParams, ...params };
+    });
+  };
+
+  postTest = (test: TestPayloadT) => {
+    executeError(async () => {
+      const res = await testsService.postTest(test);
+
+      runInAction(() => {
+        this.setIsSuccessPost(!!res.id); // если ID нету значит ошибка
+      });
+    }, this);
+  };
+
+  editTest = (testId: string, newTestData: Partial<TestPayloadT>) => {
+    // todo работает как удаление пока
+    executeError(async () => {
+      const res = await testsService.editTest(testId, newTestData);
+
+      runInAction(() => {
+        this.tests = this.tests.filter(el => el.id !== testId);
+      });
     }, this);
   };
 
@@ -106,9 +142,9 @@ class TestsStore {
     this.currentQuestion = question;
   };
 
-  get getContent() {
-    return this.currentTest.test.content;
-  }
+  setIsSuccessPost = (value: boolean | null) => {
+    this.isSuccessPost = value;
+  };
 
   get getTitleTest() {
     return this.currentTest.test.title;

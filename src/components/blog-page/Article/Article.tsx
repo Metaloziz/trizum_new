@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import style from './Article.module.scss';
 
@@ -7,24 +7,46 @@ import articlesStore from 'app/stores/articlesStore';
 import Image from 'components/image/Image';
 import { RedirectCurrentPageButton } from 'components/test-page/RedirectArticlesPageButton/RedirectCurrentPageButton';
 import { observer } from 'mobx-react-lite';
+import { getParagraphs } from 'components/blog-page/Article/util/getParagraph';
+import { findPictureUrl } from 'utils/findPictureUrl';
+import { SecondaryRoutes } from 'app/enums/SecondaryRoutes';
+import testsStore from 'app/stores/testsStore';
 
 export const Article: FC = observer(() => {
   const {
-    article: { title },
+    article: { title, content, test },
   } = articlesStore;
+
+  const { setOneTest } = testsStore;
+
+  useEffect(() => {
+    if (test) {
+      setOneTest(test.id);
+    }
+  }, []);
+
+  const picture = findPictureUrl(content);
 
   return (
     <div className={style.container}>
       <Image
         className={style.icon}
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpm0AXv9uGZD7IQKGrI10kmGPXytkQxo_t_gWCJvbt6QFL9VcWHCBnLT3sF2OXrv6xme4&usqp=CAU"
+        src={picture}
         width="460"
         height="460"
+        style={{ objectFit: 'scale-down' }}
       />
       <div>
         <h2>{title}</h2>
-        <p>text</p>
+
+        <div className={style.paragraphs}>{getParagraphs(content)}</div>
         <RedirectCurrentPageButton title="К списку статей" rout={AppRoutes.Blog} />
+        {test && (
+          <RedirectCurrentPageButton
+            title="Пройти тест"
+            rout={`${AppRoutes.Testing}/${SecondaryRoutes.CurrentElement}`}
+          />
+        )}
       </div>
     </div>
   );

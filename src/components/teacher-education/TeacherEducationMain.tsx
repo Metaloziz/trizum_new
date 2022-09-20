@@ -36,6 +36,7 @@ const TeacherEducationMain = () => {
           title={item.title}
           description={item.text}
           imgSrc={item.img}
+          testId={item.id}
           // onTestClick={() => onTestClick(item.id)}
           // onTheoryClick={() => onTheoryClick(item.id)}
         />

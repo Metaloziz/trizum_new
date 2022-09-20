@@ -99,6 +99,7 @@ export class HomeworkStore extends StoreBase {
     return yup.object<Record<keyof HomeworkViewModel, any>>().shape({
       title: yup.string().required('*'),
       text: yup.string().required('*'),
+      status: yup.string().required('*'),
     });
   }
 }

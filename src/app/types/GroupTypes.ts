@@ -7,7 +7,6 @@ import { GroupLevels } from 'app/enums/GroupLevels';
 import { GroupTypes } from 'app/enums/GroupTypes';
 import { EmptyUser } from 'app/stores/appStore';
 import { FranchiseShortT, FranchiseT } from 'app/types/FranchiseTypes';
-import { LevelT } from 'app/types/LevelT';
 import { Nullable } from 'app/types/Nullable';
 import { ResponseOneUserTypeForLoadMe } from 'app/types/ResponseLoadMeBaseT';
 import { ScheduleT } from 'app/types/ScheduleT';
@@ -18,7 +17,7 @@ export type ResponseGroups = {
   name: string;
   type: Nullable<string>;
   status: Nullable<string>;
-  level: LevelT;
+  level: LevelGroupT;
   startedAt: TimeZoneType;
   endedAt: TimeZoneType;
   createdAt: TimeZoneType;
@@ -86,7 +85,7 @@ export class ResponseOneGroup {
 
   status: StatusT = 'draft';
 
-  level: LevelT = 'easy';
+  level: LevelGroupT = 'easy';
 
   startedAt = new TimeZoneType();
 
@@ -134,7 +133,7 @@ export type CreateGroup = {
   franchiseId: string;
   type: GroupT;
   teacherId: string;
-  level: LevelT;
+  level: LevelGroupT;
   courseId: string;
   status: StatusT;
   schedule?: ScheduleT[];

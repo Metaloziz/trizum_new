@@ -15,6 +15,9 @@ import imagesStore from '../../app/stores/imagesStore';
 import { useSlate } from 'slate-react';
 import { RichGalleryProps } from './RichTextTypes';
 import { exists } from 'fs';
+import styles from './RichText.module.scss';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export const RichTextGallery: FC<RichGalleryProps> = observer(props => {
   const [open, setOpen] = React.useState(false);
@@ -25,8 +28,14 @@ export const RichTextGallery: FC<RichGalleryProps> = observer(props => {
     if (open) getImages();
   }, [open]);
   const handleSelect = (event: any) => {
-    // setSelectedImagePath(event.target.src.replace('http://localhost:8000', '')); // TODO change on prod / remote
     setSelectedImagePath(event.target.src.replace('https://lk.trizum.ru', '')); // TODO change on prod / remote
+    // setSelectedImagePath(event.target.src.replace('https://backschool.sitetopic.ru', '')); // TODO change on prod / remote
+    // handleClose();
+    props.callback();
+  };
+  const deleteImage = async (id: string) => {
+    await galleryService.deleteImage(id);
+    getImages();
   };
   return (
     <>
@@ -40,49 +49,58 @@ export const RichTextGallery: FC<RichGalleryProps> = observer(props => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 500,
+            width: 540,
             bgcolor: 'background.paper',
             border: '2px solid #000',
             boxShadow: 24,
-            p: 4,
+            p: 2,
           }}
         >
-          <Button
-            onClick={() => {
-              const input = document.createElement('input');
-              input.type = 'file';
+          <div className={styles.buttonContainer}>
+            <Button
+              onClick={() => {
+                const input = document.createElement('input');
+                input.type = 'file';
 
-              input.onchange = (e: Event) => {
-                if (e.target === null || !('files' in e.target)) return;
-                // @ts-ignore
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                reader.onload = () => {
+                input.onchange = (e: Event) => {
+                  if (e.target === null || !('files' in e.target)) return;
                   // @ts-ignore
-                  const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
-                  imagesStore.image64 = base64String;
-                  imagesStore.uploadImage();
+                  const file = e.target.files[0];
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    // @ts-ignore
+                    const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
+                    imagesStore.image64 = base64String;
+                    imagesStore.uploadImage();
+                  };
+                  reader.readAsDataURL(file);
                 };
-                reader.readAsDataURL(file);
-              };
-              input.click();
-            }}
-          >
-            <AddPhotoAlternateIcon />
-          </Button>
-          <Button
-            onClick={() => {
-              handleClose();
-              props.callback();
-            }}
-          >
-            <DoneIcon />
-          </Button>
-          <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+                input.click();
+              }}
+            >
+              <AddPhotoAlternateIcon />
+            </Button>
+            <Button
+              onClick={() => {
+                handleClose();
+                // props.callback();
+              }}
+            >
+              {/* <DoneIcon /> */}
+              <CloseIcon sx={{ color: 'red' }} />
+            </Button>
+          </div>
+          <ImageList sx={{ width: 500, height: 450 }} cols={3}>
             {images.map(image => (
               <ImageListItem key={image.id} onClick={handleSelect}>
+                <div className={styles.delete}>
+                  <Button onClick={() => deleteImage(image.id)}>
+                    <DeleteForeverIcon />
+                  </Button>
+                </div>
                 <img
-                  // src={`http://localhost:8000${image.path}`} // TODO change on prod / remote
+                  className={styles.image}
+                  // src={`https://backschool.sitetopic.ru${image.path}`} // TODO change on prod / remote
                   src={`https://lk.trizum.ru${image.path}`} // TODO change on prod / remote
                   alt={image.id}
                   loading="lazy"

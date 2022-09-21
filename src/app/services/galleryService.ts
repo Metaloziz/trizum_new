@@ -22,7 +22,7 @@ export const galleryService = {
   },
 
   deleteImage: async (id: string): Promise<AxiosResponse<any>> => {
-    const res = await instance.delete(Paths.Images);
+    const res = await instance.delete(`${Paths.Images}/${id}`);
     return res;
   },
 };

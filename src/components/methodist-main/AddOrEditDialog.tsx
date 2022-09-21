@@ -1,24 +1,14 @@
 import { useEffect, useMemo } from 'react';
 
 import {
-  Checkbox,
   DialogActions,
   DialogContent,
   FormControl,
   Grid,
   InputLabel,
-  Paper,
   Select,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
   TextField,
-  Typography,
 } from '@mui/material';
 import { observer } from 'mobx-react';
 
@@ -32,6 +22,8 @@ import { HomeworkStore } from 'components/homework-page/stores';
 import { GroupTypes } from 'app/enums/GroupTypes';
 import { getOptionMui } from 'utils/getOption';
 import { ShortStatusEnum, StatusEnum } from 'app/enums/StatusTypes';
+import { TableWorks } from 'components/methodist-main/components/TableWorks';
+import { isError } from 'components/methodist-main/utils/IsError';
 
 interface AddOrEditDialogProps {
   store: MethodistMainStore;
@@ -100,7 +92,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                 fullWidth
                 variant="outlined"
                 size="small"
-                error={!store.validateSchema.fields.title.isValidSync(store.editingEntity.title)}
+                error={isError(store, 'title')}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -110,7 +102,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                   value={store.editingEntity.level}
                   label="Уровень"
                   onChange={({ target: { value } }) => (store.editingEntity.level = value)}
-                  error={!store.validateSchema.fields.level.isValidSync(store.editingEntity.level)}
+                  error={isError(store, 'level')}
                 >
                   {levelOptions}
                 </Select>
@@ -123,7 +115,7 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                   value={store.editingEntity.type}
                   label="Тип"
                   onChange={({ target: { value } }) => (store.editingEntity.type = value)}
-                  error={!store.validateSchema.fields.type.isValidSync(store.editingEntity.type)}
+                  error={isError(store, 'type')}
                 >
                   {groupTypesOptions}
                 </Select>
@@ -136,91 +128,14 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                   value={store.editingEntity.status}
                   label="Статус"
                   onChange={({ target: { value } }) => (store.editingEntity.status = value)}
-                  error={
-                    !store.validateSchema.fields.status.isValidSync(store.editingEntity.status)
-                  }
+                  error={isError(store, 'status')}
                 >
                   {statusTypesOptions}
                 </Select>
               </FormControl>
             </Grid>
           </Grid>
-          {!!homeworkStore.entities.length && (
-            <>
-              <TableContainer component={Paper}>
-                <Table size="small">
-                  <TableHead>
-                    <TableRow
-                      sx={{
-                        '& > th': {
-                          backgroundColor: '#2e8dfd',
-                          color: '#fff',
-                          verticalAlign: 'top',
-                        },
-                      }}
-                    >
-                      <TableCell role="checkbox" />
-                      <TableCell>Наименование</TableCell>
-                      <TableCell width="auto">Описание</TableCell>
-                      <TableCell>Количество игр</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {
-                      homeworkStore.entities.map(work => (
-                        <TableRow
-                          key={work.id}
-                          hover
-                          sx={{
-                            '& > td': {
-                              verticalAlign: 'top',
-                            },
-                          }}
-                        >
-                          <TableCell role="checkbox">
-                            <Checkbox
-                              checked={(store.editingEntity.works || []).some(
-                                w => w.id === work.id,
-                              )}
-                              size="small"
-                              onChange={(__, checked) => {
-                                store.editingEntity.works = checked
-                                  ? [...(store.editingEntity.works || []), work]
-                                  : store.editingEntity.works?.filter(w => w.id !== work.id);
-                              }}
-                            />
-                          </TableCell>
-                          <TableCell>{work.title}</TableCell>
-                          <TableCell width="auto">{/* work.text */}</TableCell>
-                          <TableCell>{(work.gamePresets || []).length}</TableCell>
-                        </TableRow>
-                      ))
-                      /* ) : (
-                        <TableRow>
-                          <TableCell colSpan={4}>Данные отсутствуют...</TableCell>
-                        </TableRow>
-                      ) */
-                    }
-                  </TableBody>
-                </Table>
-              </TableContainer>
-
-              <TablePagination
-                rowsPerPageOptions={[homeworkStore.pagination.rowsPerPage]}
-                component="div"
-                count={homeworkStore.pagination.total}
-                rowsPerPage={homeworkStore.pagination.rowsPerPage}
-                page={homeworkStore.pagination.page}
-                onPageChange={(__, page) => homeworkStore.changePage(page)}
-                labelDisplayedRows={({ from, to, count }) =>
-                  `${from}–${to} из ${count !== -1 ? count : `больше чем ${to}`}`
-                }
-              />
-            </>
-          )}
-          {store.editingEntity.type && !homeworkStore.entities.length && (
-            <Typography>Пока что нет домашек</Typography>
-          )}
+          <TableWorks store={store} homeworkStore={homeworkStore} />
         </Stack>
       </DialogContent>
       <DialogActions>

@@ -8,15 +8,16 @@ import { MethodistMainRepository } from './repositories';
 import { StoreBase } from 'app/stores/StoreBase';
 import { Nullable } from 'app/types/Nullable';
 import { CourseViewModel } from 'app/viewModels/CourseViewModel';
+import { StatusTypes } from 'app/enums/StatusTypes';
 
 export class MethodistMainStore extends StoreBase {
   private _repository = new MethodistMainRepository();
 
   private _defaultValue = (): CourseViewModel => ({
-    title: '',
-    level: '',
-    type: '',
-    status: '',
+    title: null,
+    level: null,
+    type: null,
+    status: null,
   });
 
   pagination: {
@@ -91,7 +92,7 @@ export class MethodistMainStore extends StoreBase {
       }
       await this._repository.addOrEdit({
         ...this.editingEntity,
-        status,
+        status: status || StatusTypes.draft,
         works: this.editingEntity.works?.length ? asd : undefined,
       });
       await this.pull();

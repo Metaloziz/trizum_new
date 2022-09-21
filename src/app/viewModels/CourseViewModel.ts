@@ -1,15 +1,16 @@
 import { HomeworkViewModel } from './HomeworkViewModel';
 
 import { TimeZoneType } from 'app/types/TimeZoneType';
+import { Nullable } from 'app/types/Nullable';
 
 export interface CourseViewModel {
   id?: string;
-  title: string;
+  title: Nullable<string>;
   // description?: string; // убрал так как нету такого поля в курсах
   // level: 'easy' | 'medium' | 'hard';
-  level: string;
-  type: string;
-  status: string;
+  level: Nullable<string>;
+  type: Nullable<string>;
+  status: Nullable<string>;
   works?: HomeworkViewModel[];
   worksCount?: number;
   createdAt?: TimeZoneType;

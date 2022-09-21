@@ -5,7 +5,7 @@ import { StatusTypes } from 'app/enums/StatusTypes';
 
 type Props = {
   onClick: () => void;
-  status: string;
+  status: string | null;
 };
 
 export const DeleteCourseIcon: FC<Props> = ({ status, onClick }) => (

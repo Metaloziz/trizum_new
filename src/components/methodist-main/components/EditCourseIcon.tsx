@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 type Props = {
   onClick: () => void;
-  status: string;
+  status: string | null;
 };
 
 export const EditCourseIcon: FC<Props> = ({ onClick, status }) => (

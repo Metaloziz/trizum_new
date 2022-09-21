@@ -1,14 +1,10 @@
-
 import { useEffect, useMemo } from 'react';
 
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import {
   Alert,
   Box,
   Button,
-  IconButton,
   Paper,
   Snackbar,
   Stack,
@@ -29,6 +25,8 @@ import { MethodistMainStore } from './stores';
 
 import { LoadingIndicator } from 'components/franchising-page/ui/LoadingIndicator';
 import { translateStatus } from './helpers';
+import { EditCourseIcon } from 'components/methodist-main/components/EditCourseIcon';
+import { DeleteCourseIcon } from 'components/methodist-main/components/DeleteCourseIcon';
 
 export enum LevelHomeWork {
   easy = 'Младшая группа',
@@ -180,21 +178,15 @@ const MethodistMain = observer(() => {
                     </TableCell>
                     <TableCell>
                       <Stack direction="row" justifyContent="flex-end">
-                        <IconButton
-                          size="small"
+                        <EditCourseIcon
+                          status={entity.status}
                           onClick={() => store.openDialog(entity)}
-                          color="primary"
-                        >
-                          <EditIcon fontSize="small" />
-                        </IconButton>
-                        <IconButton
-                          size="small"
+                        />
+
+                        <DeleteCourseIcon
+                          status={entity.status}
                           onClick={() => store.remove(entity.id!)}
-                          color="error"
-                          disabled={entity.status === 'active'}
-                        >
-                          <DeleteIcon fontSize="small" />
-                        </IconButton>
+                        />
                       </Stack>
                     </TableCell>
                   </TableRow>

@@ -49,14 +49,16 @@ const levelOptions = Object.values(GroupLevels).map((el, index) =>
 
 export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
   const { store } = props;
+
   const statusTypesOptions = Object.values(
     store.editingEntity?.id ? StatusEnum : ShortStatusEnum,
   ).map((el, index) => getOptionMui(statusTypesKeys[index], el));
+
   const homeworkStore = useMemo(() => new HomeworkStore(), [store.isDialogOpen]);
 
   useEffect(() => {
     if (store.editingEntity.type) {
-      let type = '';
+      let type: string;
       switch (store.editingEntity.type) {
         case 'blocks':
           type = 'block';
@@ -141,18 +143,6 @@ export const AddOrEditDialog = observer((props: AddOrEditDialogProps) => {
                   {statusTypesOptions}
                 </Select>
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Описание"
-                value={store.editingEntity.description}
-                onChange={({ currentTarget: { value } }) =>
-                  (store.editingEntity.description = value)
-                }
-                fullWidth
-                variant="outlined"
-                size="small"
-              />
             </Grid>
           </Grid>
           {!!homeworkStore.entities.length && (

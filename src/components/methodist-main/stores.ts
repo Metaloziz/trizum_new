@@ -16,7 +16,6 @@ export class MethodistMainStore extends StoreBase {
     title: '',
     level: '',
     type: '',
-    description: '',
     status: '',
   });
 

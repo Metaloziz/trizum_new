@@ -5,7 +5,7 @@ import { TimeZoneType } from 'app/types/TimeZoneType';
 export interface CourseViewModel {
   id?: string;
   title: string;
-  description?: string;
+  // description?: string; // убрал так как нету такого поля в курсах
   // level: 'easy' | 'medium' | 'hard';
   level: string;
   type: string;

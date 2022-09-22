@@ -206,8 +206,8 @@ class Game extends Component<any, any> {
                 <div className={styles.wrapGameBlock}>
                   <section>
                     <div className={styles.wrapGameBlock_header}>
-                      <div className={styles.wrapGameBlock_header_select}>
-                        {(role === Roles.Methodist || role === Roles.Admin) && (
+                      {(role === Roles.Methodist || role === Roles.Admin) && (
+                        <div className={styles.wrapGameBlock_header_select}>
                           <InformationItem
                             variant="select"
                             size="normal"
@@ -215,8 +215,8 @@ class Game extends Component<any, any> {
                             option={presetArr}
                             onChangeSelect={data => this.setPreset(data)}
                           />
-                        )}
-                      </div>
+                        </div>
+                      )}
                       <div className={styles.wrapGameBlock_header_select}>
                         <InformationItem variant="select" size="normal" placeholder="Год" />
                       </div>

@@ -45,6 +45,7 @@ export type ResponseAvatar = {
 
 export type ResponseEditSelf = {
   phone: string;
-  smsCode: number;
+  smsCode?: number;
+  password?: string;
   email: string;
 };

@@ -73,47 +73,58 @@ const StudentParentsForm: FC<Props> = observer(
 
     const userFranchiseId: string | undefined = currentUser?.franchise?.id as string | undefined;
 
-    const schema = yup.object().shape({
-      firstName: yup
-        .string()
-        .required('Обязательное поле')
-        .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      middleName: yup
-        .string()
-        .required('Обязательное поле')
-        .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      lastName: yup
-        .string()
-        .required('Обязательное поле')
-        .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      city: yup
-        .string()
-        .required('Обязательное поле')
-        .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      phone: yup.string().required('Обязательное поле'),
-      email: yup
-        .string()
-        .email('Обязательное поле')
-        .matches(REG_EMAIL, 'Введите валидный email')
-        .required('Обязательное поле'),
-      birthdate: yup
-        .date()
-        .required('Обязательное поле')
-        .min('01-01-1920', 'Возраст выбран не верно'),
-      sex: yup.string().required('Обязательное поле'),
-      isMain: yup.boolean().required('Обязательное поле'),
-      password: parent?.id
-        ? yup.string().notRequired().min(6, 'Минимум 6 символов').max(30, 'Максимум 30 символов')
-        : yup.string().required('Обязательное поле').min(6).max(30),
-    });
+    const schema = yup.object().shape(
+      {
+        firstName: yup
+          .string()
+          .required('Обязательное поле')
+          .matches(REG_NAME, 'Допустима только кириллица')
+          .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+          .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        middleName: yup
+          .string()
+          .required('Обязательное поле')
+          .matches(REG_NAME, 'Допустима только кириллица')
+          .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+          .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        lastName: yup
+          .string()
+          .required('Обязательное поле')
+          .matches(REG_NAME, 'Допустима только кириллица')
+          .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+          .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        city: yup
+          .string()
+          .required('Обязательное поле')
+          .matches(REG_NAME, 'Допустима только кириллица')
+          .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+          .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        phone: yup.string().required('Обязательное поле'),
+        email: yup
+          .string()
+          .email('Обязательное поле')
+          .matches(REG_EMAIL, 'Введите валидный email')
+          .required('Обязательное поле'),
+        birthdate: yup
+          .date()
+          .required('Обязательное поле')
+          .min('01-01-1920', 'Возраст выбран не верно'),
+        sex: yup.string().required('Обязательное поле'),
+        isMain: yup.boolean().required('Обязательное поле'),
+        password: parent?.id
+          ? yup
+              .string()
+              .nullable()
+              .notRequired()
+              .nullable()
+              .when('password', {
+                is: (value: any) => value?.length,
+                then: rule => rule.min(6, 'Минимум 6 символов').max(30, 'Максимум 30 символов'),
+              })
+          : yup.string().required('Обязательное поле').min(6).max(30),
+      },
+      [['password', 'password']],
+    );
 
     const defaultValues = {
       firstName: parent?.firstName || '',

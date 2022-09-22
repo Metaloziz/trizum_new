@@ -33,12 +33,12 @@ const UserPage = observer(() => {
   }, [seconds, timerActive]);
   const sec = Math.round(seconds / 10);
 
-  const sendPhone = async () => {
+  const sendPassword = async () => {
     setShowModal(true);
-    setSeconds(140);
-    setTimerActive(!timerActive);
+    // setSeconds(140);
+    // setTimerActive(!timerActive);
     const getSMSCode = await authService.sms({ phone: user.phone });
-    console.log('код по смс', getSMSCode);
+    // console.log('код по смс', getSMSCode);
   };
 
   const sendEdit = async () => {
@@ -52,6 +52,17 @@ const UserPage = observer(() => {
       setErorr(true);
     }
   };
+  // const sendEdit = async () => {
+  //   try {
+  //     const repl = phone.replaceAll(/\D/g, '');
+  //     await authService.editSelf({ phone: repl, email });
+  //     // setShowModal(false);
+  //     setUser();
+  //   } catch (e) {
+  //     console.warn(e);
+  //     setErorr(true);
+  //   }
+  // };
   const repeatSMSCode = async () => {
     setSeconds(150);
     setTimerActive(!timerActive);
@@ -135,9 +146,54 @@ const UserPage = observer(() => {
           />
         </div>
         <div className={styles.buttonWrapper}>
-          <Button onClick={sendPhone}>Сохранить</Button>
+          <Button onClick={sendPassword}>Сохранить</Button>
         </div>
       </div>
+      {/* {showModal ? ( */}
+      {/*  <div className={styles.modal}> */}
+      {/*    <div className={styles.content}> */}
+      {/*      <div className={styles.btnClose} onClick={closeWindow}> */}
+      {/*        <Image src={buttonClose} width="14" height="14" alt="Х" /> */}
+      {/*      </div> */}
+      {/*      <div className={styles.wrapContent}> */}
+      {/*        <div> */}
+      {/*          <p>Ваш телефон</p> */}
+      {/*          <div className={styles.phoneContainer}> */}
+      {/*            <span>+{phone}</span> */}
+      {/*          </div> */}
+      {/*          <p>Временный код</p> */}
+      {/*        </div> */}
+      {/*        <div className={styles.inputContainer}> */}
+      {/*          <input type="tel" value={code} onChange={e => setCode(e.target.value)} /> */}
+      {/*        </div> */}
+      {/*        {erorr ? ( */}
+      {/*          <p className={styles.textErorrRed}> */}
+      {/*            Неверный код */}
+      {/*            <br /> */}
+      {/*            После трёх неверных попыток - блокировка. */}
+      {/*          </p> */}
+      {/*        ) : ( */}
+      {/*          <div className={styles.blockErorr} /> */}
+      {/*        )} */}
+      {/*        <div> */}
+      {/*          <Button onClick={sendEdit}>Отправить</Button> */}
+      {/*          <div> */}
+      {/*            {seconds !== 150 && seconds !== 0 ? ( */}
+      {/*              <p className={styles.textErorr}> */}
+      {/*                Сообщение отправлено. Повторно вы сможете запросить код через {`${sec} `} */}
+      {/*                {filterWords(sec, 'секунду', 'секунды', 'секунд')}. */}
+      {/*              </p> */}
+      {/*            ) : ( */}
+      {/*              <p onClick={repeatSMSCode} className={styles.underlined}> */}
+      {/*                Выслать код повторно */}
+      {/*              </p> */}
+      {/*            )} */}
+      {/*          </div> */}
+      {/*        </div> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*  </div> */}
+      {/* ) : null} */}
       {showModal ? (
         <div className={styles.modal}>
           <div className={styles.content}>
@@ -146,38 +202,22 @@ const UserPage = observer(() => {
             </div>
             <div className={styles.wrapContent}>
               <div>
-                <p>Ваш телефон</p>
-                <div className={styles.phoneContainer}>
-                  <span>+{phone}</span>
-                </div>
-                <p>Временный код</p>
+                <p>Введите ваш пароль</p>
               </div>
               <div className={styles.inputContainer}>
-                <input type="tel" value={code} onChange={e => setCode(e.target.value)} />
+                <input type="password" value={code} onChange={e => setCode(e.target.value)} />
               </div>
               {erorr ? (
-                <p className={styles.textErorrRed}>
-                  Неверный код
+                <p className={styles.textErrorRed}>
+                  Неверный пароль
                   <br />
                   После трёх неверных попыток - блокировка.
                 </p>
               ) : (
-                <div className={styles.blockErorr} />
+                <div className={styles.blockError} />
               )}
               <div>
-                <Button onClick={sendEdit}>Отправить</Button>
-                <div>
-                  {seconds !== 150 && seconds !== 0 ? (
-                    <p className={styles.textErorr}>
-                      Сообщение отправлено. Повторно вы сможете запросить код через {`${sec} `}
-                      {filterWords(sec, 'секунду', 'секунды', 'секунд')}.
-                    </p>
-                  ) : (
-                    <p onClick={repeatSMSCode} className={styles.underlined}>
-                      Выслать код повторно
-                    </p>
-                  )}
-                </div>
+                <Button onClick={sendEdit}>Изменить</Button>
               </div>
             </div>
           </div>

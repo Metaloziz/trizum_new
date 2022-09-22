@@ -85,80 +85,91 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
 
     const isFranchiseRole = role === Roles.Franchisee || role === Roles.FranchiseeAdmin;
 
-    const schema = yup.object().shape({
-      firstName: yup
-        .string()
-        .required('Обязательное поле')
-        .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      middleName: yup
-        .string()
-        .notRequired()
-        .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`),
-      // .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      lastName: yup
-        .string()
-        .required('Обязательное поле')
-        .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      role: currentUser ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
-      sex: yup.string().required('Обязательное поле'),
-      city: yup
-        .string()
-        .required('Обязательное поле')
-        .matches(REG_NAME, 'Допустима только кириллица')
-        .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
-        .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
-      phone:
-        selectedRole === Roles.Student
-          ? yup.string().notRequired()
-          : yup.string().required('Обязательное поле'),
-      /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-                                                                                                                                                                                                                                                        .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
-      birthdate: yup
-        .date()
-        .required('Обязательное поле')
-        .min(`01-01-${minBirthdayYear}`, 'Не верно выбран возраст')
-        .max(
-          `01-01-${selectedRole === Roles.Student ? maxBirthdayYearStudent : maxBirthdayYearAll}`,
-          `${
-            selectedRole === Roles.Student
-              ? 'Ученик не может быть младше 3 лет'
-              : 'Возраст выбран не верно'
-          }`,
-        ),
-      email:
-        selectedRole === Roles.Student
-          ? yup.string().notRequired()
-          : yup
-              .string()
-              .email('Обязательное поле')
-              .matches(
-                /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+    const schema = yup.object().shape(
+      {
+        firstName: yup
+          .string()
+          .required('Обязательное поле')
+          .matches(REG_NAME, 'Допустима только кириллица')
+          .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+          .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        middleName: yup
+          .string()
+          .notRequired()
+          .matches(REG_NAME, 'Допустима только кириллица')
+          .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`),
+        // .min(MIN_NAMES_LENGTH, `минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        lastName: yup
+          .string()
+          .required('Обязательное поле')
+          .matches(REG_NAME, 'Допустима только кириллица')
+          .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+          .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        role: currentUser ? yup.string().notRequired() : yup.string().required('Обязательное поле'),
+        sex: yup.string().required('Обязательное поле'),
+        city: yup
+          .string()
+          .required('Обязательное поле')
+          .matches(REG_NAME, 'Допустима только кириллица')
+          .max(MAX_NAMES_LENGTH, `Максимальная длинна ${MAX_NAMES_LENGTH} символов`)
+          .min(MIN_NAMES_LENGTH, `Минимальная длинна ${MIN_NAMES_LENGTH} символа`),
+        phone:
+          selectedRole === Roles.Student
+            ? yup.string().notRequired()
+            : yup.string().required('Обязательное поле'),
+        /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
+                                                                                                                                                                                                                                                                    .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+        birthdate: yup
+          .date()
+          .required('Обязательное поле')
+          .min(`01-01-${minBirthdayYear}`, 'Не верно выбран возраст')
+          .max(
+            `01-01-${selectedRole === Roles.Student ? maxBirthdayYearStudent : maxBirthdayYearAll}`,
+            `${
+              selectedRole === Roles.Student
+                ? 'Ученик не может быть младше 3 лет'
+                : 'Возраст выбран не верно'
+            }`,
+          ),
+        email:
+          selectedRole === Roles.Student
+            ? yup.string().notRequired()
+            : yup
+                .string()
+                .email('Обязательное поле')
+                .matches(
+                  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
 
-                'Введите валидный email',
-              )
-              .required('Обязательное поле'),
-      franchise: currentUser
-        ? yup.string().notRequired()
-        : isMethodistTutor(selectedRole) && !isFranchiseRole
-        ? yup.string().required('Обязательное поле')
-        : yup.string().notRequired(),
-      tariff:
-        selectedRole === Roles.Student
+                  'Введите валидный email',
+                )
+                .required('Обязательное поле'),
+        franchise: currentUser
+          ? yup.string().notRequired()
+          : isMethodistTutor(selectedRole) && !isFranchiseRole
           ? yup.string().required('Обязательное поле')
           : yup.string().notRequired(),
-      password: currentUser?.id
-        ? yup.string().notRequired().min(6, 'Минимум 6 символов').max(30, 'Максимум 30 символов')
-        : yup
-            .string()
-            .required('Обязательное поле')
-            .min(6, 'Минимум 6 символов')
-            .max(30, 'Максимум 30 символов'),
-    });
+        tariff:
+          selectedRole === Roles.Student
+            ? yup.string().required('Обязательное поле')
+            : yup.string().notRequired(),
+        password: currentUser?.id
+          ? yup
+              .string()
+              .nullable()
+              .notRequired()
+              .nullable()
+              .when('password', {
+                is: (value: any) => value?.length,
+                then: rule => rule.min(6, 'Минимум 6 символов').max(30, 'Максимум 30 символов'),
+              })
+          : yup
+              .string()
+              .required('Обязательное поле')
+              .min(6, 'Минимум 6 символов')
+              .max(30, 'Максимум 30 символов'),
+      },
+      [['password', 'password']],
+    );
 
     const {
       handleSubmit,

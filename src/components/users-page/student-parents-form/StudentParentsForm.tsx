@@ -110,6 +110,9 @@ const StudentParentsForm: FC<Props> = observer(
         .min('01-01-1920', 'Возраст выбран не верно'),
       sex: yup.string().required('Обязательное поле'),
       isMain: yup.boolean().required('Обязательное поле'),
+      password: parent?.id
+        ? yup.string().notRequired().min(6, 'Минимум 6 символов').max(30, 'Максимум 30 символов')
+        : yup.string().required('Обязательное поле').min(6).max(30),
     });
 
     const defaultValues = {
@@ -123,6 +126,7 @@ const StudentParentsForm: FC<Props> = observer(
       sex: sexOptions[0]?.value,
       isMain: parent?.main || false,
       franchiseId: userFranchiseId,
+      password: parent?.password || '',
     };
 
     const {
@@ -148,6 +152,7 @@ const StudentParentsForm: FC<Props> = observer(
         email: values.email,
         birthdate: values.birthdate,
         role: Roles.Parent,
+        password: values.password,
       };
 
       await action(
@@ -273,6 +278,21 @@ const StudentParentsForm: FC<Props> = observer(
                     {...field}
                     label="Почта"
                     error={errors.email?.message}
+                  />
+                )}
+                control={control}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="password"
+                render={({ field }) => (
+                  <TextFieldCustom
+                    type="text"
+                    autoComplete="on"
+                    {...field}
+                    label="Пароль"
+                    error={errors.password?.message}
                   />
                 )}
                 control={control}

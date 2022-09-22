@@ -36,6 +36,7 @@ export type RequestRegister = {
   groupId?: string;
   tariffId?: string;
   isSecondChild?: boolean;
+  password: string;
 };
 
 export type ResponseAvatar = {

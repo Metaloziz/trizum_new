@@ -70,6 +70,8 @@ export class EmptyUser {
 
   parent: ResponseLoadMeParentT = {} as ResponseLoadMeParentT;
 
+  password: string;
+
   personalRecord?: PersonalRecordT;
 
   constructor() {
@@ -86,6 +88,7 @@ export class EmptyUser {
       timezone_type: 0,
       timezone: '',
     };
+    this.password = '';
     this.sex = '';
     this.status = '';
     this.avatar = {

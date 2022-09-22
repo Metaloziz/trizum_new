@@ -77,6 +77,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
       franchise: '', // не изменяется при редактировании
       tariff: currentUser?.tariff?.id || '', // не изменяется при редактировании
       group: currentUser?.groups[0]?.groupId || '', // не изменяется при редактировании
+      password: currentUser?.password || '', // не обязателен при редактировании
     };
     const maxBirthdayYearStudent = new Date().getFullYear() - 3;
     const maxBirthdayYearAll = new Date().getFullYear() - 18;
@@ -116,7 +117,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
           ? yup.string().notRequired()
           : yup.string().required('Обязательное поле'),
       /* .matches(REG_PHONE, 'необходим формат 7 ХХХ ХХХ ХХ ХХХ')
-                                                                                                                                                                                                                          .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
+                                                                                                                                                                                                                                                        .length(PHONE_LENGTH, `номер должен быть из ${PHONE_LENGTH} цифр`), */
       birthdate: yup
         .date()
         .required('Обязательное поле')
@@ -150,6 +151,13 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
         selectedRole === Roles.Student
           ? yup.string().required('Обязательное поле')
           : yup.string().notRequired(),
+      password: currentUser?.id
+        ? yup.string().notRequired().min(6, 'Минимум 6 символов').max(30, 'Максимум 30 символов')
+        : yup
+            .string()
+            .required('Обязательное поле')
+            .min(6, 'Минимум 6 символов')
+            .max(30, 'Максимум 30 символов'),
     });
 
     const {
@@ -180,6 +188,7 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
         isSecondChild: false,
         tariffId: values.tariff,
         groupId: values.group,
+        password: values.password,
       };
 
       await action(
@@ -397,6 +406,21 @@ export const StudentPageFranchiseeModalAddUser: FC<Props> = observer(
                               {...field}
                               label="Почта"
                               error={errors.email?.message}
+                            />
+                          )}
+                          control={control}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <Controller
+                          name="password"
+                          render={({ field }) => (
+                            <TextFieldCustom
+                              type="text"
+                              autoComplete="on"
+                              {...field}
+                              label="Пароль"
+                              error={errors.password?.message}
                             />
                           )}
                           control={control}

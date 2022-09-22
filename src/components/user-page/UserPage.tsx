@@ -41,28 +41,28 @@ const UserPage = observer(() => {
     // console.log('код по смс', getSMSCode);
   };
 
-  const sendEdit = async () => {
-    try {
-      const repl = phone.replaceAll(/\D/g, '');
-      await authService.editSelf({ phone: repl, smsCode: Number(code), email });
-      setShowModal(false);
-      setUser();
-    } catch (e) {
-      console.warn(e);
-      setErorr(true);
-    }
-  };
   // const sendEdit = async () => {
   //   try {
   //     const repl = phone.replaceAll(/\D/g, '');
-  //     await authService.editSelf({ phone: repl, email });
-  //     // setShowModal(false);
+  //     await authService.editSelf({ phone: repl, smsCode: Number(code), email });
+  //     setShowModal(false);
   //     setUser();
   //   } catch (e) {
   //     console.warn(e);
   //     setErorr(true);
   //   }
   // };
+
+  const sendEdit = async () => {
+    try {
+      const repl = phone.replaceAll(/\D/g, '');
+      await authService.editSelf({ phone: repl, email });
+      setUser();
+    } catch (e) {
+      console.warn(e);
+      setErorr(true);
+    }
+  };
   const repeatSMSCode = async () => {
     setSeconds(150);
     setTimerActive(!timerActive);
@@ -146,7 +146,8 @@ const UserPage = observer(() => {
           />
         </div>
         <div className={styles.buttonWrapper}>
-          <Button onClick={sendPassword}>Сохранить</Button>
+          {/* <Button onClick={sendPassword}>Сохранить</Button> */}
+          <Button onClick={sendEdit}>Сохранить</Button>
         </div>
       </div>
       {/* {showModal ? ( */}
@@ -194,35 +195,36 @@ const UserPage = observer(() => {
       {/*    </div> */}
       {/*  </div> */}
       {/* ) : null} */}
-      {showModal ? (
-        <div className={styles.modal}>
-          <div className={styles.content}>
-            <div className={styles.btnClose} onClick={closeWindow}>
-              <Image src={buttonClose} width="14" height="14" alt="Х" />
-            </div>
-            <div className={styles.wrapContent}>
-              <div>
-                <p>Введите ваш пароль</p>
-              </div>
-              <div className={styles.inputContainer}>
-                <input type="password" value={code} onChange={e => setCode(e.target.value)} />
-              </div>
-              {erorr ? (
-                <p className={styles.textErrorRed}>
-                  Неверный пароль
-                  <br />
-                  После трёх неверных попыток - блокировка.
-                </p>
-              ) : (
-                <div className={styles.blockError} />
-              )}
-              <div>
-                <Button onClick={sendEdit}>Изменить</Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
+
+      {/* {showModal ? ( */}
+      {/*  <div className={styles.modal}> */}
+      {/*    <div className={styles.content}> */}
+      {/*      <div className={styles.btnClose} onClick={closeWindow}> */}
+      {/*        <Image src={buttonClose} width="14" height="14" alt="Х" /> */}
+      {/*      </div> */}
+      {/*      <div className={styles.wrapContent}> */}
+      {/*        <div> */}
+      {/*          <p>Введите ваш пароль</p> */}
+      {/*        </div> */}
+      {/*        <div className={styles.inputContainer}> */}
+      {/*          <input type="password" value={code} onChange={e => setCode(e.target.value)} /> */}
+      {/*        </div> */}
+      {/*        {erorr ? ( */}
+      {/*          <p className={styles.textErrorRed}> */}
+      {/*            Неверный пароль */}
+      {/*            <br /> */}
+      {/*            После трёх неверных попыток - блокировка. */}
+      {/*          </p> */}
+      {/*        ) : ( */}
+      {/*          <div className={styles.blockError} /> */}
+      {/*        )} */}
+      {/*        <div> */}
+      {/*          <Button onClick={sendEdit}>Изменить</Button> */}
+      {/*        </div> */}
+      {/*      </div> */}
+      {/*    </div> */}
+      {/*  </div> */}
+      {/* ) : null} */}
     </div>
   );
 });

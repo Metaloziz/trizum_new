@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { Game, GameResult } from '../../common/types';
-import { Props } from './types';
 
 import Container from './common/components/container';
 import Timer from '../../components/timer';

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import { Props } from './types';
 import { generateLayout } from './utils/logic';
 
 import { Game, GameResult } from '../../common/types';

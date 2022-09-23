@@ -60,3 +60,50 @@ export type GamePresetsResponseT = {
   page: number;
   total: number;
 };
+
+export type PlayResultT = {
+  id: string;
+  playerId: string;
+  userGroup: string;
+  workGamePreset: string;
+  gameCode: string;
+  time: number;
+  timeMax: number;
+  createdAt: {
+    date: string;
+    timezone_type: number;
+    timezone: string;
+  };
+  type: string;
+};
+export type PlayResultsResponseT = {
+  item: PlayResultT[];
+  page: number;
+  perPage: number;
+  total: number;
+};
+
+export type PlaySendResultT = {
+  userGroupId: string;
+  courseWorkId: string;
+  workGamePresetId: string;
+  finished: boolean;
+  workCompleted: boolean;
+  courseCompleted: boolean;
+  timeMax: number;
+  time: number;
+  groupsCount: number;
+  actionSpeedAv: number;
+  elementsTotal: number;
+  levelMaxCompleted: number;
+  errorsPercentage: number;
+  actionsSuccessfulCount: number;
+  actions: number;
+  actionSpeed: number;
+  cycleTime: number;
+  cycleTimeAv: number;
+  wordsCount: number;
+  phraseSpeedAv: number;
+  speed: number;
+  blinksCount: number;
+};

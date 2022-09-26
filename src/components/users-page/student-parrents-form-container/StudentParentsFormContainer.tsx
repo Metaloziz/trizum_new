@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 
 import style from './StudentParentsFormContainer.module.scss';
 
-import { ParentT } from 'app/types/UserTypes';
+import { ParentT, ResponseParenting } from 'app/types/UserTypes';
 import ButtonAddParent from 'components/users-page/button-add-parent/ButtonAddParent';
 import styles from 'components/users-page/student-page-franchisee-modal-add-user/StudentPageFranchiseeModalAddUser.module.scss';
 import StudentParentsForm from 'components/users-page/student-parents-form/StudentParentsForm';
@@ -12,7 +12,6 @@ import {
   ParentsFormStateType,
   setInitialState,
 } from 'components/users-page/student-parrents-form-container/store/store';
-import { isSubmitAnyForm } from 'components/users-page/student-parrents-form-container/utils/isSubmitAnyForm';
 import usersStore from 'app/stores/usersStore';
 
 type Props = {
@@ -32,7 +31,7 @@ export const StudentParentsFormContainer: FC<Props> = observer(
 
     const addForm = () => {
       const form: ParentsFormStateType = {
-        id: parentState.length + 1,
+        localParentFormId: parentState.length + 1,
         isSuccessSubmit: false,
         isMain: false,
       };
@@ -40,9 +39,15 @@ export const StudentParentsFormContainer: FC<Props> = observer(
       setParentState(newState);
     };
 
-    const setSuccessForm = (isSuccess: boolean, idForm: number) => {
+    const setSuccessForm = (
+      isSuccess: boolean,
+      localParentFormId: number,
+      parentingData?: ResponseParenting,
+    ) => {
       const newState = parentState.map(form =>
-        form.id === idForm ? { ...form, isSuccessSubmit: isSuccess } : form,
+        form.localParentFormId === localParentFormId
+          ? { ...form, isSuccessSubmit: isSuccess }
+          : form,
       );
       setParentState(newState);
 
@@ -51,14 +56,14 @@ export const StudentParentsFormContainer: FC<Props> = observer(
       }
     };
 
-    const setIsMainParent = (isMain: boolean, id: number, parentingId?: string) => {
+    const setIsMainParent = (isMain: boolean, localParentId: number, parentingId?: string) => {
       if (parentingId) {
         updateParenting({ parentingId, payload: { isMain } });
       }
 
       setParentState(
         parentState.map(form =>
-          form.id === id
+          form.localParentFormId === localParentId
             ? {
                 ...form,
                 isMain,
@@ -67,8 +72,6 @@ export const StudentParentsFormContainer: FC<Props> = observer(
         ),
       );
     };
-
-    console.log('parentState', [parentState]);
 
     return (
       <div>
@@ -79,17 +82,17 @@ export const StudentParentsFormContainer: FC<Props> = observer(
         )}
         <div className={style.wrapper}>
           <div className={style.forms}>
-            {parentState.map(({ id, isMain, parent }) => (
+            {parentState.map(({ localParentFormId, isMain, parent, isSuccessSubmit }) => (
               <StudentParentsForm
-                key={id}
-                localParentFormID={id}
+                key={localParentFormId}
+                localParentFormID={localParentFormId}
                 isMainParent={isMain}
                 setIsMainParent={setIsMainParent}
                 studentId={studentId}
                 franchiseId={franchiseId}
-                setIsSubmitSuccessful={setSuccessForm}
+                setSuccessForm={setSuccessForm}
                 parent={parent}
-                isSubmitAnyForm={isSubmitAnyForm(parentState)}
+                isSuccessSubmit={isSuccessSubmit}
                 isViewMode={isViewMode}
               />
             ))}

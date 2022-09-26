@@ -115,10 +115,10 @@ class UsersStore {
 
   createParenting = async (data: RequestParenting) => {
     try {
-      const res = await usersService.createParenting(data);
-      await this.getUsers();
+      return await usersService.createParenting(data);
     } catch (e) {
       console.warn(e);
+      return undefined;
     }
   };
 

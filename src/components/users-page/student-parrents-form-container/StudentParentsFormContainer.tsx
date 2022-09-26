@@ -13,6 +13,7 @@ import {
   setInitialState,
 } from 'components/users-page/student-parrents-form-container/store/store';
 import { isSubmitAnyForm } from 'components/users-page/student-parrents-form-container/utils/isSubmitAnyForm';
+import usersStore from 'app/stores/usersStore';
 
 type Props = {
   studentId: string;
@@ -26,6 +27,9 @@ type Props = {
 export const StudentParentsFormContainer: FC<Props> = observer(
   ({ onCloseModal, studentId, parents, franchiseId, visibility, isViewMode }) => {
     const [parentState, setParentState] = useState(() => setInitialState(parents));
+
+    const { updateParenting } = usersStore;
+
     const addForm = () => {
       const form: ParentsFormStateType = {
         id: parentState.length + 1,
@@ -47,7 +51,11 @@ export const StudentParentsFormContainer: FC<Props> = observer(
       }
     };
 
-    const setIsMainParent = (isMain: boolean, id: number) => {
+    const setIsMainParent = (isMain: boolean, id: number, parentingId?: string) => {
+      if (parentingId) {
+        updateParenting({ parentingId, payload: { isMain } });
+      }
+
       setParentState(
         parentState.map(form =>
           form.id === id
@@ -59,6 +67,9 @@ export const StudentParentsFormContainer: FC<Props> = observer(
         ),
       );
     };
+
+    console.log('parentState', [parentState]);
+
     return (
       <div>
         {parentState.length ? (

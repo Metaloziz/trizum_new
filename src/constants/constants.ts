@@ -1,6 +1,6 @@
 // base url
-export const BASE_URL = 'https://backschool.sitetopic.ru';
-// export const BASE_URL = 'https://lk.trizum.ru';
+export const BASE_URL = 'https://backschool.sitetopic.ru'; // for dev
+// export const BASE_URL = 'https://lk.trizum.ru'; // for deploy
 
 // for test
 export const MAX_TEST_RESULT = 100; // todo Дима попросил временно зафиксировать

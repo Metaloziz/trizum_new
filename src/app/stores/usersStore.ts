@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
 import authService from 'app/services/authService';
-import usersService from 'app/services/usersService';
+import usersService, { UpdateParentingPayloadType } from 'app/services/usersService';
 import { RequestRegister } from 'app/types/AuthTypes';
 import { UpdateUserPayloadT } from 'app/types/UpdateUserPayloadT';
 import {
@@ -142,6 +142,10 @@ class UsersStore {
   cleanSearchUsersParams = () => {
     this.searchUsersParams = this.searchDefaultUsersParams;
     this.getFilteredUsers();
+  };
+
+  updateParenting = async (payload: UpdateParentingPayloadType) => {
+    const res = await usersService.updateParenting(payload);
   };
 
   resetCurrentUser = () => {

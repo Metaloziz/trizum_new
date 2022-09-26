@@ -17,7 +17,6 @@ import CustomSelect from 'components/select-mui/CustomSelect';
 import styles from 'components/users-page/student-parents-form/StudentParentsForm.module.scss';
 import { action } from 'components/users-page/student-parents-form/utils/action';
 import { sexOptions } from 'components/users-page/student-parents-form/utils/sexOptions';
-import { MAIN_PARENT_ID } from 'components/users-page/student-parrents-form-container/store/store';
 import { MAX_NAMES_LENGTH, MIN_NAMES_LENGTH } from 'constants/constants';
 import { REG_EMAIL, REG_NAME } from 'constants/regExp';
 import { OptionT } from 'app/types/OptionT';
@@ -40,7 +39,7 @@ type Props = {
   studentId: string;
   franchiseId: string;
   isMainParent: boolean;
-  setIsMainParent: (value: boolean, id: number) => void;
+  setIsMainParent: (value: boolean, id: number, parentingId?: string) => void;
   setIsSubmitSuccessful: (isSuccess: boolean, id: number) => void;
   parent?: ParentT;
   isSubmitAnyForm: boolean;
@@ -68,7 +67,7 @@ const StudentParentsForm: FC<Props> = observer(
     const [isDisableSubmit, setIsDisableSubmit] = useState(false);
 
     const handlerRadioChange = () => {
-      setIsMainParent(!isMainParent, localParentFormID);
+      setIsMainParent(!isMainParent, localParentFormID, parent?.id);
     };
 
     const userFranchiseId: string | undefined = currentUser?.franchise?.id as string | undefined;
@@ -330,7 +329,7 @@ const StudentParentsForm: FC<Props> = observer(
                 render={({ field }) => (
                   <div className={styles.selectWrapper}>
                     <div className={styles.label}>
-                      {localParentFormID === MAIN_PARENT_ID && (
+                      {parent?.id && (
                         <>
                           <FormGroup>
                             <FormControlLabel
@@ -338,7 +337,7 @@ const StudentParentsForm: FC<Props> = observer(
                                 <Checkbox
                                   color="primary"
                                   checked={isMainParent}
-                                  disabled={isSubmitAnyForm}
+                                  disabled={isMainParent}
                                   onChange={e => {
                                     field.onChange(e);
                                     handlerRadioChange();
@@ -351,7 +350,9 @@ const StudentParentsForm: FC<Props> = observer(
                               {errors.isMain?.message}
                             </FormHelperText>
                           </FormGroup>
-                          <Image src={iconMedal} width="20" height="20" alt="medal" />
+                          {isMainParent && (
+                            <Image src={iconMedal} width="20" height="20" alt="medal" />
+                          )}
                         </>
                       )}
                     </div>

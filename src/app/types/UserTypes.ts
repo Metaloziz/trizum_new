@@ -133,4 +133,5 @@ export type ResponseParenting = {
   id: string;
   childId: string;
   parentId: string;
+  isMain: boolean;
 };

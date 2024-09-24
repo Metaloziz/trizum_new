@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { SexEnum } from 'app/enums/CommonEnums';
 import { Roles } from 'app/stores/appStore';
 import { RequestRegister } from 'app/types/AuthTypes';
-import { ParentT } from 'app/types/UserTypes';
+import { ParentT, ResponseParenting } from 'app/types/UserTypes';
 import iconMedal from 'assets/svgs/medal.svg';
 import Button from 'components/button/Button';
 import Image from 'components/image/Image';
@@ -40,9 +40,9 @@ type Props = {
   franchiseId: string;
   isMainParent: boolean;
   setIsMainParent: (value: boolean, id: number, parentingId?: string) => void;
-  setIsSubmitSuccessful: (isSuccess: boolean, id: number) => void;
+  setSuccessForm: (isSuccess: boolean, id: number, parentingData?: ResponseParenting) => void;
   parent?: ParentT;
-  isSubmitAnyForm: boolean;
+  isSuccessSubmit: boolean;
   isViewMode?: boolean;
 };
 
@@ -53,14 +53,14 @@ type CreateParentPayloadT = Omit<
 
 const StudentParentsForm: FC<Props> = observer(
   ({
-    setIsSubmitSuccessful,
+    setSuccessForm,
     studentId,
     franchiseId,
     localParentFormID,
     isMainParent,
     setIsMainParent,
     parent,
-    isSubmitAnyForm,
+    isSuccessSubmit,
     isViewMode,
   }) => {
     const { currentUser } = usersStore;
@@ -172,7 +172,7 @@ const StudentParentsForm: FC<Props> = observer(
         setError,
         studentId,
         values.isMain,
-        setIsSubmitSuccessful,
+        setSuccessForm,
         localParentFormID,
       );
     };
@@ -329,32 +329,31 @@ const StudentParentsForm: FC<Props> = observer(
                 render={({ field }) => (
                   <div className={styles.selectWrapper}>
                     <div className={styles.label}>
-                      {parent?.id && (
-                        <>
-                          <FormGroup>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  color="primary"
-                                  checked={isMainParent}
-                                  disabled={isMainParent}
-                                  onChange={e => {
+                      <>
+                        <FormGroup>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                color="primary"
+                                checked={isMainParent}
+                                onChange={e => {
+                                  if (!isMainParent) {
                                     field.onChange(e);
                                     handlerRadioChange();
-                                  }}
-                                />
-                              }
-                              label="Основной"
-                            />
-                            <FormHelperText error={!errors.isMain?.message}>
-                              {errors.isMain?.message}
-                            </FormHelperText>
-                          </FormGroup>
-                          {isMainParent && (
-                            <Image src={iconMedal} width="20" height="20" alt="medal" />
-                          )}
-                        </>
-                      )}
+                                  }
+                                }}
+                              />
+                            }
+                            label="Основной"
+                          />
+                          <FormHelperText error={!errors.isMain?.message}>
+                            {errors.isMain?.message}
+                          </FormHelperText>
+                        </FormGroup>
+                        {isMainParent && (
+                          <Image src={iconMedal} width="20" height="20" alt="medal" />
+                        )}
+                      </>
                     </div>
                   </div>
                 )}
